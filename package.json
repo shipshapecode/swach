@@ -22,7 +22,13 @@
     "@ember/optional-features": "^1.0.0",
     "@glimmer/component": "^0.14.0-alpha.12",
     "babel-eslint": "^10.0.2",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "broccoli-asset-rev": "^3.0.0",
+    "devtron": "^1.4.0",
+    "electron-forge": "^5.2.4",
+    "electron-prebuilt-compile": "4.0.0",
     "ember-auto-import": "^1.2.20",
     "ember-cli": "3.14.0-beta.2",
     "ember-cli-app-version": "^3.2.0",
@@ -33,6 +39,7 @@
     "ember-cli-sri": "^2.1.1",
     "ember-cli-uglify": "^3.0.0",
     "ember-data": "~3.13.0",
+    "ember-electron": "^2.10.1",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^2.0.0",
     "ember-maybe-import-regenerator": "^0.1.6",
@@ -40,7 +47,6 @@
     "ember-resolver": "^5.1.3",
     "ember-source": "https://s3.amazonaws.com/builds.emberjs.com/beta/shas/12a473da574e41ee10dccdd01ba06ff63027d495.tgz",
     "ember-template-lint": "^1.5.0",
-    "ember-welcome-page": "^4.0.0",
     "eslint": "^6.1.0",
     "eslint-plugin-ember": "^7.1.0",
     "eslint-plugin-node": "^10.0.0",
@@ -49,5 +55,14 @@
   },
   "engines": {
     "node": "8.* || >= 10.*"
+  },
+  "dependencies": {
+    "electron-compile": "^6.4.4",
+    "electron-protocol-serve": "^1.3.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "menubar": "^7.0.0"
+  },
+  "config": {
+    "forge": "./ember-electron/electron-forge-config.js"
   }
 }

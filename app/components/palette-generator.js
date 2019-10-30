@@ -1,7 +1,9 @@
 import Component from '@ember/component';
 import { action, set } from '@ember/object';
+import { tagName } from '@ember-decorators/component';
 import { Harmonizer } from 'color-harmony';
 
+@tagName('')
 export default class PaletteGenerator extends Component {
   baseColor = null;
   harmonies = null;
@@ -21,7 +23,7 @@ export default class PaletteGenerator extends Component {
   @action
   selectHarmony(harmony) {
     if (harmony && harmony.value) {
-      set(this, 'selectedHarmony', harmony.value);
+      set(this, 'selectedHarmony', harmony);
     }
   }
 }

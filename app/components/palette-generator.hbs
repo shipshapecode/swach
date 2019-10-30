@@ -1,12 +1,17 @@
 <PowerSelect
+  @dropdownClass="p-2"
+  @triggerClass="p-2"
   @options={{this.harmonies}}
+  @placeholder="Choose one"
+  @selected={{this.selectedHarmony}}
   @onChange={{this.selectHarmony}} as |harmony|
 >
   {{harmony.key}}
 </PowerSelect>
-{{#each this.selectedHarmony as |color|}}
+
+{{#each this.selectedHarmony.value as |color|}}
   <div
-    class="inline-block m-1"
-    style="background-color:{{color}}; height:50px; width:50px;"
+    class="inline-block m-1 h-10 w-10"
+    style="background-color:{{color}};"
   ></div>
 {{/each}}

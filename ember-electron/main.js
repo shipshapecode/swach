@@ -4,7 +4,10 @@ const { dirname, join, resolve } = require('path');
 const protocolServe = require('electron-protocol-serve');
 const { menubar } = require('menubar');
 
-const mb = menubar({preloadWindow: true});
+const mb = menubar({
+  icon: join(__dirname || resolve(dirname('')), '..', 'ember/img/icon.png'),
+  preloadWindow: true
+});
 
 // Registering a protocol & schema to serve our Ember application
 if (typeof protocol.registerSchemesAsPrivileged === 'function') {

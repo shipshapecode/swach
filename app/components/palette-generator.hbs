@@ -1,0 +1,12 @@
+<PowerSelect
+  @options={{this.harmonies}}
+  @onChange={{this.selectHarmony}} as |harmony|
+>
+  {{harmony.key}}
+</PowerSelect>
+{{#each this.selectedHarmony as |color|}}
+  <div
+    class="inline-block m-1"
+    style="background-color:{{color}}; height:50px; width:50px;"
+  ></div>
+{{/each}}

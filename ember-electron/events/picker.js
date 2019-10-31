@@ -1,6 +1,6 @@
 'use strict';
 
-const { ipcMain } = require('electron');
+const { clipboard, ipcMain } = require('electron');
 const robot = require('robotjs');
 
 let mouseEvent, color;
@@ -12,6 +12,8 @@ module.exports = (mb, browsers) => {
     if (typeof newColor !== 'string') newColor = color;
     if (picker.getWindow()) {
       picker.getWindow().close();
+      mb.showWindow();
+      clipboard.writeText(newColor);
       mb.window.webContents.send('changeColor', newColor);
       ipcMain.removeListener('closePicker', closePicker);
       ipcMain.removeListener('pickerRequested', event => {});

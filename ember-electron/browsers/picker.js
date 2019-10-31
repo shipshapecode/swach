@@ -24,8 +24,7 @@ module.exports = (dirname) => {
       alwaysOnTop: true,
       resizable: false,
       focusable: true,
-      hasShadow: false,
-      icon: `${dirname}/build/icon.png`
+      hasShadow: false
     });
 
     win.loadURL(`file://${dirname}/views/picker.html`);

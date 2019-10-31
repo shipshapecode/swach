@@ -11,3 +11,7 @@ body {
   font-family: 'Muli', sans-serif;
   width: 100%;
 }
+
+button:focus {
+  outline: none;
+}

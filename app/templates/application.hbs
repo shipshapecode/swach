@@ -1,16 +1,5 @@
-<main class="bg-gray-600 flex justify-center h-full w-full">
-  <div class="p-10">
-    <div class="h-16 mb-2 w-full" style="background-color: {{this.baseColor}}">
-    </div>
-
-    <Input
-      class="mb-2 p-2"
-      @type="text"
-      @value={{this.baseColor}}
-    />
-
-    <PaletteGenerator
-      @baseColor={{this.baseColor}}
-    />
+<main class="bg-gray-200 flex justify-center h-full w-full">
+  <div class="p-10 max-w-xl w-full">
+   <ColorsList/>
   </div>
 </main>

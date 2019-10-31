@@ -45,6 +45,7 @@
     "ember-electron": "^2.10.1",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^2.0.0",
+    "ember-local-storage": "^1.7.1",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-power-select": "^3.0.4",
     "ember-qunit": "^4.4.1",

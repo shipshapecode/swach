@@ -1,0 +1,18 @@
+{{#each this.colors as |color|}}
+  <div class="border-b border-gray-400 flex p-2 w-full">
+    <div
+      class="inline-block m-1 h-10 rounded w-10"
+      style="background-color:{{color.hex}};"
+    ></div>
+
+    <div class="flex flex-col justify-center">
+      <p class="font-bold pl-2 text-sm">
+        {{color.name}}
+      </p>
+
+      <p class="font-hairline pl-2 text-xs">
+        {{color.hex}}
+      </p>
+    </div>
+  </div>
+{{/each}}

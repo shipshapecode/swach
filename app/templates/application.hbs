@@ -1,5 +1,8 @@
 <main class="bg-gray-200 flex justify-center h-full w-full">
-  <div class="p-10 max-w-xl w-full">
-   <ColorsList/>
+  <div class="p-4 max-w-xl w-full">
+    <button {{action this.launchPicker}}>
+      {{svg-jar "dropper" height="20" width="20"}}
+    </button>
+    <ColorsList/>
   </div>
 </main>

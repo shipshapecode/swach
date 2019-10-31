@@ -1,5 +1,32 @@
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
+import { storageFor } from 'ember-local-storage';
+import colorNameList from 'color-name-list';
+import nearestColor from 'nearest-color';
 
 export default class ApplicationController extends Controller {
-  baseColor = '#c820f1';
+  @storageFor('colors') colors;
+
+  init() {
+    super.init(...arguments);
+
+    const namedColors = colorNameList.reduce((o, { name, hex }) => Object.assign(o, { [name]: hex }), {});
+
+    const nearest = nearestColor.from(namedColors);
+    let { ipcRenderer } = requireNode('electron');
+    this.ipcRenderer = ipcRenderer;
+    this.ipcRenderer.on('changeColor', (event, color) => {
+      const namedColor = nearest(color);
+
+      this.colors.unshiftObject({
+        hex: color,
+        name: namedColor.name
+      });
+    });
+  }
+
+  @action
+  launchPicker() {
+    this.ipcRenderer.send('launchPicker');
+  }
 }

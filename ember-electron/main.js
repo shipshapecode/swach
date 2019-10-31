@@ -1,13 +1,44 @@
 /* eslint-env node */
-const { protocol } = require('electron');
+const { protocol, Menu, ipcMain } = require('electron');
 const { dirname, join, resolve } = require('path');
 const protocolServe = require('electron-protocol-serve');
 const { menubar } = require('menubar');
 
 const mb = menubar({
+  browserWindow: {
+    height: 600,
+    width: 300
+  },
   icon: join(__dirname || resolve(dirname('')), '..', 'ember/img/icon.png'),
   preloadWindow: true
 });
+
+let eventEmitter = require('events');
+eventEmitter = new eventEmitter();
+
+const browsers = require('./browsers')(__dirname);
+const { picker } = browsers;
+
+ipcMain.on('launchPicker', event => picker.init());
+
+require('./events')(mb, browsers, eventEmitter);
+
+/**
+ * [setMenu - set new app menu]
+ * @return {void}
+ */
+let setMenu = () => {
+  let template = [
+    {
+      label: 'Tools',
+      submenu: [
+        { label: 'Pick Color', accelerator: 'CmdOrCtrl+P', click: () => picker.init() }
+      ]
+    }
+  ];
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+};
 
 // Registering a protocol & schema to serve our Ember application
 if (typeof protocol.registerSchemesAsPrivileged === 'function') {
@@ -45,8 +76,9 @@ mb.app.on('window-all-closed', () => {
 });
 
 mb.on('ready', () => {
+  setMenu();
   // If you want to open up dev tools programmatically, call
-  // window.openDevTools();
+  // mb.window.openDevTools();
 
   const emberAppLocation = 'serve://dist';
 

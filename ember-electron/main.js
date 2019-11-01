@@ -7,7 +7,10 @@ const { menubar } = require('menubar');
 const mb = menubar({
   browserWindow: {
     height: 600,
-    width: 300
+    width: 300,
+    webPreferences: {
+      preload: join(__dirname, 'preload.js')
+    }
   },
   icon: join(__dirname || resolve(dirname('')), '..', 'ember/img/icon.png'),
   preloadWindow: true

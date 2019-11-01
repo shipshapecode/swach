@@ -5,6 +5,18 @@
 @import "utilities.css";
 @import url('https://fonts.googleapis.com/css?family=Muli|Open+Sans&display=swap');
 
+[data-theme^="light"],
+[data-theme] [data-theme^="light"] {
+  --alt-color: #2c303a;
+  --main-color: #fefefe;
+}
+
+[data-theme^="dark"],
+[data-theme] [data-theme^="dark"] {
+  --alt-color: #fefefe;
+  --main-color: #2c303a;
+}
+
 html,
 body {
   height: 100%;
@@ -14,4 +26,8 @@ body {
 
 button:focus {
   outline: none;
+}
+
+svg.icon g {
+  @apply .stroke-alt !important;
 }

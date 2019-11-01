@@ -1,1 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64"><g stroke-width="2" transform="translate(0, 0)"><polyline points="22 12 22 3 42 3 42 12" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2" stroke-linejoin="miter"></polyline><path d="M53,26V56a5,5,0,0,1-5,5H16a5,5,0,0,1-5-5V26" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2" stroke-linejoin="miter"></path><line data-color="color-2" x1="32" y1="31" x2="32" y2="49" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2" stroke-linejoin="miter"></line><line data-color="color-2" x1="22" y1="31" x2="22" y2="49" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2" stroke-linejoin="miter"></line><line data-color="color-2" x1="42" y1="31" x2="42" y2="49" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2" stroke-linejoin="miter"></line><rect x="4" y="12" width="56" height="8" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2" stroke-linejoin="miter"></rect></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64">
+  <g stroke-width="2" transform="translate(0, 0)">
+    <polyline points="22 12 22 3 42 3 42 12" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"
+              stroke-linejoin="miter"></polyline>
+    <path d="M53,26V56a5,5,0,0,1-5,5H16a5,5,0,0,1-5-5V26" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"
+          stroke-linejoin="miter"></path>
+    <line data-color="color-2" x1="32" y1="31" x2="32" y2="49" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"
+          stroke-linejoin="miter"></line>
+    <line data-color="color-2" x1="22" y1="31" x2="22" y2="49" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"
+          stroke-linejoin="miter"></line>
+    <line data-color="color-2" x1="42" y1="31" x2="42" y2="49" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"
+          stroke-linejoin="miter"></line>
+    <rect x="4" y="12" width="56" height="8" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"
+          stroke-linejoin="miter"></rect>
+  </g>
+</svg>

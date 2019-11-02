@@ -2,19 +2,24 @@
 const { protocol, Menu, ipcMain } = require('electron');
 const { dirname, join, resolve } = require('path');
 const protocolServe = require('electron-protocol-serve');
-const { menubar } = require('menubar');
 
-const mb = menubar({
-  browserWindow: {
-    height: 600,
-    width: 300,
-    webPreferences: {
-      preload: join(__dirname, 'preload.js')
-    }
-  },
-  icon: join(__dirname || resolve(dirname('')), '..', 'ember/img/icon.png'),
-  preloadWindow: true
-});
+let mb;
+
+if (process.platform === 'darwin') {
+  const { menubar } = require('menubar');
+
+  mb = menubar({
+    browserWindow: {
+      height: 600,
+      width: 300,
+      webPreferences: {
+        preload: join(__dirname, 'preload.js')
+      }
+    },
+    icon: join(__dirname || resolve(dirname('')), '..', 'ember/img/icon.png'),
+    preloadWindow: true
+  });
+}
 
 let eventEmitter = require('events');
 eventEmitter = new eventEmitter();
@@ -82,7 +87,7 @@ mb.app.on('window-all-closed', () => {
 mb.on('ready', () => {
   setMenu();
   // If you want to open up dev tools programmatically, call
-  // mb.window.openDevTools();
+  mb.window.openDevTools();
 
   const emberAppLocation = 'serve://dist';
 

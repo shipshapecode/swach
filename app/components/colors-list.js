@@ -1,14 +1,16 @@
 import Component from '@ember/component';
-import { action } from '@ember/object';
+import { action, computed } from '@ember/object';
 import { tagName } from '@ember-decorators/component';
-import { storageFor } from 'ember-local-storage';
 
 @tagName('')
 export default class ColorsList extends Component {
-  @storageFor('colors') colors;
+  @computed('colors.@each.createdAt')
+  get sortedColors() {
+    return this.colors.sortBy('createdAt').reverse();
+  }
 
   @action
   deleteColor(color) {
-    this.colors.removeObject(color);
+    color.destroyRecord();
   }
 }

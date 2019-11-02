@@ -20,9 +20,10 @@ let eventEmitter = require('events');
 eventEmitter = new eventEmitter();
 
 const browsers = require('./browsers')(__dirname);
-const { picker } = browsers;
+const { picker, settings } = browsers;
 
 ipcMain.on('launchPicker', event => picker.init());
+ipcMain.on('showPreferences', event => settings.init());
 
 require('./events')(mb, browsers, eventEmitter);
 

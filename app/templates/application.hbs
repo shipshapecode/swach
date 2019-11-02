@@ -2,11 +2,5 @@
   class="bg-main flex justify-center h-full text-alt w-full"
   data-theme={{this.theme}}
 >
-  <div class="p-4 max-w-xl w-full">
-    <button {{action this.launchPicker}}>
-      {{svg-jar "dropper" class="icon" height="20" width="20"}}
-    </button>
-
-    <ColorsList/>
-  </div>
+  {{outlet}}
 </main>

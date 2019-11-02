@@ -35,6 +35,11 @@ export default class ApplicationController extends Controller {
     this.ipcRenderer.send('launchPicker');
   }
 
+  @action
+  showPreferences() {
+    this.ipcRenderer.send('showPreferences');
+  }
+
   setTheme() {
     let userTheme = localStorage.user_theme;
     let OSTheme = localStorage.os_theme;

@@ -13,7 +13,9 @@ if (process.platform === 'darwin') {
       height: 600,
       width: 300,
       webPreferences: {
-        preload: join(__dirname, 'preload.js')
+        contextIsolation: false,
+        preload: join(__dirname, 'preload.js'),
+        nodeIntegration: true
       }
     },
     icon: join(__dirname || resolve(dirname('')), '..', 'ember/img/icon.png'),

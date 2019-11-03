@@ -1,11 +1,24 @@
 import Controller from '@ember/controller';
-import { action, set } from '@ember/object';
+import { action, computed, get, set } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { storageFor } from 'ember-local-storage';
 
 export default class ApplicationController extends Controller {
   @service() store;
 
-  theme = 'light';
+  @storageFor('settings') settings;
+
+  @computed('settings.osTheme', 'settings.userTheme')
+  get theme() {
+    let userTheme = get(this, 'settings.userTheme');
+    let OSTheme = get(this, 'settings.osTheme');
+
+    if (userTheme !== 'dynamic') {
+      return userTheme;
+    }
+
+    return OSTheme || 'light';
+  }
 
   init() {
     super.init(...arguments);
@@ -13,8 +26,9 @@ export default class ApplicationController extends Controller {
     let { ipcRenderer } = requireNode('electron');
     this.ipcRenderer = ipcRenderer;
 
-    window.__setTheme = this.setTheme.bind(this);
-    this.setTheme();
+    this.ipcRenderer.on('setTheme', (event, theme) => {
+      set(this, 'settings.osTheme', theme);
+    });
   }
 
   @action
@@ -25,12 +39,5 @@ export default class ApplicationController extends Controller {
   @action
   showPreferences() {
     this.ipcRenderer.send('showPreferences');
-  }
-
-  setTheme() {
-    let userTheme = localStorage.user_theme;
-    let OSTheme = localStorage.os_theme;
-
-    set(this, 'theme', userTheme || OSTheme || 'light');
   }
 }

@@ -1,0 +1,10 @@
+<PowerSelect
+  @dropdownClass="p-2"
+  @triggerClass="p-2"
+  @options={{this.themes}}
+  @placeholder="Choose a theme"
+  @selected={{this.settings.userTheme}}
+  @onChange={{this.changeTheme}} as |theme|
+>
+  {{capitalize theme}}
+</PowerSelect>

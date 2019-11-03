@@ -6166,6 +6166,14 @@ ember-cli-sri@^2.1.1:
   dependencies:
     broccoli-sri-hash "^2.1.0"
 
+ember-cli-string-helpers@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/ember-cli-string-helpers/-/ember-cli-string-helpers-4.0.5.tgz#37bb514b8906e5afd3725ccc1852f1b637b67b7b"
+  integrity sha512-khDMDqMQYNvXsRhOG4MQLyjpXZcqVoV3ZObz3IQb73sZw+kGhJaBOM6LM2wGg/Q5kdYcZ+WQSd2evEJzWKFPAw==
+  dependencies:
+    broccoli-funnel "^2.0.2"
+    ember-cli-babel "^7.7.3"
+
 ember-cli-string-utils@^1.0.0, ember-cli-string-utils@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ember-cli-string-utils/-/ember-cli-string-utils-1.1.0.tgz#39b677fc2805f55173735376fcef278eaa4452a1"

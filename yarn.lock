@@ -869,7 +869,7 @@
     ember-cli-babel "^6.16.0"
     ember-compatibility-helpers "^1.1.1"
 
-"@ember/render-modifiers@^1.0.0":
+"@ember/render-modifiers@^1.0.0", "@ember/render-modifiers@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@ember/render-modifiers/-/render-modifiers-1.0.2.tgz#2e87c48db49d922ce4850d707215caaac60d8444"
   integrity sha512-6tEnHl5+62NTSAG2mwhGMFPhUrJQjoVqV+slsn+rlTknm2Zik+iwxBQEbwaiQOU1FUYxkS8RWcieovRNMR8inQ==
@@ -1142,6 +1142,11 @@
     vue-hot-reload-api "^2.0.1"
     vue-template-compiler "^2.0.0-alpha.8"
     vue-template-es2015-compiler "^1.4.2"
+
+"@simonwep/pickr@^1.4.6":
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/@simonwep/pickr/-/pickr-1.4.6.tgz#888342b642bc9ecb712b5131ee5670da919051f4"
+  integrity sha512-XFuoDrmLKrelxDbKaV5Fadqcm9JQ4XwnURDLBGlgy6Foh3lmr4D/X2YimbniETE7v8pKKSqaDYaFr8dDkIUfaA==
 
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"

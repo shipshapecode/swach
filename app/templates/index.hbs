@@ -1,13 +1,17 @@
-<div class="p-4 max-w-xl w-full">
+<div class="p-4 max-w-xl h-full relative w-full">
   <div class="flex flex-grow justify-between">
     <button {{action "launchPicker" target=this.application}}>
       {{svg-jar "dropper" class="icon" height="15" width="15"}}
     </button>
 
+    <ColorPicker/>
+  </div>
+
+  <ColorsList @colors={{this.model}}/>
+
+  <div class="absolute bottom-0 flex flex-grow justify-end p-4 right-0 w-full">
     <button {{action "showPreferences" target=this.application}}>
       {{svg-jar "gear" class="icon" height="15" width="15"}}
     </button>
   </div>
-
-  <ColorsList @colors={{this.model}}/>
 </div>

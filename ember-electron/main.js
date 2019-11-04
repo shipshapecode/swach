@@ -2,26 +2,21 @@
 const { protocol, Menu, ipcMain } = require('electron');
 const { dirname, join, resolve } = require('path');
 const protocolServe = require('electron-protocol-serve');
+const { menubar } = require('menubar');
 
-let mb;
-
-if (process.platform === 'darwin') {
-  const { menubar } = require('menubar');
-
-  mb = menubar({
-    browserWindow: {
-      height: 600,
-      width: 300,
-      webPreferences: {
-        contextIsolation: false,
-        preload: join(__dirname, 'preload.js'),
-        nodeIntegration: true
-      }
-    },
-    icon: join(__dirname || resolve(dirname('')), '..', 'ember/img/icon.png'),
-    preloadWindow: true
-  });
-}
+const mb = menubar({
+  browserWindow: {
+    height: 600,
+    width: 300,
+    webPreferences: {
+      contextIsolation: false,
+      preload: join(__dirname, 'preload.js'),
+      nodeIntegration: true
+    }
+  },
+  icon: join(__dirname || resolve(dirname('')), '..', 'ember/img/icon.png'),
+  preloadWindow: true
+});
 
 let eventEmitter = require('events');
 eventEmitter = new eventEmitter();

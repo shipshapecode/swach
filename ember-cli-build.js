@@ -32,5 +32,8 @@ module.exports = function(defaults) {
       }
     }
   });
+
+  app.import('node_modules/@simonwep/pickr/dist/themes/monolith.min.css');
+
   return app.toTree();
 };

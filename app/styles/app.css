@@ -9,12 +9,14 @@
 [data-theme] [data-theme^="light"] {
   --alt-color: #2c303a;
   --main-color: #fefefe;
+  --menu-color: #dedede;
 }
 
 [data-theme^="dark"],
 [data-theme] [data-theme^="dark"] {
   --alt-color: #fefefe;
   --main-color: #2c303a;
+  --menu-color: #212226;
 }
 
 html,

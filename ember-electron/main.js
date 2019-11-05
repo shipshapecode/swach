@@ -24,6 +24,7 @@ eventEmitter = new eventEmitter();
 const browsers = require('./browsers')(__dirname);
 const { picker, settings } = browsers;
 
+ipcMain.on('exitApp', event => mb.app.quit());
 ipcMain.on('launchPicker', event => picker.init());
 ipcMain.on('showPreferences', event => settings.init());
 

@@ -1,15 +1,21 @@
-<div class="p-4 max-w-xl h-full relative w-full">
-  <div class="flex flex-grow justify-between">
-    <button {{action "launchPicker" target=this.application}}>
+<div class="flex flex-col max-w-xl h-full relative w-full">
+  <div class="bg-menu flex justify-between p-4 w-full">
+    <button
+      {{action "launchPicker" target=this.application}}
+    >
       {{svg-jar "dropper" class="icon" height="15" width="15"}}
     </button>
 
-    <ColorPicker/>
+    <ColorPicker @addColor={{action this.addColor}}/>
   </div>
 
   <ColorsList @colors={{this.model}}/>
 
-  <div class="absolute bottom-0 flex flex-grow justify-end p-4 right-0 w-full">
+  <div class="bg-menu flex justify-end p-4 w-full">
+    <button {{action "exitApp" target=this.application}}>
+      {{svg-jar "power" class="icon mr-3" height="15" width="15"}}
+    </button>
+
     <button {{action "showPreferences" target=this.application}}>
       {{svg-jar "gear" class="icon" height="15" width="15"}}
     </button>

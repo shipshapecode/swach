@@ -32,6 +32,11 @@ export default class ApplicationController extends Controller {
   }
 
   @action
+  exitApp() {
+    this.ipcRenderer.send('exitApp');
+  }
+
+  @action
   launchPicker() {
     this.ipcRenderer.send('launchPicker');
   }

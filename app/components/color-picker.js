@@ -5,16 +5,16 @@ import Pickr from '@simonwep/pickr';
 
 @tagName('')
 export default class ColorPicker extends Component {
+  @action
   initColorPicker(element) {
-    const pickr = new Pickr({
+    this.pickr = new Pickr({
       el: element,
       container: 'main',
       useAsButton: true,
 
-      theme: 'monolith', // or 'monolith', or 'nano'
+      theme: 'monolith',
 
       components: {
-
         // Main components
         preview: true,
         opacity: true,
@@ -22,16 +22,31 @@ export default class ColorPicker extends Component {
 
         // Input / output Options
         interaction: {
-          hex: true,
-          rgba: true,
-          hsla: true,
-          hsva: true,
-          cmyk: true,
+          hex: false,
+          rgba: false,
+          hsla: false,
+          hsva: false,
+          cmyk: false,
           input: true,
           clear: true,
           save: true
         }
       }
     });
+
+    this.onSave = (color) => {
+      if (color) {
+        this.addColor(color.toHEXA().toString());
+      }
+
+      this.pickr.hide();
+    };
+
+    this.pickr.on('save', this.onSave);
+  }
+
+  @action
+  destroyColorPickr() {
+    this.pickr.off('save', this.onSave);
   }
 }

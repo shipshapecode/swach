@@ -30,6 +30,8 @@ button:focus {
   outline: none;
 }
 
-svg.icon g {
+svg.icon,
+svg.icon g,
+svg.icon * {
   @apply .stroke-alt !important;
 }

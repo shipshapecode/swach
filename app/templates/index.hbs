@@ -6,6 +6,13 @@
       {{svg-jar "dropper" class="icon" height="15" width="15"}}
     </button>
 
+    <button
+      {{action "showContrastChecker" target=this.application}}
+    >
+      {{svg-jar "menu" class="icon" height="15" width="15"}}
+    </button>
+
+
     <ColorPicker @addColor={{action this.addColor}}/>
   </div>
 

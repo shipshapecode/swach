@@ -42,6 +42,11 @@ export default class ApplicationController extends Controller {
   }
 
   @action
+  showContrastChecker() {
+    this.ipcRenderer.send('showContrastChecker');
+  }
+
+  @action
   showPreferences() {
     this.ipcRenderer.send('showPreferences');
   }

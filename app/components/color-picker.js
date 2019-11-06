@@ -1,9 +1,7 @@
-import Component from '@ember/component';
-import { action, computed } from '@ember/object';
-import { tagName } from '@ember-decorators/component';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 import Pickr from '@simonwep/pickr';
 
-@tagName('')
 export default class ColorPicker extends Component {
   @action
   initColorPicker(element) {

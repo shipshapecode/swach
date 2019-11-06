@@ -2,7 +2,7 @@
 
 const { BrowserWindow } = require('electron');
 
-module.exports = (dirname) => {
+module.exports = (dirname, route) => {
   let win;
 
   /**
@@ -11,8 +11,11 @@ module.exports = (dirname) => {
    * @return {void} [new Colorpicker]
    */
   let init = () => {
+
     if (win === null || win === undefined) createWindow();
     else win.show();
+
+    win.openDevTools();
   };
 
   /**
@@ -31,8 +34,8 @@ module.exports = (dirname) => {
     };
 
     win = new BrowserWindow(options);
-    const settingsRoute = 'serve://dist#/settings';
-    win.loadURL(settingsRoute);
+    const windowRoute = `serve://dist#/${route}`;
+    win.loadURL(windowRoute);
 
     win.on('closed', () => {
       win = undefined;

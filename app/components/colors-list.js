@@ -1,12 +1,9 @@
-import Component from '@ember/component';
-import { action, computed } from '@ember/object';
-import { tagName } from '@ember-decorators/component';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
-@tagName('')
 export default class ColorsList extends Component {
-  @computed('colors.@each.createdAt')
   get sortedColors() {
-    return this.colors.sortBy('createdAt').reverse();
+    return this.args.colors.sortBy('createdAt').reverse();
   }
 
   @action

@@ -1,19 +1,16 @@
 import Controller, {
   inject as controller
 } from '@ember/controller';
+import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
-import colorNameList from 'color-name-list';
-import nearestColor from 'nearest-color';
 
 export default class IndexController extends Controller {
   @controller application;
+  @service nearestColor;
 
   init() {
     super.init(...arguments);
 
-    const namedColors = colorNameList.reduce((o, { name, hex }) => Object.assign(o, { [name]: hex }), {});
-
-    this.nearest = nearestColor.from(namedColors);
     let { ipcRenderer } = requireNode('electron');
     this.ipcRenderer = ipcRenderer;
     this.ipcRenderer.on('changeColor', (event, color) => {
@@ -23,7 +20,7 @@ export default class IndexController extends Controller {
 
   @action
   addColor(color) {
-    const namedColor = this.nearest(color);
+    const namedColor = this.nearestColor.nearest(color);
 
     const colorRecord = this.store.createRecord('color', {
       hex: color,

@@ -11,6 +11,7 @@ export default class ContrastChecker extends Component {
     this.bgPickr = new Pickr({
       el: element,
       container: element,
+      comparison: false,
       inline: true,
       useAsButton: true,
 
@@ -31,8 +32,8 @@ export default class ContrastChecker extends Component {
           hsva: false,
           cmyk: false,
           input: true,
-          clear: true,
-          save: true
+          clear: false,
+          save: false
         }
       }
     });
@@ -43,6 +44,7 @@ export default class ContrastChecker extends Component {
     this.fgPickr = new Pickr({
       el: element,
       container: element,
+      comparison: false,
       inline: true,
       useAsButton: true,
 

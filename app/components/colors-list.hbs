@@ -1,26 +1,8 @@
 <div class="colors-list flex-1 overflow-auto">
   {{#each this.sortedColors as |color|}}
-    <div class="border-b border-gray-400 flex p-2 w-full">
-      <div
-        class="inline-block m-1 h-10 rounded w-10"
-        style={{html-safe (concat "background-color: " color.hex)}}
-      ></div>
-
-      <div class="flex flex-grow justify-between">
-        <div class="flex flex-col justify-center">
-          <p class="font-bold pl-2 text-sm">
-            {{color.name}}
-          </p>
-
-          <p class="font-hairline pl-2 text-xs">
-            {{color.hex}}
-          </p>
-        </div>
-
-        <button {{on "click" (fn this.deleteColor color)}}>
-          {{svg-jar "trash" class="icon" height="10" width="10"}}
-        </button>
-      </div>
-    </div>
+    <ColorRow
+      @color={{color}}
+      @deleteColor={{this.deleteColor}}
+    />
   {{/each}}
 </div>

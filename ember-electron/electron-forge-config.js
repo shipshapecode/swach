@@ -12,10 +12,11 @@ module.exports = {
     ]
   },
   "electronPackagerConfig": {
+    "icon": "ember-electron/resources/icon.png",
     "packageManager": "yarn"
   },
   "electronWinstallerConfig": {
-    "name": "tinct"
+    "name": "Tinct"
   },
   "electronInstallerDebian": {},
   "electronInstallerRedhat": {},
@@ -25,6 +26,6 @@ module.exports = {
   },
   "windowsStoreConfig": {
     "packageName": "",
-    "name": "tinct"
+    "name": "Tinct"
   }
 };

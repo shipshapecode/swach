@@ -2,8 +2,8 @@
   "name": "tinct",
   "version": "0.0.0",
   "private": true,
-  "description": "Small description for tinct goes here",
-  "repository": "",
+  "description": "A modern color palette manager.",
+  "repository": "https://github.com/rwwagner90/tinct",
   "license": "MIT",
   "author": "",
   "directories": {

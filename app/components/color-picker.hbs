@@ -1,5 +1,5 @@
 <button {{on "click" this.toggleIsShown}}>
-  {{svg-jar "edit-color" class="icon" height="15" width="15"}}
+  {{svg-jar "edit-color" height="15" width="15"}}
 
   {{#ember-popover
           event="none"
@@ -8,11 +8,11 @@
           spacing=10
   }}
     <button {{on "click" this.toggleIsShown}}>
-      {{svg-jar "close" class="icon m-1" height="12" width="12"}}
+      {{svg-jar "close" class="icon m-1" height="15" width="15"}}
     </button>
 
     <button {{on "click" this.addColorAndClose}}>
-      {{svg-jar "check" class="icon m-1" height="12" width="12"}}
+      {{svg-jar "check" class="icon m-1" height="15" width="15"}}
     </button>
 
     <ColorRow

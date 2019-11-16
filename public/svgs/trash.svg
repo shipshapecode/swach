@@ -1,16 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64">
-  <g stroke-width="2" transform="translate(0, 0)">
-    <polyline points="22 12 22 3 42 3 42 12" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"
-              stroke-linejoin="miter"></polyline>
-    <path d="M53,26V56a5,5,0,0,1-5,5H16a5,5,0,0,1-5-5V26" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"
-          stroke-linejoin="miter"></path>
-    <line data-color="color-2" x1="32" y1="31" x2="32" y2="49" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"
-          stroke-linejoin="miter"></line>
-    <line data-color="color-2" x1="22" y1="31" x2="22" y2="49" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"
-          stroke-linejoin="miter"></line>
-    <line data-color="color-2" x1="42" y1="31" x2="42" y2="49" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"
-          stroke-linejoin="miter"></line>
-    <rect x="4" y="12" width="56" height="8" fill="none" stroke="#444444" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"
-          stroke-linejoin="miter"></rect>
-  </g>
-</svg>
+<svg height="59" viewBox="0 0 48 59" width="48" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" stroke="#000" stroke-linejoin="round" stroke-width="2" transform="translate(1 1)"><path d="m43 6-1.956 47s-.084 4-3.908 4h-28.272c-3.824 0-3.908-4-3.908-4l-1.956-47m27.999 0s.156-6-4-6h-5.06.122-5.061c-4.156 0-4 6-4 6"/><path d="m23 16v33m-10-33v33m20-33v33m-33-43h46" stroke-linecap="round"/></g></svg>

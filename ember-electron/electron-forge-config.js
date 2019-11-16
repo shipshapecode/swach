@@ -13,6 +13,7 @@ module.exports = {
   },
   "electronPackagerConfig": {
     "icon": "ember-electron/resources/icon.png",
+    "name": "Tinct",
     "packageManager": "yarn"
   },
   "electronWinstallerConfig": {

@@ -11,15 +11,13 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
+      - name: Install and Make
+      - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
-          with:
-            node-version: '10.x'
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Install dependencies (yarn)
-        run: yarn install
-      - name: Package App
-        run: yarn make
+        with:
+          node-version: '10.x'
+      - run: yarn install
+      - run: yarn make
       - name: Release
         uses: softprops/action-gh-release@v1
         env:

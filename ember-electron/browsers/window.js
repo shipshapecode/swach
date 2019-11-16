@@ -15,7 +15,7 @@ module.exports = (dirname, route) => {
     if (win === null || win === undefined) createWindow();
     else win.show();
 
-    win.openDevTools();
+    // win.openDevTools();
   };
 
   /**

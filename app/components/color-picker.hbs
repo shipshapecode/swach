@@ -1,12 +1,12 @@
 <button {{on "click" this.toggleIsShown}}>
   {{svg-jar "edit-color" height="15" width="15"}}
 
-  {{#ember-popover
-          event="none"
-          isShown=this.isShown
-          side="left-start"
-          spacing=10
-  }}
+  <EmberPopover
+    @event="none"
+    @isShown={{this.isShown}}
+    @side="left-start"
+    @spacing=10
+  >
     <button {{on "click" this.toggleIsShown}}>
       {{svg-jar "close" class="icon m-1" height="15" width="15"}}
     </button>
@@ -23,5 +23,5 @@
       {{did-insert this.initColorPicker}}
       {{will-destroy this.destroyColorPickr}}
     ></div>
-  {{/ember-popover}}
+  </EmberPopover>
 </button>

@@ -31,6 +31,7 @@
     "devtron": "^1.4.0",
     "electron-forge": "^5.2.4",
     "electron-prebuilt-compile": "4.0.0",
+    "ember-animated": "^0.9.0",
     "ember-auto-import": "^1.2.20",
     "ember-cli": "3.14.0-beta.2",
     "ember-cli-app-version": "^3.2.0",

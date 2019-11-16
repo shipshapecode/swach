@@ -1,8 +1,8 @@
 <div class="colors-list flex-1 overflow-auto">
-  {{#each this.sortedColors as |color|}}
+  {{#animated-each this.sortedColors use=this.transition as |color|}}
     <ColorRow
       @color={{color}}
       @deleteColor={{this.deleteColor}}
     />
-  {{/each}}
+  {{/animated-each}}
 </div>

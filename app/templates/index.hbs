@@ -7,9 +7,20 @@
     </button>
 
     <button
-      {{action "showContrastChecker" target=this.application}}
+      {{on "click" this.toggleMenuIsShown}}
     >
       {{svg-jar "menu" class="icon" height="15" width="15"}}
+
+      <EmberPopover
+        @event="none"
+        @isShown={{this.menuIsShown}}
+        @side="bottom"
+        @spacing=10
+      >
+        <button  {{action "showContrastChecker" target=this.application}}>
+          Check Contrast
+        </button>
+      </EmberPopover>
     </button>
 
 

@@ -14,6 +14,7 @@
     "build": "ember build",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
+    "make": "ember electron:make",
     "start": "ember serve",
     "test": "ember test"
   },

@@ -11,15 +11,13 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-      - name: Install and Make
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
       - run: yarn install
       - run: yarn make
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:

@@ -1,27 +1,31 @@
-<button {{on "click" this.toggleIsShown}}>
+<button
+  id="toggle-picker"
+  {{on "click" this.toggleIsShown}}>
   {{svg-jar "edit-color" height="15" width="15"}}
-
-  <EmberPopover
-    @event="none"
-    @isShown={{this.isShown}}
-    @side="left-start"
-    @spacing=10
-  >
-    <button {{on "click" this.toggleIsShown}}>
-      {{svg-jar "close" class="icon m-1" height="15" width="15"}}
-    </button>
-
-    <button {{on "click" this.addColorAndClose}}>
-      {{svg-jar "check" class="icon m-1" height="15" width="15"}}
-    </button>
-
-    <ColorRow
-      @color={{this.selectedColor}}
-    />
-
-    <div
-      {{did-insert this.initColorPicker}}
-      {{will-destroy this.destroyColorPickr}}
-    ></div>
-  </EmberPopover>
 </button>
+
+<EmberPopover
+  @arrowClass="custom-arrow"
+  @event="none"
+  @isShown={{this.isShown}}
+  @side="left-start"
+  @spacing={{10}}
+  @targetId="toggle-picker"
+>
+  <button {{on "click" this.toggleIsShown}}>
+    {{svg-jar "close" class="icon m-1" height="15" width="15"}}
+  </button>
+
+  <button {{on "click" this.addColorAndClose}}>
+    {{svg-jar "check" class="icon m-1" height="15" width="15"}}
+  </button>
+
+  <ColorRow
+    @color={{this.selectedColor}}
+  />
+
+  <div
+    {{did-insert this.initColorPicker}}
+    {{will-destroy this.destroyColorPickr}}
+  ></div>
+</EmberPopover>

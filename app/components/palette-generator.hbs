@@ -12,6 +12,6 @@
 {{#each this.selectedHarmony.value as |color|}}
   <div
     class="inline-block m-1 h-10 w-10"
-    style="background-color:{{color}};"
+    style={{html-safe (concat "background-color: " color)}}
   ></div>
 {{/each}}

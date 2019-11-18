@@ -29,6 +29,7 @@ module.exports = {
     // node files
     {
       files: [
+        '.ember-cli.js',
         '.eslintrc.js',
         '.template-lintrc.js',
         'ember-cli-build.js',
@@ -47,13 +48,23 @@ module.exports = {
         browser: false,
         node: true
       },
+      globals: {
+        document: false
+      },
       plugins: ['node'],
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
         // add your custom rules and overrides for node files here
 
         // this can be removed once the following is fixed
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
-        'node/no-unpublished-require': 'off'
+        'no-console': 'off',
+        'node/no-unpublished-require': 'off',
+        'node/no-extraneous-require': ['error', {
+          'allowModules': ['electron']
+        }],
+        'node/no-missing-require': ['error', {
+          'allowModules': ['win-mouse']
+        }]
       })
     }
   ]

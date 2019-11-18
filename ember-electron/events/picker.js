@@ -16,11 +16,11 @@ module.exports = (mb, browsers) => {
       clipboard.writeText(newColor);
       mb.window.webContents.send('changeColor', newColor);
       ipcMain.removeListener('closePicker', closePicker);
-      ipcMain.removeListener('pickerRequested', event => {});
+      ipcMain.removeListener('pickerRequested', () => {});
     }
   };
 
-  ipcMain.on('pickerRequested', event => {
+  ipcMain.on('pickerRequested', () => {
     if (process.platform === 'darwin') mouseEvent = require('osx-mouse')();
     // if (process.platform === 'linux') mouseEvent = require('linux-mouse')()
     if (process.platform === 'win32') mouseEvent = require('win-mouse')();

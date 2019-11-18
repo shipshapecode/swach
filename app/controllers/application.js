@@ -8,7 +8,7 @@ export default class ApplicationController extends Controller {
 
   @storageFor('settings') settings;
 
-  @computed('settings.osTheme', 'settings.userTheme')
+  @computed('settings.{osTheme,userTheme}')
   get theme() {
     let userTheme = get(this, 'settings.userTheme');
     let OSTheme = get(this, 'settings.osTheme');

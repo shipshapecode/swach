@@ -3,7 +3,10 @@ module.exports = {
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: 'module'
+    sourceType: 'module',
+    ecmaFeatures: {
+      legacyDecorators: true
+    }
   },
   plugins: [
     'ember'
@@ -15,16 +18,21 @@ module.exports = {
   env: {
     browser: true
   },
+  globals: {
+    requireNode: false
+  },
   rules: {
+    'ember/no-jquery': 'error',
+    'require-yield': 'off'
   },
   overrides: [
     // node files
     {
       files: [
-        '.ember-cli.js',
         '.eslintrc.js',
         '.template-lintrc.js',
         'ember-cli-build.js',
+        'tailwind.config.js',
         'testem.js',
         'blueprints/*/index.js',
         'config/**/*.js',
@@ -32,12 +40,8 @@ module.exports = {
         'lib/*/index.js',
         'server/**/*.js'
       ],
-      excludedFiles: [
-        'app/**',
-      ],
       parserOptions: {
-        sourceType: 'script',
-        ecmaVersion: 2015
+        sourceType: 'script'
       },
       env: {
         browser: false,
@@ -50,10 +54,7 @@ module.exports = {
         // this can be removed once the following is fixed
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
         'node/no-unpublished-require': 'off'
-      }),
-      extends: [
-        'plugin:node/recommended'
-      ],
+      })
     }
   ]
 };

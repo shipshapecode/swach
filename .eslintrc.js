@@ -63,7 +63,10 @@ module.exports = {
           'allowModules': ['electron']
         }],
         'node/no-missing-require': ['error', {
-          'allowModules': ['win-mouse']
+          'allowModules': [
+            'osx-mouse',
+            'win-mouse'
+          ]
         }]
       })
     }

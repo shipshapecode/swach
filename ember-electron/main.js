@@ -24,10 +24,10 @@ eventEmitter = new eventEmitter();
 const browsers = require('./browsers')(__dirname);
 const { contrast, picker, settings } = browsers;
 
-ipcMain.on('exitApp', event => mb.app.quit());
-ipcMain.on('launchPicker', event => picker.init());
-ipcMain.on('showContrastChecker', event => contrast.init());
-ipcMain.on('showPreferences', event => settings.init());
+ipcMain.on('exitApp', () => mb.app.quit());
+ipcMain.on('launchPicker', () => picker.init());
+ipcMain.on('showContrastChecker', () => contrast.init());
+ipcMain.on('showPreferences', () => settings.init());
 
 require('./events')(mb, browsers, eventEmitter);
 

@@ -28,6 +28,7 @@ module.exports = {
         'testem.js',
         'blueprints/*/index.js',
         'config/**/*.js',
+        'ember-electron/**/*.js',
         'lib/*/index.js',
         'server/**/*.js'
       ],

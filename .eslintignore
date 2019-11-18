@@ -4,6 +4,7 @@
 
 # compiled output
 /dist/
+/electron-out/
 /tmp/
 
 # dependencies

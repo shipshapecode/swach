@@ -1,4 +1,3 @@
-/* eslint-env node */
 const { protocol, Menu, ipcMain } = require('electron');
 const { dirname, join, resolve } = require('path');
 const protocolServe = require('electron-protocol-serve');
@@ -14,7 +13,7 @@ const mb = menubar({
       nodeIntegration: true
     }
   },
-  icon: join(__dirname || resolve(dirname('')), '..', 'ember/img/icon.png'),
+  icon: join(__dirname || resolve(dirname('')), '..', 'ember-dist/img/icon.png'),
   preloadWindow: true
 });
 
@@ -63,7 +62,7 @@ if (typeof protocol.registerSchemesAsPrivileged === 'function') {
   protocol.registerStandardSchemes(['serve'], { secure: true });
 }
 protocolServe({
-  cwd: join(__dirname || resolve(dirname('')), '..', 'ember'),
+  cwd: join(__dirname || resolve(dirname('')), '..', 'ember-dist'),
   app: mb.app,
   protocol
 });

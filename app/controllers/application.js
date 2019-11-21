@@ -23,12 +23,14 @@ export default class ApplicationController extends Controller {
   init() {
     super.init(...arguments);
 
-    let { ipcRenderer } = requireNode('electron');
-    this.ipcRenderer = ipcRenderer;
+    if (typeof requireNode !== 'undefined') {
+      let { ipcRenderer } = requireNode('electron');
+      this.ipcRenderer = ipcRenderer;
 
-    this.ipcRenderer.on('setTheme', (event, theme) => {
-      set(this, 'settings.osTheme', theme);
-    });
+      this.ipcRenderer.on('setTheme', (event, theme) => {
+        set(this, 'settings.osTheme', theme);
+      });
+    }
   }
 
   @action

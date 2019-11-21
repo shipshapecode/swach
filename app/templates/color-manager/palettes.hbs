@@ -1,10 +1,17 @@
 <div class="flex flex-wrap w-full">
   {{#each this.last15Colors as |color|}}
-    <div
-      class="inline-block m-2 h-6 w-6"
-      style={{html-safe (concat "background-color: " color.hex)}}
-    >
-    </div>
+    <DraggableObject @content={{color}}>
+      <div
+        class="inline-block m-2 h-6 w-6"
+        style={{html-safe (concat "background-color: " color.hex)}}
+      >
+      </div>
+    </DraggableObject>
   {{/each}}
 </div>
+
+<button {{on "click" this.createNewPalette}}>
+  New Palette
+</button>
+
 <PalettesList @palettes={{this.model.palettes}}/>

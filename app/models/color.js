@@ -1,4 +1,4 @@
-import Model, { attr, belongsTo } from '@ember-data/model';
+import Model, { attr, hasMany } from '@ember-data/model';
 
 export default class ColorModel extends Model {
   @attr('string') hex;
@@ -7,5 +7,5 @@ export default class ColorModel extends Model {
     defaultValue() { return new Date(); }
   }) createdAt;
 
-  @belongsTo('palette') palette;
+  @hasMany('palette') palette;
 }

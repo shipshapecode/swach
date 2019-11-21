@@ -14,11 +14,13 @@ export default class ColorManagerController extends Controller {
   init() {
     super.init(...arguments);
 
-    let { ipcRenderer } = requireNode('electron');
-    this.ipcRenderer = ipcRenderer;
-    this.ipcRenderer.on('changeColor', (event, color) => {
-      this.addColor(color);
-    });
+    if (typeof requireNode !== 'undefined') {
+      let { ipcRenderer } = requireNode('electron');
+      this.ipcRenderer = ipcRenderer;
+      this.ipcRenderer.on('changeColor', (event, color) => {
+        this.addColor(color);
+      });
+    }
   }
 
   @action

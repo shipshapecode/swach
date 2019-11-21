@@ -29,7 +29,22 @@
     <ColorPicker @addColor={{action this.addColor}}/>
   </div>
 
-  <ColorsList @colors={{this.model}}/>
+  <div class="flex">
+    <LinkTo
+      class="border border-gray-300 p-2 m-2"
+      @route="color-manager.colors"
+    >
+      Colors
+    </LinkTo>
+    <LinkTo
+      class="border border-gray-300 p-2 m-2"
+      @route="color-manager.palettes"
+    >
+      Palettes
+    </LinkTo>
+  </div>
+
+  {{outlet}}
 
   <div class="bg-menu flex justify-end p-4 w-full">
     <button {{action "exitApp" target=this.application}}>

@@ -1,0 +1,10 @@
+<div class="flex flex-wrap w-full">
+  {{#each this.last15Colors as |color|}}
+    <div
+      class="inline-block m-2 h-6 w-6"
+      style={{html-safe (concat "background-color: " color.hex)}}
+    >
+    </div>
+  {{/each}}
+</div>
+<PalettesList @palettes={{this.model.palettes}}/>

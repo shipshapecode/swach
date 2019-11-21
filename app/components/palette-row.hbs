@@ -1,0 +1,9 @@
+<div>
+  <h6>{{@palette.name}}</h6>
+
+  <div class="palette flex flex-grow h-8 w-full">
+    {{#each @palette.colors as |color|}}
+      <div class="flex flex-grow" style={{html-safe (concat "background-color: " color)}}></div>
+    {{/each}}
+  </div>
+</div>

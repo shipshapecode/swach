@@ -2976,7 +2976,7 @@ binary@^0.3.0:
   resolved "https://registry.yarnpkg.com/binaryextensions/-/binaryextensions-2.1.2.tgz#c83c3d74233ba7674e4f313cb2a2b70f54e94b7c"
   integrity sha512-xVNN69YGDghOqCCtA6FI7avYrr02mTJjOgB0/f1VPD3pJC8QEvjTKWc4epDx8AqxxA75NI0QpVM2gPJXUbE4Tg==
 
-bindings@^1.2.1, bindings@^1.5.0:
+bindings@^1.2.1, bindings@^1.3.0, bindings@^1.4.0, bindings@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.5.0.tgz#10353c9e945334bc0511a6d90b38fbc7c9c504df"
   integrity sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==
@@ -5810,6 +5810,15 @@ electron-json-storage@^4.1.8:
     mkdirp "^0.5.1"
     rimraf "^2.5.1"
     write-file-atomic "^2.4.2"
+
+electron-notification-state@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/electron-notification-state/-/electron-notification-state-1.0.4.tgz#998610eff6f3870c81beec4769a0d9c7ad659aa1"
+  integrity sha512-MUTLCx+u8yha0cH//B1H0p1itT1RHVZvwV71s3HP9l0Kxbhwq/WQMtikmgwptFBqF0xJ6QyzmKXO3W/n+kboqQ==
+  dependencies:
+    macos-notification-state "^1.1.0"
+    windows-notification-state "^1.3.0"
+    windows-quiet-hours "^1.2.2"
 
 electron-osx-sign@^0.4.1:
   version "0.4.14"
@@ -10143,6 +10152,14 @@ macos-alias@~0.2.5:
   dependencies:
     nan "^2.4.0"
 
+macos-notification-state@^1.1.0:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/macos-notification-state/-/macos-notification-state-1.3.1.tgz#0be26fe1ef41f6914431ae5b792df40ed25ce20c"
+  integrity sha512-Zd4fezXN4WaXw0fJnO3dr8Eg72AKI4C+g0Jnm5KcX8o7WWvIMV9rzsl8mtuOL8FT+QPYv1xiaLpElqhXubf3Yw==
+  dependencies:
+    bindings "^1.4.0"
+    nan "^2.13.2"
+
 macos-release@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/macos-release/-/macos-release-2.3.0.tgz#eb1930b036c0800adebccd5f17bc4c12de8bb71f"
@@ -10663,7 +10680,7 @@ mz@^2.6.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nan@^2.10.0, nan@^2.12.1, nan@^2.13.2, nan@^2.2.1, nan@^2.3.2, nan@^2.4.0:
+nan@^2.10.0, nan@^2.12.1, nan@^2.13.2, nan@^2.14.0, nan@^2.2.1, nan@^2.3.2, nan@^2.4.0, nan@^2.7.0:
   version "2.14.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
   integrity sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
@@ -15272,6 +15289,22 @@ window-size@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.2.0.tgz#b4315bb4214a3d7058ebeee892e13fa24d98b075"
   integrity sha1-tDFbtCFKPXBY6+7okuE/ok2YsHU=
+
+windows-notification-state@^1.3.0:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/windows-notification-state/-/windows-notification-state-1.3.4.tgz#f4cdb009d1e92124f1913a93b5c72659f4901542"
+  integrity sha512-Z2n6YLARi14AGqaY5zAlMnhButzjRjlQui0k73nXe4tVRg2U918zLeC3ZxM/i4JKho/GqV85rgQsMfLWnbTUCA==
+  dependencies:
+    bindings "^1.5.0"
+    nan "^2.14.0"
+
+windows-quiet-hours@^1.2.2:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/windows-quiet-hours/-/windows-quiet-hours-1.2.7.tgz#12dd46f21d296f1518109dcbe1a518ef1f85365e"
+  integrity sha512-PjKM2/RQhZ3ikG4COq0vPpXvmJsxckcg2YN3xmQv8kZl5l1uu00a/epSGDeY6tczDPkzBhoThBz1FKRqxBA7cQ==
+  dependencies:
+    bindings "^1.3.0"
+    nan "^2.7.0"
 
 windows-release@^3.1.0:
   version "3.2.0"

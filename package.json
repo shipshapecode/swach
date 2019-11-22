@@ -5,7 +5,11 @@
   "description": "A modern color palette manager.",
   "repository": "https://github.com/rwwagner90/tinct",
   "license": "MIT",
-  "author": "",
+  "author": {
+    "name": "Robert Wagner",
+    "email": "rwwagner90@gmail.com",
+    "url": "https://github.com/rwwagner90"
+  },
   "directories": {
     "doc": "doc",
     "test": "tests"

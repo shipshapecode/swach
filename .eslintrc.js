@@ -37,7 +37,7 @@ module.exports = {
         'testem.js',
         'blueprints/*/index.js',
         'config/**/*.js',
-        'ember-electron/**/*.js',
+        'electron-app/**/*.js',
         'lib/*/index.js',
         'server/**/*.js'
       ],
@@ -60,7 +60,10 @@ module.exports = {
         'no-console': 'off',
         'node/no-unpublished-require': 'off',
         'node/no-extraneous-require': ['error', {
-          'allowModules': ['electron']
+          'allowModules': [
+            'ember-electron',
+            'electron'
+          ]
         }],
         'node/no-missing-require': ['error', {
           'allowModules': [

@@ -12,7 +12,11 @@
     "lint": "echo \"No linting configured\""
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "Robert Wagner",
+    "email": "rwwagner90@gmail.com",
+    "url": "https://github.com/rwwagner90"
+  },
   "license": "MIT",
   "config": {
     "forge": {

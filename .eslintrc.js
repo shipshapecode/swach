@@ -67,7 +67,10 @@ module.exports = {
         }],
         'node/no-missing-require': ['error', {
           'allowModules': [
+            'electron',
+            'menubar',
             'osx-mouse',
+            'robotjs',
             'win-mouse'
           ]
         }]

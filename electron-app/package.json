@@ -21,6 +21,7 @@
   "config": {
     "forge": {
       "packagerConfig": {
+        "darwinDarkModeSupport": "true",
         "icon": "electron-app/resources/icon.png",
         "name": "Tinct",
         "packageManager": "yarn"
@@ -29,8 +30,14 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "electron_app"
+            "name": "Tinct"
           }
+        },
+        {
+          "name": "@electron-forge/maker-dmg",
+          "platforms": [
+            "darwin"
+          ]
         },
         {
           "name": "@electron-forge/maker-zip",
@@ -59,6 +66,7 @@
   "devDependencies": {
     "@electron-forge/cli": "6.0.0-beta.45",
     "@electron-forge/maker-deb": "6.0.0-beta.45",
+    "@electron-forge/maker-dmg": "^6.0.0-beta.45",
     "@electron-forge/maker-rpm": "6.0.0-beta.45",
     "@electron-forge/maker-squirrel": "6.0.0-beta.45",
     "@electron-forge/maker-zip": "6.0.0-beta.45",

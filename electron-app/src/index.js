@@ -4,6 +4,7 @@ const protocolServe = require('electron-protocol-serve');
 const { menubar } = require('menubar');
 
 const mb = menubar({
+  dir: join(__dirname || resolve(dirname('')), '..', 'loading'),
   browserWindow: {
     height: 600,
     width: 300,

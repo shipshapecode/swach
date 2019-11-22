@@ -14,7 +14,7 @@ const mb = menubar({
       nodeIntegration: true
     }
   },
-  icon: join(__dirname || resolve(dirname('')), '..', 'ember-dist/img/icon.png'),
+  icon: join(__dirname || resolve(dirname('')), '..', 'resources/menubar-icons/icon.png'),
   preloadWindow: true
 });
 

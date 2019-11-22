@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: '10.x'
       - name: Yarn install
-        run: yarn install
+        run: yarn run install-deps
       - name: Make
         if: startsWith(github.ref, 'refs/tags/')
         run: yarn make

@@ -24,8 +24,14 @@ module.exports = (dirname) => {
       alwaysOnTop: true,
       resizable: false,
       focusable: true,
-      hasShadow: false
+      hasShadow: false,
+      webPreferences: {
+        contextIsolation: false,
+        nodeIntegration: true
+      }
     });
+
+    // win.webContents.openDevTools();
 
     win.loadURL(`file://${dirname}/views/picker.html`);
     win.on('closed', () => {

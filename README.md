@@ -44,3 +44,15 @@ You will need the following things properly installed on your computer.
 ### Building / Packaging
 
 * `ember electron:make`
+
+## Releasing
+
+* Bump the version with:
+
+```bash 
+yarn bump-versions
+```
+
+Choose the appropriate major, minor, patch, beta, etc version in the prompt.
+
+GitHub actions should then take that new tag and build and release automatically.

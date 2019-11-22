@@ -44,7 +44,9 @@
     </LinkTo>
   </div>
 
-  {{outlet}}
+  <div class="flex-1 overflow-auto p-2">
+    {{outlet}}
+  </div>
 
   <div class="bg-menu flex justify-end p-4 w-full">
     <button {{action "exitApp" target=this.application}}>

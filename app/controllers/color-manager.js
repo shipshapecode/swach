@@ -19,6 +19,9 @@ export default class ColorManagerController extends Controller {
       this.ipcRenderer = ipcRenderer;
       this.ipcRenderer.on('changeColor', (event, color) => {
         this.addColor(color);
+        new window.Notification(color, {
+          body: `${color} copied to clipboard!`
+        });
       });
     }
   }
@@ -33,6 +36,15 @@ export default class ColorManagerController extends Controller {
     });
 
     colorRecord.save();
+  }
+
+  @action
+  copyColorToClipboard(color) {
+    this.ipcRenderer.send('copyColorToClipboard', color.hex);
+
+    new window.Notification(`${color.name} - ${color.hex}`, {
+      body: `${color.hex} copied to clipboard!`
+    });
   }
 
   @action toggleMenuIsShown() {

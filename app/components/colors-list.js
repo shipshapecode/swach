@@ -10,7 +10,7 @@ export default class ColorsList extends Component {
 
   * transition({ keptSprites, insertedSprites, removedSprites }) {
     for (let sprite of insertedSprites) {
-      sprite.startTranslatedBy(0, -sprite.finalBounds.height);
+      sprite.startTranslatedBy(0, -sprite.finalBounds.height / 2);
       move(sprite);
     }
 

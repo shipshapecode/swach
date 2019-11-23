@@ -1,8 +1,9 @@
-<div class="colors-list">
+<AnimatedContainer class="colors-list">
   {{#animated-each this.sortedColors use=this.transition as |color|}}
     <ColorRow
       @color={{color}}
+      @copyColorToClipboard={{@copyColorToClipboard}}
       @deleteColor={{this.deleteColor}}
     />
   {{/animated-each}}
-</div>
+</AnimatedContainer>

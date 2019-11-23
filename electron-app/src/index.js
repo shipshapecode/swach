@@ -1,4 +1,4 @@
-const { protocol, Menu, ipcMain } = require('electron');
+const { clipboard, protocol, Menu, ipcMain } = require('electron');
 const { dirname, join, resolve } = require('path');
 const protocolServe = require('electron-protocol-serve');
 const { menubar } = require('menubar');
@@ -24,6 +24,9 @@ eventEmitter = new eventEmitter();
 const browsers = require('./browsers')(__dirname);
 const { contrast, picker, settings } = browsers;
 
+ipcMain.on('copyColorToClipboard', (channel, color) => {
+  clipboard.writeText(color);
+});
 ipcMain.on('exitApp', () => mb.app.quit());
 ipcMain.on('launchPicker', () => picker.init());
 ipcMain.on('showContrastChecker', () => contrast.init());
@@ -86,7 +89,7 @@ mb.app.on('window-all-closed', () => {
 mb.on('ready', () => {
   setMenu();
   // If you want to open up dev tools programmatically, call
-  // mb.window.openDevTools();
+  mb.window.openDevTools();
 
   const emberAppLocation = 'serve://dist';
 

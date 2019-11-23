@@ -1,4 +1,7 @@
-<div class="border-b border-gray-400 flex pb-2 pt-2 w-full">
+<div
+  {{on "click" (fn @copyColorToClipboard @color)}}
+  class="border-b border-gray-400 cursor-default flex pb-2 pt-2 w-full"
+>
   <div
     class="inline-block m-1 h-10 rounded w-10"
     style={{html-safe (concat "background-color: " @color.hex)}}

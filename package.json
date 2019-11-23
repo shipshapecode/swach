@@ -51,6 +51,7 @@
     "ember-decorators": "^6.1.1",
     "ember-drag-drop": "^0.7.0",
     "ember-electron": "adopted-ember-addons/ember-electron#f87227a02fd8a1964a99101804f3006c0dd7266f",
+    "ember-event-helpers": "^0.1.0",
     "ember-export-application-global": "^2.0.0",
     "ember-fetch": "^6.7.0",
     "ember-load-initializers": "^2.1.0",

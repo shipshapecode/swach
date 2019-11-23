@@ -3,7 +3,7 @@
 module.exports = {
   extends: 'recommended',
   rules: {
-    'no-implicit-this': true,
+    'no-implicit-this': { allow: ['liquid-outlet'] },
     'no-inline-styles': false
   }
 };

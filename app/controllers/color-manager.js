@@ -18,10 +18,8 @@ export default class ColorManagerController extends Controller {
       let { ipcRenderer } = requireNode('electron');
       this.ipcRenderer = ipcRenderer;
       this.ipcRenderer.on('changeColor', (event, color) => {
-        this.addColor(color);
-        new window.Notification(color, {
-          body: `${color} copied to clipboard!`
-        });
+        const addedColor = this.addColor(color);
+        this.copyColorToClipboard(addedColor);
       });
     }
   }
@@ -36,6 +34,8 @@ export default class ColorManagerController extends Controller {
     });
 
     colorRecord.save();
+
+    return colorRecord;
   }
 
   @action

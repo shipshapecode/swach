@@ -7,14 +7,16 @@
 
 [data-theme^="light"],
 [data-theme] [data-theme^="light"] {
-  --alt-color: #2c303a;
-  --main-color: #fefefe;
+  --alt-color: #677087;
+  --alt-hover-color: #1F2126;
+  --main-color: #eef2f7;
   --menu-color: #dedede;
 }
 
 [data-theme^="dark"],
 [data-theme] [data-theme^="dark"] {
   --alt-color: #dfdfe0;
+  --alt-hover-color: #C7C7C7;
   --main-color: #292c32;
   --menu-color: #383a40;
 }
@@ -34,6 +36,15 @@ body {
   display: none;
 }
 
+a {
+  @apply .text-alt;
+  transition: color 0.25s, background-color 0.25s;
+}
+
+a:hover {
+  @apply .text-alt-hover;
+}
+
 button:focus {
   outline: none;
 }
@@ -42,6 +53,19 @@ svg.icon,
 svg.icon g,
 svg.icon * {
   @apply .stroke-alt !important;
+  transition: stroke 0.25s;
+}
+
+svg.icon:hover,
+svg.icon:hover g,
+svg.icon:hover *,
+a:hover svg.icon,
+a:hover svg.icon g,
+a:hover svg.icon *,
+button:hover svg.icon,
+button:hover svg.icon g,
+button:hover svg.icon *{
+  @apply .stroke-alt-hover !important;
 }
 
 .custom-arrow.ember-popover-arrow {

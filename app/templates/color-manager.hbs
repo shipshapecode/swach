@@ -29,21 +29,6 @@
     <ColorPicker @addColor={{action this.addColor}}/>
   </div>
 
-  <div class="flex">
-    <LinkTo
-      class="bg-gray-500 font-bold p-2 pl-4 pr-4 m-2 rounded-full"
-      @route="color-manager.colors"
-    >
-      Colors
-    </LinkTo>
-    <LinkTo
-      class="bg-gray-500 font-bold p-2 pl-4 pr-4 m-2 rounded-full"
-      @route="color-manager.palettes"
-    >
-      Palettes
-    </LinkTo>
-  </div>
-
   <div class="flex-1 overflow-auto p-2">
     {{outlet}}
   </div>

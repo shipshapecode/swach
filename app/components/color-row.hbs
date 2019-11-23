@@ -1,6 +1,6 @@
 <div
   {{on "click" (fn @copyColorToClipboard @color)}}
-  class="border-b border-gray-400 cursor-default flex pb-2 pt-2 w-full"
+  class="bg-white cursor-default flex mb-2 p-3 rounded shadow w-full"
 >
   <div
     class="inline-block m-1 h-10 rounded w-10"
@@ -19,7 +19,7 @@
     </div>
 
     {{#if @deleteColor}}
-      <button {{on "click" (fn @deleteColor @color)}}>
+      <button {{on "click" (stop-propagation (fn @deleteColor @color))}}>
         {{svg-jar "trash" class="icon" height="12" width="12"}}
       </button>
     {{/if}}

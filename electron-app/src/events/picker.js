@@ -13,7 +13,6 @@ module.exports = (mb, browsers) => {
     if (picker.getWindow()) {
       picker.getWindow().close();
       mb.showWindow();
-      clipboard.writeText(newColor);
       mb.window.webContents.send('changeColor', newColor);
       ipcMain.removeListener('closePicker', closePicker);
       ipcMain.removeListener('pickerRequested', () => {});

@@ -7,6 +7,7 @@ import { tracked } from '@glimmer/tracking';
 
 export default class ColorManagerController extends Controller {
   @controller application;
+  @service colorUtils;
   @service nearestColor;
 
   @tracked menuIsShown = false;
@@ -19,7 +20,7 @@ export default class ColorManagerController extends Controller {
       this.ipcRenderer = ipcRenderer;
       this.ipcRenderer.on('changeColor', (event, color) => {
         const addedColor = this.addColor(color);
-        this.copyColorToClipboard(addedColor);
+        this.colorUtils.copyColorToClipboard(addedColor);
       });
     }
   }
@@ -39,15 +40,7 @@ export default class ColorManagerController extends Controller {
   }
 
   @action
-  copyColorToClipboard(color) {
-    this.ipcRenderer.send('copyColorToClipboard', color.hex);
-
-    new window.Notification(`${color.name} - ${color.hex}`, {
-      body: `${color.hex} copied to clipboard!`
-    });
-  }
-
-  @action toggleMenuIsShown() {
+  toggleMenuIsShown() {
     this.menuIsShown = !this.menuIsShown;
   }
 }

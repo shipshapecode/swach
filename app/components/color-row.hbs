@@ -1,5 +1,5 @@
 <div
-  {{on "click" (fn @copyColorToClipboard @color)}}
+  {{on "click" (fn this.colorUtils.copyColorToClipboard @color)}}
   class="bg-white cursor-default flex mb-2 p-3 rounded shadow w-full"
 >
   <div

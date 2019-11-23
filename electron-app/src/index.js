@@ -89,7 +89,7 @@ mb.app.on('window-all-closed', () => {
 mb.on('ready', () => {
   setMenu();
   // If you want to open up dev tools programmatically, call
-  mb.window.openDevTools();
+  // mb.window.openDevTools();
 
   const emberAppLocation = 'serve://dist';
 

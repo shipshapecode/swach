@@ -1027,10 +1027,10 @@ electron-winstaller@^4.0.0:
     lodash.template "^4.2.2"
     temp "^0.9.0"
 
-electron@^5.0.12:
-  version "5.0.12"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-5.0.12.tgz#2d5438f8e2b8b99ea99848b61238fc66c283e861"
-  integrity sha512-Ydby8wfShB39MkZCF2PcAuNACj4PYbGxc0hGpThqZOiDgnSVroqvUAOSX9GCJogrjcP30ZZIe6TgPtQEABYg3w==
+electron@^6.1.5:
+  version "6.1.5"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-6.1.5.tgz#1f1bc54042587d8368edd43ffecb0ce7c84cab87"
+  integrity sha512-PrdJKkAS0IaSJwu4him03VYqvAKK1qyWTE/ieb4LgcbR4F4u90b91/7xna6P1GpD/FXiHqzZQcs0SvK/o08ckQ==
   dependencies:
     "@types/node" "^10.12.18"
     electron-download "^4.1.0"
@@ -2774,7 +2774,7 @@ robotjs@octalmage/robotjs#7dc5ab459cfd1bfa12705e19669b5cea24c0e282:
   resolved "https://codeload.github.com/octalmage/robotjs/tar.gz/7dc5ab459cfd1bfa12705e19669b5cea24c0e282"
   dependencies:
     nan "^2.14.0"
-    prebuild-install "^2.1.1"
+    prebuild-install "^5.3.3"
 
 run-async@^2.2.0:
   version "2.3.0"

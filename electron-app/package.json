@@ -61,7 +61,7 @@
     "electron-protocol-serve": "^1.3.0",
     "electron-squirrel-startup": "^1.0.0",
     "menubar": "^7.0.0",
-    "robotjs": "malhotra-sidharth/robotjs#a1a0472c55b6e793dbf8f77d0cf2db0b921556b7"
+    "robotjs": "octalmage/robotjs#7dc5ab459cfd1bfa12705e19669b5cea24c0e282"
   },
   "devDependencies": {
     "@electron-forge/cli": "6.0.0-beta.45",
@@ -74,7 +74,7 @@
     "electron": "^5.0.12"
   },
   "optionalDependencies": {
-    "osx-mouse": "MarshallOfSound/osx-mouse#d524fc15240df1e41dd39db0102f8982eda20599",
+    "osx-mouse": "rwwagner90/osx-mouse#f09c076cd36d5cddc86b66007c092c05aa7ccb9b",
     "win-mouse": "^1.2.0"
   }
 }

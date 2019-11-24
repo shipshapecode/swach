@@ -21,6 +21,8 @@ module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
     postcssOptions: {
       compile: {
+        extension: 'scss',
+        syntax: 'postcss-scss',
         plugins: [
           {
             module: require('postcss-import'),
@@ -28,7 +30,8 @@ module.exports = function(defaults) {
               path: ['node_modules']
             }
           },
-          require('tailwindcss')('./tailwind.config.js')
+          require('tailwindcss')('./tailwind.config.js'),
+          require('postcss-nested')
           // ...isProduction ? [purgeCSS] : []
         ]
       }

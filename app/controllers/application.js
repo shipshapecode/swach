@@ -13,7 +13,7 @@ export default class ApplicationController extends Controller {
     let userTheme = get(this, 'settings.userTheme');
     let OSTheme = get(this, 'settings.osTheme');
 
-    if (userTheme !== 'dynamic') {
+    if (userTheme && userTheme !== 'dynamic') {
       return userTheme;
     }
 

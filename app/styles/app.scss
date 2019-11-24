@@ -1,9 +1,7 @@
-@import "fonts.css";
+@import "fonts.scss";
 @import "tailwindcss/base";
 @import "tailwindcss/components";
-@import "components.css";
 @import "tailwindcss/utilities";
-@import "utilities.css";
 
 [data-theme^="light"],
 [data-theme] [data-theme^="light"] {
@@ -30,42 +28,51 @@ body {
 
 * {
   -ms-overflow-style: none;
-}
 
-*::-webkit-scrollbar {
-  display: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 a {
-  @apply .text-alt;
+  @apply cursor-default text-alt;
   transition: color 0.25s, background-color 0.25s;
+
+  &:hover {
+    @apply cursor-default text-alt-hover;
+  }
 }
 
-a:hover {
-  @apply .text-alt-hover;
+button {
+  @apply cursor-default;
+
+  &:focus {
+    outline: none;
+  }
 }
 
-button:focus {
-  outline: none;
+svg {
+  &.icon {
+    g, * {
+      stroke: var(--alt-color) !important;
+      transition: stroke 0.25s;
+    }
+
+    &:hover {
+      g, * {
+        stroke: var(--alt-hover-color) !important;
+      }
+    }
+  }
 }
 
-svg.icon,
-svg.icon g,
-svg.icon * {
-  @apply .stroke-alt !important;
-  transition: stroke 0.25s;
-}
-
-svg.icon:hover,
-svg.icon:hover g,
-svg.icon:hover *,
 a:hover svg.icon,
 a:hover svg.icon g,
 a:hover svg.icon *,
 button:hover svg.icon,
 button:hover svg.icon g,
-button:hover svg.icon *{
-  @apply .stroke-alt-hover !important;
+button:hover svg.icon * {
+  stroke: var(--alt-hover-color) !important;
 }
 
 .custom-arrow.ember-popover-arrow {

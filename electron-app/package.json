@@ -71,10 +71,10 @@
     "@electron-forge/maker-squirrel": "6.0.0-beta.45",
     "@electron-forge/maker-zip": "6.0.0-beta.45",
     "devtron": "^1.4.0",
-    "electron": "^6.1.5"
+    "electron": "^7.1.2"
   },
   "optionalDependencies": {
-    "osx-mouse": "rwwagner90/osx-mouse#f09c076cd36d5cddc86b66007c092c05aa7ccb9b",
+    "osx-mouse": "rwwagner90/osx-mouse#53ddeb867d2366b9fc77b38a5f52ccf15c69afbb",
     "win-mouse": "^1.2.0"
   }
 }

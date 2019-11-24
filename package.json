@@ -1,6 +1,6 @@
 {
   "name": "tinct",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": true,
   "description": "A modern color palette manager.",
   "repository": "https://github.com/rwwagner90/tinct",
@@ -61,7 +61,7 @@
     "ember-power-select": "^3.0.4",
     "ember-qunit": "^4.5.1",
     "ember-resolver": "^5.3.0",
-    "ember-source": "~3.15.0-beta.2",
+    "ember-source": "~3.15.0-beta.3",
     "ember-svg-jar": "^2.2.3",
     "ember-tooltips": "^3.4.0",
     "eslint-plugin-ember": "^7.6.0",

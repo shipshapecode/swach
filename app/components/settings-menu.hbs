@@ -1,20 +1,24 @@
-<div class="font-light text-sm">
-  <div>
-    Startup: <Input @type="checkbox"/> Start Swach on system startup
+<div class="font-normal text-sm">
+  <div class="p-1">
+    Startup: <Input @type="checkbox" @checked={{this.settings.openOnStartup}}/> Start Swach on system startup
   </div>
 
-  <div>
-    Sounds: <Input @type="checkbox"/> Play Sounds
+  <div class="p-1">
+    Sounds: <Input @type="checkbox" @checked={{this.settings.sounds}}/> Play Sounds
   </div>
 
-  <PowerSelect
-    @dropdownClass="max-w-md text-sm"
-    @triggerClass="max-w-md text-sm"
-    @options={{this.themes}}
-    @placeholder="Choose a theme"
-    @selected={{this.settings.userTheme}}
-    @onChange={{this.changeTheme}} as |theme|
-  >
-    {{capitalize theme}}
-  </PowerSelect>
+  <div class="p-1">
+    App theme:
+
+    <PowerSelect
+      @dropdownClass="max-w-md text-sm"
+      @triggerClass="max-w-md text-sm"
+      @options={{this.themes}}
+      @placeholder="Choose a theme"
+      @selected={{this.settings.userTheme}}
+      @onChange={{this.changeTheme}} as |theme|
+    >
+      {{capitalize theme}}
+    </PowerSelect>
+  </div>
 </div>

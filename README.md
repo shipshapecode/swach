@@ -1,6 +1,6 @@
-# Tinct
+# Swach
 
-Tinct is a modern color palette manager.
+Swach is a modern color palette manager.
 
 ## Prerequisites
 
@@ -15,7 +15,7 @@ You will need the following things properly installed on your computer.
 ## Installation
 
 * `git clone <repository-url>` this repository
-* `cd tinct`
+* `cd swach`
 * `yarn install`
 
 ## Running / Development

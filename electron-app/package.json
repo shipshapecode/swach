@@ -1,6 +1,6 @@
 {
-  "name": "tinct",
-  "productName": "tinct",
+  "name": "swach",
+  "productName": "swach",
   "version": "0.0.9",
   "description": "A modern color palette manager.",
   "main": "src/index.js",
@@ -23,14 +23,14 @@
       "packagerConfig": {
         "darwinDarkModeSupport": "true",
         "icon": "electron-app/resources/icon.png",
-        "name": "Tinct",
+        "name": "Swach",
         "packageManager": "yarn"
       },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "Tinct"
+            "name": "Swach"
           }
         },
         {

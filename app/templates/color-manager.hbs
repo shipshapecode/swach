@@ -34,12 +34,12 @@
   </div>
 
   <div class="bg-menu flex justify-end p-4 w-full">
-    <button {{on "click" this.application.exitApp}}>
-      {{svg-jar "power" class="icon mr-3 stroke-width-5" height="15" width="15"}}
+    <button {{on "click" this.application.showPreferences}}>
+      {{svg-jar "gear" class="icon mr-3" height="15" width="15"}}
     </button>
 
-    <button {{on "click" this.application.showPreferences}}>
-      {{svg-jar "gear" class="icon" height="15" width="15"}}
+    <button {{on "click" this.application.exitApp}}>
+      {{svg-jar "power" class="icon stroke-width-5" height="15" width="15"}}
     </button>
   </div>
 </div>

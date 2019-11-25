@@ -1,10 +1,20 @@
-<PowerSelect
-  @dropdownClass="p-2"
-  @triggerClass="p-2"
-  @options={{this.themes}}
-  @placeholder="Choose a theme"
-  @selected={{this.settings.userTheme}}
-  @onChange={{this.changeTheme}} as |theme|
->
-  {{capitalize theme}}
-</PowerSelect>
+<div class="font-light text-sm">
+  <div>
+    Startup: <Input @type="checkbox"/> Start Tinct on system startup
+  </div>
+
+  <div>
+    Sounds: <Input @type="checkbox"/> Play Sounds
+  </div>
+
+  <PowerSelect
+    @dropdownClass="max-w-md text-sm"
+    @triggerClass="max-w-md text-sm"
+    @options={{this.themes}}
+    @placeholder="Choose a theme"
+    @selected={{this.settings.userTheme}}
+    @onChange={{this.changeTheme}} as |theme|
+  >
+    {{capitalize theme}}
+  </PowerSelect>
+</div>

@@ -16,7 +16,8 @@ export default class ColorUtilsService extends Service {
     this.ipcRenderer.send('copyColorToClipboard', color.hex);
 
     new window.Notification(`${color.name} - ${color.hex}`, {
-      body: `${color.hex} copied to clipboard!`
+      body: `${color.hex} copied to clipboard!`,
+      silent: true
     });
   }
 }

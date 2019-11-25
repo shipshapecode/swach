@@ -7,7 +7,8 @@ const mb = menubar({
   dir: join(__dirname || resolve(dirname('')), '..', 'loading'),
   browserWindow: {
     height: 600,
-    width: 300,
+    resizable: false,
+    width: 320,
     webPreferences: {
       contextIsolation: false,
       preload: join(__dirname, 'preload.js'),

@@ -2,7 +2,7 @@
 
 const { BrowserWindow } = require('electron');
 
-module.exports = (dirname, route) => {
+module.exports = (dirname, route, title) => {
   let win;
 
   /**
@@ -30,7 +30,8 @@ module.exports = (dirname, route) => {
       height: 500,
       minWidth: 460,
       minHeight: 340,
-      fullscreenable: false
+      fullscreenable: false,
+      title
     };
 
     win = new BrowserWindow(options);
@@ -39,6 +40,10 @@ module.exports = (dirname, route) => {
 
     win.on('closed', () => {
       win = undefined;
+    });
+
+    win.on('page-title-updated', function(e) {
+      e.preventDefault()
     });
   };
 

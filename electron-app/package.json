@@ -60,7 +60,7 @@
     "electron-notification-state": "^1.0.4",
     "electron-protocol-serve": "^1.3.0",
     "electron-squirrel-startup": "^1.0.0",
-    "menubar": "^7.0.0",
+    "menubar": "^7.1.0",
     "robotjs": "octalmage/robotjs#7dc5ab459cfd1bfa12705e19669b5cea24c0e282"
   },
   "devDependencies": {

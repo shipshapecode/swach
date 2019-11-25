@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'tinct',
+    modulePrefix: 'swach',
     environment,
     rootURL: '/',
     locationType: 'auto',

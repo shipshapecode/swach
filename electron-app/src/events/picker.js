@@ -1,6 +1,6 @@
 'use strict';
 
-const { clipboard, ipcMain } = require('electron');
+const { ipcMain } = require('electron');
 const robot = require('robotjs');
 
 let mouseEvent, color;

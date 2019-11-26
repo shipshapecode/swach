@@ -1,14 +1,37 @@
 <div class="bg-white cursor-default mb-2 p-3 rounded shadow w-full">
-  <h6>{{@palette.name}}</h6>
-
-  <DraggableObjectTarget @action={{this.addColorToPalette}} @palette={{@palette}}>
+  <div class="flex items-center justify-between pb-2 w-full">
+    <h6>
+      {{#if this.isEditing}}
+        <Input
+          class="border border-2 rounded"
+          @type="text"
+          @value={{@palette.name}}
+          {{did-insert this.insertedNameInput}}
+          {{on "blur" (fn this.updatePaletteName @palette)}}
+        />
+      {{else}}
+        <button {{on "click" this.toggleIsEditing}}>
+          {{@palette.name}}
+        </button>
+      {{/if}}
+    </h6>
+  </div>
+  <DraggableObjectTarget
+    @action={{this.addColorToPalette}}
+    @palette={{@palette}}
+  >
     <div class="palette flex flex-grow h-8 w-full">
       {{#if @palette.colors.length}}
         {{#each @palette.colors as |color|}}
-          <div class="flex flex-grow" style={{html-safe (concat "background-color: " color.hex)}}></div>
+          <div
+            class="flex flex-grow"
+            style={{html-safe (concat "background-color: " color.hex)}}
+          ></div>
         {{/each}}
       {{else}}
-        <div class="bg-gray-200 flex h-8 items-center justify-center text-sm w-full">
+        <div
+          class="bg-gray-200 flex h-8 items-center justify-center text-sm w-full"
+        >
           Drag colors here
         </div>
       {{/if}}

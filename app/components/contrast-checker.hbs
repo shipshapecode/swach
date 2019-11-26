@@ -1,18 +1,70 @@
-{{yield}}
-
-<div class="color-pickers-container flex"
->
+<div class="w-screen">
   <div
-    class="background-color-picker"
-    {{did-insert this.initBackgroundColorPicker}}
+    class="w-full"
+    style={{html-safe
+      (concat
+        "background-color: "
+        this.backgroundColor
+        "; "
+        "color: "
+        this.foregroundColor
+      )
+    }}
   >
-
+    <div class="flex justify-center p-2 w-full">
+      <div class="flex items-center justify-between max-w-lg w-full">
+        <h1 class="font-bold text-5xl">
+          {{this.wcagString}}
+        </h1>
+        <div
+          class="h-10 p-2 rounded"
+          style={{html-safe
+            (concat
+              "background-color: "
+              this.foregroundColor
+              "; "
+              "color: "
+              this.backgroundColor
+            )
+          }}
+        >
+          {{this.wcagScore}}
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center w-full">
+      <div class="flex max-w-lg w-full">
+        <h2 class="font-bold text-2xl">
+          Check Contrast
+        </h2>
+      </div>
+    </div>
+    <div class="flex justify-center p-4 w-full">
+      <p class="max-w-lg">
+        Enter a
+        <span class="font-bold">
+          text color
+        </span>
+        and a
+        <span class="font-bold">
+          background color
+        </span>
+        in hexadecimal format or choose a color using the color picker.
+      </p>
+    </div>
   </div>
-
-  <div
-    class="foreground-color-picker"
-    {{did-insert this.initForegroundColorPicker}}
-  >
-
+  <div class="color-pickers-container flex justify-center p-4">
+    <div class="mr-4">
+      <div
+        class="background-color-picker"
+        {{did-insert this.initBackgroundColorPicker}}
+      ></div>
+    </div>
+    <div class="ml-4">
+      <div
+        class="foreground-color-picker ml-1"
+        {{did-insert this.initForegroundColorPicker}}
+      ></div>
+    </div>
   </div>
 </div>

@@ -22,12 +22,21 @@
   >
     <div class="palette flex flex-grow h-8 w-full">
       {{#if @palette.colors.length}}
-        {{#each @palette.colors as |color|}}
-          <div
-            class="flex flex-grow"
-            style={{html-safe (concat "background-color: " color.hex)}}
-          ></div>
-        {{/each}}
+        {{#sortable-group
+          classNames="flex flex-grow h-8 w-full"
+          direction="x"
+          model=@palette.colors
+          onChange=(action "updateColorOrder") as |group|
+        }}
+          {{#each group.model as |color|}}
+            {{#group.item classNames="flex flex-grow" model=color}}
+              <div
+                class="flex flex-grow"
+                style={{html-safe (concat "background-color: " color.hex)}}
+              ></div>
+            {{/group.item}}
+          {{/each}}
+        {{/sortable-group}}
       {{else}}
         <div
           class="bg-gray-200 flex h-8 items-center justify-center text-sm w-full"

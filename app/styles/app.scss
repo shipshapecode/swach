@@ -90,3 +90,11 @@ button:hover svg.icon * {
   right: -8px;
   top: calc(50% - 8px);
 }
+
+.sortable-item {
+  transition: all .125s;
+  
+  &.is-dragging {
+    transition-duration: 0s;
+  }
+}

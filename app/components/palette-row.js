@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { action, set } from '@ember/object';
+import { A } from '@ember/array';
 
 export default class PaletteRowComponent extends Component {
   isEditing = false;
@@ -19,6 +20,13 @@ export default class PaletteRowComponent extends Component {
   @action
   toggleIsEditing() {
     set(this, 'isEditing', !this.isEditing);
+  }
+
+  @action
+  updateColorOrder(colors) {
+    const palette = this.args.palette;
+    set(palette, 'colors', A(colors));
+    palette.save();
   }
 
   @action

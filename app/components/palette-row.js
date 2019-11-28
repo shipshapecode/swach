@@ -1,8 +1,11 @@
 import Component from '@glimmer/component';
 import { action, set } from '@ember/object';
+import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 
 export default class PaletteRowComponent extends Component {
+  @service colorUtils;
+  
   isEditing = false;
 
   @action

@@ -12,12 +12,18 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  copyColorToClipboard(color) {
-    this.ipcRenderer.send('copyColorToClipboard', color.hex);
+  copyColorToClipboard(color, event) {
+    const isDropping = event.target &&
+      event.target.parentElement &&
+      event.target.parentElement.classList.contains('is-dropping');
 
-    new window.Notification(`${color.name} - ${color.hex}`, {
-      body: `${color.hex} copied to clipboard!`,
-      silent: true
-    });
+    if (!isDropping) {
+      this.ipcRenderer.send('copyColorToClipboard', color.hex);
+
+      new window.Notification(`${color.name} - ${color.hex}`, {
+        body: `${color.hex} copied to clipboard!`,
+        silent: true
+      });
+    }
   }
 }

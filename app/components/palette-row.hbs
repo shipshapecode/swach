@@ -33,6 +33,7 @@
               <div
                 class="flex flex-grow"
                 style={{html-safe (concat "background-color: " color.hex)}}
+                {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
               ></div>
             {{/group.item}}
           {{/each}}

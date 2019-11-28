@@ -13,7 +13,8 @@ export default class ColorUtilsService extends Service {
 
   @action
   copyColorToClipboard(color, event) {
-    const isDropping = event.target &&
+    const isDropping = event &&
+      event.target &&
       event.target.parentElement &&
       event.target.parentElement.classList.contains('is-dropping');
 

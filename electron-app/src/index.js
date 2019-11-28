@@ -25,32 +25,17 @@ eventEmitter = new eventEmitter();
 const browsers = require('./browsers')(__dirname);
 const { contrast, picker, settings } = browsers;
 
+const showPreferences = () => settings.init();
+
 ipcMain.on('copyColorToClipboard', (channel, color) => {
   clipboard.writeText(color);
 });
 ipcMain.on('exitApp', () => mb.app.quit());
 ipcMain.on('launchPicker', () => picker.init());
 ipcMain.on('showContrastChecker', () => contrast.init());
-ipcMain.on('showPreferences', () => settings.init());
+ipcMain.on('showPreferences', showPreferences);
 
 require('./events')(mb, browsers, eventEmitter);
-
-/**
- * [setMenu - set new app menu]
- * @return {void}
- */
-let setMenu = () => {
-  let template = [
-    {
-      label: 'Tools',
-      submenu: [
-        { label: 'Pick Color', accelerator: 'CmdOrCtrl+P', click: () => picker.init() }
-      ]
-    }
-  ];
-
-  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
-};
 
 // Registering a protocol & schema to serve our Ember application
 if (typeof protocol.registerSchemesAsPrivileged === 'function') {
@@ -87,8 +72,19 @@ mb.app.on('window-all-closed', () => {
   }
 });
 
+mb.on('after-create-window', function () {
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Preferences', click() { showPreferences(); } },
+    { type: 'separator' },
+    { label: 'Quit', click() { mb.app.quit(); } }
+  ]);
+
+  mb.tray.on('right-click', () => {
+    mb.tray.popUpContextMenu(contextMenu);
+  })
+});
+
 mb.on('ready', () => {
-  setMenu();
   // If you want to open up dev tools programmatically, call
   // mb.window.openDevTools();
 

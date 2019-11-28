@@ -32,7 +32,7 @@ export default class ContrastChecker extends Component {
       components: {
         // Main components
         preview: false,
-        opacity: true,
+        opacity: false,
         hue: true,
 
         // Input / output Options
@@ -74,7 +74,7 @@ export default class ContrastChecker extends Component {
       components: {
         // Main components
         preview: false,
-        opacity: true,
+        opacity: false,
         hue: true,
 
         // Input / output Options

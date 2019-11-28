@@ -31,6 +31,7 @@ module.exports = (dirname, route, title) => {
       minWidth: 460,
       minHeight: 340,
       fullscreenable: false,
+      titleBarStyle: 'hidden', 
       title
     };
 

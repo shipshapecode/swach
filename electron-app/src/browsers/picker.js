@@ -20,11 +20,11 @@ module.exports = (dirname) => {
       autoHideMenuBar: true,
       width: 100,
       height: 100,
+      hasShadow: false,
       transparent: true,
       alwaysOnTop: true,
       resizable: false,
       focusable: true,
-      hasShadow: false,
       webPreferences: {
         contextIsolation: false,
         nodeIntegration: true

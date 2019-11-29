@@ -27,6 +27,11 @@ export default class PaletteRowComponent extends Component.extend(
   }
 
   @action
+  deletePalette(palette) {
+    palette.destroyRecord();
+  }
+
+  @action
   insertedNameInput(element) {
     element.focus();
   }

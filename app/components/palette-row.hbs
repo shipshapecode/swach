@@ -10,9 +10,14 @@
           {{on "blur" (fn this.updatePaletteName @palette)}}
         />
       {{else}}
-        <button>
+        <LinkTo
+          class="flex flex-grow items-center mb-1 w-full"
+          @query={{hash paletteId=@palette.id}}
+          @route="color-manager.colors"
+        >
           {{@palette.name}}
-        </button>
+          {{svg-jar "arrow-right" class="icon ml-2" height="15" width="15"}}
+        </LinkTo>
       {{/if}}
     </h6>
   </div>

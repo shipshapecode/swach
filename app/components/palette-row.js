@@ -2,16 +2,18 @@ import Component from '@ember/component';
 import { action, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
-import ContextMenuMixin from "ember-context-menu";
+import ContextMenuMixin from 'ember-context-menu';
 
-export default class PaletteRowComponent extends Component.extend(ContextMenuMixin) {
+export default class PaletteRowComponent extends Component.extend(
+  ContextMenuMixin
+) {
   @service colorUtils;
-  
+
   isEditing = false;
-  
+
   contextItems = [
     {
-      label: "Rename Palette",
+      label: 'Rename Palette',
       action: this.toggleIsEditing
     }
   ];

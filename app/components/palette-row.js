@@ -13,6 +13,7 @@ export default class PaletteRowComponent extends Component.extend(
 
   contextItems = [
     {
+      icon: 'font',
       label: 'Rename Palette',
       action: this.toggleIsEditing
     }

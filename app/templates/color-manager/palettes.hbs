@@ -1,11 +1,11 @@
 <div class="bg-white flex flex-wrap items-center p-3 rounded shadow w-full">
   <LinkTo
-    class="flex flex-grow items-center mb-1 w-full"
+    class="flex flex-grow items-center mb-1 text-sm w-full"
     @query={{hash paletteId=null}}
     @route="color-manager.colors"
   >
     Color History
-    {{svg-jar "arrow-right" class="icon ml-2" height="15" width="15"}}
+    {{svg-jar "arrow-right" class="icon ml-1" height="12" width="12"}}
   </LinkTo>
   <div class="flex flex-wrap w-full">
     {{#each this.last15Colors as |color|}}
@@ -19,10 +19,10 @@
   </div>
 </div>
 <button
-  class="flex mt-2 p-2 hover:text-alt-hover"
+  class="flex items-center mt-2 p-2 text-sm hover:text-alt-hover"
   {{on "click" this.createNewPalette}}
 >
-  {{svg-jar "plus" class="icon mr-2" height="20" width="20"}}
+  {{svg-jar "plus" class="icon mr-1" height="12" width="12"}}
   New Palette
 </button>
 <PalettesList @palettes={{this.model.palettes}} />

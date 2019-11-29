@@ -1,12 +1,20 @@
-import Component from '@glimmer/component';
+import Component from '@ember/component';
 import { action, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
+import ContextMenuMixin from "ember-context-menu";
 
-export default class PaletteRowComponent extends Component {
+export default class PaletteRowComponent extends Component.extend(ContextMenuMixin) {
   @service colorUtils;
   
   isEditing = false;
+  
+  contextItems = [
+    {
+      label: "Rename Palette",
+      action: this.toggleIsEditing
+    }
+  ];
 
   @action
   addColorToPalette(color, ops) {
@@ -27,7 +35,7 @@ export default class PaletteRowComponent extends Component {
 
   @action
   updateColorOrder(colors) {
-    const palette = this.args.palette;
+    const palette = this.palette;
     set(palette, 'colors', A(colors));
     palette.save();
   }

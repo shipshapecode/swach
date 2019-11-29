@@ -1,6 +1,6 @@
-<div class="bg-white cursor-default mb-2 p-3 rounded shadow w-full">
+<div class="bg-white cursor-default mb-2 p-3 rounded-lg shadow w-full">
   <div class="flex items-center justify-between pb-2 w-full">
-    <h6>
+    <h6 class="text-sm">
       {{#if this.isEditing}}
         <Input
           class="border border-2 rounded"
@@ -10,41 +10,40 @@
           {{on "blur" (fn this.updatePaletteName @palette)}}
         />
       {{else}}
-        <button {{on "click" this.toggleIsEditing}}>
+        <button>
           {{@palette.name}}
         </button>
       {{/if}}
     </h6>
   </div>
   <DraggableObjectTarget
+    @classNames="palette flex flex-grow h-8 w-full"
     @action={{this.addColorToPalette}}
     @palette={{@palette}}
   >
-    <div class="palette flex flex-grow h-8 w-full">
-      {{#if @palette.colors.length}}
-        {{#sortable-group
-          classNames="flex flex-grow h-8 w-full"
-          direction="x"
-          model=@palette.colors
-          onChange=(action "updateColorOrder") as |group|
-        }}
-          {{#each group.model as |color|}}
-            {{#group.item classNames="flex flex-grow" model=color}}
-              <div
-                class="flex flex-grow"
-                style={{html-safe (concat "background-color: " color.hex)}}
-                {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
-              ></div>
-            {{/group.item}}
-          {{/each}}
-        {{/sortable-group}}
-      {{else}}
-        <div
-          class="bg-gray-200 flex h-8 items-center justify-center text-sm w-full"
-        >
-          Drag colors here
-        </div>
-      {{/if}}
-    </div>
+    {{#if @palette.colors.length}}
+      {{#sortable-group
+        classNames="flex flex-grow"
+        direction="x"
+        model=@palette.colors
+        onChange=(action "updateColorOrder") as |group|
+      }}
+        {{#each group.model as |color|}}
+          {{#group.item classNames="flex flex-grow" model=color}}
+            <div
+              class="flex flex-grow"
+              style={{html-safe (concat "background-color: " color.hex)}}
+              {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
+            ></div>
+          {{/group.item}}
+        {{/each}}
+      {{/sortable-group}}
+    {{else}}
+      <div
+        class="bg-gray-200 flex h-8 items-center justify-center text-sm w-full"
+      >
+        Drag colors here
+      </div>
+    {{/if}}
   </DraggableObjectTarget>
 </div>

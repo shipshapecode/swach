@@ -1,7 +1,8 @@
-<LinkTo class="flex flex-grow items-center mb-1 pb-2 pt-2 w-full" @route="color-manager.palettes">
-  {{svg-jar "arrow-left" class="icon mr-2" height="15" width="15"}} Palettes
+<LinkTo
+  class="flex flex-grow items-center mb-1 pb-2 pt-2 w-full"
+  @route="color-manager.palettes"
+>
+  {{svg-jar "arrow-left" class="icon mr-2" height="15" width="15"}}
+  Palettes
 </LinkTo>
-
-<ColorsList
-  @colors={{this.model}}
-/>
+<ColorsList @colors={{this.model}} />

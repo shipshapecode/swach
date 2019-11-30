@@ -1,5 +1,6 @@
 <div
   class="bg-white cursor-default flex mb-2 p-3 rounded-lg shadow w-full"
+  data-test-color={{@color.name}}
   {{on "click" (fn this.colorUtils.copyColorToClipboard @color)}}
 >
   <div
@@ -8,10 +9,10 @@
   ></div>
   <div class="flex flex-grow justify-between">
     <div class="flex flex-col justify-center">
-      <p class="font-bold pl-2 text-sm">
+      <p class="font-bold pl-2 text-sm" data-test-color-name>
         {{@color.name}}
       </p>
-      <p class="font-hairline pl-2 text-xs">
+      <p class="font-hairline pl-2 text-xs" data-test-color-hex>
         {{@color.hex}}
       </p>
     </div>

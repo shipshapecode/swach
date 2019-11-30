@@ -2,7 +2,9 @@
   <div class="flex items-center justify-between pb-2 w-full">
     <h6 class="text-sm">
       {{#if this.isEditing}}
-        <Input class="border border-2 rounded" @type="text"
+        <Input
+          class="border border-2 rounded"
+          @type="text"
           @value={{@palette.name}}
           {{did-insert this.insertedNameInput}}
           {{on "blur" (fn this.updatePaletteName @palette)}}

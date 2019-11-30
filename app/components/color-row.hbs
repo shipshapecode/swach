@@ -1,23 +1,20 @@
 <div
-  {{on "click" (fn this.colorUtils.copyColorToClipboard @color)}}
   class="bg-white cursor-default flex mb-2 p-3 rounded-lg shadow w-full"
+  {{on "click" (fn this.colorUtils.copyColorToClipboard @color)}}
 >
   <div
     class="inline-block m-1 h-10 rounded w-10"
     style={{html-safe (concat "background-color: " @color.hex)}}
   ></div>
-
   <div class="flex flex-grow justify-between">
     <div class="flex flex-col justify-center">
       <p class="font-bold pl-2 text-sm">
         {{@color.name}}
       </p>
-
       <p class="font-hairline pl-2 text-xs">
         {{@color.hex}}
       </p>
     </div>
-
     {{#if @deleteColor}}
       <button {{on "click" (stop-propagation (fn @deleteColor @color))}}>
         {{svg-jar "trash" class="icon" height="12" width="12"}}

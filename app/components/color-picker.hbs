@@ -1,9 +1,6 @@
-<button
-  id="toggle-picker"
-  {{on "click" this.toggleIsShown}}>
+<button id="toggle-picker" {{on "click" this.toggleIsShown}}>
   {{svg-jar "edit-color" height="15" width="15"}}
 </button>
-
 <EmberPopover
   @arrowClass="custom-arrow"
   @event="none"
@@ -16,16 +13,11 @@
     <button {{on "click" this.toggleIsShown}}>
       {{svg-jar "x" class="icon mb-2" height="20" width="20"}}
     </button>
-
     <button {{on "click" this.addColorAndClose}}>
       {{svg-jar "check" class="icon mb-2" height="20" width="20"}}
     </button>
   </div>
-
-  <ColorRow
-    @color={{this.selectedColor}}
-  />
-
+  <ColorRow @color={{this.selectedColor}} />
   <div
     {{did-insert this.initColorPicker}}
     {{will-destroy this.destroyColorPickr}}

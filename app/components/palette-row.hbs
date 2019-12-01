@@ -31,15 +31,17 @@
   >
     {{#if @palette.colors.length}}
       {{#sortable-group
-        classNames="flex flex-grow"
+        classNames="palette-color-squares flex flex-grow"
         direction="x"
         model=@palette.colors
         onChange=(action "updateColorOrder") as |group|
       }}
-        {{#each group.model as |color|}}
+        {{#each group.model as |color index|}}
           {{#group.item classNames="flex flex-grow" model=color}}
             <div
-              class="flex flex-grow"
+              class="flex flex-grow
+                {{if (eq index 0) "first"}}
+                {{if (eq index (sub @palette.colors.length 1)) "last"}}"
               style={{html-safe (concat "background-color: " color.hex)}}
               {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
             ></div>

@@ -5170,7 +5170,7 @@ ember-cli-htmlbars@^3.0.0, ember-cli-htmlbars@^3.0.1, ember-cli-htmlbars@^3.1.0:
     json-stable-stringify "^1.0.1"
     strip-bom "^3.0.0"
 
-ember-cli-htmlbars@^4.0.8:
+ember-cli-htmlbars@^4.0.0, ember-cli-htmlbars@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-4.0.8.tgz#e87b62e7040bd478a2d007053bdb1644dd1685b0"
   integrity sha512-B6fzlqmv2E2dl8P6UIYu3bY8nZU2kKfl1VkEIgxFAINfsu9fP65kX/bKzHqGhHF8nAtWBoXZWw6tomHKfUT/Jg==
@@ -5667,6 +5667,15 @@ ember-local-storage@^1.7.1:
     ember-cli-string-utils "^1.1.0"
     ember-cli-version-checker "^2.1.0"
     ember-copy "^1.0.0"
+
+ember-math-helpers@^2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/ember-math-helpers/-/ember-math-helpers-2.12.0.tgz#21b778ffe1ad484c8858d61123002413172ea83d"
+  integrity sha512-oy40rbDeuK2Dq48TNRicgGTtfZxvObKrpzR2Q019x4vLwGQPdRYda5KjjQMZltGyxzR0AElvUxrO8e31TFULpg==
+  dependencies:
+    broccoli-funnel "^2.0.2"
+    ember-cli-babel "^7.11.1"
+    ember-cli-htmlbars "^4.0.0"
 
 ember-maybe-import-regenerator@^0.1.5, ember-maybe-import-regenerator@^0.1.6:
   version "0.1.6"

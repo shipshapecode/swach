@@ -92,6 +92,18 @@ button:hover svg.icon * {
   top: calc(50% - 8px);
 }
 
+.palette-color-squares {
+  .first {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+
+  .last {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+}
+
 .sortable-item {
   transition: all .125s;
   

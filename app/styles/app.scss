@@ -2,6 +2,7 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "context-menu.scss";
 
 [data-theme^="light"],
 [data-theme] [data-theme^="light"] {

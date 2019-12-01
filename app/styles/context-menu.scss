@@ -1,0 +1,11 @@
+.context-menu {
+  @apply bg-white border-0 rounded text-sm;
+}
+
+.context-menu__item {
+  @apply pl-4 pr-4;
+
+  &:hover {
+    @apply bg-blue-500 text-white;
+  }
+}

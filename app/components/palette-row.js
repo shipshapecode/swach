@@ -16,6 +16,11 @@ export default class PaletteRowComponent extends Component.extend(
       icon: 'font',
       label: 'Rename Palette',
       action: this.toggleIsEditing
+    },
+    {
+      icon: 'trash',
+      label: 'Delete Palette',
+      action: this.deletePalette
     }
   ];
 
@@ -27,8 +32,8 @@ export default class PaletteRowComponent extends Component.extend(
   }
 
   @action
-  deletePalette(palette) {
-    palette.destroyRecord();
+  deletePalette() {
+    this.palette.destroyRecord();
   }
 
   @action

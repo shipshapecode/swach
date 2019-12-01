@@ -12,6 +12,12 @@ export default class PaletteModel extends Model {
       return false;
     }
   })
+  isColorHistory;
+  @attr('boolean', {
+    defaultValue() {
+      return false;
+    }
+  })
   isFavorite;
   @attr('string') name;
 

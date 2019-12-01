@@ -1,13 +1,13 @@
 import Route from '@ember/routing/route';
 
 export default class ColorManagerPalettesRoute extends Route {
-  model(){
-    const colors = this.store.findAll('color');
-    const palettes = this.store.findAll('palette');
+  async model() {
+    const palettes = await this.store.findAll('palette');
+    const colorHistory = palettes.findBy('isColorHistory', true);
 
     return {
-      colors,
-      palettes
-    }
+      colorHistory,
+      palettes: palettes.filterBy('isColorHistory', false)
+    };
   }
 }

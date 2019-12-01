@@ -13,12 +13,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Use node 10.x
+      - name: Use node 12.x
         uses: actions/setup-node@v1
         with:
-          node-version: '10.x'
+          node-version: '12.x'
       - name: Yarn install
-        run: yarn run install-deps
+        run: yarn install-deps
+      - name: Lint JS
+        run: yarn lint:js
+      - name: Lint HBS
+        run: yarn lint:hbs    
+      - name: Test
+        run: yarn test
       - name: Make
         if: startsWith(github.ref, 'refs/tags/')
         run: yarn make

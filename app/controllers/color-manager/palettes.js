@@ -5,9 +5,9 @@ import { inject as service } from '@ember/service';
 export default class ColorManagerPalettesController extends Controller {
   @service store;
 
-  @computed('model.colors.[]')
+  @computed('model.colorHistory.colors.[]')
   get last15Colors() {
-    const colors = this.model.colors || [];
+    const colors = this.model.colorHistory.colors || [];
     return colors
       .sortBy('createdAt')
       .reverse()

@@ -5,10 +5,10 @@ import move from 'ember-animated/motions/move';
 
 export default class ColorsList extends Component {
   get sortedColors() {
-    return this.args.colors.sortBy('createdAt').reverse();
+    return this.args.palette.colors.sortBy('createdAt').reverse();
   }
 
-  * transition({ keptSprites, insertedSprites, removedSprites }) {
+  *transition({ keptSprites, insertedSprites, removedSprites }) {
     for (let sprite of insertedSprites) {
       sprite.startTranslatedBy(0, -sprite.finalBounds.height / 2);
       move(sprite);
@@ -25,6 +25,7 @@ export default class ColorsList extends Component {
 
   @action
   deleteColor(color) {
-    color.destroyRecord();
+    this.args.palette.colors.removeObject(color);
+    this.args.palette.save();
   }
 }

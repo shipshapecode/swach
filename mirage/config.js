@@ -25,5 +25,7 @@ export default function() {
   */
 
   this.get('/colors');
+  this.del('/colors/:id');
   this.get('/palettes');
+  this.del('/palettes/:id');
 }

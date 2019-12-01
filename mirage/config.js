@@ -25,7 +25,10 @@ export default function() {
   */
 
   this.get('/colors');
+  this.get('/colors/:id');
   this.del('/colors/:id');
   this.get('/palettes');
+  this.get('/palettes/:id');
+  this.patch('/palettes/:id');
   this.del('/palettes/:id');
 }

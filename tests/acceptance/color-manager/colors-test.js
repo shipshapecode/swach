@@ -3,15 +3,20 @@ import { click, visit, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { animationsSettled } from 'ember-animated/test-support';
+import sharedScenario from '../../../mirage/scenarios/shared';
 
 module('Acceptance | color manager/colors', function(hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
 
-  test('visiting /colors', async function(assert) {
-    await visit('/colors');
+  hooks.beforeEach(function() {
+    sharedScenario(this.server);
+  });
 
-    assert.equal(currentURL(), '/colors');
+  test('visiting /colors', async function(assert) {
+    await visit('/colors?paletteId=color-history-123');
+
+    assert.equal(currentURL(), '/colors?paletteId=color-history-123');
 
     assert.dom('[data-test-color]').exists({ count: 4 });
 
@@ -25,7 +30,7 @@ module('Acceptance | color manager/colors', function(hooks) {
   });
 
   test('deleting colors', async function(assert) {
-    await visit('/colors');
+    await visit('/colors?paletteId=color-history-123');
 
     assert.dom('[data-test-color]').exists({ count: 4 });
 

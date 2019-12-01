@@ -7,7 +7,7 @@ export default class ColorManagerColorsRoute extends Route {
     }
   };
 
-  model({ paletteId }) {
+  async model({ paletteId }) {
     if (paletteId) {
       return this.store.findRecord('palette', paletteId);
     }

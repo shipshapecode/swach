@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import { action, set } from '@ember/object';
 import { inject as service } from '@ember/service';
-import { A } from '@ember/array';
 import ContextMenuMixin from 'ember-context-menu';
 
 export default class PaletteRowComponent extends Component.extend(
@@ -47,10 +46,15 @@ export default class PaletteRowComponent extends Component.extend(
   }
 
   @action
-  updateColorOrder(colors) {
-    const palette = this.palette;
-    set(palette, 'colors', A(colors));
-    palette.save();
+  updateColorOrder({ sourceList, sourceIndex, targetList, targetIndex }) {
+    if (sourceList === targetList && sourceIndex === targetIndex) return;
+
+    const item = sourceList.objectAt(sourceIndex);
+
+    sourceList.removeAt(sourceIndex);
+    targetList.insertAt(targetIndex, item);
+    sourceList.invoke('save');
+    targetList.invoke('save');
   }
 
   @action

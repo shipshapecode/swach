@@ -30,24 +30,22 @@
     @palette={{@palette}}
   >
     {{#if @palette.colors.length}}
-      {{#sortable-group
+      {{#drag-sort-list
         classNames="palette-color-squares flex flex-grow"
-        direction="x"
-        model=@palette.colors
-        onChange=(action "updateColorOrder") as |group|
+        childClass="flex flex-grow"
+        isHorizontal=true
+        items=@palette.colors
+        dragEndAction=(action "updateColorOrder") as |color index|
       }}
-        {{#each group.model as |color index|}}
-          {{#group.item classNames="flex flex-grow" model=color}}
-            <div
-              class="flex flex-grow
-                {{if (eq index 0) "first"}}
-                {{if (eq index (sub @palette.colors.length 1)) "last"}}"
-              style={{html-safe (concat "background-color: " color.hex)}}
-              {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
-            ></div>
-          {{/group.item}}
-        {{/each}}
-      {{/sortable-group}}
+        <div
+          class="flex flex-grow
+            {{if (eq index 0) "first"}}
+
+            {{if (eq index (sub @palette.colors.length 1)) "last"}}"
+          style={{html-safe (concat "background-color: " color.hex)}}
+          {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
+        ></div>
+      {{/drag-sort-list}}
     {{else}}
       <div
         class="bg-gray-200 flex h-8 items-center justify-center text-sm w-full"

@@ -17,7 +17,7 @@ export default class ColorManagerPalettesController extends Controller {
   @computed('model.palettes.[]')
   get palettes() {
     const palettes = this.model.palettes || [];
-    return palettes.sortBy('createdAt').reverse();
+    return palettes.filterBy('isColorHistory', false).sortBy('createdAt').reverse();
   }
 
   @action

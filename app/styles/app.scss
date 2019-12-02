@@ -1,21 +1,21 @@
-@import "fonts.scss";
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-@import "context-menu.scss";
+@import 'fonts.scss';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import 'context-menu.scss';
 
-[data-theme^="light"],
-[data-theme] [data-theme^="light"] {
+[data-theme^='light'],
+[data-theme] [data-theme^='light'] {
   --alt-color: #677087;
-  --alt-hover-color: #1F2126;
+  --alt-hover-color: #1f2126;
   --main-color: #f1f1f1;
   --menu-color: #ffffff;
 }
 
-[data-theme^="dark"],
-[data-theme] [data-theme^="dark"] {
+[data-theme^='dark'],
+[data-theme] [data-theme^='dark'] {
   --alt-color: #dfdfe0;
-  --alt-hover-color: #C7C7C7;
+  --alt-hover-color: #c7c7c7;
   --main-color: #292c32;
   --menu-color: #383a40;
 }
@@ -54,13 +54,15 @@ button {
 
 svg {
   &.icon {
-    g, * {
+    g,
+    * {
       stroke: var(--alt-color) !important;
       transition: stroke 0.25s;
     }
 
     &:hover {
-      g, * {
+      g,
+      * {
         stroke: var(--alt-hover-color) !important;
       }
     }
@@ -80,13 +82,13 @@ button:hover svg.icon * {
   border: 8px solid transparent;
 }
 
-.ember-popover[x-placement^="bottom"] .custom-arrow {
+.ember-popover[x-placement^='bottom'] .custom-arrow {
   border-bottom-color: white;
   top: -8px;
   left: calc(50% - 8px);
 }
 
-.ember-popover[x-placement^="left"] .custom-arrow {
+.ember-popover[x-placement^='left'] .custom-arrow {
   border-left-color: white;
   right: -8px;
   top: calc(50% - 8px);
@@ -105,9 +107,36 @@ button:hover svg.icon * {
 }
 
 .sortable-item {
-  transition: all .125s;
-  
+  transition: all 0.125s;
+
   &.is-dragging {
     transition-duration: 0s;
   }
+}
+
+.dragSortList.-isExpanded.-isDraggingOver:before,
+.dragSortItem.-placeholderBefore:before,
+.dragSortItem.-placeholderAfter:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  width: 5px;
+}
+
+.dragSortItem.-placeholderBefore:before {
+  border-left: 5px solid var(--alt-color);
+}
+
+.dragSortItem.-placeholderAfter:before {
+  border-right: 5px solid var(--alt-color);
+}
+
+.dragSortList.-horizontal .dragSortItem.-placeholderBefore,
+.dragSortList.-horizontal.-rtl .dragSortItem.-placeholderAfter {
+  padding: 0 0 0 5px;
+}
+
+.dragSortList.-horizontal .dragSortItem.-placeholderAfter,
+.dragSortList.-horizontal.-rtl .dragSortItem.-placeholderBefore {
+  padding: 0 5px 0 0;
 }

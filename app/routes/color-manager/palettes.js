@@ -7,7 +7,7 @@ export default class ColorManagerPalettesRoute extends Route {
 
     return {
       colorHistory,
-      palettes: palettes.filterBy('isColorHistory', false)
+      palettes
     };
   }
 }

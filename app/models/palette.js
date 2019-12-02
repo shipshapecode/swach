@@ -21,5 +21,5 @@ export default class PaletteModel extends Model {
   isFavorite;
   @attr('string') name;
 
-  @hasMany('color', { inverse: null }) colors;
+  @hasMany('color', { inverse: 'palettes' }) colors;
 }

@@ -2,6 +2,7 @@ const { clipboard, protocol, Menu, ipcMain } = require('electron');
 const { dirname, join, resolve } = require('path');
 const protocolServe = require('electron-protocol-serve');
 const { menubar } = require('menubar');
+const { getColorHexRGB } = require('electron-color-picker');
 
 const mb = menubar({
   index: false,
@@ -15,15 +16,16 @@ const mb = menubar({
       nodeIntegration: true
     }
   },
-  icon: join(__dirname || resolve(dirname('')), '..', 'resources/menubar-icons/icon.png'),
+  icon: join(
+    __dirname || resolve(dirname('')),
+    '..',
+    'resources/menubar-icons/icon.png'
+  ),
   preloadWindow: true
 });
 
-let eventEmitter = require('events');
-eventEmitter = new eventEmitter();
-
 const browsers = require('./browsers')(__dirname);
-const { contrast, picker, settings } = browsers;
+const { contrast, settings } = browsers;
 
 const showPreferences = () => settings.init();
 
@@ -31,22 +33,32 @@ ipcMain.on('copyColorToClipboard', (channel, color) => {
   clipboard.writeText(color);
 });
 ipcMain.on('exitApp', () => mb.app.quit());
-ipcMain.on('launchPicker', () => picker.init());
+ipcMain.on('launchPicker', async () => {
+  getColorHexRGB()
+    .then((color) => {
+      mb.showWindow();
+      mb.window.webContents.send('changeColor', color);
+    })
+    .catch(error => {
+      console.warn(`[ERROR] getColor`, error);
+      return '';
+    });
+});
 ipcMain.on('showContrastChecker', () => contrast.init());
 ipcMain.on('showPreferences', showPreferences);
-
-require('./events')(mb, browsers, eventEmitter);
 
 // Registering a protocol & schema to serve our Ember application
 if (typeof protocol.registerSchemesAsPrivileged === 'function') {
   // Available in Electron >= 5
-  protocol.registerSchemesAsPrivileged([{
-    scheme: 'serve',
-    privileges: {
-      secure: true,
-      standard: true
+  protocol.registerSchemesAsPrivileged([
+    {
+      scheme: 'serve',
+      privileges: {
+        secure: true,
+        standard: true
+      }
     }
-  }]);
+  ]);
 } else {
   // For compatibility with Electron < 5
   protocol.registerStandardSchemes(['serve'], { secure: true });
@@ -72,16 +84,26 @@ mb.app.on('window-all-closed', () => {
   }
 });
 
-mb.on('after-create-window', function () {
+mb.on('after-create-window', function() {
   const contextMenu = Menu.buildFromTemplate([
-    { label: 'Preferences', click() { showPreferences(); } },
+    {
+      label: 'Preferences',
+      click() {
+        showPreferences();
+      }
+    },
     { type: 'separator' },
-    { label: 'Quit', click() { mb.app.quit(); } }
+    {
+      label: 'Quit',
+      click() {
+        mb.app.quit();
+      }
+    }
   ]);
 
   mb.tray.on('right-click', () => {
     mb.tray.popUpContextMenu(contextMenu);
-  })
+  });
 });
 
 mb.on('ready', () => {
@@ -100,12 +122,18 @@ mb.on('ready', () => {
   });
 
   mb.window.webContents.on('crashed', () => {
-    console.log('Your Ember app (or other code) in the main window has crashed.');
-    console.log('This is a serious issue that needs to be handled and/or debugged.');
+    console.log(
+      'Your Ember app (or other code) in the main window has crashed.'
+    );
+    console.log(
+      'This is a serious issue that needs to be handled and/or debugged.'
+    );
   });
 
   mb.window.on('unresponsive', () => {
-    console.log('Your Ember app (or other code) has made the window unresponsive.');
+    console.log(
+      'Your Ember app (or other code) has made the window unresponsive.'
+    );
   });
 
   mb.window.on('responsive', () => {
@@ -128,8 +156,10 @@ mb.on('ready', () => {
 // The correct use of 'uncaughtException' is to perform synchronous cleanup of allocated
 // resources (e.g. file descriptors, handles, etc) before shutting down the process. It is
 // not safe to resume normal operation after 'uncaughtException'.
-process.on('uncaughtException', (err) => {
+process.on('uncaughtException', err => {
   console.log('An exception in the main thread was not handled.');
-  console.log('This is a serious issue that needs to be handled and/or debugged.');
+  console.log(
+    'This is a serious issue that needs to be handled and/or debugged.'
+  );
   console.log(`Exception: ${err}`);
 });

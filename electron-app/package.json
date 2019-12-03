@@ -19,49 +19,14 @@
   },
   "license": "MIT",
   "config": {
-    "forge": {
-      "packagerConfig": {
-        "darwinDarkModeSupport": "true",
-        "icon": "electron-app/resources/icon.png",
-        "name": "Swach",
-        "packageManager": "yarn"
-      },
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "Swach"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-dmg",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
+    "forge": "config.forge.js"
   },
   "dependencies": {
+    "electron-color-picker": "^0.1.3",
     "electron-notification-state": "^1.0.4",
     "electron-protocol-serve": "^1.3.0",
     "electron-squirrel-startup": "^1.0.0",
-    "menubar": "^7.1.0",
-    "robotjs": "octalmage/robotjs#7dc5ab459cfd1bfa12705e19669b5cea24c0e282"
+    "menubar": "^7.1.0"
   },
   "devDependencies": {
     "@electron-forge/cli": "6.0.0-beta.45",
@@ -72,9 +37,5 @@
     "@electron-forge/maker-zip": "6.0.0-beta.45",
     "devtron": "^1.4.0",
     "electron": "^7.1.2"
-  },
-  "optionalDependencies": {
-    "osx-mouse": "rwwagner90/osx-mouse#53ddeb867d2366b9fc77b38a5f52ccf15c69afbb",
-    "win-mouse": "^1.2.0"
   }
 }

@@ -7,6 +7,7 @@ export default class PaletteRowComponent extends Component.extend(
   ContextMenuMixin
 ) {
   @service colorUtils;
+  @service dragSort;
 
   isEditing = false;
 
@@ -22,6 +23,17 @@ export default class PaletteRowComponent extends Component.extend(
       action: this.deletePalette
     }
   ];
+
+  init() {
+    super.init();
+
+    this.dragSort.on('start', ({ draggedItem }) => {
+      document.documentElement.style.setProperty(
+        '--dragged-swatch-color',
+        draggedItem.hex
+      );
+    });
+  }
 
   @action
   addColorToPalette(color, ops) {
@@ -46,15 +58,24 @@ export default class PaletteRowComponent extends Component.extend(
   }
 
   @action
-  updateColorOrder({ sourceList, sourceIndex, targetList, targetIndex }) {
+  updateColorOrder({
+    sourceArgs,
+    sourceList,
+    sourceIndex,
+    targetArgs,
+    targetList,
+    targetIndex
+  }) {
     if (sourceList === targetList && sourceIndex === targetIndex) return;
 
     const item = sourceList.objectAt(sourceIndex);
 
     sourceList.removeAt(sourceIndex);
     targetList.insertAt(targetIndex, item);
-    sourceList.invoke('save');
-    targetList.invoke('save');
+    sourceArgs.parent.save();
+    if (sourceArgs.parent.id !== targetArgs.parent.id) {
+      targetArgs.parent.save();
+    }
   }
 
   @action

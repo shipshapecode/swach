@@ -54,7 +54,7 @@
     "ember-data": "~3.13.0",
     "ember-decorators": "^6.1.1",
     "ember-drag-drop": "^0.7.0",
-    "ember-drag-sort": "^2.0.0-beta.0",
+    "ember-drag-sort": "rwwagner90/ember-drag-sort#7f779cefb3e6d89358c2b0fa63df23991ad05f56",
     "ember-electron": "^3.0.0-beta.0",
     "ember-event-helpers": "^0.1.0",
     "ember-export-application-global": "^2.0.0",

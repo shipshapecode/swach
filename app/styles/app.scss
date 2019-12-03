@@ -4,6 +4,10 @@
 @import 'tailwindcss/utilities';
 @import 'context-menu.scss';
 
+:root{
+  --dragged-swatch-color: #677087;
+}
+
 [data-theme^='light'],
 [data-theme] [data-theme^='light'] {
   --alt-color: #677087;
@@ -124,11 +128,11 @@ button:hover svg.icon * {
 }
 
 .dragSortItem.-placeholderBefore:before {
-  border-left: 5px solid var(--alt-color);
+  border-left: 5px solid var(--dragged-swatch-color);
 }
 
 .dragSortItem.-placeholderAfter:before {
-  border-right: 5px solid var(--alt-color);
+  border-right: 5px solid var(--dragged-swatch-color);
 }
 
 .dragSortList.-horizontal .dragSortItem.-placeholderBefore,

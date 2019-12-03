@@ -58,27 +58,6 @@ export default class PaletteRowComponent extends Component.extend(
   }
 
   @action
-  updateColorOrder({
-    sourceArgs,
-    sourceList,
-    sourceIndex,
-    targetArgs,
-    targetList,
-    targetIndex
-  }) {
-    if (sourceList === targetList && sourceIndex === targetIndex) return;
-
-    const item = sourceList.objectAt(sourceIndex);
-
-    sourceList.removeAt(sourceIndex);
-    targetList.insertAt(targetIndex, item);
-    sourceArgs.parent.save();
-    if (sourceArgs.parent.id !== targetArgs.parent.id) {
-      targetArgs.parent.save();
-    }
-  }
-
-  @action
   updatePaletteName(palette) {
     palette.save();
     set(this, 'isEditing', false);

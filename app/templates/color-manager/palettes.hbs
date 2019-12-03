@@ -7,17 +7,23 @@
     Color History
     {{svg-jar "arrow-right" class="icon ml-1" height="12" width="12"}}
   </LinkTo>
-  <div class="flex flex-wrap w-full">
-    {{#each this.last15Colors as |color|}}
-      <DraggableObject @content={{color}}>
-        <div
-          class="cursor-move inline-block m-1 h-8 w-8"
-          style={{html-safe (concat "background-color: " color.hex)}}
-        ></div>
-      </DraggableObject>
-    {{/each}}
-  </div>
+
+  <DragSortList
+    @additionalArgs={{hash isColorHistory=true}}
+    @classNames="color-history-list flex flex-wrap w-full"
+    @isHorizontal={{true}}
+    @items={{this.last15Colors}}
+    @sourceOnly={{true}}
+    @determineForeignPositionAction={{action this.disableMovingColors}}
+    @dragEndAction={{action this.moveColorsBetweenPalettes}} as |color|
+  >
+    <div
+      class="cursor-move inline-block m-1 h-8 w-8"
+      style={{html-safe (concat "background-color: " color.hex)}}
+    ></div>
+  </DragSortList>
 </div>
+
 <button
   class="flex items-center mt-2 p-2 text-sm hover:text-alt-hover"
   {{on "click" this.createNewPalette}}
@@ -25,4 +31,8 @@
   {{svg-jar "plus" class="icon mr-1" height="12" width="12"}}
   New Palette
 </button>
-<PalettesList @palettes={{this.palettes}} />
+
+<PalettesList
+  @moveColorsBetweenPalettes={{this.moveColorsBetweenPalettes}}
+  @palettes={{this.palettes}}
+/>

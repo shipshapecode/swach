@@ -1,5 +1,8 @@
 <div class="palettes-list">
   {{#each @palettes as |palette|}}
-    <PaletteRow @palette={{palette}} />
+    <PaletteRow
+      @moveColorsBetweenPalettes={{@moveColorsBetweenPalettes}}
+      @palette={{palette}}
+    />
   {{/each}}
 </div>

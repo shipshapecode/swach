@@ -4,7 +4,7 @@
 @import 'tailwindcss/utilities';
 @import 'context-menu.scss';
 
-:root{
+:root {
   --dragged-swatch-color: #677087;
 }
 
@@ -143,4 +143,16 @@ button:hover svg.icon * {
 .dragSortList.-horizontal .dragSortItem.-placeholderAfter,
 .dragSortList.-horizontal.-rtl .dragSortItem.-placeholderBefore {
   padding: 0 5px 0 0;
+}
+
+.color-history-list {
+  .dragSortList.-isExpanded.-isDraggingOver:before,
+  .dragSortItem.-placeholderBefore:before,
+  .dragSortItem.-placeholderAfter:before {
+    display: none;
+  }
+
+  .dragSortItem.-isDragged {
+    display: block;
+  }
 }

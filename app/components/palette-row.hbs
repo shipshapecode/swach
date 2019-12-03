@@ -24,35 +24,31 @@
       {{svg-jar "trash" class="icon" height="10" width="10"}}
     </button>
   </div>
-  <DraggableObjectTarget
-    @classNames="palette flex flex-grow h-8 w-full"
-    @action={{this.addColorToPalette}}
-    @palette={{@palette}}
-  >
-    {{#if @palette.colors.length}}
-      {{#drag-sort-list
-        additionalArgs=(hash parent=@palette)
-        classNames="palette-color-squares flex flex-grow"
-        childClass="flex flex-grow"
-        isHorizontal=true
-        items=@palette.colors
-        dragEndAction=(action "updateColorOrder") as |color index|
-      }}
-        <div
-          class="flex flex-grow
-            {{if (eq index 0) "first"}}
 
-            {{if (eq index (sub @palette.colors.length 1)) "last"}}"
-          style={{html-safe (concat "background-color: " color.hex)}}
-          {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
-        ></div>
-      {{/drag-sort-list}}
-    {{else}}
+  <div class="palette flex flex-grow h-8 relative w-full">
+    {{#unless @palette.colors.length}}
       <div
-        class="bg-gray-200 flex h-8 items-center justify-center text-sm w-full"
+        class="absolute bg-gray-200 flex flex-grow h-8 items-center justify-center text-sm top-0 w-full"
       >
         Drag colors here
       </div>
-    {{/if}}
-  </DraggableObjectTarget>
+    {{/unless}}
+
+    <DragSortList
+      @additionalArgs={{hash parent=@palette}}
+      @classNames="absolute palette-color-squares flex flex-grow h-8 top-0 w-full"
+      @childClass="flex flex-grow"
+      @isHorizontal={{true}}
+      @items={{@palette.colors}}
+      @dragEndAction={{action @moveColorsBetweenPalettes}} as |color index|
+    >
+      <div
+        class="flex flex-grow
+          {{if (eq index 0) "first"}}
+          {{if (eq index (sub @palette.colors.length 1)) "last"}}"
+        style={{html-safe (concat "background-color: " color.hex)}}
+        {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
+      ></div>
+    </DragSortList>
+  </div>
 </div>

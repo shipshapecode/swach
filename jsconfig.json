@@ -2,5 +2,11 @@
   "compilerOptions": {
     "experimentalDecorators": true
   },
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "electron-app/ember-dist",
+    "electron-app/node_modules",
+    "electron-app/out"
+  ]
 }

@@ -1,10 +1,10 @@
 const { remote } = require('electron');
 
 if (process.platform === 'darwin') {
-  const { systemPreferences } = remote;
+  const { nativeTheme, systemPreferences } = remote;
 
   const setOSTheme = () => {
-    let theme = systemPreferences.isDarkMode() ? 'dark' : 'light';
+    let theme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light';
     remote.getCurrentWindow().send('setTheme', theme);
   };
 

@@ -19,7 +19,7 @@ const mb = menubar({
   icon: join(
     __dirname || resolve(dirname('')),
     '..',
-    'resources/menubar-icons/icon.png'
+    'resources/menubar-icons/iconTemplate.png'
   ),
   preloadWindow: true
 });
@@ -35,7 +35,7 @@ ipcMain.on('copyColorToClipboard', (channel, color) => {
 ipcMain.on('exitApp', () => mb.app.quit());
 ipcMain.on('launchPicker', async () => {
   getColorHexRGB()
-    .then((color) => {
+    .then(color => {
       mb.showWindow();
       mb.window.webContents.send('changeColor', color);
     })

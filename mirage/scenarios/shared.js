@@ -28,6 +28,9 @@ export default function(server) {
   });
   colorHistoryPalette.update('colors', [black, paleMagenta, shamrock, white]);
 
-  const firstPalette = server.create('palette');
+  const firstPalette = server.create('palette', {name: 'First Palette'});
   firstPalette.update('colors', [black, denim, inchWorm, white]);
+
+  const secondPalette = server.create('palette', {name: 'Second Palette'});
+  secondPalette.update('colors', [black, white]);
 }

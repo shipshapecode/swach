@@ -1,5 +1,6 @@
 <div class="w-screen">
   <div
+    data-test-contrast-preview
     class="w-full"
     style={{html-safe
       (concat
@@ -14,10 +15,11 @@
   >
     <div class="flex justify-center p-2 w-full">
       <div class="flex items-center justify-between max-w-lg w-full">
-        <h1 class="font-bold text-5xl">
+        <h1 class="font-bold text-5xl" data-test-wcag-string>
           {{this.wcagString}}
         </h1>
         <div
+          data-test-wcag-score
           class="h-10 p-2 rounded"
           style={{html-safe
             (concat
@@ -33,6 +35,7 @@
         </div>
       </div>
     </div>
+
     <div class="flex justify-center w-full">
       <div class="flex max-w-lg w-full">
         <h2 class="font-bold text-2xl">
@@ -40,6 +43,7 @@
         </h2>
       </div>
     </div>
+
     <div class="flex justify-center p-4 w-full">
       <p class="max-w-lg">
         Enter a
@@ -54,6 +58,7 @@
       </p>
     </div>
   </div>
+
   <div class="color-pickers-container flex justify-center p-4">
     <div class="mr-4">
       <div
@@ -61,6 +66,7 @@
         {{did-insert this.initBackgroundColorPicker}}
       ></div>
     </div>
+
     <div class="ml-4">
       <div
         class="foreground-color-picker ml-1"

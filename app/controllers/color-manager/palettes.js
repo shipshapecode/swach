@@ -3,6 +3,7 @@ import { action, computed, get } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default class ColorManagerPalettesController extends Controller {
+  @service colorUtils;
   @service store;
 
   @computed('model.colorHistory.colors.[]')

@@ -18,8 +18,9 @@
     @dragEndAction={{action this.moveColorsBetweenPalettes}} as |color|
   >
     <div
-      class="cursor-move inline-block m-1 h-8 w-8"
+      class="inline-block m-1 h-8 w-8"
       style={{html-safe (concat "background-color: " color.hex)}}
+      {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
     ></div>
   </DragSortList>
 </div>

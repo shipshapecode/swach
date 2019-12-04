@@ -8,6 +8,7 @@
           @value={{@palette.name}}
           {{did-insert this.insertedNameInput}}
           {{on "blur" (fn this.updatePaletteName @palette)}}
+          {{on "keypress" (fn this.enterPress)}}
         />
       {{else}}
         <LinkTo

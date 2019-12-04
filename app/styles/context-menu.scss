@@ -1,11 +1,17 @@
 .context-menu {
-  @apply bg-white border-0 rounded text-sm;
+  @apply border-0 font-thin rounded shadow text-sm;
+  background: rgba(230, 235, 245, 0.95);
 }
 
 .context-menu__item {
-  @apply pl-4 pr-4;
+  @apply flex items-center pl-4 pr-4;
 
   &:hover {
     @apply bg-blue-500 text-white;
+  }
+
+  .fa {
+    @apply mr-1 font-thin text-xs;
+    transform: translateY(-1px);
   }
 }

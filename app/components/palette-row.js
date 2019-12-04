@@ -48,8 +48,16 @@ export default class PaletteRowComponent extends Component.extend(
   }
 
   @action
+  enterPress(event) {
+    if (event.keyCode === 13) {
+      this.nameInput.blur();
+    }
+  }
+
+  @action
   insertedNameInput(element) {
-    element.focus();
+    this.nameInput = element;
+    this.nameInput.focus();
   }
 
   @action

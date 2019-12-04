@@ -1,19 +1,19 @@
-<div class="font-normal text-sm">
+<div class="font-normal p-4 text-sm w-full">
   <div class="p-1">
-    Startup:
+    <span class="mr-1">Startup:</span>
     <Input @type="checkbox" @checked={{this.settings.openOnStartup}} />
     Start Swach on system startup
   </div>
   <div class="p-1">
-    Sounds:
+    <span class="mr-1">Sounds:</span>
     <Input @type="checkbox" @checked={{this.settings.sounds}} />
     Play Sounds
   </div>
   <div class="p-1">
     App theme:
     <PowerSelect
-      @dropdownClass="max-w-md text-sm"
-      @triggerClass="max-w-md text-sm"
+      @dropdownClass="bg-main max-w-md text-alt text-xs"
+      @triggerClass="bg-main max-w-md text-alt text-xs"
       @options={{this.themes}}
       @placeholder="Choose a theme"
       @selected={{this.settings.userTheme}}

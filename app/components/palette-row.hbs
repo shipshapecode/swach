@@ -1,4 +1,4 @@
-<div class="bg-white cursor-default mb-2 p-3 rounded-lg shadow w-full">
+<div class="bg-menu cursor-default mb-2 p-3 rounded-lg shadow w-full">
   <div class="flex items-center justify-between pb-2 w-full">
     <h6 class="text-sm">
       {{#if this.isEditing}}
@@ -29,7 +29,7 @@
   <div class="palette flex flex-grow h-8 relative w-full">
     {{#unless @palette.colors.length}}
       <div
-        class="absolute bg-gray-200 flex flex-grow h-8 items-center justify-center text-sm top-0 w-full"
+        class="absolute bg-main flex flex-grow h-8 items-center justify-center text-sm top-0 w-full"
       >
         Drag colors here
       </div>

@@ -1,0 +1,107 @@
+:root {
+  --dragged-swatch-color: #677087;
+}
+
+[data-theme^='light'],
+[data-theme] [data-theme^='light'] {
+  --alt-color: #677087;
+  --alt-hover-color: #1f2126;
+  --main-color: #f1f1f1;
+  --menu-color: #ffffff;
+}
+
+[data-theme^='dark'],
+[data-theme] [data-theme^='dark'] {
+  --alt-color: #dfdfe0;
+  --alt-hover-color: #c7c7c7;
+  --main-color: #292c32;
+  --menu-color: #383a40;
+}
+
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  font-family: 'Muli', sans-serif;
+  width: 100%;
+}
+
+* {
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+a {
+  @apply cursor-default text-alt;
+  transition: color 0.25s, background-color 0.25s;
+
+  &:hover {
+    @apply cursor-default text-alt-hover;
+  }
+}
+
+button {
+  @apply cursor-default;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+svg {
+  &.icon {
+    g,
+    * {
+      stroke: var(--alt-color) !important;
+      transition: stroke 0.25s;
+    }
+
+    &:hover {
+      g,
+      * {
+        stroke: var(--alt-hover-color) !important;
+      }
+    }
+  }
+}
+
+a:hover svg.icon,
+a:hover svg.icon g,
+a:hover svg.icon *,
+button:hover svg.icon,
+button:hover svg.icon g,
+button:hover svg.icon * {
+  stroke: var(--alt-hover-color) !important;
+}
+
+.custom-arrow.ember-popover-arrow {
+  border: 8px solid transparent;
+}
+
+.ember-popover[x-placement^='bottom'] .custom-arrow {
+  border-bottom-color: white;
+  top: -8px;
+  left: calc(50% - 8px);
+}
+
+.ember-popover[x-placement^='left'] .custom-arrow {
+  border-left-color: white;
+  right: -8px;
+  top: calc(50% - 8px);
+}
+
+.palette-color-squares {
+  .first {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+
+  .last {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+}

@@ -21,9 +21,32 @@
         </LinkTo>
       {{/if}}
     </h6>
-    <button {{on "click" (fn this.deletePalette)}}>
-      {{svg-jar "trash" class="icon" height="10" width="10"}}
-    </button>
+
+    <div
+      {{on "mouseenter" (set this.showMenu true)}}
+      {{on "mouseleave" (set this.showMenu false)}}
+    >
+      {{#animated-if this.showMenu use=this.fade}}
+        <div>
+          <button {{on "click" (fn this.favoritePalette)}}>
+            {{svg-jar
+              "heart"
+              class=(concat "icon " (if this.palette.isFavorite "filled"))
+              height="13"
+              width="13"
+            }}
+          </button>
+
+          <button {{on "click" (fn this.deletePalette)}}>
+            {{svg-jar "trash" class="icon" height="12" width="12"}}
+          </button>
+        </div>
+      {{else}}
+        <div>
+          {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
+        </div>
+      {{/animated-if}}
+    </div>
   </div>
 
   <div class="palette flex flex-grow h-8 relative w-full">

@@ -3,9 +3,11 @@
     <button {{on "click" this.application.launchPicker}}>
       {{svg-jar "dropper" class="icon" height="15" width="15"}}
     </button>
+
     <button id="toggle-menu" {{on "click" this.toggleMenuIsShown}}>
       {{svg-jar "menu" class="icon" height="15" width="15"}}
     </button>
+
     <EmberPopover
       @arrowClass="custom-arrow"
       @event="none"
@@ -18,17 +20,32 @@
         Check Contrast
       </button>
     </EmberPopover>
+
     <ColorPicker @addColor={{action this.addColor}} />
   </div>
+
   <div class="flex-1 overflow-auto p-2">
     {{liquid-outlet}}
   </div>
-  <div class="bg-menu flex justify-end p-4 w-full">
-    <button {{on "click" this.application.showPreferences}}>
-      {{svg-jar "gear" class="icon mr-3" height="15" width="15"}}
+  
+  <div class="bg-menu flex justify-between items-center p-4 w-full">
+    <button {{on "click" (set this.showFavorites (not this.showFavorites))}}>
+      {{svg-jar
+        "heart"
+        class=(concat "icon " (if this.showFavorites "filled"))
+        height="15"
+        width="15"
+      }}
     </button>
-    <button {{on "click" this.application.exitApp}}>
-      {{svg-jar "power" class="icon stroke-width-5" height="15" width="15"}}
-    </button>
+
+    <div class="flex justify-end">
+      <button {{on "click" this.application.showPreferences}}>
+        {{svg-jar "settings" class="icon mr-3" height="15" width="15"}}
+      </button>
+
+      <button {{on "click" this.application.exitApp}}>
+        {{svg-jar "power" class="icon stroke-width-5" height="15" width="15"}}
+      </button>
+    </div>
   </div>
 </div>

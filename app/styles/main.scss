@@ -66,6 +66,15 @@ svg {
         stroke: var(--alt-hover-color) !important;
       }
     }
+
+    &.filled {
+      g,
+      * {
+        fill: var(--alt-color) !important;
+        stroke: var(--alt-color) !important;
+        transition: fill stroke 0.25s;
+      }
+    }
   }
 }
 

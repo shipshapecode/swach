@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { action, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import ContextMenuMixin from 'ember-context-menu';
+import fade from 'ember-animated/transitions/fade'
 
 export default class PaletteRowComponent extends Component.extend(
   ContextMenuMixin
@@ -9,7 +10,9 @@ export default class PaletteRowComponent extends Component.extend(
   @service colorUtils;
   @service dragSort;
 
+  fade = fade;
   isEditing = false;
+  showMenu = false;
 
   contextItems = [
     {
@@ -52,6 +55,12 @@ export default class PaletteRowComponent extends Component.extend(
     if (event.keyCode === 13) {
       this.nameInput.blur();
     }
+  }
+
+  @action
+  favoritePalette() {
+    this.palette.toggleProperty('isFavorite');
+    this.palette.save();
   }
 
   @action

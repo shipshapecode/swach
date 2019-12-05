@@ -2,6 +2,8 @@
   class="bg-menu cursor-default flex mb-2 p-3 rounded-lg shadow w-full"
   data-test-color={{@color.name}}
   {{on "click" (fn this.colorUtils.copyColorToClipboard @color)}}
+  {{on "mouseenter" (set this.showMenu true)}}
+  {{on "mouseleave" (set this.showMenu false)}}
 >
   <div
     class="inline-block m-1 h-10 rounded w-10"
@@ -16,7 +18,7 @@
         {{@color.hex}}
       </p>
     </div>
-    {{#if @deleteColor}}
+    {{#if (and this.showMenu @deleteColor)}}
       <button
         data-test-delete-color
         {{on "click" (stop-propagation (fn @deleteColor @color))}}

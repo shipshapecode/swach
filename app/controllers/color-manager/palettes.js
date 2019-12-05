@@ -1,23 +1,30 @@
-import Controller from '@ember/controller';
+import Controller, { inject as controller } from '@ember/controller';
 import { action, computed, get } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default class ColorManagerPalettesController extends Controller {
+  @controller colorManager;
   @service colorUtils;
   @service store;
 
   @computed('model.colorHistory.colors.[]')
   get last15Colors() {
-    const colors = this.model.colorHistory && this.model.colorHistory.colors || [];
+    const colors =
+      (this.model.colorHistory && this.model.colorHistory.colors) || [];
     return colors
       .sortBy('createdAt')
       .reverse()
-      .slice(0, 14);
+      .slice(0, 16);
   }
 
-  @computed('model.palettes.[]')
+  @computed('model.palettes.[]', 'colorManager.showFavorites')
   get palettes() {
-    const palettes = this.model.palettes || [];
+    let palettes = this.model.palettes || [];
+
+    if (this.colorManager.showFavorites) {
+      palettes = palettes.filterBy('isFavorite', true);
+    }
+
     return palettes
       .filterBy('isColorHistory', false)
       .sortBy('createdAt')
@@ -68,7 +75,7 @@ export default class ColorManagerPalettesController extends Controller {
       if (sourceParent) {
         sourceParent.save();
       }
-  
+
       if (targetParent && sourceList !== targetList) {
         targetParent.save();
       }

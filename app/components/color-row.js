@@ -3,4 +3,6 @@ import { inject as service } from '@ember/service';
 
 export default class ColorRow extends Component {
   @service colorUtils;
+  
+  showMenu = false;
 }

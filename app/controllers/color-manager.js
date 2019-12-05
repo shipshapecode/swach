@@ -11,6 +11,7 @@ export default class ColorManagerController extends Controller {
   @service nearestColor;
 
   @tracked menuIsShown = false;
+  @tracked showFavorites = false;
 
   init() {
     super.init(...arguments);

@@ -9,7 +9,7 @@ const mb = menubar({
   browserWindow: {
     height: 600,
     resizable: false,
-    width: 320,
+    width: 352,
     webPreferences: {
       contextIsolation: false,
       preload: join(__dirname, 'preload.js'),

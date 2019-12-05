@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { click, visit, currentURL } from '@ember/test-helpers';
+import { click, visit, currentURL, triggerEvent } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { animationsSettled } from 'ember-animated/test-support';
@@ -34,6 +34,7 @@ module('Acceptance | color manager/colors', function(hooks) {
 
     assert.dom('[data-test-color]').exists({ count: 4 });
 
+    await triggerEvent('[data-test-color="Black"] [data-test-color-row-menu]', 'mouseenter');
     await click('[data-test-color="Black"] [data-test-delete-color]');
 
     await animationsSettled();

@@ -2,14 +2,12 @@
   class="bg-menu cursor-default flex mb-2 p-3 rounded-lg shadow w-full"
   data-test-color={{@color.name}}
   {{on "click" (fn this.colorUtils.copyColorToClipboard @color)}}
-  {{on "mouseenter" (set this.showMenu true)}}
-  {{on "mouseleave" (set this.showMenu false)}}
 >
   <div
     class="inline-block m-1 h-10 rounded w-10"
     style={{html-safe (concat "background-color: " @color.hex)}}
   ></div>
-  <div class="flex flex-grow justify-between">
+  <div class="flex flex-grow justify-between items-center">
     <div class="flex flex-col justify-center">
       <p class="font-bold pl-2 text-sm" data-test-color-name>
         {{@color.name}}
@@ -18,13 +16,24 @@
         {{@color.hex}}
       </p>
     </div>
-    {{#if (and this.showMenu @deleteColor)}}
-      <button
-        data-test-delete-color
-        {{on "click" (stop-propagation (fn @deleteColor @color))}}
-      >
-        {{svg-jar "trash" class="icon" height="12" width="12"}}
-      </button>
-    {{/if}}
+
+    <div
+      data-test-color-row-menu
+      {{on "mouseenter" (set this.showMenu true)}}
+      {{on "mouseleave" (set this.showMenu false)}}
+    >
+      {{#if this.showMenu}}
+        {{#if @deleteColor}}
+          <button
+            data-test-delete-color
+            {{on "click" (stop-propagation (fn @deleteColor @color))}}
+          >
+            {{svg-jar "trash" class="icon" height="15" width="15"}}
+          </button>
+        {{/if}}
+      {{else}}
+        {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
+      {{/if}}
+    </div>
   </div>
 </div>

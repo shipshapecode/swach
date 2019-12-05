@@ -1,11 +1,11 @@
 <div class="flex flex-col max-w-xl h-full relative w-full">
-  <div class="bg-menu flex justify-between p-4 w-full">
+  <div class="bg-menu flex justify-between items-center p-4 w-full">
     <button {{on "click" this.application.launchPicker}}>
       {{svg-jar "dropper" class="icon" height="15" width="15"}}
     </button>
 
     <button id="toggle-menu" {{on "click" this.toggleMenuIsShown}}>
-      {{svg-jar "menu" class="icon" height="15" width="15"}}
+      {{svg-jar "menu" class="icon" height="18" width="18"}}
     </button>
 
     <EmberPopover
@@ -27,7 +27,7 @@
   <div class="flex-1 overflow-auto p-2">
     {{liquid-outlet}}
   </div>
-  
+
   <div class="bg-menu flex justify-between items-center p-4 w-full">
     <button {{on "click" (set this.showFavorites (not this.showFavorites))}}>
       {{svg-jar

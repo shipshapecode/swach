@@ -1,4 +1,4 @@
-<div class="bg-menu flex flex-wrap items-center p-2 rounded shadow w-full">
+<div class="bg-menu flex flex-wrap items-center p-2 rounded-lg shadow w-full">
   <LinkTo
     class="flex flex-grow items-center p-1 text-sm w-full"
     @query={{hash paletteId=this.model.colorHistory.id}}
@@ -18,7 +18,7 @@
     @dragEndAction={{action this.moveColorsBetweenPalettes}} as |color|
   >
     <div
-      class="inline-block m-1 h-8 w-8"
+      class="inline-block m-1 h-8 rounded w-8"
       style={{html-safe (concat "background-color: " color.hex)}}
       {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
     ></div>

@@ -29,16 +29,18 @@
   </div>
 
   <div class="bg-menu flex justify-between items-center p-4 w-full">
-    <button {{on "click" (set this.showFavorites (not this.showFavorites))}}>
-      {{svg-jar
-        "heart"
-        class=(concat "icon " (if this.showFavorites "filled"))
-        height="15"
-        width="15"
-      }}
-    </button>
+    {{#unless this.isKulerRoute}}
+      <button {{on "click" (set this.showFavorites (not this.showFavorites))}}>
+        {{svg-jar
+          "heart"
+          class=(concat "icon " (if this.showFavorites "filled"))
+          height="15"
+          width="15"
+        }}
+      </button>
+    {{/unless}}
 
-    <div class="flex justify-end">
+    <div class="flex flex-grow justify-end">
       <button {{on "click" this.application.showPreferences}}>
         {{svg-jar "settings" class="icon mr-3" height="15" width="15"}}
       </button>

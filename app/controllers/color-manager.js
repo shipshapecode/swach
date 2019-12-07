@@ -3,15 +3,19 @@ import Controller, {
 } from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
+import { equal } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';
 
 export default class ColorManagerController extends Controller {
   @controller application;
   @service colorUtils;
   @service nearestColor;
+  @service router;
 
   @tracked menuIsShown = false;
   @tracked showFavorites = false;
+
+  @equal('router.currentRouteName', 'color-manager.kuler') isKulerRoute;
 
   init() {
     super.init(...arguments);

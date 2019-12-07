@@ -18,11 +18,18 @@
     </div>
 
     <div
+      class="flex"
       data-test-color-row-menu
       {{on "mouseenter" (set this.showMenu true)}}
       {{on "mouseleave" (set this.showMenu false)}}
     >
       {{#if this.showMenu}}
+        <button
+          data-test-go-to-kuler
+          {{on "click" (stop-propagation (fn this.transitionToKuler))}}
+        >
+          {{svg-jar "sliders" class="icon" height="15" width="15"}}
+        </button>
         {{#if @deleteColor}}
           <button
             data-test-delete-color

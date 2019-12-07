@@ -13,5 +13,6 @@ Router.map(function() {
   this.route('color-manager', { path: '/' }, function() {
     this.route('colors');
     this.route('palettes');
+    this.route('kuler');
   });
 });

@@ -5,4 +5,17 @@ export default function(){
     this.use('toLeft'),
     this.reverse('toRight')
   );
+
+  this.transition(
+    this.fromRoute('color-manager.colors'),
+    this.toRoute('color-manager.kuler'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
+
+  this.transition(
+    this.fromRoute('color-manager.kuler'),
+    this.toRoute('color-manager.palettes'),
+    this.use('toRight')
+  );
 }

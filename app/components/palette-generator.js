@@ -13,7 +13,7 @@ export default class PaletteGenerator extends Component {
   didReceiveAttrs() {
     super.didReceiveAttrs(...arguments);
 
-    const harmoniesHash = this.harmonizer.harmonizeAll(this.baseColor);
+    const harmoniesHash = this.harmonizer.harmonizeAll(this.baseColor.hex);
 
     set(this, 'harmonies', Object.keys(harmoniesHash).map((key) => {
       return { key, value: harmoniesHash[key] };

@@ -1,4 +1,7 @@
-<div class="bg-menu cursor-default mb-2 p-3 rounded-lg shadow w-full">
+<div
+  class="bg-menu cursor-default mb-2 p-3 rounded-lg shadow w-full"
+  data-test-palette-row
+>
   <div class="flex items-center justify-between pb-2 w-full">
     <h6 class="text-sm">
       {{#if this.isEditing}}
@@ -67,6 +70,7 @@
       @dragEndAction={{action @moveColorsBetweenPalettes}} as |color index|
     >
       <div
+        data-test-palette-color-square
         class="flex flex-grow
           {{if (eq index 0) "first"}}
           {{if (eq index (sub @palette.colors.length 1)) "last"}}"

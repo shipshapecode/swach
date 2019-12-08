@@ -1,11 +1,12 @@
 module.exports = {
   packagerConfig: {
+    asar: true,
     darwinDarkModeSupport: 'true',
     icon: 'electron-app/resources/icon.png',
     name: 'Swach',
     osxSign: {
       entitlements: 'electron-app/src/entitlements.plist',
-      'entitlements-inheret': 'electron-app/src/entitlements.plist',
+      'entitlements-inherit': 'electron-app/src/entitlements.plist',
       'gatekeeper-assess': false,
       hardenedRuntime: true,
       identity: 'Developer ID Application: Ship Shape Consulting LLC (779MXKT6B5)'

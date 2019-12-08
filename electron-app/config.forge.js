@@ -3,6 +3,7 @@ module.exports = {
     darwinDarkModeSupport: 'true',
     icon: 'electron-app/resources/icon.png',
     name: 'Swach',
+    osxSign: true,
     packageManager: 'yarn'
   },
   makers: [

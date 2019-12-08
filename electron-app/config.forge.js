@@ -3,7 +3,17 @@ module.exports = {
     darwinDarkModeSupport: 'true',
     icon: 'electron-app/resources/icon.png',
     name: 'Swach',
-    osxSign: true,
+    osxSign: {
+      entitlements: 'electron-app/src/entitlements.plist',
+      'entitlements-inheret': 'electron-app/src/entitlements.plist',
+      'gatekeeper-assess': false,
+      hardenedRuntime: true,
+      identity: 'Developer ID Application: Ship Shape Consulting LLC (779MXKT6B5)'
+    },
+    osxNotarize: {
+      appleId: process.env['APPLE_ID'],
+      appleIdPassword: process.env['APPLE_ID_PASSWORD']
+    },
     packageManager: 'yarn'
   },
   makers: [

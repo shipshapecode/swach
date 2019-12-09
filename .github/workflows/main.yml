@@ -60,5 +60,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: electron-app/out/**/*.{dmg,exe,zip}
+          files: |
+            electron-app/out/**/*.dmg
+            electron-app/out/**/*.exe
+            electron-app/out/**/*.zip
     

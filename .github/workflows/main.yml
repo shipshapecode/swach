@@ -8,7 +8,8 @@ on:
       - v*
 
 jobs:
-  build:
+  lint:
+    name: Lint
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -22,11 +23,27 @@ jobs:
       - name: Lint JS
         run: yarn lint:js
       - name: Lint HBS
-        run: yarn lint:hbs    
+        run: yarn lint:hbs   
+  build:
+    name: Build (${{ matrix.os }})
+    needs: lint
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Use node 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Yarn install
+        run: yarn install-deps 
       - name: Test
         run: yarn test
-      - name: Add certs
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Add MacOS certs
+        if: matrix.os == 'macos-latest' && startsWith(github.ref, 'refs/tags/')
         run: chmod +x add-osx-cert.sh && ./add-osx-cert.sh  
         env:
           CERTIFICATE_OSX_APPLICATION: ${{ secrets.CERTIFICATE_OSX_APPLICATION }}
@@ -37,10 +54,15 @@ jobs:
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+
+  release:
+    runs-on: macos-latest
+    needs: build
+    steps:
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: electron-app/out/**/*.zip
+          files: [electron-app/out/**/*.dmg, electron-app/out/**/*.exe]

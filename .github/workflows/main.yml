@@ -62,6 +62,6 @@ jobs:
         with:
           files: |
             electron-app/out/**/*.dmg
-            electron-app/out/**/*.exe
+            electron-app/out/**/*Setup.exe
             electron-app/out/**/*.zip
     

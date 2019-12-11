@@ -1,21 +1,35 @@
 export default function(){
   this.transition(
-    this.fromRoute('color-manager.palettes'),
-    this.toRoute('color-manager.colors'),
+    this.fromRoute('palettes'),
+    this.toRoute('colors'),
     this.use('toLeft'),
     this.reverse('toRight')
   );
 
   this.transition(
-    this.fromRoute('color-manager.colors'),
-    this.toRoute('color-manager.kuler'),
+    this.fromRoute('colors'),
+    this.toRoute('kuler'),
     this.use('toLeft'),
     this.reverse('toRight')
   );
 
   this.transition(
-    this.fromRoute('color-manager.kuler'),
-    this.toRoute('color-manager.palettes'),
+    this.fromRoute('kuler'),
+    this.toRoute('palettes'),
     this.use('toRight')
+  );
+
+  this.transition(
+    this.fromRoute('colors'),
+    this.toRoute('contrast'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
+
+  this.transition(
+    this.fromRoute('palettes'),
+    this.toRoute('contrast'),
+    this.use('toLeft'),
+    this.reverse('toRight')
   );
 }

@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 
-export default class ColorManagerKulerController extends Controller {
+export default class KulerController extends Controller {
   queryParams = ['colorId'];
 
   colorId = null;

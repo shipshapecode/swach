@@ -7,9 +7,9 @@ const { getColorHexRGB } = require('electron-color-picker');
 const mb = menubar({
   index: false,
   browserWindow: {
-    height: 600,
+    height: 650,
     resizable: false,
-    width: 352,
+    width: 392,
     webPreferences: {
       contextIsolation: false,
       preload: join(__dirname, 'preload.js'),
@@ -25,7 +25,7 @@ const mb = menubar({
 });
 
 const browsers = require('./browsers')(__dirname);
-const { contrast, settings } = browsers;
+const { settings } = browsers;
 
 const showPreferences = () => settings.init();
 
@@ -44,7 +44,6 @@ ipcMain.on('launchPicker', async () => {
       return '';
     });
 });
-ipcMain.on('showContrastChecker', () => contrast.init());
 ipcMain.on('showPreferences', showPreferences);
 
 // Registering a protocol & schema to serve our Ember application
@@ -108,7 +107,7 @@ mb.on('after-create-window', function() {
 
 mb.on('ready', () => {
   // If you want to open up dev tools programmatically, call
-  // mb.window.openDevTools();
+  mb.window.openDevTools();
 
   const emberAppLocation = 'serve://dist';
 

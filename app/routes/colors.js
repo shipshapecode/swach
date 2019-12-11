@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 
-export default class ColorManagerColorsRoute extends Route {
+export default class ColorsRoute extends Route {
   queryParams = {
     paletteId: {
       refreshModel: true

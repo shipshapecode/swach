@@ -1,12 +1,35 @@
 import Controller from '@ember/controller';
 import { action, computed, get, set } from '@ember/object';
+import { equal } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { storageFor } from 'ember-local-storage';
+import { tracked } from '@glimmer/tracking';
 
 export default class ApplicationController extends Controller {
-  @service() store;
+  @service colorUtils;
+  @service nearestColor;
+  @service router;
+  @service store;
+
+  @tracked menuIsShown = false;
+  @tracked showFavorites = false;
 
   @storageFor('settings') settings;
+
+  @equal('router.currentRouteName', 'contrast') isContrastRoute;
+  @equal('router.currentRouteName', 'kuler') isKulerRoute;
+  @equal('router.currentRouteName', 'palettes') isPalettesRoute;
+  @equal('router.currentRouteName', 'settings') isSettingsRoute;
+
+  @computed('isContrastRoute', 'isSettingsRoute')
+  get showEyedropperIcon() {
+    return !this.isContrastRoute && !this.isSettingsRoute;
+  }
+
+  @computed('isPalettesRoute')
+  get showFavoritesIcon() {
+    return this.isPalettesRoute;
+  }
 
   @computed('settings.{osTheme,userTheme}')
   get theme() {
@@ -27,10 +50,34 @@ export default class ApplicationController extends Controller {
       let { ipcRenderer } = requireNode('electron');
       this.ipcRenderer = ipcRenderer;
 
+      this.ipcRenderer.on('changeColor', async (event, color) => {
+        const addedColor = await this.addColor(color);
+        this.colorUtils.copyColorToClipboard(addedColor);
+      });
+
       this.ipcRenderer.on('setTheme', (event, theme) => {
         set(this, 'settings.osTheme', theme);
       });
     }
+  }
+
+  @action
+  async addColor(color) {
+    const namedColor = this.nearestColor.nearest(color);
+
+    const colorRecord = this.store.createRecord('color', {
+      hex: color,
+      name: namedColor.name
+    });
+
+    await colorRecord.save();
+
+    const palettes = await this.store.findAll('palette');
+    const colorHistory = palettes.findBy('isColorHistory', true);
+    colorHistory.colors.pushObject(colorRecord);
+    await colorHistory.save();
+
+    return colorRecord;
   }
 
   @action
@@ -44,12 +91,12 @@ export default class ApplicationController extends Controller {
   }
 
   @action
-  showContrastChecker() {
-    this.ipcRenderer.send('showContrastChecker');
+  showPreferences() {
+    this.ipcRenderer.send('showPreferences');
   }
 
   @action
-  showPreferences() {
-    this.ipcRenderer.send('showPreferences');
+  toggleMenuIsShown() {
+    this.menuIsShown = !this.menuIsShown;
   }
 }

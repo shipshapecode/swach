@@ -27,7 +27,7 @@ export default class ContrastChecker extends Component {
       useAsButton: true,
 
       showAlways: true,
-      theme: 'monolith',
+      theme: 'nano',
 
       components: {
         // Main components
@@ -69,7 +69,7 @@ export default class ContrastChecker extends Component {
       useAsButton: true,
 
       showAlways: true,
-      theme: 'monolith',
+      theme: 'nano',
 
       components: {
         // Main components

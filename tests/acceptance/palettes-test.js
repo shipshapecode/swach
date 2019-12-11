@@ -3,9 +3,9 @@ import { visit, currentURL, findAll } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { move, sort } from 'ember-drag-sort/utils/trigger';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import sharedScenario from '../../../mirage/scenarios/shared';
+import sharedScenario from '../../mirage/scenarios/shared';
 
-module('Acceptance | color manager/palettes', function(hooks) {
+module('Acceptance | palettes', function(hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
 

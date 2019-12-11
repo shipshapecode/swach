@@ -2,6 +2,72 @@
   class="bg-main flex justify-center h-full text-alt w-full"
   data-theme={{this.theme}}
 >
-  {{outlet}}
+  <div class="flex flex-col max-w-xl h-full relative w-full">
+    <div class="bg-menu flex justify-between items-center p-4 w-full">
+      <div class="flex-grow">
+        <div class="h-4 w-4">
+          {{#if this.showEyedropperIcon}}
+            <button {{on "click" this.launchPicker}}>
+              {{svg-jar "disc" class="icon" height="15" width="15"}}
+            </button>
+          {{/if}}
+        </div>
+      </div>
+
+      <div class="flex-grow">
+        <div class="h-4 w-4">
+          <button id="toggle-menu" {{on "click" this.toggleMenuIsShown}}>
+            {{svg-jar "menu" class="icon" height="15" width="15"}}
+          </button>
+        </div>
+      </div>
+
+      <EmberPopover
+        @arrowClass="custom-arrow"
+        @event="none"
+        @isShown={{this.menuIsShown}}
+        @side="bottom"
+        @spacing={{10}}
+        @targetId="toggle-menu"
+      >
+        <LinkTo @route="contrast" {{on "click" this.toggleMenuIsShown}}>
+          Check Contrast
+        </LinkTo>
+      </EmberPopover>
+
+      <div class="h-4 w-4">
+        <ColorPicker @addColor={{action this.addColor}} />
+      </div>
+    </div>
+
+    <div class="flex-1 overflow-auto p-2">
+      {{liquid-outlet}}
+    </div>
+
+    <div class="bg-menu flex justify-between items-center p-4 w-full">
+      {{#if this.showFavoritesIcon}}
+        <button
+          {{on "click" (set this.showFavorites (not this.showFavorites))}}
+        >
+          {{svg-jar
+            "heart"
+            class=(concat "icon " (if this.showFavorites "filled"))
+            height="15"
+            width="15"
+          }}
+        </button>
+      {{/if}}
+
+      <div class="flex flex-grow justify-end">
+        <button {{on "click" this.showPreferences}}>
+          {{svg-jar "settings" class="icon mr-3" height="15" width="15"}}
+        </button>
+
+        <button {{on "click" this.exitApp}}>
+          {{svg-jar "power" class="icon stroke-width-5" height="15" width="15"}}
+        </button>
+      </div>
+    </div>
+  </div>
 </main>
 {{context-menu}}

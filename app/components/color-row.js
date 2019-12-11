@@ -11,7 +11,7 @@ export default class ColorRow extends Component {
   @action
   transitionToKuler(event) {
     event.stopPropagation();
-    this.router.transitionTo('color-manager.kuler', {
+    this.router.transitionTo('kuler', {
       queryParams: { colorId: this.args.color.id }
     });
   }

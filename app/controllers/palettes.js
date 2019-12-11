@@ -2,8 +2,8 @@ import Controller, { inject as controller } from '@ember/controller';
 import { action, computed, get } from '@ember/object';
 import { inject as service } from '@ember/service';
 
-export default class ColorManagerPalettesController extends Controller {
-  @controller colorManager;
+export default class PalettesController extends Controller {
+  @controller application;
   @service colorUtils;
   @service store;
 
@@ -14,14 +14,14 @@ export default class ColorManagerPalettesController extends Controller {
     return colors
       .sortBy('createdAt')
       .reverse()
-      .slice(0, 16);
+      .slice(0, 18);
   }
 
-  @computed('model.palettes.[]', 'colorManager.showFavorites')
+  @computed('model.palettes.[]', 'application.showFavorites')
   get palettes() {
     let palettes = this.model.palettes || [];
 
-    if (this.colorManager.showFavorites) {
+    if (this.application.showFavorites) {
       palettes = palettes.filterBy('isFavorite', true);
     }
 

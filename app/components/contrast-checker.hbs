@@ -1,7 +1,7 @@
-<div class="w-screen">
+<div class="w-full">
   <div
     data-test-contrast-preview
-    class="w-full"
+    class="rounded-lg w-full"
     style={{html-safe
       (concat
         "-webkit-app-region: drag; "
@@ -13,39 +13,41 @@
       )
     }}
   >
-    <div class="flex justify-center p-2 w-full">
-      <div class="flex items-center justify-between max-w-lg w-full">
-        <h1 class="font-bold text-5xl" data-test-wcag-string>
+    <div class="flex justify-center p-4 pb-2 w-full">
+      <div class="flex items-center w-full">
+        <h1 class="font-black text-4xl" data-test-wcag-string>
           {{this.wcagString}}
         </h1>
-        <div
-          data-test-wcag-score
-          class="h-10 p-2 rounded"
-          style={{html-safe
-            (concat
-              "background-color: "
-              this.foregroundColor
-              "; "
-              "color: "
-              this.backgroundColor
-            )
-          }}
-        >
-          {{this.wcagScore}}
+        <div class="flex flex-grow justify-end">
+          <div
+            data-test-wcag-score
+            class="h-8 leading-none p-2 rounded"
+            style={{html-safe
+              (concat
+                "background-color: "
+                this.foregroundColor
+                "; "
+                "color: "
+                this.backgroundColor
+              )
+            }}
+          >
+            {{this.wcagScore}}
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="flex justify-center w-full">
+    <div class="flex justify-center pl-4 pr-4 w-full">
       <div class="flex max-w-lg w-full">
-        <h2 class="font-bold text-2xl">
+        <h2 class="font-bold text-lg">
           Check Contrast
         </h2>
       </div>
     </div>
 
-    <div class="flex justify-center p-4 w-full">
-      <p class="max-w-lg">
+    <div class="flex justify-center w-full">
+      <p class="p-4 text-sm">
         Enter a
         <span class="font-bold">
           text color
@@ -59,15 +61,15 @@
     </div>
   </div>
 
-  <div class="color-pickers-container flex justify-center p-4">
-    <div class="mr-4">
+  <div class="color-pickers-container flex justify-between mt-4">
+    <div class="mr-4 w-full">
       <div
         class="background-color-picker"
         {{did-insert this.initBackgroundColorPicker}}
       ></div>
     </div>
 
-    <div class="ml-4">
+    <div class="ml-4 w-full">
       <div
         class="foreground-color-picker ml-1"
         {{did-insert this.initForegroundColorPicker}}

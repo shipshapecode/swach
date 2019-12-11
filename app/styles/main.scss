@@ -114,3 +114,7 @@ button:hover svg.icon * {
     border-top-right-radius: 5px;
   }
 }
+
+.pcr-app[data-theme=nano] {
+  @apply rounded-lg w-full;
+}

@@ -1,9 +1,8 @@
-<button
+<LinkTo
   class="flex flex-grow items-center mb-1 pb-2 pt-2 w-full"
-  {{on "click" (fn this.goBack)}}
+  @route="palettes"
 >
   {{svg-jar "arrow-left" class="icon mr-2" height="15" width="15"}}
-  Back
-</button>
-
-<PaletteGenerator @baseColor={{this.model}} />
+  Palettes
+</LinkTo>
+<ColorsList @palette={{this.model}} />

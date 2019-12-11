@@ -5,9 +5,10 @@
   @arrowClass="custom-arrow"
   @event="none"
   @isShown={{this.isShown}}
-  @side="left-start"
+  @side="top-end"
   @spacing={{10}}
   @targetId="toggle-picker"
+  @tooltipClass="w-full"
 >
   <div class="flex justify-between w-100">
     <button {{on "click" this.toggleIsShown}}>

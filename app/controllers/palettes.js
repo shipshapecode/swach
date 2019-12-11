@@ -8,7 +8,7 @@ export default class PalettesController extends Controller {
   @service store;
 
   @computed('model.colorHistory.colors.[]')
-  get last15Colors() {
+  get last18Colors() {
     const colors =
       (this.model.colorHistory && this.model.colorHistory.colors) || [];
     return colors

@@ -24,7 +24,7 @@ export default class ColorPicker extends Component {
 
       showAlways: true,
 
-      theme: 'monolith',
+      theme: 'nano',
 
       components: {
         // Main components

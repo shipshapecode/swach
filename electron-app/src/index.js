@@ -2,7 +2,11 @@ const { clipboard, protocol, Menu, ipcMain } = require('electron');
 const { dirname, join, resolve } = require('path');
 const protocolServe = require('electron-protocol-serve');
 const { menubar } = require('menubar');
-const { getColorHexRGB } = require('electron-color-picker');
+const {
+  darwinGetScreenPermissionGranted,
+  darwinRequestScreenPermissionPopup,
+  getColorHexRGB
+} = require('electron-color-picker');
 
 const mb = menubar({
   index: false,
@@ -34,6 +38,13 @@ ipcMain.on('copyColorToClipboard', (channel, color) => {
 });
 ipcMain.on('exitApp', () => mb.app.quit());
 ipcMain.on('launchPicker', async () => {
+  if (process.platform === 'darwin') {
+    const permissionsGranted = await darwinGetScreenPermissionGranted();
+    if (!permissionsGranted) {
+      darwinRequestScreenPermissionPopup();
+    }
+  }
+  
   getColorHexRGB()
     .then(color => {
       mb.showWindow();
@@ -107,7 +118,7 @@ mb.on('after-create-window', function() {
 
 mb.on('ready', () => {
   // If you want to open up dev tools programmatically, call
-  mb.window.openDevTools();
+  // mb.window.openDevTools();
 
   const emberAppLocation = 'serve://dist';
 

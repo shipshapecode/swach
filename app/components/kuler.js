@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { capitalize } from '@ember/string';
 import { tracked } from '@glimmer/tracking';
 import { TinyColor } from '@ctrl/tinycolor';
 
@@ -8,25 +9,28 @@ export default class KulerComponent extends Component {
   @service colorUtils;
   @service store;
 
-  harmonies = ['analogous', 'monochromatic', 'triad'];
+  harmonies = ['analogous', 'monochromatic', 'tetrad', 'triad'];
 
+  @tracked palette;
   @tracked selectedHarmony;
 
-  constructor() {
-    super(...arguments);
-
-    this.palette = this.store.createRecord('palette');
+  willDestroy() {
+    if (this.palette && this.palette.isNew) {
+      this.palette.destroyRecord();
+    }
   }
 
   @action
-  noop() {}
-
-  @action
-  setSelectedHarmony(selectedHarmony) {
+  async setSelectedHarmony(selectedHarmony) {
     this.selectedHarmony = selectedHarmony;
 
     if (this.selectedHarmony) {
-      this.palette.colors.clear();
+      if (this.palette && this.palette.isNew) {
+        await this.palette.destroyRecord();
+      }
+      this.palette = await this.store.createRecord('palette', {
+        name: capitalize(this.selectedHarmony)
+      });
 
       let colors = new TinyColor(this.args.baseColor.hex)[this.selectedHarmony](
         5

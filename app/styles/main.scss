@@ -2,16 +2,14 @@
   --dragged-swatch-color: #677087;
 }
 
-[data-theme^='light'],
-[data-theme] [data-theme^='light'] {
+body.light {
   --alt-color: #677087;
   --alt-hover-color: #1f2126;
   --main-color: #f1f1f1;
   --menu-color: #ffffff;
 }
 
-[data-theme^='dark'],
-[data-theme] [data-theme^='dark'] {
+body.dark {
   --alt-color: #dfdfe0;
   --alt-hover-color: #c7c7c7;
   --main-color: #292c32;
@@ -21,7 +19,7 @@
 html,
 body {
   -webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale;
   height: 100%;
   font-family: 'Muli', sans-serif;
   width: 100%;
@@ -46,9 +44,18 @@ a {
 
 button {
   @apply cursor-default;
+}
+
+textarea,
+select,
+input,
+button,
+.ember-power-select-trigger,
+.ember-power-select-dropdown {
+  outline: none;
 
   &:focus {
-    outline: none;
+    outline:none;
   }
 }
 
@@ -91,6 +98,11 @@ button:hover svg.icon * {
   border: 8px solid transparent;
 }
 
+.ember-power-select-option[aria-selected=true] {
+  background-color: var(--main-color);
+  color: var(--alt-color);
+}
+
 .ember-popover[x-placement^='bottom'] .custom-arrow {
   border-bottom-color: white;
   top: -8px;
@@ -115,6 +127,6 @@ button:hover svg.icon * {
   }
 }
 
-.pcr-app[data-theme=nano] {
+.pcr-app[data-theme='nano'] {
   @apply rounded-lg w-full;
 }

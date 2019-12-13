@@ -1,8 +1,8 @@
 <ColorRow @color={{@baseColor}} />
 
 <PowerSelect
-  @dropdownClass="p-2"
-  @triggerClass="p-2"
+  @dropdownClass="bg-menu max-w-md text-alt text-xs"
+  @triggerClass="bg-menu max-w-md mb-2 mt-2 text-alt text-xs"
   @options={{this.harmonies}}
   @placeholder="Choose one"
   @selected={{this.selectedHarmony}}
@@ -11,4 +11,6 @@
   {{titleize harmony}}
 </PowerSelect>
 
-<PaletteRow @moveColorsBetweenPalettes={{fn this.noop}} @palette={{this.palette}}/>
+{{#if this.palette}}
+  <KulerPaletteRow @palette={{this.palette}} />
+{{/if}}

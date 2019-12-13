@@ -1,8 +1,12 @@
 import Service from '@ember/service';
 import { action, get } from '@ember/object';
+import { inject as service } from '@ember/service';
 import { storageFor } from 'ember-local-storage';
 
 export default class ColorUtilsService extends Service {
+  @service nearestColor;
+  @service store;
+
   @storageFor('settings') settings;
 
   init() {
@@ -12,6 +16,16 @@ export default class ColorUtilsService extends Service {
       let { ipcRenderer } = requireNode('electron');
       this.ipcRenderer = ipcRenderer;
     }
+  }
+
+  @action
+  createColorRecord(color){
+    const namedColor = this.nearestColor.nearest(color);
+
+    return this.store.createRecord('color', {
+      hex: color,
+      name: namedColor.name
+    });
   }
 
   @action

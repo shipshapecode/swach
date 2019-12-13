@@ -1,0 +1,14 @@
+<ColorRow @color={{@baseColor}} />
+
+<PowerSelect
+  @dropdownClass="p-2"
+  @triggerClass="p-2"
+  @options={{this.harmonies}}
+  @placeholder="Choose one"
+  @selected={{this.selectedHarmony}}
+  @onChange={{fn this.setSelectedHarmony}} as |harmony|
+>
+  {{titleize harmony}}
+</PowerSelect>
+
+<PaletteRow @moveColorsBetweenPalettes={{fn this.noop}} @palette={{this.palette}}/>

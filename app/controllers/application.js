@@ -7,7 +7,6 @@ import { tracked } from '@glimmer/tracking';
 
 export default class ApplicationController extends Controller {
   @service colorUtils;
-  @service nearestColor;
   @service router;
   @service store;
 
@@ -63,12 +62,7 @@ export default class ApplicationController extends Controller {
 
   @action
   async addColor(color) {
-    const namedColor = this.nearestColor.nearest(color);
-
-    const colorRecord = this.store.createRecord('color', {
-      hex: color,
-      name: namedColor.name
-    });
+    const colorRecord = this.colorUtils.createColorRecord(color);
 
     await colorRecord.save();
 

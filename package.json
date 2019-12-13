@@ -25,6 +25,7 @@
     "test": "ember electron:test"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.7.4",
     "@ember/edition-utils": "^1.1.1",
     "@ember/jquery": "^1.1.0",
@@ -54,7 +55,7 @@
     "ember-context-menu": "rwwagner90/ember-context-menu#c869d09de8873aab675a00ebbae6135c855592ea",
     "ember-data": "~3.14.0",
     "ember-decorators": "^6.1.1",
-    "ember-drag-sort": "rwwagner90/ember-drag-sort#91dfaec32b266cd33b06d48171477233fb214a45",
+    "ember-drag-sort": "rwwagner90/ember-drag-sort#f8a08eb0913cbffbc8e2e5ac50524fc8c0c2eb99",
     "ember-electron": "^3.0.0-beta.0",
     "ember-event-helpers": "^0.1.0",
     "ember-export-application-global": "^2.0.0",

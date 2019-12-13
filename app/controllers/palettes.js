@@ -58,8 +58,11 @@ export default class PalettesController extends Controller {
 
     // Dragging color out of color history
     if (get(sourceArgs, 'isColorHistory')) {
-      item = { ...item };
       if (sourceList !== targetList) {
+        const existingColor = targetList.findBy('hex', item.hex);
+        if (existingColor) {
+          targetList.removeObject(item);
+        }
         targetList.insertAt(targetIndex, item);
         if (targetParent) {
           targetParent.save();
@@ -69,6 +72,10 @@ export default class PalettesController extends Controller {
       sourceList.removeAt(sourceIndex);
 
       if (!get(targetArgs, 'isColorHistory')) {
+        const existingColor = targetList.findBy('hex', item.hex);
+        if (existingColor) {
+          targetList.removeObject(item);
+        }
         targetList.insertAt(targetIndex, item);
       }
 

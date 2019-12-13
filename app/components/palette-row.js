@@ -24,6 +24,11 @@ export default class PaletteRowComponent extends Component.extend(
       icon: 'trash',
       label: 'Delete Palette',
       action: this.deletePalette
+    },
+    {
+      icon: 'heart',
+      label: 'Favorite Palette',
+      action: this.favoritePalette
     }
   ];
 
@@ -36,13 +41,6 @@ export default class PaletteRowComponent extends Component.extend(
         draggedItem.hex
       );
     });
-  }
-
-  @action
-  addColorToPalette(color, ops) {
-    const palette = ops.target.palette;
-    palette.colors.pushObject(color);
-    palette.save();
   }
 
   @action

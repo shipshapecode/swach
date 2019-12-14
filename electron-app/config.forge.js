@@ -2,7 +2,7 @@ module.exports = {
   packagerConfig: {
     asar: true,
     darwinDarkModeSupport: 'true',
-    icon: 'electron-app/resources/icon.png',
+    icon: 'electron-app/resources/icon',
     name: 'Swach',
     osxSign: {
       entitlements: 'electron-app/src/entitlements.plist',

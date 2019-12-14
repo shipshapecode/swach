@@ -41,7 +41,7 @@ ipcMain.on('launchPicker', async () => {
   if (process.platform === 'darwin') {
     const permissionsGranted = await darwinGetScreenPermissionGranted();
     if (!permissionsGranted) {
-      darwinRequestScreenPermissionPopup();
+      await darwinRequestScreenPermissionPopup();
     }
   }
   

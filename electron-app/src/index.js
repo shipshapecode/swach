@@ -1,12 +1,14 @@
-const { clipboard, protocol, Menu, ipcMain } = require('electron');
+const {
+  clipboard,
+  globalShortcut,
+  protocol,
+  Menu,
+  ipcMain
+} = require('electron');
 const { dirname, join, resolve } = require('path');
 const protocolServe = require('electron-protocol-serve');
 const { menubar } = require('menubar');
-const {
-  darwinGetScreenPermissionGranted,
-  darwinRequestScreenPermissionPopup,
-  getColorHexRGB
-} = require('electron-color-picker');
+const { launchPicker } = require('./color-picker');
 
 const mb = menubar({
   index: false,
@@ -37,23 +39,8 @@ ipcMain.on('copyColorToClipboard', (channel, color) => {
   clipboard.writeText(color);
 });
 ipcMain.on('exitApp', () => mb.app.quit());
-ipcMain.on('launchPicker', async () => {
-  if (process.platform === 'darwin') {
-    const permissionsGranted = await darwinGetScreenPermissionGranted();
-    if (!permissionsGranted) {
-      await darwinRequestScreenPermissionPopup();
-    }
-  }
-  
-  getColorHexRGB()
-    .then(color => {
-      mb.showWindow();
-      mb.window.webContents.send('changeColor', color);
-    })
-    .catch(error => {
-      console.warn(`[ERROR] getColor`, error);
-      return '';
-    });
+ipcMain.on('launchPicker', () => {
+  launchPicker(mb);
 });
 ipcMain.on('showPreferences', showPreferences);
 
@@ -149,6 +136,14 @@ mb.on('ready', () => {
   mb.window.on('responsive', () => {
     console.log('The main window has become responsive again.');
   });
+
+  globalShortcut.register('ctrl+command+option+p', () => {
+    launchPicker(mb);
+  });
+});
+
+mb.app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
 });
 
 // Handle an unhandled error in the main thread

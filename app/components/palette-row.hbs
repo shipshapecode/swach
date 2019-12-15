@@ -6,7 +6,7 @@
     <h6 class="text-sm">
       {{#if this.isEditing}}
         <Input
-          class="bg-main border border-2 rounded text-alt"
+          class="bg-main border border-2 h-6 m-0 p-0 rounded text-alt"
           @type="text"
           @value={{@palette.name}}
           {{did-insert this.insertedNameInput}}
@@ -15,7 +15,7 @@
         />
       {{else}}
         <LinkTo
-          class="flex flex-grow items-center mb-1 w-full"
+          class="flex flex-grow h-6 items-center w-full"
           @query={{hash paletteId=@palette.id}}
           @route="colors"
         >

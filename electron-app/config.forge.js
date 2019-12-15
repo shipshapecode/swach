@@ -26,7 +26,10 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-dmg',
-      platforms: ['darwin']
+      platforms: ['darwin'],
+      config: {
+        background: 'electron-app/resources/installBackground.png'
+      }
     },
     {
       name: '@electron-forge/maker-zip',

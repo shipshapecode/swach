@@ -13,9 +13,10 @@ const { launchPicker } = require('./color-picker');
 const mb = menubar({
   index: false,
   browserWindow: {
+    alwaysOnTop: false,
     height: 675,
     resizable: false,
-    width: 392,
+    width: 360,
     webPreferences: {
       contextIsolation: false,
       preload: join(__dirname, 'preload.js'),

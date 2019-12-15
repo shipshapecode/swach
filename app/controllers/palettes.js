@@ -8,13 +8,13 @@ export default class PalettesController extends Controller {
   @service store;
 
   @computed('model.colorHistory.colors.[]')
-  get last18Colors() {
+  get last16Colors() {
     const colors =
       (this.model.colorHistory && this.model.colorHistory.colors) || [];
     return colors
       .sortBy('createdAt')
       .reverse()
-      .slice(0, 18);
+      .slice(0, 16);
   }
 
   @computed('model.palettes.[]', 'application.showFavorites')

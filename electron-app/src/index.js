@@ -150,7 +150,10 @@ mb.app.on('will-quit', () => {
 });
 
 if (!isDev) {
-  setupUpdateServer(mb.app);
+  const autoUpdater = setupUpdateServer(mb.app);
+  ipcMain.on('checkForUpdates', () => {
+    autoUpdater.checkForUpdates();
+  });
 }
 
 // Handle an unhandled error in the main thread

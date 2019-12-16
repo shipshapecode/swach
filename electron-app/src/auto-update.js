@@ -29,6 +29,8 @@ const setupUpdateServer = app => {
     console.error('There was a problem updating the application');
     console.error(message);
   });
+
+  return autoUpdater;
 };
 
 module.exports = {

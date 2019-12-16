@@ -1,14 +1,20 @@
 <div class="font-normal p-4 text-sm w-full">
   <div class="p-1">
-    <span class="mr-1">Startup:</span>
+    <span class="mr-1">
+      Startup:
+    </span>
     <Input @type="checkbox" @checked={{this.settings.openOnStartup}} />
     Start Swach on system startup
   </div>
+
   <div class="p-1">
-    <span class="mr-1">Sounds:</span>
+    <span class="mr-1">
+      Sounds:
+    </span>
     <Input @type="checkbox" @checked={{this.settings.sounds}} />
     Play Sounds
   </div>
+
   <div class="p-1">
     App theme:
     <PowerSelect
@@ -21,5 +27,11 @@
     >
       {{capitalize theme}}
     </PowerSelect>
+  </div>
+
+  <div class="p-1">
+    <button class="bg-menu p-2 rounded" {{on "click" @checkForUpdates}}>
+      Check for updates
+    </button>
   </div>
 </div>

@@ -32,7 +32,11 @@ module.exports = (dirname, route, title) => {
       minHeight: 340,
       fullscreenable: false,
       titleBarStyle: 'hidden', 
-      title
+      title,
+      webPreferences: {
+        contextIsolation: false,
+        nodeIntegration: true
+      }
     };
 
     win = new BrowserWindow(options);

@@ -75,6 +75,11 @@ export default class ApplicationController extends Controller {
   }
 
   @action
+  checkForUpdates() {
+    this.ipcRenderer.send('checkForUpdates');
+  }
+
+  @action
   exitApp() {
     this.ipcRenderer.send('exitApp');
   }

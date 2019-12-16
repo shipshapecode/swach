@@ -1,7 +1,7 @@
 {
   "name": "swach",
   "productName": "swach",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "description": "A modern color palette manager.",
   "main": "src/index.js",
   "scripts": {

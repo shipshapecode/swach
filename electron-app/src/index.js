@@ -6,9 +6,11 @@ const {
   ipcMain
 } = require('electron');
 const { dirname, join, resolve } = require('path');
+const isDev = require('electron-is-dev');
 const protocolServe = require('electron-protocol-serve');
 const { menubar } = require('menubar');
 const { launchPicker } = require('./color-picker');
+const { setupUpdateServer } = require('./auto-update');
 
 const mb = menubar({
   index: false,
@@ -146,6 +148,10 @@ mb.on('ready', () => {
 mb.app.on('will-quit', () => {
   globalShortcut.unregisterAll();
 });
+
+if (!isDev) {
+  setupUpdateServer(mb.app);
+}
 
 // Handle an unhandled error in the main thread
 //

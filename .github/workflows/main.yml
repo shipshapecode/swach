@@ -8,7 +8,7 @@ on:
       - v*
 
 jobs:
-  lint:
+  test:
     name: Lint and Test
     runs-on: ubuntu-latest
     steps:
@@ -24,11 +24,13 @@ jobs:
         run: yarn lint:js
       - name: Lint HBS
         run: yarn lint:hbs   
+      - name: Get xvfb
+        run: sudo apt-get install xvfb
       - name: Test
-        run: yarn test  
+        run: xvfb-run --auto-servernum yarn test  
   build:
     name: Build (${{ matrix.os }})
-    needs: lint
+    needs: test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:

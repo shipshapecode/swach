@@ -1,6 +1,6 @@
 {
   "name": "swach",
-  "version": "0.0.44",
+  "version": "0.0.45",
   "private": true,
   "description": "A modern color palette manager.",
   "repository": "https://github.com/rwwagner90/swach",

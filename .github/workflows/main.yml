@@ -57,6 +57,7 @@ jobs:
         run: ./add-windows-cert.ps1
         env:
           CERTIFICATE_WINDOWS_PFX: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
+          WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
       - name: Make
         if: startsWith(github.ref, 'refs/tags/')
         run: yarn make

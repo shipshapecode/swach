@@ -1,6 +1,6 @@
 $base64string = $Env:CERTIFICATE_WINDOWS_PFX
-$FileName = 'certificate.pfx'
-$Pfxpath = './certificate.pfx'
+$FileName = 'win-certificate.pfx'
+$Pfxpath = './win-certificate.pfx'
 
 [IO.File]::WriteAllBytes($FileName, [Convert]::FromBase64String($base64string))
 

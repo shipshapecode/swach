@@ -143,8 +143,4 @@ button:hover svg.icon * {
     background-color: var(--main-color);
     color: var(--alt-color);
   }
-  .pcr-selection {
-    /* needs slight nudge to cover full width with grid col setup */
-    width: 100.1%;
-  }
 }

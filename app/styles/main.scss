@@ -103,14 +103,20 @@ button:hover svg.icon * {
   color: var(--alt-color);
 }
 
+.ember-popover {
+  color: var(--alt-color);
+  background-color: var(--main-color);
+  border-color: var(--menu-color);
+}
+
 .ember-popover[x-placement^='bottom'] .custom-arrow {
-  border-bottom-color: white;
+  border-bottom-color: var(--main-color);
   top: -8px;
   left: calc(50% - 8px);
 }
 
 .ember-popover[x-placement^='left'] .custom-arrow {
-  border-left-color: white;
+  border-left-color: var(--main-color);
   right: -8px;
   top: calc(50% - 8px);
 }
@@ -129,4 +135,16 @@ button:hover svg.icon * {
 
 .pcr-app[data-theme='nano'] {
   @apply rounded-lg w-full;
+
+  background-color: var(--menu-color);
+  overflow: hidden;
+
+  .pcr-result {
+    background-color: var(--main-color);
+    color: var(--alt-color);
+  }
+  .pcr-selection {
+    /* needs slight nudge to cover full width with grid col setup */
+    width: 100.1%;
+  }
 }

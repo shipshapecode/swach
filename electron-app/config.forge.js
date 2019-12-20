@@ -23,7 +23,7 @@ module.exports = {
       config: {
         name: 'Swach',
         certificateFile: 'win-certificate.pfx',
-        certificatePassword: process.env['WINDOWS_PFX_PASSWORD']
+        certificatePassword: 'WGRLm.2Y*bCpF*Z__R.6'
       }
     },
     {

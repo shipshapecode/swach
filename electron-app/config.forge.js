@@ -22,7 +22,7 @@ module.exports = {
       name: '@electron-forge/maker-squirrel',
       config: {
         name: 'Swach',
-        certificateFile: './win-certificate.pfx',
+        certificateFile: process.env['WIN_CERTIFICATE'],
         certificatePassword: process.env['WINDOWS_PFX_PASSWORD']
       }
     },

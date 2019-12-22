@@ -14,7 +14,7 @@
     @isHorizontal={{true}}
     @items={{this.last16Colors}}
     @sourceOnly={{true}}
-    @dragEndAction={{action this.moveColorsBetweenPalettes}} as |color|
+    @dragEndAction={{fn this.moveColorsBetweenPalettes}} as |color|
   >
     <div
       class="inline-block m-1 h-8 rounded w-8"

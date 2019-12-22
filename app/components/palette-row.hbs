@@ -67,7 +67,7 @@
       @childClass="flex flex-grow"
       @isHorizontal={{true}}
       @items={{@palette.colors}}
-      @dragEndAction={{action @moveColorsBetweenPalettes}} as |color index|
+      @dragEndAction={{fn @moveColorsBetweenPalettes}} as |color index|
     >
       <div
         data-test-palette-color-square

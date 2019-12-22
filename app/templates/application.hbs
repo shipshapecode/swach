@@ -1,4 +1,4 @@
-{{set-body-class this.theme}}
+<SetBodyClass @name={{this.theme}}/>
 
 <main
   class="bg-main flex justify-center h-full text-alt w-full"
@@ -37,7 +37,7 @@
       </EmberPopover>
 
       <div class="h-4 w-4">
-        <ColorPicker @addColor={{action this.addColor}} />
+        <ColorPicker @addColor={{fn this.addColor}} />
       </div>
     </div>
 

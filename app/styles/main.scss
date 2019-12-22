@@ -103,12 +103,6 @@ button:hover svg.icon * {
   color: var(--alt-color);
 }
 
-.ember-popover {
-  color: var(--alt-color);
-  background-color: var(--main-color);
-  border-color: var(--menu-color);
-}
-
 .ember-popover[x-placement^='bottom'] .custom-arrow {
   border-bottom-color: var(--main-color);
   top: -8px;
@@ -134,13 +128,9 @@ button:hover svg.icon * {
 }
 
 .pcr-app[data-theme='nano'] {
-  @apply rounded-lg w-full;
-
-  background-color: var(--menu-color);
-  overflow: hidden;
+  @apply bg-menu overflow-hidden rounded-lg w-full;
 
   .pcr-result {
-    background-color: var(--main-color);
-    color: var(--alt-color);
+    @apply bg-main text-alt;
   }
 }

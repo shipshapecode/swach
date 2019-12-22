@@ -29,7 +29,7 @@ export default class ColorPicker extends Component {
       components: {
         // Main components
         preview: false,
-        opacity: true,
+        opacity: false,
         hue: true,
 
         // Input / output Options

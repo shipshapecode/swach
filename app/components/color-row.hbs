@@ -26,6 +26,7 @@
       {{#if this.showMenu}}
         <button
           data-test-go-to-kuler
+          type="button"
           {{on "click" (stop-propagation (fn this.transitionToKuler))}}
         >
           {{svg-jar "sliders" class="icon mr-2" height="15" width="15"}}
@@ -33,6 +34,7 @@
         {{#if @deleteColor}}
           <button
             data-test-delete-color
+            type="button"
             {{on "click" (stop-propagation (fn @deleteColor @color))}}
           >
             {{svg-jar "trash" class="icon" height="15" width="15"}}

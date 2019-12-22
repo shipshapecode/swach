@@ -1,14 +1,15 @@
-<SetBodyClass @name={{this.theme}}/>
+<SetBodyClass @name={{this.theme}} />
 
-<main
-  class="bg-main flex justify-center h-full text-alt w-full"
->
+<main class="bg-main flex justify-center h-full text-alt w-full">
   <div class="flex flex-col max-w-xl h-full relative w-full">
-    <div class="bg-menu flex justify-between items-center p-4 w-full {{if this.isSettingsRoute "hidden"}}">
+    <div
+      class="bg-menu flex justify-between items-center p-4 w-full
+        {{if this.isSettingsRoute "hidden"}}"
+    >
       <div class="flex-grow">
         <div class="h-4 w-4">
           {{#if this.showEyedropperIcon}}
-            <button {{on "click" this.launchPicker}}>
+            <button type="button" {{on "click" this.launchPicker}}>
               {{svg-jar "disc" class="icon" height="15" width="15"}}
             </button>
           {{/if}}
@@ -17,7 +18,11 @@
 
       <div class="flex-grow">
         <div class="h-4 w-4">
-          <button id="toggle-menu" {{on "click" this.toggleMenuIsShown}}>
+          <button
+            id="toggle-menu"
+            type="button"
+            {{on "click" this.toggleMenuIsShown}}
+          >
             {{svg-jar "menu" class="icon" height="15" width="15"}}
           </button>
         </div>
@@ -45,9 +50,13 @@
       {{liquid-outlet}}
     </div>
 
-    <div class="bg-menu flex justify-between items-center p-4 w-full {{if this.isSettingsRoute "hidden"}}">
+    <div
+      class="bg-menu flex justify-between items-center p-4 w-full
+        {{if this.isSettingsRoute "hidden"}}"
+    >
       {{#if this.showFavoritesIcon}}
         <button
+          type="button"
           {{on "click" (set this.showFavorites (not this.showFavorites))}}
         >
           {{svg-jar
@@ -60,11 +69,11 @@
       {{/if}}
 
       <div class="flex flex-grow justify-end">
-        <button {{on "click" this.showPreferences}}>
+        <button type="button" {{on "click" this.showPreferences}}>
           {{svg-jar "settings" class="icon mr-3" height="15" width="15"}}
         </button>
 
-        <button {{on "click" this.exitApp}}>
+        <button type="button" {{on "click" this.exitApp}}>
           {{svg-jar "power" class="icon stroke-width-5" height="15" width="15"}}
         </button>
       </div>

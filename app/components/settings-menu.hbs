@@ -30,7 +30,11 @@
   </div>
 
   <div class="p-1">
-    <button class="bg-menu p-2 rounded" {{on "click" @checkForUpdates}}>
+    <button
+      class="bg-menu p-2 rounded"
+      type="button"
+      {{on "click" @checkForUpdates}}
+    >
       Check for updates
     </button>
   </div>

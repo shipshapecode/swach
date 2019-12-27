@@ -5,6 +5,7 @@ const {
   Menu,
   ipcMain
 } = require('electron');
+const AutoLaunch = require('auto-launch');
 const { dirname, join, resolve } = require('path');
 const isDev = require('electron-is-dev');
 const protocolServe = require('electron-protocol-serve');
@@ -142,6 +143,20 @@ mb.on('ready', () => {
 
   globalShortcut.register('ctrl+command+option+p', () => {
     launchPicker(mb);
+  });
+
+  const autoLaunch = new AutoLaunch({
+    name: 'Swach'
+  });
+
+  ipcMain.on('enableDisableAutoStart', (event, shouldEnable) => {
+    autoLaunch.isEnabled().then(isEnabled => {
+      if (!isEnabled && shouldEnable) {
+        autoLaunch.enable();
+      } else if (isEnabled && !shouldEnable) {
+        autoLaunch.disable();
+      }
+    });
   });
 });
 

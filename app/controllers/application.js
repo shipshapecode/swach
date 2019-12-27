@@ -57,6 +57,8 @@ export default class ApplicationController extends Controller {
       this.ipcRenderer.on('setTheme', (event, theme) => {
         set(this, 'settings.osTheme', theme);
       });
+
+      this.enableDisableAutoStart();
     }
   }
 
@@ -77,6 +79,12 @@ export default class ApplicationController extends Controller {
   @action
   checkForUpdates() {
     this.ipcRenderer.send('checkForUpdates');
+  }
+
+  @action
+  enableDisableAutoStart() {
+    const shouldEnable = get(this, 'settings.openOnStartup');
+    this.ipcRenderer.send('enableDisableAutoStart', shouldEnable);
   }
 
   @action

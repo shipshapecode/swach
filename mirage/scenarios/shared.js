@@ -13,6 +13,7 @@ export default function(server) {
     name: 'Inch Worm'
   });
   const paleMagenta = server.create('color', {
+    id: 'color-1',
     hex: '#f78ae0',
     name: 'Pale Magenta'
   });
@@ -28,9 +29,9 @@ export default function(server) {
   });
   colorHistoryPalette.update('colors', [black, paleMagenta, shamrock, white]);
 
-  const firstPalette = server.create('palette', {name: 'First Palette'});
+  const firstPalette = server.create('palette', { name: 'First Palette' });
   firstPalette.update('colors', [black, denim, inchWorm, white]);
 
-  const secondPalette = server.create('palette', {name: 'Second Palette'});
+  const secondPalette = server.create('palette', { name: 'Second Palette' });
   secondPalette.update('colors', [black, white]);
 }

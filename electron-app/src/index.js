@@ -150,13 +150,16 @@ mb.on('ready', () => {
   });
 
   ipcMain.on('enableDisableAutoStart', (event, shouldEnable) => {
-    autoLaunch.isEnabled().then(isEnabled => {
-      if (!isEnabled && shouldEnable) {
-        autoLaunch.enable();
-      } else if (isEnabled && !shouldEnable) {
-        autoLaunch.disable();
-      }
-    });
+    // We only want to allow auto-start if in production mode
+    if (!isDev) {
+      autoLaunch.isEnabled().then(isEnabled => {
+        if (!isEnabled && shouldEnable) {
+          autoLaunch.enable();
+        } else if (isEnabled && !shouldEnable) {
+          autoLaunch.disable();
+        }
+      });
+    }
   });
 });
 

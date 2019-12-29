@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { find, findAll, visit, currentURL } from '@ember/test-helpers';
+import { visit, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import sharedScenario from '../../mirage/scenarios/shared';
@@ -18,32 +18,24 @@ module('Acceptance | settings', function(hooks) {
     resetStorages();
   });
 
-  test('visiting /settings', async function(assert) {
+  test('visiting /settings', function(assert) {
     assert.equal(currentURL(), '/settings');
   });
 
-  test('settings menu is shown', async function(assert) {
-    const menu = await find('[data-test-settings-menu]');
-
-    assert.ok(menu);
+  test('settings menu is shown', function(assert) {
+    assert.dom('[data-test-settings-menu]').exists();
   });
 
-  test('has two checkboxes', async function(assert) {
-    const checkboxes = await findAll('[data-test-settings-menu] input');
-
-    assert.equal(checkboxes.length, 2);
+  test('has two checkboxes', function(assert) {
+    assert.dom('[data-test-settings-menu] input').exists({ count: 2 });
   });
 
   test('start on startup is not checked by default', async function(assert) {
-    const startupCheckbox = await find('[data-test-settings-startup]');
-
-    assert.notOk(startupCheckbox.checked);
+    assert.dom('[data-test-settings-startup]').isNotChecked();
   });
 
-  test('sounds is checked by default', async function(assert) {
-    const soundsCheckbox = await find('[data-test-settings-sounds]');
-
-    assert.ok(soundsCheckbox.checked);
+  test('sounds is checked by default', function(assert) {
+    assert.dom('[data-test-settings-sounds]').isChecked();
   });
 
   test('theme setting updates when selected', async function(assert) {

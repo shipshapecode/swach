@@ -1,35 +1,11 @@
-export default function(){
-  this.transition(
-    this.fromRoute('palettes'),
-    this.toRoute('colors'),
-    this.use('toLeft'),
-    this.reverse('toRight')
-  );
+import { toLeft, toRight } from 'ember-animated/transitions/move-over';
 
-  this.transition(
-    this.fromRoute('colors'),
-    this.toRoute('kuler'),
-    this.use('toLeft'),
-    this.reverse('toRight')
-  );
+export const transitionDuration = 500;
 
-  this.transition(
-    this.fromRoute('kuler'),
-    this.toRoute('palettes'),
-    this.use('toRight')
-  );
-
-  this.transition(
-    this.fromRoute('colors'),
-    this.toRoute('contrast'),
-    this.use('toLeft'),
-    this.reverse('toRight')
-  );
-
-  this.transition(
-    this.fromRoute('palettes'),
-    this.toRoute('contrast'),
-    this.use('toLeft'),
-    this.reverse('toRight')
-  );
-}
+export const transitions = [
+  { from: 'colors', to: 'contrast', use: toLeft, reverse: toRight },
+  { from: 'colors', to: 'kuler', use: toLeft, reverse: toRight },
+  { from: 'kuler', to: 'palettes', use: toRight, reverse: toLeft },
+  { from: 'palettes', to: 'colors', use: toLeft, reverse: toRight },
+  { from: 'palettes', to: 'contrast', use: toLeft, reverse: toRight }
+];

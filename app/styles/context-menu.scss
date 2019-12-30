@@ -1,6 +1,7 @@
 .context-menu {
   @apply border-0 font-thin rounded shadow text-sm;
-  background: rgba(230, 235, 245, 0.95);
+  background-color: var(--main-color);
+  color: var(--alt-color);
 }
 
 .context-menu__item {

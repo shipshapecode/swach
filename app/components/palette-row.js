@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import { action, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import ContextMenuMixin from 'ember-context-menu';
-import fade from 'ember-animated/transitions/fade'
+import fade from 'ember-animated/transitions/fade';
 
 export default class PaletteRowComponent extends Component.extend(
   ContextMenuMixin
@@ -16,9 +16,14 @@ export default class PaletteRowComponent extends Component.extend(
 
   contextItems = [
     {
-      icon: 'font',
+      icon: 'type',
       label: 'Rename Palette',
       action: this.toggleIsEditing
+    },
+    {
+      icon: 'copy',
+      label: 'Duplicate Palette',
+      action: this.duplicatePalette
     },
     {
       icon: 'trash',
@@ -46,6 +51,12 @@ export default class PaletteRowComponent extends Component.extend(
   @action
   deletePalette() {
     this.palette.destroyRecord();
+  }
+
+  @action
+  async duplicatePalette() {
+    const paletteCopy = await this.palette.copy(false);
+    await paletteCopy.save();
   }
 
   @action

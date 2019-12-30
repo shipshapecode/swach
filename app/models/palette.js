@@ -1,6 +1,7 @@
 import Model, { attr, hasMany } from '@ember-data/model';
+import Copyable from 'ember-data-copyable';
 
-export default class PaletteModel extends Model {
+export default class PaletteModel extends Model.extend(Copyable) {
   @attr('date', {
     defaultValue() {
       return new Date();

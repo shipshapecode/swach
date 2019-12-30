@@ -1,7 +1,7 @@
 {
   "name": "swach",
   "productName": "swach",
-  "version": "0.0.56",
+  "version": "0.0.59",
   "description": "A modern color palette manager.",
   "main": "src/index.js",
   "scripts": {
@@ -22,6 +22,7 @@
     "forge": "config.forge.js"
   },
   "dependencies": {
+    "auto-launch": "^5.0.5",
     "electron-color-picker": "^0.2.0-dev.7",
     "electron-is-dev": "^1.1.0",
     "electron-notification-state": "^1.0.4",

@@ -3,7 +3,7 @@
     <span class="mr-1">
       Startup:
     </span>
-    <Input @type="checkbox" @checked={{this.settings.openOnStartup}} data-test-settings-startup />
+    <Input @type="checkbox" @checked={{this.settings.openOnStartup}} {{on "change" @enableDisableAutoStart}} data-test-settings-startup />
     Start Swach on system startup
   </div>
 

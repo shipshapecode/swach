@@ -57,6 +57,10 @@ export default class ApplicationController extends Controller {
       this.ipcRenderer.on('setTheme', (event, theme) => {
         set(this, 'settings.osTheme', theme);
       });
+
+      // We have to initially set this, in case somehow the checkbox gets out of sync
+      const shouldEnableAutoStart = get(this, 'settings.openOnStartup');
+      this.ipcRenderer.send('enableDisableAutoStart', shouldEnableAutoStart);
     }
   }
 
@@ -77,6 +81,11 @@ export default class ApplicationController extends Controller {
   @action
   checkForUpdates() {
     this.ipcRenderer.send('checkForUpdates');
+  }
+
+  @action
+  enableDisableAutoStart(event) {
+    this.ipcRenderer.send('enableDisableAutoStart', event.target.checked);
   }
 
   @action

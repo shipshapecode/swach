@@ -1,9 +1,9 @@
-<div class="font-normal p-4 text-sm w-full">
+<div class="font-normal p-4 text-sm w-full" data-test-settings-menu>
   <div class="p-1">
     <span class="mr-1">
       Startup:
     </span>
-    <Input @type="checkbox" @checked={{this.settings.openOnStartup}} {{on "change" @enableDisableAutoStart}} />
+    <Input @type="checkbox" @checked={{this.settings.openOnStartup}} {{on "change" @enableDisableAutoStart}} data-test-settings-startup />
     Start Swach on system startup
   </div>
 
@@ -11,11 +11,11 @@
     <span class="mr-1">
       Sounds:
     </span>
-    <Input @type="checkbox" @checked={{this.settings.sounds}} />
+    <Input @type="checkbox" @checked={{this.settings.sounds}} data-test-settings-sounds />
     Play Sounds
   </div>
 
-  <div class="p-1">
+  <div class="p-1" data-test-settings-select-theme>
     App theme:
     <PowerSelect
       @dropdownClass="bg-menu max-w-md text-alt text-xs"

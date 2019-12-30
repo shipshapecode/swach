@@ -1,4 +1,6 @@
-<div class="bg-menu cursor-default mb-2 p-3 rounded-lg shadow w-full">
+<div
+  data-test-kuler-palette
+  class="bg-menu cursor-default mb-2 p-3 rounded-lg shadow w-full">
   <div class="flex items-center justify-between pb-2 w-full">
     <h6 class="text-sm">
       {{@palette.name}}
@@ -9,6 +11,7 @@
     <div class="absolute palette-color-squares flex flex-grow h-8 top-0 w-full">
       {{#each @palette.colors as |color index|}}
         <div
+          data-test-kuler-palette-options
           class="flex flex-grow
             {{if (eq index 0) "first"}}
             {{if (eq index (sub @palette.colors.length 1)) "last"}}"
@@ -18,4 +21,5 @@
       {{/each}}
     </div>
   </div>
-</div>
+</div
+>

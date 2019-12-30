@@ -1,8 +1,8 @@
 {{#if this.isActive}}
-  {{#ember-wormhole to="wormhole-context-menu"}}
+  <EmberWormhole @to="wormhole-context-menu">
     <div class="context-menu-container" style={{this.position}}>
       <ul class="context-menu {{if this.renderLeft "context-menu--left"}}">
-        {{#each items as |item|}}
+        {{#each this.items as |item|}}
           <ContextMenuItem
             @amount={{this.selection.length}}
             @item={{item}}
@@ -12,5 +12,5 @@
         {{/each}}
       </ul>
     </div>
-  {{/ember-wormhole}}
+  </EmberWormhole>
 {{/if}}

@@ -1,10 +1,13 @@
-<AnimatedValue
-  @duration={{this.duration}}
-  @key="outlets.main.render.name"
-  @rules={{this.rules}}
-  @value={{-get-dynamic-var "outletState"}} as |outletState|
->
-  {{#-with-dynamic-vars outletState=outletState}}
-    {{outlet}}
-  {{/-with-dynamic-vars}}
-</AnimatedValue>
+<AnimatedContainer>
+  <AnimatedValue
+    @duration={{this.duration}}
+    @intialInsertion={{true}}
+    @key="outlets.main.render.name"
+    @rules={{this.rules}}
+    @value={{-get-dynamic-var "outletState"}} as |outletState|
+  >
+    {{#-with-dynamic-vars outletState=outletState}}
+      {{outlet}}
+    {{/-with-dynamic-vars}}
+  </AnimatedValue>
+</AnimatedContainer>

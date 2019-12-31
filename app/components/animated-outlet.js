@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { transitionDuration, transitions } from 'swach/transitions';
 
 export default class AnimatedOutlet extends Component {

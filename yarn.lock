@@ -1315,6 +1315,11 @@
   resolved "https://registry.yarnpkg.com/@glimmer/validator/-/validator-0.44.0.tgz#03d127097dc9cb23052cdb7fcae59d0a9dca53e1"
   integrity sha512-i01plR0EgFVz69GDrEuFgq1NheIjZcyTy3c7q+w7d096ddPVeVcRzU3LKaqCfovvLJ+6lJx40j45ecycASUUyw==
 
+"@jaames/iro@^4.5.3":
+  version "4.5.3"
+  resolved "https://registry.yarnpkg.com/@jaames/iro/-/iro-4.5.3.tgz#4fbeabaf119b9f53ef5b88e262dbfc3477fa9e9a"
+  integrity sha512-knBqezLEprrpHCb9hHZbQLApzCZyI/AuWg3mqQVkgTtQX3MNX3W2uVkX1hFwS6pmEUHbA022rid9fRqV0IshMA==
+
 "@miragejs/pretender-node-polyfill@^0.1.0":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@miragejs/pretender-node-polyfill/-/pretender-node-polyfill-0.1.2.tgz#d26b6b7483fb70cd62189d05c95d2f67153e43f2"
@@ -5518,13 +5523,12 @@ ember-context-menu@rwwagner90/ember-context-menu#6041465689433f41073ae7a6a22529d
   version "0.4.3"
   resolved "https://codeload.github.com/rwwagner90/ember-context-menu/tar.gz/6041465689433f41073ae7a6a22529d4d3f5b788"
   dependencies:
-    ember-cli-babel "^7.13.0"
-    ember-cli-htmlbars "^4.2.0"
-    ember-cli-sass "^10.0.1"
+    ember-cli-babel "^6.16.0"
+    ember-cli-htmlbars "^3.0.0"
+    ember-cli-sass "7.0.0"
     ember-font-awesome "^3.1.1"
     ember-invoke-action "1.5.1"
-    ember-wormhole "^0.5.5"
-    sass "^1.24.0"
+    ember-wormhole "0.5.2"
 
 ember-copy@^1.0.0:
   version "1.0.0"

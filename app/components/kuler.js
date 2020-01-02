@@ -3,22 +3,27 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { capitalize } from '@ember/string';
 import { tracked } from '@glimmer/tracking';
+import fade from 'ember-animated/transitions/fade';
 import { TinyColor } from '@ctrl/tinycolor';
-import { fadeOut } from 'ember-animated/motions/opacity';
-import move from 'ember-animated/motions/move';
+import iro from '@jaames/iro';
 
 export default class KulerComponent extends Component {
   @service colorUtils;
   @service store;
 
   harmonies = ['analogous', 'monochromatic', 'tetrad', 'triad'];
+  fade = fade;
+
   @tracked palettes = [];
+  @tracked baseColor;
 
   constructor() {
     super(...arguments);
 
+    this.baseColor = this.args.baseColor;
     this.baseColorChanged();
   }
+
 
   @action
   async baseColorChanged() {
@@ -29,7 +34,7 @@ export default class KulerComponent extends Component {
         name: capitalize(harmony)
       });
 
-      let colors = new TinyColor(this.args.baseColor.hex)[harmony](5);
+      let colors = new TinyColor(this.baseColor.hex)[harmony](5);
       colors = colors.map(color =>
         this.colorUtils.createColorRecord(color.toHexString())
       );
@@ -42,8 +47,10 @@ export default class KulerComponent extends Component {
 
   willDestroy() {
     this._destroyLeftoverPalettes();
+    this.colorPicker.off('color:change', this._onColorChange);
   }
 
+  @action
   async _destroyLeftoverPalettes() {
     for (const palette of this.palettes) {
       if (palette.isNew) {
@@ -54,18 +61,19 @@ export default class KulerComponent extends Component {
     this.palettes = [];
   }
 
-  *transition({ keptSprites, insertedSprites, removedSprites }) {
-    for (let sprite of insertedSprites) {
-      sprite.startTranslatedBy(0, -sprite.finalBounds.height / 2);
-      move(sprite);
-    }
+  @action
+  async _onColorChange(color) {
+    this.baseColor = await this.colorUtils.createColorRecord(color.hexString);
+    this.baseColorChanged();
+  }
 
-    for (let sprite of keptSprites) {
-      move(sprite);
-    }
+  @action
+  _setupColorWheel() {
+    this.colorPicker = new iro.ColorPicker('#color-picker-container', {
+      color: this.baseColor.hex,
+      width: 200
+    });
 
-    for (let sprite of removedSprites) {
-      fadeOut(sprite);
-    }
+    this.colorPicker.on('color:change', this._onColorChange);
   }
 }

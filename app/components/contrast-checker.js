@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { action } from '@ember/object';
+import { later } from '@ember/runloop';
 import { tracked } from '@glimmer/tracking';
 import Pickr from '@simonwep/pickr';
 import { hex, score } from 'wcag-contrast';
@@ -19,7 +20,7 @@ export default class ContrastChecker extends Component {
 
   @action
   initBackgroundColorPicker(element) {
-    setTimeout(() => {
+    later(() => {
       this.bgPickr = new Pickr({
         el: element,
         container: element,
@@ -63,7 +64,7 @@ export default class ContrastChecker extends Component {
 
   @action
   initForegroundColorPicker(element) {
-    setTimeout(() => {
+    later(() => {
       this.fgPickr = new Pickr({
         el: element,
         container: element,

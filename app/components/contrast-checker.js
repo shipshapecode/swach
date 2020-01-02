@@ -3,6 +3,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import Pickr from '@simonwep/pickr';
 import { hex, score } from 'wcag-contrast';
+import { transitionDuration } from 'swach/transitions';
 
 export default class ContrastChecker extends Component {
   @tracked backgroundColor = '#ffffff';
@@ -57,7 +58,7 @@ export default class ContrastChecker extends Component {
   
       this.bgPickr.on('change', this.onBgChange);
       
-    }, 500);
+    }, transitionDuration);
   }
 
   @action
@@ -101,6 +102,6 @@ export default class ContrastChecker extends Component {
       };
   
       this.fgPickr.on('change', this.onFgChange);
-    }, 500);
+    }, transitionDuration);
   }
 }

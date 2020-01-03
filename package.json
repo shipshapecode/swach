@@ -78,6 +78,7 @@
     "ember-test-selectors": "^3.0.0",
     "ember-tooltips": "^3.4.1",
     "ember-truth-helpers": "^2.1.0",
+    "ember-undo-stack": "^1.0.0",
     "eslint-plugin-ember": "^7.7.2",
     "eslint-plugin-node": "^10.0.0",
     "liquid-fire": "^0.31.0",

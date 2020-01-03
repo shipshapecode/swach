@@ -5954,6 +5954,13 @@ ember-truth-helpers@2.1.0, ember-truth-helpers@^2.1.0:
   dependencies:
     ember-cli-babel "^6.6.0"
 
+ember-undo-stack@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ember-undo-stack/-/ember-undo-stack-1.0.0.tgz#21157241191084421669b4a60fa7648b2d58cbb0"
+  integrity sha512-YnhuaMrMpqpyHxOorOPFFH4QThoX+cG2ZFts8otnVMQCLdfmG8JqmHM+pViJ+iaYr6JNy6qS02qgJz/4vjEUUQ==
+  dependencies:
+    ember-cli-babel "^7.1.2"
+
 ember-wormhole@^0.5.5:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/ember-wormhole/-/ember-wormhole-0.5.5.tgz#db417ff748cb21e574cd5f233889897bc27096cb"

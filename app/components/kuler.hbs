@@ -1,18 +1,13 @@
-<ColorRow @color={{@baseColor}} />
-
-<div data-test-kuler-options>
-  <PowerSelect
-    @dropdownClass="bg-menu max-w-md text-alt text-xs"
-    @triggerClass="bg-menu max-w-md mb-2 mt-2 text-alt text-xs"
-    @options={{this.harmonies}}
-    @placeholder="Choose one"
-    @selected={{this.selectedHarmony}}
-    @onChange={{fn this.setSelectedHarmony}} as |harmony|
-  >
-    {{titleize harmony}}
-  </PowerSelect>
+<div class="flex justify-center pb-8 w-full">
+  <div
+    class="w-auto"
+    id="color-picker-container"
+    {{did-insert this._setupColorWheel}}
+  ></div>
 </div>
 
-{{#if this.palette}}
-  <KulerPaletteRow @palette={{this.palette}} />
-{{/if}}
+<AnimatedContainer class="palettes-list">
+  {{#animated-each this.palettes use=this.fade as |palette|}}
+    <KulerPaletteRow @palette={{palette}} />
+  {{/animated-each}}
+</AnimatedContainer>

@@ -1,10 +1,28 @@
 <div
   data-test-kuler-palette
-  class="bg-menu cursor-default mb-2 p-3 rounded-lg shadow w-full">
-  <div class="flex items-center justify-between pb-2 w-full">
+  class="bg-menu cursor-default mb-3 p-3 rounded-lg shadow w-full"
+>
+  <div class="flex items-center justify-between h-6 pb-2 w-full">
     <h6 class="text-sm">
       {{@palette.name}}
     </h6>
+
+    <div
+      {{on "mouseenter" (set this.showMenu true)}}
+      {{on "mouseleave" (set this.showMenu false)}}
+    >
+      {{#animated-if this.showMenu use=this.fade}}
+        <div>
+          <button type="button" {{on "click" (fn this.savePalette)}}>
+            {{svg-jar "save" class="icon" height="14" width="14"}}
+          </button>
+        </div>
+      {{else}}
+        <div>
+          {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
+        </div>
+      {{/animated-if}}
+    </div>
   </div>
 
   <div class="palette flex flex-grow h-8 relative w-full">
@@ -21,5 +39,4 @@
       {{/each}}
     </div>
   </div>
-</div
->
+</div>

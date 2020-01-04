@@ -115,6 +115,12 @@ button:hover svg.icon * {
   top: calc(50% - 8px);
 }
 
+.liquid-container, .liquid-child {
+  height: 100%;
+  overflow-y: scroll;
+  width: 100%;
+}
+
 .palette-color-squares {
   .first {
     border-bottom-left-radius: 5px;

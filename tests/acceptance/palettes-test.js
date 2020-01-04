@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { currentURL, findAll, triggerEvent, visit } from '@ember/test-helpers';
+import { currentURL, findAll, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { move, sort } from 'ember-drag-sort/utils/trigger';
 import { setupMirage } from 'ember-cli-mirage/test-support';

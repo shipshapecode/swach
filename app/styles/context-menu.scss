@@ -7,12 +7,17 @@
 .context-menu__item {
   @apply flex items-center pl-4 pr-4;
 
-  &:hover {
-    @apply bg-blue-500 text-white;
+  svg,
+  svg * {
+    transition: stroke 0s;
   }
 
-  .fa {
-    @apply mr-1 font-thin text-xs;
-    transform: translateY(-1px);
+  &:hover {
+    @apply bg-blue-500 text-white;
+
+    svg,
+    svg * {
+      stroke: white !important;
+    }
   }
 }

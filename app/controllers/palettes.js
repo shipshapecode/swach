@@ -5,6 +5,7 @@ import { tracked } from '@glimmer/tracking';
 
 export default class PalettesController extends Controller {
   @controller application;
+  @service actionManager;
   @service colorUtils;
   @service store;
 
@@ -60,26 +61,37 @@ export default class PalettesController extends Controller {
     const targetParent = get(targetArgs, 'parent');
 
     // If the palette is locked, we should not allow dragging colors into or out of it
-    if(sourceParent && sourceParent.isLocked || targetParent && targetParent.isLocked) return;
+    if (
+      (sourceParent && sourceParent.isLocked) ||
+      (targetParent && targetParent.isLocked)
+    )
+      return;
 
+    const trackedChange = [];
     let item = sourceList.objectAt(sourceIndex);
 
     // Dragging color out of color history
     if (get(sourceArgs, 'isColorHistory')) {
       if (sourceList !== targetList) {
+        targetParent.checkpoint();
+
         const existingColor = targetList.findBy('hex', item.hex);
         if (existingColor) {
           targetList.removeObject(item);
         }
         targetList.insertAt(targetIndex, item);
         if (targetParent) {
-          await targetParent.save();
+          trackedChange.pushObject(targetParent);
         }
+
+        this.actionManager.trackAndSave(trackedChange);
       }
     } else {
+      sourceParent.checkpoint();
       sourceList.removeAt(sourceIndex);
 
       if (!get(targetArgs, 'isColorHistory')) {
+        targetParent.checkpoint();
         const existingColor = targetList.findBy('hex', item.hex);
         if (existingColor) {
           targetList.removeObject(item);
@@ -88,12 +100,14 @@ export default class PalettesController extends Controller {
       }
 
       if (sourceParent) {
-        await sourceParent.save();
+        trackedChange.pushObject(sourceParent);
       }
 
       if (targetParent && sourceList !== targetList) {
-        await targetParent.save();
+        trackedChange.pushObject(targetParent);
       }
+
+      this.actionManager.trackAndSave(trackedChange);
     }
 
     await item.save();

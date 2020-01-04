@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { action, set } from '@ember/object';
+import EmberObject, { action, computed, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import ContextMenuMixin from 'ember-context-menu';
 import fade from 'ember-animated/transitions/fade';
@@ -29,16 +29,23 @@ export default class PaletteRowComponent extends Component.extend(
       icon: 'trash',
       label: 'Delete Palette',
       action: this.deletePalette
-    },
-    {
-      icon: 'heart',
-      label: 'Favorite Palette',
-      action: this.favoritePalette
     }
   ];
 
   init() {
     super.init();
+
+    this.contextItems.pushObject(
+      EmberObject.extend({
+        palette: this.palette,
+        icon: 'heart',
+        label: computed('palette.isFavorite', function() {
+          const isFavorite = this.palette.isFavorite;
+          return isFavorite ? 'Remove from favorites' : 'Add to favorites';
+        }),
+        action: this.favoritePalette
+      }).create()
+    );
 
     this.dragSort.on('start', ({ draggedItem }) => {
       document.documentElement.style.setProperty(

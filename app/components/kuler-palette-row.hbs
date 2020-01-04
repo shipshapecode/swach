@@ -1,9 +1,9 @@
 <div
-  data-test-kuler-palette
+  data-test-kuler-palette="{{@palette.name}}"
   class="bg-menu cursor-default mb-3 p-3 rounded-lg shadow w-full"
 >
   <div class="flex items-center justify-between h-6 pb-2 w-full">
-    <h6 class="text-sm">
+    <h6 class="text-sm" data-test-kuler-palette-name>
       {{@palette.name}}
     </h6>
 
@@ -29,7 +29,7 @@
     <div class="absolute palette-color-squares flex flex-grow h-8 top-0 w-full">
       {{#each @palette.colors as |color index|}}
         <div
-          data-test-kuler-palette-options
+          data-test-kuler-palette-color="{{index}}"
           class="flex flex-grow
             {{if (eq index 0) "first"}}
             {{if (eq index (sub @palette.colors.length 1)) "last"}}"

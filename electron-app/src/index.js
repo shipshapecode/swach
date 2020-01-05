@@ -34,6 +34,8 @@ const mb = menubar({
   preloadWindow: true
 });
 
+mb.app.commandLine.appendSwitch('disable-backgrounding-occluded-windows', 'true');
+
 const browsers = require('./browsers')(__dirname);
 const { settings } = browsers;
 

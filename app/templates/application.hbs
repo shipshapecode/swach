@@ -37,9 +37,35 @@
         @targetId="toggle-menu"
         @tooltipClass="bg-main border-menu text-alt"
       >
-        <LinkTo @route="contrast" {{on "click" this.toggleMenuIsShown}}>
-          Check Contrast
-        </LinkTo>
+        <div>
+          <LinkTo
+            class="flex items-center h-2 pb-3 pl-2 pr-2 pt-3"
+            @route="palettes"
+            {{on "click" this.toggleMenuIsShown}}
+          >
+            {{svg-jar
+              "grid"
+              class="icon inline-block mr-1"
+              height="13"
+              width="13"
+            }} Palettes
+          </LinkTo>
+        </div>
+
+        <div>
+          <LinkTo
+            class="flex items-center h-2 pb-3 pl-2 pr-2 pt-3"
+            @route="contrast"
+            {{on "click" this.toggleMenuIsShown}}
+          >
+            {{svg-jar
+              "layout"
+              class="icon inline-block mr-1"
+              height="13"
+              width="13"
+            }} Check Contrast
+          </LinkTo>
+        </div>
       </EmberPopover>
 
       <div class="h-4 w-4">

@@ -86,6 +86,12 @@ export default class PaletteRowComponent extends Component.extend(
   }
 
   @action
+  lockPalette() {
+    this.palette.toggleProperty('isLocked');
+    this.palette.save();
+  }
+
+  @action
   toggleIsEditing() {
     set(this, 'isEditing', !this.isEditing);
   }

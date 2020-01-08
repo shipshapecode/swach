@@ -19,6 +19,14 @@
           @query={{hash paletteId=@palette.id}}
           @route="colors"
         >
+          {{#if this.palette.isLocked}}
+            {{svg-jar
+              "lock"
+              class="icon mr-1"
+              height="12"
+              width="12"
+            }}
+          {{/if}}
           {{@palette.name}}
           {{svg-jar "arrow-right" class="icon ml-1" height="12" width="12"}}
         </LinkTo>
@@ -31,6 +39,19 @@
     >
       {{#animated-if this.showMenu use=this.fade}}
         <div>
+          <button
+            class="mr-1"
+            type="button"
+            {{on "click" (fn this.lockPalette)}}
+          >
+            {{svg-jar
+              (if this.palette.isLocked "lock" "unlock")
+              class="icon"
+              height="13"
+              width="13"
+            }}
+          </button>
+
           <button
             class="mr-1"
             type="button"

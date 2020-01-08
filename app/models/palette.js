@@ -2,25 +2,35 @@ import Model, { attr, hasMany } from '@ember-data/model';
 import Copyable from 'ember-data-copyable';
 
 export default class PaletteModel extends Model.extend(Copyable) {
+  @attr('string') name;
+  
   @attr('date', {
     defaultValue() {
       return new Date();
     }
   })
   createdAt;
+
   @attr('boolean', {
     defaultValue() {
       return false;
     }
   })
   isColorHistory;
+
   @attr('boolean', {
     defaultValue() {
       return false;
     }
   })
   isFavorite;
-  @attr('string') name;
+
+  @attr('boolean', {
+    defaultValue() {
+      return false;
+    }
+  })
+  isLocked;
 
   @hasMany('color', { inverse: 'palettes' }) colors;
 }

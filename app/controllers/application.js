@@ -44,7 +44,7 @@ export default class ApplicationController extends Controller {
 
   init() {
     super.init(...arguments);
-    
+
     if (typeof requireNode !== 'undefined') {
       let { ipcRenderer } = requireNode('electron');
       this.ipcRenderer = ipcRenderer;
@@ -72,11 +72,11 @@ export default class ApplicationController extends Controller {
 
     const palettes = await this.store.findAll('palette');
     const colorHistory = palettes.findBy('isColorHistory', true);
-    
-    colorHistory.checkpoint();
+
+    colorHistory.startTrack();
     colorHistory.colors.pushObject(colorRecord);
     await this.actionManager.trackAndSave(colorHistory);
-    
+
     return colorRecord;
   }
 

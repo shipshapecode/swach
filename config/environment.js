@@ -6,6 +6,7 @@ module.exports = function(environment) {
     environment,
     rootURL: '/',
     locationType: 'auto',
+    changeTracker: { trackHasMany: true, auto: true, enableIsDirty: true },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -20,7 +21,7 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    },
+    }
 
     // TODO: add CSP back. We need to figure out why it is making tests fail.
     // contentSecurityPolicy: {

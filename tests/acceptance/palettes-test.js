@@ -110,6 +110,28 @@ module('Acceptance | palettes', function(hooks) {
         .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
     });
 
+    test('locked palette does not allow rearranging colors', async function(assert) {
+      await visit('/palettes');
+
+      let sourceList = find(
+        '[data-test-palette-row="Locked Palette"]'
+      ).querySelector('.palette-color-squares');
+      let firstColor = sourceList.querySelector(
+        '[data-test-palette-color-square]'
+      );
+      assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
+
+      await sort(sourceList, 0, 1, true);
+
+      sourceList = find(
+        '[data-test-palette-row="Locked Palette"]'
+      ).querySelector('.palette-color-squares');
+      firstColor = sourceList.querySelector('[data-test-palette-color-square]');
+      assert
+        .dom(firstColor)
+        .hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
+    });
+
     test('moving colors between palettes', async function(assert) {
       await visit('/palettes');
 
@@ -149,6 +171,94 @@ module('Acceptance | palettes', function(hooks) {
       assert
         .dom('[data-test-palette-color-square]', targetList)
         .exists({ count: 3 });
+      assert
+        .dom(targetListThirdColor)
+        .hasStyle({ backgroundColor: 'rgb(53, 109, 196)' });
+    });
+
+    test('locked palette does not allow moving colors in', async function(assert) {
+      await visit('/palettes');
+
+      let targetList = find(
+        '[data-test-palette-row="Locked Palette"]'
+      ).querySelector('.palette-color-squares');
+      let sourceList = find(
+        '[data-test-palette-row="First Palette"]'
+      ).querySelector('.palette-color-squares');
+      let sourceListThirdColor = sourceList.querySelectorAll(
+        '[data-test-palette-color-square]'
+      )[2];
+      assert
+        .dom('[data-test-palette-color-square]', sourceList)
+        .exists({ count: 4 });
+      assert
+        .dom('[data-test-palette-color-square]', targetList)
+        .exists({ count: 3 });
+      assert
+        .dom(sourceListThirdColor)
+        .hasStyle({ backgroundColor: 'rgb(53, 109, 196)' });
+
+      await move(sourceList, 2, targetList, 1, false);
+
+      targetList = find(
+        '[data-test-palette-row="Locked Palette"]'
+      ).querySelector('.palette-color-squares');
+      sourceList = find(
+        '[data-test-palette-row="First Palette"]'
+      ).querySelector('.palette-color-squares');
+      let targetListThirdColor = targetList.querySelectorAll(
+        '[data-test-palette-color-square]'
+      )[2];
+      assert
+        .dom('[data-test-palette-color-square]', sourceList)
+        .exists({ count: 4 });
+      assert
+        .dom('[data-test-palette-color-square]', targetList)
+        .exists({ count: 3 });
+      assert
+        .dom(targetListThirdColor)
+        .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
+    });
+
+    test('locked palette does not allow moving colors out', async function(assert) {
+      await visit('/palettes');
+
+      let targetList = find(
+        '[data-test-palette-row="First Palette"]'
+      ).querySelector('.palette-color-squares');
+      let sourceList = find(
+        '[data-test-palette-row="Locked Palette"]'
+      ).querySelector('.palette-color-squares');
+      let sourceListThirdColor = sourceList.querySelectorAll(
+        '[data-test-palette-color-square]'
+      )[2];
+      assert
+        .dom('[data-test-palette-color-square]', sourceList)
+        .exists({ count: 3 });
+      assert
+        .dom('[data-test-palette-color-square]', targetList)
+        .exists({ count: 4 });
+      assert
+        .dom(sourceListThirdColor)
+        .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
+
+      await move(sourceList, 2, targetList, 1, false);
+
+      targetList = find(
+        '[data-test-palette-row="First Palette"]'
+      ).querySelector('.palette-color-squares');
+      sourceList = find(
+        '[data-test-palette-row="Locked Palette"]'
+      ).querySelector('.palette-color-squares');
+      let targetListThirdColor = targetList.querySelectorAll(
+        '[data-test-palette-color-square]'
+      )[2];
+      assert
+        .dom('[data-test-palette-color-square]', sourceList)
+        .exists({ count: 3 });
+      assert
+        .dom('[data-test-palette-color-square]', targetList)
+        .exists({ count: 4 });
       assert
         .dom(targetListThirdColor)
         .hasStyle({ backgroundColor: 'rgb(53, 109, 196)' });

@@ -2,10 +2,7 @@
 
 <main class="bg-main flex justify-center h-full text-alt w-full">
   <div class="flex flex-col max-w-xl h-full relative w-full">
-    <div
-      class="bg-menu flex justify-between items-center p-4 w-full
-        {{if this.isSettingsRoute "hidden"}}"
-    >
+    <div class="bg-menu flex justify-between items-center p-4 w-full">
       <div class="flex-grow">
         <div class="h-4 w-4">
           {{#if this.showEyedropperIcon}}
@@ -69,7 +66,9 @@
       </EmberPopover>
 
       <div class="h-4 w-4">
-        <ColorPicker @addColor={{fn this.addColor}} />
+        {{#if this.showColorWheel}}
+          <ColorPicker @addColor={{fn this.addColor}} />
+        {{/if}}
       </div>
     </div>
 
@@ -77,10 +76,7 @@
       {{liquid-outlet}}
     </div>
 
-    <div
-      class="bg-menu flex justify-between items-center p-4 w-full
-        {{if this.isSettingsRoute "hidden"}}"
-    >
+    <div class="bg-menu flex justify-between items-center p-4 w-full">
       {{#if this.showFavoritesIcon}}
         <button
           type="button"

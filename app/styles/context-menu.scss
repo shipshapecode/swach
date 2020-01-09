@@ -1,7 +1,7 @@
 .context-menu {
   @apply border-0 font-thin rounded shadow text-sm;
   background-color: var(--main-color);
-  color: var(--alt-color);
+  color: var(--alt-hover-color);
 }
 
 .context-menu__item {
@@ -12,12 +12,25 @@
     transition: stroke 0s;
   }
 
-  &:hover {
+  &:hover:not(.context-menu__item--disabled) {
     @apply bg-blue-500 text-white;
 
     svg,
     svg * {
       stroke: white !important;
+    }
+  }
+
+  &.context-menu__item--disabled {
+    color: var(--disabled-color);
+
+    svg,
+    svg * {
+      stroke: var(--disabled-color) !important;
+    }
+
+    &:hover {
+      cursor: not-allowed !important;
     }
   }
 }

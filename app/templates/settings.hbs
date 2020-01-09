@@ -1,4 +1,16 @@
+<button
+  class="flex flex-grow items-center mb-1 pb-2 pt-2 w-full"
+  type="button"
+  {{on "click" (fn this.goBack)}}
+>
+  {{svg-jar "chevron-left" class="icon mr-2" height="15" width="15"}}
+</button>
+
 <div class="p-4 w-full">
+  <h1 class="font-bold p-1 text-lg">
+    Preferences
+  </h1>
+
   <SettingsMenu
     @checkForUpdates={{this.application.checkForUpdates}}
     @enableDisableAutoStart={{this.application.enableDisableAutoStart}}

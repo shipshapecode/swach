@@ -1,5 +1,9 @@
 <AnimatedContainer class="colors-list">
   {{#animated-each this.sortedColors use=this.transition as |color|}}
-    <ColorRow @color={{color}} @deleteColor={{this.deleteColor}} />
+    <ColorRow
+      @color={{color}}
+      @deleteColor={{this.deleteColor}}
+      @palette={{this.args.palette}}
+    />
   {{/animated-each}}
 </AnimatedContainer>

@@ -5,6 +5,7 @@
 body.light {
   --alt-color: #677087;
   --alt-hover-color: #1f2126;
+  --disabled-color: #a0aec0;
   --main-color: #f1f1f1;
   --menu-color: #ffffff;
 }
@@ -12,6 +13,7 @@ body.light {
 body.dark {
   --alt-color: #dfdfe0;
   --alt-hover-color: #c7c7c7;
+  --disabled-color: #718096;
   --main-color: #292c32;
   --menu-color: #383a40;
 }
@@ -55,7 +57,7 @@ button,
   outline: none;
 
   &:focus {
-    outline:none;
+    outline: none;
   }
 }
 
@@ -73,7 +75,12 @@ svg {
         stroke: var(--alt-hover-color) !important;
       }
     }
+  }
+}
 
+a,
+button {
+  svg.icon {
     &.filled {
       g,
       * {
@@ -83,22 +90,51 @@ svg {
       }
     }
   }
-}
 
-a:hover svg.icon,
-a:hover svg.icon g,
-a:hover svg.icon *,
-button:hover svg.icon,
-button:hover svg.icon g,
-button:hover svg.icon * {
-  stroke: var(--alt-hover-color) !important;
+  &:hover:not([disabled]) {
+    svg.icon {
+      g,
+      * {
+        stroke: var(--alt-hover-color) !important;
+      }
+
+      &.filled {
+        g,
+        * {
+          fill: var(--alt-hover-color) !important;
+          stroke: var(--alt-hover-color) !important;
+          transition: fill stroke 0.25s;
+        }
+      }
+    }
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+
+    svg.icon {
+      g,
+      * {
+        stroke: var(--disabled-color) !important;
+      }
+
+      &.filled {
+        g,
+        * {
+          fill: var(--disabled-color) !important;
+          stroke: var(--disabled-color) !important;
+          transition: fill stroke 0.25s;
+        }
+      }
+    }
+  }
 }
 
 .custom-arrow.ember-popover-arrow {
   border: 8px solid transparent;
 }
 
-.ember-power-select-option[aria-selected=true] {
+.ember-power-select-option[aria-selected='true'] {
   background-color: var(--main-color);
   color: var(--alt-color);
 }
@@ -115,7 +151,8 @@ button:hover svg.icon * {
   top: calc(50% - 8px);
 }
 
-.liquid-container, .liquid-child {
+.liquid-container,
+.liquid-child {
   height: 100%;
   overflow-y: scroll;
   width: 100%;
@@ -130,6 +167,13 @@ button:hover svg.icon * {
   .last {
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
+  }
+
+  &.palette-locked {
+    .dragSortItem,
+    .dragSortItem.-isDragged {
+      cursor: not-allowed !important;
+    }
   }
 }
 

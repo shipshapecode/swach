@@ -1,4 +1,7 @@
-<span class="context-menu__item__label flex flex-shrink items-center">
+<span
+  class="context-menu__item__label flex flex-shrink items-center"
+  data-test-context-menu-item="{{@item.label}}"
+>  
   {{#if @item.icon}}
     {{svg-jar @item.icon class="context-menu__item__icon icon inline-block h-4 mr-2 w-4"}}
   {{/if}}

@@ -36,6 +36,22 @@ module('Acceptance | palettes', function(hooks) {
         document.querySelector('[data-test-context-menu]'),
         'context menu shown'
       );
+
+      assert
+      .dom(
+        document.querySelector(
+          '[data-test-context-menu-item="Delete Palette"]'
+        ).parentElement
+      )
+      .doesNotHaveClass('context-menu__item--disabled');
+
+      assert
+        .dom(
+          document.querySelector(
+            '[data-test-context-menu-item="Duplicate Palette"]'
+          ).parentElement
+        )
+        .doesNotHaveClass('context-menu__item--disabled');
     });
 
     test('options disabled when palette is locked', async function(assert) {
@@ -46,12 +62,28 @@ module('Acceptance | palettes', function(hooks) {
         'context menu hidden'
       );
 
-      triggerContextMenu('[data-test-palette-row="First Palette"]');
+      triggerContextMenu('[data-test-palette-row="Locked Palette"]');
 
       assert.ok(
         document.querySelector('[data-test-context-menu]'),
         'context menu shown'
       );
+
+      assert
+      .dom(
+        document.querySelector(
+          '[data-test-context-menu-item="Delete Palette"]'
+        ).parentElement
+      )
+      .hasClass('context-menu__item--disabled');
+
+      assert
+        .dom(
+          document.querySelector(
+            '[data-test-context-menu-item="Duplicate Palette"]'
+          ).parentElement
+        )
+        .hasClass('context-menu__item--disabled');
     });
   });
 

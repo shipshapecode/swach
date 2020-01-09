@@ -34,4 +34,10 @@ export default function(server) {
 
   const secondPalette = server.create('palette', { name: 'Second Palette' });
   secondPalette.update('colors', [black, white]);
+
+  const lockedPalette = server.create('palette', {
+    name: 'Locked Palette',
+    isLocked: true
+  });
+  lockedPalette.update('colors', [black, shamrock, white]);
 }

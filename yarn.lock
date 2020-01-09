@@ -5300,10 +5300,10 @@ ember-cli-string-utils@^1.0.0, ember-cli-string-utils@^1.1.0:
   resolved "https://registry.yarnpkg.com/ember-cli-string-utils/-/ember-cli-string-utils-1.1.0.tgz#39b677fc2805f55173735376fcef278eaa4452a1"
   integrity sha1-ObZ3/CgF9VFzc1N2/O8njqpEUqE=
 
-ember-cli-template-lint@^1.0.0-beta.3:
-  version "1.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/ember-cli-template-lint/-/ember-cli-template-lint-1.0.0-beta.3.tgz#48f2fa43e7ad0172685fa171e5acd4d75b873792"
-  integrity sha512-ivrvYih+cx7VUlyyMQBmk61Ki+gT5axfppWrk6fSvHaoxHZadXU3zRJMT5DPkeRaayRu0y1dls4wqfrUhzQ1PA==
+ember-cli-template-lint@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-template-lint/-/ember-cli-template-lint-1.0.0.tgz#8ca8f5f05fdcad35c13f26b65fb93c016196bdc9"
+  integrity sha512-acWyJUvRFo2aA/0kqeUxfCPwLtPk3ckZ/1I0BzBX9qW/Gi8qWqYnwnI/vEotIqmsQl+npbl0/SXeQHFrUdyB0g==
   dependencies:
     aot-test-generators "^0.1.0"
     broccoli-concat "^3.7.1"
@@ -5311,7 +5311,7 @@ ember-cli-template-lint@^1.0.0-beta.3:
     chalk "^2.4.1"
     debug "^4.0.1"
     ember-cli-version-checker "^3.0.1"
-    ember-template-lint "^1.1.0"
+    ember-template-lint "^1.2.0"
     json-stable-stringify "^1.0.1"
     md5-hex "^2.0.0"
     strip-ansi "^4.0.0"
@@ -5524,10 +5524,10 @@ ember-compatibility-helpers@^1.0.2, ember-compatibility-helpers@^1.1.1, ember-co
     ember-compatibility-helpers "^1.2.0"
     ember-maybe-import-regenerator "^0.1.6"
 
-ember-context-menu@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/ember-context-menu/-/ember-context-menu-0.5.0.tgz#5f3804d1421c0de1e5900b1d67ab68ad9253edb3"
-  integrity sha512-A18iDER4Ywqz7aeO4v/Zesu1uuhMeO1wRXYCNg0cUhHK1p/s4WT8nWuBo3s3rOgAxnMymKap+VBgyKPYEdKX3A==
+ember-context-menu@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/ember-context-menu/-/ember-context-menu-0.5.2.tgz#8a6dcdfeec778b2f22c9ee95ae8c69ef1f6b8f71"
+  integrity sha512-ZknmiskLTYjy7uGfdek+ZRKNnWo3Unp5jsPB1deZFVD8lmaZvW+B3TDRZS9djkPqNufTK7mylg0adCqH1IcRZA==
   dependencies:
     ember-cli-babel "^7.13.0"
     ember-cli-htmlbars "^4.2.0"
@@ -5886,10 +5886,10 @@ ember-svg-jar@^2.2.3:
     mkdirp "^0.5.1"
     path-posix "^1.0.0"
 
-ember-template-lint@^1.1.0:
-  version "1.12.3"
-  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-1.12.3.tgz#6e494c181ed316b61573f8664c515fe95d885d70"
-  integrity sha512-r7qlLYeXI5BTOPd2TZfgHudd4IAmYNjLnKd3PisPvvFX+OvbSd+oKakxC7CDFgIJNocIT0ky9xnMO++rynzduw==
+ember-template-lint@^1.2.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-1.13.0.tgz#9e271da31ca34fe65ed8af30f91b94cb701d3093"
+  integrity sha512-poQoMxSaUs+7LQgN5+h7DkNyvSkpoX94uwEA2WkPrsyXJeUSwO9541jiseXUFNCCNMvEDAlBPvOcfG99BA9uxA==
   dependencies:
     "@glimmer/syntax" "^0.45.0"
     chalk "^2.0.0"

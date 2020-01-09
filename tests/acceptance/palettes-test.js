@@ -1,8 +1,9 @@
 import { module, test } from 'qunit';
-import { currentURL, findAll, visit } from '@ember/test-helpers';
+import { currentURL, find, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { move, sort } from 'ember-drag-sort/utils/trigger';
 import { setupMirage } from 'ember-cli-mirage/test-support';
+import { triggerContextMenu } from 'ember-context-menu/test-support';
 import sharedScenario from '../../mirage/scenarios/shared';
 
 module('Acceptance | palettes', function(hooks) {
@@ -17,15 +18,50 @@ module('Acceptance | palettes', function(hooks) {
     await visit('/palettes');
 
     assert.equal(currentURL(), '/palettes');
-    assert.dom('[data-test-palette-row]').exists({ count: 2 });
+    assert.dom('[data-test-palette-row]').exists({ count: 3 });
+  });
+
+  module('context menu', function() {
+    test('context menu can be triggered', async function(assert) {
+      await visit('/palettes');
+
+      assert.notOk(
+        document.querySelector('[data-test-context-menu]'),
+        'context menu hidden'
+      );
+
+      triggerContextMenu('[data-test-palette-row="First Palette"]');
+
+      assert.ok(
+        document.querySelector('[data-test-context-menu]'),
+        'context menu shown'
+      );
+    });
+
+    test('options disabled when palette is locked', async function(assert) {
+      await visit('/palettes');
+
+      assert.notOk(
+        document.querySelector('[data-test-context-menu]'),
+        'context menu hidden'
+      );
+
+      triggerContextMenu('[data-test-palette-row="First Palette"]');
+
+      assert.ok(
+        document.querySelector('[data-test-context-menu]'),
+        'context menu shown'
+      );
+    });
   });
 
   module('drag/drop colors', function() {
     test('rearranging colors in palette', async function(assert) {
       await visit('/palettes');
 
-      let palettes = findAll('[data-test-palette-row]');
-      let sourceList = palettes[0].querySelector('.palette-color-squares');
+      let sourceList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
       let firstColor = sourceList.querySelector(
         '[data-test-palette-color-square]'
       );
@@ -33,8 +69,9 @@ module('Acceptance | palettes', function(hooks) {
 
       await sort(sourceList, 0, 1, true);
 
-      palettes = findAll('[data-test-palette-row]');
-      sourceList = palettes[0].querySelector('.palette-color-squares');
+      sourceList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
       firstColor = sourceList.querySelector('[data-test-palette-color-square]');
       assert
         .dom(firstColor)
@@ -44,9 +81,12 @@ module('Acceptance | palettes', function(hooks) {
     test('moving colors between palettes', async function(assert) {
       await visit('/palettes');
 
-      let palettes = findAll('[data-test-palette-row]');
-      let targetList = palettes[0].querySelector('.palette-color-squares');
-      let sourceList = palettes[1].querySelector('.palette-color-squares');
+      let targetList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      let sourceList = find(
+        '[data-test-palette-row="First Palette"]'
+      ).querySelector('.palette-color-squares');
       let sourceListThirdColor = sourceList.querySelectorAll(
         '[data-test-palette-color-square]'
       )[2];
@@ -62,9 +102,12 @@ module('Acceptance | palettes', function(hooks) {
 
       await move(sourceList, 2, targetList, 1, false);
 
-      palettes = findAll('[data-test-palette-row]');
-      targetList = palettes[0].querySelector('.palette-color-squares');
-      sourceList = palettes[1].querySelector('.palette-color-squares');
+      targetList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      sourceList = find(
+        '[data-test-palette-row="First Palette"]'
+      ).querySelector('.palette-color-squares');
       let targetListThirdColor = targetList.querySelectorAll(
         '[data-test-palette-color-square]'
       )[2];
@@ -77,32 +120,6 @@ module('Acceptance | palettes', function(hooks) {
       assert
         .dom(targetListThirdColor)
         .hasStyle({ backgroundColor: 'rgb(53, 109, 196)' });
-    });
-  });
-
-  module('context menu', function() {
-    test('context menu can be triggered', async function(assert) {
-      await visit('/palettes');
-
-      assert.notOk(document.querySelector('[data-test-context-menu]'), 'context menu hidden');
-
-      const element = document.querySelector(
-        '[data-test-palette-row="First Palette"]'
-      ).parentElement;
-
-      var contextMenuEvent = new MouseEvent('contextmenu', {
-        bubbles: true,
-        cancelable: false,
-        view: window,
-        button: 2,
-        buttons: 0,
-        clientX: element.getBoundingClientRect().x,
-        clientY: element.getBoundingClientRect().y
-      });
-
-      element.dispatchEvent(contextMenuEvent);
-
-      assert.ok(document.querySelector('[data-test-context-menu]'), 'context menu shown');
     });
   });
 });

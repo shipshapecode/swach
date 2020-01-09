@@ -18,31 +18,36 @@
     </div>
 
     <div
-      class="flex"
+      class="flex pb-2 pt-2"
       data-test-color-row-menu
       {{on "mouseenter" (set this.showMenu true)}}
       {{on "mouseleave" (set this.showMenu false)}}
     >
-      {{#if this.showMenu}}
-        <button
-          data-test-go-to-kuler
-          type="button"
-          {{on "click" (stop-propagation (fn this.transitionToKuler))}}
-        >
-          {{svg-jar "sliders" class="icon mr-2" height="15" width="15"}}
-        </button>
-        {{#if @deleteColor}}
+      {{#animated-if this.showMenu use=this.fade}}
+        <div>
           <button
-            data-test-delete-color
+            data-test-go-to-kuler
             type="button"
-            {{on "click" (stop-propagation (fn @deleteColor @color))}}
+            {{on "click" (stop-propagation (fn this.transitionToKuler))}}
           >
-            {{svg-jar "trash" class="icon" height="15" width="15"}}
+            {{svg-jar "sliders" class="icon mr-2" height="15" width="15"}}
           </button>
-        {{/if}}
+          {{#if @deleteColor}}
+            <button
+              data-test-delete-color
+              disabled={{@palette.isLocked}}
+              type="button"
+              {{on "click" (stop-propagation (fn @deleteColor @color))}}
+            >
+              {{svg-jar "trash" class="icon" height="15" width="15"}}
+            </button>
+          {{/if}}
+        </div>
       {{else}}
-        {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
-      {{/if}}
+        <div>
+          {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
+        </div>
+      {{/animated-if}}
     </div>
   </div>
 </div>

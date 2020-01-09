@@ -25,7 +25,9 @@ export default class ColorsList extends Component {
 
   @action
   deleteColor(color) {
-    this.args.palette.colors.removeObject(color);
-    this.args.palette.save();
+    if (!this.args.palette.isLocked) {
+      this.args.palette.colors.removeObject(color);
+      this.args.palette.save();
+    }
   }
 }

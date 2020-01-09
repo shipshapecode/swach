@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import EmberObject, { action, computed, set } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import ContextMenuMixin from 'ember-context-menu';
 import fade from 'ember-animated/transitions/fade';
@@ -14,38 +15,55 @@ export default class PaletteRowComponent extends Component.extend(
   isEditing = false;
   showMenu = false;
 
-  contextItems = [
-    {
-      icon: 'type',
-      label: 'Rename Palette',
-      action: this.toggleIsEditing
-    },
-    {
-      icon: 'copy',
-      label: 'Duplicate Palette',
-      action: this.duplicatePalette
-    },
-    {
-      icon: 'trash',
-      label: 'Delete Palette',
-      action: this.deletePalette
-    }
-  ];
-
   init() {
     super.init();
 
-    this.contextItems.pushObject(
+    this.contextItems = [
+      EmberObject.extend({
+        palette: this.palette,
+        icon: 'type',
+        label: 'Rename Palette',
+        disabled: readOnly('palette.isLocked'),
+        action: this.toggleIsEditing
+      }).create(),
+      EmberObject.extend({
+        palette: this.palette,
+        icon: 'copy',
+        label: 'Duplicate Palette',
+        disabled: readOnly('palette.isLocked'),
+        action: this.duplicatePalette
+      }).create(),
+      EmberObject.extend({
+        palette: this.palette,
+        icon: 'trash',
+        label: 'Delete Palette',
+        disabled: readOnly('palette.isLocked'),
+        action: this.deletePalette
+      }).create(),
+      EmberObject.extend({
+        palette: this.palette,
+        icon: computed('palette.isLocked', function() {
+          const isLocked = this.palette.isLocked;
+          return isLocked ? 'unlock' : 'lock';
+        }),
+        label: computed('palette.isLocked', function() {
+          const isLocked = this.palette.isLocked;
+          return isLocked ? 'Unlock Palette' : 'Lock Palette';
+        }),
+        action: this.lockPalette
+      }).create(),
+
       EmberObject.extend({
         palette: this.palette,
         icon: 'heart',
+        disabled: readOnly('palette.isLocked'),
         label: computed('palette.isFavorite', function() {
           const isFavorite = this.palette.isFavorite;
           return isFavorite ? 'Remove from favorites' : 'Add to favorites';
         }),
         action: this.favoritePalette
       }).create()
-    );
+    ];
 
     this.dragSort.on('start', ({ draggedItem }) => {
       document.documentElement.style.setProperty(

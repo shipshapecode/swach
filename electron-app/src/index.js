@@ -36,10 +36,11 @@ const mb = menubar({
 
 mb.app.commandLine.appendSwitch('disable-backgrounding-occluded-windows', 'true');
 
-const browsers = require('./browsers')(__dirname);
-const { settings } = browsers;
+// const browsers = require('./browsers')(__dirname);
+// const { settings } = browsers;
 
-const showPreferences = () => settings.init();
+// const showPreferences = () => settings.init();
+// ipcMain.on('showPreferences', showPreferences);
 
 ipcMain.on('copyColorToClipboard', (channel, color) => {
   clipboard.writeText(color);
@@ -48,7 +49,6 @@ ipcMain.on('exitApp', () => mb.app.quit());
 ipcMain.on('launchPicker', () => {
   launchPicker(mb);
 });
-ipcMain.on('showPreferences', showPreferences);
 
 // Registering a protocol & schema to serve our Ember application
 if (typeof protocol.registerSchemesAsPrivileged === 'function') {
@@ -89,13 +89,13 @@ mb.app.on('window-all-closed', () => {
 
 mb.on('after-create-window', function() {
   const contextMenu = Menu.buildFromTemplate([
-    {
-      label: 'Preferences',
-      click() {
-        showPreferences();
-      }
-    },
-    { type: 'separator' },
+    // {
+    //   label: 'Preferences',
+    //   click() {
+    //     showPreferences();
+    //   }
+    // },
+    // { type: 'separator' },
     {
       label: 'Quit',
       click() {

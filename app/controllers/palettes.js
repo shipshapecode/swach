@@ -50,10 +50,15 @@ export default class PalettesController extends Controller {
     targetList,
     targetIndex
   }) {
+    // If the same list and same index, we are not moving anywhere, so return
     if (sourceList === targetList && sourceIndex === targetIndex) return;
 
     const sourceParent = get(sourceArgs, 'parent');
     const targetParent = get(targetArgs, 'parent');
+
+    // If the palette is locked, we should not allow dragging colors into or out of it
+    if(sourceParent.isLocked || targetParent.isLocked) return;
+
     let item = sourceList.objectAt(sourceIndex);
 
     // Dragging color out of color history

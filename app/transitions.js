@@ -20,15 +20,13 @@ export default function(){
   );
 
   this.transition(
-    this.fromRoute('colors'),
     this.toRoute('contrast'),
     this.use('toLeft'),
     this.reverse('toRight')
   );
 
   this.transition(
-    this.fromRoute('palettes'),
-    this.toRoute('contrast'),
+    this.toRoute('settings'),
     this.use('toLeft'),
     this.reverse('toRight')
   );

@@ -21,6 +21,11 @@ export default class ApplicationController extends Controller {
   @equal('router.currentRouteName', 'settings') isSettingsRoute;
 
   @computed('isContrastRoute', 'isSettingsRoute')
+  get showColorWheel() {
+    return !this.isContrastRoute && !this.isSettingsRoute;
+  }
+
+  @computed('isContrastRoute', 'isSettingsRoute')
   get showEyedropperIcon() {
     return !this.isContrastRoute && !this.isSettingsRoute;
   }
@@ -100,7 +105,7 @@ export default class ApplicationController extends Controller {
 
   @action
   showPreferences() {
-    this.ipcRenderer.send('showPreferences');
+    this.router.transitionTo('settings');
   }
 
   @action

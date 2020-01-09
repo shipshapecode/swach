@@ -19,13 +19,8 @@
           @query={{hash paletteId=@palette.id}}
           @route="colors"
         >
-          {{#if this.palette.isLocked}}
-            {{svg-jar
-              "lock"
-              class="icon mr-1"
-              height="12"
-              width="12"
-            }}
+          {{#if @palette.isLocked}}
+            {{svg-jar "lock" class="icon mr-1" height="12" width="12"}}
           {{/if}}
           {{@palette.name}}
           {{svg-jar "arrow-right" class="icon ml-1" height="12" width="12"}}
@@ -45,7 +40,7 @@
             {{on "click" (fn this.lockPalette)}}
           >
             {{svg-jar
-              (if this.palette.isLocked "lock" "unlock")
+              (if @palette.isLocked "lock" "unlock")
               class="icon"
               height="13"
               width="13"
@@ -54,19 +49,25 @@
 
           <button
             class="mr-1"
+            disabled={{@palette.isLocked}}
             type="button"
             {{on "click" (fn this.favoritePalette)}}
           >
             {{svg-jar
               "heart"
-              class=(concat "icon " (if this.palette.isFavorite "filled"))
+              class=(concat "icon " (if @palette.isFavorite "filled"))
               height="13"
               width="13"
             }}
           </button>
 
-          <button type="button" {{on "click" (fn this.deletePalette)}}>
-            {{svg-jar "trash" class="icon" height="13" width="13"}}
+          <button disabled={{@palette.isLocked}} type="button" {{on "click" (fn this.deletePalette)}}>
+            {{svg-jar
+              "trash"
+              class="icon"
+              height="13"
+              width="13"
+            }}
           </button>
         </div>
       {{else}}
@@ -88,16 +89,24 @@
 
     <DragSortList
       @additionalArgs={{hash parent=@palette}}
-      @classNames="absolute palette-color-squares flex flex-grow h-8 top-0 w-full"
+      @classNames="absolute palette-color-squares flex flex-grow h-8 top-0 w-full
+
+
+        {{if @palette.isLocked "palette-locked"}}"
       @childClass="flex flex-grow"
+      @group={{if @palette.isLocked @palette.id undefined}}
       @isHorizontal={{true}}
       @items={{@palette.colors}}
+      @sourceOnly={{@palette.isLocked}}
       @dragEndAction={{fn @moveColorsBetweenPalettes}} as |color index|
     >
       <div
         data-test-palette-color-square
         class="flex flex-grow
+
           {{if (eq index 0) "first"}}
+
+
           {{if (eq index (sub @palette.colors.length 1)) "last"}}"
         style={{html-safe (concat "background-color: " color.hex)}}
         {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}

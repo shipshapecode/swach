@@ -75,7 +75,9 @@ export default class PaletteRowComponent extends Component.extend(
 
   @action
   deletePalette() {
-    this.palette.destroyRecord();
+    if (!this.palette.isLocked) {
+      this.palette.destroyRecord();
+    }
   }
 
   @action
@@ -93,8 +95,10 @@ export default class PaletteRowComponent extends Component.extend(
 
   @action
   favoritePalette() {
-    this.palette.toggleProperty('isFavorite');
-    this.palette.save();
+    if (!this.palette.isLocked) {
+      this.palette.toggleProperty('isFavorite');
+      this.palette.save();
+    }
   }
 
   @action

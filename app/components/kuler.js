@@ -7,6 +7,17 @@ import fade from 'ember-animated/transitions/fade';
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
 
+iro.ColorPicker.prototype.setColors = function(newColorValues) {
+  // Unbind color events
+  this.colors.forEach(color => color.unbind());
+  // Destroy old colors
+  this.colors = [];
+  // Add new colors
+  newColorValues.forEach(colorValue => this.addColor(colorValue));
+  // Reset active color
+  this.setActiveColor(0);
+};
+
 export default class KulerComponent extends Component {
   @service colorUtils;
   @service store;
@@ -58,6 +69,7 @@ export default class KulerComponent extends Component {
   @action
   setSelectedPalette(palette) {
     this.selectedPalette = palette;
+    this.colorPicker.setColors(this.selectedPalette.colors.mapBy('hex'));
   }
 
   @action

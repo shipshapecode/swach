@@ -61,10 +61,15 @@
             }}
           </button>
 
-          <button disabled={{@palette.isLocked}} type="button" {{on "click" (fn this.deletePalette)}}>
+          <button
+            disabled={{@palette.isLocked}}
+            type="button"
+            {{on "click" (fn this.deletePalette)}}
+            {{on "mouseleave" (set this.deleteConfirm false)}}
+          >
             {{svg-jar
               "trash"
-              class="icon"
+              class=(concat "icon " (if this.deleteConfirm "delete-confirm"))
               height="13"
               width="13"
             }}
@@ -90,8 +95,6 @@
     <DragSortList
       @additionalArgs={{hash parent=@palette}}
       @classNames="absolute palette-color-squares flex flex-grow h-8 top-0 w-full
-
-
         {{if @palette.isLocked "palette-locked"}}"
       @childClass="flex flex-grow"
       @group={{if @palette.isLocked @palette.id undefined}}
@@ -103,10 +106,7 @@
       <div
         data-test-palette-color-square
         class="flex flex-grow
-
           {{if (eq index 0) "first"}}
-
-
           {{if (eq index (sub @palette.colors.length 1)) "last"}}"
         style={{html-safe (concat "background-color: " color.hex)}}
         {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}

@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import EmberObject, { action, computed, set } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
 import ContextMenuMixin from 'ember-context-menu';
 import fade from 'ember-animated/transitions/fade';
 
@@ -12,6 +13,7 @@ export default class PaletteRowComponent extends Component.extend(
   @service dragSort;
 
   fade = fade;
+  @tracked deleteConfirm = false;
   isEditing = false;
   showMenu = false;
 
@@ -76,7 +78,11 @@ export default class PaletteRowComponent extends Component.extend(
   @action
   deletePalette() {
     if (!this.palette.isLocked) {
-      this.palette.destroyRecord();
+      if (this.deleteConfirm) {
+        this.palette.destroyRecord();
+      }
+
+      this.deleteConfirm = true;
     }
   }
 

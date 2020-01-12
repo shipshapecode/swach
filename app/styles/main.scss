@@ -75,6 +75,20 @@ svg {
         stroke: var(--alt-hover-color) !important;
       }
     }
+
+    &.delete-confirm {
+      g,
+      * {
+        stroke: #f56565 !important;
+      }
+      
+      &:hover {
+        g,
+        * {
+          stroke: #f56565 !important;
+        }
+      }
+    }
   }
 }
 
@@ -92,7 +106,7 @@ button {
   }
 
   &:hover:not([disabled]) {
-    svg.icon {
+    svg.icon:not(.delete-confirm) {
       g,
       * {
         stroke: var(--alt-hover-color) !important;

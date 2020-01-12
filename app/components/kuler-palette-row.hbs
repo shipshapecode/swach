@@ -1,7 +1,7 @@
 <div
   data-test-kuler-palette="{{@palette.name}}"
   class="cursor-default mb-3 p-3 rounded-lg shadow w-full
-    {{if (eq @palette @selectedPalette) "bg-alt text-main" "bg-menu"}}"
+    {{if (eq @palette @selectedPalette) "bg-gray-500 text-white" "bg-menu"}}"
   {{on "click" (fn @setSelectedPalette @palette)}}
 >
   <div class="flex items-center justify-between h-6 pb-2 w-full">

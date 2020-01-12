@@ -93,13 +93,13 @@ svg {
     &.selected-kuler {
       g,
       * {
-        stroke: var(--main-color) !important;
+        stroke: #ffffff !important;
       }
   
       &:hover {
         g,
         * {
-          stroke: var(--menu-color) !important;
+          stroke: #f1f1f1 !important;
         }
       }
     }

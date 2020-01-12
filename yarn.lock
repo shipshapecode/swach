@@ -1320,10 +1320,18 @@
   resolved "https://registry.yarnpkg.com/@glimmer/validator/-/validator-0.44.0.tgz#03d127097dc9cb23052cdb7fcae59d0a9dca53e1"
   integrity sha512-i01plR0EgFVz69GDrEuFgq1NheIjZcyTy3c7q+w7d096ddPVeVcRzU3LKaqCfovvLJ+6lJx40j45ecycASUUyw==
 
-"@jaames/iro@^4.5.3":
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/@jaames/iro/-/iro-4.5.3.tgz#4fbeabaf119b9f53ef5b88e262dbfc3477fa9e9a"
-  integrity sha512-knBqezLEprrpHCb9hHZbQLApzCZyI/AuWg3mqQVkgTtQX3MNX3W2uVkX1hFwS6pmEUHbA022rid9fRqV0IshMA==
+"@irojs/iro-core@0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@irojs/iro-core/-/iro-core-0.0.6.tgz#d469aed69c3e53023d8a64b8108ceb49b9790d57"
+  integrity sha512-SWFKJI5eVi1bUEyFuLnWoxkXSVpv3xrz7JP82eB4CyV1s/TiaWlNx4JWyowZrhHDX4n62zjZXmDAVvgX1/Vu+w==
+
+"@jaames/iro@^5.0.0-5":
+  version "5.0.0-5"
+  resolved "https://registry.yarnpkg.com/@jaames/iro/-/iro-5.0.0-5.tgz#ca278fedbc7c51a62db6ea1c9891fa9ae9df7bf9"
+  integrity sha512-+vz7vE84WVo9J8lCdM0tHFY4vgzz2PS3XlxdOO6UBPs81RrVGYqTtO0mMgsQVdG1KmB6i3bjPKVH1N8RPxVQYQ==
+  dependencies:
+    "@irojs/iro-core" "0.0.6"
+    preact "^10.0.0"
 
 "@miragejs/pretender-node-polyfill@^0.1.0":
   version "0.1.2"
@@ -10245,6 +10253,11 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.11, postcss@^7.0.14, postcss@^7.0.1
     chalk "^2.4.2"
     source-map "^0.6.1"
     supports-color "^6.1.0"
+
+preact@^10.0.0:
+  version "10.2.1"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.2.1.tgz#b30eb4cdc455499ee2ff82e0fa1a16fc8e20f3a4"
+  integrity sha512-BUNvmQcVtNElku7mYHexIiM5JlGNSW2BY9O2t9xk1NqA43O8wbE0cah6PAlvT7PBHvyDRJ5TAj5Fewdi9DqLoQ==
 
 prelude-ls@~1.1.2:
   version "1.1.2"

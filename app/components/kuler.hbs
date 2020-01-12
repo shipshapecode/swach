@@ -1,13 +1,13 @@
 <div class="flex justify-center pb-8 w-full">
-  <div
-    class="w-auto"
-    id="color-picker-container"
-    {{did-insert this._setupColorWheel}}
-  ></div>
+  <div class="w-auto" id="color-picker-container"></div>
 </div>
 
 <AnimatedContainer class="palettes-list">
   {{#animated-each this.palettes use=this.fade as |palette|}}
-    <KulerPaletteRow @palette={{palette}} />
+    <KulerPaletteRow
+      @palette={{palette}}
+      @selectedPalette={{this.selectedPalette}}
+      @setSelectedPalette={{this.setSelectedPalette}}
+    />
   {{/animated-each}}
 </AnimatedContainer>

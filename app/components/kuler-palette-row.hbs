@@ -1,6 +1,8 @@
 <div
   data-test-kuler-palette="{{@palette.name}}"
-  class="bg-menu cursor-default mb-3 p-3 rounded-lg shadow w-full"
+  class="cursor-default mb-3 p-3 rounded-lg shadow w-full
+    {{if (eq @palette @selectedPalette) "bg-alt text-main" "bg-menu"}}"
+  {{on "click" (fn @setSelectedPalette @palette)}}
 >
   <div class="flex items-center justify-between h-6 pb-2 w-full">
     <h6 class="text-sm" data-test-kuler-palette-name>

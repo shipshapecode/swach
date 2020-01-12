@@ -14,16 +14,19 @@ export default class KulerComponent extends Component {
   harmonies = ['analogous', 'monochromatic', 'tetrad', 'triad'];
   fade = fade;
 
-  @tracked palettes = [];
   @tracked baseColor;
+  @tracked colors = [];
+  @tracked palettes = [];
+  @tracked selectedPalette;
 
   constructor() {
     super(...arguments);
 
     this.baseColor = this.args.baseColor;
-    this.baseColorChanged();
+    this.baseColorChanged().then(() => {
+      this._setupColorWheel();
+    });
   }
-
 
   @action
   async baseColorChanged() {
@@ -43,11 +46,18 @@ export default class KulerComponent extends Component {
 
       this.palettes.pushObject(palette);
     }
+
+    this.selectedPalette = this.palettes[0];
   }
 
   willDestroy() {
     this._destroyLeftoverPalettes();
     this.colorPicker.off('color:change', this._onColorChange);
+  }
+
+  @action
+  setSelectedPalette(palette) {
+    this.selectedPalette = palette;
   }
 
   @action
@@ -70,7 +80,7 @@ export default class KulerComponent extends Component {
   @action
   _setupColorWheel() {
     this.colorPicker = new iro.ColorPicker('#color-picker-container', {
-      color: this.baseColor.hex,
+      colors: this.selectedPalette.colors.mapBy('hex'),
       width: 200
     });
 

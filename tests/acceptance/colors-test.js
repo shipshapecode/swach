@@ -35,6 +35,8 @@ module('Acceptance | colors', function(hooks) {
     assert.dom('[data-test-color]').exists({ count: 4 });
 
     await triggerEvent('[data-test-color="Black"] [data-test-color-row-menu]', 'mouseenter');
+    // Click twice to confirm
+    await click('[data-test-color="Black"] [data-test-delete-color]');
     await click('[data-test-color="Black"] [data-test-delete-color]');
 
     await animationsSettled();

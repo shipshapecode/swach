@@ -1,6 +1,8 @@
 <div
   data-test-kuler-palette="{{@palette.name}}"
-  class="bg-menu cursor-default mb-3 p-3 rounded-lg shadow w-full"
+  class="cursor-default mb-3 p-3 rounded-lg shadow w-full
+    {{if (eq @palette @selectedPalette) "bg-gray-500 text-white" "bg-menu"}}"
+  {{on "click" (fn @setSelectedPalette @palette)}}
 >
   <div class="flex items-center justify-between h-6 pb-2 w-full">
     <h6 class="text-sm" data-test-kuler-palette-name>
@@ -14,12 +16,26 @@
       {{#animated-if this.showMenu use=this.fade}}
         <div>
           <button type="button" {{on "click" (fn this.savePalette)}}>
-            {{svg-jar "save" class="icon" height="14" width="14"}}
+            {{svg-jar
+              "save"
+              class=(concat
+                "icon " (if (eq @palette @selectedPalette) "selected-kuler")
+              )
+              height="14"
+              width="14"
+            }}
           </button>
         </div>
       {{else}}
         <div>
-          {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
+          {{svg-jar
+            "more-horizontal"
+            class=(concat
+              "icon " (if (eq @palette @selectedPalette) "selected-kuler")
+            )
+            height="15"
+            width="15"
+          }}
         </div>
       {{/animated-if}}
     </div>

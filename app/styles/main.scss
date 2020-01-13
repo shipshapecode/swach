@@ -89,6 +89,20 @@ svg {
         }
       }
     }
+
+    &.selected-kuler {
+      g,
+      * {
+        stroke: #ffffff !important;
+      }
+  
+      &:hover {
+        g,
+        * {
+          stroke: #f1f1f1 !important;
+        }
+      }
+    }
   }
 }
 
@@ -106,7 +120,7 @@ button {
   }
 
   &:hover:not([disabled]) {
-    svg.icon:not(.delete-confirm) {
+    svg.icon:not(.delete-confirm):not(.selected-kuler) {
       g,
       * {
         stroke: var(--alt-hover-color) !important;

@@ -18,7 +18,9 @@
       {{svg-jar "check" class="icon mb-2" height="20" width="20"}}
     </button>
   </div>
-  <ColorRow @color={{this.selectedColor}} />
+
+  <ColorRow @color={{this.selectedColor}} @showActions={{false}} />
+
   <div
     {{did-insert this.initColorPicker}}
     {{will-destroy this.destroyColorPickr}}

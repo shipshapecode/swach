@@ -17,43 +17,47 @@
       </p>
     </div>
 
-    <div
-      class="flex pb-2 pt-2"
-      data-test-color-row-menu
-      {{on "mouseenter" (set this.showMenu true)}}
-      {{on "mouseleave" (set this.showMenu false)}}
-    >
-      {{#animated-if this.showMenu use=this.fade}}
-        <div>
-          <button
-            data-test-go-to-kuler
-            type="button"
-            {{on "click" (stop-propagation (fn this.transitionToKuler))}}
-          >
-            {{svg-jar "sliders" class="icon mr-2" height="15" width="15"}}
-          </button>
-          {{#if @deleteColor}}
+    {{#if this.showActions}}
+      <div
+        class="flex pb-2 pt-2"
+        data-test-color-row-menu
+        {{on "mouseenter" (set this.showMenu true)}}
+        {{on "mouseleave" (set this.showMenu false)}}
+      >
+        {{#animated-if this.showMenu use=this.fade}}
+          <div>
             <button
-              data-test-delete-color
-              disabled={{@palette.isLocked}}
+              data-test-go-to-kuler
               type="button"
-              {{on "click" (stop-propagation (fn this.deleteColor @color))}}
-              {{on "mouseleave" (set this.deleteConfirm false)}}
+              {{on "click" (stop-propagation (fn this.transitionToKuler))}}
             >
-              {{svg-jar
-                "trash"
-                class=(concat "icon " (if this.deleteConfirm "delete-confirm"))
-                height="15"
-                width="15"
-              }}
+              {{svg-jar "sliders" class="icon mr-2" height="15" width="15"}}
             </button>
-          {{/if}}
-        </div>
-      {{else}}
-        <div>
-          {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
-        </div>
-      {{/animated-if}}
-    </div>
+            {{#if @deleteColor}}
+              <button
+                data-test-delete-color
+                disabled={{@palette.isLocked}}
+                type="button"
+                {{on "click" (stop-propagation (fn this.deleteColor @color))}}
+                {{on "mouseleave" (set this.deleteConfirm false)}}
+              >
+                {{svg-jar
+                  "trash"
+                  class=(concat
+                    "icon " (if this.deleteConfirm "delete-confirm")
+                  )
+                  height="15"
+                  width="15"
+                }}
+              </button>
+            {{/if}}
+          </div>
+        {{else}}
+          <div>
+            {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
+          </div>
+        {{/animated-if}}
+      </div>
+    {{/if}}
   </div>
 </div>

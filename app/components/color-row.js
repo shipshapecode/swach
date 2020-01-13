@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
+import { isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import fade from 'ember-animated/transitions/fade';
@@ -11,6 +12,14 @@ export default class ColorRow extends Component {
   @tracked deleteConfirm = false;
   fade = fade;
   showMenu = false;
+
+  get showActions() {
+    if (isEmpty(this.args.showActions)) {
+      return true;
+    }
+
+    return this.args.showActions;
+  }
 
   @action
   deleteColor(color) {

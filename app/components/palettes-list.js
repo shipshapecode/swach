@@ -1,20 +1,24 @@
 import Component from '@glimmer/component';
-import { fadeOut } from 'ember-animated/motions/opacity';
-import move from 'ember-animated/motions/move';
+import { action } from '@ember/object';
 
 export default class PalettesListComponent extends Component {
-  *transition({ keptSprites, insertedSprites, removedSprites }) {
-    for (let sprite of insertedSprites) {
-      sprite.startTranslatedBy(0, -sprite.finalBounds.height / 2);
-      move(sprite);
-    }
+  get orderedPalettes() {
+    return this.args.palettes.sortBy('index');
+  }
 
-    for (let sprite of keptSprites) {
-      move(sprite);
-    }
+  @action
+  reorderPalettes({ sourceList, sourceIndex, targetList, targetIndex }) {
+    if (sourceList === targetList && sourceIndex === targetIndex) return;
 
-    for (let sprite of removedSprites) {
-      fadeOut(sprite);
-    }
+    const movedItem = sourceList.objectAt(sourceIndex);
+
+    sourceList.removeAt(sourceIndex);
+    targetList.insertAt(targetIndex, movedItem);
+
+    targetList.forEach((palette, index) => {
+      palette.set('index', index);
+    });
+
+    return Promise.all(targetList.invoke('save'));
   }
 }

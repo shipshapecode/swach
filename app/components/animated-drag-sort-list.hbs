@@ -1,0 +1,22 @@
+<AnimatedContainer>
+  {{#animated-each @items rules=this.rules as |item index|}}
+    <DragSortItem
+      @additionalArgs={{@additionalArgs}}
+      @item={{item}}
+      @index={{index}}
+      @items={{@items}}
+      @group={{@group}}
+      @handle={{@handle}}
+      @class={{@childClass}}
+      @tagName={{@childTagName}}
+      @isHorizontal={{@isHorizontal}}
+      @isRtl={{@isRtl}}
+      @draggingEnabled={{this.draggingEnabled}}
+      @dragEndAction={{@dragEndAction}}
+      @determineForeignPositionAction={{@determineForeignPositionAction}}
+      @sourceOnly={{@sourceOnly}}
+    >
+      {{yield item index}}
+    </DragSortItem>
+  {{/animated-each}}
+</AnimatedContainer>

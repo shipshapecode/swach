@@ -26,9 +26,7 @@ export default class PalettesController extends Controller {
     }
 
     return palettes
-      .filterBy('isColorHistory', false)
-      .sortBy('createdAt')
-      .reverse();
+      .filterBy('isColorHistory', false);
   }
 
   @action

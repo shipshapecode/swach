@@ -1,8 +1,10 @@
-<AnimatedContainer class="palettes-list">
-  {{#animated-each @palettes use=this.transition as |palette|}}
-    <PaletteRow
-      @moveColorsBetweenPalettes={{@moveColorsBetweenPalettes}}
-      @palette={{palette}}
-    />
-  {{/animated-each}}
-</AnimatedContainer>
+<AnimatedDragSortList
+  @group="palettes"
+  @items={{this.orderedPalettes}}
+  @dragEndAction={{fn this.reorderPalettes}} as |palette|
+>
+  <PaletteRow
+    @moveColorsBetweenPalettes={{@moveColorsBetweenPalettes}}
+    @palette={{palette}}
+  />
+</AnimatedDragSortList>

@@ -1,19 +1,19 @@
-import { module, test } from 'qunit';
+import { module, only, test } from 'qunit';
 import { click, visit, currentURL, triggerEvent } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { animationsSettled } from 'ember-animated/test-support';
 import sharedScenario from '../../mirage/scenarios/shared';
 
-module('Acceptance | colors', function(hooks) {
+module('Acceptance | colors', function (hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     sharedScenario(this.server);
   });
 
-  test('visiting /colors', async function(assert) {
+  test('visiting /colors', async function (assert) {
     await visit('/colors?paletteId=color-history-123');
 
     assert.equal(currentURL(), '/colors?paletteId=color-history-123');
@@ -29,7 +29,7 @@ module('Acceptance | colors', function(hooks) {
       .hasText('#000000');
   });
 
-  test('deleting colors', async function(assert) {
+  only('deleting colors', async function (assert) {
     await visit('/colors?paletteId=color-history-123');
 
     assert.dom('[data-test-color]').exists({ count: 4 });
@@ -42,5 +42,9 @@ module('Acceptance | colors', function(hooks) {
     await animationsSettled();
 
     assert.dom('[data-test-color]').exists({ count: 3 });
+
+    // undo
+    await triggerEvent(document.querySelector('body'), 'keydown', { keyCode: 90, ctrlKey: true });
+    assert.dom('[data-test-color]').exists({ count: 4 });
   });
 });

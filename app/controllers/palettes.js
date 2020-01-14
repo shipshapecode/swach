@@ -61,11 +61,7 @@ export default class PalettesController extends Controller {
     const targetParent = get(targetArgs, 'parent');
 
     // If the palette is locked, we should not allow dragging colors into or out of it
-    if (
-      (sourceParent && sourceParent.isLocked) ||
-      (targetParent && targetParent.isLocked)
-    )
-      return;
+    if ((sourceParent && sourceParent.isLocked) || (targetParent && targetParent.isLocked)) return;
 
     const trackedChange = [];
     let item = sourceList.objectAt(sourceIndex);
@@ -87,11 +83,9 @@ export default class PalettesController extends Controller {
         this.actionManager.trackAndSave(trackedChange);
       }
     } else {
-      sourceParent.startTrack();
       sourceList.removeAt(sourceIndex);
 
       if (!get(targetArgs, 'isColorHistory')) {
-        targetParent.startTrack();
         const existingColor = targetList.findBy('hex', item.hex);
         if (existingColor) {
           targetList.removeObject(item);

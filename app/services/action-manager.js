@@ -24,8 +24,8 @@ export default class ActionManagerService extends Service {
           e.ctrlKey || e.metaKey
             ? e.ctrlKey || e.metaKey
             : key === 17
-            ? true
-            : false;
+              ? true
+              : false;
         const isUndo = ctrl && key === 90;
         const isRedo = isUndo && e.shiftKey;
 

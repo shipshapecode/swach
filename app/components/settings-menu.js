@@ -7,8 +7,24 @@ export default class SettingsMenu extends Component {
 
   themes = ['dynamic', 'light', 'dark'];
 
+  get version() {
+    if (typeof requireNode !== 'undefined') {
+      return requireNode('../package').version;
+    }
+
+    return 'Version not available';
+  }
+
   @action
   changeTheme(theme) {
     set(this, 'settings.userTheme', theme);
+  }
+
+  @action
+  visitWebsite(event) {
+    event.preventDefault();
+    if (typeof requireNode !== 'undefined') {
+      requireNode('electron').shell.openExternal('https://swach.io/');
+    }
   }
 }

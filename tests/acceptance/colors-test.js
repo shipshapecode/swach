@@ -1,4 +1,4 @@
-import { module, only, test } from 'qunit';
+import { module, test } from 'qunit';
 import { click, visit, currentURL, triggerEvent } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
@@ -29,7 +29,7 @@ module('Acceptance | colors', function (hooks) {
       .hasText('#000000');
   });
 
-  only('deleting colors', async function (assert) {
+  test('deleting colors', async function (assert) {
     await visit('/colors?paletteId=color-history-123');
 
     assert.dom('[data-test-color]').exists({ count: 4 });

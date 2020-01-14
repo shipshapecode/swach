@@ -9,7 +9,7 @@ export default class SettingsMenu extends Component {
 
   get version() {
     if (typeof requireNode !== 'undefined') {
-      return requireNode('../package').version;
+      return requireNode('electron').remote.app.getVersion();
     }
 
     return 'Version not available';

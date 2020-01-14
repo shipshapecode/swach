@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { currentURL, find, visit } from '@ember/test-helpers';
+import { currentURL, find, triggerEvent, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { move, sort } from 'ember-drag-sort/utils/trigger';
 import { setupMirage } from 'ember-cli-mirage/test-support';
@@ -38,12 +38,12 @@ module('Acceptance | palettes', function(hooks) {
       );
 
       assert
-      .dom(
-        document.querySelector(
-          '[data-test-context-menu-item="Delete Palette"]'
-        ).parentElement
-      )
-      .doesNotHaveClass('context-menu__item--disabled');
+        .dom(
+          document.querySelector(
+            '[data-test-context-menu-item="Delete Palette"]'
+          ).parentElement
+        )
+        .doesNotHaveClass('context-menu__item--disabled');
 
       assert
         .dom(
@@ -70,12 +70,12 @@ module('Acceptance | palettes', function(hooks) {
       );
 
       assert
-      .dom(
-        document.querySelector(
-          '[data-test-context-menu-item="Delete Palette"]'
-        ).parentElement
-      )
-      .hasClass('context-menu__item--disabled');
+        .dom(
+          document.querySelector(
+            '[data-test-context-menu-item="Delete Palette"]'
+          ).parentElement
+        )
+        .hasClass('context-menu__item--disabled');
 
       assert
         .dom(
@@ -110,6 +110,41 @@ module('Acceptance | palettes', function(hooks) {
         .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
     });
 
+    test('undo - rearranging colors in palette', async function(assert) {
+      await visit('/palettes');
+
+      let sourceList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      let firstColor = sourceList.querySelector(
+        '[data-test-palette-color-square]'
+      );
+      assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
+
+      await sort(sourceList, 0, 1, true);
+
+      sourceList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      firstColor = sourceList.querySelector('[data-test-palette-color-square]');
+      assert
+        .dom(firstColor)
+        .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
+
+      await triggerEvent(document.body, 'keydown', {
+        keyCode: 90,
+        ctrlKey: true
+      });
+
+      sourceList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      firstColor = sourceList.querySelector('[data-test-palette-color-square]');
+      assert
+        .dom(firstColor)
+        .hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
+    });
+
     test('locked palette does not allow rearranging colors', async function(assert) {
       await visit('/palettes');
 
@@ -127,9 +162,7 @@ module('Acceptance | palettes', function(hooks) {
         '[data-test-palette-row="Locked Palette"]'
       ).querySelector('.palette-color-squares');
       firstColor = sourceList.querySelector('[data-test-palette-color-square]');
-      assert
-        .dom(firstColor)
-        .hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
+      assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
     });
 
     test('moving colors between palettes', async function(assert) {

@@ -93,9 +93,9 @@ export default class ActionManagerService extends Service {
     });
 
     if (isRedo) {
-      this.trackAndSave(current, 'redo');
+      await this.trackAndSave(current, 'redo');
     } else {
-      this.trackAndSave(current);
+      await this.trackAndSave(current);
     }
   }
 }

@@ -24,14 +24,33 @@
   </DragSortList>
 </div>
 
-<button
-  class="flex items-center mt-2 p-2 text-sm hover:text-alt-hover"
-  type="button"
-  {{on "click" this.createNewPalette}}
->
-  {{svg-jar "plus" class="icon mr-1" height="12" width="12"}}
-  New Palette
-</button>
+<div class="flex items-center justify-between p-1 pb-2 pt-2 w-full">
+  <h2 class="text-lg">
+    Palettes
+  </h2>
+
+  <div>
+    <button
+      type="button"
+      {{on "click" (set this.showFavorites (not this.showFavorites))}}
+    >
+      {{svg-jar
+        "heart"
+        class=(concat "icon " (if this.showFavorites "filled"))
+        height="15"
+        width="15"
+      }}
+    </button>
+
+    <button
+      class="ml-1 mt-1 text-sm hover:text-alt-hover"
+      type="button"
+      {{on "click" this.createNewPalette}}
+    >
+      {{svg-jar "plus-circle" class="icon" height="15" width="15"}}
+    </button>
+  </div>
+</div>
 
 <PalettesList
   @moveColorsBetweenPalettes={{this.moveColorsBetweenPalettes}}

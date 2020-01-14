@@ -11,7 +11,6 @@ export default class ApplicationController extends Controller {
   @service store;
 
   @tracked menuIsShown = false;
-  @tracked showFavorites = false;
 
   @storageFor('settings') settings;
 
@@ -28,11 +27,6 @@ export default class ApplicationController extends Controller {
   @computed('isContrastRoute', 'isSettingsRoute')
   get showEyedropperIcon() {
     return !this.isContrastRoute && !this.isSettingsRoute;
-  }
-
-  @computed('isPalettesRoute')
-  get showFavoritesIcon() {
-    return this.isPalettesRoute;
   }
 
   @computed('settings.{osTheme,userTheme}')
@@ -101,11 +95,6 @@ export default class ApplicationController extends Controller {
   @action
   launchPicker() {
     this.ipcRenderer.send('launchPicker');
-  }
-
-  @action
-  showPreferences() {
-    this.router.transitionTo('settings');
   }
 
   @action

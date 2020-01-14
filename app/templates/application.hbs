@@ -42,7 +42,7 @@
           >
             {{svg-jar
               "grid"
-              class="icon inline-block mr-1"
+              class="icon inline-block mr-2"
               height="13"
               width="13"
             }} Palettes
@@ -57,11 +57,41 @@
           >
             {{svg-jar
               "layout"
-              class="icon inline-block mr-1"
+              class="icon inline-block mr-2"
               height="13"
               width="13"
             }} Check Contrast
           </LinkTo>
+        </div>
+
+        <div>
+          <LinkTo
+            class="flex items-center h-2 pb-3 pl-2 pr-2 pt-3"
+            @route="settings"
+            {{on "click" this.toggleMenuIsShown}}
+          >
+            {{svg-jar
+              "settings"
+              class="icon inline-block mr-2"
+              height="13"
+              width="13"
+            }} Settings
+          </LinkTo>
+        </div>
+
+        <div>
+          <button
+            class="flex items-center h-2 mb-2 pb-3 pl-2 pr-2"
+            type="button"
+            {{on "click" this.exitApp}}
+          >
+            {{svg-jar
+              "power"
+              class="icon inline-block mr-2"
+              height="13"
+              width="13"
+            }} Quit Swatch
+          </button>
         </div>
       </EmberPopover>
 
@@ -74,32 +104,6 @@
 
     <div class="flex-1 overflow-auto p-3">
       {{liquid-outlet}}
-    </div>
-
-    <div class="bg-menu flex justify-between items-center p-4 w-full">
-      {{#if this.showFavoritesIcon}}
-        <button
-          type="button"
-          {{on "click" (set this.showFavorites (not this.showFavorites))}}
-        >
-          {{svg-jar
-            "heart"
-            class=(concat "icon " (if this.showFavorites "filled"))
-            height="15"
-            width="15"
-          }}
-        </button>
-      {{/if}}
-
-      <div class="flex flex-grow justify-end">
-        <button type="button" {{on "click" this.showPreferences}}>
-          {{svg-jar "settings" class="icon mr-3" height="15" width="15"}}
-        </button>
-
-        <button type="button" {{on "click" this.exitApp}}>
-          {{svg-jar "power" class="icon stroke-width-5" height="15" width="15"}}
-        </button>
-      </div>
     </div>
   </div>
 </main>

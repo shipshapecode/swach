@@ -17,7 +17,7 @@ const mb = menubar({
   index: false,
   browserWindow: {
     alwaysOnTop: false,
-    height: 675,
+    height: 640,
     resizable: false,
     width: 360,
     webPreferences: {

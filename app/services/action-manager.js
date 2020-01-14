@@ -50,6 +50,17 @@ export default class ActionManagerService extends Service {
     );
   }
 
+
+  /**
+   * _resetQueue - intended to reset queues for use in testing
+   * @private
+   */
+  @action
+  _resetQueue() {
+    this.changedQueue = [];
+    this.redoQueue = [];
+  }
+
   @action
   async trackAndSave(model, queue = 'changed') {
     if (isArray(model)) {
@@ -62,10 +73,9 @@ export default class ActionManagerService extends Service {
     const changesArray = changedFields.map(field => {
       const changedObj = {};
       const fieldsChanged = model.savedTrackerValue(field);
-
-      changedObj[field] = model[field]._objects.filter(item =>
-        fieldsChanged.includes(item.id)
-      );
+      changedObj[field] = model[field].content.initialState.filter(item =>
+                            fieldsChanged.includes(item.id)
+                          ).map(change => change._record);
 
       return changedObj;
     });

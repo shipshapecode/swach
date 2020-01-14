@@ -1,15 +1,12 @@
 import Controller, { inject as controller } from '@ember/controller';
 import { action, computed, get } from '@ember/object';
 import { inject as service } from '@ember/service';
-import { tracked } from '@glimmer/tracking';
 
 export default class PalettesController extends Controller {
   @controller application;
   @service actionManager;
   @service colorUtils;
   @service store;
-
-  @tracked showFavorites = false;
 
   @computed('model.colorHistory.colors.[]')
   get last16Colors() {
@@ -21,16 +18,18 @@ export default class PalettesController extends Controller {
       .slice(0, 16);
   }
 
-  @computed('model.palettes.[]', 'showFavorites')
+  @computed('model.palettes.[]', 'application.showFavorites')
   get palettes() {
     let palettes = this.model.palettes || [];
 
-    if (this.showFavorites) {
+    if (this.application.showFavorites) {
       palettes = palettes.filterBy('isFavorite', true);
     }
 
     return palettes
-      .filterBy('isColorHistory', false);
+      .filterBy('isColorHistory', false)
+      .sortBy('createdAt')
+      .reverse();
   }
 
   @action

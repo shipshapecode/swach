@@ -10,6 +10,8 @@ module('Acceptance | colors', function (hooks) {
   setupMirage(hooks);
 
   hooks.beforeEach(function () {
+    const actionManager = this.owner.lookup('service:action-manager');
+    actionManager._resetQueue();
     sharedScenario(this.server);
   });
 

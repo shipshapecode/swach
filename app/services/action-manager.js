@@ -9,8 +9,8 @@ export default class ActionManagerService extends Service {
   changedQueue = null;
   redoQueue = null;
 
-  init() {
-    super.init(...arguments);
+  constructor() {
+    super(...arguments);
 
     this.changedQueue = [];
     this.redoQueue = [];

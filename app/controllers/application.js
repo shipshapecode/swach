@@ -42,8 +42,8 @@ export default class ApplicationController extends Controller {
     return OSTheme || 'light';
   }
 
-  init() {
-    super.init(...arguments);
+  constructor() {
+    super(...arguments);
 
     if (typeof requireNode !== 'undefined') {
       let { ipcRenderer } = requireNode('electron');

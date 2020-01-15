@@ -9,8 +9,8 @@ export default class ColorUtilsService extends Service {
 
   @storageFor('settings') settings;
 
-  init() {
-    super.init(...arguments);
+  constructor() {
+    super(...arguments);
 
     if (typeof requireNode !== 'undefined') {
       let { ipcRenderer } = requireNode('electron');

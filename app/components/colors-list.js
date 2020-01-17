@@ -27,20 +27,20 @@ export default class ColorsList extends Component {
   }
 
   @action
-  deleteColor(color) {
+  async deleteColor(color) {
     const { palette } = this.args;
     if (!palette.isLocked) {
       palette.colors.removeObject(color);
       palette.save();
 
       this.undoManager.add({
-        undo() {
+        async undo() {
           palette.colors.addObject(color);
-          palette.save();
+          await palette.save();
         },
-        redo() {
+        async redo() {
           palette.colors.removeObject(color);
-          palette.save();
+          await palette.save();
         }
       });
     }

@@ -116,7 +116,7 @@ export default class PaletteRowComponent extends Component.extend(
   @action
   async duplicatePalette() {
     const { palette } = this;
-    const paletteCopy = await palette.copy(false);
+    let paletteCopy = await palette.copy(false);
     await paletteCopy.save();
 
     this.undoManager.add({
@@ -124,7 +124,7 @@ export default class PaletteRowComponent extends Component.extend(
         await paletteCopy.destroyRecord();
       },
       async redo() {
-        const paletteCopy = await palette.copy(false);
+        paletteCopy = await palette.copy(false);
         await paletteCopy.save();
       }
     });

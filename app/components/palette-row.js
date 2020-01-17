@@ -44,7 +44,7 @@ class LockOption {
     this.action = action;
     this.palette = palette;
   }
-  
+
   get icon() {
     const isLocked = this.palette.isLocked;
     return isLocked ? 'unlock' : 'lock';
@@ -60,6 +60,7 @@ export default class PaletteRowComponent extends Component.extend(
 ) {
   @service colorUtils;
   @service dragSort;
+  @service undoManager;
 
   fade = fade;
   @tracked deleteConfirm = false;
@@ -114,8 +115,19 @@ export default class PaletteRowComponent extends Component.extend(
 
   @action
   async duplicatePalette() {
-    const paletteCopy = await this.palette.copy(false);
+    const { palette } = this;
+    const paletteCopy = await palette.copy(false);
     await paletteCopy.save();
+
+    this.undoManager.add({
+      async undo() {
+        await paletteCopy.destroyRecord();
+      },
+      async redo() {
+        const paletteCopy = await palette.copy(false);
+        await paletteCopy.save();
+      }
+    });
   }
 
   @action

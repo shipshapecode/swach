@@ -1,9 +1,12 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
 import { fadeOut } from 'ember-animated/motions/opacity';
 import move from 'ember-animated/motions/move';
 
 export default class ColorsList extends Component {
+  @service undoManager;
+
   get sortedColors() {
     return this.args.palette.colors.sortBy('createdAt').reverse();
   }
@@ -25,9 +28,21 @@ export default class ColorsList extends Component {
 
   @action
   deleteColor(color) {
-    if (!this.args.palette.isLocked) {
-      this.args.palette.colors.removeObject(color);
-      this.args.palette.save();
+    const { palette } = this.args;
+    if (!palette.isLocked) {
+      palette.colors.removeObject(color);
+      palette.save();
+
+      this.undoManager.add({
+        undo() {
+          palette.colors.addObject(color);
+          palette.save();
+        },
+        redo() {
+          palette.colors.removeObject(color);
+          palette.save();
+        }
+      });
     }
   }
 }

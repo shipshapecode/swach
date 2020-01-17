@@ -31,7 +31,7 @@ export default class ColorsList extends Component {
     const { palette } = this.args;
     if (!palette.isLocked) {
       palette.colors.removeObject(color);
-      palette.save();
+      await palette.save();
 
       this.undoManager.add({
         async undo() {

@@ -9,6 +9,7 @@ export default class ApplicationController extends Controller {
   @service colorUtils;
   @service router;
   @service store;
+  @service undoManager;
 
   @tracked menuIsShown = false;
 
@@ -65,14 +66,29 @@ export default class ApplicationController extends Controller {
 
   @action
   async addColor(color) {
-    const colorRecord = this.colorUtils.createColorRecord(color);
-
-    await colorRecord.save();
-
     const palettes = await this.store.findAll('palette');
-    const colorHistory = palettes.findBy('isColorHistory', true);
-    colorHistory.colors.pushObject(colorRecord);
-    await colorHistory.save();
+    let colorHistory = palettes.findBy('isColorHistory', true);
+
+    const createColor = async (color) => {
+      let colorRecord = await this.colorUtils.createColorRecord(color);
+      await colorRecord.save();
+      colorHistory.colors.pushObject(colorRecord);
+      await colorHistory.save();
+
+      return colorRecord;
+    }
+
+    let colorRecord = await createColor(color);
+
+    this.undoManager.add({
+      async undo() {
+        await colorRecord.destroyRecord();
+        await colorHistory.save();
+      },
+      async redo() {
+        colorRecord = await createColor(color);
+      }
+    });
 
     return colorRecord;
   }

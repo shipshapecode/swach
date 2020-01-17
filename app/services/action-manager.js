@@ -2,6 +2,10 @@ import Service from '@ember/service';
 import { isArray } from '@ember/array';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { singularize } from 'ember-inflector';
+
+export const ModelTrackerKey = '-change-tracker';
+export const RelationshipsKnownTrackerKey = '-change-tracker-relationships-known';
 
 export default class ActionManagerService extends Service {
   @service store;
@@ -29,20 +33,20 @@ export default class ActionManagerService extends Service {
         const isUndo = ctrl && key === 90;
         const isRedo = isUndo && e.shiftKey;
 
-        if (isUndo) {
-          // call undo on last tracked action
-          const last = this.changedQueue.popObject();
-
-          if (last) {
-            this.undoRedoChanges(last);
-          }
-        }
         if (isRedo) {
           // call redo on last tracked action
           const last = this.redoQueue.popObject();
 
           if (last) {
-            this.undoRedoChanges(last, true);
+            return this.undoRedoChanges(last, true);
+          }
+        }
+        if (isUndo) {
+          // call undo on last tracked action
+          const last = this.changedQueue.popObject();
+
+          if (last) {
+            return this.undoRedoChanges(last);
           }
         }
       },
@@ -69,21 +73,26 @@ export default class ActionManagerService extends Service {
       });
     }
 
-    const changedFields = Object.keys(model.modelChanges());
-    const changesArray = changedFields.map(field => {
-      const changedObj = {};
-      const fieldsChanged = model.savedTrackerValue(field);
-      changedObj[field] = model[field].content.initialState.filter(item =>
-                            fieldsChanged.includes(item.id)
-                          ).map(change => change._record);
+    const changes = Object.keys(model.modelChanges()).reduce((prev, next) => {
+      const changed = {};
+      const relationships = Object.keys(model[RelationshipsKnownTrackerKey]);
+      const isRelation = relationships.includes(next);
+      let trackedChange = model[ModelTrackerKey][next];
 
-      return changedObj;
-    });
+      if (isRelation) {
+        trackedChange = isArray(trackedChange) ? trackedChange.map(item => this.store.peekRecord(singularize(next), item)) : this.store.peekRecord(singularize(next), trackedChange);
+      }
+
+      changed[next] = trackedChange;
+      prev.push(changed);
+
+      return prev;
+    }, []);
 
     this[`${queue}Queue`].push({
       changedId: model.id,
-      changedType: model._internalModel.modelName,
-      changes: changesArray
+      changedType: model.constructor.modelName,
+      changes
     });
     await model.save();
 
@@ -103,9 +112,9 @@ export default class ActionManagerService extends Service {
     });
 
     if (isRedo) {
-      await this.trackAndSave(current, 'redo');
-    } else {
       await this.trackAndSave(current);
+    } else {
+      await this.trackAndSave(current, 'redo');
     }
   }
 }

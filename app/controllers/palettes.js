@@ -43,7 +43,7 @@ export default class PalettesController extends Controller {
   }
 
   @action
-  moveColorsBetweenPalettes({
+  async moveColorsBetweenPalettes({
     sourceArgs,
     sourceList,
     sourceIndex,
@@ -71,7 +71,7 @@ export default class PalettesController extends Controller {
         }
         targetList.insertAt(targetIndex, item);
         if (targetParent) {
-          targetParent.save();
+          await targetParent.save();
         }
       }
     } else {
@@ -86,12 +86,14 @@ export default class PalettesController extends Controller {
       }
 
       if (sourceParent) {
-        sourceParent.save();
+        await sourceParent.save();
       }
 
       if (targetParent && sourceList !== targetList) {
-        targetParent.save();
+        await targetParent.save();
       }
     }
+
+    await item.save();
   }
 }

@@ -34,7 +34,9 @@ export default class PalettesController extends Controller {
 
   @action
   createNewPalette() {
-    this.store.createRecord('palette', { name: 'Palette' });
+    const newPalette = this.store.createRecord('palette', { name: 'Palette' });
+
+    return newPalette.save();
   }
 
   @action

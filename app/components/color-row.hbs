@@ -19,7 +19,6 @@
 
     {{#if this.showActions}}
       <div
-        class="flex pb-2 pt-2"
         data-test-color-row-menu
         {{on "mouseenter" (set this.showMenu true)}}
         {{on "mouseleave" (set this.showMenu false)}}
@@ -31,7 +30,7 @@
               type="button"
               {{on "click" (stop-propagation (fn this.transitionToKuler))}}
             >
-              {{svg-jar "sliders" class="icon mr-2" height="15" width="15"}}
+              {{svg-jar "sliders" class="icon mr-1" height="15" width="15"}}
             </button>
             {{#if @deleteColor}}
               <button

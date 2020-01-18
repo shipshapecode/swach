@@ -5,16 +5,6 @@
     <div class="bg-menu flex justify-between items-center p-4 w-full">
       <div class="flex-grow">
         <div class="h-4 w-4">
-          {{#if this.showEyedropperIcon}}
-            <button type="button" {{on "click" this.launchPicker}}>
-              {{svg-jar "disc" class="icon" height="15" width="15"}}
-            </button>
-          {{/if}}
-        </div>
-      </div>
-
-      <div class="flex-grow">
-        <div class="h-4 w-4">
           <button
             id="toggle-menu"
             type="button"
@@ -23,82 +13,92 @@
             {{svg-jar "menu" class="icon" height="15" width="15"}}
           </button>
         </div>
+
+        <EmberPopover
+          @arrowClass="custom-arrow"
+          @event="none"
+          @isShown={{this.menuIsShown}}
+          @side="bottom-start"
+          @spacing={{10}}
+          @targetId="toggle-menu"
+          @tooltipClass="bg-main border-menu text-alt"
+        >
+          <div>
+            <LinkTo
+              class="flex items-center h-2 pb-3 pl-2 pr-2 pt-3"
+              @route="palettes"
+              {{on "click" this.toggleMenuIsShown}}
+            >
+              {{svg-jar
+                "grid"
+                class="icon inline-block mr-2"
+                height="13"
+                width="13"
+              }} Palettes
+            </LinkTo>
+          </div>
+
+          <div>
+            <LinkTo
+              class="flex items-center h-2 pb-3 pl-2 pr-2 pt-3"
+              @route="contrast"
+              {{on "click" this.toggleMenuIsShown}}
+            >
+              {{svg-jar
+                "layout"
+                class="icon inline-block mr-2"
+                height="13"
+                width="13"
+              }} Check Contrast
+            </LinkTo>
+          </div>
+
+          <div>
+            <LinkTo
+              class="flex items-center h-2 pb-3 pl-2 pr-2 pt-3"
+              @route="settings"
+              {{on "click" this.toggleMenuIsShown}}
+            >
+              {{svg-jar
+                "settings"
+                class="icon inline-block mr-2"
+                height="13"
+                width="13"
+              }} Settings
+            </LinkTo>
+          </div>
+
+          <div>
+            <button
+              class="flex items-center h-2 mb-2 pb-3 pl-2 pr-2"
+              type="button"
+              {{on "click" this.exitApp}}
+            >
+              {{svg-jar
+                "power"
+                class="icon inline-block mr-2"
+                height="13"
+                width="13"
+              }} Quit Swatch
+            </button>
+          </div>
+        </EmberPopover>
       </div>
 
-      <EmberPopover
-        @arrowClass="custom-arrow"
-        @event="none"
-        @isShown={{this.menuIsShown}}
-        @side="bottom"
-        @spacing={{10}}
-        @targetId="toggle-menu"
-        @tooltipClass="bg-main border-menu text-alt"
-      >
-        <div>
-          <LinkTo
-            class="flex items-center h-2 pb-3 pl-2 pr-2 pt-3"
-            @route="palettes"
-            {{on "click" this.toggleMenuIsShown}}
-          >
-            {{svg-jar
-              "grid"
-              class="icon inline-block mr-2"
-              height="13"
-              width="13"
-            }} Palettes
-          </LinkTo>
+      <div class="flex flex-grow items-center justify-end">
+        <div class="h-4 w-4 mr-2">
+          {{#if this.showEyedropperIcon}}
+            <button type="button" {{on "click" this.launchPicker}}>
+              {{svg-jar "disc" class="icon" height="15" width="15"}}
+            </button>
+          {{/if}}
         </div>
 
-        <div>
-          <LinkTo
-            class="flex items-center h-2 pb-3 pl-2 pr-2 pt-3"
-            @route="contrast"
-            {{on "click" this.toggleMenuIsShown}}
-          >
-            {{svg-jar
-              "layout"
-              class="icon inline-block mr-2"
-              height="13"
-              width="13"
-            }} Check Contrast
-          </LinkTo>
+        <div class="h-4 w-4">
+          {{#if this.showColorWheel}}
+            <ColorPicker @addColor={{fn this.addColor}} />
+          {{/if}}
         </div>
-
-        <div>
-          <LinkTo
-            class="flex items-center h-2 pb-3 pl-2 pr-2 pt-3"
-            @route="settings"
-            {{on "click" this.toggleMenuIsShown}}
-          >
-            {{svg-jar
-              "settings"
-              class="icon inline-block mr-2"
-              height="13"
-              width="13"
-            }} Settings
-          </LinkTo>
-        </div>
-
-        <div>
-          <button
-            class="flex items-center h-2 mb-2 pb-3 pl-2 pr-2"
-            type="button"
-            {{on "click" this.exitApp}}
-          >
-            {{svg-jar
-              "power"
-              class="icon inline-block mr-2"
-              height="13"
-              width="13"
-            }} Quit Swatch
-          </button>
-        </div>
-      </EmberPopover>
-
-      <div class="h-4 w-4">
-        {{#if this.showColorWheel}}
-          <ColorPicker @addColor={{fn this.addColor}} />
-        {{/if}}
       </div>
     </div>
 

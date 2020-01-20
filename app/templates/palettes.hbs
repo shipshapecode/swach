@@ -8,20 +8,26 @@
     {{svg-jar "arrow-right" class="icon ml-1" height="12" width="12"}}
   </LinkTo>
 
-  <DragSortList
-    @additionalArgs={{hash isColorHistory=true}}
-    @classNames="color-history-list flex flex-wrap w-full"
-    @isHorizontal={{true}}
-    @items={{this.last16Colors}}
-    @sourceOnly={{true}}
-    @dragEndAction={{fn this.moveColorsBetweenPalettes}} as |color|
-  >
-    <div
-      class="inline-block m-1 h-8 rounded w-8"
-      style={{html-safe (concat "background-color: " color.hex)}}
-      {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
-    ></div>
-  </DragSortList>
+  {{#if this.last16Colors.length}}
+    <DragSortList
+      @additionalArgs={{hash isColorHistory=true}}
+      @classNames="color-history-list flex flex-wrap w-full"
+      @isHorizontal={{true}}
+      @items={{this.last16Colors}}
+      @sourceOnly={{true}}
+      @dragEndAction={{fn this.moveColorsBetweenPalettes}} as |color|
+    >
+      <div
+        class="inline-block m-1 h-8 rounded w-8"
+        style={{html-safe (concat "background-color: " color.hex)}}
+        {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
+      ></div>
+    </DragSortList>
+  {{else}}
+    <div class="bg-main inline-flex items-center justify-center m-1 h-8 rounded text-sm w-full">
+      Your color history is empty.
+    </div>
+  {{/if}}
 </div>
 
 <div class="flex items-center justify-between p-1 pb-2 pt-2 w-full">
@@ -55,4 +61,5 @@
 <PalettesList
   @moveColorsBetweenPalettes={{this.moveColorsBetweenPalettes}}
   @palettes={{this.palettes}}
+  @showFavorites={{this.showFavorites}}
 />

@@ -10,23 +10,25 @@
     />
   </AnimatedDragSortList>
 {{else}}
-  <div class="flex flex-col justify-center items-center mt-1 p-2 w-full">
-    <div class="mb-2">
-      {{svg-jar "alert-circle" height="50" width="50"}}
+  {{#if @showFavorites}}
+    <div class="flex flex-col justify-center items-center mt-1 p-2 w-full">
+      <div class="mb-2">
+        {{svg-jar "alert-circle" height="50" width="50"}}
+      </div>
+
+      <h3 class="font-bold m-1 text-xl">
+        No Favorites
+      </h3>
+
+      <p class="font-light mt-1">
+        You can favorite a palette by clicking the
+        {{svg-jar
+          "heart"
+          class="inline"
+          height="14"
+          width="14"
+        }} icon in the palette's menu.
+      </p>
     </div>
-
-    <h3 class="font-bold m-1 text-xl">
-      No Favorites
-    </h3>
-
-    <p class="font-light mt-1">
-      You can favorite a palette by clicking the
-      {{svg-jar
-        "heart"
-        class="inline"
-        height="14"
-        width="14"
-      }} icon in the palette's menu.
-    </p>
-  </div>
+  {{/if}}
 {{/if}}

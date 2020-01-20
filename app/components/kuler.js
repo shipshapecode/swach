@@ -6,6 +6,7 @@ import { tracked } from '@glimmer/tracking';
 import fade from 'ember-animated/transitions/fade';
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
+import Ember from 'ember';
 
 iro.ColorPicker.prototype.setColors = function(newColorValues) {
   // Unbind color events
@@ -75,7 +76,7 @@ export default class KulerComponent extends Component {
   @action
   async _destroyLeftoverPalettes() {
     for (const palette of this.palettes) {
-      if (palette.isNew) {
+      if (palette.isNew && !Ember.testing) {
         await palette.destroyRecord();
       }
     }

@@ -38,17 +38,14 @@ export default class ActionManagerService extends Service {
           const last = this.redoQueue.popObject();
 
           if (last) {
-            return this.undoRedoChanges(last, true);
+            this.undoRedoChanges(last, true);
           }
-
-          return;
-        }
-        if (isUndo) {
+        } else if (isUndo) {
           // call undo on last tracked action
           const last = this.changedQueue.popObject();
 
           if (last) {
-            return this.undoRedoChanges(last);
+            this.undoRedoChanges(last);
           }
         }
       },

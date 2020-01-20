@@ -45,6 +45,11 @@ module('Acceptance | colors', function (hooks) {
 
     // undo
     await triggerEvent(document.body, 'keydown', { keyCode: 90, ctrlKey: true });
-    assert.dom('[data-test-color]').exists({ count: 4 });
+    assert.dom('[data-test-color]').exists({ count: 4 }); 
+
+    // redo
+    await triggerEvent(document.body, 'keydown', { keyCode: 90, ctrlKey: true, shiftKey: true });
+    await animationsSettled();
+    assert.dom('[data-test-color]').exists({ count: 3 });
   });
 });

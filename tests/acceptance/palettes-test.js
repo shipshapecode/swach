@@ -110,7 +110,7 @@ module('Acceptance | palettes', function(hooks) {
         .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
     });
 
-    test('undo - rearranging colors in palette', async function(assert) {
+    test('undo/redo - rearranging colors in palette', async function(assert) {
       await visit('/palettes');
 
       let sourceList = find(

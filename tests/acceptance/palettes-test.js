@@ -11,8 +11,6 @@ module('Acceptance | palettes', function(hooks) {
   setupMirage(hooks);
 
   hooks.beforeEach(function() {
-    const actionManager = this.owner.lookup('service:action-manager');
-    actionManager._resetQueue();
     sharedScenario(this.server);
   });
 
@@ -145,6 +143,20 @@ module('Acceptance | palettes', function(hooks) {
       assert
         .dom(firstColor)
         .hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
+
+      await triggerEvent(document.body, 'keydown', {
+        keyCode: 90,
+        ctrlKey: true,
+        shiftKey: true
+      });
+
+      sourceList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      firstColor = sourceList.querySelector('[data-test-palette-color-square]');
+      assert
+        .dom(firstColor)
+        .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
     });
 
     test('locked palette does not allow rearranging colors', async function(assert) {

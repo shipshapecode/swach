@@ -40,6 +40,8 @@ export default class ActionManagerService extends Service {
           if (last) {
             return this.undoRedoChanges(last, true);
           }
+
+          return;
         }
         if (isUndo) {
           // call undo on last tracked action
@@ -101,10 +103,11 @@ export default class ActionManagerService extends Service {
 
   @action
   async undoRedoChanges(changedState, isRedo = false) {
-    const current = this.store.peekRecord(
-      changedState.changedType,
-      changedState.changedId
-    );
+    const { changedId, changedType } = changedState;
+    const current = this.store.peekRecord(changedType, changedId);
+
+    if (!current) return;
+
     changedState.changes.forEach(change => {
       Object.keys(change).forEach(key => {
         current.set(key, change[key]);

@@ -9,8 +9,6 @@ module('Acceptance | kuler', function(hooks) {
   setupMirage(hooks);
 
   hooks.beforeEach(async function() {
-    const actionManager = this.owner.lookup('service:action-manager');
-    actionManager._resetQueue();
     sharedScenario(this.server);
 
     await visit('/kuler?colorId=color-1');

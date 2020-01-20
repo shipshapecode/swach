@@ -1,5 +1,5 @@
 <AnimatedContainer>
-  {{#animated-each @items rules=this.rules as |item index|}}
+  {{#animated-each @items duration=400 rules=this.rules as |item index|}}
     <DragSortItem
       @additionalArgs={{@additionalArgs}}
       @item={{item}}

@@ -32,7 +32,7 @@
       {{on "mouseenter" (set this.showMenu true)}}
       {{on "mouseleave" (set this.showMenu false)}}
     >
-      {{#animated-if this.showMenu use=this.fade}}
+      {{#animated-if this.showMenu duration=350 use=this.fade}}
         <div>
           <button
             class="mr-1"

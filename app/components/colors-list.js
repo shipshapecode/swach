@@ -25,10 +25,16 @@ export default class ColorsList extends Component {
   }
 
   @action
-  deleteColor(color) {
-    if (!this.args.palette.isLocked) {
-      this.args.palette.colors.removeObject(color);
-      this.args.palette.save();
+  async deleteColor(color) {
+    const { palette } = this.args;
+    if (!palette.isLocked) {
+      palette.colors.removeObject(color);
+      await palette.save();
+      await color.save();
+
+      if (!color.palettes.length) {
+        await color.destroyRecord();
+      }
     }
   }
 }

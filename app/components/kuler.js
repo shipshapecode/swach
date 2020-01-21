@@ -44,7 +44,8 @@ export default class KulerComponent extends Component {
     await this._destroyLeftoverPalettes();
 
     for (const harmony of this.harmonies) {
-      const palette = this.store.createRecord('palette', {
+      const palette = await this.store.addRecord({
+        type: 'palette',
         name: capitalize(harmony)
       });
 

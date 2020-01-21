@@ -111,7 +111,7 @@ mb.on('after-create-window', function() {
 
 mb.on('ready', () => {
   // If you want to open up dev tools programmatically, call
-  // mb.window.openDevTools();
+  mb.window.openDevTools();
 
   const emberAppLocation = 'serve://dist';
 

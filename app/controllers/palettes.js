@@ -28,15 +28,15 @@ export default class PalettesController extends Controller {
       palettes = palettes.filterBy('isFavorite', true);
     }
 
-    return palettes
-      .filterBy('isColorHistory', false);
+    return palettes.filterBy('isColorHistory', false);
   }
 
   @action
-  createNewPalette() {
-    const newPalette = this.store.createRecord('palette', { name: 'Palette' });
-
-    return newPalette.save();
+  async createNewPalette() {
+    return await this.store.addRecord({
+      type: 'palette',
+      name: 'Palette'
+    });
   }
 
   @action
@@ -60,7 +60,11 @@ export default class PalettesController extends Controller {
     const targetParent = get(targetArgs, 'parent');
 
     // If the palette is locked, we should not allow dragging colors into or out of it
-    if(sourceParent && sourceParent.isLocked || targetParent && targetParent.isLocked) return;
+    if (
+      (sourceParent && sourceParent.isLocked) ||
+      (targetParent && targetParent.isLocked)
+    )
+      return;
 
     let item = sourceList.objectAt(sourceIndex);
 

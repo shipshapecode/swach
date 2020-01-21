@@ -1,7 +1,6 @@
-import Model, { attr, hasMany } from '@ember-data/model';
-import Copyable from 'ember-data-copyable';
+import { Model, attr, hasMany } from 'ember-orbit';
 
-export default class ColorModel extends Model.extend(Copyable) {
+export default class ColorModel extends Model {
   @attr('string') hex;
   @attr('number') index;
   @attr('string') name;

@@ -65,7 +65,7 @@ export default class ApplicationController extends Controller {
 
   @action
   async addColor(color) {
-    const colorRecord = this.colorUtils.createColorRecord(color);
+    const colorRecord = await this.colorUtils.createColorRecord(color);
 
     const palettes = await this.store.find('palette');
     const colorHistory = palettes.findBy('isColorHistory', true);

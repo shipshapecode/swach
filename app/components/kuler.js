@@ -81,7 +81,7 @@ export default class KulerComponent extends Component {
   async _destroyLeftoverPalettes() {
     for (const palette of this.palettes) {
       if (palette.isNew) {
-        await palette.destroyRecord();
+        await palette.remove();
       }
     }
 

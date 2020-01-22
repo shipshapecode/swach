@@ -105,7 +105,7 @@ export default class PaletteRowComponent extends Component.extend(
   deletePalette() {
     if (!this.palette.isLocked) {
       if (this.deleteConfirm) {
-        this.palette.destroyRecord();
+        this.palette.remove();
       }
 
       this.deleteConfirm = true;

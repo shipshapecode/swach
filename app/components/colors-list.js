@@ -33,7 +33,7 @@ export default class ColorsList extends Component {
       await color.save();
 
       if (!color.palettes.length) {
-        await color.destroyRecord();
+        await color.remove();
       }
     }
   }

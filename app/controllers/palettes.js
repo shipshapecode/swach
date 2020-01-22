@@ -10,7 +10,6 @@ export default class PalettesController extends Controller {
 
   @tracked showFavorites = false;
 
-  @computed('model.colorHistory.colors.[]')
   get last16Colors() {
     const colors =
       (this.model.colorHistory && this.model.colorHistory.colors) || [];

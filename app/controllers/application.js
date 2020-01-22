@@ -9,6 +9,7 @@ export default class ApplicationController extends Controller {
   @service colorUtils;
   @service router;
   @service store;
+  @service undoManager;
 
   @tracked menuIsShown = false;
 
@@ -70,6 +71,20 @@ export default class ApplicationController extends Controller {
     const palettes = await this.store.find('palette');
     const colorHistory = palettes.findBy('isColorHistory', true);
     colorHistory.colors.pushObject(colorRecord);
+
+    const transformId = this.store.transformLog.head;
+    const redoTransform = this.store.getTransform(transformId).operations[0];
+    const undoTransform = this.store.getInverseOperations(transformId)[0];
+
+    const undo = async () => {
+      await this.store.update(undoTransform);
+    };
+
+    const redo = async () => {
+      await this.store.update(redoTransform);
+    };
+
+    this.undoManager.add({ undo, redo });
 
     return colorRecord;
   }

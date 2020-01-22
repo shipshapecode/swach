@@ -7,6 +7,7 @@ import { tracked } from '@glimmer/tracking';
 
 export default class ApplicationController extends Controller {
   @service colorUtils;
+  @service dataSchema;
   @service router;
   @service store;
   @service undoManager;
@@ -66,15 +67,26 @@ export default class ApplicationController extends Controller {
 
   @action
   async addColor(color) {
-    const colorRecord = await this.colorUtils.createColorRecord(color);
-
     const palettes = await this.store.find('palette');
     const colorHistory = palettes.findBy('isColorHistory', true);
-    colorHistory.colors.pushObject(colorRecord);
+
+    const colorPOJO = await this.colorUtils.createColorPOJO(color);
+    colorPOJO.id = this.dataSchema.generateId('color');
+
+    await this.store.update(t => {
+      return [
+        t.addRecord(colorPOJO),
+        t.addToRelatedRecords(
+          { type: 'palette', id: colorHistory.id },
+          'colors',
+          { type: 'color', id: colorPOJO.id }
+        )
+      ];
+    });
 
     const transformId = this.store.transformLog.head;
-    const redoTransform = this.store.getTransform(transformId).operations[0];
-    const undoTransform = this.store.getInverseOperations(transformId)[0];
+    const redoTransform = this.store.getTransform(transformId).operations;
+    const undoTransform = this.store.getInverseOperations(transformId);
 
     const undo = async () => {
       await this.store.update(undoTransform);
@@ -86,7 +98,7 @@ export default class ApplicationController extends Controller {
 
     this.undoManager.add({ undo, redo });
 
-    return colorRecord;
+    return await this.store.find('color', colorPOJO.id);
   }
 
   @action

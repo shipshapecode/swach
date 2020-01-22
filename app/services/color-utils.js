@@ -19,15 +19,17 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  async createColorRecord(color) {
+  async createColorPOJO(color) {
     const namedColor = this.nearestColor.nearest(color);
 
-    return await this.store.addRecord({
+    return {
       type: 'color',
-      hex: color,
-      name: namedColor.name,
-      createdAt: new Date()
-    });
+      attributes: {
+        hex: color,
+        name: namedColor.name,
+        createdAt: new Date()
+      }
+    };
   }
 
   @action

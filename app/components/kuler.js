@@ -46,7 +46,11 @@ export default class KulerComponent extends Component {
     for (const harmony of this.harmonies) {
       const palette = await this.store.addRecord({
         type: 'palette',
-        name: capitalize(harmony)
+        name: capitalize(harmony),
+        createdAt: new Date(),
+        isColorHistory: false,
+        isFavorite: false,
+        isLocked: false
       });
 
       let colors = new TinyColor(this.baseColor.hex)[harmony](5);

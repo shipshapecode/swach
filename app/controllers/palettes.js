@@ -35,7 +35,11 @@ export default class PalettesController extends Controller {
   async createNewPalette() {
     return await this.store.addRecord({
       type: 'palette',
-      name: 'Palette'
+      name: 'Palette',
+      createdAt: new Date(),
+      isColorHistory: false,
+      isFavorite: false,
+      isLocked: false
     });
   }
 

@@ -1,19 +1,12 @@
 import { Model, attr, hasMany } from 'ember-orbit';
 
 export default class PaletteModel extends Model {
+  @attr('date') createdAt;
   @attr('number') index;
+  @attr('boolean') isColorHistory;
+  @attr('boolean') isFavorite;
+  @attr('boolean') isLocked;
   @attr('string') name;
-
-  @attr('date', {
-    defaultValue() {
-      return new Date();
-    }
-  })
-  createdAt;
-
-  @attr('boolean', { defaultValue: false }) isColorHistory;
-  @attr('boolean', { defaultValue: false }) isFavorite;
-  @attr('boolean', { defaultValue: false }) isLocked;
 
   @hasMany('color', { inverse: 'palettes' }) colors;
 }

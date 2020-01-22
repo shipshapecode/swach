@@ -19,9 +19,11 @@ export default class ApplicationRoute extends Route {
     if (!colorHistory) {
       colorHistory = await this.store.addRecord({
         type: 'palette',
-        isColorHistory: true
+        createdAt: new Date(),
+        isColorHistory: true,
+        isFavorite: false,
+        isLocked: false
       });
-      debugger;
     }
   }
 }

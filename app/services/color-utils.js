@@ -25,7 +25,8 @@ export default class ColorUtilsService extends Service {
     return await this.store.addRecord({
       type: 'color',
       hex: color,
-      name: namedColor.name
+      name: namedColor.name,
+      createdAt: new Date()
     });
   }
 

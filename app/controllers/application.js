@@ -84,19 +84,7 @@ export default class ApplicationController extends Controller {
       ];
     });
 
-    const transformId = this.store.transformLog.head;
-    const redoTransform = this.store.getTransform(transformId).operations;
-    const undoTransform = this.store.getInverseOperations(transformId);
-
-    const undo = async () => {
-      await this.store.update(undoTransform);
-    };
-
-    const redo = async () => {
-      await this.store.update(redoTransform);
-    };
-
-    this.undoManager.add({ undo, redo });
+    this.undoManager.setupUndoRedo();
 
     return await this.store.find('color', colorPOJO.id);
   }

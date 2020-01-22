@@ -34,19 +34,7 @@ export default class ColorsList extends Component {
     if (!palette.isLocked) {
       await palette.colors.removeObject(color);
 
-      const transformId = this.store.transformLog.head;
-      const redoTransform = this.store.getTransform(transformId).operations;
-      const undoTransform = this.store.getInverseOperations(transformId);
-  
-      const undo = async () => {
-        await this.store.update(undoTransform);
-      };
-  
-      const redo = async () => {
-        await this.store.update(redoTransform);
-      };
-  
-      this.undoManager.add({ undo, redo });
+      this.undoManager.setupUndoRedo();
 
       // TODO: figure out how to add this back and be able to undo/redo
       // if (!color.palettes.length) {

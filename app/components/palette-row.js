@@ -62,6 +62,7 @@ export default class PaletteRowComponent extends Component.extend(
   @service colorUtils;
   @service dragSort;
   @service store;
+  @service undoManager;
 
   fade = fade;
   @tracked deleteConfirm = false;
@@ -119,6 +120,8 @@ export default class PaletteRowComponent extends Component.extend(
     const paletteCopy = clone(this.palette.getData());
     delete paletteCopy.id;
     await this.store.update(t => t.addRecord(paletteCopy));
+
+    this.undoManager.setupUndoRedo();
   }
 
   @action

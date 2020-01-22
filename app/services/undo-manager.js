@@ -1,7 +1,10 @@
 import Service from '@ember/service';
+import { inject as service } from '@ember/service';
 import UndoManager from 'undo-manager';
 
 export default class UndoManagerService extends Service {
+  @service store;
+  
   constructor() {
     super(...arguments);
 
@@ -25,10 +28,26 @@ export default class UndoManagerService extends Service {
     return this.undoManager.undo();
   }
 
+  setupUndoRedo() {
+    const transformId = this.store.transformLog.head;
+    const redoTransform = this.store.getTransform(transformId).operations;
+    const undoTransform = this.store.getInverseOperations(transformId);
+
+    const undo = async () => {
+      await this.store.update(undoTransform);
+    };
+
+    const redo = async () => {
+      await this.store.update(redoTransform);
+    };
+
+    this.add({ undo, redo });
+  }
+
   _setupKeyEvents() {
     document.addEventListener(
       'keydown',
-      async (e) => {
+      async e => {
         const key = e.which || e.keyCode;
         // testing for CMD or CTRL
         const ctrl =

@@ -29,8 +29,6 @@ export default class ColorsList extends Component {
     const { palette } = this.args;
     if (!palette.isLocked) {
       palette.colors.removeObject(color);
-      await palette.save();
-      await color.save();
 
       if (!color.palettes.length) {
         await color.remove();

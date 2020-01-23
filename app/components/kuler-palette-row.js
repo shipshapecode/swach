@@ -19,7 +19,7 @@ export default class KulerPaletteRowComponent extends Component {
     const { palette } = this.args;
     const { colors } = palette;
 
-    this.store.update(t => {
+    await this.store.update(t => {
       let paletteOperation = t.addRecord({
         type: 'palette',
         attributes: {
@@ -58,7 +58,6 @@ export default class KulerPaletteRowComponent extends Component {
       ];
     });
 
-    // TODO fix undo / redo
-    // this.undoManager.setupUndoRedo();
+    this.undoManager.setupUndoRedo();
   }
 }

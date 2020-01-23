@@ -7,6 +7,7 @@ export default class PalettesController extends Controller {
   @controller application;
   @service colorUtils;
   @service store;
+  @service undoManager;
 
   @tracked showFavorites = false;
 
@@ -74,35 +75,67 @@ export default class PalettesController extends Controller {
     // Dragging color out of color history
     if (get(sourceArgs, 'isColorHistory')) {
       if (sourceList !== targetList) {
+        const colorsList = targetList.map(color => {
+          return { type: 'color', id: color.id };
+        });
+
         const existingColor = targetList.findBy('hex', item.hex);
         if (existingColor) {
-          targetList.removeObject(item);
+          const colorToRemove = colorsList.findBy('id', existingColor.id);
+          colorsList.removeObject(colorToRemove);
         }
-        targetList.insertAt(targetIndex, item);
-        if (targetParent) {
-          await targetParent.save();
-        }
+       
+        colorsList.insertAt(targetIndex, {
+          type: 'color',
+          id: item.id
+        });
+
+        await this.store.update(t =>
+          t.replaceRelatedRecords(
+            { type: 'palette', id: targetParent.id },
+            'colors',
+            colorsList
+          )
+        );
       }
     } else {
-      sourceList.removeAt(sourceIndex);
+      const sourceColorsList = sourceList.map(color => {
+        return { type: 'color', id: color.id };
+      });
+      sourceColorsList.removeAt(sourceIndex);
+
+      await this.store.update(t =>
+        t.replaceRelatedRecords(
+          { type: 'palette', id: sourceParent.id },
+          'colors',
+          sourceColorsList
+        )
+      );
 
       if (!get(targetArgs, 'isColorHistory')) {
+        const targetColorsList = targetList.map(color => {
+          return { type: 'color', id: color.id };
+        });
+
         const existingColor = targetList.findBy('hex', item.hex);
         if (existingColor) {
-          targetList.removeObject(item);
+          const colorToRemove = targetColorsList.findBy('id', existingColor.id);
+          targetColorsList.removeObject(colorToRemove);
         }
-        targetList.insertAt(targetIndex, item);
-      }
+       
+        targetColorsList.insertAt(targetIndex, {
+          type: 'color',
+          id: item.id
+        });
 
-      if (sourceParent) {
-        await sourceParent.save();
-      }
-
-      if (targetParent && sourceList !== targetList) {
-        await targetParent.save();
+        await this.store.update(t =>
+          t.replaceRelatedRecords(
+            { type: 'palette', id: targetParent.id },
+            'colors',
+            targetColorsList
+          )
+        );
       }
     }
-
-    await item.save();
   }
 }

@@ -84,7 +84,7 @@ export default class PalettesController extends Controller {
           const colorToRemove = colorsList.findBy('id', existingColor.id);
           colorsList.removeObject(colorToRemove);
         }
-       
+
         colorsList.insertAt(targetIndex, {
           type: 'color',
           id: item.id
@@ -104,38 +104,49 @@ export default class PalettesController extends Controller {
       });
       sourceColorsList.removeAt(sourceIndex);
 
-      await this.store.update(t =>
-        t.replaceRelatedRecords(
+      await this.store.update(t => {
+        let targetListOperation;
+        const sourceListOperation = t.replaceRelatedRecords(
           { type: 'palette', id: sourceParent.id },
           'colors',
           sourceColorsList
-        )
-      );
+        );
 
-      if (!get(targetArgs, 'isColorHistory')) {
-        const targetColorsList = targetList.map(color => {
-          return { type: 'color', id: color.id };
-        });
+        if (!get(targetArgs, 'isColorHistory')) {
+          const targetColorsList = targetList.map(color => {
+            return { type: 'color', id: color.id };
+          });
 
-        const existingColor = targetList.findBy('hex', item.hex);
-        if (existingColor) {
-          const colorToRemove = targetColorsList.findBy('id', existingColor.id);
-          targetColorsList.removeObject(colorToRemove);
-        }
-       
-        targetColorsList.insertAt(targetIndex, {
-          type: 'color',
-          id: item.id
-        });
+          const existingColor = targetList.findBy('hex', item.hex);
+          if (existingColor) {
+            const colorToRemove = targetColorsList.findBy(
+              'id',
+              existingColor.id
+            );
+            targetColorsList.removeObject(colorToRemove);
+          }
 
-        await this.store.update(t =>
-          t.replaceRelatedRecords(
+          targetColorsList.insertAt(targetIndex, {
+            type: 'color',
+            id: item.id
+          });
+
+          targetListOperation = t.replaceRelatedRecords(
             { type: 'palette', id: targetParent.id },
             'colors',
             targetColorsList
-          )
-        );
-      }
+          );
+        }
+
+        let operations = [sourceListOperation];
+
+        if (targetListOperation) {
+          operations = [...operations, targetListOperation];
+        }
+        return operations;
+      });
     }
+
+    this.undoManager.setupUndoRedo();
   }
 }

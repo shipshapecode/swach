@@ -44,22 +44,25 @@ export default class KulerComponent extends Component {
     await this._destroyLeftoverPalettes();
 
     for (const harmony of this.harmonies) {
-      const palette = await this.store.addRecord({
+      const palette = {
         type: 'palette',
         name: capitalize(harmony),
         createdAt: new Date(),
         isColorHistory: false,
         isFavorite: false,
-        isLocked: false
-      });
+        isLocked: false,
+        colors: []
+      };
 
       let colors = new TinyColor(this.baseColor.hex)[harmony](5);
-      colors = colors.map(color =>
-        this.colorUtils.createColorRecord(color.toHexString())
+      colors = await Promise.all(
+        colors.map(async color => {
+          return this.colorUtils.createColorPOJO(color.toHexString());
+        })
       );
+      colors = colors.map(color => color.attributes);
 
       palette.colors.pushObjects(colors);
-
       this.palettes.pushObject(palette);
     }
 
@@ -79,12 +82,6 @@ export default class KulerComponent extends Component {
 
   @action
   async _destroyLeftoverPalettes() {
-    for (const palette of this.palettes) {
-      if (palette.isNew) {
-        await palette.remove();
-      }
-    }
-
     this.palettes = [];
   }
 

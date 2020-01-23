@@ -1,14 +1,31 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import ENV from 'swach/config/environment';
 
 export default class ApplicationRoute extends Route {
   @service dataCoordinator;
 
   async beforeModel() {
-    const backup = this.dataCoordinator.getSource('backup');
-    if (backup) {
-      const transform = await backup.pull(q => q.findRecords());
-      await this.store.sync(transform);
+    if (ENV.environment === 'test') {
+      const mirage = this.dataCoordinator.getSource('mirage');
+
+      if (mirage) {
+        const transform = await mirage.pull(q => q.findRecords('color'));
+        const transform2 = await mirage.pull(q => q.findRecords('palette'));
+        await this.store.sync(transform);
+        await this.store.sync(transform2);
+      }
+    } else {
+      this.dataCoordinator.removeStrategy('mirage-store-sync');
+      this.dataCoordinator.removeStrategy('store-beforequery-mirage-query');
+      this.dataCoordinator.removeStrategy('store-beforeupdate-mirage-update');
+
+      const backup = this.dataCoordinator.getSource('backup');
+
+      if (backup) {
+        const transform = await backup.pull(q => q.findRecords());
+        await this.store.sync(transform);
+      }
     }
 
     await this.dataCoordinator.activate();

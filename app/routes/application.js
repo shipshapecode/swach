@@ -7,6 +7,8 @@ export default class ApplicationRoute extends Route {
 
   async beforeModel() {
     if (ENV.environment === 'test') {
+      this.dataCoordinator.removeStrategy('store-backup-sync');
+      this.dataCoordinator.removeSource('backup');
       const mirage = this.dataCoordinator.getSource('mirage');
 
       if (mirage) {
@@ -19,6 +21,7 @@ export default class ApplicationRoute extends Route {
       this.dataCoordinator.removeStrategy('mirage-store-sync');
       this.dataCoordinator.removeStrategy('store-beforequery-mirage-query');
       this.dataCoordinator.removeStrategy('store-beforeupdate-mirage-update');
+      this.dataCoordinator.removeSource('mirage');
 
       const backup = this.dataCoordinator.getSource('backup');
 

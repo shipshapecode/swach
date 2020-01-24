@@ -32,14 +32,34 @@ export default class ColorsList extends Component {
   async deleteColor(color) {
     const { palette } = this.args;
     if (!palette.isLocked) {
-      await palette.colors.removeObject(color);
+      const colorsList = palette.colors.map(color => {
+        return { type: 'color', id: color.id };
+      });
+
+      const colorToRemove = colorsList.findBy('id', color.id);
+      colorsList.removeObject(colorToRemove);
+
+      await this.store.update(t => {
+        const operations = [
+          t.replaceRelatedRecords(
+            { type: 'palette', id: palette.id },
+            'colors',
+            colorsList
+          )
+        ];
+
+        // If the color only exists in in color history, and we remove it, we should delete the color
+        if (
+          color.palettes.length === 1 &&
+          color.palettes.firstObject.isColorHistory
+        ) {
+          operations.push(t.removeRecord({ type: 'color', id: color.id }));
+        }
+
+        return operations;
+      });
 
       this.undoManager.setupUndoRedo();
-
-      // TODO: figure out how to add this back and be able to undo/redo
-      // if (!color.palettes.length) {
-      //   await color.remove();
-      // }
     }
   }
 }

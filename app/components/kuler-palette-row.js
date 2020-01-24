@@ -6,6 +6,8 @@ import { action } from '@ember/object';
 export default class KulerPaletteRowComponent extends Component {
   @service colorUtils;
   @service router;
+  @service store;
+  @service undoManager;
 
   fade = fade;
   showMenu = false;
@@ -13,7 +15,49 @@ export default class KulerPaletteRowComponent extends Component {
   @action
   async savePalette() {
     await this.router.transitionTo('palettes');
-    await this.args.palette.colors.invoke('save');
-    await this.args.palette.save();
+
+    const { palette } = this.args;
+    const { colors } = palette;
+
+    await this.store.update(t => {
+      let paletteOperation = t.addRecord({
+        type: 'palette',
+        attributes: {
+          name: palette.name,
+          createdAt: new Date(),
+          isColorHistory: false,
+          isFavorite: false,
+          isLocked: false
+        }
+      });
+
+      const paletteId = paletteOperation.record.id;
+
+      const colorOperations = colors.map(color => {
+        return t.addRecord({
+          type: 'color',
+          attributes: {
+            createdAt: color.createdAt,
+            hex: color.hex,
+            name: color.name
+          }
+        });
+      });
+      const colorsList = colorOperations.map(op => {
+        return { type: 'color', id: op.record.id };
+      });
+
+      return [
+        paletteOperation,
+        ...colorOperations,
+        t.replaceRelatedRecords(
+          { type: 'palette', id: paletteId },
+          'colors',
+          colorsList
+        )
+      ];
+    });
+
+    this.undoManager.setupUndoRedo();
   }
 }

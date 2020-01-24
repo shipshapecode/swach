@@ -7,10 +7,10 @@ export default class PalettesController extends Controller {
   @controller application;
   @service colorUtils;
   @service store;
+  @service undoManager;
 
   @tracked showFavorites = false;
 
-  @computed('model.colorHistory.colors.[]')
   get last16Colors() {
     const colors =
       (this.model.colorHistory && this.model.colorHistory.colors) || [];
@@ -28,15 +28,19 @@ export default class PalettesController extends Controller {
       palettes = palettes.filterBy('isFavorite', true);
     }
 
-    return palettes
-      .filterBy('isColorHistory', false);
+    return palettes.filterBy('isColorHistory', false);
   }
 
   @action
-  createNewPalette() {
-    const newPalette = this.store.createRecord('palette', { name: 'Palette' });
-
-    return newPalette.save();
+  async createNewPalette() {
+    return await this.store.addRecord({
+      type: 'palette',
+      name: 'Palette',
+      createdAt: new Date(),
+      isColorHistory: false,
+      isFavorite: false,
+      isLocked: false
+    });
   }
 
   @action
@@ -60,42 +64,89 @@ export default class PalettesController extends Controller {
     const targetParent = get(targetArgs, 'parent');
 
     // If the palette is locked, we should not allow dragging colors into or out of it
-    if(sourceParent && sourceParent.isLocked || targetParent && targetParent.isLocked) return;
+    if (
+      (sourceParent && sourceParent.isLocked) ||
+      (targetParent && targetParent.isLocked)
+    )
+      return;
 
     let item = sourceList.objectAt(sourceIndex);
 
     // Dragging color out of color history
     if (get(sourceArgs, 'isColorHistory')) {
       if (sourceList !== targetList) {
+        const colorsList = targetList.map(color => {
+          return { type: 'color', id: color.id };
+        });
+
         const existingColor = targetList.findBy('hex', item.hex);
         if (existingColor) {
-          targetList.removeObject(item);
+          const colorToRemove = colorsList.findBy('id', existingColor.id);
+          colorsList.removeObject(colorToRemove);
         }
-        targetList.insertAt(targetIndex, item);
-        if (targetParent) {
-          await targetParent.save();
-        }
+
+        colorsList.insertAt(targetIndex, {
+          type: 'color',
+          id: item.id
+        });
+
+        await this.store.update(t =>
+          t.replaceRelatedRecords(
+            { type: 'palette', id: targetParent.id },
+            'colors',
+            colorsList
+          )
+        );
       }
     } else {
-      sourceList.removeAt(sourceIndex);
+      const sourceColorsList = sourceList.map(color => {
+        return { type: 'color', id: color.id };
+      });
+      sourceColorsList.removeAt(sourceIndex);
 
-      if (!get(targetArgs, 'isColorHistory')) {
-        const existingColor = targetList.findBy('hex', item.hex);
-        if (existingColor) {
-          targetList.removeObject(item);
+      await this.store.update(t => {
+        let targetListOperation;
+        const sourceListOperation = t.replaceRelatedRecords(
+          { type: 'palette', id: sourceParent.id },
+          'colors',
+          sourceColorsList
+        );
+
+        if (!get(targetArgs, 'isColorHistory')) {
+          const targetColorsList = targetList.map(color => {
+            return { type: 'color', id: color.id };
+          });
+
+          const existingColor = targetList.findBy('hex', item.hex);
+          if (existingColor) {
+            const colorToRemove = targetColorsList.findBy(
+              'id',
+              existingColor.id
+            );
+            targetColorsList.removeObject(colorToRemove);
+          }
+
+          targetColorsList.insertAt(targetIndex, {
+            type: 'color',
+            id: item.id
+          });
+
+          targetListOperation = t.replaceRelatedRecords(
+            { type: 'palette', id: targetParent.id },
+            'colors',
+            targetColorsList
+          );
         }
-        targetList.insertAt(targetIndex, item);
-      }
 
-      if (sourceParent) {
-        await sourceParent.save();
-      }
+        let operations = [sourceListOperation];
 
-      if (targetParent && sourceList !== targetList) {
-        await targetParent.save();
-      }
+        if (targetListOperation) {
+          operations = [...operations, targetListOperation];
+        }
+        return operations;
+      });
     }
 
-    await item.save();
+    this.undoManager.setupUndoRedo();
   }
 }

@@ -1,10 +1,14 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
 import { fadeOut } from 'ember-animated/motions/opacity';
 import move from 'ember-animated/motions/move';
 import { easeOut } from 'ember-animated/easings/cosine';
 
 export default class ColorsList extends Component {
+  @service store;
+  @service undoManager;
+
   get sortedColors() {
     return this.args.palette.colors.sortBy('createdAt').reverse();
   }
@@ -28,13 +32,34 @@ export default class ColorsList extends Component {
   async deleteColor(color) {
     const { palette } = this.args;
     if (!palette.isLocked) {
-      palette.colors.removeObject(color);
-      await palette.save();
-      await color.save();
+      const colorsList = palette.colors.map(color => {
+        return { type: 'color', id: color.id };
+      });
 
-      if (!color.palettes.length) {
-        await color.destroyRecord();
-      }
+      const colorToRemove = colorsList.findBy('id', color.id);
+      colorsList.removeObject(colorToRemove);
+
+      await this.store.update(t => {
+        const operations = [
+          t.replaceRelatedRecords(
+            { type: 'palette', id: palette.id },
+            'colors',
+            colorsList
+          )
+        ];
+
+        // If the color only exists in in color history, and we remove it, we should delete the color
+        if (
+          color.palettes.length === 1 &&
+          color.palettes.firstObject.isColorHistory
+        ) {
+          operations.push(t.removeRecord({ type: 'color', id: color.id }));
+        }
+
+        return operations;
+      });
+
+      this.undoManager.setupUndoRedo();
     }
   }
 }

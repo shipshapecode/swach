@@ -7,8 +7,10 @@ import { tracked } from '@glimmer/tracking';
 
 export default class ApplicationController extends Controller {
   @service colorUtils;
+  @service dataSchema;
   @service router;
   @service store;
+  @service undoManager;
 
   @tracked menuIsShown = false;
 
@@ -65,16 +67,26 @@ export default class ApplicationController extends Controller {
 
   @action
   async addColor(color) {
-    const colorRecord = this.colorUtils.createColorRecord(color);
-
-    await colorRecord.save();
-
-    const palettes = await this.store.findAll('palette');
+    const palettes = await this.store.find('palette');
     const colorHistory = palettes.findBy('isColorHistory', true);
-    colorHistory.colors.pushObject(colorRecord);
-    await colorHistory.save();
 
-    return colorRecord;
+    const colorPOJO = await this.colorUtils.createColorPOJO(color);
+    colorPOJO.id = this.dataSchema.generateId('color');
+
+    await this.store.update(t => {
+      return [
+        t.addRecord(colorPOJO),
+        t.addToRelatedRecords(
+          { type: 'palette', id: colorHistory.id },
+          'colors',
+          { type: 'color', id: colorPOJO.id }
+        )
+      ];
+    });
+
+    this.undoManager.setupUndoRedo();
+
+    return await this.store.find('color', colorPOJO.id);
   }
 
   @action

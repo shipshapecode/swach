@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import ContextMenuMixin from 'ember-context-menu';
 import fade from 'ember-animated/transitions/fade';
+import { clone } from '@orbit/utils';
 
 class ContextMenuOption {
   @tracked palette;
@@ -44,7 +45,7 @@ class LockOption {
     this.action = action;
     this.palette = palette;
   }
-  
+
   get icon() {
     const isLocked = this.palette.isLocked;
     return isLocked ? 'unlock' : 'lock';
@@ -60,6 +61,8 @@ export default class PaletteRowComponent extends Component.extend(
 ) {
   @service colorUtils;
   @service dragSort;
+  @service store;
+  @service undoManager;
 
   fade = fade;
   @tracked deleteConfirm = false;
@@ -105,7 +108,7 @@ export default class PaletteRowComponent extends Component.extend(
   deletePalette() {
     if (!this.palette.isLocked) {
       if (this.deleteConfirm) {
-        this.palette.destroyRecord();
+        this.palette.remove();
       }
 
       this.deleteConfirm = true;
@@ -114,8 +117,11 @@ export default class PaletteRowComponent extends Component.extend(
 
   @action
   async duplicatePalette() {
-    const paletteCopy = await this.palette.copy(false);
-    await paletteCopy.save();
+    const paletteCopy = clone(this.palette.getData());
+    delete paletteCopy.id;
+    await this.store.update(t => t.addRecord(paletteCopy));
+
+    this.undoManager.setupUndoRedo();
   }
 
   @action
@@ -129,7 +135,6 @@ export default class PaletteRowComponent extends Component.extend(
   favoritePalette() {
     if (!this.palette.isLocked) {
       this.palette.toggleProperty('isFavorite');
-      this.palette.save();
     }
   }
 
@@ -142,7 +147,6 @@ export default class PaletteRowComponent extends Component.extend(
   @action
   lockPalette() {
     this.palette.toggleProperty('isLocked');
-    this.palette.save();
   }
 
   @action
@@ -151,8 +155,7 @@ export default class PaletteRowComponent extends Component.extend(
   }
 
   @action
-  updatePaletteName(palette) {
-    palette.save();
+  updatePaletteName() {
     set(this, 'isEditing', false);
   }
 }

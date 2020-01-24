@@ -34,13 +34,37 @@ module('Acceptance | colors', function(hooks) {
 
     assert.dom('[data-test-color]').exists({ count: 4 });
 
-    await triggerEvent('[data-test-color="Black"] [data-test-color-row-menu]', 'mouseenter');
+    await triggerEvent(
+      '[data-test-color="Black"] [data-test-color-row-menu]',
+      'mouseenter'
+    );
     // Click twice to confirm
     await click('[data-test-color="Black"] [data-test-delete-color]');
     await click('[data-test-color="Black"] [data-test-delete-color]');
 
     await animationsSettled();
 
+    assert.dom('[data-test-color]').exists({ count: 3 });
+
+    // undo
+    await triggerEvent(document.body, 'keydown', {
+      keyCode: 90,
+      ctrlKey: true
+    });
+
+    await animationsSettled();
+
+    assert.dom('[data-test-color]').exists({ count: 4 });
+
+    // redo
+    await triggerEvent(document.body, 'keydown', {
+      keyCode: 90,
+      ctrlKey: true,
+      shiftKey: true
+    });
+
+    await animationsSettled();
+    
     assert.dom('[data-test-color]').exists({ count: 3 });
   });
 });

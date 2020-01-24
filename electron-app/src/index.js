@@ -12,6 +12,9 @@ const protocolServe = require('electron-protocol-serve');
 const { menubar } = require('menubar');
 const { launchPicker } = require('./color-picker');
 const { setupUpdateServer } = require('./auto-update');
+const debug = require('electron-debug');
+
+debug({ showDevTools: false });
 
 const mb = menubar({
   index: false,
@@ -34,7 +37,10 @@ const mb = menubar({
   preloadWindow: true
 });
 
-mb.app.commandLine.appendSwitch('disable-backgrounding-occluded-windows', 'true');
+mb.app.commandLine.appendSwitch(
+  'disable-backgrounding-occluded-windows',
+  'true'
+);
 
 // const browsers = require('./browsers')(__dirname);
 // const { settings } = browsers;
@@ -111,7 +117,7 @@ mb.on('after-create-window', function() {
 
 mb.on('ready', () => {
   // If you want to open up dev tools programmatically, call
-  mb.window.openDevTools();
+  // mb.window.openDevTools();
 
   const emberAppLocation = 'serve://dist';
 

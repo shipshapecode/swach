@@ -152,7 +152,7 @@ module('Acceptance | palettes', function(hooks) {
         .exists({ count: 2 });
       assert
         .dom(sourceListThirdColor)
-        .hasStyle({ backgroundColor: 'rgb(53, 109, 196)' });
+        .hasStyle({ backgroundColor: 'rgb(176, 245, 102)' });
 
       await move(sourceList, 2, targetList, 1, false);
 
@@ -173,7 +173,7 @@ module('Acceptance | palettes', function(hooks) {
         .exists({ count: 3 });
       assert
         .dom(targetListThirdColor)
-        .hasStyle({ backgroundColor: 'rgb(53, 109, 196)' });
+        .hasStyle({ backgroundColor: 'rgb(176, 245, 102)' });
     });
 
     test('locked palette does not allow moving colors in', async function(assert) {
@@ -196,7 +196,7 @@ module('Acceptance | palettes', function(hooks) {
         .exists({ count: 3 });
       assert
         .dom(sourceListThirdColor)
-        .hasStyle({ backgroundColor: 'rgb(53, 109, 196)' });
+        .hasStyle({ backgroundColor: 'rgb(176, 245, 102)' });
 
       await move(sourceList, 2, targetList, 1, false);
 
@@ -261,7 +261,7 @@ module('Acceptance | palettes', function(hooks) {
         .exists({ count: 4 });
       assert
         .dom(targetListThirdColor)
-        .hasStyle({ backgroundColor: 'rgb(53, 109, 196)' });
+        .hasStyle({ backgroundColor: 'rgb(176, 245, 102)' });
     });
   });
 });

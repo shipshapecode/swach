@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { action, set } from '@ember/object';
+import { action, computed, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import ContextMenuMixin from 'ember-context-menu';
@@ -68,6 +68,13 @@ export default class PaletteRowComponent extends Component.extend(
   @tracked deleteConfirm = false;
   isEditing = false;
   showMenu = false;
+
+  @computed('palette.colorOrder.[]')
+  get sortedColors() {
+    return this.palette.colorOrder.map(color => {
+      return this.palette.colors.findBy('id', color.id);
+    });
+  }
 
   init() {
     super.init();

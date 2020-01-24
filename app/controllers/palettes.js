@@ -37,6 +37,7 @@ export default class PalettesController extends Controller {
       type: 'palette',
       name: 'Palette',
       createdAt: new Date(),
+      colorOrder: [],
       isColorHistory: false,
       isFavorite: false,
       isLocked: false
@@ -90,13 +91,27 @@ export default class PalettesController extends Controller {
           id: item.id
         });
 
-        await this.store.update(t =>
-          t.replaceRelatedRecords(
-            { type: 'palette', id: targetParent.id },
-            'colors',
-            colorsList
-          )
-        );
+        await this.store.update(t => {
+          const operations = [];
+
+          operations.push(
+            t.replaceAttribute(
+              { type: 'palette', id: targetParent.id },
+              'colorOrder',
+              colorsList
+            )
+          );
+
+          operations.push(
+            t.replaceRelatedRecords(
+              { type: 'palette', id: targetParent.id },
+              'colors',
+              colorsList
+            )
+          );
+
+          return operations;
+        });
       }
     } else {
       const sourceColorsList = sourceList.map(color => {
@@ -105,11 +120,14 @@ export default class PalettesController extends Controller {
       sourceColorsList.removeAt(sourceIndex);
 
       await this.store.update(t => {
-        let targetListOperation;
-        const sourceListOperation = t.replaceRelatedRecords(
-          { type: 'palette', id: sourceParent.id },
-          'colors',
-          sourceColorsList
+        const operations = [];
+
+        operations.push(
+          t.replaceRelatedRecords(
+            { type: 'palette', id: sourceParent.id },
+            'colors',
+            sourceColorsList
+          )
         );
 
         if (!get(targetArgs, 'isColorHistory')) {
@@ -131,18 +149,23 @@ export default class PalettesController extends Controller {
             id: item.id
           });
 
-          targetListOperation = t.replaceRelatedRecords(
-            { type: 'palette', id: targetParent.id },
-            'colors',
-            targetColorsList
+          operations.push(
+            t.replaceAttribute(
+              { type: 'palette', id: targetParent.id },
+              'colorOrder',
+              targetColorsList
+            )
+          );
+
+          operations.push(
+            t.replaceRelatedRecords(
+              { type: 'palette', id: targetParent.id },
+              'colors',
+              targetColorsList
+            )
           );
         }
 
-        let operations = [sourceListOperation];
-
-        if (targetListOperation) {
-          operations = [...operations, targetListOperation];
-        }
         return operations;
       });
     }

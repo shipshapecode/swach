@@ -99,7 +99,7 @@
       @childClass="flex flex-grow"
       @group={{if @palette.isLocked @palette.id undefined}}
       @isHorizontal={{true}}
-      @items={{@palette.colors}}
+      @items={{this.sortedColors}}
       @sourceOnly={{@palette.isLocked}}
       @dragEndAction={{fn @moveColorsBetweenPalettes}} as |color index|
     >

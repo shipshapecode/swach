@@ -25,19 +25,38 @@ export default function(server) {
 
   const colorHistoryPalette = server.create('palette', {
     id: 'color-history-123',
-    isColorHistory: true
+    isColorHistory: true,
+    colorOrder: []
   });
   colorHistoryPalette.update('colors', [black, paleMagenta, shamrock, white]);
 
   const firstPalette = server.create('palette', { name: 'First Palette' });
   firstPalette.update('colors', [black, denim, inchWorm, white]);
+  firstPalette.update(
+    'colorOrder',
+    [black, denim, inchWorm, white].map(color => {
+      return { type: 'color', id: color.id };
+    })
+  );
 
   const secondPalette = server.create('palette', { name: 'Second Palette' });
   secondPalette.update('colors', [black, white]);
+  secondPalette.update(
+    'colorOrder',
+    [black, white].map(color => {
+      return { type: 'color', id: color.id };
+    })
+  );
 
   const lockedPalette = server.create('palette', {
     name: 'Locked Palette',
     isLocked: true
   });
   lockedPalette.update('colors', [black, shamrock, white]);
+  lockedPalette.update(
+    'colorOrder',
+    [black, shamrock, white].map(color => {
+      return { type: 'color', id: color.id };
+    })
+  );
 }

@@ -4,13 +4,15 @@ import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { animationsSettled } from 'ember-animated/test-support';
 import sharedScenario from '../../mirage/scenarios/shared';
+import { waitForSource } from 'ember-orbit/test-support';
 
 module('Acceptance | colors', function(hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(async function() {
     sharedScenario(this.server);
+    await waitForSource('mirage');
   });
 
   test('visiting /colors', async function(assert) {
@@ -43,6 +45,8 @@ module('Acceptance | colors', function(hooks) {
     await click('[data-test-color="Black"] [data-test-delete-color]');
 
     await animationsSettled();
+    await waitForSource('store');
+    await waitForSource('mirage');
 
     assert.dom('[data-test-color]').exists({ count: 3 });
 
@@ -53,6 +57,8 @@ module('Acceptance | colors', function(hooks) {
     });
 
     await animationsSettled();
+    await waitForSource('store');
+    await waitForSource('mirage');
 
     assert.dom('[data-test-color]').exists({ count: 4 });
 

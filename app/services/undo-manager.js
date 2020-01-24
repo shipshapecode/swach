@@ -25,7 +25,6 @@ export default class UndoManagerService extends Service {
   }
 
   undo() {
-    debugger;
     return this.undoManager.undo();
   }
 
@@ -35,7 +34,6 @@ export default class UndoManagerService extends Service {
     const undoTransform = this.store.getInverseOperations(transformId);
 
     const undo = async () => {
-      debugger;
       await this.store.update(undoTransform);
     };
 

@@ -9,7 +9,7 @@ export default class KulerRoute extends Route {
 
   async model({ colorId }) {
     if (colorId) {
-      return this.store.findRecord('color', colorId);
+      return await this.store.findRecord('color', colorId);
     }
   }
 }

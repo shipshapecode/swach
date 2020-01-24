@@ -1,4 +1,4 @@
-import { module, skip, test } from 'qunit';
+import { module, test } from 'qunit';
 import {
   currentURL,
   find,
@@ -11,7 +11,7 @@ import { move, sort } from 'ember-drag-sort/utils/trigger';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { triggerContextMenu } from 'ember-context-menu/test-support';
 import sharedScenario from '../../mirage/scenarios/shared';
-// import { waitForSource } from 'ember-orbit/test-support';
+import { waitForAll } from '../helpers';
 
 module('Acceptance | palettes', function(hooks) {
   setupApplicationTest(hooks);
@@ -19,24 +19,19 @@ module('Acceptance | palettes', function(hooks) {
 
   hooks.beforeEach(async function() {
     sharedScenario(this.server);
-
-    await visit('/palettes');
-    await this.owner.lookup('service:store').source.requestQueue.process();
-    await settled();
-  });
-
-  hooks.afterEach(async function() {
-    await this.owner.lookup('service:store').source.requestQueue.process();
-    await settled();
   });
 
   test('visiting /palettes', async function(assert) {
+    await visit('/palettes');
+
     assert.equal(currentURL(), '/palettes');
     assert.dom('[data-test-palette-row]').exists({ count: 3 });
   });
 
   module('context menu', function() {
     test('context menu can be triggered', async function(assert) {
+      await visit('/palettes');
+
       assert.notOk(
         document.querySelector('[data-test-context-menu]'),
         'context menu hidden'
@@ -67,6 +62,8 @@ module('Acceptance | palettes', function(hooks) {
     });
 
     test('options disabled when palette is locked', async function(assert) {
+      await visit('/palettes');
+
       assert.notOk(
         document.querySelector('[data-test-context-menu]'),
         'context menu hidden'
@@ -99,6 +96,8 @@ module('Acceptance | palettes', function(hooks) {
 
   module('drag/drop colors', function() {
     test('rearranging colors in palette', async function(assert) {
+      await visit('/palettes');
+
       let sourceList = find(
         '[data-test-palette-row="Second Palette"]'
       ).querySelector('.palette-color-squares');
@@ -109,8 +108,7 @@ module('Acceptance | palettes', function(hooks) {
 
       await sort(sourceList, 0, 1, true);
 
-      await this.owner.lookup('service:store').source.requestQueue.process();
-      await settled();
+      await waitForAll();
 
       sourceList = find(
         '[data-test-palette-row="Second Palette"]'
@@ -121,7 +119,9 @@ module('Acceptance | palettes', function(hooks) {
         .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
     });
 
-    skip('undo/redo - rearranging colors in palette', async function(assert) {
+    test('undo/redo - rearranging colors in palette', async function(assert) {
+      await visit('/palettes');
+
       let sourceList = find(
         '[data-test-palette-row="Second Palette"]'
       ).querySelector('.palette-color-squares');
@@ -132,8 +132,7 @@ module('Acceptance | palettes', function(hooks) {
 
       await sort(sourceList, 0, 1, true);
 
-      await this.owner.lookup('service:store').source.requestQueue.process();
-      await settled();
+      await waitForAll();
 
       sourceList = find(
         '[data-test-palette-row="Second Palette"]'
@@ -148,8 +147,7 @@ module('Acceptance | palettes', function(hooks) {
         ctrlKey: true
       });
 
-      await this.owner.lookup('service:store').source.requestQueue.process();
-      await settled();
+      await waitForAll();
 
       sourceList = find(
         '[data-test-palette-row="Second Palette"]'
@@ -163,8 +161,7 @@ module('Acceptance | palettes', function(hooks) {
         shiftKey: true
       });
 
-      await this.owner.lookup('service:store').source.requestQueue.process();
-      await settled();
+      await waitForAll();
 
       sourceList = find(
         '[data-test-palette-row="Second Palette"]'
@@ -176,6 +173,8 @@ module('Acceptance | palettes', function(hooks) {
     });
 
     test('locked palette does not allow rearranging colors', async function(assert) {
+      await visit('/palettes');
+
       let sourceList = find(
         '[data-test-palette-row="Locked Palette"]'
       ).querySelector('.palette-color-squares');
@@ -197,6 +196,8 @@ module('Acceptance | palettes', function(hooks) {
     });
 
     test('moving colors between palettes', async function(assert) {
+      await visit('/palettes');
+
       let targetList = find(
         '[data-test-palette-row="Second Palette"]'
       ).querySelector('.palette-color-squares');
@@ -216,12 +217,9 @@ module('Acceptance | palettes', function(hooks) {
         .dom(sourceListThirdColor)
         .hasStyle({ backgroundColor: 'rgb(176, 245, 102)' });
 
-      debugger;
-
       await move(sourceList, 2, targetList, 1, false);
 
-      await this.owner.lookup('service:store').source.requestQueue.process();
-      await settled();
+      await waitForAll();
 
       targetList = find(
         '[data-test-palette-row="Second Palette"]'
@@ -244,6 +242,8 @@ module('Acceptance | palettes', function(hooks) {
     });
 
     test('locked palette does not allow moving colors in', async function(assert) {
+      await visit('/palettes');
+
       let targetList = find(
         '[data-test-palette-row="Locked Palette"]'
       ).querySelector('.palette-color-squares');
@@ -265,8 +265,7 @@ module('Acceptance | palettes', function(hooks) {
 
       await move(sourceList, 2, targetList, 1, false);
 
-      await this.owner.lookup('service:store').source.requestQueue.process();
-      await settled();
+      await waitForAll();
 
       targetList = find(
         '[data-test-palette-row="Locked Palette"]'
@@ -289,6 +288,8 @@ module('Acceptance | palettes', function(hooks) {
     });
 
     test('locked palette does not allow moving colors out', async function(assert) {
+      await visit('/palettes');
+
       let targetList = find(
         '[data-test-palette-row="First Palette"]'
       ).querySelector('.palette-color-squares');
@@ -310,8 +311,7 @@ module('Acceptance | palettes', function(hooks) {
 
       await move(sourceList, 2, targetList, 1, false);
 
-      await this.owner.lookup('service:store').source.requestQueue.process();
-      await settled();
+      await waitForAll();
 
       targetList = find(
         '[data-test-palette-row="First Palette"]'

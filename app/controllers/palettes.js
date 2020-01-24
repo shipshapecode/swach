@@ -114,19 +114,32 @@ export default class PalettesController extends Controller {
         });
       }
     } else {
-      const sourceColorsList = sourceList.map(color => {
+      const sourceColor = sourceList.objectAt(sourceIndex);
+
+      const sourceColorList = sourceList.map(color => {
         return { type: 'color', id: color.id };
       });
-      sourceColorsList.removeAt(sourceIndex);
+
+      const colorToRemove = sourceColorList.findBy('id', sourceColor.id);
+
+      sourceColorList.removeObject(colorToRemove);
 
       await this.store.update(t => {
         const operations = [];
 
         operations.push(
-          t.replaceRelatedRecords(
+          t.removeFromRelatedRecords(
             { type: 'palette', id: sourceParent.id },
             'colors',
-            sourceColorsList
+            { type: 'color', id: sourceColor.id }
+          )
+        );
+
+        operations.push(
+          t.replaceAttribute(
+            { type: 'palette', id: sourceParent.id },
+            'colorOrder',
+            sourceColorList
           )
         );
 
@@ -142,6 +155,12 @@ export default class PalettesController extends Controller {
               existingColor.id
             );
             targetColorsList.removeObject(colorToRemove);
+
+            t.removeFromRelatedRecords(
+              { type: 'palette', id: targetParent.id },
+              'colors',
+              { type: 'color', id: existingColor.id }
+            );
           }
 
           targetColorsList.insertAt(targetIndex, {
@@ -158,10 +177,10 @@ export default class PalettesController extends Controller {
           );
 
           operations.push(
-            t.replaceRelatedRecords(
+            t.addToRelatedRecords(
               { type: 'palette', id: targetParent.id },
               'colors',
-              targetColorsList
+              { type: 'color', id: item.id }
             )
           );
         }

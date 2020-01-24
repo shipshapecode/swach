@@ -69,7 +69,7 @@ export default class PaletteRowComponent extends Component.extend(
   isEditing = false;
   showMenu = false;
 
-  @computed('palette.colorOrder.[]')
+  @computed('palette.{colors.[],colorOrder.[]}')
   get sortedColors() {
     return this.palette.colorOrder.map(color => {
       return this.palette.colors.findBy('id', color.id);

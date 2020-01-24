@@ -23,7 +23,7 @@ export default class KulerPaletteRowComponent extends Component {
       let paletteOperation = t.addRecord({
         type: 'palette',
         attributes: {
-          name: this.args.palette.name,
+          name: palette.name,
           createdAt: new Date(),
           isColorHistory: false,
           isFavorite: false,

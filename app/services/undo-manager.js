@@ -1,31 +1,142 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
-import UndoManager from 'undo-manager';
 
-export default class UndoManagerService extends Service {
+function removeFromTo(array, from, to) {
+  array.splice(
+    from,
+    !to ||
+      1 +
+        to -
+        from +
+        (!((to < 0) ^ (from >= 0)) && (to < 0 || -1) * array.length)
+  );
+  return array.length;
+}
+
+export default class UndoManager extends Service {
   @service store;
-  
+
+  callback = null;
+  commands = [];
+  index = -1;
+  isExecuting = false;
+  limit = 0;
+
   constructor() {
     super(...arguments);
 
     this._setupKeyEvents();
-    this.undoManager = new UndoManager();
   }
 
-  add() {
-    return this.undoManager.add(...arguments);
+  async execute(command, action) {
+    if (!command || typeof command[action] !== 'function') {
+      return this;
+    }
+    this.isExecuting = true;
+
+    const executed = await command[action]();
+
+    this.isExecuting = false;
+    return executed;
   }
 
+  /**
+   * Add a command to the queue.
+   */
+  async add(command) {
+    if (this.isExecuting) {
+      return this;
+    }
+    // if we are here after having called undo,
+    // invalidate items higher on the stack
+    this.commands.splice(this.index + 1, this.commands.length - this.index);
+
+    this.commands.push(command);
+
+    // if limit is set, remove items from the start
+    if (this.limit && this.commands.length > this.limit) {
+      removeFromTo(this.commands, 0, -(this.limit + 1));
+    }
+
+    // set the current index to the end
+    this.index = this.commands.length - 1;
+    if (this.callback) {
+      await this.callback();
+    }
+    return this;
+  }
+
+  /**
+   * Pass a function to be called on undo and redo actions.
+   */
+  setCallback(callbackFunc) {
+    this.callback = callbackFunc;
+  }
+
+  /**
+   * Perform undo: call the undo function at the current index and decrease the index by 1.
+   */
+  async undo() {
+    const command = this.commands[this.index];
+    if (!command) {
+      return this;
+    }
+    const executed = await this.execute(command, 'undo');
+    this.index -= 1;
+    if (this.callback) {
+      this.callback();
+    }
+    return executed;
+  }
+
+  /*
+            Perform redo: call the redo function at the next index and increase the index by 1.
+            */
+  async redo() {
+    const command = this.commands[this.index + 1];
+    if (!command) {
+      return this;
+    }
+    const executed = await this.execute(command, 'redo');
+    this.index += 1;
+    if (this.callback) {
+      this.callback();
+    }
+    return executed;
+  }
+
+  /**
+   * Clears the memory, losing all stored states. Reset the index.
+   */
   clear() {
-    return this.undoManager.clear();
+    const prev_size = this.commands.length;
+
+    this.commands = [];
+    this.index = -1;
+
+    if (this.callback && prev_size > 0) {
+      this.callback();
+    }
   }
 
-  redo() {
-    return this.undoManager.redo();
+  hasUndo() {
+    return this.index !== -1;
   }
 
-  undo() {
-    return this.undoManager.undo();
+  hasRedo() {
+    return this.index < this.commands.length - 1;
+  }
+
+  getCommands() {
+    return this.commands;
+  }
+
+  getIndex() {
+    return this.index;
+  }
+
+  setLimit(l) {
+    this.limit = l;
   }
 
   setupUndoRedo() {
@@ -60,9 +171,13 @@ export default class UndoManagerService extends Service {
         const isRedo = isUndo && e.shiftKey;
 
         if (isRedo) {
-          await this.redo();
+          if (!this.isExecuting && this.hasRedo()) {
+            await this.redo();
+          }
         } else if (isUndo) {
-          await this.undo();
+          if (!this.isExecuting && this.hasUndo()) {
+            await this.undo();
+          }
         }
       },
       true

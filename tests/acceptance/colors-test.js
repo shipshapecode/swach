@@ -6,17 +6,15 @@ import {
   triggerEvent
 } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
-import { setupMirage } from 'ember-cli-mirage/test-support';
 import { animationsSettled } from 'ember-animated/test-support';
-import sharedScenario from '../../mirage/scenarios/shared';
 import { waitForAll } from '../helpers';
+import seedOrbit from '../orbit/seed';
 
 module('Acceptance | colors', function(hooks) {
   setupApplicationTest(hooks);
-  setupMirage(hooks);
-
+  
   hooks.beforeEach(async function() {
-    sharedScenario(this.server);
+    await seedOrbit(this.owner);
   });
 
   test('visiting /colors', async function(assert) {

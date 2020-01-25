@@ -1,23 +1,16 @@
-import { module, skip, test } from 'qunit';
-import {
-  currentURL,
-  find,
-  triggerEvent,
-  visit
-} from '@ember/test-helpers';
+import { module, test } from 'qunit';
+import { currentURL, find, triggerEvent, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { move, sort } from 'ember-drag-sort/utils/trigger';
-import { setupMirage } from 'ember-cli-mirage/test-support';
 import { triggerContextMenu } from 'ember-context-menu/test-support';
-import sharedScenario from '../../mirage/scenarios/shared';
 import { waitForAll } from '../helpers';
+import seedOrbit from '../orbit/seed';
 
 module('Acceptance | palettes', function(hooks) {
   setupApplicationTest(hooks);
-  setupMirage(hooks);
 
   hooks.beforeEach(async function() {
-    sharedScenario(this.server);
+    await seedOrbit(this.owner);
   });
 
   test('visiting /palettes', async function(assert) {
@@ -120,7 +113,7 @@ module('Acceptance | palettes', function(hooks) {
 
     // TODO: After several days, this test just won't pass. Weird timing and syncing issues and the app keeps getting destroyed
     // so there is no store, so store.update blows up. Maybe one day this will work.
-    skip('undo/redo - rearranging colors in palette', async function(assert) {
+    test('undo/redo - rearranging colors in palette', async function(assert) {
       await visit('/palettes');
 
       let sourceList = find(

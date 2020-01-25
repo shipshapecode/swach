@@ -1,21 +1,19 @@
 import { module, test } from 'qunit';
 import { visit, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
-import { setupMirage } from 'ember-cli-mirage/test-support';
-import sharedScenario from '../../mirage/scenarios/shared';
+import seedOrbit from '../orbit/seed';
 
 module('Acceptance | kuler', function(hooks) {
   setupApplicationTest(hooks);
-  setupMirage(hooks);
 
   hooks.beforeEach(async function() {
-    sharedScenario(this.server);
+    await seedOrbit(this.owner);
 
-    await visit('/kuler?colorId=color-1');
+    await visit('/kuler?colorId=pale-magenta');
   });
 
   test('visiting /kuler with query parameters', function(assert) {
-    assert.equal(currentURL(), '/kuler?colorId=color-1');
+    assert.equal(currentURL(), '/kuler?colorId=pale-magenta');
   });
 
   test('analogous palette', async function(assert) {

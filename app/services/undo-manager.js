@@ -25,7 +25,38 @@ export default class UndoManager extends Service {
   constructor() {
     super(...arguments);
 
-    this._setupKeyEvents();
+    this.undoListener = async (e) => {
+      {
+        const key = e.which || e.keyCode;
+        // testing for CMD or CTRL
+        const ctrl =
+          e.ctrlKey || e.metaKey
+            ? e.ctrlKey || e.metaKey
+            : key === 17
+            ? true
+            : false;
+        const isUndo = ctrl && key === 90;
+        const isRedo = isUndo && e.shiftKey;
+  
+        if (isRedo) {
+          if (!this.isExecuting && this.hasRedo()) {
+            await this.redo();
+          }
+        } else if (isUndo) {
+          if (!this.isExecuting && this.hasUndo()) {
+            await this.undo();
+          }
+        }
+      }
+    };
+    
+    document.addEventListener('keydown', this.undoListener, true);
+  }
+
+  willDestroy() {
+    super.willDestroy(...arguments);
+
+    document.removeEventListener('keydown', this.undoListener, true);
   }
 
   async execute(command, action) {
@@ -153,34 +184,5 @@ export default class UndoManager extends Service {
     };
 
     this.add({ undo, redo });
-  }
-
-  _setupKeyEvents() {
-    document.addEventListener(
-      'keydown',
-      async e => {
-        const key = e.which || e.keyCode;
-        // testing for CMD or CTRL
-        const ctrl =
-          e.ctrlKey || e.metaKey
-            ? e.ctrlKey || e.metaKey
-            : key === 17
-            ? true
-            : false;
-        const isUndo = ctrl && key === 90;
-        const isRedo = isUndo && e.shiftKey;
-
-        if (isRedo) {
-          if (!this.isExecuting && this.hasRedo()) {
-            await this.redo();
-          }
-        } else if (isUndo) {
-          if (!this.isExecuting && this.hasUndo()) {
-            await this.undo();
-          }
-        }
-      },
-      true
-    );
   }
 }

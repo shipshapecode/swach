@@ -187,8 +187,7 @@ module('Acceptance | palettes', function(hooks) {
 
       await sort(sourceList, 0, 1, true);
 
-      await this.owner.lookup('service:store').source.requestQueue.process();
-      await settled();
+      await waitForAll();
 
       sourceList = find(
         '[data-test-palette-row="Locked Palette"]'

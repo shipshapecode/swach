@@ -9,7 +9,7 @@ export default class ColorsRoute extends Route {
 
   async model({ paletteId }) {
     if (paletteId) {
-      return this.store.findRecord('palette', paletteId);
+      return await this.store.findRecord('palette', paletteId);
     }
   }
 }

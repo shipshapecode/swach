@@ -1,16 +1,22 @@
-import { module, test } from 'qunit';
-import { currentURL, find, visit } from '@ember/test-helpers';
+import { module, skip, test } from 'qunit';
+import {
+  currentURL,
+  find,
+  triggerEvent,
+  visit
+} from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { move, sort } from 'ember-drag-sort/utils/trigger';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { triggerContextMenu } from 'ember-context-menu/test-support';
 import sharedScenario from '../../mirage/scenarios/shared';
+import { waitForAll } from '../helpers';
 
 module('Acceptance | palettes', function(hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(async function() {
     sharedScenario(this.server);
   });
 
@@ -38,12 +44,12 @@ module('Acceptance | palettes', function(hooks) {
       );
 
       assert
-      .dom(
-        document.querySelector(
-          '[data-test-context-menu-item="Delete Palette"]'
-        ).parentElement
-      )
-      .doesNotHaveClass('context-menu__item--disabled');
+        .dom(
+          document.querySelector(
+            '[data-test-context-menu-item="Delete Palette"]'
+          ).parentElement
+        )
+        .doesNotHaveClass('context-menu__item--disabled');
 
       assert
         .dom(
@@ -70,12 +76,12 @@ module('Acceptance | palettes', function(hooks) {
       );
 
       assert
-      .dom(
-        document.querySelector(
-          '[data-test-context-menu-item="Delete Palette"]'
-        ).parentElement
-      )
-      .hasClass('context-menu__item--disabled');
+        .dom(
+          document.querySelector(
+            '[data-test-context-menu-item="Delete Palette"]'
+          ).parentElement
+        )
+        .hasClass('context-menu__item--disabled');
 
       assert
         .dom(
@@ -101,6 +107,63 @@ module('Acceptance | palettes', function(hooks) {
 
       await sort(sourceList, 0, 1, true);
 
+      await waitForAll();
+
+      sourceList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      firstColor = sourceList.querySelector('[data-test-palette-color-square]');
+      assert
+        .dom(firstColor)
+        .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
+    });
+
+    // TODO: After several days, this test just won't pass. Weird timing and syncing issues and the app keeps getting destroyed
+    // so there is no store, so store.update blows up. Maybe one day this will work.
+    skip('undo/redo - rearranging colors in palette', async function(assert) {
+      await visit('/palettes');
+
+      let sourceList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      let firstColor = sourceList.querySelector(
+        '[data-test-palette-color-square]'
+      );
+      assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
+
+      await sort(sourceList, 0, 1, true);
+
+      await waitForAll();
+
+      sourceList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      firstColor = sourceList.querySelector('[data-test-palette-color-square]');
+      assert
+        .dom(firstColor)
+        .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
+
+      await triggerEvent(document.body, 'keydown', {
+        keyCode: 90,
+        ctrlKey: true
+      });
+
+      await waitForAll();
+
+      sourceList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      firstColor = sourceList.querySelector('[data-test-palette-color-square]');
+      assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
+
+      await triggerEvent(document.body, 'keydown', {
+        keyCode: 90,
+        ctrlKey: true,
+        shiftKey: true
+      });
+
+      await waitForAll();
+
       sourceList = find(
         '[data-test-palette-row="Second Palette"]'
       ).querySelector('.palette-color-squares');
@@ -123,13 +186,13 @@ module('Acceptance | palettes', function(hooks) {
 
       await sort(sourceList, 0, 1, true);
 
+      await waitForAll();
+
       sourceList = find(
         '[data-test-palette-row="Locked Palette"]'
       ).querySelector('.palette-color-squares');
       firstColor = sourceList.querySelector('[data-test-palette-color-square]');
-      assert
-        .dom(firstColor)
-        .hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
+      assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
     });
 
     test('moving colors between palettes', async function(assert) {
@@ -155,6 +218,8 @@ module('Acceptance | palettes', function(hooks) {
         .hasStyle({ backgroundColor: 'rgb(176, 245, 102)' });
 
       await move(sourceList, 2, targetList, 1, false);
+
+      await waitForAll();
 
       targetList = find(
         '[data-test-palette-row="Second Palette"]'
@@ -200,6 +265,8 @@ module('Acceptance | palettes', function(hooks) {
 
       await move(sourceList, 2, targetList, 1, false);
 
+      await waitForAll();
+
       targetList = find(
         '[data-test-palette-row="Locked Palette"]'
       ).querySelector('.palette-color-squares');
@@ -243,6 +310,8 @@ module('Acceptance | palettes', function(hooks) {
         .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
 
       await move(sourceList, 2, targetList, 1, false);
+
+      await waitForAll();
 
       targetList = find(
         '[data-test-palette-row="First Palette"]'

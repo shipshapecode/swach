@@ -1,15 +1,21 @@
 import { module, test } from 'qunit';
-import { click, visit, currentURL, triggerEvent } from '@ember/test-helpers';
+import {
+  click,
+  visit,
+  currentURL,
+  triggerEvent
+} from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { animationsSettled } from 'ember-animated/test-support';
 import sharedScenario from '../../mirage/scenarios/shared';
+import { waitForAll } from '../helpers';
 
 module('Acceptance | colors', function(hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(async function() {
     sharedScenario(this.server);
   });
 
@@ -38,11 +44,14 @@ module('Acceptance | colors', function(hooks) {
       '[data-test-color="Black"] [data-test-color-row-menu]',
       'mouseenter'
     );
+
+    await animationsSettled();
+
     // Click twice to confirm
     await click('[data-test-color="Black"] [data-test-delete-color]');
     await click('[data-test-color="Black"] [data-test-delete-color]');
 
-    await animationsSettled();
+    await waitForAll();
 
     assert.dom('[data-test-color]').exists({ count: 3 });
 
@@ -52,7 +61,7 @@ module('Acceptance | colors', function(hooks) {
       ctrlKey: true
     });
 
-    await animationsSettled();
+    await waitForAll();
 
     assert.dom('[data-test-color]').exists({ count: 4 });
 
@@ -63,8 +72,8 @@ module('Acceptance | colors', function(hooks) {
       shiftKey: true
     });
 
-    await animationsSettled();
-    
+    await waitForAll();
+
     assert.dom('[data-test-color]').exists({ count: 3 });
   });
 });

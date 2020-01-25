@@ -40,6 +40,7 @@ export default class ApplicationRoute extends Route {
       colorHistory = await this.store.addRecord({
         type: 'palette',
         createdAt: new Date(),
+        colorOrder: [],
         isColorHistory: true,
         isFavorite: false,
         isLocked: false

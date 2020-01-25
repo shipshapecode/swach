@@ -2,7 +2,6 @@ import { module, skip, test } from 'qunit';
 import {
   currentURL,
   find,
-  settled,
   triggerEvent,
   visit
 } from '@ember/test-helpers';

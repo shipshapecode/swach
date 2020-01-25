@@ -1121,10 +1121,10 @@ electron-winstaller@^4.0.0:
     lodash.template "^4.2.2"
     temp "^0.9.0"
 
-electron@7.1.7:
-  version "7.1.7"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-7.1.7.tgz#520e2bc422e3dfd4bae166dd3be62101f2cbdc52"
-  integrity sha512-aCLJ4BJwnvOckJgovNul22AYlMFDzm4S4KqKCG2iBlFJyMHBxXAKFKMsgYd40LBZWS3hcY6RHpaYjHSAPLS1pw==
+electron@^7.1.10:
+  version "7.1.10"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-7.1.10.tgz#35d5aa41ee3f233613e37ef4245b83c23001628b"
+  integrity sha512-UDpS2CfBN3yufCrbET5Ozw1XrLhuANHn+Zs8Vgl/BcBT/MoNbkY79nRFcyxj6pCFrEde9IoNOf+DgNp6altNxw==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^12.0.12"
@@ -2040,10 +2040,10 @@ mem@^4.3.0:
     mimic-fn "^2.0.0"
     p-is-promise "^2.0.0"
 
-menubar@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/menubar/-/menubar-7.1.0.tgz#c92d75e78fcce6da39fced936ad75c94009699df"
-  integrity sha512-B7ITYPW0oNu5NSjaYTt9ExL6GRMVb9p+ryW+c/4Rg1/EErmDGJhwCZavnV2roGJApNiFahymHsaG9yRq2iMCkw==
+menubar@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/menubar/-/menubar-7.2.0.tgz#53f6411780bbc51ccbd31582b9ca011946ae7f03"
+  integrity sha512-bt9IOttkd+/iRgE44D4Whv8YDKIBH0X54lgLhz1oO+RKCCmm4p8iV0NYmXqb1cboz9XSX6cttTURYg0fxS7YTg==
   dependencies:
     electron-positioner "^4.1.0"
 

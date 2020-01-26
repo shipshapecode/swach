@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { currentURL, find, triggerEvent, visit } from '@ember/test-helpers';
+import { click, currentURL, find, triggerEvent, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { move, sort } from 'ember-drag-sort/utils/trigger';
 import { triggerContextMenu } from 'ember-context-menu/test-support';
@@ -111,8 +111,6 @@ module('Acceptance | palettes', function(hooks) {
         .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
     });
 
-    // TODO: After several days, this test just won't pass. Weird timing and syncing issues and the app keeps getting destroyed
-    // so there is no store, so store.update blows up. Maybe one day this will work.
     test('undo/redo - rearranging colors in palette', async function(assert) {
       await visit('/palettes');
 
@@ -325,5 +323,34 @@ module('Acceptance | palettes', function(hooks) {
         .dom(targetListThirdColor)
         .hasStyle({ backgroundColor: 'rgb(176, 245, 102)' });
     });
+  });
+
+  test('creating palettes and undo / redo', async function(assert) {
+    await visit('/palettes');
+
+    assert.dom('[data-test-palette-row]').exists({ count: 3 });
+
+    await click('[data-test-create-palette]');
+
+    await waitForAll();
+
+    assert.dom('[data-test-palette-row]').exists({ count: 4 });
+
+    await triggerEvent(document.body, 'keydown', {
+      keyCode: 90,
+      ctrlKey: true
+    });
+    await waitForAll();
+
+    assert.dom('[data-test-palette-row]').exists({ count: 3 });
+
+    await triggerEvent(document.body, 'keydown', {
+      keyCode: 90,
+      ctrlKey: true,
+      shiftKey: true
+    });
+    await waitForAll();
+
+    assert.dom('[data-test-palette-row]').exists({ count: 4 });
   });
 });

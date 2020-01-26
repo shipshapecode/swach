@@ -33,7 +33,7 @@ export default class PalettesController extends Controller {
 
   @action
   async createNewPalette() {
-    return await this.store.addRecord({
+    await this.store.addRecord({
       type: 'palette',
       name: 'Palette',
       createdAt: new Date(),
@@ -42,6 +42,8 @@ export default class PalettesController extends Controller {
       isFavorite: false,
       isLocked: false
     });
+
+    this.undoManager.setupUndoRedo();
   }
 
   @action

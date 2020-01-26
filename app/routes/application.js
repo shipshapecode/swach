@@ -16,9 +16,9 @@ export default class ApplicationRoute extends Route {
         const transform = await backup.pull(q => q.findRecords());
         await this.store.sync(transform);
       }
-      
-      await this.dataCoordinator.activate();
     }
+
+    await this.dataCoordinator.activate();
 
     const palettes = await this.store.find('palette');
     let colorHistory = palettes.findBy('isColorHistory', true);

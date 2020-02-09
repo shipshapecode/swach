@@ -87,8 +87,8 @@ export default class KulerComponent extends Component {
   }
 
   @action
-  async _onColorChange(color) {
-    debugger;
+  async _onColorChange(/* color */) {
+    // Waiting on iro.js to implement more multiple color features here
     // TODO if changing a color, and it is not the baseColor, we should update it in the palette
 
     // TODO if changing the selected baseColor, we should update all the colors

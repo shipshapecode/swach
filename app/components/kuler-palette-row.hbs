@@ -1,7 +1,7 @@
 <div
   data-test-kuler-palette="{{@palette.name}}"
   class="cursor-default mb-3 p-3 rounded-lg shadow w-full
-    {{if (eq @palette @selectedPalette) "bg-gray-500 text-white" "bg-menu"}}"
+    {{if (eq @palette @selectedPalette) "bg-gray-700 text-white" "bg-menu"}}"
   {{on "click" (fn @setSelectedPalette @palette)}}
 >
   <div class="flex items-center justify-between h-6 pb-2 w-full">
@@ -48,9 +48,15 @@
           data-test-kuler-palette-color="{{index}}"
           class="flex flex-grow
             {{if (eq index 0) "first"}}
-            {{if (eq index (sub @palette.colors.length 1)) "last"}}"
+            {{if (eq index (sub @palette.colors.length 1)) "last"}}
+            {{if
+              (and
+                (eq @palette @selectedPalette) (eq index this.selectedColorIndex)
+              )
+              "border-2 border-gray-200 border-solid"
+            }}"
           style={{html-safe (concat "background-color: " color.hex)}}
-          {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
+          {{on "click" (set this.selectedColor color)}}
         ></div>
       {{/each}}
     </div>

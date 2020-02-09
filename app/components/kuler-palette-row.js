@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import fade from 'ember-animated/transitions/fade';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class KulerPaletteRowComponent extends Component {
   @service colorUtils;
@@ -11,6 +12,18 @@ export default class KulerPaletteRowComponent extends Component {
 
   fade = fade;
   showMenu = false;
+
+  @tracked selectedColor;
+
+  constructor() {
+    super(...arguments);
+
+    this.selectedColor = this.args.palette.colors[0];
+  }
+
+  get selectedColorIndex() {
+    return this.args.palette.colors.indexOf(this.selectedColor);
+  }
 
   @action
   async savePalette() {

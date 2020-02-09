@@ -24,6 +24,7 @@ export default class KulerComponent extends Component {
 
   harmonies = ['analogous', 'monochromatic', 'tetrad', 'triad'];
   fade = fade;
+  selectedColorIndex = 0;
 
   @tracked baseColor;
   @tracked colors = [];
@@ -87,8 +88,12 @@ export default class KulerComponent extends Component {
 
   @action
   async _onColorChange(color) {
-    this.baseColor = await this.colorUtils.createColorRecord(color.hexString);
-    this.baseColorChanged();
+    debugger;
+    // TODO if changing a color, and it is not the baseColor, we should update it in the palette
+
+    // TODO if changing the selected baseColor, we should update all the colors
+    // this.baseColor = await this.colorUtils.createColorPOJO(color.hexString);
+    // this.baseColorChanged();
   }
 
   @action

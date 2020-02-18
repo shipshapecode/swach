@@ -2,13 +2,11 @@
   <div class="w-auto" id="color-picker-container"></div>
 </div>
 
-<AnimatedContainer>
-  {{#animated-each this.palettes use=this.fade as |palette|}}
-    <KulerPaletteRow
-      @palette={{palette}}
-      @selectedPalette={{this.selectedPalette}}
-      @setSelectedIroColor={{this.setSelectedIroColor}}
-      @setSelectedPalette={{this.setSelectedPalette}}
-    />
-  {{/animated-each}}
-</AnimatedContainer>
+{{#each this.palettes use=this.fade as |palette|}}
+  <KulerPaletteRow
+    @palette={{palette}}
+    @selectedPalette={{this.selectedPalette}}
+    @setSelectedIroColor={{this.setSelectedIroColor}}
+    @setSelectedPalette={{this.setSelectedPalette}}
+  />
+{{/each}}

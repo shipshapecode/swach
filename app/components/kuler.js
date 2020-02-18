@@ -3,7 +3,6 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { capitalize } from '@ember/string';
 import { tracked } from '@glimmer/tracking';
-import fade from 'ember-animated/transitions/fade';
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
 
@@ -26,7 +25,6 @@ export default class KulerComponent extends Component {
   @service store;
 
   harmonies = ['analogous', 'monochromatic', 'tetrad', 'triad'];
-  fade = fade;
 
   @tracked baseColor;
   @tracked colors = [];
@@ -47,20 +45,21 @@ export default class KulerComponent extends Component {
     await this._destroyLeftoverPalettes();
 
     for (const harmony of this.harmonies) {
-      const palette = {
-        type: 'palette',
-        name: capitalize(harmony),
-        createdAt: new Date(),
-        isColorHistory: false,
-        isFavorite: false,
-        isLocked: false,
-        selectedColorIndex: 0,
-        colors: []
-      };
+      class Palette {
+        @tracked colors = [];
+        @tracked selectedColorIndex = 0;
+        constructor(harmony) {
+          this.type = 'palette';
+          this.name = capitalize(harmony);
+          this.createdAt = new Date();
+          this.isColorHistory = false;
+          this.isFavorite = false;
+          this.isLocked = false;
+        }
+      }
+      const palette = new Palette(harmony);
 
-      let colors = new TinyColor(
-        this.baseColor.hex || this.baseColor.attributes.hex
-      )[harmony](5);
+      let colors = new TinyColor(this.baseColor.hex)[harmony](5);
       colors = await Promise.all(
         colors.map(async color => {
           return this.colorUtils.createColorPOJO(color.toHexString());
@@ -78,6 +77,7 @@ export default class KulerComponent extends Component {
   willDestroy() {
     this._destroyLeftoverPalettes();
     this.colorPicker.off('color:change', this._onColorChange);
+    this.colorPicker.off('color:setActive', this._onColorSetActive);
   }
 
   /**
@@ -109,14 +109,25 @@ export default class KulerComponent extends Component {
 
   @action
   async _onColorChange(color) {
+    // TODO figure out how to choose base colors
     const { selectedColorIndex } = this.selectedPalette;
     // if changing the selected baseColor, we should update all the colors
-    if (selectedColorIndex === 0) {
-      this.baseColor = await this.colorUtils.createColorPOJO(color.hexString);
-      this.baseColorChanged();
-    } else {
+    // if (selectedColorIndex === 0) {
+    //   const newColor = await this.colorUtils.createColorPOJO(color.hexString);
+    //   this.baseColor = newColor.attributes;
+    //   await this.baseColorChanged();
+    // } else {
       const newColor = await this.colorUtils.createColorPOJO(color.hexString);
-      this.selectedPalette.colors.replace(selectedColorIndex, 1, [newColor.attributes]);
+      this.selectedPalette.colors.replace(selectedColorIndex, 1, [
+        newColor.attributes
+      ]);
+    // }
+  }
+
+  @action
+  _onColorSetActive(color) {
+    if (color) {
+      this.selectedPalette.selectedColorIndex = color.index;
     }
   }
 
@@ -128,5 +139,6 @@ export default class KulerComponent extends Component {
     });
 
     this.colorPicker.on('color:change', this._onColorChange);
+    this.colorPicker.on('color:setActive', this._onColorSetActive);
   }
 }

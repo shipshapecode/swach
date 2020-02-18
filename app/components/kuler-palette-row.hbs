@@ -51,7 +51,7 @@
             {{if (eq index (sub @palette.colors.length 1)) "last"}}
             {{if
               (and
-                (eq @palette @selectedPalette) (eq index this.selectedColorIndex)
+                (eq @palette @selectedPalette) (eq index @palette.selectedColorIndex)
               )
               "border-2 border-gray-200 border-solid"
             }}"

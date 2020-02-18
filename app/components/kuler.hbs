@@ -5,9 +5,9 @@
 <AnimatedContainer>
   {{#animated-each this.palettes use=this.fade as |palette|}}
     <KulerPaletteRow
-      @baseColor={{@baseColor}}
       @palette={{palette}}
       @selectedPalette={{this.selectedPalette}}
+      @setSelectedIroColor={{this.setSelectedIroColor}}
       @setSelectedPalette={{this.setSelectedPalette}}
     />
   {{/animated-each}}

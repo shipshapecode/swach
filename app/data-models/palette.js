@@ -7,6 +7,7 @@ export default class PaletteModel extends Model {
   @attr('boolean') isFavorite;
   @attr('boolean') isLocked;
   @attr('string') name;
+  @attr('number') selectedColorIndex;
   // This is an array to track color order, and is a hack until orbit supports ordered relationships
   @attr() colorOrder;
 

@@ -2,7 +2,7 @@
   data-test-kuler-palette="{{@palette.name}}"
   class="cursor-default mb-3 p-3 rounded-lg shadow w-full
     {{if (eq @palette @selectedPalette) "bg-gray-700 text-white" "bg-menu"}}"
-  {{on "click" (fn @setSelectedPalette @palette)}}
+  {{on "click" (stop-propagation (fn @setSelectedPalette @palette))}}
 >
   <div class="flex items-center justify-between h-6 pb-2 w-full">
     <h6 class="text-sm" data-test-kuler-palette-name>
@@ -56,7 +56,7 @@
               "border-2 border-gray-200 border-solid"
             }}"
           style={{html-safe (concat "background-color: " color.hex)}}
-          {{on "click" (set this.selectedColor color)}}
+          {{on "click" (stop-propagation (fn this.setSelectedColor color @palette))}}
         ></div>
       {{/each}}
     </div>

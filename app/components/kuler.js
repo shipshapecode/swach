@@ -7,7 +7,10 @@ import fade from 'ember-animated/transitions/fade';
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
 
-iro.ColorPicker.prototype.setColors = function(newColorValues) {
+iro.ColorPicker.prototype.setColors = function(
+  newColorValues,
+  selectedIndex = 0
+) {
   // Unbind color events
   this.colors.forEach(color => color.unbind());
   // Destroy old colors
@@ -15,7 +18,7 @@ iro.ColorPicker.prototype.setColors = function(newColorValues) {
   // Add new colors
   newColorValues.forEach(colorValue => this.addColor(colorValue));
   // Reset active color
-  this.setActiveColor(0);
+  this.setActiveColor(selectedIndex);
 };
 
 export default class KulerComponent extends Component {
@@ -24,7 +27,6 @@ export default class KulerComponent extends Component {
 
   harmonies = ['analogous', 'monochromatic', 'tetrad', 'triad'];
   fade = fade;
-  selectedColorIndex = 0;
 
   @tracked baseColor;
   @tracked colors = [];
@@ -52,10 +54,13 @@ export default class KulerComponent extends Component {
         isColorHistory: false,
         isFavorite: false,
         isLocked: false,
+        selectedColorIndex: 0,
         colors: []
       };
 
-      let colors = new TinyColor(this.baseColor.hex)[harmony](5);
+      let colors = new TinyColor(
+        this.baseColor.hex || this.baseColor.attributes.hex
+      )[harmony](5);
       colors = await Promise.all(
         colors.map(async color => {
           return this.colorUtils.createColorPOJO(color.toHexString());
@@ -75,10 +80,26 @@ export default class KulerComponent extends Component {
     this.colorPicker.off('color:change', this._onColorChange);
   }
 
+  /**
+   * Sets the selected color in the iro.js color wheel
+   * @param {number} index The index of the color to make active
+   */
+  @action
+  setSelectedIroColor(index) {
+    this.colorPicker.setActiveColor(index);
+  }
+
+  /**
+   * Sets the selected palette and the colors for the color picker
+   * @param {Palette} palette
+   */
   @action
   setSelectedPalette(palette) {
     this.selectedPalette = palette;
-    this.colorPicker.setColors(this.selectedPalette.colors.mapBy('hex'));
+    this.colorPicker.setColors(
+      this.selectedPalette.colors.mapBy('hex'),
+      palette.selectedColorIndex
+    );
   }
 
   @action
@@ -87,13 +108,16 @@ export default class KulerComponent extends Component {
   }
 
   @action
-  async _onColorChange(/* color */) {
-    // Waiting on iro.js to implement more multiple color features here
-    // TODO if changing a color, and it is not the baseColor, we should update it in the palette
-
-    // TODO if changing the selected baseColor, we should update all the colors
-    // this.baseColor = await this.colorUtils.createColorPOJO(color.hexString);
-    // this.baseColorChanged();
+  async _onColorChange(color) {
+    const { selectedColorIndex } = this.selectedPalette;
+    // if changing the selected baseColor, we should update all the colors
+    if (selectedColorIndex === 0) {
+      this.baseColor = await this.colorUtils.createColorPOJO(color.hexString);
+      this.baseColorChanged();
+    } else {
+      const newColor = await this.colorUtils.createColorPOJO(color.hexString);
+      this.selectedPalette.colors.replace(selectedColorIndex, 1, [newColor.attributes]);
+    }
   }
 
   @action

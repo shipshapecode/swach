@@ -25,6 +25,21 @@ export default class KulerPaletteRowComponent extends Component {
     return this.args.palette.colors.indexOf(this.selectedColor);
   }
 
+  /**
+   * Sets the selected color, and selects the palette if not already selected.
+   * @param {Color} color The color to select
+   * @param {Palette} palette The palette to select
+   */
+  @action
+  setSelectedColor(color, palette) {
+    if (palette !== this.args.selectedPalette) {
+      this.args.setSelectedPalette(palette);
+    }
+    this.selectedColor = color;
+    this.args.setSelectedIroColor(this.selectedColorIndex);
+    this.args.palette.selectedColorIndex = this.selectedColorIndex;
+  }
+
   @action
   async savePalette() {
     await this.router.transitionTo('palettes');

@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { fillIn, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
+import { waitForAll } from '../../helpers';
 
 module('Integration | Component | contrast-checker', function(hooks) {
   setupRenderingTest(hooks);
@@ -9,8 +10,12 @@ module('Integration | Component | contrast-checker', function(hooks) {
   test('WCAG - Score and string calculated', async function(assert) {
     await render(hbs`<ContrastChecker/>`);
 
+    await waitForAll();
+
     await fillIn('.background-color-picker-container .pcr-result', '#004747');
     await fillIn('.foreground-color-picker-container .pcr-result', '#005A2A');
+
+    await waitForAll();
 
     assert.dom('[data-test-wcag-score]').hasText('1.25');
     assert.dom('[data-test-wcag-string]').hasText('Fail');
@@ -19,6 +24,8 @@ module('Integration | Component | contrast-checker', function(hooks) {
       .hasStyle({ backgroundColor: 'rgb(0, 71, 71)', color: 'rgb(0, 90, 42)' });
 
     await fillIn('.foreground-color-picker-container .pcr-result', '#00A24B');
+
+    await waitForAll();
 
     assert.dom('[data-test-wcag-score]').hasText('3.15');
     assert.dom('[data-test-wcag-string]').hasText('AA Large');
@@ -29,6 +36,8 @@ module('Integration | Component | contrast-checker', function(hooks) {
 
     await fillIn('.foreground-color-picker-container .pcr-result', '#00CE60');
 
+    await waitForAll();
+
     assert.dom('[data-test-wcag-score]').hasText('5.02');
     assert.dom('[data-test-wcag-string]').hasText('AA');
     assert.dom('[data-test-contrast-preview]').hasStyle({
@@ -37,6 +46,8 @@ module('Integration | Component | contrast-checker', function(hooks) {
     });
 
     await fillIn('.foreground-color-picker-container .pcr-result', '#FFFFFF');
+
+    await waitForAll();
 
     assert.dom('[data-test-wcag-score]').hasText('10.54');
     assert.dom('[data-test-wcag-string]').hasText('AAA');

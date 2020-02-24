@@ -37,6 +37,8 @@ const mb = menubar({
   preloadWindow: true
 });
 
+mb.app.allowRendererProcessReuse = true;
+
 mb.app.commandLine.appendSwitch(
   'disable-backgrounding-occluded-windows',
   'true'

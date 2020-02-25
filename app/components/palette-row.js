@@ -93,7 +93,7 @@ export default class PaletteRowComponent extends Component.extend(
         this.palette
       ),
       new ContextMenuOption(
-        this.deletePalette.bind(this, true),
+        this.deletePaletteContextMenu,
         'trash',
         'Delete Palette',
         this.palette
@@ -112,14 +112,22 @@ export default class PaletteRowComponent extends Component.extend(
   }
 
   @action
-  async deletePalette(forceDelete = false) {
+  async deletePalette() {
     if (!this.palette.isLocked) {
-      if (this.deleteConfirm || forceDelete) {
+      if (this.deleteConfirm) {
         await this.store.update(t => t.removeRecord(this.palette));
         this.undoManager.setupUndoRedo();
       }
 
       this.deleteConfirm = true;
+    }
+  }
+
+  @action
+  async deletePaletteContextMenu() {
+    if (!this.palette.isLocked) {
+      await this.store.update(t => t.removeRecord(this.palette));
+      this.undoManager.setupUndoRedo();
     }
   }
 

@@ -11,7 +11,7 @@
           @value={{@palette.name}}
           {{did-insert this.insertedNameInput}}
           {{on "blur" (fn this.updatePaletteName @palette)}}
-          {{on "keypress" (fn this.enterPress)}}
+          {{on "keypress" this.enterPress}}
         />
       {{else}}
         <LinkTo
@@ -29,6 +29,7 @@
     </h6>
 
     <div
+      data-test-palette-row-menu
       {{on "mouseenter" (set this.showMenu true)}}
       {{on "mouseleave" (set this.showMenu false)}}
     >
@@ -37,7 +38,7 @@
           <button
             class="mr-1"
             type="button"
-            {{on "click" (fn this.lockPalette)}}
+            {{on "click" this.lockPalette}}
           >
             {{svg-jar
               (if @palette.isLocked "lock" "unlock")
@@ -51,7 +52,7 @@
             class="mr-1"
             disabled={{@palette.isLocked}}
             type="button"
-            {{on "click" (fn this.favoritePalette)}}
+            {{on "click" this.favoritePalette}}
           >
             {{svg-jar
               "heart"
@@ -62,9 +63,10 @@
           </button>
 
           <button
+            data-test-delete-palette
             disabled={{@palette.isLocked}}
             type="button"
-            {{on "click" (fn this.deletePalette)}}
+            {{on "click" this.deletePalette}}
             {{on "mouseleave" (set this.deleteConfirm false)}}
           >
             {{svg-jar

@@ -1,7 +1,9 @@
 import { module, test } from 'qunit';
-import { visit, currentURL } from '@ember/test-helpers';
+import { click, visit, currentURL, triggerEvent } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import seedOrbit from '../orbit/seed';
+import { animationsSettled } from 'ember-animated/test-support';
+import { waitForAll } from '../helpers';
 
 module('Acceptance | kuler', function(hooks) {
   setupApplicationTest(hooks);
@@ -18,10 +20,10 @@ module('Acceptance | kuler', function(hooks) {
 
   test('analogous palette', async function(assert) {
     assert
-    .dom(
-      '[data-test-kuler-palette="Analogous"] [data-test-kuler-palette-name]'
-    )
-    .hasText('Analogous');
+      .dom(
+        '[data-test-kuler-palette="Analogous"] [data-test-kuler-palette-name]'
+      )
+      .hasText('Analogous');
 
     assert
       .dom(
@@ -86,10 +88,8 @@ module('Acceptance | kuler', function(hooks) {
 
   test('tetrad palette', async function(assert) {
     assert
-    .dom(
-      '[data-test-kuler-palette="Tetrad"] [data-test-kuler-palette-name]'
-    )
-    .hasText('Tetrad');
+      .dom('[data-test-kuler-palette="Tetrad"] [data-test-kuler-palette-name]')
+      .hasText('Tetrad');
 
     assert
       .dom('[data-test-kuler-palette="Tetrad"] [data-test-kuler-palette-color]')
@@ -98,13 +98,42 @@ module('Acceptance | kuler', function(hooks) {
 
   test('triad palette', async function(assert) {
     assert
-    .dom(
-      '[data-test-kuler-palette="Triad"] [data-test-kuler-palette-name]'
-    )
-    .hasText('Triad');
+      .dom('[data-test-kuler-palette="Triad"] [data-test-kuler-palette-name]')
+      .hasText('Triad');
 
     assert
       .dom('[data-test-kuler-palette="Triad"] [data-test-kuler-palette-color]')
       .exists({ count: 3 });
+
+    await triggerEvent(
+      '[data-test-kuler-palette="Triad"] [data-test-kuler-palette-menu]',
+      'mouseenter'
+    );
+
+    await animationsSettled();
+
+    await click(
+      '[data-test-kuler-palette="Triad"] [data-test-save-kuler-palette]'
+    );
+
+    await waitForAll();
+
+    assert.equal(currentURL(), '/palettes');
+
+    const colorsList = document.querySelector(
+      '[data-test-palette-row="Triad"] .palette-color-squares'
+    );
+
+    assert
+      .dom('[data-test-palette-color-square]', colorsList)
+      .exists({ count: 3 });
+
+    const thirdColor = colorsList.querySelectorAll(
+      '[data-test-palette-color-square]'
+    )[2];
+
+    assert
+      .dom(thirdColor)
+      .hasStyle({ backgroundColor: 'rgb(138, 224, 247)' });
   });
 });

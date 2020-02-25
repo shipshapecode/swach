@@ -15,7 +15,7 @@
     >
       {{#animated-if this.showMenu use=this.fade}}
         <div>
-          <button type="button" {{on "click" (fn this.savePalette)}}>
+          <button type="button" {{on "click" this.savePalette}}>
             {{svg-jar
               "save"
               class=(concat

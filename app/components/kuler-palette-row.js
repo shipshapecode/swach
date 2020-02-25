@@ -70,6 +70,11 @@ export default class KulerPaletteRowComponent extends Component {
           { type: 'palette', id: paletteId },
           'colors',
           colorsList
+        ),
+        t.replaceAttribute(
+          { type: 'palette', id: paletteId },
+          'colorOrder',
+          colorsList
         )
       ];
     });

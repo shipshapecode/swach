@@ -6,16 +6,16 @@ body.light {
   --alt-color: #677087;
   --alt-hover-color: #1f2126;
   --disabled-color: #a0aec0;
-  --main-color: #f1f1f1;
-  --menu-color: #ffffff;
+  --main-color: #F0F1F5;
+  --menu-color: #FEFFFE;
 }
 
 body.dark {
   --alt-color: #dfdfe0;
   --alt-hover-color: #c7c7c7;
   --disabled-color: #718096;
-  --main-color: #292c32;
-  --menu-color: #383a40;
+  --main-color: #0E0E1F;
+  --menu-color: #222236;
 }
 
 html,
@@ -162,6 +162,14 @@ button {
   border: 8px solid transparent;
 }
 
+.color-picker-arrow.ember-popover-arrow {
+  margin-left: -28px;
+}
+
+.color-picker-popover.ember-popover {
+  transform: translate3d(0px, 34px, 0px) !important;
+}
+
 .ember-power-select-option[aria-selected='true'] {
   background-color: var(--main-color);
   color: var(--alt-color);
@@ -211,4 +219,8 @@ button {
   .pcr-result {
     @apply bg-main text-alt;
   }
+}
+
+.ember-popover-inner > div {
+  @apply h-full w-full;
 }

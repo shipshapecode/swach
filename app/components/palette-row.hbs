@@ -1,5 +1,5 @@
 <div
-  class="bg-menu cursor-default mb-3 p-3 rounded-lg shadow w-full"
+  class="bg-menu cursor-default mb-3 p-3 rounded w-full"
   data-test-palette-row="{{@palette.name}}"
 >
   <div class="flex items-center justify-between pb-2 w-full">
@@ -88,7 +88,7 @@
   <div class="palette flex flex-grow h-8 relative w-full">
     {{#unless @palette.colors.length}}
       <div
-        class="absolute bg-main flex flex-grow h-8 items-center justify-center text-sm top-0 w-full"
+        class="absolute bg-main border border-dashed border-gray-400 flex flex-grow h-8 items-center justify-center rounded text-sm top-0 w-full"
       >
         Drag colors here
       </div>

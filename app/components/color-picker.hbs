@@ -2,27 +2,39 @@
   {{svg-jar "edit-color" height="15" width="15"}}
 </button>
 <EmberPopover
-  @arrowClass="custom-arrow"
+  @arrowClass="color-picker-arrow custom-arrow"
   @event="none"
+  @innerClass="h-full w-full"
   @isShown={{this.isShown}}
   @side="top-end"
   @spacing={{10}}
   @targetId="toggle-picker"
-  @tooltipClass="bg-main border-menu text-alt w-full"
+  @tooltipClass="color-picker-popover bg-main border-menu fixed h-full m-0 text-alt w-screen"
 >
-  <div class="flex justify-between w-100">
-    <button type="button" {{on "click" this.toggleIsShown}}>
-      {{svg-jar "x" class="icon mb-2" height="20" width="20"}}
-    </button>
-    <button type="button" {{on "click" this.addColorAndClose}}>
-      {{svg-jar "check" class="icon mb-2" height="20" width="20"}}
-    </button>
+  <div class="h-full relative w-full">
+    <ColorRow @color={{this.selectedColor}} @showActions={{false}} />
+
+    <div
+      {{did-insert this.initColorPicker}}
+      {{will-destroy this.destroyColorPickr}}
+    ></div>
+
+    <div class="absolute bottom-0 flex mb-12 w-full">
+      <button
+        class="bg-menu cursor-pointer flex-1 mr-1 p-2 rounded"
+        type="button"
+        {{on "click" this.toggleIsShown}}
+      >
+        Cancel
+      </button>
+
+      <button
+        class="bg-menu cursor-pointer flex-1 ml-1 p-2 rounded"
+        type="button"
+        {{on "click" this.addColorAndClose}}
+      >
+        Save color
+      </button>
+    </div>
   </div>
-
-  <ColorRow @color={{this.selectedColor}} @showActions={{false}} />
-
-  <div
-    {{did-insert this.initColorPicker}}
-    {{will-destroy this.destroyColorPickr}}
-  ></div>
 </EmberPopover>

@@ -1,6 +1,6 @@
 <div
   data-test-kuler-palette="{{@palette.name}}"
-  class="cursor-default mb-3 p-3 rounded-lg shadow w-full
+  class="cursor-default mb-3 p-3 rounded w-full
     {{if (eq @palette @selectedPalette) "bg-gray-700 text-white" "bg-menu"}}"
   {{on "click" (stop-propagation (fn @setSelectedPalette @palette))}}
 >

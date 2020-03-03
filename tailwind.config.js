@@ -6,6 +6,8 @@ module.exports = {
         'alt-hover': 'var(--alt-hover-color)',
         main: 'var(--main-color)',
         menu: 'var(--menu-color)',
+        'menu-text': 'var(--menu-text-color)',
+        'menu-text-hover': 'var(--menu-text-hover-color)',
       }
     },
     fill: theme => ({

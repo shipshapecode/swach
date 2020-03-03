@@ -4,13 +4,13 @@
   <div class="flex flex-col max-w-xl h-full relative w-full">
     <div class="bg-menu flex justify-between items-center p-4 w-full">
       <div class="flex-grow">
-        <div class="h-4 w-4">
+        <div class="h-5 w-4">
           <button
             id="toggle-menu"
             type="button"
             {{on "click" this.toggleMenuIsShown}}
           >
-            {{svg-jar "menu" class="icon" height="15" width="15"}}
+            {{svg-jar "menu" class="icon" height="18" width="18"}}
           </button>
         </div>
 
@@ -21,17 +21,17 @@
           @side="bottom-start"
           @spacing={{10}}
           @targetId="toggle-menu"
-          @tooltipClass="bg-menu border-main text-alt"
+          @tooltipClass="bg-menu border-main text-menu-text"
         >
           <div>
             <LinkTo
-              class="flex items-center h-2 pb-3 pl-2 pr-2 pt-3"
+              class="flex items-center h-2 pb-3 pl-2 pr-2 pt-3 text-menu-text hover:text-menu-text-hover"
               @route="palettes"
               {{on "click" this.toggleMenuIsShown}}
             >
               {{svg-jar
                 "palettes"
-                class="icon inline-block mr-2"
+                class="menu-icon inline-block mr-2"
                 height="13"
                 width="13"
               }} Palettes
@@ -40,13 +40,13 @@
 
           <div>
             <LinkTo
-              class="flex items-center h-2 pb-3 pl-2 pr-2 pt-3"
+              class="flex items-center h-2 pb-3 pl-2 pr-2 pt-3 text-menu-text hover:text-menu-text-hover"
               @route="contrast"
               {{on "click" this.toggleMenuIsShown}}
             >
               {{svg-jar
                 "contrast"
-                class="icon inline-block mr-2"
+                class="menu-icon inline-block mr-2"
                 height="13"
                 width="13"
               }} Check Contrast
@@ -55,13 +55,13 @@
 
           <div>
             <LinkTo
-              class="flex items-center h-2 pb-3 pl-2 pr-2 pt-3"
+              class="flex items-center h-2 pb-3 pl-2 pr-2 pt-3 text-menu-text hover:text-menu-text-hover"
               @route="settings"
               {{on "click" this.toggleMenuIsShown}}
             >
               {{svg-jar
                 "settings"
-                class="icon inline-block mr-2"
+                class="menu-icon inline-block mr-2"
                 height="13"
                 width="13"
               }} Settings
@@ -70,31 +70,31 @@
 
           <div>
             <button
-              class="flex items-center h-2 mb-2 pb-3 pl-2 pr-2"
+              class="flex items-center h-2 mb-2 pb-3 pl-2 pr-2 text-menu-text hover:text-menu-text-hover"
               type="button"
               {{on "click" this.exitApp}}
             >
               {{svg-jar
                 "close"
-                class="icon inline-block mr-2"
+                class="menu-icon inline-block mr-2"
                 height="13"
                 width="13"
-              }} Quit Swatch
+              }} Close Swatch
             </button>
           </div>
         </EmberPopover>
       </div>
 
       <div class="flex flex-grow items-center justify-end">
-        <div class="h-4 w-4 mr-2">
+        <div class="h-5 w-4 mr-3">
           {{#if this.showEyedropperIcon}}
             <button type="button" {{on "click" this.launchPicker}}>
-              {{svg-jar "drop" class="icon" height="15" width="15"}}
+              {{svg-jar "drop" class="icon" height="23" width="19"}}
             </button>
           {{/if}}
         </div>
 
-        <div class="h-4 w-4">
+        <div class="h-5 w-4">
           {{#if this.showColorWheel}}
             <ColorPicker @addColor={{fn this.addColor}} />
           {{/if}}

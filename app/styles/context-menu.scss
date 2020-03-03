@@ -1,31 +1,27 @@
 .context-menu {
   @apply border-0 font-thin rounded shadow text-sm;
-  background-color: var(--main-color);
-  color: var(--alt-hover-color);
+  background-color: var(--menu-color);
+  color: var(--menu-text-color);
 }
 
 .context-menu__item {
-  @apply flex items-center pl-4 pr-4;
+  @apply cursor-default flex items-center pl-4 pr-4;
 
-  svg,
-  svg * {
-    transition: fill 0s;
-  }
+  transition: color 0.25s;
 
   &:hover:not(.context-menu__item--disabled) {
-    @apply bg-blue-500 text-white;
+    background-color: var(--menu-color);
+    @apply text-menu-text-hover;
 
-    svg,
-    svg * {
-      fill: white !important;
+    svg path {
+      fill: var(--menu-text-hover-color) !important;
     }
   }
 
   &.context-menu__item--disabled {
     color: var(--disabled-color);
 
-    svg,
-    svg * {
+    path {
       fill: var(--disabled-color) !important;
     }
 

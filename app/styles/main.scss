@@ -4,18 +4,22 @@
 
 body.light {
   --alt-color: #b6b6ca;
-  --alt-hover-color: #1f2126;
-  --disabled-color: #a0aec0;
+  --alt-hover-color: #66667C;
+  --disabled-color: #a4acc6;
   --main-color: #e7e7ed;
   --menu-color: #ffffff;
+  --menu-text-color: #697088;
+  --menu-text-hover-color: #363A48;
 }
 
 body.dark {
   --alt-color: #7a7ca5;
-  --alt-hover-color: #c7c7c7;
-  --disabled-color: #718096;
+  --alt-hover-color: #A4A7D9;
+  --disabled-color: #5e6078;
   --main-color: #0e0f1f;
   --menu-color: #222336;
+  --menu-text-color: #A9ACD3;
+  --menu-text-hover-color: #FFFFFF;
 }
 
 html,
@@ -63,45 +67,46 @@ button,
 
 svg {
   &.icon {
-    g,
-    * {
+    path {
       fill: var(--alt-color) !important;
       transition: fill 0.25s;
     }
 
     &:hover {
-      g,
-      * {
+      path {
         fill: var(--alt-hover-color) !important;
       }
     }
 
     &.delete-confirm {
-      g,
-      * {
+      path {
         fill: #f56565 !important;
       }
       
       &:hover {
-        g,
-        * {
+        path {
           fill: #f56565 !important;
         }
       }
     }
 
     &.selected-kuler {
-      g,
-      * {
+      path {
         fill: #ffffff !important;
       }
   
       &:hover {
-        g,
-        * {
+        path {
           fill: #f1f1f1 !important;
         }
       }
+    }
+  }
+
+  &.menu-icon {
+    path {
+      fill: var(--menu-text-color) !important;
+      transition: fill 0.25s;
     }
   }
 }
@@ -110,8 +115,7 @@ a,
 button {
   svg.icon {
     &.filled {
-      g,
-      * {
+      path {
         fill: var(--alt-color) !important;
         transition: fill 0.25s;
       }
@@ -120,15 +124,26 @@ button {
 
   &:hover:not([disabled]) {
     svg.icon:not(.delete-confirm):not(.selected-kuler) {
-      g,
-      * {
+      path {
         fill: var(--alt-hover-color) !important;
       }
 
       &.filled {
-        g,
-        * {
+        path {
           fill: var(--alt-hover-color) !important;
+          transition: fill 0.25s;
+        }
+      }
+    }
+
+    svg.menu-icon {
+      path {
+        fill: var(--menu-text-hover-color) !important;
+      }
+
+      &.filled {
+        path {
+          fill: var(--menu-text-hover-color) !important;
           transition: fill 0.25s;
         }
       }
@@ -138,15 +153,14 @@ button {
   &[disabled] {
     cursor: not-allowed;
 
-    svg.icon {
-      g,
-      * {
+    svg.icon,
+    svg.menu-icon {
+      path {
         fill: var(--disabled-color) !important;
       }
 
       &.filled {
-        g,
-        * {
+        path {
           fill: var(--disabled-color) !important;
           transition: fill 0.25s;
         }

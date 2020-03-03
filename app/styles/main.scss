@@ -4,22 +4,24 @@
 
 body.light {
   --alt-color: #b6b6ca;
-  --alt-hover-color: #66667C;
+  --alt-hover-color: #66667c;
   --disabled-color: #a4acc6;
+  --drop-icon: #0e1c2a;
   --main-color: #e7e7ed;
   --menu-color: #ffffff;
   --menu-text-color: #697088;
-  --menu-text-hover-color: #363A48;
+  --menu-text-hover-color: #363a48;
 }
 
 body.dark {
   --alt-color: #7a7ca5;
-  --alt-hover-color: #A4A7D9;
+  --alt-hover-color: #a4a7d9;
   --disabled-color: #5e6078;
+  --drop-icon: #ffffff;
   --main-color: #0e0f1f;
   --menu-color: #222336;
-  --menu-text-color: #A9ACD3;
-  --menu-text-hover-color: #FFFFFF;
+  --menu-text-color: #a9acd3;
+  --menu-text-hover-color: #ffffff;
 }
 
 html,
@@ -66,6 +68,13 @@ button,
 }
 
 svg {
+  &.drop-icon {
+    path {
+      fill: var(--drop-icon)!important;
+      transition: fill 0.25s;
+    }
+  }
+
   &.icon {
     path {
       fill: var(--alt-color) !important;
@@ -107,6 +116,19 @@ svg {
     path {
       fill: var(--menu-text-color) !important;
       transition: fill 0.25s;
+    }
+  }
+
+  &.stroke-menu-icon {
+    path {
+      stroke: var(--menu-text-color) !important;
+      transition: stroke 0.25s;
+    }
+
+    &:hover {
+      path {
+        stroke: var(--menu-text-hover-color) !important;
+      }
     }
   }
 }

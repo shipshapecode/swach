@@ -24,14 +24,18 @@ class ContextMenuOption {
 class FavoriteOption {
   @tracked palette;
 
-  constructor(action, icon, palette) {
+  constructor(action, palette) {
     this.action = action;
-    this.icon = icon;
     this.palette = palette;
   }
 
   get disabled() {
     return this.palette.isLocked;
+  }
+
+  get icon() {
+    const isFavorite = this.palette.isFavorite;
+    return isFavorite ? 'filled-heart' : 'outline-heart';
   }
 
   get label() {
@@ -82,13 +86,13 @@ export default class PaletteRowComponent extends Component.extend(
     this.contextItems = [
       new ContextMenuOption(
         this.toggleIsEditing,
-        'type',
+        'rename',
         'Rename Palette',
         this.palette
       ),
       new ContextMenuOption(
         this.duplicatePalette,
-        'copy',
+        'duplicate',
         'Duplicate Palette',
         this.palette
       ),
@@ -100,7 +104,7 @@ export default class PaletteRowComponent extends Component.extend(
       ),
       new LockOption(this.lockPalette, this.palette),
 
-      new FavoriteOption(this.favoritePalette, 'heart', this.palette)
+      new FavoriteOption(this.favoritePalette, this.palette)
     ];
 
     this.dragSort.on('start', ({ draggedItem }) => {

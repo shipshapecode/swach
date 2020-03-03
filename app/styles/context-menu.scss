@@ -9,7 +9,7 @@
 
   svg,
   svg * {
-    transition: stroke 0s;
+    transition: fill 0s;
   }
 
   &:hover:not(.context-menu__item--disabled) {
@@ -17,7 +17,7 @@
 
     svg,
     svg * {
-      stroke: white !important;
+      fill: white !important;
     }
   }
 
@@ -26,7 +26,7 @@
 
     svg,
     svg * {
-      stroke: var(--disabled-color) !important;
+      fill: var(--disabled-color) !important;
     }
 
     &:hover {

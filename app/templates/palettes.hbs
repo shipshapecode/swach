@@ -41,7 +41,7 @@
       {{on "click" (set this.showFavorites (not this.showFavorites))}}
     >
       {{svg-jar
-        "heart"
+        (if this.showFavorites "filled-heart" "outline-heart")
         class=(concat "icon " (if this.showFavorites "filled"))
         height="15"
         width="15"

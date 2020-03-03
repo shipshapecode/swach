@@ -32,13 +32,13 @@
     "menubar": "^8.0.0"
   },
   "devDependencies": {
-    "@electron-forge/cli": "6.0.0-beta.49",
-    "@electron-forge/maker-deb": "6.0.0-beta.49",
-    "@electron-forge/maker-dmg": "6.0.0-beta.49",
-    "@electron-forge/maker-rpm": "6.0.0-beta.49",
-    "@electron-forge/maker-squirrel": "6.0.0-beta.49",
-    "@electron-forge/maker-zip": "6.0.0-beta.49",
+    "@electron-forge/cli": "6.0.0-beta.50",
+    "@electron-forge/maker-deb": "6.0.0-beta.50",
+    "@electron-forge/maker-dmg": "6.0.0-beta.50",
+    "@electron-forge/maker-rpm": "6.0.0-beta.50",
+    "@electron-forge/maker-squirrel": "6.0.0-beta.50",
+    "@electron-forge/maker-zip": "6.0.0-beta.50",
     "devtron": "^1.4.0",
-    "electron": "^8.0.1"
+    "electron": "^8.0.2"
   }
 }

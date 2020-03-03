@@ -55,7 +55,7 @@
             {{on "click" this.favoritePalette}}
           >
             {{svg-jar
-              "heart"
+              (if @palette.isFavorite "filled-heart" "outline-heart")
               class=(concat "icon " (if @palette.isFavorite "filled"))
               height="13"
               width="13"

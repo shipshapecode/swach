@@ -3,19 +3,19 @@
 }
 
 body.light {
-  --alt-color: #677087;
+  --alt-color: #b6b6ca;
   --alt-hover-color: #1f2126;
   --disabled-color: #a0aec0;
-  --main-color: #F0F1F5;
-  --menu-color: #FEFFFE;
+  --main-color: #e7e7ed;
+  --menu-color: #ffffff;
 }
 
 body.dark {
-  --alt-color: #dfdfe0;
+  --alt-color: #7a7ca5;
   --alt-hover-color: #c7c7c7;
   --disabled-color: #718096;
-  --main-color: #0E0E1F;
-  --menu-color: #222236;
+  --main-color: #0e0f1f;
+  --menu-color: #222336;
 }
 
 html,
@@ -23,7 +23,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
-  font-family: 'Muli', sans-serif;
+  font-family: 'Inter', sans-serif;
   width: 100%;
 }
 
@@ -65,27 +65,27 @@ svg {
   &.icon {
     g,
     * {
-      stroke: var(--alt-color) !important;
-      transition: stroke 0.25s;
+      fill: var(--alt-color) !important;
+      transition: fill 0.25s;
     }
 
     &:hover {
       g,
       * {
-        stroke: var(--alt-hover-color) !important;
+        fill: var(--alt-hover-color) !important;
       }
     }
 
     &.delete-confirm {
       g,
       * {
-        stroke: #f56565 !important;
+        fill: #f56565 !important;
       }
       
       &:hover {
         g,
         * {
-          stroke: #f56565 !important;
+          fill: #f56565 !important;
         }
       }
     }
@@ -93,13 +93,13 @@ svg {
     &.selected-kuler {
       g,
       * {
-        stroke: #ffffff !important;
+        fill: #ffffff !important;
       }
   
       &:hover {
         g,
         * {
-          stroke: #f1f1f1 !important;
+          fill: #f1f1f1 !important;
         }
       }
     }
@@ -113,8 +113,7 @@ button {
       g,
       * {
         fill: var(--alt-color) !important;
-        stroke: var(--alt-color) !important;
-        transition: fill stroke 0.25s;
+        transition: fill 0.25s;
       }
     }
   }
@@ -123,15 +122,14 @@ button {
     svg.icon:not(.delete-confirm):not(.selected-kuler) {
       g,
       * {
-        stroke: var(--alt-hover-color) !important;
+        fill: var(--alt-hover-color) !important;
       }
 
       &.filled {
         g,
         * {
           fill: var(--alt-hover-color) !important;
-          stroke: var(--alt-hover-color) !important;
-          transition: fill stroke 0.25s;
+          transition: fill 0.25s;
         }
       }
     }
@@ -143,15 +141,14 @@ button {
     svg.icon {
       g,
       * {
-        stroke: var(--disabled-color) !important;
+        fill: var(--disabled-color) !important;
       }
 
       &.filled {
         g,
         * {
           fill: var(--disabled-color) !important;
-          stroke: var(--disabled-color) !important;
-          transition: fill stroke 0.25s;
+          transition: fill 0.25s;
         }
       }
     }

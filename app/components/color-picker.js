@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import Pickr from '@simonwep/pickr';
+import iro from '@jaames/iro';
 
 export default class ColorPicker extends Component {
   @service nearestColor;
@@ -12,47 +12,14 @@ export default class ColorPicker extends Component {
 
   @action
   initColorPicker(element) {
-    this.setSelectedColor('#42445a');
-
-    this.pickr = new Pickr({
-      el: element,
-      container: element,
-      comparison: false,
-      default: this.selectedColor.hex,
-      inline: true,
-      useAsButton: true,
-
-      showAlways: true,
-
-      theme: 'nano',
-
-      components: {
-        // Main components
-        preview: false,
-        opacity: false,
-        hue: true,
-
-        // Input / output Options
-        interaction: {
-          hex: false,
-          rgba: false,
-          hsla: false,
-          hsva: false,
-          cmyk: false,
-          input: true,
-          clear: false,
-          save: false
-        }
-      }
-    });
-
-    this.onChange = (color) => {
+    this.onChange = color => {
       if (color) {
-        this.setSelectedColor(color.toHEXA().toString());
+        this.setSelectedColor(color.hexString);
       }
     };
 
-    this.pickr.on('change', this.onChange);
+    this.setSelectedColor('#42445a');
+    this._setupColorPicker(element, '#42445a');
   }
 
   @action
@@ -63,7 +30,7 @@ export default class ColorPicker extends Component {
 
   @action
   destroyColorPickr() {
-    this.pickr.off('change', this.onChange);
+    this.colorPicker.off('color:change', this.onChange);
   }
 
   @action
@@ -78,5 +45,27 @@ export default class ColorPicker extends Component {
 
   @action toggleIsShown() {
     this.isShown = !this.isShown;
+  }
+
+  @action
+  _setupColorPicker(element, color) {
+    this.colorPicker = new iro.ColorPicker(element, {
+      colors: [color],
+      layout: [
+        {
+          component: iro.ui.Box,
+          options: {}
+        },
+        {
+          component: iro.ui.Slider,
+          options: {
+            sliderType: 'hue'
+          }
+        }
+      ],
+      width: 207
+    });
+
+    this.colorPicker.on('color:change', this.onChange);
   }
 }

@@ -14,10 +14,18 @@
   <div class="h-full relative w-full">
     <ColorRow @color={{this.selectedColor}} @showActions={{false}} />
 
-    <div
-      {{did-insert this.initColorPicker}}
-      {{will-destroy this.destroyColorPickr}}
-    ></div>
+    <div class="bg-menu flex p-4 rounded">
+      <div
+        class="flex-1 w-auto"
+        id="color-picker-container"
+        {{did-insert this.initColorPicker}}
+        {{will-destroy this.destroyColorPickr}}
+      ></div>
+
+      <div class="flex-grow ml-2">
+        <Input class="bg-main rounded w-full" type="text" />
+      </div>
+    </div>
 
     <div class="absolute bottom-0 flex mb-12 w-full">
       <button

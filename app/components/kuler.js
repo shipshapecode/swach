@@ -133,7 +133,7 @@ export default class KulerComponent extends Component {
 
   @action
   _setupColorWheel() {
-    this.colorPicker = new iro.ColorPicker('#color-picker-container', {
+    this.colorPicker = new iro.ColorPicker('#kuler-color-picker-container', {
       colors: this.selectedPalette.colors.mapBy('hex'),
       width: 200
     });

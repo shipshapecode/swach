@@ -61,12 +61,23 @@
     </div>
   </div>
 
-  <div class="color-pickers-container flex justify-between mt-4">
+  <div
+    class="bg-menu color-pickers-container flex justify-between mt-4 p-4 w-full"
+  >
     <div class="background-color-picker-container mr-2 w-full">
       <div
         class="background-color-picker"
         {{did-insert this.initBackgroundColorPicker}}
       ></div>
+
+      <Input
+        data-test-bg-input
+        class="bg-main rounded mt-2 w-full"
+        type="text"
+        value={{this.backgroundColor}}
+        {{on "blur" this.setBgColor}}
+        {{on "keypress" this.enterPress}}
+      />
     </div>
 
     <div class="foreground-color-picker-container ml-2 w-full">
@@ -74,6 +85,15 @@
         class="foreground-color-picker ml-1"
         {{did-insert this.initForegroundColorPicker}}
       ></div>
+
+      <Input
+        data-test-fg-input
+        class="bg-main rounded mt-2 w-full"
+        type="text"
+        value={{this.foregroundColor}}
+        {{on "blur" this.setFgColor}}
+        {{on "keypress" this.enterPress}}
+      />
     </div>
   </div>
 </div>

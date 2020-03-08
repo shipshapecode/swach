@@ -25,7 +25,5 @@ module.exports = function(defaults) {
     }
   });
 
-  app.import('node_modules/@simonwep/pickr/dist/themes/nano.min.css');
-
   return app.toTree();
 };

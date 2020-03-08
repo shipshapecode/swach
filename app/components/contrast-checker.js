@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import Pickr from '@simonwep/pickr';
+import iro from '@jaames/iro';
 import { hex, score } from 'wcag-contrast';
 
 export default class ContrastChecker extends Component {
@@ -18,85 +18,84 @@ export default class ContrastChecker extends Component {
 
   @action
   initBackgroundColorPicker(element) {
-    this.bgPickr = new Pickr({
-      el: element,
-      container: element,
-      default: this.backgroundColor,
-      comparison: false,
-      inline: true,
-      useAsButton: true,
-
-      showAlways: true,
-      theme: 'nano',
-
-      components: {
-        // Main components
-        preview: false,
-        opacity: false,
-        hue: true,
-
-        // Input / output Options
-        interaction: {
-          hex: false,
-          rgba: false,
-          hsla: false,
-          hsva: false,
-          cmyk: false,
-          input: true,
-          clear: false,
-          save: false
+    this.bgPickr = new iro.ColorPicker(element, {
+      colors: [this.backgroundColor],
+      layout: [
+        {
+          component: iro.ui.Box,
+          options: {}
+        },
+        {
+          component: iro.ui.Slider,
+          options: {
+            sliderType: 'hue'
+          }
         }
-      }
+      ],
+      width: 140
     });
 
-    this.onBgChange = (color) => {
+    this.onBgChange = color => {
       if (color) {
-        this.backgroundColor = color.toHEXA().toString();
+        this.backgroundColor = color.hexString;
       }
     };
 
-    this.bgPickr.on('change', this.onBgChange);
+    this.bgPickr.on('color:change', this.onBgChange);
   }
 
   @action
   initForegroundColorPicker(element) {
-    this.fgPickr = new Pickr({
-      el: element,
-      container: element,
-      comparison: false,
-      default: this.foregroundColor,
-      inline: true,
-      useAsButton: true,
-
-      showAlways: true,
-      theme: 'nano',
-
-      components: {
-        // Main components
-        preview: false,
-        opacity: false,
-        hue: true,
-
-        // Input / output Options
-        interaction: {
-          hex: false,
-          rgba: false,
-          hsla: false,
-          hsva: false,
-          cmyk: false,
-          input: true,
-          clear: false,
-          save: false
+    this.fgPickr = new iro.ColorPicker(element, {
+      colors: [this.foregroundColor],
+      layout: [
+        {
+          component: iro.ui.Box,
+          options: {}
+        },
+        {
+          component: iro.ui.Slider,
+          options: {
+            sliderType: 'hue'
+          }
         }
-      }
+      ],
+      width: 140
     });
 
-    this.onFgChange = (color) => {
+    this.onFgChange = color => {
       if (color) {
-        this.foregroundColor = color.toHEXA().toString();
+        this.foregroundColor = color.hexString;
       }
     };
 
-    this.fgPickr.on('change', this.onFgChange);
+    this.fgPickr.on('color:change', this.onFgChange);
+  }
+
+  @action
+  enterPress(event) {
+    if (event.keyCode === 13) {
+      event.target.blur();
+    }
+  }
+
+  @action
+  setBgColor(ev) {
+    try {
+      this.bgPickr.setColors([ev.target.value], 0);
+      this.backgroundColor = this.bgPickr.color.hexString;
+    } catch (err) {
+      // TODO: maybe mention the color is invalid here?
+    }
+  }
+
+  @action
+  setFgColor(ev) {
+    try {
+      this.fgPickr.setColors([ev.target.value], 0);
+      this.foregroundColor = this.fgPickr.color.hexString;
+    } catch (err) {
+      // TODO: maybe mention the color is invalid here?
+    }
   }
 }

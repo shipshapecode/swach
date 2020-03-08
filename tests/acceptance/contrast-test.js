@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { fillIn, visit, currentURL } from '@ember/test-helpers';
+import { fillIn, triggerKeyEvent, visit, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import seedOrbit from '../orbit/seed';
 import { waitForAll } from '../helpers';
@@ -24,7 +24,8 @@ module('Acceptance | contrast', function(hooks) {
   test('updates score when failing background value added', async function(assert) {
     await waitForAll();
 
-    await fillIn('.pcr-result', '#504F4F');
+    await fillIn('[data-test-bg-input]', '#504F4F');
+    await triggerKeyEvent('[data-test-bg-input]', 'keypress', 13);
 
     await waitForAll();
 

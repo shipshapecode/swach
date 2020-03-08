@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { fillIn, render } from '@ember/test-helpers';
+import { fillIn, triggerKeyEvent, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { waitForAll } from '../../helpers';
 
@@ -12,8 +12,10 @@ module('Integration | Component | contrast-checker', function(hooks) {
 
     await waitForAll();
 
-    await fillIn('.background-color-picker-container .pcr-result', '#004747');
-    await fillIn('.foreground-color-picker-container .pcr-result', '#005A2A');
+    await fillIn('[data-test-bg-input]', '#004747');
+    await triggerKeyEvent('[data-test-bg-input]', 'keypress', 13);
+    await fillIn('[data-test-fg-input]', '#005A2A');
+    await triggerKeyEvent('[data-test-fg-input]', 'keypress', 13);
 
     await waitForAll();
 
@@ -23,7 +25,8 @@ module('Integration | Component | contrast-checker', function(hooks) {
       .dom('[data-test-contrast-preview]')
       .hasStyle({ backgroundColor: 'rgb(0, 71, 71)', color: 'rgb(0, 90, 42)' });
 
-    await fillIn('.foreground-color-picker-container .pcr-result', '#00A24B');
+    await fillIn('[data-test-fg-input]', '#00A24B');
+    await triggerKeyEvent('[data-test-fg-input]', 'keypress', 13);
 
     await waitForAll();
 
@@ -34,7 +37,8 @@ module('Integration | Component | contrast-checker', function(hooks) {
       color: 'rgb(0, 162, 75)'
     });
 
-    await fillIn('.foreground-color-picker-container .pcr-result', '#00CE60');
+    await fillIn('[data-test-fg-input]', '#00CE60');
+    await triggerKeyEvent('[data-test-fg-input]', 'keypress', 13);
 
     await waitForAll();
 
@@ -45,7 +49,8 @@ module('Integration | Component | contrast-checker', function(hooks) {
       color: 'rgb(0, 206, 96)'
     });
 
-    await fillIn('.foreground-color-picker-container .pcr-result', '#FFFFFF');
+    await fillIn('[data-test-fg-input]', '#FFFFFF');
+    await triggerKeyEvent('[data-test-fg-input]', 'keypress', 13);
 
     await waitForAll();
 

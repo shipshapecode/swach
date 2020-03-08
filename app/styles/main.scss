@@ -220,14 +220,6 @@ button {
   }
 }
 
-.pcr-app[data-theme='nano'] {
-  @apply bg-menu overflow-hidden rounded-lg w-full;
-
-  .pcr-result {
-    @apply bg-main text-alt;
-  }
-}
-
 .ember-popover-inner > div {
   @apply h-full w-full;
 }

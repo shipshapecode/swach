@@ -1429,13 +1429,6 @@
     "@sentry/types" "5.13.2"
     tslib "^1.9.3"
 
-"@simonwep/pickr@^1.5.1":
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/@simonwep/pickr/-/pickr-1.5.1.tgz#884a82e4628f7460b7cbd73c6f9ae2f1980639c5"
-  integrity sha512-BMYt5RsW7YLNrUF7Jdz1UM0E04ROD0iv/Z/c8APFb74VH0Zs3HeLiLacPgPqLx23VesL8aS6Jin/JiTmnkWujw==
-  dependencies:
-    core-js "^3.6.4"
-
 "@simple-dom/interface@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@simple-dom/interface/-/interface-1.4.0.tgz#e8feea579232017f89b0138e2726facda6fbb71f"
@@ -5289,6 +5282,14 @@ ember-basic-dropdown@^2.0.13:
     ember-maybe-in-element "^0.4.0"
     ember-truth-helpers "2.1.0"
 
+ember-box@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/ember-box/-/ember-box-0.1.0.tgz#9fe9d25e9a82a2c8ff141df06781c9e580d2015a"
+  integrity sha512-B/dMGf9srkWn9avqc7BnWFqbfG0QAyhqRyBxY9roP1RSS950O91D+7RtDls1AHu+G670faAtOlf7TDs2a0jKIg==
+  dependencies:
+    ember-cli-babel "^7.7.3"
+    ember-cli-typescript "^3.0.0"
+
 ember-cli-app-version@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/ember-cli-app-version/-/ember-cli-app-version-3.2.0.tgz#7b9ad0e1b63ae0518648356ee24c703e922bc26e"
@@ -5571,7 +5572,7 @@ ember-cli-typescript@^2.0.2:
     stagehand "^1.0.0"
     walk-sync "^1.0.0"
 
-ember-cli-typescript@^3.1.1, ember-cli-typescript@^3.1.2, ember-cli-typescript@^3.1.3:
+ember-cli-typescript@^3.0.0, ember-cli-typescript@^3.1.1, ember-cli-typescript@^3.1.2, ember-cli-typescript@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/ember-cli-typescript/-/ember-cli-typescript-3.1.3.tgz#a2c7ec6a8a5e57c38eb52d83e36d8e18c7071e60"
   integrity sha512-bFi15H60L9TLYfn9XUzi+RAP1gTWHFtVdSy9IHvxXHlCvTlFZ+2rfuugr/f8reQLz9gvJccKc5TyRD7v+uhx0Q==

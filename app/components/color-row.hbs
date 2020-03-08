@@ -4,15 +4,15 @@
   {{on "click" (fn this.colorUtils.copyColorToClipboard @color)}}
 >
   <div
-    class="inline-block m-1 h-10 rounded w-10"
+    class="inline-block m-1 h-10 rounded text-main-text w-10"
     style={{html-safe (concat "background-color: " @color.hex)}}
   ></div>
   <div class="flex flex-grow justify-between items-center">
     <div class="flex flex-col justify-center">
-      <p class="font-bold pl-2 text-sm" data-test-color-name>
+      <p class="font-medium pl-2 text-main-text text-sm" data-test-color-name>
         {{@color.name}}
       </p>
-      <p class="font-hairline pl-2 text-xs" data-test-color-hex>
+      <p class="font-medium pl-2 text-sub-text text-xs" data-test-color-hex>
         {{@color.hex}}
       </p>
     </div>

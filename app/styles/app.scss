@@ -1,7 +1,6 @@
 @import 'fonts.scss';
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import 'tailwind.scss';
+@import 'variables.scss';
 @import 'main.scss';
 @import 'context-menu.scss';
 @import 'drag-sort.scss';

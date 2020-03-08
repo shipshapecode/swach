@@ -9,7 +9,7 @@
   @side="top-end"
   @spacing={{10}}
   @targetId="toggle-picker"
-  @tooltipClass="color-picker-popover bg-main border-menu fixed h-full m-0 text-alt w-screen"
+  @tooltipClass="color-picker-popover bg-main border-menu fixed h-full m-0 pb-4 pl-3 pr-3 pt-5 text-alt w-screen"
 >
   <div class="h-full relative w-full">
     <ColorRow @color={{this.selectedColor}} @showActions={{false}} />
@@ -29,7 +29,7 @@
 
     <div class="absolute bottom-0 flex mb-12 w-full">
       <button
-        class="bg-menu cursor-pointer flex-1 mr-1 p-2 rounded"
+        class="btn flex-1 mr-1 p-2"
         type="button"
         {{on "click" this.toggleIsShown}}
       >
@@ -37,11 +37,11 @@
       </button>
 
       <button
-        class="bg-menu cursor-pointer flex-1 ml-1 p-2 rounded"
+        class="btn btn-primary flex-grow ml-1 p-2"
         type="button"
         {{on "click" this.addColorAndClose}}
       >
-        Save color
+        🎉 Save color
       </button>
     </div>
   </div>

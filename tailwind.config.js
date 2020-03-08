@@ -4,10 +4,18 @@ module.exports = {
       colors: {
         alt: 'var(--alt-color)',
         'alt-hover': 'var(--alt-hover-color)',
+        'btn-bg-primary': 'var(--btn-bg-primary)',
+        'btn-bg-primary-hover': 'var(--btn-bg-primary-hover)',
+        'btn-bg-secondary': 'var(--btn-bg-secondary)',
+        'btn-bg-secondary-hover': 'var(--btn-bg-secondary-hover)',
+        'btn-text-primary': 'var(--btn-text-primary)',
+        'btn-text-secondary': 'var(--btn-text-secondary)',
         main: 'var(--main-color)',
         menu: 'var(--menu-color)',
         'menu-text': 'var(--menu-text-color)',
         'menu-text-hover': 'var(--menu-text-hover-color)',
+        'main-text': 'var(--main-text)',
+        'sub-text': 'var(--sub-text)'
       }
     },
     fill: theme => ({

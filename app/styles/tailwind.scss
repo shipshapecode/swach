@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+
+.btn {
+  @apply bg-btn-bg-secondary font-medium rounded text-btn-text-secondary;
+  transition: color, background, background-color 0.25s;
+}
+
+.btn:hover {
+  @apply bg-btn-bg-secondary-hover;
+}
+
+.btn-primary {
+  @apply bg-btn-bg-primary text-btn-text-primary;
+}
+
+.btn-primary:hover {
+  @apply bg-btn-bg-primary-hover;
+}
+
+@tailwind utilities;

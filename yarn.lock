@@ -1424,6 +1424,28 @@
   resolved "https://registry.yarnpkg.com/@orbit/utils/-/utils-0.16.3.tgz#fa94700191360c4c49fc9fdf464994cfe817dd0b"
   integrity sha512-JSF9xVRUEWugGtcR9mFOCzsMLphWMh/8xAe0FOuEpyyBFxBlWLuovatg/cwvlHo7AJh3J5StiiJXmBecTk/m6A==
 
+"@sentry/integrations@^5.13.2":
+  version "5.13.2"
+  resolved "https://registry.yarnpkg.com/@sentry/integrations/-/integrations-5.13.2.tgz#baa40414c7d23ab168b3660d577543468e1f6b76"
+  integrity sha512-/sd1hR8uKVE75mShTfZNHlNp8BExvRQH410/opLZi6Eoo5JIk0DXAxGJungncwunjueu6WLaTo53HhIg2w87gg==
+  dependencies:
+    "@sentry/types" "5.13.2"
+    "@sentry/utils" "5.13.2"
+    tslib "^1.9.3"
+
+"@sentry/types@5.13.2":
+  version "5.13.2"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-5.13.2.tgz#8e68c31f8fb99b4074374bff13ed01035b373d8c"
+  integrity sha512-mgAEQyc77PYBnAjnslSXUz6aKgDlunlg2c2qSK/ivKlEkTgTWWW/dE76++qVdrqM8SupnqQoiXyPDL0wUNdB3g==
+
+"@sentry/utils@5.13.2":
+  version "5.13.2"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-5.13.2.tgz#441594f4f9412bfd1690739ce986bf3a49687806"
+  integrity sha512-LwPQl6WRMKEnd16kg35HS3yE+VhBc8vN4+BBIlrgs7X0aoT+AbEd/sQLMisDgxNboCF44Ho3RCKtztiPb9blqg==
+  dependencies:
+    "@sentry/types" "5.13.2"
+    tslib "^1.9.3"
+
 "@simonwep/pickr@^1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@simonwep/pickr/-/pickr-1.5.1.tgz#884a82e4628f7460b7cbd73c6f9ae2f1980639c5"
@@ -12389,6 +12411,11 @@ tslib@^1.10.0, tslib@^1.9.0:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.0.tgz#f1f3528301621a53220d58373ae510ff747a66bc"
   integrity sha512-BmndXUtiTn/VDDrJzQE7Mm22Ix3PxgLltW9bSNLoeCY31gnG2OPx0QqJnuc9oMIKioYrz487i6K9o4Pdn0j+Kg==
+
+tslib@^1.9.3:
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
+  integrity sha512-aZW88SY8kQbU7gpV19lN24LtXh/yD4ZZg6qieAJDDg+YBsJcSmLGK9QpnUjAKVG/xefmvJGd1WUmfpT/g6AJGA==
 
 tty-browserify@0.0.0:
   version "0.0.0"

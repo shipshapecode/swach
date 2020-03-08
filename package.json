@@ -36,6 +36,7 @@
     "@jaames/iro": "5.1.5",
     "@orbit/indexeddb": "^0.16.4",
     "@orbit/jsonapi": "^0.16.4",
+    "@sentry/integrations": "^5.13.2",
     "@simonwep/pickr": "^1.5.1",
     "babel-eslint": "^10.1.0",
     "babel-preset-env": "^1.7.0",

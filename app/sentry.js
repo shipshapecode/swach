@@ -1,12 +1,18 @@
 import * as Sentry from '@sentry/browser';
 import { Ember } from '@sentry/integrations/esm/ember';
+import { CaptureConsole } from '@sentry/integrations/esm/captureconsole';
 
 import config from './config/environment';
 
 export function startSentry() {
   Sentry.init({
     ...config.sentry,
-    integrations: [new Ember()],
+    integrations: [
+      new Ember(),
+      new CaptureConsole({
+        levels: [ 'error' ]
+      })
+    ],
     beforeSend(event, hint) {
       let error = hint.originalException;
 

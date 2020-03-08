@@ -38,7 +38,11 @@ module.exports = function(environment) {
     //   'style-src': ["'self'", "'unsafe-inline'"],
     //   'media-src': ["'self'"]
     // },
-    // contentSecurityPolicyMeta: true
+    // contentSecurityPolicyMeta: true,
+
+    sentry: {
+      environment
+    }
   };
 
   if (environment === 'development') {
@@ -62,7 +66,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    // here you can enable a production-specific feature
+    ENV.sentry.dsn = 'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140';
   }
 
   return ENV;

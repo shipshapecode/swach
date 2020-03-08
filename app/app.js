@@ -2,13 +2,9 @@ import Application from '@ember/application';
 import Resolver from 'ember-resolver';
 import loadInitializers from 'ember-load-initializers';
 import config from './config/environment';
-import * as Sentry from '@sentry/browser'
-import * as Integrations from '@sentry/integrations';
+import { startSentry } from './sentry';
 
-Sentry.init({
-  dsn: 'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140',
-  integrations: [new Integrations.Ember()]
-});
+startSentry();
 
 export default class App extends Application {
   modulePrefix = config.modulePrefix;

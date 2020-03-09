@@ -72,18 +72,6 @@ svg {
         }
       }
     }
-
-    &.selected-kuler {
-      path {
-        fill: #ffffff !important;
-      }
-  
-      &:hover {
-        path {
-          fill: #f1f1f1 !important;
-        }
-      }
-    }
   }
 
   &.menu-icon {
@@ -119,7 +107,7 @@ button {
   }
 
   &:hover:not([disabled]) {
-    svg.icon:not(.delete-confirm):not(.selected-kuler) {
+    svg.icon:not(.delete-confirm) {
       path {
         fill: var(--alt-hover-color) !important;
       }

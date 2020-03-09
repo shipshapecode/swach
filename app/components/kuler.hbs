@@ -1,12 +1,18 @@
+<PowerSelect
+  @dropdownClass="bg-menu max-w-md text-alt text-xs"
+  @triggerClass="bg-menu max-w-md text-alt text-xs"
+  @options={{this.palettes}}
+  @selected={{this.selectedPalette}}
+  @onChange={{this.setSelectedPalette}} as |palette|
+>
+  {{capitalize palette.name}}
+</PowerSelect>
+
 <div class="flex justify-center pb-8 w-full">
   <div class="w-auto" id="kuler-color-picker-container"></div>
 </div>
 
-{{#each this.palettes use=this.fade as |palette|}}
-  <KulerPaletteRow
-    @palette={{palette}}
-    @selectedPalette={{this.selectedPalette}}
-    @setSelectedIroColor={{this.setSelectedIroColor}}
-    @setSelectedPalette={{this.setSelectedPalette}}
-  />
-{{/each}}
+<KulerPaletteRow
+  @palette={{this.selectedPalette}}
+  @setSelectedIroColor={{this.setSelectedIroColor}}
+/>

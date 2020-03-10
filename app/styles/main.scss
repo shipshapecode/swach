@@ -165,6 +165,17 @@ button {
   transform: translate3d(0px, 34px, 0px) !important;
 }
 
+.ember-power-select-dropdown,
+.ember-power-select-option,
+.ember-power-select-trigger{
+  @apply cursor-default;
+}
+
+.ember-power-select-dropdown,
+.ember-power-select-trigger{
+  @apply bg-menu text-alt text-xs w-32;
+}
+
 .ember-power-select-option[aria-selected='true'] {
   background-color: var(--main-color);
   color: var(--alt-color);

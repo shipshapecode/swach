@@ -1,7 +1,7 @@
 <div class="w-full">
   <div
     data-test-contrast-preview
-    class="rounded-lg w-full"
+    class="rounded w-full"
     style={{html-safe
       (concat
         "-webkit-app-region: drag; "
@@ -72,7 +72,7 @@
 
       <Input
         data-test-bg-input
-        class="bg-main rounded mt-2 w-full"
+        class="input rounded mt-2 w-full"
         type="text"
         value={{this.backgroundColor}}
         {{on "blur" this.setBgColor}}
@@ -88,7 +88,7 @@
 
       <Input
         data-test-fg-input
-        class="bg-main rounded mt-2 w-full"
+        class="input rounded mt-2 w-full"
         type="text"
         value={{this.foregroundColor}}
         {{on "blur" this.setFgColor}}

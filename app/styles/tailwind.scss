@@ -18,4 +18,8 @@
   @apply bg-btn-bg-primary-hover;
 }
 
+.input {
+  @apply bg-input-bg border border-input-border p-1 text-sm;
+}
+
 @tailwind utilities;

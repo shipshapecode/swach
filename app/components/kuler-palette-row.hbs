@@ -45,14 +45,14 @@
       {{#each @palette.colors as |color index|}}
         <div
           data-test-kuler-palette-color="{{index}}"
-          class="flex flex-grow
+          class="flex flex-grow relative
             {{if (eq index 0) "first"}}
             {{if (eq index (sub @palette.colors.length 1)) "last"}}
-            {{if (eq index @palette.selectedColorIndex) "border-2 border-gray-200 border-solid"}}"
+            {{if (eq index @palette.selectedColorIndex) "selected-color"}}"
           style={{html-safe (concat "background-color: " color.hex)}}
           {{on
             "click"
-            (stop-propagation (fn this.setSelectedColor color @palette))
+            (stop-propagation (fn this.setSelectedColor color))
           }}
         ></div>
       {{/each}}

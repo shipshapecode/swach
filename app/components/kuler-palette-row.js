@@ -12,16 +12,14 @@ export default class KulerPaletteRowComponent extends Component {
   fade = fade;
   showMenu = false;
 
+ 
   /**
    * Sets the selected color, and selects the palette if not already selected.
    * @param {Color} color The color to select
    * @param {Palette} palette The palette to select
    */
   @action
-  setSelectedColor(color, palette) {
-    if (palette !== this.args.selectedPalette) {
-      this.args.setSelectedPalette(palette);
-    }
+  setSelectedColor(color) {
     const selectedColorIndex = this.args.palette.colors.indexOf(color);
     this.args.setSelectedIroColor(selectedColorIndex);
     this.args.palette.selectedColorIndex = selectedColorIndex;

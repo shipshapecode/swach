@@ -11,6 +11,8 @@ module.exports = {
         'btn-text-primary': 'var(--btn-text-primary)',
         'btn-text-secondary': 'var(--btn-text-secondary)',
         'heading': 'var(--heading-color)',
+        'input-bg': 'var(--input-bg)',
+        'input-border': 'var(--input-border)',
         main: 'var(--main-color)',
         menu: 'var(--menu-color)',
         'menu-text': 'var(--menu-text-color)',

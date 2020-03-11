@@ -1,0 +1,49 @@
+<div class="flex pl-3 pr-3 pb-6">
+  <Input
+    data-test-kuler-hex
+    class="bg-input-bg border border-input-border flex-1 rounded mr-1 text-color1 text-sm w-20"
+    type="text"
+    value={{this.selectedColor.hex}}
+    {{!-- {{on "blur" this.setBgColor}}
+  {{on "keypress" this.enterPress}} --}}
+  />
+
+  <div class="flex rounded">
+    <div class="bg-input-bg border border-input-border overflow-hidden pl-1 text-color1 text-sm whitespace-no-wrap w-full">
+      <span class="text-center">R</span>
+
+      <Input
+        data-test-kuler-r
+        class="bg-input-bg text-color1 text-sm w-full"
+        type="text"
+      />
+    </div>
+    <div class="bg-input-bg border border-input-border overflow-hidden pl-1 text-color1 text-sm whitespace-no-wrap w-full">
+      <span class="text-center">G</span>
+
+      <Input
+        data-test-kuler-g
+        class="bg-input-bg text-color1 text-sm w-full"
+        type="text"
+      />
+    </div>
+    <div class="bg-input-bg border border-input-border overflow-hidden pl-1 text-color1 text-sm whitespace-no-wrap w-full">
+      <span class="text-center">B</span>
+
+      <Input
+        data-test-kuler-b
+        class="bg-input-bg text-color1 text-sm w-full"
+        type="text"
+      />
+    </div>
+    <div class="bg-input-bg border border-input-border overflow-hidden pl-1 text-color1 text-sm whitespace-no-wrap w-full">
+      <span class="text-center">A</span>
+
+      <Input
+        data-test-kuler-a
+        class="bg-input-bg text-color1 text-sm w-full"
+        type="text"
+      />
+    </div>
+  </div>
+</div>

@@ -1,19 +1,29 @@
-<div data-test-kuler-select>
-  <PowerSelect
-    @options={{this.palettes}}
-    @placeholder="Choose harmony"
-    @selected={{this.selectedPalette}}
-    @onChange={{this.setSelectedPalette}} as |palette|
-  >
-    {{capitalize palette.name}}
-  </PowerSelect>
+<div class="bg-menu p-4 rounded">
+  <div data-test-kuler-select>
+    <PowerSelect
+      @options={{this.palettes}}
+      @placeholder="Choose harmony"
+      @selected={{this.selectedPalette}}
+      @onChange={{this.setSelectedPalette}} as |palette|
+    >
+      {{capitalize palette.name}}
+    </PowerSelect>
+  </div>
+
+  <div class="flex justify-center pb-8 w-full">
+    <div class="w-auto" id="kuler-color-picker-container"></div>
+  </div>
 </div>
 
-<div class="flex justify-center pb-8 w-full">
-  <div class="w-auto" id="kuler-color-picker-container"></div>
-</div>
+<h2 class="ml-1 mt-4 text-lg text-heading">
+  Palette
+</h2>
 
-<KulerPaletteRow
-  @palette={{this.selectedPalette}}
-  @setSelectedIroColor={{this.setSelectedIroColor}}
-/>
+<div class="bg-menu">
+  <KulerPaletteRow
+    @palette={{this.selectedPalette}}
+    @setSelectedIroColor={{this.setSelectedIroColor}}
+  />
+
+  <EditSelectedColor @palette={{this.selectedPalette}} />
+</div>

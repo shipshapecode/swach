@@ -74,6 +74,19 @@ svg {
     }
   }
 
+  &.stroke-icon {
+    path {
+      stroke: var(--alt-color) !important;
+      transition: stroke 0.25s;
+    }
+
+    &:hover {
+      path {
+        stroke: var(--alt-hover-color) !important;
+      }
+    }
+  }
+
   &.menu-icon {
     path {
       fill: var(--menu-text-color) !important;
@@ -130,6 +143,12 @@ button {
           fill: var(--menu-text-hover-color) !important;
           transition: fill 0.25s;
         }
+      }
+    }
+
+    svg.stroke-icon {
+      path {
+        stroke: var(--alt-hover-color) !important;
       }
     }
   }

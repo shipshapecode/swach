@@ -107,8 +107,8 @@
       <div
         data-test-palette-color-square
         class="flex flex-grow
-          {{if (eq index 0) "first"}}
-          {{if (eq index (sub @palette.colors.length 1)) "last"}}"
+          {{if (eq index 0) "rounded-l"}}
+          {{if (eq index (sub @palette.colors.length 1)) "rounded-r"}}"
         style={{html-safe (concat "background-color: " color.hex)}}
         {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
       ></div>

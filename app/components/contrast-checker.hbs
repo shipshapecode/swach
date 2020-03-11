@@ -62,7 +62,7 @@
   </div>
 
   <div
-    class="bg-menu color-pickers-container flex justify-between mt-4 p-4 w-full"
+    class="bg-menu color-pickers-container flex justify-between mt-4 p-4 rounded w-full"
   >
     <div class="background-color-picker-container mr-2 w-full">
       <div
@@ -72,7 +72,7 @@
 
       <Input
         data-test-bg-input
-        class="input rounded mt-2 w-full"
+        class="input rounded mt-3"
         type="text"
         value={{this.backgroundColor}}
         {{on "blur" this.setBgColor}}
@@ -88,7 +88,7 @@
 
       <Input
         data-test-fg-input
-        class="input rounded mt-2 w-full"
+        class="input rounded mt-3"
         type="text"
         value={{this.foregroundColor}}
         {{on "blur" this.setFgColor}}

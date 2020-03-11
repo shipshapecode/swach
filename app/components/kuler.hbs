@@ -1,5 +1,5 @@
 <div class="bg-menu p-4 rounded">
-  <div data-test-kuler-select>
+  <div data-test-kuler-select class="mb-4">
     <PowerSelect
       @options={{this.palettes}}
       @placeholder="Choose harmony"
@@ -10,7 +10,7 @@
     </PowerSelect>
   </div>
 
-  <div class="flex justify-center pb-8 w-full">
+  <div class="flex justify-center w-full">
     <div class="w-auto" id="kuler-color-picker-container"></div>
   </div>
 </div>
@@ -19,7 +19,7 @@
   Palette
 </h2>
 
-<div class="bg-menu">
+<div class="bg-menu p-4 rounded">
   <KulerPaletteRow
     @palette={{this.selectedPalette}}
     @setSelectedIroColor={{this.setSelectedIroColor}}

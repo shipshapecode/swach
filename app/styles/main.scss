@@ -167,18 +167,24 @@ button {
 
 .ember-power-select-dropdown,
 .ember-power-select-option,
-.ember-power-select-trigger{
+.ember-power-select-trigger {
   @apply cursor-default;
+  color: var(--main-text);
 }
 
 .ember-power-select-dropdown,
-.ember-power-select-trigger{
-  @apply bg-menu text-alt text-xs w-32;
+.ember-power-select-trigger {
+  @apply bg-menu text-xs w-32;
+  color: var(--main-text);
 }
 
 .ember-power-select-option[aria-selected='true'] {
   background-color: var(--main-color);
-  color: var(--alt-color);
+}
+
+.ember-power-select-option[aria-current="true"] {
+  background-color: #5897fb;
+  color: #ffffff; 
 }
 
 .ember-popover[x-placement^='bottom'] .custom-arrow {
@@ -201,16 +207,6 @@ button {
 }
 
 .palette-color-squares {
-  .first {
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
-  }
-
-  .last {
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-
   &.palette-locked {
     .dragSortItem,
     .dragSortItem.-isDragged {

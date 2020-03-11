@@ -19,7 +19,7 @@
 }
 
 .input {
-  @apply bg-input-bg border border-input-border p-1 text-sm;
+  @apply bg-input-bg border border-input-border pb-1 pl-2 pr-2 pt-1 text-main-text text-xs;
 }
 
 @tailwind utilities;

@@ -1,47 +1,59 @@
-<div class="flex pl-3 pr-3 pb-6">
-  <Input
-    data-test-kuler-hex
-    class="input flex-1 rounded mr-1 text-color1 w-20"
-    type="text"
-    value={{this.selectedColor.hex}}
-    {{!-- {{on "blur" this.setBgColor}}
+<div class="inline-flex mt-2">
+  <div
+    class="input inline-block mr-2 overflow-hidden rounded whitespace-no-wrap"
+  >
+    <Input
+      data-test-kuler-hex
+      class="bg-input-bg text-xs w-full"
+      type="text"
+      value={{this.selectedColor.hex}}
+      {{!-- {{on "blur" this.setBgColor}}
   {{on "keypress" this.enterPress}} --}}
-  />
+    />
+  </div>
 
-  <div class="flex rounded">
-    <div class="input overflow-hidden text-color1 whitespace-no-wrap w-full">
-      <span class="text-center">R</span>
+  <div class="inline-flex flex-grow">
+    <div
+      class="input inline-block overflow-hidden rounded-l whitespace-no-wrap"
+    >
+      <span class="absolute text-center">
+        R:
+      </span>
 
-      <Input
-        data-test-kuler-r
-        class="bg-input-bg text-color1 text-sm w-full"
-        type="text"
-      />
+      <Input data-test-kuler-r class="bg-input-bg text-right text-xs w-full" type="text" />
     </div>
-    <div class="input overflow-hidden text-color1 whitespace-no-wrap w-full">
-      <span class="text-center">G</span>
+    <div class="input inline-block overflow-hidden whitespace-no-wrap">
+      <span class="absolute text-center">
+        G:
+      </span>
 
       <Input
         data-test-kuler-g
-        class="bg-input-bg text-color1 text-sm w-full"
+        class="bg-input-bg text-right text-right text-xs w-full"
         type="text"
       />
     </div>
-    <div class="input overflow-hidden text-color1 whitespace-no-wrap w-full">
-      <span class="text-center">B</span>
+    <div class="input inline-block overflow-hidden whitespace-no-wrap">
+      <span class="absolute text-center">
+        B:
+      </span>
 
       <Input
         data-test-kuler-b
-        class="bg-input-bg text-color1 text-sm w-full"
+        class="bg-input-bg text-right text-right text-xs w-full"
         type="text"
       />
     </div>
-    <div class="input overflow-hidden text-color1 whitespace-no-wrap w-full">
-      <span class="text-center">A</span>
+    <div
+      class="input inline-block overflow-hidden rounded-r whitespace-no-wrap"
+    >
+      <span class="absolute text-center">
+        A:
+      </span>
 
       <Input
         data-test-kuler-a
-        class="bg-input-bg text-color1 text-sm w-full"
+        class="bg-input-bg text-right text-right text-xs w-full"
         type="text"
       />
     </div>

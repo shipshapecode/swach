@@ -14,15 +14,20 @@
 
   <div class="inline-flex flex-grow">
     <div
-      class="input inline-block overflow-hidden rounded-l whitespace-no-wrap"
+      class="input inline-block overflow-hidden relative rounded-l whitespace-no-wrap"
     >
       <span class="absolute text-center">
         R:
       </span>
 
-      <Input data-test-kuler-r class="bg-input-bg text-right text-xs w-full" type="text" />
+      <Input
+        data-test-kuler-r
+        class="bg-input-bg text-right text-xs w-full"
+        type="text"
+        value={{this.selectedColor.r}}
+      />
     </div>
-    <div class="input inline-block overflow-hidden whitespace-no-wrap">
+    <div class="input inline-block overflow-hidden relative whitespace-no-wrap">
       <span class="absolute text-center">
         G:
       </span>
@@ -31,9 +36,10 @@
         data-test-kuler-g
         class="bg-input-bg text-right text-right text-xs w-full"
         type="text"
+        value={{this.selectedColor.g}}
       />
     </div>
-    <div class="input inline-block overflow-hidden whitespace-no-wrap">
+    <div class="input inline-block overflow-hidden relative whitespace-no-wrap">
       <span class="absolute text-center">
         B:
       </span>
@@ -42,10 +48,11 @@
         data-test-kuler-b
         class="bg-input-bg text-right text-right text-xs w-full"
         type="text"
+        value={{this.selectedColor.b}}
       />
     </div>
     <div
-      class="input inline-block overflow-hidden rounded-r whitespace-no-wrap"
+      class="input inline-block overflow-hidden relative rounded-r whitespace-no-wrap"
     >
       <span class="absolute text-center">
         A:
@@ -55,6 +62,7 @@
         data-test-kuler-a
         class="bg-input-bg text-right text-right text-xs w-full"
         type="text"
+        value={{this.selectedColor.a}}
       />
     </div>
   </div>

@@ -71,16 +71,23 @@ button,
 
 .selected-color {
   &:after {
-    content:''; /* Required to display content */
+    content: ''; /* Required to display content */
     position: absolute; /* Sets the position absolute to the top div */
-    bottom: 0; 
+    bottom: 0;
     left: 50%;
     margin-left: -5px; /* Set margin equal to border px */
     width: 0;
-    z-index:1;
+    z-index: 1;
     height: 0;
     border-bottom: solid 5px #fff; /* Creates the notch */
     border-left: solid 5px transparent; /* Creates triangle effect */
     border-right: solid 5px transparent; /* Creates triangle effect */
+  }
+}
+
+.kuler-color-picker-container {
+  .IroWheel .IroHandle--isActive circle,
+  .IroBox .IroHandle--isActive circle {
+    transform: scale(1.75);
   }
 }

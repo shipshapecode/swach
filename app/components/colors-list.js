@@ -32,7 +32,12 @@ export default class ColorsList extends Component {
   async deleteColor(color) {
     const { palette } = this.args;
     if (!palette.isLocked) {
-      const colorToRemove = palette.colors.findBy('id', color.id);
+      const colorsList = palette.colors.map(color => {
+        return { type: 'color', id: color.id };
+      });
+
+      const colorToRemove = colorsList.findBy('id', color.id);
+      colorsList.removeObject(colorToRemove);
 
       await this.store.update(t => {
         const operations = [
@@ -40,6 +45,11 @@ export default class ColorsList extends Component {
             { type: 'palette', id: palette.id },
             'colors',
             { type: 'color', id: colorToRemove.id }
+          ),
+          t.replaceAttribute(
+            { type: 'palette', id: palette.id },
+            'colorOrder',
+            colorsList
           )
         ];
 

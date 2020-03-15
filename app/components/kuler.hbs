@@ -19,11 +19,13 @@
   Palette
 </h2>
 
-<div class="bg-menu p-4 rounded">
-  <KulerPaletteRow
-    @palette={{this.selectedPalette}}
-    @setSelectedIroColor={{this.setSelectedIroColor}}
-  />
+{{#if (not (is-empty this.selectedPalette.selectedColorIndex))}}
+  <div class="bg-menu p-4 rounded">
+    <KulerPaletteRow
+      @palette={{this.selectedPalette}}
+      @setSelectedIroColor={{this.setSelectedIroColor}}
+    />
 
-  <EditSelectedColor @palette={{this.selectedPalette}} />
-</div>
+    <EditSelectedColor @palette={{this.selectedPalette}} />
+  </div>
+{{/if}}

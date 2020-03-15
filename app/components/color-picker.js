@@ -2,7 +2,9 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { rgbaToHex } from 'swach/data-models/color';
 import iro from '@jaames/iro';
+import { TinyColor } from '@ctrl/tinycolor';
 
 export default class ColorPicker extends Component {
   @service nearestColor;
@@ -14,7 +16,7 @@ export default class ColorPicker extends Component {
   initColorPicker(element) {
     this.onChange = color => {
       if (color) {
-        this.setSelectedColor(color.hexString);
+        this.setSelectedColor(color.rgba);
       }
     };
 
@@ -35,11 +37,17 @@ export default class ColorPicker extends Component {
 
   @action
   setSelectedColor(color) {
-    const namedColor = this.nearestColor.nearest(color);
+    const tinyColor = new TinyColor(color);
+    const { r, g, b, a } = tinyColor.toRgb();
+    const namedColor = this.nearestColor.nearest({ r, g, b });
+    const hex = rgbaToHex(r, g, b, a);
 
     this.selectedColor = {
-      hex: color,
-      name: namedColor.name
+      name: namedColor.name,
+      hex,
+      g,
+      b,
+      a
     };
   }
 

@@ -1,7 +1,9 @@
 import Service from '@ember/service';
 import { action, get } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { rgbaToHex } from 'swach/data-models/color';
 import { storageFor } from 'ember-local-storage';
+import { TinyColor } from '@ctrl/tinycolor';
 
 export default class ColorUtilsService extends Service {
   @service nearestColor;
@@ -20,14 +22,21 @@ export default class ColorUtilsService extends Service {
 
   @action
   async createColorPOJO(color) {
-    const namedColor = this.nearestColor.nearest(color);
+    const tinyColor = new TinyColor(color);
+    const { r, g, b, a } = tinyColor.toRgb();
+    const namedColor = this.nearestColor.nearest({ r, g, b });
+    const hex = rgbaToHex(r, g, b, a);
 
     return {
       type: 'color',
       attributes: {
-        hex: color,
         name: namedColor.name,
-        createdAt: new Date()
+        createdAt: new Date(),
+        hex,
+        r,
+        g,
+        b,
+        a
       }
     };
   }

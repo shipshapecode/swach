@@ -12,7 +12,6 @@ export default class KulerPaletteRowComponent extends Component {
   fade = fade;
   showMenu = false;
 
- 
   /**
    * Sets the selected color, and selects the palette if not already selected.
    * @param {Color} color The color to select
@@ -48,12 +47,18 @@ export default class KulerPaletteRowComponent extends Component {
       const paletteId = paletteOperation.record.id;
 
       const colorOperations = colors.map(color => {
+        const { createdAt, hex, name, r, g, b, a } = color;
+
         return t.addRecord({
           type: 'color',
           attributes: {
-            createdAt: color.createdAt,
-            hex: color.hex,
-            name: color.name
+            createdAt,
+            hex,
+            name,
+            r,
+            g,
+            b,
+            a
           }
         });
       });

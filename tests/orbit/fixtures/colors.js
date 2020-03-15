@@ -1,20 +1,32 @@
 export default [
-  { type: 'color', id: 'black', attributes: { hex: '#000000', name: 'Black' } },
-  { type: 'color', id: 'denim', attributes: { hex: '#356dc4', name: 'Denim' } },
+  {
+    type: 'color',
+    id: 'black',
+    attributes: { name: 'Black', r: 0, g: 0, b: 0, a: 1 }
+  },
+  {
+    type: 'color',
+    id: 'denim',
+    attributes: { name: 'Denim', r: 53, g: 109, b: 196, a: 1 }
+  },
   {
     type: 'color',
     id: 'inch-worm',
-    attributes: { hex: '#b0f566', name: 'Inch Worm' }
+    attributes: { name: 'Inch Worm', r: 176, g: 245, b: 102, a: 1 }
   },
   {
     type: 'color',
     id: 'pale-magenta',
-    attributes: { hex: '#f78ae0', name: 'Pale Magenta' }
+    attributes: { name: 'Pale Magenta', r: 247, g: 138, b: 224, a: 1 }
   },
   {
     type: 'color',
     id: 'shamrock',
-    attributes: { hex: '#4af2a1', name: 'Shamrock' }
+    attributes: { name: 'Shamrock', r: 74, g: 242, b: 161, a: 1 }
   },
-  { type: 'color', id: 'white', attributes: { hex: '#ffffff', name: 'White' } }
+  {
+    type: 'color',
+    id: 'white',
+    attributes: { name: 'White', r: 255, g: 255, b: 255, a: 1 }
+  }
 ];

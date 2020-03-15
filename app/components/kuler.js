@@ -113,11 +113,11 @@ export default class KulerComponent extends Component {
     const { selectedColorIndex } = this.selectedPalette;
     // if changing the selected baseColor, we should update all the colors
     // if (selectedColorIndex === 0) {
-    //   const newColor = await this.colorUtils.createColorPOJO(color.hexString);
+    //   const newColor = await this.colorUtils.createColorPOJO(color.rgba);
     //   this.baseColor = newColor.attributes;
     //   await this.baseColorChanged();
     // } else {
-      const newColor = await this.colorUtils.createColorPOJO(color.hexString);
+      const newColor = await this.colorUtils.createColorPOJO(color.rgba);
       this.selectedPalette.colors.replace(selectedColorIndex, 1, [
         newColor.attributes
       ]);

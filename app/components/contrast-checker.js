@@ -28,6 +28,9 @@ export default class ContrastChecker extends Component {
         {
           component: iro.ui.Slider,
           options: {
+            borderColor: 'transparent',
+            borderWidth: 0,
+            sliderSize: 10,
             sliderType: 'hue'
           }
         }
@@ -56,6 +59,9 @@ export default class ContrastChecker extends Component {
         {
           component: iro.ui.Slider,
           options: {
+            borderColor: 'transparent',
+            borderWidth: 0,
+            sliderSize: 10,
             sliderType: 'hue'
           }
         }

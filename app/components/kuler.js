@@ -135,7 +135,35 @@ export default class KulerComponent extends Component {
   _setupColorWheel() {
     this.colorPicker = new iro.ColorPicker('#kuler-color-picker-container', {
       colors: this.selectedPalette.colors.mapBy('hex'),
-      width: 200
+      layoutDirection: 'vertical',
+      layout: [
+        {
+          component: iro.ui.Wheel,
+          options: {
+            borderColor: 'transparent',
+            borderWidth: 0
+          }
+        },
+        {
+          component: iro.ui.Slider,
+          options: {
+            borderColor: 'transparent',
+            borderWidth: 0,
+            sliderSize: 10,
+            sliderType: 'alpha'
+          }
+        },
+        {
+          component: iro.ui.Slider,
+          options: {
+            borderColor: 'transparent',
+            borderWidth: 0,
+            sliderSize: 10,
+            sliderType: 'value'
+          }
+        }
+      ],
+      width: 207
     });
 
     this.colorPicker.on('color:change', this._onColorChange);

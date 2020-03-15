@@ -74,7 +74,7 @@
     "ember-resolver": "^7.0.0",
     "ember-set-body-class": "^0.4.2",
     "ember-set-helper": "^0.1.1",
-    "ember-source": "~3.17.0",
+    "ember-source": "~3.16.3",
     "ember-svg-jar": "^2.2.3",
     "ember-test-selectors": "^4.0.0",
     "ember-tooltips": "^3.4.2",

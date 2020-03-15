@@ -51,15 +51,31 @@ export default class ColorPicker extends Component {
   _setupColorPicker(element, color) {
     this.colorPicker = new iro.ColorPicker(element, {
       colors: [color],
+      layoutDirection: 'vertical',
       layout: [
         {
           component: iro.ui.Box,
-          options: {}
+          options: {
+            borderColor: 'transparent',
+            borderWidth: 0
+          }
         },
         {
           component: iro.ui.Slider,
           options: {
+            borderColor: 'transparent',
+            borderWidth: 0,
+            sliderSize: 10,
             sliderType: 'hue'
+          }
+        },
+        {
+          component: iro.ui.Slider,
+          options: {
+            borderColor: 'transparent',
+            borderWidth: 0,
+            sliderSize: 10,
+            sliderType: 'alpha'
           }
         }
       ],

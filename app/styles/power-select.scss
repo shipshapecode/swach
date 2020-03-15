@@ -1,0 +1,21 @@
+.ember-power-select-dropdown,
+.ember-power-select-option,
+.ember-power-select-trigger {
+  @apply cursor-default;
+  color: var(--main-text);
+}
+
+.ember-power-select-dropdown,
+.ember-power-select-trigger {
+  @apply bg-menu text-xs w-32;
+  color: var(--main-text);
+}
+
+.ember-power-select-option[aria-selected='true'] {
+  background-color: var(--main-color);
+}
+
+.ember-power-select-option[aria-current="true"] {
+  background-color: #5897fb;
+  color: #ffffff; 
+}

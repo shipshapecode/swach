@@ -105,13 +105,24 @@
       @dragEndAction={{fn @moveColorsBetweenPalettes}} as |color index|
     >
       <div
-        data-test-palette-color-square
-        class="flex flex-grow
+        class="flex flex-grow relative
           {{if (eq index 0) "rounded-l"}}
           {{if (eq index (sub @palette.colors.length 1)) "rounded-r"}}"
-        style={{html-safe (concat "background-color: " color.hex)}}
-        {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
-      ></div>
+      >
+        <div
+          data-test-palette-color-square
+          class="absolute h-full left-0 top-0 w-full z-10
+           {{if (eq index 0) "rounded-l"}}
+           {{if (eq index (sub @palette.colors.length 1)) "rounded-r"}}"
+          style={{html-safe (concat "background-color: " color.hex)}}
+          {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
+        ></div>
+        <div
+          class="opacity-checkerboard absolute h-full left-0 top-0 w-full z-0
+           {{if (eq index 0) "rounded-l"}}
+           {{if (eq index (sub @palette.colors.length 1)) "rounded-r"}}"
+        ></div>
+      </div>
     </DragSortList>
   </div>
 </div>

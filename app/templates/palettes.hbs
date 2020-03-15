@@ -17,13 +17,22 @@
       @dragEndAction={{fn this.moveColorsBetweenPalettes}} as |color|
     >
       <div
-        class="inline-block m-1 h-8 rounded w-8"
-        style={{html-safe (concat "background-color: " color.hex)}}
+        class="inline-block m-1 h-8 relative rounded w-8"
         {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
-      ></div>
+      >
+        <div
+          class="absolute h-8 left-0 rounded top-0 w-8 z-10"
+          style={{html-safe (concat "background-color: " color.hex)}}
+        ></div>
+        <div
+          class="opacity-checkerboard absolute h-8 left-0 rounded top-0 w-8 z-0"
+        ></div>
+      </div>
     </DragSortList>
   {{else}}
-    <div class="bg-main inline-flex items-center justify-center m-1 h-8 rounded text-sm w-full">
+    <div
+      class="bg-main inline-flex items-center justify-center m-1 h-8 rounded text-sm w-full"
+    >
       Your color history is empty.
     </div>
   {{/if}}

@@ -1,0 +1,130 @@
+svg {
+  &.drop-icon {
+    path {
+      fill: var(--drop-icon)!important;
+      transition: fill 0.25s;
+    }
+  }
+
+  &.icon {
+    path {
+      fill: var(--alt-color) !important;
+      transition: fill 0.25s;
+    }
+
+    &:hover {
+      path {
+        fill: var(--alt-hover-color) !important;
+      }
+    }
+
+    &.delete-confirm {
+      path {
+        fill: #f56565 !important;
+      }
+      
+      &:hover {
+        path {
+          fill: #f56565 !important;
+        }
+      }
+    }
+  }
+
+  &.stroke-icon {
+    path {
+      stroke: var(--alt-color) !important;
+      transition: stroke 0.25s;
+    }
+
+    &:hover {
+      path {
+        stroke: var(--alt-hover-color) !important;
+      }
+    }
+  }
+
+  &.menu-icon {
+    path {
+      fill: var(--menu-text-color) !important;
+      transition: fill 0.25s;
+    }
+  }
+
+  &.stroke-menu-icon {
+    path {
+      stroke: var(--menu-text-color) !important;
+      transition: stroke 0.25s;
+    }
+
+    &:hover {
+      path {
+        stroke: var(--menu-text-hover-color) !important;
+      }
+    }
+  }
+}
+
+a,
+button {
+  svg.icon {
+    &.filled {
+      path {
+        fill: var(--alt-color) !important;
+        transition: fill 0.25s;
+      }
+    }
+  }
+
+  &:hover:not([disabled]) {
+    svg.icon:not(.delete-confirm) {
+      path {
+        fill: var(--alt-hover-color) !important;
+      }
+
+      &.filled {
+        path {
+          fill: var(--alt-hover-color) !important;
+          transition: fill 0.25s;
+        }
+      }
+    }
+
+    svg.menu-icon {
+      path {
+        fill: var(--menu-text-hover-color) !important;
+      }
+
+      &.filled {
+        path {
+          fill: var(--menu-text-hover-color) !important;
+          transition: fill 0.25s;
+        }
+      }
+    }
+
+    svg.stroke-icon {
+      path {
+        stroke: var(--alt-hover-color) !important;
+      }
+    }
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+
+    svg.icon,
+    svg.menu-icon {
+      path {
+        fill: var(--disabled-color) !important;
+      }
+
+      &.filled {
+        path {
+          fill: var(--disabled-color) !important;
+          transition: fill 0.25s;
+        }
+      }
+    }
+  }
+}

@@ -3,10 +3,15 @@
   data-test-color={{@color.name}}
   {{on "click" (fn this.colorUtils.copyColorToClipboard @color)}}
 >
-  <div
-    class="inline-block m-1 h-10 rounded text-main-text w-10"
-    style={{html-safe (concat "background-color: " @color.hex)}}
-  ></div>
+  <div class="inline-block m-1 h-10 relative rounded w-10">
+    <div
+      class="absolute h-10 left-0 rounded top-0 w-10 z-10"
+      style={{html-safe (concat "background-color: " @color.hex)}}
+    ></div>
+    <div
+      class="opacity-checkerboard absolute h-10 left-0 rounded top-0 w-10 z-0"
+    ></div>
+  </div>
   <div class="flex flex-grow justify-between items-center">
     <div class="flex flex-col justify-center">
       <p class="font-medium pl-2 text-main-text text-sm" data-test-color-name>

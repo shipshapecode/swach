@@ -1,68 +1,88 @@
-<div class="inline-flex mt-2">
+<div class="inline-flex mt-2 w-full">
   <div
     class="input inline-block mr-2 overflow-hidden rounded whitespace-no-wrap"
   >
     <Input
       data-test-kuler-hex
-      class="bg-input-bg text-xs w-full"
+      class="bg-input-bg text-xs w-16"
       type="text"
       value={{this.selectedColor.hex}}
-      {{!-- {{on "blur" this.setBgColor}}
-  {{on "keypress" this.enterPress}} --}}
+      {{on "change" (fn this.updateColor 'hex')}}
+      {{on "keypress" this.enterPress}}
     />
   </div>
 
   <div class="inline-flex flex-grow">
     <div
-      class="input inline-block overflow-hidden relative rounded-l whitespace-no-wrap"
+      class="input inline-block overflow-hidden relative rounded-l whitespace-no-wrap w-full"
     >
-      <span class="absolute text-center">
+      <span class="absolute text-menu-text text-center">
         R:
       </span>
 
       <Input
         data-test-kuler-r
         class="bg-input-bg text-right text-xs w-full"
-        type="text"
+        min="0"
+        max="255"
+        step="1"
+        type="number"
         value={{this.selectedColor.r}}
+        {{on "change" (fn this.updateColor 'r')}}
+        {{on "keypress" this.enterPress}}
       />
     </div>
-    <div class="input inline-block overflow-hidden relative whitespace-no-wrap">
-      <span class="absolute text-center">
+    <div class="input inline-block overflow-hidden relative whitespace-no-wrap w-full">
+      <span class="absolute text-menu-text text-center">
         G:
       </span>
 
       <Input
         data-test-kuler-g
-        class="bg-input-bg text-right text-right text-xs w-full"
-        type="text"
+        class="bg-input-bg text-right text-xs w-full"
+        min="0"
+        max="255"
+        step="1"
+        type="number"
         value={{this.selectedColor.g}}
+        {{on "change" (fn this.updateColor 'g')}}
+        {{on "keypress" this.enterPress}}
       />
     </div>
-    <div class="input inline-block overflow-hidden relative whitespace-no-wrap">
-      <span class="absolute text-center">
+    <div class="input inline-block overflow-hidden relative whitespace-no-wrap w-full">
+      <span class="absolute text-menu-text text-center">
         B:
       </span>
 
       <Input
         data-test-kuler-b
-        class="bg-input-bg text-right text-right text-xs w-full"
-        type="text"
+        class="bg-input-bg text-right text-xs w-full"
+        min="0"
+        max="255"
+        step="1"
+        type="number"
         value={{this.selectedColor.b}}
+        {{on "change" (fn this.updateColor 'b')}}
+        {{on "keypress" this.enterPress}}
       />
     </div>
     <div
-      class="input inline-block overflow-hidden relative rounded-r whitespace-no-wrap"
+      class="input inline-block overflow-hidden relative rounded-r whitespace-no-wrap w-full"
     >
-      <span class="absolute text-center">
+      <span class="absolute text-menu-text text-center">
         A:
       </span>
 
       <Input
         data-test-kuler-a
-        class="bg-input-bg text-right text-right text-xs w-full"
-        type="text"
+        class="bg-input-bg text-right text-xs w-full"
+        min="0"
+        max="1"
+        step="0.01"
+        type="number"
         value={{this.selectedColor.a}}
+        {{on "change" (fn this.updateColor 'a')}}
+        {{on "keypress" this.enterPress}}
       />
     </div>
   </div>

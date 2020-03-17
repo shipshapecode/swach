@@ -74,6 +74,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: |
+            electron-app/out/**/*.deb
             electron-app/out/**/*.dmg
             electron-app/out/**/*Setup.exe
+            electron-app/out/**/*.rpm
             electron-app/out/**/*.zip

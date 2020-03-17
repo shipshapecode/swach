@@ -19,6 +19,9 @@ module.exports = {
         'menu-text-hover': 'var(--menu-text-hover-color)',
         'main-text': 'var(--main-text)',
         'sub-text': 'var(--sub-text)'
+      },
+      fontSize: {
+        xxs: '0.5rem'
       }
     },
     fill: theme => ({

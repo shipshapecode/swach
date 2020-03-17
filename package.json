@@ -64,6 +64,7 @@
     "ember-event-helpers": "^0.1.0",
     "ember-export-application-global": "^2.0.1",
     "ember-fetch": "^7.0.1",
+    "ember-inputmask": "^0.9.2",
     "ember-load-initializers": "^2.1.1",
     "ember-local-storage": "^1.7.2",
     "ember-math-helpers": "^2.13.0",

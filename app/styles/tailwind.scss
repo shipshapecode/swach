@@ -22,4 +22,8 @@
   @apply bg-input-bg border border-input-border pb-1 pl-2 pr-2 pt-1 text-main-text text-xs;
 }
 
+.input-prefix {
+  @apply absolute flex h-full items-center left-0 ml-1 text-menu-text text-center text-xxs top-0;
+}
+
 @tailwind utilities;

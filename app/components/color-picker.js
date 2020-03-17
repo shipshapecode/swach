@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+import { action, set, setProperties } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { rgbaToHex } from 'swach/data-models/color';
 import iro from '@jaames/iro';
@@ -45,6 +45,7 @@ export default class ColorPicker extends Component {
     this.selectedColor = {
       name: namedColor.name,
       hex,
+      r,
       g,
       b,
       a
@@ -53,6 +54,43 @@ export default class ColorPicker extends Component {
 
   @action toggleIsShown() {
     this.isShown = !this.isShown;
+  }
+
+    /**
+   *
+   * @param {string} key The key to the value to change
+   * @param {Event} e The change event
+   */
+  @action
+  updateColor(key, value) {
+    if (['r', 'g', 'b', 'a'].includes(key)) {
+      if (key === 'a') {
+        set(this.selectedColor, key, parseFloat(value / 100));
+      } else {
+        set(this.selectedColor, key, parseFloat(value));
+      }
+
+      set(this.selectedColor, key, parseFloat(value));
+      const { r, g, b, a } = this.selectedColor;
+      set(this.selectedColor, 'hex', rgbaToHex(r, g, b, a));
+    }
+
+    if (key === 'hex') {
+      const tinyColor = new TinyColor(value);
+      const { r, g, b, a } = tinyColor.toRgb();
+
+      setProperties(this.selectedColor, {
+        r,
+        g,
+        b,
+        a
+      });
+      set(this.selectedColor, 'hex', rgbaToHex(r, g, b, a));
+    }
+
+    this.colorPicker.setColors(
+      [this.selectedColor].mapBy('hex')
+    );
   }
 
   @action
@@ -65,7 +103,19 @@ export default class ColorPicker extends Component {
           component: iro.ui.Box,
           options: {
             borderColor: 'transparent',
-            borderWidth: 0
+            borderWidth: 0,
+            width: 200
+          }
+        },
+        {
+          component: iro.ui.Slider,
+          options: {
+            borderColor: 'transparent',
+            borderWidth: 0,
+            margin: 20,
+            sliderSize: 10,
+            sliderType: 'hue',
+            width: 300
           }
         },
         {
@@ -74,16 +124,8 @@ export default class ColorPicker extends Component {
             borderColor: 'transparent',
             borderWidth: 0,
             sliderSize: 10,
-            sliderType: 'hue'
-          }
-        },
-        {
-          component: iro.ui.Slider,
-          options: {
-            borderColor: 'transparent',
-            borderWidth: 0,
-            sliderSize: 10,
-            sliderType: 'alpha'
+            sliderType: 'alpha',
+            width: 300
           }
         }
       ],

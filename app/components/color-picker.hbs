@@ -14,7 +14,7 @@
   <div class="h-full relative w-full">
     <ColorRow @color={{this.selectedColor}} @showActions={{false}} />
 
-    <div class="bg-menu flex p-4 rounded">
+    <div class="bg-menu flex p-4 relative rounded">
       <div
         class="flex-1 w-auto"
         id="color-picker-container"
@@ -22,8 +22,100 @@
         {{will-destroy this.destroyColorPickr}}
       ></div>
 
-      <div class="flex-grow ml-2">
-        <Input class="bg-main rounded w-full" type="text" />
+      <div class="absolute flex-grow mt-4 mr-4 right-0 top-0">
+        <Input
+          class="input rounded mb-4 w-20"
+          value={{this.selectedColor.hex}}
+          type="text"
+        />
+
+        <div
+          class="input overflow-hidden relative rounded-t whitespace-no-wrap w-20"
+        >
+          <span class="input-prefix">
+            R:
+          </span>
+
+          <OneWayNumberMask
+            data-test-color-picker-r
+            class="bg-input-bg text-right text-xs w-full"
+            @decimal={{false}}
+            @options={{hash
+              allowMinus=false
+              min=0
+              max=255
+              step=1
+              unmaskAsNumber=true
+            }}
+            @update={{fn this.updateColor "r"}}
+            @value={{this.selectedColor.r}}
+          />
+        </div>
+
+        <div class="input overflow-hidden relative whitespace-no-wrap w-20">
+          <span class="input-prefix">
+            G:
+          </span>
+
+          <OneWayNumberMask
+            data-test-color-picker-g
+            class="bg-input-bg text-right text-xs w-full"
+            @decimal={{false}}
+            @options={{hash
+              allowMinus=false
+              min=0
+              max=255
+              step=1
+              unmaskAsNumber=true
+            }}
+            @update={{fn this.updateColor "g"}}
+            @value={{this.selectedColor.g}}
+          />
+        </div>
+
+        <div class="input overflow-hidden relative whitespace-no-wrap w-20">
+          <span class="input-prefix">
+            B:
+          </span>
+
+          <OneWayNumberMask
+            data-test-color-picker-b
+            class="bg-input-bg text-right text-xs w-full"
+            @decimal={{false}}
+            @options={{hash
+              allowMinus=false
+              min=0
+              max=255
+              step=1
+              unmaskAsNumber=true
+            }}
+            @update={{fn this.updateColor "b"}}
+            @value={{this.selectedColor.b}}
+          />
+        </div>
+
+        <div
+          class="input overflow-hidden relative rounded-b whitespace-no-wrap w-20"
+        >
+          <span class="input-prefix">
+            A:
+          </span>
+
+          <OneWayNumberMask
+            data-test-kuler-a
+            class="bg-input-bg text-right text-xs w-full"
+            @decimal={{true}}
+            @options={{hash
+              allowMinus=false
+              min=0
+              max=1
+              step=0.01
+              unmaskAsNumber=true
+            }}
+            @update={{fn this.updateColor "a"}}
+            @value={{this.selectedColor.a}}
+          />
+        </div>
       </div>
     </div>
 

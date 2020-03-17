@@ -30,9 +30,7 @@ export default class EditSelectedColorComponent extends Component {
    * @param {Event} e The change event
    */
   @action
-  updateColor(key, e) {
-    const { value } = e.target;
-
+  updateColor(key, value) {
     if (['r', 'g', 'b', 'a'].includes(key)) {
       if (key === 'a') {
         set(this.selectedColor, key, parseFloat(value / 100));

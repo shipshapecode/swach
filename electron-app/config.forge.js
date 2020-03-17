@@ -42,6 +42,8 @@ module.exports = {
       name: '@electron-forge/maker-deb',
       config: {
         options: {
+          bin: 'Swach',
+          name: 'Swach',
           maintainer: 'Ship Shape Consulting LLC',
           homepage: 'https://swach.io'
         }

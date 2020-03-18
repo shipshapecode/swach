@@ -44,6 +44,10 @@ mb.app.commandLine.appendSwitch(
   'true'
 );
 
+if (process.platform === 'win32') {
+  if(require('electron-squirrel-startup')) mb.app.exit();
+}
+
 // const browsers = require('./browsers')(__dirname);
 // const { settings } = browsers;
 

@@ -26,11 +26,27 @@
 }
 
 .color-history-list {
-  .dragSortList.-isExpanded.-isDraggingOver:before,
+  &.dragSortList {
+    overflow: hidden;
+    position: relative;
+  }
+
+  &.dragSortList.-isExpanded {
+    padding-top: 0;
+  }
+
   .dragSortItem.-placeholderBefore:before,
   .dragSortItem.-placeholderAfter:before {
     display: none;
+    padding-top: 0;
   }
+
+  // &.dragSortList.-horizontal .dragSortItem.-placeholderBefore,
+  // &.dragSortList.-horizontal .dragSortItem.-placeholderAfter,
+  // &.dragSortList.-horizontal.-rtl .dragSortItem.-placeholderBefore
+  // &.dragSortList.-horizontal.-rtl .dragSortItem.-placeholderAfter {
+  //   padding: 0;
+  // }
 
   .dragSortItem.-isDragged {
     display: block;

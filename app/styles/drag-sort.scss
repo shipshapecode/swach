@@ -41,13 +41,6 @@
     padding-top: 0;
   }
 
-  // &.dragSortList.-horizontal .dragSortItem.-placeholderBefore,
-  // &.dragSortList.-horizontal .dragSortItem.-placeholderAfter,
-  // &.dragSortList.-horizontal.-rtl .dragSortItem.-placeholderBefore
-  // &.dragSortList.-horizontal.-rtl .dragSortItem.-placeholderAfter {
-  //   padding: 0;
-  // }
-
   .dragSortItem.-isDragged {
     display: block;
   }

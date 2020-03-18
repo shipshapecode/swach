@@ -1,7 +1,11 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
 
 export default class PalettesListComponent extends Component {
+  @service store;
+  @service undoManager;
+
   /**
    * Order palettes by createdAt first, then order by index if the user
    * has reordered them.
@@ -14,7 +18,7 @@ export default class PalettesListComponent extends Component {
   }
 
   @action
-  reorderPalettes({ sourceList, sourceIndex, targetList, targetIndex }) {
+  async reorderPalettes({ sourceList, sourceIndex, targetList, targetIndex }) {
     if (sourceList === targetList && sourceIndex === targetIndex) return;
 
     const movedItem = sourceList.objectAt(sourceIndex);
@@ -22,10 +26,22 @@ export default class PalettesListComponent extends Component {
     sourceList.removeAt(sourceIndex);
     targetList.insertAt(targetIndex, movedItem);
 
-    targetList.forEach((palette, index) => {
-      palette.set('index', index);
+    await this.store.update(t => {
+      const operations = [];
+
+      targetList.forEach((palette, index) => {
+        operations.push(
+          t.replaceAttribute(
+            { type: 'palette', id: palette.id },
+            'index',
+            index
+          )
+        );
+      });
+
+      return operations;
     });
 
-    return Promise.all(targetList.invoke('save'));
+    this.undoManager.setupUndoRedo();
   }
 }

@@ -43,9 +43,12 @@ module.exports = {
       config: {
         options: {
           bin: 'Swach',
-          name: 'Swach',
+          name: 'swach',
+          productName: 'Swach',
+          productDescription: 'A robust color management tool for the modern age.',
           maintainer: 'Ship Shape Consulting LLC',
-          homepage: 'https://swach.io'
+          homepage: 'https://swach.io',
+          icon: 'electron-app/resources/icon.png'
         }
       },
       platforms: ['linux']

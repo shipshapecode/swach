@@ -61,7 +61,7 @@ jobs:
           encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
       - name: Setup flatpak
         if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
-        run: sudo apt install flatpak
+        run: sudo apt install flatpak flatpak-builder elfutils
       - name: Make
         if: startsWith(github.ref, 'refs/tags/')
         run: yarn make

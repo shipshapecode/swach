@@ -62,7 +62,7 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-zip',
-      platforms: ['darwin', 'linux']
+      platforms: ['darwin']
     }
   ]
 };

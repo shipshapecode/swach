@@ -165,15 +165,16 @@
   optionalDependencies:
     electron-installer-dmg "^3.0.0"
 
-"@electron-forge/maker-rpm@6.0.0-beta.50":
+"@electron-forge/maker-flatpak@6.0.0-beta.50":
   version "6.0.0-beta.50"
-  resolved "https://registry.yarnpkg.com/@electron-forge/maker-rpm/-/maker-rpm-6.0.0-beta.50.tgz#b93f61d2beeb5b808f192b51827a4753071a79d3"
-  integrity sha512-GkvNUnb8O4O8pgNPklxwXLRxu/Rd3zCYQ49vkOxl48sUFeM0Nt88fRi/ovFsFTEI+lee7jGsksGx3G6mvbrfiA==
+  resolved "https://registry.yarnpkg.com/@electron-forge/maker-flatpak/-/maker-flatpak-6.0.0-beta.50.tgz#23aeb040d77b91ed391edf87cda305a82b2d6a63"
+  integrity sha512-ylYyKP32yENxIcQ+sjpZB2Pto5u8pSTny5Id2KC2JhcYzkem4nZQlL6rHqFqdRC2nGXcbkazR65zKLum66ZyJA==
   dependencies:
     "@electron-forge/maker-base" "6.0.0-beta.50"
     "@electron-forge/shared-types" "6.0.0-beta.50"
+    fs-extra "^8.1.0"
   optionalDependencies:
-    electron-installer-redhat "^3.0.0"
+    "@malept/electron-installer-flatpak" "^0.11.0"
 
 "@electron-forge/maker-squirrel@6.0.0-beta.50":
   version "6.0.0-beta.50"
@@ -281,6 +282,28 @@
   integrity sha512-wE6Y5vqqBE0jATZT1oev3twD1beEcBIDwbrZVt9mekFEv3H/REyjdHCr0qulozZsp6DUya3ituJVnC4YacHO9w==
   dependencies:
     cross-spawn "^7.0.1"
+
+"@malept/electron-installer-flatpak@^0.11.0":
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/@malept/electron-installer-flatpak/-/electron-installer-flatpak-0.11.1.tgz#67b707c2d795f9181b437cc936d75404026b268d"
+  integrity sha512-EFMoQT+RAHF4sKnX7MyckCI4ZfKxddFKv6lpdqstwzv33I8N9AxRrBp8deh2DGiPEGrPsGT7YJTD4AuOOVB8Nw==
+  dependencies:
+    "@malept/flatpak-bundler" "^0.3.0"
+    debug "^4.1.1"
+    electron-installer-common "^0.10.0"
+    lodash "^4.17.15"
+    semver "^7.1.1"
+    yargs "^15.0.1"
+
+"@malept/flatpak-bundler@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@malept/flatpak-bundler/-/flatpak-bundler-0.3.0.tgz#107c2343f982c61177ecc5fe0783a1bb47978258"
+  integrity sha512-jOp6TWc0vLpye3390Z29otyDmzwfof8SljeqeuIL6pyGszmBFx2J4hcpq1urb+3qcGs6/ZyCgUxREZGTKz+5og==
+  dependencies:
+    debug "^4.1.1"
+    fs-extra "^8.0.1"
+    lodash "^4.16.2"
+    tmp-promise "^2.0.1"
 
 "@sentry/apm@5.13.2":
   version "5.13.2"
@@ -1156,18 +1179,6 @@ electron-installer-dmg@^3.0.0:
     minimist "^1.1.1"
   optionalDependencies:
     appdmg "^0.6.0"
-
-electron-installer-redhat@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/electron-installer-redhat/-/electron-installer-redhat-3.0.0.tgz#0a066eb9f9b3e691d58c2b41eea1055e8d5ffa92"
-  integrity sha512-BtYh174AOIGq0iDges4/fihqJYw8WsWXRKuRpKvUlkqrwfeGMWqln28+kKV5IW6GPfHjRFeCO5dcMUioUDBo1A==
-  dependencies:
-    debug "^4.1.1"
-    electron-installer-common "^0.10.0"
-    fs-extra "^8.1.0"
-    lodash "^4.17.15"
-    word-wrap "^1.2.3"
-    yargs "^15.1.0"
 
 electron-is-accelerator@^0.1.0:
   version "0.1.2"
@@ -2211,7 +2222,7 @@ lodash.templatesettings@^4.0.0:
   dependencies:
     lodash._reinterpolate "^3.0.0"
 
-lodash@^4.17.10, lodash@^4.17.15, lodash@^4.17.4:
+lodash@^4.16.2, lodash@^4.17.10, lodash@^4.17.15, lodash@^4.17.4:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -3839,7 +3850,7 @@ yargs@^14.2.0:
     y18n "^4.0.0"
     yargs-parser "^15.0.1"
 
-yargs@^15.0.1, yargs@^15.1.0:
+yargs@^15.0.1:
   version "15.3.0"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-15.3.0.tgz#403af6edc75b3ae04bf66c94202228ba119f0976"
   integrity sha512-g/QCnmjgOl1YJjGsnUg2SatC7NUYEiLXJqxNOQU9qSpjzGtGXda9b+OKccr1kLTy8BN9yqEyqfq5lxlwdc13TA==

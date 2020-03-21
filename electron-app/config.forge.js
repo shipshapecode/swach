@@ -43,7 +43,14 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-flatpak',
-      platforms: ['linux']
+      platforms: ['linux'],
+      config: {
+        options: {
+          bin: 'Swach',
+          icon: 'electron-app/resources/icon.png',
+          productName: 'Swach'
+        }
+      }
     },
     {
       name: '@electron-forge/maker-squirrel',

@@ -59,9 +59,9 @@ jobs:
         with:
           fileName: 'win-certificate.pfx'
           encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
-      - name: Setup flatpak
-        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
-        run: sudo apt install flatpak flatpak-builder elfutils
+      # - name: Setup flatpak
+      #   if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
+      #   run: sudo apt install flatpak flatpak-builder elfutils
       - name: Make
         if: startsWith(github.ref, 'refs/tags/')
         run: yarn make
@@ -79,7 +79,6 @@ jobs:
           files: |
             electron-app/out/**/*.deb
             electron-app/out/**/*.dmg
-            electron-app/out/**/*.flatpak
             electron-app/out/**/*Setup.exe
             electron-app/out/**/*.rpm
             electron-app/out/**/*.zip

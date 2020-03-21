@@ -41,17 +41,17 @@ module.exports = {
         icon: 'electron-app/resources/dmg.icns'
       }
     },
-    {
-      name: '@electron-forge/maker-flatpak',
-      platforms: ['linux'],
-      config: {
-        options: {
-          bin: 'Swach',
-          icon: 'electron-app/resources/icon.png',
-          productName: 'Swach'
-        }
-      }
-    },
+    // {
+    //   name: '@electron-forge/maker-flatpak',
+    //   platforms: ['linux'],
+    //   config: {
+    //     options: {
+    //       bin: 'Swach',
+    //       icon: 'electron-app/resources/icon.png',
+    //       productName: 'Swach'
+    //     }
+    //   }
+    // },
     {
       name: '@electron-forge/maker-squirrel',
       config: {

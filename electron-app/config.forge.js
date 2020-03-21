@@ -19,26 +19,6 @@ module.exports = {
   },
   makers: [
     {
-      name: '@electron-forge/maker-squirrel',
-      config: {
-        name: 'Swach',
-        certificateFile: process.env['WINDOWS_PFX_FILE'],
-        certificatePassword: process.env['WINDOWS_PFX_PASSWORD']
-      }
-    },
-    {
-      name: '@electron-forge/maker-dmg',
-      platforms: ['darwin'],
-      config: {
-        background: 'electron-app/resources/installBackground.png',
-        icon: 'electron-app/resources/dmg.icns'
-      }
-    },
-    {
-      name: '@electron-forge/maker-zip',
-      platforms: ['darwin', 'linux']
-    },
-    {
       name: '@electron-forge/maker-deb',
       config: {
         options: {
@@ -52,6 +32,30 @@ module.exports = {
         }
       },
       platforms: ['linux']
+    },
+    {
+      name: '@electron-forge/maker-dmg',
+      platforms: ['darwin'],
+      config: {
+        background: 'electron-app/resources/installBackground.png',
+        icon: 'electron-app/resources/dmg.icns'
+      }
+    },
+    {
+      name: '@electron-forge/maker-flatpak',
+      platforms: ['linux']
+    },
+    {
+      name: '@electron-forge/maker-squirrel',
+      config: {
+        name: 'Swach',
+        certificateFile: process.env['WINDOWS_PFX_FILE'],
+        certificatePassword: process.env['WINDOWS_PFX_PASSWORD']
+      }
+    },
+    {
+      name: '@electron-forge/maker-zip',
+      platforms: ['darwin', 'linux']
     }
   ]
 };

@@ -16,6 +16,23 @@ export default class ContrastChecker extends Component {
     return score(this.wcagScore);
   }
 
+  constructor() {
+    super(...arguments);
+
+    if (typeof requireNode !== 'undefined') {
+      let { ipcRenderer } = requireNode('electron');
+      this.ipcRenderer = ipcRenderer;
+
+      this.ipcRenderer.on('pickContrastBgColor', async (event, color) => {
+        this.setBgColor(color);
+      });
+
+      this.ipcRenderer.on('pickContrastFgColor', async (event, color) => {
+        this.setFgColor(color);
+      });
+    }
+  }
+
   @action
   initBackgroundColorPicker(element) {
     this.bgPickr = new iro.ColorPicker(element, {
@@ -86,9 +103,23 @@ export default class ContrastChecker extends Component {
   }
 
   @action
-  setBgColor(ev) {
+  launchContrastBgPicker() {
+    this.ipcRenderer.send('launchContrastBgPicker');
+  }
+
+  @action
+  launchContrastFgPicker() {
+    this.ipcRenderer.send('launchContrastFgPicker');
+  }
+
+  @action
+  onBlurBg(ev) {
+    this.setBgColor(ev.target.value);
+  }
+
+  setBgColor(color) {
     try {
-      this.bgPickr.setColors([ev.target.value], 0);
+      this.bgPickr.setColors([color], 0);
       this.backgroundColor = this.bgPickr.color.hexString;
     } catch (err) {
       // TODO: maybe mention the color is invalid here?
@@ -96,9 +127,13 @@ export default class ContrastChecker extends Component {
   }
 
   @action
-  setFgColor(ev) {
+  onBlurFg(ev) {
+    this.setFgColor(ev.target.value);
+  }
+
+  setFgColor(color) {
     try {
-      this.fgPickr.setColors([ev.target.value], 0);
+      this.fgPickr.setColors([color], 0);
       this.foregroundColor = this.fgPickr.color.hexString;
     } catch (err) {
       // TODO: maybe mention the color is invalid here?

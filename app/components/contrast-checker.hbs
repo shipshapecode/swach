@@ -70,14 +70,24 @@
         {{did-insert this.initBackgroundColorPicker}}
       ></div>
 
-      <Input
-        data-test-bg-input
-        class="input rounded mt-3"
-        type="text"
-        value={{this.backgroundColor}}
-        {{on "blur" this.setBgColor}}
-        {{on "keypress" this.enterPress}}
-      />
+      <div class="relative">
+        <Input
+          data-test-bg-input
+          class="input rounded mt-3"
+          type="text"
+          value={{this.backgroundColor}}
+          {{on "blur" this.onBlurBg}}
+          {{on "keypress" this.enterPress}}
+        />
+
+        <button
+          class="absolute mr-2 mt-4 right-0 top-0"
+          type="button"
+          {{on "click" this.launchContrastBgPicker}}
+        >
+          {{svg-jar "drop" class="menu-icon" height="18" width="18"}}
+        </button>
+      </div>
     </div>
 
     <div class="foreground-color-picker-container ml-2 w-full">
@@ -86,14 +96,24 @@
         {{did-insert this.initForegroundColorPicker}}
       ></div>
 
-      <Input
-        data-test-fg-input
-        class="input rounded mt-3"
-        type="text"
-        value={{this.foregroundColor}}
-        {{on "blur" this.setFgColor}}
-        {{on "keypress" this.enterPress}}
-      />
+      <div class="relative">
+        <Input
+          data-test-fg-input
+          class="input rounded mt-3"
+          type="text"
+          value={{this.foregroundColor}}
+          {{on "blur" this.onBlurFg}}
+          {{on "keypress" this.enterPress}}
+        />
+
+        <button
+          class="absolute mr-2 mt-4 right-0 top-0"
+          type="button"
+          {{on "click" this.launchContrastFgPicker}}
+        >
+          {{svg-jar "drop" class="menu-icon" height="18" width="18"}}
+        </button>
+      </div>
     </div>
   </div>
 </div>

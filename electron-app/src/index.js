@@ -58,6 +58,12 @@ ipcMain.on('copyColorToClipboard', (channel, color) => {
   clipboard.writeText(color);
 });
 ipcMain.on('exitApp', () => mb.app.quit());
+ipcMain.on('launchContrastBgPicker', () => {
+  launchPicker(mb, 'contrastBg');
+});
+ipcMain.on('launchContrastFgPicker', () => {
+  launchPicker(mb, 'contrastFg');
+});
 ipcMain.on('launchPicker', () => {
   launchPicker(mb);
 });

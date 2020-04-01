@@ -33,8 +33,8 @@ export default class ApplicationController extends Controller {
 
   @computed('settings.{osTheme,userTheme}')
   get theme() {
-    let userTheme = get(this, 'settings.userTheme');
-    let OSTheme = get(this, 'settings.osTheme');
+    let userTheme = get(this, 'settings.userTheme'); // eslint-disable-line ember/no-get
+    let OSTheme = get(this, 'settings.osTheme'); // eslint-disable-line ember/no-get
 
     if (userTheme && userTheme !== 'dynamic') {
       return userTheme;
@@ -60,7 +60,7 @@ export default class ApplicationController extends Controller {
       });
 
       // We have to initially set this, in case somehow the checkbox gets out of sync
-      const shouldEnableAutoStart = get(this, 'settings.openOnStartup');
+      const shouldEnableAutoStart = get(this, 'settings.openOnStartup'); // eslint-disable-line ember/no-get
       this.ipcRenderer.send('enableDisableAutoStart', shouldEnableAutoStart);
     }
   }

@@ -39,9 +39,9 @@
     "@electron-forge/maker-flatpak": "6.0.0-beta.50",
     "@electron-forge/maker-squirrel": "6.0.0-beta.50",
     "@electron-forge/maker-zip": "6.0.0-beta.50",
-    "@sentry/cli": "^1.51.1",
+    "@sentry/cli": "^1.52.1",
     "devtron": "^1.4.0",
-    "electron": "^8.1.1",
+    "electron": "^8.2.0",
     "electron-download": "^4.1.1"
   }
 }

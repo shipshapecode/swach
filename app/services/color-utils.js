@@ -52,6 +52,7 @@ export default class ColorUtilsService extends Service {
     if (!isDropping) {
       this.ipcRenderer.send('copyColorToClipboard', color.hex);
 
+      // eslint-disable-next-line ember/no-get
       if (get(this, 'settings.sounds')) {
         const audio = new Audio('/sounds/pluck_short.wav');
         audio.play();

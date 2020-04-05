@@ -55,6 +55,10 @@ export default class ApplicationController extends Controller {
         this.colorUtils.copyColorToClipboard(addedColor);
       });
 
+      this.ipcRenderer.on('openContrastChecker', () => {
+        this.router.transitionTo('contrast');
+      });
+
       this.ipcRenderer.on('setTheme', (event, theme) => {
         set(this, 'settings.osTheme', theme);
       });

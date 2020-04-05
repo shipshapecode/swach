@@ -16,6 +16,13 @@ const debug = require('electron-debug');
 
 debug({ showDevTools: false });
 
+const emberAppLocation = 'serve://dist';
+
+function openContrastChecker(mb) {
+  mb.showWindow();
+  mb.window.webContents.send('openContrastChecker');
+}
+
 const mb = menubar({
   index: false,
   browserWindow: {
@@ -45,7 +52,7 @@ mb.app.commandLine.appendSwitch(
 );
 
 if (process.platform === 'win32') {
-  if(require('electron-squirrel-startup')) mb.app.exit();
+  if (require('electron-squirrel-startup')) mb.app.exit();
 }
 
 // const browsers = require('./browsers')(__dirname);
@@ -107,13 +114,19 @@ mb.app.on('window-all-closed', () => {
 
 mb.on('after-create-window', function() {
   const contextMenu = Menu.buildFromTemplate([
-    // {
-    //   label: 'Preferences',
-    //   click() {
-    //     showPreferences();
-    //   }
-    // },
-    // { type: 'separator' },
+    {
+      label: 'Color Picker',
+      click() {
+        launchPicker(mb);
+      }
+    },
+    {
+      label: 'Contrast Checker',
+      click() {
+        openContrastChecker(mb);
+      }
+    },
+    { type: 'separator' },
     {
       label: 'Quit',
       click() {
@@ -130,8 +143,6 @@ mb.on('after-create-window', function() {
 mb.on('ready', () => {
   // If you want to open up dev tools programmatically, call
   // mb.window.openDevTools();
-
-  const emberAppLocation = 'serve://dist';
 
   // Load the ember application using our custom protocol/scheme
   mb.window.loadURL(emberAppLocation);
@@ -163,6 +174,10 @@ mb.on('ready', () => {
 
   globalShortcut.register('ctrl+command+option+p', () => {
     launchPicker(mb);
+  });  
+  
+  globalShortcut.register('ctrl+command+option+c', () => {
+    openContrastChecker(mb);
   });
 
   const autoLaunch = new AutoLaunch({

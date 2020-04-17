@@ -1,6 +1,5 @@
 const {
   clipboard,
-  globalShortcut,
   protocol,
   Menu,
   ipcMain

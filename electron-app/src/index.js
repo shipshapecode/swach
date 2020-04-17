@@ -11,6 +11,7 @@ const isDev = require('electron-is-dev');
 const protocolServe = require('electron-protocol-serve');
 const { menubar } = require('menubar');
 const { launchPicker } = require('./color-picker');
+const { registerKeyboardShortcuts } = require('./shortcuts');
 const { setupUpdateServer } = require('./auto-update');
 const debug = require('electron-debug');
 
@@ -172,13 +173,7 @@ mb.on('ready', () => {
     console.log('The main window has become responsive again.');
   });
 
-  globalShortcut.register('ctrl+command+option+p', () => {
-    launchPicker(mb);
-  });  
-  
-  globalShortcut.register('ctrl+command+option+c', () => {
-    openContrastChecker(mb);
-  });
+  registerKeyboardShortcuts(mb, launchPicker, openContrastChecker);
 
   const autoLaunch = new AutoLaunch({
     name: 'Swach'
@@ -196,10 +191,6 @@ mb.on('ready', () => {
       });
     }
   });
-});
-
-mb.app.on('will-quit', () => {
-  globalShortcut.unregisterAll();
 });
 
 if (!isDev) {

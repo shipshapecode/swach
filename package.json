@@ -91,7 +91,7 @@
     "postcss-import": "^12.0.1",
     "postcss-nested": "^4.2.1",
     "postcss-scss": "^2.0.0",
-    "prettier": "^2.0.4",
+    "prettier": "^2.0.5",
     "qunit-dom": "^1.2.0",
     "tailwindcss": "^1.2.0",
     "version-bump-prompt": "^6.0.3",

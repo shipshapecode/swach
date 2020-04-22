@@ -12,6 +12,8 @@ export default class ApplicationController extends Controller {
   @service store;
   @service undoManager;
 
+  @tracked colorPickerColor = null;
+  @tracked colorPickerIsShown = false;
   @tracked menuIsShown = false;
 
   @storageFor('settings') settings;
@@ -77,7 +79,7 @@ export default class ApplicationController extends Controller {
     const colorPOJO = await this.colorUtils.createColorPOJO(color);
     colorPOJO.id = this.dataSchema.generateId('color');
 
-    await this.store.update(t => {
+    await this.store.update((t) => {
       return [
         t.addRecord(colorPOJO),
         t.addToRelatedRecords(
@@ -111,6 +113,14 @@ export default class ApplicationController extends Controller {
   @action
   launchPicker() {
     this.ipcRenderer.send('launchPicker');
+  }
+
+  @action
+  toggleColorPickerIsShown(color) {
+    if (color && color.hex) {
+      this.colorPickerColor = color;
+    }
+    this.colorPickerIsShown = !this.colorPickerIsShown;
   }
 
   @action

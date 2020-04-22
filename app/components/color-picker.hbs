@@ -1,14 +1,10 @@
-<button id="toggle-picker" type="button" {{on "click" this.toggleIsShown}}>
-  {{svg-jar "edit-color" height="20" width="20"}}
-</button>
 <EmberPopover
   @arrowClass="color-picker-arrow custom-arrow"
   @event="none"
   @innerClass="h-full w-full"
-  @isShown={{this.isShown}}
+  @isShown={{@isShown}}
   @side="top-end"
   @spacing={{10}}
-  @targetId="toggle-picker"
   @tooltipClass="color-picker-popover bg-main border-menu fixed h-full m-0 pb-4 pl-3 pr-3 pt-5 text-alt w-screen"
 >
   <div class="h-full relative w-full">
@@ -123,7 +119,7 @@
       <button
         class="btn flex-1 mr-1 p-2"
         type="button"
-        {{on "click" this.toggleIsShown}}
+        {{on "click" @toggleIsShown}}
       >
         Cancel
       </button>
@@ -131,7 +127,7 @@
       <button
         class="btn btn-primary flex-grow ml-1 p-2"
         type="button"
-        {{on "click" this.addColorAndClose}}
+        {{on "click" this.saveColorAndClose}}
       >
         🎉 Save color
       </button>

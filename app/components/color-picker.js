@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
 import { action, set, setProperties } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { rgbaToHex } from 'swach/data-models/color';
 import iro from '@jaames/iro';
@@ -9,25 +9,44 @@ import { TinyColor } from '@ctrl/tinycolor';
 export default class ColorPicker extends Component {
   @service nearestColor;
   @service store;
-  @tracked isShown = false;
+  @service undoManager;
+
   @tracked selectedColor = null;
 
   @action
   initColorPicker(element) {
-    this.onChange = color => {
+    this.onChange = (color) => {
       if (color) {
         this.setSelectedColor(color.rgba);
       }
     };
 
-    this.setSelectedColor('#42445a');
-    this._setupColorPicker(element, '#42445a');
+    const { selectedColor } = this.args;
+    this.setSelectedColor(selectedColor ? selectedColor.hex : '#42445a');
+    this._setupColorPicker(element, this.selectedColor.hex);
   }
 
   @action
-  addColorAndClose() {
-    this.args.addColor(this.selectedColor.hex);
-    this.toggleIsShown();
+  async saveColorAndClose() {
+    const colorToEdit = this.args.selectedColor;
+    // If we passed a color to edit, save it, otherwise create a new global color
+    if (colorToEdit) {
+      await this.store.update((t) => {
+        return [
+          t.updateRecord({
+            type: 'color',
+            id: colorToEdit.id,
+            attributes: { ...this.selectedColor }
+          })
+        ];
+      });
+
+      this.undoManager.setupUndoRedo();
+    } else {
+      this.args.saveColor(this.selectedColor.hex);
+    }
+
+    this.args.toggleIsShown();
   }
 
   @action
@@ -52,11 +71,7 @@ export default class ColorPicker extends Component {
     };
   }
 
-  @action toggleIsShown() {
-    this.isShown = !this.isShown;
-  }
-
-    /**
+  /**
    *
    * @param {string} key The key to the value to change
    * @param {Event} e The change event
@@ -88,9 +103,7 @@ export default class ColorPicker extends Component {
       set(this.selectedColor, 'hex', rgbaToHex(r, g, b, a));
     }
 
-    this.colorPicker.setColors(
-      [this.selectedColor].mapBy('hex')
-    );
+    this.colorPicker.setColors([this.selectedColor].mapBy('hex'));
   }
 
   @action

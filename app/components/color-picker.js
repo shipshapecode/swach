@@ -5,9 +5,11 @@ import { inject as service } from '@ember/service';
 import { rgbaToHex } from 'swach/data-models/color';
 import iro from '@jaames/iro';
 import { TinyColor } from '@ctrl/tinycolor';
+import { clone } from '@orbit/utils';
 
 export default class ColorPicker extends Component {
   @service nearestColor;
+  @service router;
   @service store;
   @service undoManager;
 
@@ -31,13 +33,41 @@ export default class ColorPicker extends Component {
     const colorToEdit = this.args.selectedColor;
     // If we passed a color to edit, save it, otherwise create a new global color
     if (colorToEdit) {
+      const { paletteId } = this.router.currentRoute.queryParams;
+      const palette = await this.store.find('palette', paletteId);
+      const colorCopy = clone(colorToEdit.getData());
+      delete colorCopy.id;
+      colorCopy.attributes = {
+        ...this.selectedColor,
+        createdAt: colorToEdit.createdAt
+      };
+
+      const colorsList = palette.colors.map((color) => {
+        return { type: 'color', id: color.id };
+      });
+      const colorsListRecord = colorsList.findBy('id', colorToEdit.id);
+      const colorToEditIndex = colorsList.indexOf(colorsListRecord);
+      colorsList.removeAt(colorToEditIndex);
+
       await this.store.update((t) => {
+        const addColorOperation = t.addRecord(colorCopy);
+        colorsList.insertAt(colorToEditIndex, {
+          type: 'color',
+          id: addColorOperation.record.id
+        });
+
         return [
-          t.updateRecord({
-            type: 'color',
-            id: colorToEdit.id,
-            attributes: { ...this.selectedColor }
-          })
+          addColorOperation,
+          t.replaceRelatedRecords(
+            { type: 'palette', id: palette.id },
+            'colors',
+            colorsList
+          ),
+          t.replaceAttribute(
+            { type: 'palette', id: palette.id },
+            'colorOrder',
+            colorsList
+          )
         ];
       });
 

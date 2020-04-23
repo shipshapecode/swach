@@ -133,6 +133,10 @@ export default class ColorPicker extends Component {
       set(this.selectedColor, 'hex', rgbaToHex(r, g, b, a));
     }
 
+    const { r, g, b } = this.selectedColor;
+    const namedColor = this.nearestColor.nearest({ r, g, b });
+    set(this.selectedColor, 'name', namedColor.name);
+
     this.colorPicker.setColors([this.selectedColor].mapBy('hex'));
   }
 

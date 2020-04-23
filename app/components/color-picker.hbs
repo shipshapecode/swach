@@ -8,7 +8,11 @@
     @spacing={{10}}
     @tooltipClass="color-picker-popover bg-main border-menu fixed h-full m-0 pb-4 pl-3 pr-3 pt-5 text-alt w-screen"
   >
-    <div class="h-full relative w-full" {{did-update this.setScrollPosition}}>
+    <div
+      class="h-full relative w-full"
+      data-test-color-picker
+      {{did-update this.setScrollPosition}}
+    >
       <ColorRow @color={{this.selectedColor}} @showActions={{false}} />
 
       <div class="bg-menu flex p-4 relative rounded">
@@ -102,6 +106,7 @@
 
       <div class="absolute bottom-0 flex mb-12 w-full">
         <button
+          data-test-color-picker-cancel
           class="btn flex-1 mr-1 p-2"
           type="button"
           {{on "click" @toggleIsShown}}
@@ -110,6 +115,7 @@
         </button>
 
         <button
+          data-test-color-picker-save
           class="btn btn-primary flex-grow ml-1 p-2"
           type="button"
           {{on "click" this.saveColorAndClose}}

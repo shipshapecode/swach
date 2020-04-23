@@ -1,6 +1,7 @@
 import { module, test } from 'qunit';
 import {
   click,
+  fillIn,
   visit,
   currentURL,
   triggerEvent
@@ -31,6 +32,68 @@ module('Acceptance | colors', function(hooks) {
     assert
       .dom('[data-test-color="Black"] [data-test-color-hex]')
       .hasText('#000000');
+  });
+
+  test('edit color - cancel', async function(assert) {
+    await visit('/colors?paletteId=color-history-123');
+
+    assert.dom('[data-test-color]').exists({ count: 4 });
+    assert.dom('[data-test-color-picker]').doesNotExist();
+
+    await triggerEvent(
+      '[data-test-color="Black"] [data-test-color-row-menu]',
+      'mouseenter'
+    );
+
+    await animationsSettled();
+
+    await click('[data-test-color="Black"] [data-test-edit-color]');
+
+    await waitForAll();
+
+    assert.dom('[data-test-color-picker]').exists();
+
+    await fillIn('[data-test-color-picker-r]', '255');
+    await fillIn('[data-test-color-picker-g]', '0');
+    await fillIn('[data-test-color-picker-b]', '0');
+    await click('[data-test-color-picker-cancel');
+
+    assert.dom('[data-test-color="Black"]').exists();
+    assert.dom('[data-test-color="Red"]').doesNotExist();
+  });
+
+  test('edit color - save', async function(assert) {
+    await visit('/colors?paletteId=color-history-123');
+
+    assert.dom('[data-test-color]').exists({ count: 4 });
+    assert.dom('[data-test-color-picker]').doesNotExist();
+
+    await triggerEvent(
+      '[data-test-color="Black"] [data-test-color-row-menu]',
+      'mouseenter'
+    );
+
+    await animationsSettled();
+
+    await click('[data-test-color="Black"] [data-test-edit-color]');
+
+    await waitForAll();
+
+    assert.dom('[data-test-color-picker]').exists();
+
+    await fillIn('[data-test-color-picker-r]', '255');
+    await fillIn('[data-test-color-picker-g]', '0');
+    await fillIn('[data-test-color-picker-b]', '0');
+
+    debugger;
+    await waitForAll();
+
+    await click('[data-test-color-picker-save');
+
+    await waitForAll();
+
+    assert.dom('[data-test-color="Black"]').doesNotExist();
+    assert.dom('[data-test-color="Red"]').exists();
   });
 
   test('deleting colors', async function(assert) {
@@ -73,5 +136,24 @@ module('Acceptance | colors', function(hooks) {
     await waitForAll();
 
     assert.dom('[data-test-color]').exists({ count: 3 });
+  });
+  
+  test('go to kuler', async function(assert) {
+    await visit('/colors?paletteId=color-history-123');
+
+    assert.dom('[data-test-color]').exists({ count: 4 });
+
+    await triggerEvent(
+      '[data-test-color="Black"] [data-test-color-row-menu]',
+      'mouseenter'
+    );
+
+    await animationsSettled();
+
+    await click('[data-test-color="Black"] [data-test-go-to-kuler]');
+
+    await waitForAll();
+
+    assert.equal(currentURL(), '/kuler?colorId=black');
   });
 });

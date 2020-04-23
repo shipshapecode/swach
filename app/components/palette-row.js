@@ -65,6 +65,7 @@ export default class PaletteRowComponent extends Component.extend(
 ) {
   @service colorUtils;
   @service dragSort;
+  @service router;
   @service store;
   @service undoManager;
 
@@ -172,6 +173,14 @@ export default class PaletteRowComponent extends Component.extend(
   @action
   toggleIsEditing() {
     set(this, 'isEditing', !this.isEditing);
+  }
+
+  @action
+  transitionToColors(event) {
+    event.stopPropagation();
+    this.router.transitionTo('colors', {
+      queryParams: { paletteId: this.palette.id }
+    });
   }
 
   @action

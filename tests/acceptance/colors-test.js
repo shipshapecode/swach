@@ -85,7 +85,6 @@ module('Acceptance | colors', function(hooks) {
     await fillIn('[data-test-color-picker-g]', '0');
     await fillIn('[data-test-color-picker-b]', '0');
 
-    debugger;
     await waitForAll();
 
     await click('[data-test-color-picker-save');

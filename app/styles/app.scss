@@ -1,5 +1,6 @@
 @import 'fonts.scss';
 @import 'tailwind.scss';
+/* purgecss start ignore */
 @import 'variables.scss';
 @import 'main.scss';
 @import 'color-squares.scss';
@@ -8,3 +9,4 @@
 @import 'drag-sort.scss';
 @import 'popover.scss';
 @import 'power-select.scss';
+/* purgecss end ignore */

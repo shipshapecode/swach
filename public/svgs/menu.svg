@@ -1,15 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="15px" height="11px" viewBox="0 0 15 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
-    <title>Group</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
-        <g id="Home-menu-dark" transform="translate(-11.000000, -21.000000)" stroke="#A9ACD3">
-            <g id="Group" transform="translate(11.000000, 21.000000)">
-                <line x1="14.3181818" y1="5.45454545" x2="0.681818182" y2="5.45454545" id="Line-Copy"></line>
-                <line x1="14.3181818" y1="10" x2="0.681818182" y2="10" id="Line-Copy-2"></line>
-                <line x1="14.3181818" y1="1" x2="0.681818182" y2="1" id="Line"></line>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg height="11" viewBox="0 0 15 11" width="15" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" stroke="#a9acd3" stroke-linecap="square"><path d="m14.318182 5.454545h-13.636364"/><path d="m14.318182 10h-13.636364"/><path d="m14.318182 1h-13.636364"/></g></svg>

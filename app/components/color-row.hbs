@@ -31,6 +31,13 @@
         {{#animated-if this.showMenu duration=350 use=this.fade}}
           <div>
             <button
+              data-test-edit-color
+              type="button"
+              {{on "click" (stop-propagation (fn @toggleColorPickerIsShown @color))}}
+            >
+              {{svg-jar "pencil" class="stroke-icon mr-1" height="15" width="15"}}
+            </button>
+            <button
               data-test-go-to-kuler
               type="button"
               {{on "click" (stop-propagation (fn this.transitionToKuler))}}

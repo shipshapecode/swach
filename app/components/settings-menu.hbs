@@ -2,19 +2,30 @@
   <div class="p-1 pb-4">
     <div>
       <Input
+        data-test-settings-startup
         @type="checkbox"
         @checked={{this.settings.openOnStartup}}
-        data-test-settings-startup
         {{on "change" @enableDisableAutoStart}}
       />
       Start Swach on system startup
     </div>
 
+     <div>
+      <Input
+        data-test-settings-show-dock-icon
+        @type="checkbox"
+        @checked={{this.settings.showDockIcon}}
+        
+        {{on "change" this.toggleShowDockIcon}}
+      />
+      Show dock icon
+    </div>
+
     <div>
       <Input
+        data-test-settings-sounds
         @type="checkbox"
         @checked={{this.settings.sounds}}
-        data-test-settings-sounds
       />
       Play Sounds
     </div>

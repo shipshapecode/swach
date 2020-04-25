@@ -1,9 +1,4 @@
-const {
-  clipboard,
-  protocol,
-  Menu,
-  ipcMain
-} = require('electron');
+const { clipboard, protocol, Menu, ipcMain } = require('electron');
 const AutoLaunch = require('auto-launch');
 const { dirname, join, resolve } = require('path');
 const isDev = require('electron-is-dev');
@@ -41,7 +36,8 @@ const mb = menubar({
     '..',
     'resources/menubar-icons/iconTemplate.png'
   ),
-  preloadWindow: true
+  preloadWindow: true,
+  showDockIcon: true
 });
 
 mb.app.allowRendererProcessReuse = true;
@@ -73,6 +69,15 @@ ipcMain.on('launchContrastFgPicker', () => {
 });
 ipcMain.on('launchPicker', () => {
   launchPicker(mb);
+});
+ipcMain.on('showHideDockIcon', (channel, show = true) => {
+  if (process.platform === 'darwin') {
+    if (show) {
+      mb.app.dock.show();
+    } else {
+      mb.app.dock.hide();
+    }
+  }
 });
 
 // Registering a protocol & schema to serve our Ember application
@@ -112,7 +117,15 @@ mb.app.on('window-all-closed', () => {
   }
 });
 
-mb.on('after-create-window', function() {
+mb.app.on('activate', (event, hasVisibleWindows) => {
+  if (!hasVisibleWindows) {
+    mb.showWindow();
+  } else {
+    mb.hideWindow();
+  }
+});
+
+mb.on('after-create-window', function () {
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Color Picker',
@@ -181,7 +194,7 @@ mb.on('ready', () => {
   ipcMain.on('enableDisableAutoStart', (event, shouldEnable) => {
     // We only want to allow auto-start if in production mode
     if (!isDev) {
-      autoLaunch.isEnabled().then(isEnabled => {
+      autoLaunch.isEnabled().then((isEnabled) => {
         if (!isEnabled && shouldEnable) {
           autoLaunch.enable();
         } else if (isEnabled && !shouldEnable) {
@@ -214,7 +227,7 @@ if (!isDev) {
 // The correct use of 'uncaughtException' is to perform synchronous cleanup of allocated
 // resources (e.g. file descriptors, handles, etc) before shutting down the process. It is
 // not safe to resume normal operation after 'uncaughtException'.
-process.on('uncaughtException', err => {
+process.on('uncaughtException', (err) => {
   console.log('An exception in the main thread was not handled.');
   console.log(
     'This is a serious issue that needs to be handled and/or debugged.'

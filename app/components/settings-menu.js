@@ -1,11 +1,20 @@
 import Component from '@glimmer/component';
-import { action, set } from '@ember/object';
+import { action, get, set } from '@ember/object';
 import { storageFor } from 'ember-local-storage';
 
 export default class SettingsMenu extends Component {
   @storageFor('settings') settings;
 
   themes = ['dynamic', 'light', 'dark'];
+
+  constructor() {
+    super(...arguments);
+
+    if (typeof requireNode !== 'undefined') {
+      let { ipcRenderer } = requireNode('electron');
+      this.ipcRenderer = ipcRenderer;
+    }
+  }
 
   get version() {
     if (typeof requireNode !== 'undefined') {
@@ -18,6 +27,13 @@ export default class SettingsMenu extends Component {
   @action
   changeTheme(theme) {
     set(this, 'settings.userTheme', theme);
+  }
+
+  @action
+  toggleShowDockIcon(event) {
+    const showDockIcon = event.target.checked;
+    set(this, 'settings.showDockIcon', showDockIcon);
+    this.ipcRenderer.send('showHideDockIcon', showDockIcon);
   }
 
   @action

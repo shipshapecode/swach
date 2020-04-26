@@ -2,7 +2,6 @@
 
 module.exports = {
   singleQuote: true,
-  spaceBeforeFunctionParen: false,
   trailingComma: 'none',
   overrides: [
     {

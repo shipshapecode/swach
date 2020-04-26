@@ -70,10 +70,11 @@ export default class ApplicationController extends Controller {
       const shouldEnableAutoStart = get(this, 'settings.openOnStartup'); // eslint-disable-line ember/no-get
       this.ipcRenderer.send('enableDisableAutoStart', shouldEnableAutoStart);
 
-      this.ipcRenderer.on('replyStoreValue', (event, key, value) => {
-        set(this, `settings.${key}`, value);
-      });
-      this.ipcRenderer.send('requestStoreValue', 'showDockIcon');
+      this.ipcRenderer
+        .invoke('getStoreValue', 'showDockIcon')
+        .then((showDockIcon) => {
+          set(this, 'settings.showDockIcon', showDockIcon);
+        });
     }
   }
 

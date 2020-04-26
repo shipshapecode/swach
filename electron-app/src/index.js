@@ -83,8 +83,8 @@ ipcMain.on('launchPicker', () => {
   launchPicker(mb);
 });
 
-ipcMain.on('requestStoreValue', (event, key) => {
-  event.sender.send('replyStoreValue', key, store.get(key));
+ipcMain.handle('getStoreValue', (event, key) => {
+  return store.get(key);
 });
 
 ipcMain.on('setShowDockIcon', (channel, showDockIcon) => {

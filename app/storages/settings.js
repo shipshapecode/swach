@@ -6,6 +6,7 @@ Storage.reopenClass({
   initialState() {
     return {
       openOnStartup: false,
+      showDockIcon: false,
       sounds: true,
       userTheme: 'dynamic'
     };

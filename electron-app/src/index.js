@@ -1,20 +1,23 @@
-const {
-  clipboard,
-  protocol,
-  Menu,
-  ipcMain
-} = require('electron');
+const { clipboard, protocol, Menu, ipcMain } = require('electron');
 const AutoLaunch = require('auto-launch');
 const { dirname, join, resolve } = require('path');
 const isDev = require('electron-is-dev');
 const protocolServe = require('electron-protocol-serve');
 const { menubar } = require('menubar');
 const { launchPicker } = require('./color-picker');
+const { restartDialog } = require('./dialogs');
 const { registerKeyboardShortcuts } = require('./shortcuts');
 const { setupUpdateServer } = require('./auto-update');
-const debug = require('electron-debug');
 
+const debug = require('electron-debug');
 debug({ showDevTools: false });
+
+const Store = require('electron-store');
+const store = new Store({
+  defaults: {
+    showDockIcon: false
+  }
+});
 
 const emberAppLocation = 'serve://dist';
 
@@ -41,7 +44,8 @@ const mb = menubar({
     '..',
     'resources/menubar-icons/iconTemplate.png'
   ),
-  preloadWindow: true
+  preloadWindow: true,
+  showDockIcon: store.get('showDockIcon')
 });
 
 mb.app.allowRendererProcessReuse = true;
@@ -64,15 +68,28 @@ if (process.platform === 'win32') {
 ipcMain.on('copyColorToClipboard', (channel, color) => {
   clipboard.writeText(color);
 });
+
 ipcMain.on('exitApp', () => mb.app.quit());
+
 ipcMain.on('launchContrastBgPicker', () => {
   launchPicker(mb, 'contrastBg');
 });
+
 ipcMain.on('launchContrastFgPicker', () => {
   launchPicker(mb, 'contrastFg');
 });
+
 ipcMain.on('launchPicker', () => {
   launchPicker(mb);
+});
+
+ipcMain.handle('getStoreValue', (event, key) => {
+  return store.get(key);
+});
+
+ipcMain.on('setShowDockIcon', (channel, showDockIcon) => {
+  store.set('showDockIcon', showDockIcon);
+  restartDialog();
 });
 
 // Registering a protocol & schema to serve our Ember application
@@ -112,7 +129,13 @@ mb.app.on('window-all-closed', () => {
   }
 });
 
-mb.on('after-create-window', function() {
+mb.app.on('activate', (event, hasVisibleWindows) => {
+  if (!hasVisibleWindows) {
+    mb.showWindow();
+  }
+});
+
+mb.on('after-create-window', function () {
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Color Picker',
@@ -181,7 +204,7 @@ mb.on('ready', () => {
   ipcMain.on('enableDisableAutoStart', (event, shouldEnable) => {
     // We only want to allow auto-start if in production mode
     if (!isDev) {
-      autoLaunch.isEnabled().then(isEnabled => {
+      autoLaunch.isEnabled().then((isEnabled) => {
         if (!isEnabled && shouldEnable) {
           autoLaunch.enable();
         } else if (isEnabled && !shouldEnable) {
@@ -214,7 +237,7 @@ if (!isDev) {
 // The correct use of 'uncaughtException' is to perform synchronous cleanup of allocated
 // resources (e.g. file descriptors, handles, etc) before shutting down the process. It is
 // not safe to resume normal operation after 'uncaughtException'.
-process.on('uncaughtException', err => {
+process.on('uncaughtException', (err) => {
   console.log('An exception in the main thread was not handled.');
   console.log(
     'This is a serious issue that needs to be handled and/or debugged.'

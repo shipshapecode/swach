@@ -10,7 +10,7 @@ module.exports = {
         'btn-bg-secondary-hover': 'var(--btn-bg-secondary-hover)',
         'btn-text-primary': 'var(--btn-text-primary)',
         'btn-text-secondary': 'var(--btn-text-secondary)',
-        'heading': 'var(--heading-color)',
+        heading: 'var(--heading-color)',
         'input-bg': 'var(--input-bg)',
         'input-border': 'var(--input-border)',
         main: 'var(--main-color)',
@@ -24,15 +24,15 @@ module.exports = {
         xxs: '0.5rem'
       }
     },
-    fill: theme => ({
-      'alt': theme('colors.alt'),
+    fill: (theme) => ({
+      alt: theme('colors.alt'),
       'alt-hover': theme('colors.alt-hover'),
-      'main': theme('colors.main')
+      main: theme('colors.main')
     }),
-    stroke: theme => ({
-      'alt': theme('colors.alt'),
+    stroke: (theme) => ({
+      alt: theme('colors.alt'),
       'alt-hover': theme('colors.alt-hover'),
-      'main': theme('colors.main')
+      main: theme('colors.main')
     })
   },
   variants: {},

@@ -11,7 +11,6 @@ module.exports = (dirname, route, title) => {
    * @return {void} [new Colorpicker]
    */
   let init = () => {
-
     if (win === null || win === undefined) createWindow();
     else win.show();
 
@@ -31,7 +30,7 @@ module.exports = (dirname, route, title) => {
       minWidth: 460,
       minHeight: 340,
       fullscreenable: false,
-      titleBarStyle: 'hidden', 
+      titleBarStyle: 'hidden',
       title,
       webPreferences: {
         contextIsolation: false,
@@ -47,8 +46,8 @@ module.exports = (dirname, route, title) => {
       win = undefined;
     });
 
-    win.on('page-title-updated', function(e) {
-      e.preventDefault()
+    win.on('page-title-updated', function (e) {
+      e.preventDefault();
     });
   };
 

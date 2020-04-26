@@ -10,7 +10,7 @@ export function startSentry() {
     integrations: [
       new Ember(),
       new CaptureConsole({
-        levels: [ 'error' ]
+        levels: ['error']
       })
     ],
     beforeSend(event, hint) {

@@ -33,9 +33,14 @@
             <button
               data-test-edit-color
               type="button"
-              {{on "click" (stop-propagation (fn @toggleColorPickerIsShown @color))}}
+              {{on
+                "click"
+                (stop-propagation (fn @toggleColorPickerIsShown @color))
+              }}
             >
-              {{svg-jar "pencil" class="stroke-icon mr-1" height="15" width="15"}}
+              {{
+                svg-jar "pencil" class="stroke-icon mr-1" height="15" width="15"
+              }}
             </button>
             <button
               data-test-go-to-kuler
@@ -52,7 +57,8 @@
                 {{on "click" (stop-propagation (fn this.deleteColor @color))}}
                 {{on "mouseleave" (set this.deleteConfirm false)}}
               >
-                {{svg-jar
+                {{
+                  svg-jar
                   "trash"
                   class=(concat
                     "icon " (if this.deleteConfirm "delete-confirm")

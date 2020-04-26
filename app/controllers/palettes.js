@@ -14,10 +14,7 @@ export default class PalettesController extends Controller {
   get last16Colors() {
     const colors =
       (this.model.colorHistory && this.model.colorHistory.colors) || [];
-    return colors
-      .sortBy('createdAt')
-      .reverse()
-      .slice(0, 16);
+    return colors.sortBy('createdAt').reverse().slice(0, 16);
   }
 
   @computed('model.palettes.[]', 'showFavorites')
@@ -78,7 +75,7 @@ export default class PalettesController extends Controller {
     // Dragging color out of color history
     if (get(sourceArgs, 'isColorHistory')) {
       if (sourceList !== targetList) {
-        const colorsList = targetList.map(color => {
+        const colorsList = targetList.map((color) => {
           return { type: 'color', id: color.id };
         });
 
@@ -93,7 +90,7 @@ export default class PalettesController extends Controller {
           id: item.id
         });
 
-        await this.store.update(t => {
+        await this.store.update((t) => {
           const operations = [];
 
           operations.push(
@@ -118,7 +115,7 @@ export default class PalettesController extends Controller {
     } else {
       const sourceColor = sourceList.objectAt(sourceIndex);
 
-      const sourceColorList = sourceList.map(color => {
+      const sourceColorList = sourceList.map((color) => {
         return { type: 'color', id: color.id };
       });
 
@@ -126,7 +123,7 @@ export default class PalettesController extends Controller {
 
       sourceColorList.removeObject(colorToRemove);
 
-      await this.store.update(t => {
+      await this.store.update((t) => {
         const operations = [];
 
         operations.push(
@@ -146,7 +143,7 @@ export default class PalettesController extends Controller {
         );
 
         if (!get(targetArgs, 'isColorHistory')) {
-          const targetColorsList = targetList.map(color => {
+          const targetColorsList = targetList.map((color) => {
             return { type: 'color', id: color.id };
           });
 

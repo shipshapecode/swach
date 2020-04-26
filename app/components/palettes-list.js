@@ -11,10 +11,7 @@ export default class PalettesListComponent extends Component {
    * has reordered them.
    */
   get orderedPalettes() {
-    return this.args.palettes
-      .sortBy('createdAt')
-      .reverse()
-      .sortBy('index');
+    return this.args.palettes.sortBy('createdAt').reverse().sortBy('index');
   }
 
   @action
@@ -26,7 +23,7 @@ export default class PalettesListComponent extends Component {
     sourceList.removeAt(sourceIndex);
     targetList.insertAt(targetIndex, movedItem);
 
-    await this.store.update(t => {
+    await this.store.update((t) => {
       const operations = [];
 
       targetList.forEach((palette, index) => {

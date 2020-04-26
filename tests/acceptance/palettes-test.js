@@ -1,27 +1,33 @@
 import { module, test } from 'qunit';
-import { click, currentURL, find, triggerEvent, visit } from '@ember/test-helpers';
+import {
+  click,
+  currentURL,
+  find,
+  triggerEvent,
+  visit
+} from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { move, sort } from 'ember-drag-sort/utils/trigger';
 import { triggerContextMenu } from 'ember-context-menu/test-support';
 import { waitForAll } from '../helpers';
 import seedOrbit from '../orbit/seed';
 
-module('Acceptance | palettes', function(hooks) {
+module('Acceptance | palettes', function (hooks) {
   setupApplicationTest(hooks);
 
-  hooks.beforeEach(async function() {
+  hooks.beforeEach(async function () {
     await seedOrbit(this.owner);
   });
 
-  test('visiting /palettes', async function(assert) {
+  test('visiting /palettes', async function (assert) {
     await visit('/palettes');
 
     assert.equal(currentURL(), '/palettes');
     assert.dom('[data-test-palette-row]').exists({ count: 3 });
   });
 
-  module('context menu', function() {
-    test('context menu can be triggered', async function(assert) {
+  module('context menu', function () {
+    test('context menu can be triggered', async function (assert) {
       await visit('/palettes');
 
       assert.notOk(
@@ -53,7 +59,7 @@ module('Acceptance | palettes', function(hooks) {
         .doesNotHaveClass('context-menu__item--disabled');
     });
 
-    test('options disabled when palette is locked', async function(assert) {
+    test('options disabled when palette is locked', async function (assert) {
       await visit('/palettes');
 
       assert.notOk(
@@ -86,8 +92,8 @@ module('Acceptance | palettes', function(hooks) {
     });
   });
 
-  module('drag/drop colors', function() {
-    test('rearranging colors in palette', async function(assert) {
+  module('drag/drop colors', function () {
+    test('rearranging colors in palette', async function (assert) {
       await visit('/palettes');
 
       let sourceList = find(
@@ -111,7 +117,7 @@ module('Acceptance | palettes', function(hooks) {
         .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
     });
 
-    test('undo/redo - rearranging colors in palette', async function(assert) {
+    test('undo/redo - rearranging colors in palette', async function (assert) {
       await visit('/palettes');
 
       let sourceList = find(
@@ -164,7 +170,7 @@ module('Acceptance | palettes', function(hooks) {
         .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
     });
 
-    test('locked palette does not allow rearranging colors', async function(assert) {
+    test('locked palette does not allow rearranging colors', async function (assert) {
       await visit('/palettes');
 
       let sourceList = find(
@@ -186,7 +192,7 @@ module('Acceptance | palettes', function(hooks) {
       assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
     });
 
-    test('moving colors between palettes', async function(assert) {
+    test('moving colors between palettes', async function (assert) {
       await visit('/palettes');
 
       let targetList = find(
@@ -232,7 +238,7 @@ module('Acceptance | palettes', function(hooks) {
         .hasStyle({ backgroundColor: 'rgb(176, 245, 102)' });
     });
 
-    test('locked palette does not allow moving colors in', async function(assert) {
+    test('locked palette does not allow moving colors in', async function (assert) {
       await visit('/palettes');
 
       let targetList = find(
@@ -278,7 +284,7 @@ module('Acceptance | palettes', function(hooks) {
         .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
     });
 
-    test('locked palette does not allow moving colors out', async function(assert) {
+    test('locked palette does not allow moving colors out', async function (assert) {
       await visit('/palettes');
 
       let targetList = find(
@@ -325,7 +331,7 @@ module('Acceptance | palettes', function(hooks) {
     });
   });
 
-  test('creating palettes and undo / redo', async function(assert) {
+  test('creating palettes and undo / redo', async function (assert) {
     await visit('/palettes');
 
     assert.dom('[data-test-palette-row]').exists({ count: 3 });

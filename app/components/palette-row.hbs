@@ -1,4 +1,4 @@
-{{!-- template-lint-disable no-nested-interactive --}}
+{{! template-lint-disable no-nested-interactive }}
 <div
   class="bg-menu cursor-default mb-3 p-3 rounded w-full"
   data-test-palette-row="{{@palette.name}}"
@@ -38,7 +38,8 @@
             type="button"
             {{on "click" (stop-propagation (fn this.lockPalette))}}
           >
-            {{svg-jar
+            {{
+              svg-jar
               (if @palette.isLocked "lock" "unlock")
               class="icon"
               height="13"
@@ -52,7 +53,8 @@
             type="button"
             {{on "click" (stop-propagation (fn this.favoritePalette))}}
           >
-            {{svg-jar
+            {{
+              svg-jar
               (if @palette.isFavorite "filled-heart" "outline-heart")
               class=(concat "icon " (if @palette.isFavorite "filled"))
               height="13"
@@ -67,7 +69,8 @@
             {{on "click" (stop-propagation (fn this.deletePalette))}}
             {{on "mouseleave" (set this.deleteConfirm false)}}
           >
-            {{svg-jar
+            {{
+              svg-jar
               "trash"
               class=(concat "icon " (if this.deleteConfirm "delete-confirm"))
               height="13"
@@ -114,7 +117,10 @@
           {{if (eq index 0) "rounded-l"}}
            {{if (eq index (sub @palette.colors.length 1)) "rounded-r"}}"
           style={{html-safe (concat "background-color: " color.hex)}}
-          {{on "click" (stop-propagation (fn this.colorUtils.copyColorToClipboard color))}}
+          {{on
+            "click"
+            (stop-propagation (fn this.colorUtils.copyColorToClipboard color))
+          }}
         ></div>
         <div
           class="opacity-checkerboard absolute h-full left-0 top-0 w-full z-0

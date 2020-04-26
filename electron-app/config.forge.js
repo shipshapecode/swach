@@ -9,7 +9,8 @@ module.exports = {
       'entitlements-inherit': 'electron-app/src/entitlements.plist',
       'gatekeeper-assess': false,
       hardenedRuntime: true,
-      identity: 'Developer ID Application: Ship Shape Consulting LLC (779MXKT6B5)'
+      identity:
+        'Developer ID Application: Ship Shape Consulting LLC (779MXKT6B5)'
     },
     osxNotarize: {
       appleId: process.env['APPLE_ID'],
@@ -25,7 +26,8 @@ module.exports = {
           bin: 'Swach',
           name: 'swach',
           productName: 'Swach',
-          productDescription: 'A robust color management tool for the modern age.',
+          productDescription:
+            'A robust color management tool for the modern age.',
           maintainer: 'Ship Shape Consulting LLC',
           homepage: 'https://swach.io',
           icon: 'electron-app/resources/icon.png'

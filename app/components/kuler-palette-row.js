@@ -31,7 +31,7 @@ export default class KulerPaletteRowComponent extends Component {
     const { palette } = this.args;
     const { colors } = palette;
 
-    await this.store.update(t => {
+    await this.store.update((t) => {
       let paletteOperation = t.addRecord({
         type: 'palette',
         attributes: {
@@ -46,7 +46,7 @@ export default class KulerPaletteRowComponent extends Component {
 
       const paletteId = paletteOperation.record.id;
 
-      const colorOperations = colors.map(color => {
+      const colorOperations = colors.map((color) => {
         const { createdAt, hex, name, r, g, b, a } = color;
 
         return t.addRecord({
@@ -62,7 +62,7 @@ export default class KulerPaletteRowComponent extends Component {
           }
         });
       });
-      const colorsList = colorOperations.map(op => {
+      const colorsList = colorOperations.map((op) => {
         return { type: 'color', id: op.record.id };
       });
 

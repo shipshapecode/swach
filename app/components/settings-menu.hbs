@@ -11,12 +11,11 @@
       Start Swach on system startup
     </label>
 
-     <label class="block">
+    <label class="block">
       <Input
         data-test-settings-show-dock-icon
         @type="checkbox"
         @checked={{this.settings.showDockIcon}}
-        
         {{on "change" this.toggleShowDockIcon}}
       />
 

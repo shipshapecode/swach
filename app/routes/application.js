@@ -13,7 +13,7 @@ export default class ApplicationRoute extends Route {
       const backup = this.dataCoordinator.getSource('backup');
 
       if (backup) {
-        const transform = await backup.pull(q => q.findRecords());
+        const transform = await backup.pull((q) => q.findRecords());
         await this.store.sync(transform);
       }
     }

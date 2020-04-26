@@ -37,7 +37,7 @@ export default class UndoManager extends Service {
             : false;
         const isUndo = ctrl && key === 90;
         const isRedo = isUndo && e.shiftKey;
-  
+
         if (isRedo) {
           if (!this.isExecuting && this.hasRedo()) {
             await this.redo();
@@ -49,7 +49,7 @@ export default class UndoManager extends Service {
         }
       }
     };
-    
+
     document.addEventListener('keydown', this.undoListener, true);
   }
 

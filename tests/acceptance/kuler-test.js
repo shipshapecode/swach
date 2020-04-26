@@ -6,20 +6,20 @@ import { animationsSettled } from 'ember-animated/test-support';
 import { waitForAll } from '../helpers';
 import { selectChoose } from 'ember-power-select/test-support';
 
-module('Acceptance | kuler', function(hooks) {
+module('Acceptance | kuler', function (hooks) {
   setupApplicationTest(hooks);
 
-  hooks.beforeEach(async function() {
+  hooks.beforeEach(async function () {
     await seedOrbit(this.owner);
 
     await visit('/kuler?colorId=pale-magenta');
   });
 
-  test('visiting /kuler with query parameters', function(assert) {
+  test('visiting /kuler with query parameters', function (assert) {
     assert.equal(currentURL(), '/kuler?colorId=pale-magenta');
   });
 
-  test('analogous palette', async function(assert) {
+  test('analogous palette', async function (assert) {
     await selectChoose('[data-test-kuler-select]', 'Analogous');
 
     assert
@@ -35,7 +35,7 @@ module('Acceptance | kuler', function(hooks) {
       .exists({ count: 5 });
   });
 
-  test('monochromatic palette', async function(assert) {
+  test('monochromatic palette', async function (assert) {
     await selectChoose('[data-test-kuler-select]', 'Monochromatic');
 
     assert
@@ -91,7 +91,7 @@ module('Acceptance | kuler', function(hooks) {
       });
   });
 
-  test('tetrad palette', async function(assert) {
+  test('tetrad palette', async function (assert) {
     await selectChoose('[data-test-kuler-select]', 'Tetrad');
 
     assert
@@ -103,7 +103,7 @@ module('Acceptance | kuler', function(hooks) {
       .exists({ count: 4 });
   });
 
-  test('triad palette', async function(assert) {
+  test('triad palette', async function (assert) {
     await selectChoose('[data-test-kuler-select]', 'Triad');
 
     assert
@@ -141,8 +141,6 @@ module('Acceptance | kuler', function(hooks) {
       '[data-test-palette-color-square]'
     )[2];
 
-    assert
-      .dom(thirdColor)
-      .hasStyle({ backgroundColor: 'rgb(138, 224, 247)' });
+    assert.dom(thirdColor).hasStyle({ backgroundColor: 'rgb(138, 224, 247)' });
   });
 });

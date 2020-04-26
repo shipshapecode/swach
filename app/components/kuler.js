@@ -6,16 +6,16 @@ import { tracked } from '@glimmer/tracking';
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
 
-iro.ColorPicker.prototype.setColors = function(
+iro.ColorPicker.prototype.setColors = function (
   newColorValues,
   selectedIndex = 0
 ) {
   // Unbind color events
-  this.colors.forEach(color => color.unbind());
+  this.colors.forEach((color) => color.unbind());
   // Destroy old colors
   this.colors = [];
   // Add new colors
-  newColorValues.forEach(colorValue => this.addColor(colorValue));
+  newColorValues.forEach((colorValue) => this.addColor(colorValue));
   // Reset active color
   this.setActiveColor(selectedIndex);
 };
@@ -61,11 +61,11 @@ export default class KulerComponent extends Component {
 
       let colors = new TinyColor(this.baseColor.hex)[harmony](5);
       colors = await Promise.all(
-        colors.map(async color => {
+        colors.map(async (color) => {
           return this.colorUtils.createColorPOJO(color.toHexString());
         })
       );
-      colors = colors.map(color => color.attributes);
+      colors = colors.map((color) => color.attributes);
 
       palette.colors.pushObjects(colors);
       this.palettes.pushObject(palette);
@@ -117,10 +117,10 @@ export default class KulerComponent extends Component {
     //   this.baseColor = newColor.attributes;
     //   await this.baseColorChanged();
     // } else {
-      const newColor = await this.colorUtils.createColorPOJO(color.rgba);
-      this.selectedPalette.colors.replace(selectedColorIndex, 1, [
-        newColor.attributes
-      ]);
+    const newColor = await this.colorUtils.createColorPOJO(color.rgba);
+    this.selectedPalette.colors.replace(selectedColorIndex, 1, [
+      newColor.attributes
+    ]);
     // }
   }
 

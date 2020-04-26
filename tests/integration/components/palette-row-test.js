@@ -4,10 +4,10 @@ import { click, render, triggerEvent } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { waitForAll } from '../../helpers';
 
-module('Integration | Component | palette-row', function(hooks) {
+module('Integration | Component | palette-row', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('delete requires confirm', async function(assert) {
+  test('delete requires confirm', async function (assert) {
     this.set('palette', {
       colorOrder: [],
       isLocked: false,

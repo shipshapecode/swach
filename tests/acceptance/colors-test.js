@@ -11,14 +11,14 @@ import { animationsSettled } from 'ember-animated/test-support';
 import { waitForAll } from '../helpers';
 import seedOrbit from '../orbit/seed';
 
-module('Acceptance | colors', function(hooks) {
+module('Acceptance | colors', function (hooks) {
   setupApplicationTest(hooks);
-  
-  hooks.beforeEach(async function() {
+
+  hooks.beforeEach(async function () {
     await seedOrbit(this.owner);
   });
 
-  test('visiting /colors', async function(assert) {
+  test('visiting /colors', async function (assert) {
     await visit('/colors?paletteId=color-history-123');
 
     assert.equal(currentURL(), '/colors?paletteId=color-history-123');
@@ -34,7 +34,7 @@ module('Acceptance | colors', function(hooks) {
       .hasText('#000000');
   });
 
-  test('edit color - cancel', async function(assert) {
+  test('edit color - cancel', async function (assert) {
     await visit('/colors?paletteId=color-history-123');
 
     assert.dom('[data-test-color]').exists({ count: 4 });
@@ -62,7 +62,7 @@ module('Acceptance | colors', function(hooks) {
     assert.dom('[data-test-color="Red"]').doesNotExist();
   });
 
-  test('edit color - save', async function(assert) {
+  test('edit color - save', async function (assert) {
     await visit('/colors?paletteId=color-history-123');
 
     assert.dom('[data-test-color]').exists({ count: 4 });
@@ -95,7 +95,7 @@ module('Acceptance | colors', function(hooks) {
     assert.dom('[data-test-color="Red"]').exists();
   });
 
-  test('deleting colors', async function(assert) {
+  test('deleting colors', async function (assert) {
     await visit('/colors?paletteId=color-history-123');
 
     assert.dom('[data-test-color]').exists({ count: 4 });
@@ -136,8 +136,8 @@ module('Acceptance | colors', function(hooks) {
 
     assert.dom('[data-test-color]').exists({ count: 3 });
   });
-  
-  test('go to kuler', async function(assert) {
+
+  test('go to kuler', async function (assert) {
     await visit('/colors?paletteId=color-history-123');
 
     assert.dom('[data-test-color]').exists({ count: 4 });

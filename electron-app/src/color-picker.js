@@ -2,7 +2,7 @@ const { getColorHexRGB } = require('electron-color-picker');
 
 async function launchPicker(mb, type = 'global') {
   getColorHexRGB()
-    .then(color => {
+    .then((color) => {
       mb.showWindow();
       if (type === 'global') {
         mb.window.webContents.send('changeColor', color);
@@ -14,7 +14,7 @@ async function launchPicker(mb, type = 'global') {
         mb.window.webContents.send('pickContrastFgColor', color);
       }
     })
-    .catch(error => {
+    .catch((error) => {
       console.warn(`[ERROR] getColor`, error);
       return '';
     });

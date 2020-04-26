@@ -1,6 +1,6 @@
 const { autoUpdater, dialog } = require('electron');
 
-const setupUpdateServer = app => {
+const setupUpdateServer = (app) => {
   const server = 'https://hazel.rwwagner90.now.sh';
   const feed = `${server}/update/${process.platform}/${app.getVersion()}`;
 
@@ -20,12 +20,12 @@ const setupUpdateServer = app => {
         'A new version has been downloaded. Restart the application to apply the updates.'
     };
 
-    dialog.showMessageBox(dialogOpts).then(returnValue => {
+    dialog.showMessageBox(dialogOpts).then((returnValue) => {
       if (returnValue.response === 0) autoUpdater.quitAndInstall();
     });
   });
 
-  autoUpdater.on('error', message => {
+  autoUpdater.on('error', (message) => {
     console.error('There was a problem updating the application');
     console.error(message);
   });

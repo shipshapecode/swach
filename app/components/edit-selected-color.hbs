@@ -23,12 +23,8 @@
       data-test-kuler-g
       class="bg-input-bg text-right text-xs w-full"
       @decimal={{false}}
-      @options={{hash
-        allowMinus=false
-        min=0
-        max=255
-        step=1
-        unmaskAsNumber=true
+      @options={{
+        hash allowMinus=false min=0 max=255 step=1 unmaskAsNumber=true
       }}
       @update={{fn this.updateColor "r"}}
       @value={{this.selectedColor.r}}
@@ -46,12 +42,8 @@
       data-test-kuler-g
       class="bg-input-bg text-right text-xs w-full"
       @decimal={{false}}
-      @options={{hash
-        allowMinus=false
-        min=0
-        max=255
-        step=1
-        unmaskAsNumber=true
+      @options={{
+        hash allowMinus=false min=0 max=255 step=1 unmaskAsNumber=true
       }}
       @update={{fn this.updateColor "g"}}
       @value={{this.selectedColor.g}}
@@ -69,12 +61,8 @@
       data-test-kuler-b
       class="bg-input-bg text-right text-xs w-full"
       @decimal={{false}}
-      @options={{hash
-        allowMinus=false
-        min=0
-        max=255
-        step=1
-        unmaskAsNumber=true
+      @options={{
+        hash allowMinus=false min=0 max=255 step=1 unmaskAsNumber=true
       }}
       @update={{fn this.updateColor "b"}}
       @value={{this.selectedColor.b}}
@@ -92,12 +80,8 @@
       data-test-kuler-a
       class="bg-input-bg text-right text-xs w-full"
       @decimal={{true}}
-      @options={{hash
-        allowMinus=false
-        min=0
-        max=1
-        step=0.01
-        unmaskAsNumber=true
+      @options={{
+        hash allowMinus=false min=0 max=1 step=0.01 unmaskAsNumber=true
       }}
       @update={{fn this.updateColor "a"}}
       @value={{this.selectedColor.a}}

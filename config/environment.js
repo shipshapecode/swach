@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'swach',
     environment,
@@ -66,7 +66,8 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.sentry.dsn = 'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140';
+    ENV.sentry.dsn =
+      'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140';
   }
 
   return ENV;

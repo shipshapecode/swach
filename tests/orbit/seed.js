@@ -4,14 +4,14 @@ import palettes from './fixtures/palettes';
 export default async function seedOrbit(owner) {
   const store = owner.lookup('service:store');
 
-  await store.update(t => {
+  await store.update((t) => {
     const operations = [];
 
-    colors.forEach(color => {
+    colors.forEach((color) => {
       operations.push(t.addRecord(color));
     });
 
-    palettes.forEach(palette => {
+    palettes.forEach((palette) => {
       operations.push(t.addRecord(palette));
 
       const { id } = palette;

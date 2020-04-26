@@ -76,7 +76,7 @@ export default class PaletteRowComponent extends Component.extend(
 
   @computed('palette.{colors.[],colorOrder.[]}')
   get sortedColors() {
-    return this.palette.colorOrder.map(color => {
+    return this.palette.colorOrder.map((color) => {
       return this.palette.colors.findBy('id', color.id);
     });
   }
@@ -120,7 +120,7 @@ export default class PaletteRowComponent extends Component.extend(
   async deletePalette() {
     if (!this.palette.isLocked) {
       if (this.deleteConfirm) {
-        await this.store.update(t => t.removeRecord(this.palette));
+        await this.store.update((t) => t.removeRecord(this.palette));
         this.undoManager.setupUndoRedo();
       }
 
@@ -131,7 +131,7 @@ export default class PaletteRowComponent extends Component.extend(
   @action
   async deletePaletteContextMenu() {
     if (!this.palette.isLocked) {
-      await this.store.update(t => t.removeRecord(this.palette));
+      await this.store.update((t) => t.removeRecord(this.palette));
       this.undoManager.setupUndoRedo();
     }
   }
@@ -140,7 +140,7 @@ export default class PaletteRowComponent extends Component.extend(
   async duplicatePalette() {
     const paletteCopy = clone(this.palette.getData());
     delete paletteCopy.id;
-    await this.store.update(t => t.addRecord(paletteCopy));
+    await this.store.update((t) => t.addRecord(paletteCopy));
 
     this.undoManager.setupUndoRedo();
   }

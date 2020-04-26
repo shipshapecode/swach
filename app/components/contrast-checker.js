@@ -55,7 +55,7 @@ export default class ContrastChecker extends Component {
       width: 140
     });
 
-    this.onBgChange = color => {
+    this.onBgChange = (color) => {
       if (color) {
         this.backgroundColor = color.hexString;
       }
@@ -86,7 +86,7 @@ export default class ContrastChecker extends Component {
       width: 140
     });
 
-    this.onFgChange = color => {
+    this.onFgChange = (color) => {
       if (color) {
         this.foregroundColor = color.hexString;
       }

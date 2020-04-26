@@ -6,7 +6,7 @@ import { TinyColor } from '@ctrl/tinycolor';
 
 export default class EditSelectedColorComponent extends Component {
   @service colorUtils;
-  
+
   get selectedColor() {
     const { palette } = this.args;
     if (palette) {

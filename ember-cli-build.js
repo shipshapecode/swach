@@ -12,11 +12,11 @@ const purgeCSS = {
       './app/components/**/*.hbs',
       './app/templates/**/*.hbs'
     ],
-    defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
+    defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/g) || []
   }
-}
+};
 
-module.exports = function(defaults) {
+module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
     babel: {
       plugins: ['@babel/plugin-proposal-object-rest-spread']
@@ -34,7 +34,7 @@ module.exports = function(defaults) {
           },
           require('tailwindcss')('./tailwind.config.js'),
           require('postcss-nested'),
-          ...isProduction ? [purgeCSS] : []
+          ...(isProduction ? [purgeCSS] : [])
         ]
       }
     }

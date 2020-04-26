@@ -45,11 +45,12 @@ export default class ApplicationController extends Controller {
     return OSTheme || 'light';
   }
 
-  init() {
-    super.init(...arguments);
+  constructor() {
+    super(...arguments);
 
     if (typeof requireNode !== 'undefined') {
       let { ipcRenderer } = requireNode('electron');
+
       this.ipcRenderer = ipcRenderer;
 
       this.ipcRenderer.on('changeColor', async (event, color) => {
@@ -68,6 +69,11 @@ export default class ApplicationController extends Controller {
       // We have to initially set this, in case somehow the checkbox gets out of sync
       const shouldEnableAutoStart = get(this, 'settings.openOnStartup'); // eslint-disable-line ember/no-get
       this.ipcRenderer.send('enableDisableAutoStart', shouldEnableAutoStart);
+
+      this.ipcRenderer.on('replyStoreValue', (event, key, value) => {
+        set(this, `settings.${key}`, value);
+      });
+      this.ipcRenderer.send('requestStoreValue', 'showDockIcon');
     }
   }
 

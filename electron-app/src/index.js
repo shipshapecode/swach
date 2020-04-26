@@ -5,11 +5,19 @@ const isDev = require('electron-is-dev');
 const protocolServe = require('electron-protocol-serve');
 const { menubar } = require('menubar');
 const { launchPicker } = require('./color-picker');
+const { restartDialog } = require('./dialogs');
 const { registerKeyboardShortcuts } = require('./shortcuts');
 const { setupUpdateServer } = require('./auto-update');
-const debug = require('electron-debug');
 
+const debug = require('electron-debug');
 debug({ showDevTools: false });
+
+const Store = require('electron-store');
+const store = new Store({
+  defaults: {
+    showDockIcon: false
+  }
+});
 
 const emberAppLocation = 'serve://dist';
 
@@ -37,7 +45,7 @@ const mb = menubar({
     'resources/menubar-icons/iconTemplate.png'
   ),
   preloadWindow: true,
-  showDockIcon: true
+  showDockIcon: store.get('showDockIcon')
 });
 
 mb.app.allowRendererProcessReuse = true;
@@ -60,24 +68,28 @@ if (process.platform === 'win32') {
 ipcMain.on('copyColorToClipboard', (channel, color) => {
   clipboard.writeText(color);
 });
+
 ipcMain.on('exitApp', () => mb.app.quit());
+
 ipcMain.on('launchContrastBgPicker', () => {
   launchPicker(mb, 'contrastBg');
 });
+
 ipcMain.on('launchContrastFgPicker', () => {
   launchPicker(mb, 'contrastFg');
 });
+
 ipcMain.on('launchPicker', () => {
   launchPicker(mb);
 });
-ipcMain.on('showHideDockIcon', (channel, show = true) => {
-  if (process.platform === 'darwin') {
-    if (show) {
-      mb.app.dock.show();
-    } else {
-      mb.app.dock.hide();
-    }
-  }
+
+ipcMain.on('requestStoreValue', (event, key) => {
+  event.sender.send('replyStoreValue', key, store.get(key));
+});
+
+ipcMain.on('setShowDockIcon', (channel, showDockIcon) => {
+  store.set('showDockIcon', showDockIcon);
+  restartDialog();
 });
 
 // Registering a protocol & schema to serve our Ember application
@@ -120,8 +132,6 @@ mb.app.on('window-all-closed', () => {
 mb.app.on('activate', (event, hasVisibleWindows) => {
   if (!hasVisibleWindows) {
     mb.showWindow();
-  } else {
-    mb.hideWindow();
   }
 });
 

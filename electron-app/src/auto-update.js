@@ -12,7 +12,7 @@ const setupUpdateServer = app => {
 
   autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
     const dialogOpts = {
-      type: 'info',
+      type: 'question',
       buttons: ['Restart', 'Later'],
       title: 'Application Update',
       message: process.platform === 'win32' ? releaseNotes : releaseName,

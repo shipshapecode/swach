@@ -33,7 +33,7 @@ export default class SettingsMenu extends Component {
   toggleShowDockIcon(event) {
     const showDockIcon = event.target.checked;
     set(this, 'settings.showDockIcon', showDockIcon);
-    this.ipcRenderer.send('showHideDockIcon', showDockIcon);
+    this.ipcRenderer.send('setShowDockIcon', showDockIcon);
   }
 
   @action

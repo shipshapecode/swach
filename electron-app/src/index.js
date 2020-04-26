@@ -176,6 +176,8 @@ mb.on('ready', () => {
     mb.window.loadURL(emberAppLocation);
   });
 
+  mb.showWindow();
+
   mb.window.webContents.on('crashed', () => {
     console.log(
       'Your Ember app (or other code) in the main window has crashed.'

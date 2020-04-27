@@ -26,6 +26,12 @@ function openContrastChecker(mb) {
   mb.window.webContents.send('openContrastChecker');
 }
 
+let menubarIcon = 'resources/menubar-icons/iconTemplate.png';
+
+if (process.platform === 'win32') {
+  menubarIcon = 'resources/icon.ico';
+}
+
 const mb = menubar({
   index: false,
   browserWindow: {
@@ -39,11 +45,7 @@ const mb = menubar({
       nodeIntegration: true
     }
   },
-  icon: join(
-    __dirname || resolve(dirname('')),
-    '..',
-    'resources/menubar-icons/iconTemplate.png'
-  ),
+  icon: join(__dirname || resolve(dirname('')), '..', menubarIcon),
   preloadWindow: true,
   showDockIcon: store.get('showDockIcon')
 });

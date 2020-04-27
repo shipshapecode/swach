@@ -36,7 +36,7 @@
     "@fullhuman/postcss-purgecss": "^2.1.2",
     "@glimmer/component": "^1.0.0",
     "@glimmer/tracking": "^1.0.0",
-    "@jaames/iro": "5.1.6",
+    "@jaames/iro": "5.1.7",
     "@orbit/indexeddb": "^0.16.5",
     "@orbit/jsonapi": "^0.16.5",
     "@sentry/browser": "^5.15.5",

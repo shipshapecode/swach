@@ -1275,10 +1275,10 @@
   resolved "https://registry.yarnpkg.com/@irojs/iro-core/-/iro-core-1.0.0.tgz#8cbd19c699c59f70b3c3a773fb7ca2985de5f367"
   integrity sha512-7vup43KLDtLuurfVXmhFnnNxtDVQ5JvjQglo5yZDM5DcHwSF3XeEjyeerM5nE6Me1QmAoKRGNDz4QVhzQI1OBw==
 
-"@jaames/iro@5.1.6":
-  version "5.1.6"
-  resolved "https://registry.yarnpkg.com/@jaames/iro/-/iro-5.1.6.tgz#b8b7901f0eb0e2917f6aee7317c1b4d997279fc1"
-  integrity sha512-n2ejz7j3QzMSoGitEPNlO5IicrkeYl9EZkPRYN3fSN8zBfqUsvM6Ch2wldpTEdroSOEPxmBu0nnzps8EqPbI6w==
+"@jaames/iro@5.1.7":
+  version "5.1.7"
+  resolved "https://registry.yarnpkg.com/@jaames/iro/-/iro-5.1.7.tgz#729389297014e9621afa684b7c4235a3c47fea87"
+  integrity sha512-uHFsCQf8Nf4hdABy3mJENYHlxVfS2nXPttF516kUNtlBXBLY31Q2sQBUXO1103YcqAuB70InL3tv0i9ndTAARA==
   dependencies:
     "@irojs/iro-core" "^1.0.0"
     preact "^10.0.0"

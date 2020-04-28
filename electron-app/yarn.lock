@@ -747,13 +747,6 @@ cacheable-request@^6.0.0:
     normalize-url "^4.1.0"
     responselike "^1.0.2"
 
-caller-id@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/caller-id/-/caller-id-0.1.0.tgz#59bdac0893d12c3871408279231f97458364f07b"
-  integrity sha1-Wb2sCJPRLDhxQIJ5Ix+XRYNk8Hs=
-  dependencies:
-    stack-trace "~0.0.7"
-
 camelcase-keys@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/camelcase-keys/-/camelcase-keys-2.1.0.tgz#308beeaffdf28119051efa1d932213c91b8f92e7"
@@ -1310,12 +1303,10 @@ electron-positioner@^4.1.0:
   resolved "https://registry.yarnpkg.com/electron-positioner/-/electron-positioner-4.1.0.tgz#e158f8f6aabd6725a8a9b4f2279b9504bcbea1b0"
   integrity sha512-726DfbI9ZNoCg+Fcu6XLuTKTnzf+6nFqv7h+K/V6Ug7IbaPMI7s9S8URnGtWFCy5N5PL4HSzRFF2mXuinftDdg==
 
-electron-protocol-serve@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/electron-protocol-serve/-/electron-protocol-serve-1.3.0.tgz#ebcc0afc785fa4f71bc1f17f1336681b13a707a2"
-  integrity sha1-68wK/HhfpPcbwfF/EzZoGxOnB6I=
-  dependencies:
-    mock-require "^2.0.1"
+electron-protocol-serve@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/electron-protocol-serve/-/electron-protocol-serve-1.4.0.tgz#c2dc986094b8138ae8f292995ce592090295745e"
+  integrity sha512-RZqtCQDuEES2sHjHux/Lauo8GQ2wBKqPgN4vBXQDq7NOlDQ+2cGXN57AH7riHSPhEsQ/XG73WWJAbedQgKqbEQ==
 
 electron-rebuild@^1.8.6:
   version "1.10.1"
@@ -2466,13 +2457,6 @@ mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@^0.5.4:
   dependencies:
     minimist "^1.2.5"
 
-mock-require@^2.0.1:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/mock-require/-/mock-require-2.0.2.tgz#1eaa71aad23013773d127dc7e91a3fbb4837d60d"
-  integrity sha1-HqpxqtIwE3c9En3H6Ro/u0g31g0=
-  dependencies:
-    caller-id "^0.1.0"
-
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -3388,11 +3372,6 @@ sshpk@^1.7.0:
     jsbn "~0.1.0"
     safer-buffer "^2.0.2"
     tweetnacl "~0.14.0"
-
-stack-trace@~0.0.7:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/stack-trace/-/stack-trace-0.0.10.tgz#547c70b347e8d32b4e108ea1a2a159e5fdde19c0"
-  integrity sha1-VHxws0fo0ytOEI6hoqFZ5f3eGcA=
 
 stream-buffers@~2.2.0:
   version "2.2.0"

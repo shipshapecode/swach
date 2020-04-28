@@ -28,7 +28,7 @@
     "electron-debug": "^3.0.1",
     "electron-is-dev": "^1.2.0",
     "electron-notification-state": "^1.0.4",
-    "electron-protocol-serve": "^1.3.0",
+    "electron-protocol-serve": "^1.4.0",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^5.1.1",
     "menubar": "^8.0.1"

@@ -854,10 +854,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@ctrl/tinycolor@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-3.0.2.tgz#35279ce126588539443fd2fda695177438b6f430"
-  integrity sha512-Gh4rBwCqLlRowVqmNqbW3xRvQYbPlbnu6iudlZhsTcP/Ifo7q2rSQ2D8BSNUm7MNOozzn7t3buJNBF6RXvPq+g==
+"@ctrl/tinycolor@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-3.1.0.tgz#aeeb39271e0a797196a40e988558842610d2e1a5"
+  integrity sha512-J92yG122XoF+UiuQSzBgV451vSm9B0xMb5oGs7vgZijYZtNc80hNep/KbgUeBbj5f+YHehrmbAHlg/yBGX3/+w==
 
 "@electron-forge/async-ora@6.0.0-beta.47":
   version "6.0.0-beta.47"

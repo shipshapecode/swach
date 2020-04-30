@@ -27,7 +27,7 @@
     "test:ember": "ember test"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
+    "@babel/core": "^7.9.6",
     "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
     "@ctrl/tinycolor": "^3.1.0",
     "@ember/jquery": "^1.1.0",

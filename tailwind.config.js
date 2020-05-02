@@ -1,4 +1,15 @@
+const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const isProduction = EmberApp.env() === 'production';
+
 module.exports = {
+  purge: {
+    enabled: isProduction,
+    content: [
+      './app/index.html',
+      './app/components/**/*.hbs',
+      './app/templates/**/*.hbs'
+    ]
+  },
   theme: {
     extend: {
       colors: {

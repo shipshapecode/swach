@@ -45,4 +45,7 @@ export default function () {
     this.use('toLeft', transitionOptions),
     this.reverse('toRight', transitionOptions)
   );
+
+  // This is a default transition when transitioning to palettes from the welcome screen
+  this.transition(this.toRoute('palettes'), this.use('crossFade'));
 }

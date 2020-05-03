@@ -25,6 +25,7 @@ let emberAppLocation = 'serve://dist';
 // On first boot of the application, go through the welcome screen
 if (store.get('firstRun')) {
   emberAppLocation = `${emberAppLocation}/welcome`;
+  store.set('firstRun', false);
 }
 
 function openContrastChecker(mb) {

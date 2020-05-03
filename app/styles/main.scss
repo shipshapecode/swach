@@ -17,12 +17,12 @@ body {
   }
 }
 
-a:not(.btn):not(.btn-primary) {
-  @apply cursor-default text-alt;
+a {
+  @apply cursor-default;
   transition: color 0.25s, background-color 0.25s;
 
   &:hover {
-    @apply cursor-default text-alt-hover;
+    @apply cursor-default;
   }
 }
 

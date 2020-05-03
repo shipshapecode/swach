@@ -31,4 +31,18 @@ export default function () {
     this.use('toLeft', transitionOptions),
     this.reverse('toRight', transitionOptions)
   );
+
+  this.transition(
+    this.fromRoute('welcome.index'),
+    this.toRoute('welcome.auto-start'),
+    this.use('toLeft', transitionOptions),
+    this.reverse('toRight', transitionOptions)
+  );
+
+  this.transition(
+    this.fromRoute('welcome.auto-start'),
+    this.toRoute('welcome.dock-icon'),
+    this.use('toLeft', transitionOptions),
+    this.reverse('toRight', transitionOptions)
+  );
 }

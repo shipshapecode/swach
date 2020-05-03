@@ -12,4 +12,8 @@ Router.map(function () {
   this.route('kuler');
   this.route('palettes');
   this.route('settings');
+  this.route('welcome', function() {
+    this.route('auto-start');
+    this.route('dock-icon');
+  });
 });

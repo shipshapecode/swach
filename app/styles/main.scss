@@ -17,7 +17,7 @@ body {
   }
 }
 
-a {
+a:not(.btn):not(.btn-primary) {
   @apply cursor-default text-alt;
   transition: color 0.25s, background-color 0.25s;
 

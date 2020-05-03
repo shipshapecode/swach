@@ -137,12 +137,6 @@ mb.app.on('window-all-closed', () => {
   }
 });
 
-mb.app.on('activate', (event, hasVisibleWindows) => {
-  if (!hasVisibleWindows) {
-    mb.showWindow();
-  }
-});
-
 mb.on('after-create-window', function () {
   const contextMenu = Menu.buildFromTemplate([
     {

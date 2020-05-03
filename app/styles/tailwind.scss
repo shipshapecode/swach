@@ -2,7 +2,7 @@
 @tailwind components;
 
 .btn {
-  @apply bg-btn-bg-secondary font-medium rounded text-btn-text-secondary;
+  @apply bg-btn-bg-secondary cursor-default font-medium rounded text-btn-text-secondary;
   transition: color, background, background-color 0.25s;
 }
 

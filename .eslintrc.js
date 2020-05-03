@@ -34,6 +34,7 @@ module.exports = {
         'ember-cli-build.js',
         'tailwind.config.js',
         'testem.js',
+        'testem-electron.js',
         'blueprints/*/index.js',
         'config/**/*.js',
         'electron-app/**/*.js',

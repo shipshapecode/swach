@@ -2,14 +2,10 @@ module.exports = {
   test_page: 'tests/index.html?hidepassed',
   disable_watching: true,
   launchers: {
-    Electron: require('ember-electron/lib/test-support/test-runner'),
+    Electron: require('ember-electron/lib/test-support/test-runner')
   },
-  launch_in_ci: [
-    'Electron',
-  ],
-  launch_in_dev: [
-    'Electron',
-  ],
+  launch_in_ci: ['Electron'],
+  launch_in_dev: ['Electron'],
   browser_args: {
     Electron: {
       // Note: Some these Chrome options may not be supported in Electron

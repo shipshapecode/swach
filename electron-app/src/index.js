@@ -4,6 +4,10 @@ const { dirname, join, resolve } = require('path');
 const isDev = require('electron-is-dev');
 const protocolServe = require('electron-protocol-serve');
 const { menubar } = require('menubar');
+const {
+  default: installExtension,
+  EMBER_INSPECTOR
+} = require('electron-devtools-installer');
 const { launchPicker } = require('./color-picker');
 const { restartDialog } = require('./dialogs');
 const { registerKeyboardShortcuts } = require('./shortcuts');
@@ -167,6 +171,11 @@ mb.on('after-create-window', function () {
 });
 
 mb.on('ready', () => {
+  if (isDev) {
+    installExtension(EMBER_INSPECTOR)
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      .catch((err) => console.log('An error occurred: ', err));
+  }
   // If you want to open up dev tools programmatically, call
   // mb.window.openDevTools();
 

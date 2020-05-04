@@ -1,11 +1,11 @@
 <div class="bg-menu flex flex-wrap items-center p-2 rounded w-full">
-  <LinkTo
-    class="flex flex-grow items-center p-1 text-main-text text-sm w-full"
-    @query={{hash paletteId=this.model.colorHistory.id}}
-    @route="colors"
+  <div
+    class="cursor-default flex flex-grow items-center p-1 text-main-text text-sm w-full"
+    role="button"
+    {{on "click" this.transitionToColorHistory}}
   >
     Color History
-  </LinkTo>
+  </div>
 
   {{#if this.last16Colors.length}}
     <DragSortList

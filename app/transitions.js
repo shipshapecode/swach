@@ -31,4 +31,21 @@ export default function () {
     this.use('toLeft', transitionOptions),
     this.reverse('toRight', transitionOptions)
   );
+
+  this.transition(
+    this.fromRoute('welcome.index'),
+    this.toRoute('welcome.auto-start'),
+    this.use('toLeft', transitionOptions),
+    this.reverse('toRight', transitionOptions)
+  );
+
+  this.transition(
+    this.fromRoute('welcome.auto-start'),
+    this.toRoute('welcome.dock-icon'),
+    this.use('toLeft', transitionOptions),
+    this.reverse('toRight', transitionOptions)
+  );
+
+  // This is a default transition when transitioning to palettes from the welcome screen
+  this.transition(this.toRoute('palettes'), this.use('crossFade'));
 }

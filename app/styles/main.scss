@@ -18,11 +18,11 @@ body {
 }
 
 a {
-  @apply cursor-default text-alt;
+  @apply cursor-default;
   transition: color 0.25s, background-color 0.25s;
 
   &:hover {
-    @apply cursor-default text-alt-hover;
+    @apply cursor-default;
   }
 }
 

@@ -6,6 +6,7 @@ import { tracked } from '@glimmer/tracking';
 export default class PalettesController extends Controller {
   @controller application;
   @service colorUtils;
+  @service router;
   @service store;
   @service undoManager;
 
@@ -189,5 +190,13 @@ export default class PalettesController extends Controller {
     }
 
     this.undoManager.setupUndoRedo();
+  }
+
+  @action
+  transitionToColorHistory(event) {
+    event.stopPropagation();
+    this.router.transitionTo('colors', {
+      queryParams: { paletteId: this.model.colorHistory.id }
+    });
   }
 }

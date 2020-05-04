@@ -15,11 +15,18 @@ debug({ showDevTools: false });
 const Store = require('electron-store');
 const store = new Store({
   defaults: {
+    firstRun: true,
     showDockIcon: false
   }
 });
 
-const emberAppLocation = 'serve://dist';
+let emberAppLocation = 'serve://dist';
+
+// On first boot of the application, go through the welcome screen
+if (store.get('firstRun')) {
+  emberAppLocation = `${emberAppLocation}/welcome`;
+  store.set('firstRun', false);
+}
 
 function openContrastChecker(mb) {
   mb.showWindow();
@@ -128,12 +135,6 @@ protocolServe({
 mb.app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     mb.app.quit();
-  }
-});
-
-mb.app.on('activate', (event, hasVisibleWindows) => {
-  if (!hasVisibleWindows) {
-    mb.showWindow();
   }
 });
 

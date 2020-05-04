@@ -23,14 +23,23 @@ export default class ApplicationController extends Controller {
   @equal('router.currentRouteName', 'palettes') isPalettesRoute;
   @equal('router.currentRouteName', 'settings') isSettingsRoute;
 
-  @computed('isContrastRoute', 'isSettingsRoute')
-  get showColorWheel() {
-    return !this.isContrastRoute && !this.isSettingsRoute;
+  @computed('router.currentRouteName')
+  get isWelcomeRoute() {
+    return this.router.currentRouteName.includes('welcome');
   }
 
-  @computed('isContrastRoute', 'isSettingsRoute')
+  @computed('isContrastRoute', 'isSettingsRoute', 'isWelcomeRoute')
+  get showColorWheel() {
+    return (
+      !this.isContrastRoute && !this.isSettingsRoute && !this.isWelcomeRoute
+    );
+  }
+
+  @computed('isContrastRoute', 'isSettingsRoute', 'isWelcomeRoute')
   get showEyedropperIcon() {
-    return !this.isContrastRoute && !this.isSettingsRoute;
+    return (
+      !this.isContrastRoute && !this.isSettingsRoute && !this.isWelcomeRoute
+    );
   }
 
   @computed('settings.{osTheme,userTheme}')
@@ -133,5 +142,12 @@ export default class ApplicationController extends Controller {
   @action
   toggleMenuIsShown() {
     this.menuIsShown = !this.menuIsShown;
+  }
+
+  @action
+  toggleShowDockIcon(event) {
+    const showDockIcon = event.target.checked;
+    set(this, 'settings.showDockIcon', showDockIcon);
+    this.ipcRenderer.send('setShowDockIcon', showDockIcon);
   }
 }

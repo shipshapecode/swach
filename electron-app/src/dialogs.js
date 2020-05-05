@@ -1,5 +1,16 @@
 const { app, dialog } = require('electron');
 
+function noUpdatesAvailableDialog() {
+  const dialogOpts = {
+    type: 'info',
+    title: 'Already up to date',
+    message: 'Already up to date',
+    detail: `Swach ${app.getVersion()} is the latest version available.`
+  };
+
+  return dialog.showMessageBox(dialogOpts);
+}
+
 function restartDialog() {
   const dialogOpts = {
     type: 'question',
@@ -10,7 +21,7 @@ function restartDialog() {
     defaultId: 0
   };
 
-  dialog.showMessageBox(dialogOpts).then((returnValue) => {
+  return dialog.showMessageBox(dialogOpts).then((returnValue) => {
     if (returnValue.response === 0) {
       app.relaunch();
       app.exit();
@@ -19,5 +30,6 @@ function restartDialog() {
 }
 
 module.exports = {
+  noUpdatesAvailableDialog,
   restartDialog
 };

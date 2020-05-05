@@ -9,7 +9,7 @@ const {
   EMBER_INSPECTOR
 } = require('electron-devtools-installer');
 const { launchPicker } = require('./color-picker');
-const { restartDialog } = require('./dialogs');
+const { noUpdatesAvailableDialog, restartDialog } = require('./dialogs');
 const { registerKeyboardShortcuts } = require('./shortcuts');
 const { setupUpdateServer } = require('./auto-update');
 
@@ -232,6 +232,7 @@ mb.on('ready', () => {
 if (!isDev) {
   const autoUpdater = setupUpdateServer(mb.app);
   ipcMain.on('checkForUpdates', () => {
+    autoUpdater.once('update-not-available', noUpdatesAvailableDialog);
     autoUpdater.checkForUpdates();
   });
 }

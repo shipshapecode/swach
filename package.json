@@ -97,7 +97,7 @@
     "postcss-scss": "^2.0.0",
     "prettier": "^2.0.5",
     "qunit-dom": "^1.2.0",
-    "tailwindcss": "^1.4.5",
+    "tailwindcss": "^1.4.6",
     "version-bump-prompt": "^6.0.3",
     "wcag-contrast": "^3.0.0"
   },

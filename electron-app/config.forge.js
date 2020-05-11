@@ -81,12 +81,5 @@ module.exports = {
       name: '@electron-forge/maker-zip',
       platforms: ['darwin']
     }
-  ],
-  publishers: [
-    {
-      name: '@electron-forge/publisher-snapcraft',
-      platforms: ['linux'],
-      config: {}
-    }
   ]
 };

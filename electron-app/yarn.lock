@@ -219,17 +219,6 @@
   resolved "https://registry.yarnpkg.com/@electron-forge/publisher-base/-/publisher-base-6.0.0-beta.51.tgz#5c3bbe807984ad858c5179cce3b39ebcb2049a1d"
   integrity sha512-Tk29I2wcvQX5Lhi3Rh6kQTmAfrzu9Wus++kD56HQJ72WOqOn2pOT/Tr5IOKOaZF2GQoqPhljCZmPo0Xh7sO6gQ==
 
-"@electron-forge/publisher-snapcraft@^6.0.0-beta.51":
-  version "6.0.0-beta.51"
-  resolved "https://registry.yarnpkg.com/@electron-forge/publisher-snapcraft/-/publisher-snapcraft-6.0.0-beta.51.tgz#c75eddd0ac46c20a30e55de720e74470603b6765"
-  integrity sha512-snM1XZWv4EoHYJ1Qyghle+eaCYR9D5PtwPC2coXVoI7Ebu2akzFtwmEFp/qcJVRw+qfqQM+mjayIoGdayTt7+A==
-  dependencies:
-    "@electron-forge/async-ora" "6.0.0-beta.51"
-    "@electron-forge/publisher-base" "6.0.0-beta.51"
-    fs-extra "^9.0.0"
-  optionalDependencies:
-    electron-installer-snap "^5.1.0"
-
 "@electron-forge/shared-types@6.0.0-beta.51":
   version "6.0.0-beta.51"
   resolved "https://registry.yarnpkg.com/@electron-forge/shared-types/-/shared-types-6.0.0-beta.51.tgz#399a27b54e81ee3f3fde045e964d3a5ac52a2a3a"

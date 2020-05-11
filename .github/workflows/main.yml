@@ -63,8 +63,8 @@ jobs:
       #   if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
       #   run: sudo apt install flatpak flatpak-builder elfutils
       - name: Setup Snapcraft
-          if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
-          run: sudo apt install dpkg fakeroot snapcraft
+        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
+        run: sudo apt install dpkg fakeroot snapcraft
       - name: Make
         if: startsWith(github.ref, 'refs/tags/')
         run: yarn make

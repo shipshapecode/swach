@@ -87,7 +87,8 @@ jobs:
             electron-app/out/**/*.snap
             electron-app/out/**/*.zip
       - name: Publish Snapcraft
+        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
         run: |
           mkdir .snapcraft
-          echo ${{ secrets.SNAPCRAFT_LOGIN_FILE }} | base64 --decode > .snapcraft/snapcraft.cfg
+          echo ${{ secrets.SNAPCRAFT_LOGIN_FILE }} | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
           snapcraft push electron-app/out/**/*.snap --release stable

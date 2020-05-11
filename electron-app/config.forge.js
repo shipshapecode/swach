@@ -21,6 +21,7 @@ module.exports = {
   makers: [
     {
       name: '@electron-forge/maker-deb',
+      platforms: ['linux'],
       config: {
         options: {
           bin: 'Swach',
@@ -32,8 +33,7 @@ module.exports = {
           homepage: 'https://swach.io',
           icon: 'electron-app/resources/icon.png'
         }
-      },
-      platforms: ['linux']
+      }
     },
     {
       name: '@electron-forge/maker-dmg',
@@ -55,6 +55,21 @@ module.exports = {
     //   }
     // },
     {
+      name: '@electron-forge/maker-snap',
+      platforms: ['linux'],
+      config: {
+        confinement: 'strict',
+        description: 'A robust color management tool for the modern age.',
+        features: {
+          audio: true,
+          mpris: 'com.example.mpris',
+          webgl: true
+        },
+        name: 'swach',
+        summary: 'A robust color management tool for the modern age.'
+      }
+    },
+    {
       name: '@electron-forge/maker-squirrel',
       config: {
         name: 'Swach',
@@ -65,6 +80,13 @@ module.exports = {
     {
       name: '@electron-forge/maker-zip',
       platforms: ['darwin']
+    }
+  ],
+  publishers: [
+    {
+      name: '@electron-forge/publisher-snapcraft',
+      platforms: ['linux'],
+      config: {}
     }
   ]
 };

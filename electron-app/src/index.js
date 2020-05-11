@@ -229,7 +229,8 @@ mb.on('ready', () => {
   });
 });
 
-if (!isDev) {
+// We only want to auto update if we're on MacOS or Windows. Linux will use Snapcraft.
+if (!isDev && (process.platform === 'darwin' || process.platform === 'win32')) {
   const autoUpdater = setupUpdateServer(mb.app);
   ipcMain.on('checkForUpdates', () => {
     autoUpdater.once('update-not-available', noUpdatesAvailableDialog);

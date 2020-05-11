@@ -81,4 +81,5 @@ jobs:
             electron-app/out/**/*.dmg
             electron-app/out/**/*Setup.exe
             electron-app/out/**/*.rpm
+            electron-app/out/**/*.snap
             electron-app/out/**/*.zip

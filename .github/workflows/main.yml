@@ -89,5 +89,5 @@ jobs:
       - name: Publish Snapcraft
         run: |
           mkdir .snapcraft
-          echo ${{ secrets.SNAPCRAFT_LOGIN_FILE }} | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
+          echo ${{ secrets.SNAPCRAFT_LOGIN_FILE }} | base64 --decode > .snapcraft/snapcraft.cfg
           snapcraft push electron-app/out/**/*.snap --release stable

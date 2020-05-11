@@ -62,11 +62,9 @@ jobs:
       # - name: Setup flatpak
       #   if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
       #   run: sudo apt install flatpak flatpak-builder elfutils
-      - name: Install Snapcraft
-        uses: samuelmeuli/action-snapcraft@v1
-        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
-        with:
-          snapcraft_token: ${{ secrets.SNAPCRAFT_TOKEN }}
+      - name: Setup Snapcraft
+          if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
+          run: sudo apt install dpkg fakeroot snapcraft
       - name: Make
         if: startsWith(github.ref, 'refs/tags/')
         run: yarn make
@@ -89,4 +87,7 @@ jobs:
             electron-app/out/**/*.snap
             electron-app/out/**/*.zip
       - name: Publish Snapcraft
-        run: snapcraft push --release=stable electron-app/out/**/*.snap
+        run: |
+          mkdir .snapcraft
+          echo ${{ secrets.SNAPCRAFT_LOGIN_FILE }} | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
+          snapcraft push electron-app/out/**/*.snap --release stable

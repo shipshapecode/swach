@@ -62,9 +62,9 @@ module.exports = {
         description: 'A robust color management tool for the modern age.',
         features: {
           audio: true,
-          mpris: 'com.example.mpris',
           webgl: true
         },
+        grade: 'stable',
         name: 'swach',
         summary: 'A robust color management tool for the modern age.'
       }

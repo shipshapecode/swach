@@ -62,6 +62,11 @@ jobs:
       # - name: Setup flatpak
       #   if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
       #   run: sudo apt install flatpak flatpak-builder elfutils
+      - name: Install Snapcraft
+        uses: samuelmeuli/action-snapcraft@v1
+        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
+        with:
+          snapcraft_token: ${{ secrets.SNAPCRAFT_TOKEN }}
       - name: Make
         if: startsWith(github.ref, 'refs/tags/')
         run: yarn make
@@ -83,9 +88,5 @@ jobs:
             electron-app/out/**/*.rpm
             electron-app/out/**/*.snap
             electron-app/out/**/*.zip
-      - name: Snapcraft
-        uses: samuelmeuli/action-snapcraft@v1
-        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
-        with:
-          snapcraft_token: ${{ secrets.SNAPCRAFT_TOKEN }}
+      - name: Publish Snapcraft
         run: snapcraft push --release=stable electron-app/out/**/*.snap

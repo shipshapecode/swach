@@ -4311,10 +4311,10 @@ color-convert@^2.0.1:
   dependencies:
     color-name "~1.1.4"
 
-color-name-list@^5.22.0:
-  version "5.22.0"
-  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-5.22.0.tgz#4450a51e665a984821bcad92e046d13838d49fa0"
-  integrity sha512-aQhSNiwCmOnlHwAAeyfw8SfcSq88RSDFMochDrpbIyxrLFPuVWXpZXhQlM2zSpKVtv+p82WEYB9/npOkMs3bgw==
+color-name-list@^5.23.0:
+  version "5.23.0"
+  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-5.23.0.tgz#55ebccc8a01855aeb0af6cc528d7567272339472"
+  integrity sha512-0yMzZ8tdy9rsC607orz3gJoXcmhwJvp/hr/0xblg+LTiUGZPr28VZTOU+Nyx0sXa2MohBJU7/3PsAEJdmqRz6g==
 
 color-name@1.1.3:
   version "1.1.3"

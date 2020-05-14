@@ -2,7 +2,7 @@
   "name": "swach",
   "productName": "swach",
   "version": "0.1.5",
-  "description": "A modern color palette manager.",
+  "description": "A robust color management tool for the modern age.",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -38,7 +38,6 @@
     "@electron-forge/cli": "6.0.0-beta.51",
     "@electron-forge/maker-deb": "6.0.0-beta.51",
     "@electron-forge/maker-dmg": "6.0.0-beta.51",
-    "@electron-forge/maker-flatpak": "6.0.0-beta.51",
     "@electron-forge/maker-snap": "^6.0.0-beta.51",
     "@electron-forge/maker-squirrel": "6.0.0-beta.51",
     "@electron-forge/maker-zip": "6.0.0-beta.51",

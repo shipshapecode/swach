@@ -65,7 +65,7 @@ mb.app.allowRendererProcessReuse = true;
 
 // This is necessary for linux, so we can build with Snapcraft.
 if (process.platform === 'linux') {
-  mb.app.commandLine.appendSwitch('--no-sandbox');
+  mb.app.commandLine.appendSwitch('no-sandbox');
 }
 
 mb.app.commandLine.appendSwitch(

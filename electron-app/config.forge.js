@@ -47,7 +47,17 @@ module.exports = {
       name: '@electron-forge/maker-snap',
       platforms: ['linux'],
       config: {
-        appPlugs: ['browser-support'],
+        appConfig: { name: 'swach', title: 'Swach' },
+        appPlugs: [
+          'desktop',
+          'desktop-legacy',
+          'home',
+          'x11',
+          'unity7',
+          'browser-support',
+          'network',
+          'gsettings'
+        ],
         plugs: {
           'browser-support': {
             interface: 'browser-support',

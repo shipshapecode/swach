@@ -51,25 +51,32 @@ module.exports = {
         appPlugs: [
           'desktop',
           'desktop-legacy',
-          'home',
-          'x11',
+          'wayland',
           'unity7',
+          'alsa',
+          'avahi-observe',
           'browser-support',
+          'cups-control',
+          'gsettings',
+          'home',
           'network',
-          'gsettings'
+          'opengl',
+          'audio-playback',
+          'screen-inhibit-control',
+          'upower-observe'
         ],
-        plugs: {
-          'browser-support': {
-            interface: 'browser-support',
-            'allow-sandbox': false
-          }
-        },
+        // plugs: {
+        //   'browser-support': {
+        //     interface: 'browser-support',
+        //     'allow-sandbox': false
+        //   }
+        // },
         confinement: 'strict',
         description: 'A robust color management tool for the modern age.',
         features: {
-          audio: true,
+          audio: false,
           browserSandbox: false,
-          webgl: true
+          webgl: false
         },
         grade: 'stable',
         name: 'swach',

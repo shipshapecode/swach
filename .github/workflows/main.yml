@@ -94,4 +94,4 @@ jobs:
           unsquashfs electron-app/out/make/snap/x64/*.snap
           chmod 755 ./squashfs-root/swach/chrome-sandbox
           snapcraft pack ./squashfs-root
-          snapcraft push electron-app/out/make/snap/x64/*.snap --release stable
+          snapcraft push ./*.snap --release stable

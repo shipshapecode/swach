@@ -84,7 +84,6 @@ jobs:
             electron-app/out/**/*.dmg
             electron-app/out/**/*Setup.exe
             electron-app/out/**/*.rpm
-            electron-app/out/**/*.snap
             electron-app/out/**/*.zip
       - name: Publish Snapcraft
         if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')

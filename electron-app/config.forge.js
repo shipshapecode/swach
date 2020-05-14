@@ -58,18 +58,13 @@ module.exports = {
       name: '@electron-forge/maker-snap',
       platforms: ['linux'],
       config: {
-        appPlugs: [
-          'desktop',
-          'desktop-legacy',
-          'home',
-          'x11',
-          'unity7',
-          'browser-support',
-          'network',
-          'gsettings',
-          'pulseaudio',
-          'opengl'
-        ],
+        appPlugs: ['browser-sandbox'],
+        plugs: {
+          'browser-sandbox': {
+            interface: 'browser-support',
+            'allow-sandbox': false
+          }
+        },
         confinement: 'strict',
         description: 'A robust color management tool for the modern age.',
         features: {

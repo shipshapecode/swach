@@ -46,5 +46,8 @@
     "devtron": "^1.4.0",
     "electron": "^8.2.3",
     "electron-download": "^4.1.1"
+  },
+  "resolutions": {
+    "@electron-forge/maker-snap/electron-installer-snap": "rwwagner90/electron-installer-snap#77e76c550c868376d958b36ba6cc9a9e34120ca9"
   }
 }

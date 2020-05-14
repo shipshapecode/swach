@@ -91,4 +91,6 @@ jobs:
         run: |
           mkdir .snapcraft
           echo ${{ secrets.SNAPCRAFT_LOGIN_FILE }} | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
+          unsquashfs electron-app/out/make/snap/x64/*.snap
+          snapcraft pack ./squashfs-root
           snapcraft push electron-app/out/make/snap/x64/*.snap --release stable

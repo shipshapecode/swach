@@ -1,7 +1,7 @@
 {
   "name": "swach",
   "productName": "swach",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A robust color management tool for the modern age.",
   "main": "src/index.js",
   "scripts": {

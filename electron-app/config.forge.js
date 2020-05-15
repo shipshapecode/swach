@@ -50,7 +50,6 @@ module.exports = {
         appConfig: { name: 'swach', title: 'Swach' },
         appPlugs: [
           'desktop',
-          'desktop-legacy',
           // 'wayland',
           // 'unity7',
           // 'alsa',
@@ -69,6 +68,9 @@ module.exports = {
           'browser-support': {
             interface: 'browser-support',
             'allow-sandbox': false
+          },
+          desktop: {
+            interface: 'desktop'
           }
         },
         confinement: 'strict',

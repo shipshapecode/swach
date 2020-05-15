@@ -6237,10 +6237,10 @@ ember-text-measurer@^0.5.0:
   dependencies:
     ember-cli-babel "^7.1.0"
 
-ember-tooltips@^3.4.2:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/ember-tooltips/-/ember-tooltips-3.4.2.tgz#e47efb5dab4af644b87ae811f1f3b1e7d75fc95e"
-  integrity sha512-zobYPwmGIZRLexRg2vKdipu6SxQJqNb8JXXtkMci6MqnpDQI9E3seDGr/88kd1R5EXTF4EmBXPz0HIs2/VjSZg==
+ember-tooltips@^3.4.3:
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/ember-tooltips/-/ember-tooltips-3.4.3.tgz#a017de33e53a9b9ca6d38b8c2f829cc3024b8f8b"
+  integrity sha512-/swhfhodVvpKi6R+tkcqLgS0YTMo3S6Mzb8qtfTneFSz+tBhY/kd/+eI8OIZf9qocpJ9b54dbbqTw5ZBkeZe2g==
   dependencies:
     broccoli-file-creator "^2.1.1"
     broccoli-funnel "^2.0.2"

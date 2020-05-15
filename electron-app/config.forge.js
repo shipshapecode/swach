@@ -72,6 +72,7 @@ module.exports = {
         },
         confinement: 'strict',
         description: 'A robust color management tool for the modern age.',
+        executableName: 'Swach',
         features: {
           audio: true,
           browserSandbox: false,

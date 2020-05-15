@@ -48,21 +48,21 @@ module.exports = {
       platforms: ['linux'],
       config: {
         appPlugs: [
-          'desktop',
-          'desktop-legacy',
-          'wayland',
-          'unity7',
-          'alsa',
-          'avahi-observe',
-          'browser-support',
-          'cups-control',
-          'gsettings',
-          'home',
-          'network',
-          'opengl',
-          'audio-playback',
-          'screen-inhibit-control',
-          'upower-observe'
+          // 'desktop',
+          // 'desktop-legacy',
+          // 'wayland',
+          // 'unity7',
+          // 'alsa',
+          // 'avahi-observe',
+          'browser-support'
+          // 'cups-control',
+          // 'gsettings',
+          // 'home',
+          // 'network',
+          // 'opengl',
+          // 'audio-playback',
+          // 'screen-inhibit-control',
+          // 'upower-observe'
         ],
         plugs: {
           'browser-support': {
@@ -73,9 +73,9 @@ module.exports = {
         confinement: 'strict',
         description: 'A robust color management tool for the modern age.',
         features: {
-          audio: false,
+          audio: true,
           browserSandbox: false,
-          webgl: false
+          webgl: true
         },
         grade: 'stable',
         name: 'swach',

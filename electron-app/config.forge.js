@@ -47,22 +47,22 @@ module.exports = {
       name: '@electron-forge/maker-snap',
       platforms: ['linux'],
       config: {
-        appConfig: { name: 'swach', title: 'Swach' },
         appPlugs: [
-          //'desktop',
-          // 'wayland',
-          // 'unity7',
-          // 'alsa',
-          // 'avahi-observe',
-          'browser-support'
-          // 'cups-control',
-          // 'gsettings',
-          // 'home',
-          // 'network',
-          // 'opengl',
-          // 'audio-playback',
-          // 'screen-inhibit-control',
-          // 'upower-observe'
+          'desktop',
+          'desktop-legacy',
+          'wayland',
+          'unity7',
+          'alsa',
+          'avahi-observe',
+          'browser-support',
+          'cups-control',
+          'gsettings',
+          'home',
+          'network',
+          'opengl',
+          'audio-playback',
+          'screen-inhibit-control',
+          'upower-observe'
         ],
         plugs: {
           'browser-support': {

@@ -48,28 +48,28 @@ module.exports = {
       platforms: ['linux'],
       config: {
         appConfig: { name: 'swach', title: 'Swach' },
-        // appPlugs: [
-        //   //'desktop',
-        //   // 'wayland',
-        //   // 'unity7',
-        //   // 'alsa',
-        //   // 'avahi-observe',
-        //   'browser-support'
-        //   // 'cups-control',
-        //   // 'gsettings',
-        //   // 'home',
-        //   // 'network',
-        //   // 'opengl',
-        //   // 'audio-playback',
-        //   // 'screen-inhibit-control',
-        //   // 'upower-observe'
-        // ],
-        // plugs: {
-        //   'browser-support': {
-        //     interface: 'browser-support',
-        //     'allow-sandbox': false
-        //   }
-        // },
+        appPlugs: [
+          //'desktop',
+          // 'wayland',
+          // 'unity7',
+          // 'alsa',
+          // 'avahi-observe',
+          'browser-support'
+          // 'cups-control',
+          // 'gsettings',
+          // 'home',
+          // 'network',
+          // 'opengl',
+          // 'audio-playback',
+          // 'screen-inhibit-control',
+          // 'upower-observe'
+        ],
+        plugs: {
+          'browser-support': {
+            interface: 'browser-support',
+            'allow-sandbox': false
+          }
+        },
         confinement: 'strict',
         description: 'A robust color management tool for the modern age.',
         features: {

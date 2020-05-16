@@ -22,6 +22,7 @@
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "make": "ember electron:make",
+    "make:linux": "ember electron:make -- --no-sandbox",
     "start": "ember serve",
     "test": "npm-run-all lint:* test:*",
     "test:ember": "ember test"

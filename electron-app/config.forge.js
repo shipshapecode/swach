@@ -44,46 +44,6 @@ module.exports = {
       }
     },
     {
-      name: '@electron-forge/maker-snap',
-      platforms: ['linux'],
-      config: {
-        appPlugs: [
-          // 'desktop',
-          // 'desktop-legacy',
-          // 'wayland',
-          // 'unity7',
-          // 'alsa',
-          // 'avahi-observe',
-          'browser-support'
-          // 'cups-control',
-          // 'gsettings',
-          // 'home',
-          // 'network',
-          // 'opengl',
-          // 'audio-playback',
-          // 'screen-inhibit-control',
-          // 'upower-observe'
-        ],
-        plugs: {
-          'browser-support': {
-            interface: 'browser-support',
-            'allow-sandbox': false
-          }
-        },
-        confinement: 'strict',
-        description: 'A robust color management tool for the modern age.',
-        executableName: 'Swach',
-        features: {
-          audio: true,
-          browserSandbox: false,
-          webgl: true
-        },
-        grade: 'stable',
-        name: 'swach',
-        summary: 'A robust color management tool for the modern age.'
-      }
-    },
-    {
       name: '@electron-forge/maker-squirrel',
       config: {
         name: 'Swach',

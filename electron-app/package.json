@@ -5,6 +5,7 @@
   "description": "A robust color management tool for the modern age.",
   "main": "src/index.js",
   "scripts": {
+    "build": "electron-builder",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
@@ -44,9 +45,20 @@
     "@sentry/cli": "^1.52.1",
     "devtron": "^1.4.0",
     "electron": "^8.2.3",
+    "electron-builder": "^22.6.0",
     "electron-download": "^4.1.1"
   },
   "resolutions": {
     "@electron-forge/maker-snap/electron-installer-snap": "rwwagner90/electron-installer-snap#77e76c550c868376d958b36ba6cc9a9e34120ca9"
+  },
+  "build": {
+    "productName": "Swach",
+    "linux": {
+      "icon": "./electron-app/resources/icon.png",
+      "category": "Development",
+      "target": [
+        "snap"
+      ]
+    }
   }
 }

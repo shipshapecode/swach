@@ -59,9 +59,6 @@ jobs:
         with:
           fileName: 'win-certificate.pfx'
           encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
-      - name: Setup Snapcraft
-        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
-        run: sudo apt install dpkg fakeroot snapcraft
       - name: Make
         if: matrix.os != 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
         run: yarn make
@@ -70,9 +67,6 @@ jobs:
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
           WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
           WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
-      - name: Make Linux
-        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
-        run: yarn make:linux
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
@@ -85,9 +79,30 @@ jobs:
             electron-app/out/**/*Setup.exe
             electron-app/out/**/*.rpm
             electron-app/out/**/*.zip
+      - name: Setup LXD
+          if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
+          run: |
+            sudo snap install lxd --channel=3.0/stable
+            sudo usermod --append --groups lxd $(whoami)
+            sudo lxd init --auto
+            sudo lxc info
+      - name: Make Snapcraft
+        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          yarn make:snapcraft
+          cd electron-app
+          yarn build
+          sudo lxc launch ubuntu:18.04 mysnapcraft
+          sudo lxc file push -r ./dist mysnapcraft/home/ubuntu/
+          sudo lxc exec mysnapcraft -- /bin/bash
+          sudo snap install snapcraft --classic
+          cd /home/ubuntu/dist/__snap-amd64
+          sudo snapcraft --destructive-mode
+          exit
+          sudo lxc file pull mysnapcraft/home/ubuntu/dist/__snap-amd64/*.snap
       - name: Publish Snapcraft
         if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
         run: |
           mkdir .snapcraft
           echo ${{ secrets.SNAPCRAFT_LOGIN_FILE }} | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
-          snapcraft push electron-app/dist/*.snap --release stable
+          snapcraft push *.snap --release stable

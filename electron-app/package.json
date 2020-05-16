@@ -54,10 +54,31 @@
   "build": {
     "productName": "Swach",
     "linux": {
-      "icon": "./electron-app/resources/icon.png",
+      "icon": "./resources/icon.png",
       "category": "Development",
+      "description": "A robust color management tool for the modern age.",
+      "synopsis": "A robust color management tool for the modern age.",
       "target": [
         "snap"
+      ]
+    },
+    "snap": {
+      "plugs": [
+        "desktop",
+        "desktop-legacy",
+        "wayland",
+        "unity7",
+        "alsa",
+        "avahi-observe",
+        "browser-support",
+        "cups-control",
+        "gsettings",
+        "home",
+        "network",
+        "opengl",
+        "audio-playback",
+        "screen-inhibit-control",
+        "upower-observe"
       ]
     }
   }

@@ -54,8 +54,6 @@
   },
   "build": {
     "productName": "Swach",
-    "buildDependenciesFromSource": true,
-    "nodeGypRebuild": true,
     "linux": {
       "icon": "./resources/icon.png",
       "category": "Development",

@@ -9,6 +9,7 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
+    "postinstall": "electron-builder install-app-deps",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
   },
@@ -90,7 +91,7 @@
         "libpulse0",
         "libxss1",
         "libxtst6",
-        "libgiblib.so.1"
+        "giblib1"
       ]
     }
   }

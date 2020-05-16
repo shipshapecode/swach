@@ -99,10 +99,12 @@ jobs:
           cd /home/ubuntu/dist/__snap-amd64
           sudo snapcraft --destructive-mode
           exit
-          sudo lxc file pull mysnapcraft/home/ubuntu/dist/__snap-amd64/*.snap
+          sudo lxc file pull -r mysnapcraft/home/ubuntu/dist/__snap-amd64/ .
       - name: Publish Snapcraft
         if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
         run: |
+          cwd
+          ls
           mkdir .snapcraft
           echo ${{ secrets.SNAPCRAFT_LOGIN_FILE }} | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
-          snapcraft push *.snap --release stable
+          snapcraft push electron-app/__snap-amd64/*.snap --release stable

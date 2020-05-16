@@ -9,6 +9,7 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
+    "postinstall": "electron-builder install-app-deps",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
   },
@@ -53,6 +54,8 @@
   },
   "build": {
     "productName": "Swach",
+    "buildDependenciesFromSource": true,
+    "nodeGypRebuild": true,
     "linux": {
       "icon": "./resources/icon.png",
       "category": "Development",
@@ -79,18 +82,6 @@
         "audio-playback",
         "screen-inhibit-control",
         "upower-observe"
-      ],
-      "stagePackages": [
-        "libasound2",
-        "libgconf2-4",
-        "libnotify4",
-        "libnspr4",
-        "libnss3",
-        "libpcre3",
-        "libpulse0",
-        "libxss1",
-        "libxtst6",
-        "libgiblib.so.1"
       ]
     }
   }

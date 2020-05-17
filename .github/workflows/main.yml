@@ -89,6 +89,7 @@ jobs:
       - name: Make Snapcraft
         if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
         run: |
+          sudo snap install snapcraft --classic
           yarn make:snapcraft
           cd electron-app
           yarn build

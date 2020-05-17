@@ -90,7 +90,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
         run: |
           sudo snap install snapcraft --classic
-          yarn make:snapcraft
+          yarn make:snapcraft || true
           cd electron-app
           yarn build
           sudo lxc launch ubuntu:18.04 mysnapcraft

@@ -81,6 +81,7 @@ jobs:
             electron-app/out/**/*.zip
 
   snapcraft:
+    name: Snapcraft Build and Publish
     runs-on: ubuntu-latest
     continue-on-error: true
     if: startsWith(github.ref, 'refs/tags/')

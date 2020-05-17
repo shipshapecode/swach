@@ -1,13 +1,10 @@
 import { module, test } from 'qunit';
 import {
-  blur,
   click,
   fillIn,
-  focus,
   visit,
   currentURL,
-  triggerEvent,
-  pauseTest
+  triggerEvent
 } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { animationsSettled } from 'ember-animated/test-support';

@@ -54,9 +54,17 @@ module('Acceptance | colors', function (hooks) {
     assert.dom('[data-test-color-picker]').exists();
 
     await fillIn('[data-test-color-picker-r]', '255');
+    await triggerEvent('[data-test-color-picker-r]', 'complete');
     await fillIn('[data-test-color-picker-g]', '0');
+    await triggerEvent('[data-test-color-picker-g]', 'complete');
     await fillIn('[data-test-color-picker-b]', '0');
-    await click('[data-test-color-picker-cancel');
+    await triggerEvent('[data-test-color-picker-b]', 'complete');
+
+    await waitForAll();
+
+    await click('[data-test-color-picker-cancel]');
+
+    await waitForAll();
 
     assert.dom('[data-test-color="Black"]').exists();
     assert.dom('[data-test-color="Red"]').doesNotExist();
@@ -82,12 +90,15 @@ module('Acceptance | colors', function (hooks) {
     assert.dom('[data-test-color-picker]').exists();
 
     await fillIn('[data-test-color-picker-r]', '255');
+    await triggerEvent('[data-test-color-picker-r]', 'complete');
     await fillIn('[data-test-color-picker-g]', '0');
+    await triggerEvent('[data-test-color-picker-g]', 'complete');
     await fillIn('[data-test-color-picker-b]', '0');
+    await triggerEvent('[data-test-color-picker-b]', 'complete');
 
     await waitForAll();
 
-    await click('[data-test-color-picker-save');
+    await click('[data-test-color-picker-save]');
 
     await waitForAll();
 

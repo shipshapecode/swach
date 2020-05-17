@@ -64,23 +64,6 @@
       ]
     },
     "snap": {
-      "plugs": [
-        "desktop",
-        "desktop-legacy",
-        "wayland",
-        "unity7",
-        "alsa",
-        "avahi-observe",
-        "browser-support",
-        "cups-control",
-        "gsettings",
-        "home",
-        "network",
-        "opengl",
-        "audio-playback",
-        "screen-inhibit-control",
-        "upower-observe"
-      ],
       "stagePackages": [
         "libasound2",
         "libgconf2-4",

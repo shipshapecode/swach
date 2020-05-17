@@ -1,0 +1,16 @@
+<OneWayInputMask
+  ...attributes
+  class="input rounded mb-4 w-20"
+  @options={{
+    hash
+    isComplete=this.isComplete
+    regex=this.hexRegex
+    showMaskOnFocus=false
+    showMaskOnHover=false
+    onincomplete=this.onIncomplete
+    oncomplete=this.onComplete
+  }}
+  @mask="\#*{6,8}"
+  @update={{fn @update}}
+  @value={{@selectedColor._hex}}
+/>

@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { action, set, setProperties } from '@ember/object';
+import { action, set } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { rgbaToHex } from 'swach/data-models/color';
@@ -80,7 +80,7 @@ export default class ColorPicker extends Component {
   }
 
   @action
-  destroyColorPickr() {
+  destroyColorPicker() {
     this.colorPicker.off('color:change', this.onChange);
   }
 
@@ -92,8 +92,13 @@ export default class ColorPicker extends Component {
     const hex = rgbaToHex(r, g, b, a);
 
     this.selectedColor = {
-      name: namedColor.name,
+      _hex: hex,
+      _r: r,
+      _g: g,
+      _b: b,
+      _a: a,
       hex,
+      name: namedColor.name,
       r,
       g,
       b,
@@ -101,43 +106,23 @@ export default class ColorPicker extends Component {
     };
   }
 
-  /**
-   *
-   * @param {string} key The key to the value to change
-   * @param {Event} e The change event
-   */
   @action
-  updateColor(key, value) {
-    if (['r', 'g', 'b', 'a'].includes(key)) {
-      if (key === 'a') {
-        set(this.selectedColor, key, parseFloat(value / 100));
-      } else {
-        set(this.selectedColor, key, parseFloat(value));
-      }
-
-      set(this.selectedColor, key, parseFloat(value));
-      const { r, g, b, a } = this.selectedColor;
-      set(this.selectedColor, 'hex', rgbaToHex(r, g, b, a));
-    }
-
-    if (key === 'hex') {
-      const tinyColor = new TinyColor(value);
-      const { r, g, b, a } = tinyColor.toRgb();
-
-      setProperties(this.selectedColor, {
-        r,
-        g,
-        b,
-        a
-      });
-      set(this.selectedColor, 'hex', rgbaToHex(r, g, b, a));
-    }
-
+  updateColor() {
     const { r, g, b } = this.selectedColor;
     const namedColor = this.nearestColor.nearest({ r, g, b });
     set(this.selectedColor, 'name', namedColor.name);
 
     this.colorPicker.setColors([this.selectedColor].mapBy('hex'));
+  }
+
+  /**
+   * Updates the internal, private input values
+   * @param {string} key The key to the value to change
+   * @param {number|string} value The value from the input mask
+   */
+  @action
+  updateColorInputs(key, value) {
+    set(this.selectedColor, `_${key}`, value);
   }
 
   @action

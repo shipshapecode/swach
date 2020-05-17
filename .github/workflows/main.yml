@@ -79,18 +79,32 @@ jobs:
             electron-app/out/**/*Setup.exe
             electron-app/out/**/*.rpm
             electron-app/out/**/*.zip
+
+  snapcraft:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Use node 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Yarn install
+        run: yarn install-deps
       - name: Setup LXD
-        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
         run: |
           sudo snap install lxd --channel=3.0/stable
           sudo usermod --append --groups lxd $(whoami)
           sudo lxd init --auto
           sudo lxc info
       - name: Make Snapcraft
-        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
         run: |
           sudo snap install snapcraft --classic
-          yarn make:snapcraft || true
+          yarn make:snapcraft
+      - name: LXC Snapcraft Destructive
+        run: |
           cd electron-app
           yarn build
           sudo lxc launch ubuntu:18.04 mysnapcraft
@@ -102,7 +116,6 @@ jobs:
           exit
           sudo lxc file pull -r mysnapcraft/home/ubuntu/dist/__snap-amd64/ .
       - name: Publish Snapcraft
-        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
         run: |
           cwd
           ls

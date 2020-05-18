@@ -95,25 +95,17 @@ jobs:
           node-version: '12.x'
       - name: Yarn install
         run: yarn install-deps
-      - name: Make Snapcraft
+      - name: Install Snapcraft
+        uses: samuelmeuli/action-snapcraft@v1
+        with:
+          snapcraft_token: ${{ secrets.snapcraft_token }}
+      - name: Make and Publish Snapcraft
         run: |
-          sudo snap install snapcraft --classic
           yarn make:snapcraft
           cd electron-app
           set +e
           yarn build
           set -e
-          pwd
-          ls
-          ls ./dist/__snap-amd64
           cd ./dist/__snap-amd64
-          ls
           sudo snapcraft --destructive-mode
-          cd ../../../
-      - name: Publish Snapcraft
-        run: |
-          pwd
-          ls
-          mkdir .snapcraft
-          echo ${{ secrets.SNAPCRAFT_LOGIN_FILE }} | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
-          snapcraft push electron-app/__snap-amd64/*.snap --release stable
+          sudo snapcraft push *.snap --release stable

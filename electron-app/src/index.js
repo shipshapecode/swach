@@ -43,6 +43,10 @@ if (process.platform === 'win32') {
   menubarIcon = 'resources/icon.ico';
 }
 
+if (process.platform === 'linux') {
+  menubarIcon = 'resources/png/64x64.png';
+}
+
 const mb = menubar({
   index: false,
   browserWindow: {

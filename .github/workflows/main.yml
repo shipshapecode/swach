@@ -95,12 +95,6 @@ jobs:
           node-version: '12.x'
       - name: Yarn install
         run: yarn install-deps
-      - name: Setup LXD
-        run: |
-          sudo snap install lxd --channel=3.0/stable
-          sudo usermod --append --groups lxd $(whoami)
-          sudo lxd init --auto
-          sudo lxc info
       - name: Make Snapcraft
         run: |
           sudo snap install snapcraft --classic
@@ -109,14 +103,13 @@ jobs:
           set +e
           yarn build
           set -e
-          sudo lxc launch ubuntu:18.04 mysnapcraft
-          sudo lxc file push -r ./dist mysnapcraft/home/ubuntu/
-          sudo lxc exec mysnapcraft -- /bin/bash
-          sudo snap install snapcraft --classic
-          cd /home/ubuntu/dist/__snap-amd64
+          pwd
+          ls
+          ls ./dist/__snap-amd64
+          cd ./dist/__snap-amd64
+          ls
           sudo snapcraft --destructive-mode
-          exit
-          sudo lxc file pull -r mysnapcraft/home/ubuntu/dist/__snap-amd64/ .
+          cd ../../../
       - name: Publish Snapcraft
         run: |
           pwd

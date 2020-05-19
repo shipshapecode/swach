@@ -65,18 +65,12 @@
     },
     "snap": {
       "stagePackages": [
-        "libasound2",
-        "libgconf2-4",
-        "libnotify4",
-        "libnspr4",
-        "libnss3",
-        "libpcre3",
-        "libpulse0",
-        "libxss1",
-        "libxtst6",
+        "default",
         "giblib1",
-        "imlib",
-        "imlib2"
+        "libimlib2",
+        "libxcursor1",
+        "libxfixes3",
+        "scrot"
       ]
     }
   }

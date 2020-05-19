@@ -74,7 +74,9 @@
         "libpulse0",
         "libxss1",
         "libxtst6",
-        "giblib1"
+        "giblib1",
+        "imlib",
+        "imlib2"
       ]
     }
   }

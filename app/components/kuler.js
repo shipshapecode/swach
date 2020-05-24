@@ -60,11 +60,9 @@ export default class KulerComponent extends Component {
       const palette = new Palette(harmony);
 
       let colors = new TinyColor(this.baseColor.hex)[harmony](5);
-      colors = await Promise.all(
-        colors.map(async (color) => {
-          return this.colorUtils.createColorPOJO(color.toHexString());
-        })
-      );
+      colors = colors.map((color) => {
+        return this.colorUtils.createColorPOJO(color.toHexString());
+      });
       colors = colors.map((color) => color.attributes);
 
       palette.colors.pushObjects(colors);
@@ -113,11 +111,11 @@ export default class KulerComponent extends Component {
     const { selectedColorIndex } = this.selectedPalette;
     // if changing the selected baseColor, we should update all the colors
     // if (selectedColorIndex === 0) {
-    //   const newColor = await this.colorUtils.createColorPOJO(color.rgba);
+    //   const newColor = this.colorUtils.createColorPOJO(color.rgba);
     //   this.baseColor = newColor.attributes;
     //   await this.baseColorChanged();
     // } else {
-    const newColor = await this.colorUtils.createColorPOJO(color.rgba);
+    const newColor = this.colorUtils.createColorPOJO(color.rgba);
     this.selectedPalette.colors.replace(selectedColorIndex, 1, [
       newColor.attributes
     ]);

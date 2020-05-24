@@ -92,7 +92,7 @@ export default class ApplicationController extends Controller {
     const palettes = await this.store.find('palette');
     const colorHistory = palettes.findBy('isColorHistory', true);
 
-    const colorPOJO = await this.colorUtils.createColorPOJO(color);
+    const colorPOJO = this.colorUtils.createColorPOJO(color);
     colorPOJO.id = this.dataSchema.generateId('color');
 
     await this.store.update((t) => {

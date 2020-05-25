@@ -7,6 +7,13 @@ export default class HexInputComponent extends Component {
   hexRegex = /^#([A-Fa-f0-9]{8}|[A-Fa-f0-9]{6})$/;
 
   @action
+  enterPress(event) {
+    if (event.keyCode === 13) {
+      event.target.blur();
+    }
+  }
+
+  @action
   isComplete(buffer, opts) {
     return new RegExp(opts.regex).test(buffer.join(''));
   }

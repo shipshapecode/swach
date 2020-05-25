@@ -26,46 +26,61 @@
         <div class="absolute flex-grow mt-4 mr-4 right-0 top-0">
           <HexInput
             data-test-color-picker-hex
+            class="input rounded mb-4 w-20"
             @selectedColor={{this.selectedColor}}
             @update={{fn this.updateColorInputs "hex"}}
             @updateColor={{this.updateColor}}
             @value={{this.selectedColor._hex}}
           />
 
-          <RgbInput
-            data-test-color-picker-r
-            @selectedColor={{this.selectedColor}}
-            @type="r"
-            @update={{fn this.updateColorInputs "r"}}
-            @updateColor={{this.updateColor}}
-            @value={{this.selectedColor._r}}
-          />
+          <div class="input overflow-hidden relative whitespace-no-wrap w-20">
+            <RgbInput
+              data-test-color-picker-r
+              class="bg-input-bg text-right text-xs w-full"
+              @selectedColor={{this.selectedColor}}
+              @type="r"
+              @update={{fn this.updateColorInputs "r"}}
+              @updateColor={{this.updateColor}}
+              @value={{this.selectedColor._r}}
+            />
+          </div>
 
-          <RgbInput
-            data-test-color-picker-g
-            @selectedColor={{this.selectedColor}}
-            @type="g"
-            @update={{fn this.updateColorInputs "g"}}
-            @updateColor={{this.updateColor}}
-            @value={{this.selectedColor._g}}
-          />
+          <div class="input overflow-hidden relative whitespace-no-wrap w-20">
+            <RgbInput
+              data-test-color-picker-g
+              class="bg-input-bg text-right text-xs w-full"
+              @selectedColor={{this.selectedColor}}
+              @type="g"
+              @update={{fn this.updateColorInputs "g"}}
+              @updateColor={{this.updateColor}}
+              @value={{this.selectedColor._g}}
+            />
+          </div>
 
-          <RgbInput
-            data-test-color-picker-b
-            @selectedColor={{this.selectedColor}}
-            @type="b"
-            @update={{fn this.updateColorInputs "b"}}
-            @updateColor={{this.updateColor}}
-            @value={{this.selectedColor._b}}
-          />
+          <div class="input overflow-hidden relative whitespace-no-wrap w-20">
+            <RgbInput
+              data-test-color-picker-b
+              class="bg-input-bg text-right text-xs w-full"
+              @selectedColor={{this.selectedColor}}
+              @type="b"
+              @update={{fn this.updateColorInputs "b"}}
+              @updateColor={{this.updateColor}}
+              @value={{this.selectedColor._b}}
+            />
+          </div>
 
-          <AlphaInput
-            data-test-color-picker-a
-            @selectedColor={{this.selectedColor}}
-            @update={{fn this.updateColorInputs "a"}}
-            @updateColor={{this.updateColor}}
-            @value={{this.selectedColor._a}}
-          />
+          <div
+            class="input overflow-hidden relative rounded-b whitespace-no-wrap w-20"
+          >
+            <AlphaInput
+              data-test-color-picker-a
+              class="bg-input-bg text-right text-xs w-full"
+              @selectedColor={{this.selectedColor}}
+              @update={{fn this.updateColorInputs "a"}}
+              @updateColor={{this.updateColor}}
+              @value={{this.selectedColor._a}}
+            />
+          </div>
         </div>
       </div>
 

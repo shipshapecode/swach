@@ -2,90 +2,65 @@
   <div
     class="input inline-block mr-2 overflow-hidden rounded whitespace-no-wrap"
   >
-    <Input
+    <HexInput
       data-test-kuler-hex
       class="bg-input-bg text-xs w-16"
-      type="text"
-      value={{this.selectedColor.hex}}
-      {{on "change" (fn this.updateColor "hex")}}
-      {{on "keypress" this.enterPress}}
+      @selectedColor={{this.selectedColor}}
+      @update={{fn this.updateColorInputs "hex"}}
+      @updateColor={{this.updateColor}}
+      @value={{this.selectedColor._hex}}
     />
   </div>
 
   <div
     class="input float-left overflow-hidden relative rounded-l whitespace-no-wrap w-16"
   >
-    <span class="input-prefix">
-      R:
-    </span>
-
-    <OneWayNumberMask
-      data-test-kuler-g
+    <RgbInput
+      data-test-kuler-r
       class="bg-input-bg text-right text-xs w-full"
-      @decimal={{false}}
-      @options={{
-        hash allowMinus=false min=0 max=255 step=1 unmaskAsNumber=true
-      }}
-      @update={{fn this.updateColor "r"}}
-      @value={{this.selectedColor.r}}
-      {{on "keypress" this.enterPress}}
+      @selectedColor={{this.selectedColor}}
+      @type="r"
+      @update={{fn this.updateColorInputs "r"}}
+      @updateColor={{this.updateColor}}
+      @value={{this.selectedColor._r}}
     />
   </div>
   <div
     class="input float-left overflow-hidden relative whitespace-no-wrap w-16"
   >
-    <span class="input-prefix">
-      G:
-    </span>
-
-    <OneWayNumberMask
+    <RgbInput
       data-test-kuler-g
       class="bg-input-bg text-right text-xs w-full"
-      @decimal={{false}}
-      @options={{
-        hash allowMinus=false min=0 max=255 step=1 unmaskAsNumber=true
-      }}
-      @update={{fn this.updateColor "g"}}
-      @value={{this.selectedColor.g}}
-      {{on "keypress" this.enterPress}}
+      @selectedColor={{this.selectedColor}}
+      @type="g"
+      @update={{fn this.updateColorInputs "g"}}
+      @updateColor={{this.updateColor}}
+      @value={{this.selectedColor._g}}
     />
   </div>
   <div
     class="input float-left overflow-hidden relative whitespace-no-wrap w-16"
   >
-    <span class="input-prefix">
-      B:
-    </span>
-
-    <OneWayNumberMask
+    <RgbInput
       data-test-kuler-b
       class="bg-input-bg text-right text-xs w-full"
-      @decimal={{false}}
-      @options={{
-        hash allowMinus=false min=0 max=255 step=1 unmaskAsNumber=true
-      }}
-      @update={{fn this.updateColor "b"}}
-      @value={{this.selectedColor.b}}
-      {{on "keypress" this.enterPress}}
+      @selectedColor={{this.selectedColor}}
+      @type="b"
+      @update={{fn this.updateColorInputs "b"}}
+      @updateColor={{this.updateColor}}
+      @value={{this.selectedColor._b}}
     />
   </div>
   <div
     class="input float-left overflow-hidden relative rounded-r whitespace-no-wrap w-16"
   >
-    <span class="input-prefix">
-      A:
-    </span>
-
-    <OneWayNumberMask
+    <AlphaInput
       data-test-kuler-a
       class="bg-input-bg text-right text-xs w-full"
-      @decimal={{true}}
-      @options={{
-        hash allowMinus=false min=0 max=1 step=0.01 unmaskAsNumber=true
-      }}
-      @update={{fn this.updateColor "a"}}
-      @value={{this.selectedColor.a}}
-      {{on "keypress" this.enterPress}}
+      @selectedColor={{this.selectedColor}}
+      @update={{fn this.updateColorInputs "a"}}
+      @updateColor={{this.updateColor}}
+      @value={{this.selectedColor._a}}
     />
   </div>
 </div>

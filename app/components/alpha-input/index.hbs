@@ -1,27 +1,25 @@
-<div class="input overflow-hidden relative rounded-b whitespace-no-wrap w-20">
-  <span class="input-prefix">
-    A:
-  </span>
+<span class="input-prefix">
+  A:
+</span>
 
-  <OneWayInputMask
-    ...attributes
-    class="bg-input-bg text-right text-xs w-full"
-    maxlength={{4}}
-    @mask="9[.9[9]]"
-    @options={{
-      hash
-      greedy=false
-      isComplete=this.isComplete
-      min=0
-      max=1
-      oncomplete=this.onComplete
-      onincomplete=this.onIncomplete
-      regex=this.alphaRegex
-      showMaskOnFocus=false
-      showMaskOnHover=false
-      unmaskAsNumber=false
-    }}
-    @update={{fn @update}}
-    @value={{@value}}
-  />
-</div>
+<OneWayInputMask
+  ...attributes
+  maxlength={{4}}
+  @mask="9[.9[9]]"
+  @options={{
+    hash
+    greedy=false
+    isComplete=this.isComplete
+    min=0
+    max=1
+    oncomplete=this.onComplete
+    onincomplete=this.onIncomplete
+    regex=this.alphaRegex
+    showMaskOnFocus=false
+    showMaskOnHover=false
+    unmaskAsNumber=false
+  }}
+  @update={{fn @update}}
+  @value={{@value}}
+  {{on "keypress" this.enterPress}}
+/>

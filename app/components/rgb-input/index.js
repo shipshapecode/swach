@@ -6,6 +6,13 @@ export default class RgbaInputComponent extends Component {
   rgbRegex = /^\d{0,3}$/;
 
   @action
+  enterPress(event) {
+    if (event.keyCode === 13) {
+      event.target.blur();
+    }
+  }
+
+  @action
   isComplete(buffer, opts) {
     const value = buffer.join('');
     return Boolean(value.length) && new RegExp(opts.regex).test(value);

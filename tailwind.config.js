@@ -32,7 +32,8 @@ module.exports = {
         'sub-text': 'var(--sub-text)'
       },
       fontSize: {
-        xxs: '0.5rem'
+        smallest: '0.5rem',
+        xxs: '0.65rem'
       }
     },
     fill: (theme) => ({

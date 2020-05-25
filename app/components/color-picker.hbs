@@ -26,14 +26,14 @@
         <div class="absolute flex-grow mt-4 mr-4 right-0 top-0">
           <HexInput
             data-test-color-picker-hex
-            class="input rounded mb-4 w-20"
+            class="input rounded mb-4 w-24"
             @selectedColor={{this.selectedColor}}
             @update={{fn this.updateColorInputs "hex"}}
             @updateColor={{this.updateColor}}
             @value={{this.selectedColor._hex}}
           />
 
-          <div class="input overflow-hidden relative whitespace-no-wrap w-20">
+          <div class="input overflow-hidden relative whitespace-no-wrap w-24">
             <RgbInput
               data-test-color-picker-r
               class="bg-input-bg text-right text-xs w-full"
@@ -45,7 +45,7 @@
             />
           </div>
 
-          <div class="input overflow-hidden relative whitespace-no-wrap w-20">
+          <div class="input overflow-hidden relative whitespace-no-wrap w-24">
             <RgbInput
               data-test-color-picker-g
               class="bg-input-bg text-right text-xs w-full"
@@ -57,7 +57,7 @@
             />
           </div>
 
-          <div class="input overflow-hidden relative whitespace-no-wrap w-20">
+          <div class="input overflow-hidden relative whitespace-no-wrap w-24">
             <RgbInput
               data-test-color-picker-b
               class="bg-input-bg text-right text-xs w-full"
@@ -70,7 +70,7 @@
           </div>
 
           <div
-            class="input overflow-hidden relative rounded-b whitespace-no-wrap w-20"
+            class="input overflow-hidden relative rounded-b whitespace-no-wrap w-24"
           >
             <AlphaInput
               data-test-color-picker-a
@@ -80,6 +80,66 @@
               @updateColor={{this.updateColor}}
               @value={{this.selectedColor._a}}
             />
+          </div>
+        </div>
+      </div>
+
+      <div class="flex w-full">
+        <div class="bg-menu flex-1 mt-3 mr-3 p-2 relative rounded">
+          <div class="flex flex-col h-full items-center justify-center w-full">
+            <div
+              class="font-medium text-xxs text-center text-white w-full whitespace-no-wrap"
+            >
+              {{this.selectedColor.hex}}
+            </div>
+
+            <span class="text-smallest">
+              HEX
+            </span>
+          </div>
+        </div>
+
+        <div class="bg-menu flex-1 mt-3 p-2 relative rounded">
+          <div class="flex flex-col h-full items-center justify-center w-full">
+            <div
+              class="font-medium text-xxs text-center text-white w-full whitespace-no-wrap"
+            >
+              {{this.alternateColorFormats.rgb}}
+            </div>
+
+            <span class="text-smallest">
+              RGB
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex w-full">
+        <div class="bg-menu flex-1 mt-3 mr-3 p-2 relative rounded">
+          <div class="flex flex-col h-full items-center justify-center w-full">
+            <div
+              class="font-medium text-xxs text-center text-white w-full whitespace-no-wrap"
+            >
+              {{this.alternateColorFormats.hsl}}
+            </div>
+
+            <span class="text-smallest">
+              HSL
+            </span>
+          </div>
+        </div>
+
+        <div class="bg-menu flex-1 mt-3 p-2 relative rounded">
+          <div class="flex flex-col h-full items-center justify-center w-full">
+            <div
+              class="font-medium text-xxs text-center text-white w-full whitespace-no-wrap"
+            >
+              {{this.alternateColorFormats.hsv}}
+            </div>
+
+            <span class="text-smallest">
+              HSV
+            </span>
           </div>
         </div>
       </div>

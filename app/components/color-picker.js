@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { action, set } from '@ember/object';
+import { action, computed, set } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { rgbaToHex } from 'swach/data-models/color';
@@ -12,6 +12,22 @@ export default class ColorPicker extends Component {
   @service router;
   @service store;
   @service undoManager;
+
+  @computed('selectedColor.hex')
+  get alternateColorFormats() {
+    let hsl = '';
+    let hsv = '';
+    let rgb = '';
+
+    if (this.selectedColor && this.selectedColor.hex) {
+      const tinyColor = new TinyColor(this.selectedColor.hex);
+      hsl = tinyColor.toHslString();
+      hsv = tinyColor.toHsvString();
+      rgb = tinyColor.toRgbString();
+    }
+
+    return { hsl, hsv, rgb };
+  }
 
   @tracked selectedColor = null;
 
@@ -136,7 +152,7 @@ export default class ColorPicker extends Component {
           options: {
             borderColor: 'transparent',
             borderWidth: 0,
-            width: 200
+            width: 190
           }
         },
         {

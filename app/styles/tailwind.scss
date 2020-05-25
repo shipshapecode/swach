@@ -23,7 +23,7 @@
 }
 
 .input-prefix {
-  @apply absolute flex h-full items-center left-0 ml-1 text-menu-text text-center text-xxs top-0;
+  @apply absolute flex h-full items-center left-0 ml-1 text-menu-text text-center text-smallest top-0;
 }
 
 @tailwind utilities;

@@ -1,5 +1,12 @@
 import { module, test } from 'qunit';
-import { click, visit, currentURL, triggerEvent } from '@ember/test-helpers';
+import {
+  blur,
+  click,
+  fillIn,
+  visit,
+  currentURL,
+  triggerEvent
+} from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import seedOrbit from '../orbit/seed';
 import { animationsSettled } from 'ember-animated/test-support';
@@ -142,5 +149,118 @@ module('Acceptance | kuler', function (hooks) {
     )[2];
 
     assert.dom(thirdColor).hasStyle({ backgroundColor: 'rgb(138, 224, 247)' });
+  });
+
+  module('inputs', function () {
+    test('hex input updates rgba', async function (assert) {
+      assert.dom('[data-test-kuler-hex]').hasValue('#f78ae0');
+      assert.dom('[data-test-kuler-r]').hasValue('247');
+      assert.dom('[data-test-kuler-g]').hasValue('138');
+      assert.dom('[data-test-kuler-b]').hasValue('224');
+      assert.dom('[data-test-kuler-a]').hasValue('1');
+
+      await fillIn('[data-test-kuler-hex]', '#ffffff0e');
+      await triggerEvent('[data-test-kuler-hex]', 'complete');
+
+      await waitForAll();
+
+      assert.dom('[data-test-kuler-hex]').hasValue('#ffffff0e');
+      assert.dom('[data-test-kuler-r]').hasValue('255');
+      assert.dom('[data-test-kuler-g]').hasValue('255');
+      assert.dom('[data-test-kuler-b]').hasValue('255');
+      assert.dom('[data-test-kuler-a]').hasValue('0.05');
+    });
+  });
+
+  module('red', function () {
+    test('incomplete clears input', async function (assert) {
+      assert.dom('[data-test-kuler-r]').hasValue('247');
+
+      await fillIn('[data-test-kuler-r]', '255');
+      await triggerEvent('[data-test-kuler-r]', 'complete');
+      await fillIn('[data-test-kuler-r]', '');
+      await blur('[data-test-kuler-r]');
+
+      assert.dom('[data-test-kuler-r]').hasValue('255');
+    });
+
+    test('values capped at 255', async function (assert) {
+      assert.dom('[data-test-kuler-r]').hasValue('247');
+
+      await fillIn('[data-test-kuler-r]', '400');
+      await triggerEvent('[data-test-kuler-r]', 'complete');
+      await blur('[data-test-kuler-r]');
+
+      assert.dom('[data-test-kuler-r]').hasValue('255');
+    });
+  });
+
+  module('green', function () {
+    test('incomplete clears input', async function (assert) {
+      assert.dom('[data-test-kuler-g]').hasValue('138');
+
+      await fillIn('[data-test-kuler-g]', '255');
+      await triggerEvent('[data-test-kuler-g]', 'complete');
+      await fillIn('[data-test-kuler-g]', '');
+      await blur('[data-test-kuler-g]');
+
+      assert.dom('[data-test-kuler-g]').hasValue('255');
+    });
+
+    test('values capped at 255', async function (assert) {
+      assert.dom('[data-test-kuler-g]').hasValue('138');
+
+      await fillIn('[data-test-kuler-g]', '400');
+      await triggerEvent('[data-test-kuler-g]', 'complete');
+      await blur('[data-test-kuler-g]');
+
+      assert.dom('[data-test-kuler-g]').hasValue('255');
+    });
+  });
+
+  module('blue', function () {
+    test('incomplete clears input', async function (assert) {
+      assert.dom('[data-test-kuler-b]').hasValue('224');
+
+      await fillIn('[data-test-kuler-b]', '255');
+      await triggerEvent('[data-test-kuler-b]', 'complete');
+      await fillIn('[data-test-kuler-b]', '');
+      await blur('[data-test-kuler-b]');
+
+      assert.dom('[data-test-kuler-b]').hasValue('255');
+    });
+
+    test('values capped at 255', async function (assert) {
+      assert.dom('[data-test-kuler-b]').hasValue('224');
+
+      await fillIn('[data-test-kuler-b]', '400');
+      await triggerEvent('[data-test-kuler-b]', 'complete');
+      await blur('[data-test-kuler-b]');
+
+      assert.dom('[data-test-kuler-b]').hasValue('255');
+    });
+  });
+
+  module('alpha', function () {
+    test('incomplete clears input', async function (assert) {
+      assert.dom('[data-test-kuler-a]').hasValue('1');
+
+      await fillIn('[data-test-kuler-a]', '0.52');
+      await triggerEvent('[data-test-kuler-a]', 'complete');
+      await fillIn('[data-test-kuler-a]', '');
+      await blur('[data-test-kuler-a]');
+
+      assert.dom('[data-test-kuler-a]').hasValue('0.52');
+    });
+
+    test('values capped at 1', async function (assert) {
+      assert.dom('[data-test-kuler-a]').hasValue('1');
+
+      await fillIn('[data-test-kuler-a]', '1.50');
+      await triggerEvent('[data-test-kuler-a]', 'complete');
+      await blur('[data-test-kuler-a]');
+
+      assert.dom('[data-test-kuler-a]').hasValue('1');
+    });
   });
 });

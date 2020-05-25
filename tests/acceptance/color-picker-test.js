@@ -12,6 +12,42 @@ module('Acceptance | color-picker', function (hooks) {
     await seedOrbit(this.owner);
   });
 
+  module('inputs', function () {
+    test('hex input updates rgba', async function (assert) {
+      await visit('/colors?paletteId=color-history-123');
+
+      await triggerEvent(
+        '[data-test-color="Black"] [data-test-color-row-menu]',
+        'mouseenter'
+      );
+
+      await animationsSettled();
+
+      await click('[data-test-color="Black"] [data-test-edit-color]');
+
+      await waitForAll();
+
+      assert.dom('[data-test-color-picker]').exists();
+
+      assert.dom('[data-test-color-picker-hex]').hasValue('#000000');
+      assert.dom('[data-test-color-picker-r]').hasValue('0');
+      assert.dom('[data-test-color-picker-g]').hasValue('0');
+      assert.dom('[data-test-color-picker-b]').hasValue('0');
+      assert.dom('[data-test-color-picker-a]').hasValue('1');
+
+      await fillIn('[data-test-color-picker-hex]', '#ffffff0e');
+      await triggerEvent('[data-test-color-picker-hex]', 'complete');
+
+      await waitForAll();
+
+      assert.dom('[data-test-color-picker-hex]').hasValue('#ffffff0e');
+      assert.dom('[data-test-color-picker-r]').hasValue('255');
+      assert.dom('[data-test-color-picker-g]').hasValue('255');
+      assert.dom('[data-test-color-picker-b]').hasValue('255');
+      assert.dom('[data-test-color-picker-a]').hasValue('0.05');
+    });
+  });
+
   module('red', function () {
     hooks.beforeEach(async function () {
       await seedOrbit(this.owner);

@@ -27,18 +27,19 @@ export default class HexInputComponent extends Component {
     const tinyColor = new TinyColor(event.target.value);
     const { r, g, b, a } = tinyColor.toRgb();
     const hex = rgbaToHex(r, g, b, a);
+    const alpha = a.toFixed(2);
 
     setProperties(this.args.selectedColor, {
       _hex: hex,
       _r: r,
       _g: g,
       _b: b,
-      _a: a,
+      _a: alpha,
       hex,
       r,
       g,
       b,
-      a
+      a: alpha
     });
     this.args.updateColor();
   }

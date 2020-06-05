@@ -5977,10 +5977,10 @@ ember-inflector@^3.0.1:
   dependencies:
     ember-cli-babel "^6.6.0"
 
-ember-inputmask@^0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/ember-inputmask/-/ember-inputmask-0.10.2.tgz#33d4635c2828cde9cba6fed82ce027e1dab6b9e7"
-  integrity sha512-0uEKNuXUxoGTGK99jgLdsy2BJ+XMyJ+IWxjTArQMdvP/YQw+h2ycvMOnwsydUicNzHFbyFy92Yrl+NVMBQTXBw==
+ember-inputmask@^0.10.3:
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/ember-inputmask/-/ember-inputmask-0.10.3.tgz#ea1577f7fc851f7be491f4c8c6aa25667a8119d1"
+  integrity sha512-UOCJIGOqGdRzLpPbVYRkFXW/ILXYGTQpYHZJccweI6JlztGJ9mSOJJzUggozrkadDTioTlMxqNpZ+B4qUczKNA==
   dependencies:
     ember-cli-babel "^7.18.0"
     ember-cli-htmlbars "^4.2.3"

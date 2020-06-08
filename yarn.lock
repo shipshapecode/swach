@@ -6180,10 +6180,10 @@ ember-on-modifier@^1.0.0:
     ember-cli-version-checker "^4.1.0"
     ember-modifier-manager-polyfill "^1.2.0"
 
-ember-orbit@^0.16.6:
-  version "0.16.6"
-  resolved "https://registry.yarnpkg.com/ember-orbit/-/ember-orbit-0.16.6.tgz#a3c942c0fa2a7ff0d7c4a4d2dffcd74e67cb4819"
-  integrity sha512-SIu+FzxIdhaRfBwXVcrpNHxTpGvdRpEX6FF0qpDg3RQFF/E0ZjJj0zVyYAA9nrDa9FarXWsryIwO5jABOzp8Nw==
+ember-orbit@^0.16.7:
+  version "0.16.7"
+  resolved "https://registry.yarnpkg.com/ember-orbit/-/ember-orbit-0.16.7.tgz#58439bb3b1b8511c494d6ff6511587960759c9ee"
+  integrity sha512-rMjdCQMJH+7DWR4L2aSoUqkBsinrkrWF7zyi9N024Fy/whmaoB6iwbTvWXQ+2zHPf0N9blm7dT5SupZHU1yPLw==
   dependencies:
     "@orbit/coordinator" "^0.16.5"
     "@orbit/core" "^0.16.3"
@@ -6192,7 +6192,7 @@ ember-orbit@^0.16.6:
     "@orbit/memory" "^0.16.5"
     "@orbit/utils" "^0.16.3"
     ember-auto-import "^1.5.3"
-    ember-cli-babel "^7.18.0"
+    ember-cli-babel "^7.19.0"
     ember-cli-typescript "^3.1.3"
     ember-inflector "^3.0.1"
     ember-native-class-polyfill "^1.0.6"

@@ -199,7 +199,11 @@ mb.on('ready', () => {
     mb.window.loadURL(emberAppLocation);
   });
 
-  mb.showWindow();
+  mb.window.once('ready-to-show', function () {
+    setTimeout(() => {
+      mb.showWindow();
+    }, 750);
+  });
 
   mb.window.webContents.on('crashed', () => {
     console.log(

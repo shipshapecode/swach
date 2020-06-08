@@ -6058,10 +6058,10 @@ ember-inflector@^3.0.1:
   dependencies:
     ember-cli-babel "^6.6.0"
 
-ember-inputmask@^0.10.3:
-  version "0.10.3"
-  resolved "https://registry.yarnpkg.com/ember-inputmask/-/ember-inputmask-0.10.3.tgz#ea1577f7fc851f7be491f4c8c6aa25667a8119d1"
-  integrity sha512-UOCJIGOqGdRzLpPbVYRkFXW/ILXYGTQpYHZJccweI6JlztGJ9mSOJJzUggozrkadDTioTlMxqNpZ+B4qUczKNA==
+ember-inputmask@^0.10.4:
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/ember-inputmask/-/ember-inputmask-0.10.4.tgz#60cf459efcc368185ae59c9a5192b0561924bedb"
+  integrity sha512-YqM9mVIto/jSCw0HNUnxdMLvaBWMSzV3KgLFD2x+MY9Uemg/+1Zxq8N5BwtNNLOKkLWQvnJmyefyGql65/CJIw==
   dependencies:
     ember-cli-babel "^7.18.0"
     ember-cli-htmlbars "^4.2.3"

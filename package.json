@@ -3,7 +3,7 @@
   "version": "0.1.27",
   "private": true,
   "description": "A robust color management tool for the modern age.",
-  "repository": "https://github.com/rwwagner90/swach",
+  "repository": "https://github.com/shipshapecode/swach",
   "license": "MIT",
   "author": {
     "name": "Robert Wagner",
@@ -17,6 +17,7 @@
   "scripts": {
     "bump-versions": "bump --commit --tag --push package.json electron-app/package.json",
     "build": "ember build --environment=production",
+    "changelog": "lerna-changelog --from=v0.1.27",
     "install-deps": "cd electron-app && yarn install && cd ../ && yarn install",
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*",
     "lint:hbs": "ember-template-lint .",
@@ -89,6 +90,7 @@
     "eslint-plugin-ember": "^8.6.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.3",
+    "lerna-changelog": "^1.0.1",
     "liquid-fire": "^0.31.0",
     "loader.js": "^4.7.0",
     "nearest-color": "^0.4.4",

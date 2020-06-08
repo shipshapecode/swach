@@ -72,7 +72,7 @@
     "ember-local-storage": "^1.7.2",
     "ember-math-helpers": "^2.14.0",
     "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-orbit": "^0.16.6",
+    "ember-orbit": "^0.16.7",
     "ember-power-select": "^4.0.2",
     "ember-qunit": "^4.6.0",
     "ember-resolver": "^8.0.0",

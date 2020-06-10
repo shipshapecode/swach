@@ -1,3 +1,12 @@
+## v0.1.28 (2020-06-10)
+
+#### :rocket: Enhancement
+* [#111](https://github.com/shipshapecode/swach/pull/111) Remove loading indicator and delay showing ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 2
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.1.18 (2020-05-17)
 
 #### :bug: Bug Fix

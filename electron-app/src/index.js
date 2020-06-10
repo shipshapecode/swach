@@ -4,17 +4,15 @@ const { dirname, join, resolve } = require('path');
 const isDev = require('electron-is-dev');
 const protocolServe = require('electron-protocol-serve');
 const { menubar } = require('menubar');
-const {
-  default: installExtension,
-  EMBER_INSPECTOR
-} = require('electron-devtools-installer');
 const { launchPicker } = require('./color-picker');
 const { noUpdatesAvailableDialog, restartDialog } = require('./dialogs');
 const { registerKeyboardShortcuts } = require('./shortcuts');
 const { setupUpdateServer } = require('./auto-update');
 
-const debug = require('electron-debug');
-debug({ showDevTools: false });
+if (isDev) {
+  const debug = require('electron-debug');
+  debug({ showDevTools: false });
+}
 
 const Sentry = require('@sentry/electron');
 
@@ -183,6 +181,11 @@ mb.on('after-create-window', function () {
 
 mb.on('ready', () => {
   if (isDev) {
+    const {
+      default: installExtension,
+      EMBER_INSPECTOR
+    } = require('electron-devtools-installer');
+
     installExtension(EMBER_INSPECTOR)
       .then((name) => console.log(`Added Extension:  ${name}`))
       .catch((err) => console.log('An error occurred: ', err));

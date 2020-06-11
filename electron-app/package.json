@@ -65,6 +65,7 @@
         "default",
         "giblib1",
         "libimlib2",
+        "libx11-6",
         "libxcursor1",
         "libxfixes3",
         "scrot"

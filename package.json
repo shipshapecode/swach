@@ -62,7 +62,7 @@
     "ember-context-menu": "^0.5.2",
     "ember-decorators": "^6.1.1",
     "ember-drag-sort": "^2.0.0-beta.2",
-    "ember-electron": "^3.0.0-beta.2",
+    "ember-electron": "^3.0.0-beta.3",
     "ember-event-helpers": "^0.1.1",
     "ember-export-application-global": "^2.0.1",
     "ember-fetch": "^8.0.1",

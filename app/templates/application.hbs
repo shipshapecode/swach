@@ -6,7 +6,7 @@
   <div class="flex flex-col max-w-xl h-full relative w-full">
     <nav
       class="bg-menu flex justify-between items-center p-4 w-full {{
-        if this.isWelcomeRoute "hidden"
+      if this.isWelcomeRoute "hidden"
       }}"
     >
       <div class="flex-grow">
@@ -29,69 +29,61 @@
           @targetId="toggle-menu"
           @tooltipClass="bg-menu border-main text-menu-text"
         >
-          <div>
-            <LinkTo
-              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
-              @route="palettes"
-              {{on "click" this.toggleMenuIsShown}}
-            >
-              {{
-                svg-jar
-                "palettes"
-                class="menu-icon inline-block mr-2"
-                height="13"
-                width="13"
-              }} Palettes
-            </LinkTo>
-          </div>
+          <LinkTo
+            class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
+            @route="palettes"
+            {{on "click" this.toggleMenuIsShown}}
+          >
+            {{
+              svg-jar
+              "palettes"
+              class="menu-icon inline-block mr-2"
+              height="13"
+              width="13"
+            }} Palettes
+          </LinkTo>
 
-          <div>
-            <LinkTo
-              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
-              @route="contrast"
-              {{on "click" this.toggleMenuIsShown}}
-            >
-              {{
-                svg-jar
-                "contrast"
-                class="menu-icon inline-block mr-2"
-                height="13"
-                width="13"
-              }} Check Contrast
-            </LinkTo>
-          </div>
+          <LinkTo
+            class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
+            @route="contrast"
+            {{on "click" this.toggleMenuIsShown}}
+          >
+            {{
+              svg-jar
+              "contrast"
+              class="menu-icon inline-block mr-2"
+              height="13"
+              width="13"
+            }} Check Contrast
+          </LinkTo>
 
-          <div>
-            <LinkTo
-              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
-              @route="settings"
-              {{on "click" this.toggleMenuIsShown}}
-            >
-              {{
-                svg-jar
-                "settings"
-                class="menu-icon inline-block mr-2"
-                height="13"
-                width="13"
-              }} Settings
-            </LinkTo>
-          </div>
+          <LinkTo
+            class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
+            @route="settings"
+            {{on "click" this.toggleMenuIsShown}}
+          >
+            {{
+              svg-jar
+              "settings"
+              class="menu-icon inline-block mr-2"
+              height="13"
+              width="13"
+            }} Settings
+          </LinkTo>
 
-          <div>
-            <button
-              class="flex items-center h-3 mb-3 -mt-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
-              type="button"
-              {{on "click" this.exitApp}}
-            >
-              {{
-                svg-jar
-                "close"
-                class="menu-icon inline-block mr-2"
-                height="13"
-                width="13"
-              }} Close Swach
-            </button>
-          </div>
+          <button
+            class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
+            type="button"
+            {{on "click" this.exitApp}}
+          >
+            {{
+              svg-jar
+              "close"
+              class="menu-icon inline-block mr-2"
+              height="13"
+              width="13"
+            }} Close Swach
+          </button>
         </EmberPopover>
       </div>
 

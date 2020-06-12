@@ -6,7 +6,11 @@ const protocolServe = require('electron-protocol-serve');
 const { menubar } = require('menubar');
 const { launchPicker } = require('./color-picker');
 const { noUpdatesAvailableDialog, restartDialog } = require('./dialogs');
-const { registerKeyboardShortcuts } = require('./shortcuts');
+const {
+  registerKeyboardShortcuts,
+  setupContextMenu,
+  setupMenu
+} = require('./shortcuts');
 const { setupUpdateServer } = require('./auto-update');
 
 if (isDev) {
@@ -152,31 +156,8 @@ mb.app.on('window-all-closed', () => {
 });
 
 mb.on('after-create-window', function () {
-  const contextMenu = Menu.buildFromTemplate([
-    {
-      label: 'Color Picker',
-      click() {
-        launchPicker(mb);
-      }
-    },
-    {
-      label: 'Contrast Checker',
-      click() {
-        openContrastChecker(mb);
-      }
-    },
-    { type: 'separator' },
-    {
-      label: 'Quit',
-      click() {
-        mb.app.quit();
-      }
-    }
-  ]);
-
-  mb.tray.on('right-click', () => {
-    mb.tray.popUpContextMenu(contextMenu);
-  });
+  setupMenu(mb, launchPicker, openContrastChecker);
+  setupContextMenu(mb, launchPicker, openContrastChecker);
 });
 
 mb.on('ready', () => {

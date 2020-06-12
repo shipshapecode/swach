@@ -82,7 +82,30 @@ function setupMenu(mb, launchPicker, openContrastChecker) {
     // { role: 'editMenu' }
     {
       label: 'Edit',
-      submenu: [{ role: 'undo' }, { role: 'redo' }]
+      submenu: [
+        {
+          label: 'Undo',
+          accelerator: 'CmdOrCtrl+Z',
+          async click() {
+            await mb.window.webContents.send('undoRedo', 'undo');
+          }
+        },
+        {
+          label: 'Redo',
+          accelerator: 'Shift+CmdOrCtrl+Z',
+          async click() {
+            await mb.window.webContents.send('undoRedo', 'redo');
+          }
+        }
+      ]
+    },
+    {
+      label: 'View',
+      submenu: [
+        { role: 'reload' },
+        { role: 'forcereload' },
+        { role: 'toggledevtools' }
+      ]
     },
     {
       role: 'help',

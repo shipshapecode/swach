@@ -25,38 +25,60 @@ export default class UndoManager extends Service {
   constructor() {
     super(...arguments);
 
-    this.undoListener = async (e) => {
-      {
-        const key = e.which || e.keyCode;
-        // testing for CMD or CTRL
-        const ctrl =
-          e.ctrlKey || e.metaKey
-            ? e.ctrlKey || e.metaKey
-            : key === 17
-            ? true
-            : false;
-        const isUndo = ctrl && key === 90;
-        const isRedo = isUndo && e.shiftKey;
+    // If we have Electron running, use the application undo/redo, else use document
+    if (typeof requireNode !== 'undefined') {
+      let { ipcRenderer } = requireNode('electron');
+      this.ipcRenderer = ipcRenderer;
 
-        if (isRedo) {
-          if (!this.isExecuting && this.hasRedo()) {
-            await this.redo();
-          }
-        } else if (isUndo) {
-          if (!this.isExecuting && this.hasUndo()) {
-            await this.undo();
-          }
+      this.ipcRenderer.on('undoRedo', async (event, type) => {
+        const isRedo = type === 'redo';
+        const isUndo = type === 'undo';
+
+        await this._doUndoRedo(isRedo, isUndo);
+      });
+    } else {
+      this.undoListener = async (e) => {
+        {
+          const key = e.which || e.keyCode;
+          // testing for CMD or CTRL
+          const ctrl =
+            e.ctrlKey || e.metaKey ? e.ctrlKey || e.metaKey : key === 17;
+          const isUndo = ctrl && key === 90;
+          const isRedo = isUndo && e.shiftKey;
+
+          await this._doUndoRedo(isRedo, isUndo);
         }
-      }
-    };
+      };
 
-    document.addEventListener('keydown', this.undoListener, true);
+      document.addEventListener('keydown', this.undoListener, true);
+    }
   }
 
   willDestroy() {
     super.willDestroy(...arguments);
 
-    document.removeEventListener('keydown', this.undoListener, true);
+    if (typeof requireNode === 'undefined' && this.undoListener) {
+      document.removeEventListener('keydown', this.undoListener, true);
+    }
+  }
+
+  /**
+   * Abstracted out the undo/redo execution so we can use it either in Electron or the browser
+   * @param {boolean} isRedo true if operation is 'redo'
+   * @param {boolean} isUndo true if operation is 'undo'
+   * @returns {Promise<void>}
+   * @private
+   */
+  async _doUndoRedo(isRedo, isUndo) {
+    if (isRedo) {
+      if (!this.isExecuting && this.hasRedo()) {
+        await this.redo();
+      }
+    } else if (isUndo) {
+      if (!this.isExecuting && this.hasUndo()) {
+        await this.undo();
+      }
+    }
   }
 
   async execute(command, action) {

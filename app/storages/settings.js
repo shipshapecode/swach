@@ -5,6 +5,7 @@ const Storage = StorageObject.extend();
 Storage.reopenClass({
   initialState() {
     return {
+      notifications: true,
       openOnStartup: false,
       showDockIcon: false,
       sounds: true,

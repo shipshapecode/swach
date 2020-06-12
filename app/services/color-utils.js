@@ -57,10 +57,14 @@ export default class ColorUtilsService extends Service {
         const audio = new Audio('/sounds/pluck_short.wav');
         audio.play();
       }
-      new window.Notification(`${color.name} - ${color.hex}`, {
-        body: `${color.hex} copied to clipboard!`,
-        silent: true
-      });
+
+      // eslint-disable-next-line ember/no-get
+      if (get(this, 'settings.notifications')) {
+        new window.Notification(`${color.name} - ${color.hex}`, {
+          body: `${color.hex} copied to clipboard!`,
+          silent: true
+        });
+      }
     }
   }
 }

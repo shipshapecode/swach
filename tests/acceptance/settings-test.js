@@ -25,8 +25,8 @@ module('Acceptance | settings', function (hooks) {
     assert.dom('[data-test-settings-menu]').exists();
   });
 
-  test('has three checkboxes', function (assert) {
-    assert.dom('[data-test-settings-menu] input').exists({ count: 3 });
+  test('has four checkboxes', function (assert) {
+    assert.dom('[data-test-settings-menu] input').exists({ count: 4 });
   });
 
   test('start on startup is not checked by default', async function (assert) {

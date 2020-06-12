@@ -1,4 +1,4 @@
-const { clipboard, protocol, Menu, ipcMain } = require('electron');
+const { clipboard, protocol, ipcMain } = require('electron');
 const AutoLaunch = require('auto-launch');
 const { dirname, join, resolve } = require('path');
 const isDev = require('electron-is-dev');

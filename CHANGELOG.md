@@ -1,3 +1,27 @@
+## v0.1.30 (2020-06-13)
+
+#### :rocket: Enhancement
+* [#120](https://github.com/shipshapecode/swach/pull/120) Add setting for showing/hiding notifications ([@rwwagner90](https://github.com/rwwagner90))
+* [#119](https://github.com/shipshapecode/swach/pull/119) Support undo/redo through application menu ([@rwwagner90](https://github.com/rwwagner90))
+* [#118](https://github.com/shipshapecode/swach/pull/118) Add application menu ([@rwwagner90](https://github.com/rwwagner90))
+
+#### :bug: Bug Fix
+* [#117](https://github.com/shipshapecode/swach/pull/117) Fix contrast checker overflow issues ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
+
+## v0.1.29 (2020-06-11)
+
+#### :bug: Bug Fix
+* [#116](https://github.com/shipshapecode/swach/pull/116) Add libx11-6 to Snapcraft packages ([@rwwagner90](https://github.com/rwwagner90))
+* [#114](https://github.com/shipshapecode/swach/pull/114) Fix menu styles ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 2
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.1.28 (2020-06-10)
 
 #### :rocket: Enhancement

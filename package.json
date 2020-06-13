@@ -17,7 +17,7 @@
   "scripts": {
     "bump-versions": "bump --commit --tag --push package.json electron-app/package.json",
     "build": "ember build --environment=production",
-    "changelog": "lerna-changelog --from=v0.1.27",
+    "changelog": "lerna-changelog --from=v0.1.30",
     "install-deps": "cd electron-app && yarn install && cd ../ && yarn install",
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*",
     "lint:hbs": "ember-template-lint .",

@@ -42,6 +42,12 @@ export default class KulerComponent extends Component {
 
   @action
   async baseColorChanged() {
+    // If we already had a selected palette, take note of which type analogous, monochromatic, etc
+    // That way we can show the same type again even when the base changes
+    const selectedPaletteTypeIndex = this.selectedPalette
+      ? this.palettes.indexOf(this.selectedPalette)
+      : 0;
+
     await this._destroyLeftoverPalettes();
 
     for (const harmony of this.harmonies) {
@@ -69,13 +75,26 @@ export default class KulerComponent extends Component {
       this.palettes.pushObject(palette);
     }
 
-    this.selectedPalette = this.palettes[0];
+    this.selectedPalette = this.palettes[selectedPaletteTypeIndex];
   }
 
   willDestroy() {
     this._destroyLeftoverPalettes();
     this.colorPicker.off('color:change', this._onColorChange);
     this.colorPicker.off('color:setActive', this._onColorSetActive);
+  }
+
+  @action
+  setColorAsBase() {
+    this.baseColor = this.selectedPalette.colors[
+      this.selectedPalette.selectedColorIndex
+    ];
+    return this.baseColorChanged().then(() => {
+      this.colorPicker.setColors(
+        this.selectedPalette.colors.mapBy('hex'),
+        this.selectedPalette.selectedColorIndex
+      );
+    });
   }
 
   /**

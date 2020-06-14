@@ -33,5 +33,16 @@
       @colorPicker={{this.colorPicker}}
       @palette={{this.selectedPalette}}
     />
+
+    {{#if (not-eq this.selectedPalette.selectedColorIndex 0)}}
+      <button
+        data-test-set-base-color
+        class="btn btn-primary flex-grow mt-5 p-2 text-sm w-full"
+        type="button"
+        {{on "click" this.setColorAsBase}}
+      >
+        🏠 Set as base
+      </button>
+    {{/if}}
   </div>
 {{/if}}

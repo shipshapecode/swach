@@ -151,6 +151,119 @@ module('Acceptance | kuler', function (hooks) {
     assert.dom(thirdColor).hasStyle({ backgroundColor: 'rgb(138, 224, 247)' });
   });
 
+  test('changing base', async function (assert) {
+    await selectChoose('[data-test-kuler-select]', 'Monochromatic');
+
+    assert
+      .dom(
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-name]'
+      )
+      .hasText('Monochromatic');
+
+    assert
+      .dom(
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color]'
+      )
+      .exists({ count: 5 });
+
+    assert
+      .dom(
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="0"]'
+      )
+      .hasStyle({
+        backgroundColor: 'rgb(247, 138, 224)'
+      });
+
+    assert
+      .dom(
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]'
+      )
+      .hasStyle({
+        backgroundColor: 'rgb(43, 24, 39)'
+      });
+
+    assert
+      .dom(
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="2"]'
+      )
+      .hasStyle({
+        backgroundColor: 'rgb(94, 53, 85)'
+      });
+
+    assert
+      .dom(
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="3"]'
+      )
+      .hasStyle({
+        backgroundColor: 'rgb(145, 81, 131)'
+      });
+
+    assert
+      .dom(
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="4"]'
+      )
+      .hasStyle({
+        backgroundColor: 'rgb(196, 110, 178)'
+      });
+
+    await click(
+      '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]'
+    );
+    await click('[data-test-set-base-color]');
+
+    assert
+      .dom(
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-name]'
+      )
+      .hasText('Monochromatic');
+
+    assert
+      .dom(
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color]'
+      )
+      .exists({ count: 5 });
+
+    assert
+      .dom(
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="0"]'
+      )
+      .hasStyle({
+        backgroundColor: 'rgb(43, 24, 39)'
+      });
+
+    assert
+      .dom(
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]'
+      )
+      .hasStyle({
+        backgroundColor: 'rgb(94, 52, 85)'
+      });
+
+    assert
+      .dom(
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="2"]'
+      )
+      .hasStyle({
+        backgroundColor: 'rgb(145, 81, 132)'
+      });
+
+    assert
+      .dom(
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="3"]'
+      )
+      .hasStyle({
+        backgroundColor: 'rgb(196, 109, 178)'
+      });
+
+    assert
+      .dom(
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="4"]'
+      )
+      .hasStyle({
+        backgroundColor: 'rgb(247, 138, 224)'
+      });
+  });
+
   module('inputs', function () {
     test('hex input updates rgba', async function (assert) {
       assert.dom('[data-test-kuler-hex]').hasValue('#f78ae0');

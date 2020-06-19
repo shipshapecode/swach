@@ -1,0 +1,12 @@
+<form>
+  <label for="firstName">First Name</label>
+  {{input value=@user.firstName placeholder="enter first name"}}
+  <label for="lastName">Last Name</label>
+  {{input value=@user.lastName placeholder="enter last name"}}
+  <label for="email">Email</label>
+  {{input value=@user.email placeholder="enter email"}}
+  <label for="password">Password</label>
+  {{input value=@user.password type="password" placeholder="enter password"}}
+
+  <button type="button" {{on 'click' @createNewUser}}>Register</button>
+</form>

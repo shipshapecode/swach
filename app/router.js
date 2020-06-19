@@ -16,4 +16,5 @@ Router.map(function () {
     this.route('auto-start');
     this.route('dock-icon');
   });
+  this.route('signup');
 });

@@ -1,4 +1,4 @@
-import { Model, attr, hasMany } from 'ember-orbit';
+import { Model, attr, hasMany, belongsTo } from 'ember-orbit';
 
 export default class PaletteModel extends Model {
   @attr('date') createdAt;
@@ -11,5 +11,6 @@ export default class PaletteModel extends Model {
   // This is an array to track color order, and is a hack until orbit supports ordered relationships
   @attr() colorOrder;
 
+  @belongsTo('user') user;
   @hasMany('color', { inverse: 'palettes' }) colors;
 }

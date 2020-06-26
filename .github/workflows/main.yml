@@ -107,7 +107,7 @@ jobs:
           yarn build
           set -e
       - name: Add Snapcraft Layout
-        uses: DamianReeves/write-file-action
+        uses: DamianReeves/write-file-action@v1.0
         with:
           path: ./dist/__snap-amd64/snap/snapcraft.yml
           contents: |

@@ -106,7 +106,10 @@ jobs:
           set +e
           yarn build
           set -e
-          echo -e "layout:\n  /usr/lib/x86_64-linux-gnu/imlib2:\n    bind: $SNAP/usr/lib/x86_64-linux-gnu/imlib2" >> ./dist/__snap-amd64/snap/snapcraft.yml
+          echo "Snapcraft.yml initial contents"
+          sudo cat ./dist/__snap-amd64/snap/snapcraft.yml
+          sudo echo -e "layout:\n  /usr/lib/x86_64-linux-gnu/imlib2:\n    bind: $SNAP/usr/lib/x86_64-linux-gnu/imlib2" >> ./dist/__snap-amd64/snap/snapcraft.yml
+          echo "Snapcraft.yml modified contents w/ layout"
           cat ./dist/__snap-amd64/snap/snapcraft.yml
           cd ./dist/__snap-amd64
           sudo snapcraft --destructive-mode

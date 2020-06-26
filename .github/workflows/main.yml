@@ -107,6 +107,7 @@ jobs:
           yarn build
           set -e
           echo -e "layout:\n  /usr/lib/x86_64-linux-gnu/imlib2:\n    bind: $SNAP/usr/lib/x86_64-linux-gnu/imlib2" >> ./dist/__snap-amd64/snap/snapcraft.yml
+          cat ./dist/__snap-amd64/snap/snapcraft.yml
           cd ./dist/__snap-amd64
           sudo snapcraft --destructive-mode
           sudo snapcraft push *.snap --release stable

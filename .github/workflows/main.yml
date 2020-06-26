@@ -99,24 +99,14 @@ jobs:
         uses: samuelmeuli/action-snapcraft@v1
         with:
           snapcraft_token: ${{ secrets.snapcraft_token }}
-      - name: Snapcraft Electron Build
+      - name: Make and Publish Snapcraft
         run: |
           yarn make:snapcraft
           cd electron-app
           set +e
           yarn build
           set -e
-      - name: Add Snapcraft Layout
-        uses: DamianReeves/write-file-action@v1.0
-        with:
-          path: ./dist/__snap-amd64/snap/snapcraft.yml
-          contents: |
-            layout:
-              /usr/lib/x86_64-linux-gnu/imlib2:
-                bind: $SNAP/usr/lib/x86_64-linux-gnu/imlib2
-          write-mode: append
-      - name: Rebuild Snapcraft in Destructive Mode
-        run: |
+          echo -e "layout:\n  /usr/lib/x86_64-linux-gnu/imlib2:\n    bind: $SNAP/usr/lib/x86_64-linux-gnu/imlib2" >> ./dist/__snap-amd64/snap/snapcraft.yml
           cd ./dist/__snap-amd64
           sudo snapcraft --destructive-mode
           sudo snapcraft push *.snap --release stable

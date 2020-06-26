@@ -102,15 +102,16 @@ jobs:
       - name: Make and Publish Snapcraft
         run: |
           yarn make:snapcraft
-          cd electron-app
+          cd ${{ github.workspace }}/electron-app
           set +e
           yarn build
           set -e
+          cd ${{ github.workspace }}
           echo "Snapcraft.yml initial contents"
-          sudo cat ./dist/__snap-amd64/snap/snapcraft.yml
-          sudo echo -e "layout:\n  /usr/lib/x86_64-linux-gnu/imlib2:\n    bind: $SNAP/usr/lib/x86_64-linux-gnu/imlib2" >> ./dist/__snap-amd64/snap/snapcraft.yml
+          cat ${{ github.workspace }}/electron-app/dist/__snap-amd64/snap/snapcraft.yml
+          echo -e "layout:\n  /usr/lib/x86_64-linux-gnu/imlib2:\n    bind: $SNAP/usr/lib/x86_64-linux-gnu/imlib2" >> ${{ github.workspace }}/electron-app/dist/__snap-amd64/snap/snapcraft.yml
           echo "Snapcraft.yml modified contents w/ layout"
-          cat ./dist/__snap-amd64/snap/snapcraft.yml
-          cd ./dist/__snap-amd64
+          cat ${{ github.workspace }}/electron-app/dist/__snap-amd64/snap/snapcraft.yml
+          cd ${{ github.workspace }}/electron-app/dist/__snap-amd64
           sudo snapcraft --destructive-mode
           sudo snapcraft push *.snap --release stable

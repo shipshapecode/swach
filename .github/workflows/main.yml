@@ -102,20 +102,15 @@ jobs:
       - name: Electron Builder Snapcraft
         run: |
           yarn make:snapcraft
-          cd ${{ github.workspace }}/electron-app
+          cd electron-app
           set +e
           yarn build
           set -e
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v2
-      - name: Snapcraft Destructive Build
+      - name: Add layout and do Snapcraft destructive build
         run: |
-          cd ${{ github.workspace }}
-          echo "Snapcraft.yml initial contents"
-          cat ${{ github.workspace }}/electron-app/dist/__snap-amd64/snap/snapcraft.yml
-          echo -e "layout:\n  /usr/lib/x86_64-linux-gnu/imlib2:\n    bind: $SNAP/usr/lib/x86_64-linux-gnu/imlib2" >> ${{ github.workspace }}/electron-app/dist/__snap-amd64/snap/snapcraft.yml
-          echo "Snapcraft.yml modified contents w/ layout"
-          cat ${{ github.workspace }}/electron-app/dist/__snap-amd64/snap/snapcraft.yml
-          cd ${{ github.workspace }}/electron-app/dist/__snap-amd64
+          echo -e "layout:\n  /usr/lib/x86_64-linux-gnu/imlib2:\n    bind: $SNAP/usr/lib/x86_64-linux-gnu/imlib2" >> ./dist/__snap-amd64/snap/snapcraft.yaml
+          echo "Snapcraft.yaml modified contents w/ layout"
+          cat ./dist/__snap-amd64/snap/snapcraft.yaml
+          cd ./dist/__snap-amd64
           sudo snapcraft --destructive-mode
           sudo snapcraft push *.snap --release stable

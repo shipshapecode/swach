@@ -61,11 +61,6 @@
       ]
     },
     "snap": {
-      "layout": {
-        "/usr/lib/x86_64-linux-gnu/imlib2": {
-          "bind": "$SNAP/usr/lib/x86_64-linux-gnu/imlib2"
-        }
-      },
       "stagePackages": [
         "default",
         "giblib1",

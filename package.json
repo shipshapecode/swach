@@ -53,7 +53,7 @@
     "ember-cli-app-version": "^3.2.0",
     "ember-cli-babel": "^7.21.0",
     "ember-cli-dependency-checker": "^3.2.0",
-    "ember-cli-htmlbars": "^5.1.2",
+    "ember-cli-htmlbars": "^5.2.0",
     "ember-cli-inject-live-reload": "^2.0.2",
     "ember-cli-postcss": "^6.0.1",
     "ember-cli-sri": "^2.1.1",

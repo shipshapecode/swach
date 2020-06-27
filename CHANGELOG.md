@@ -1,3 +1,16 @@
+## v0.1.41 (2020-06-26)
+
+#### :rocket: Enhancement
+* [#121](https://github.com/shipshapecode/swach/pull/121) Allow setting a new base color for color harmonies ([@rwwagner90](https://github.com/rwwagner90))
+
+#### :bug: Bug Fix
+* [#139](https://github.com/shipshapecode/swach/pull/139) Add Snapcraft layout for scrot ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 2
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 ## v0.1.30 (2020-06-13)
 
 #### :rocket: Enhancement

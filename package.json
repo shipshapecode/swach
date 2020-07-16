@@ -100,7 +100,7 @@
     "prettier": "^2.0.5",
     "qunit-dom": "^1.2.0",
     "tailwindcss": "^1.5.1",
-    "version-bump-prompt": "^6.0.4",
+    "version-bump-prompt": "^6.0.5",
     "wcag-contrast": "^3.0.0"
   },
   "engines": {

@@ -1484,22 +1484,22 @@
     "@irojs/iro-core" "^1.0.0"
     preact "^10.0.0"
 
-"@jsdevtools/ez-spawn@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@jsdevtools/ez-spawn/-/ez-spawn-3.0.3.tgz#1734e3869ab8dbc68be8eaee7daa67381bdd5fd3"
-  integrity sha512-vMTCNwfJaJSgWiZCboRdOzTEWRTG0mbEt5ZJndjiZ/EC+gg0oCu3Ok0hAsRMNAWG4oXeS+jroXpPj8f0GoQczw==
+"@jsdevtools/ez-spawn@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@jsdevtools/ez-spawn/-/ez-spawn-3.0.4.tgz#5641eb26fee6d31ec29f6788eba849470c52c7ff"
+  integrity sha512-f5DRIOZf7wxogefH03RjMPMdBF7ADTWUMoOs9kaJo06EfwF+aFhMZMDZxHg/Xe12hptN9xoZjGso2fdjapBRIA==
   dependencies:
     call-me-maybe "^1.0.1"
-    cross-spawn "^7.0.1"
+    cross-spawn "^7.0.3"
     string-argv "^0.3.1"
     type-detect "^4.0.8"
 
-"@jsdevtools/version-bump-prompt@6.0.5":
-  version "6.0.5"
-  resolved "https://registry.yarnpkg.com/@jsdevtools/version-bump-prompt/-/version-bump-prompt-6.0.5.tgz#4dc64c36b4d3325a6c05596395bce6af4a81fb5f"
-  integrity sha512-gX9IcQOVXQ2EaAMCC8jHjysw/x4y7FNISdMBV9TOTAmCepte1C6Tpnm+T6SauTHM35jejPiJSft9DnFy7lz5Ag==
+"@jsdevtools/version-bump-prompt@6.0.6":
+  version "6.0.6"
+  resolved "https://registry.yarnpkg.com/@jsdevtools/version-bump-prompt/-/version-bump-prompt-6.0.6.tgz#d483442312d6ee37a2ac294faee4d31d837d9fa1"
+  integrity sha512-YA8eJU3dCbpKAB1+cObYk0EIrsw6n8ZtoU5vdgEEmpBwCBcd7pXotGehunLGSr4cWHgzQheIOwhz2sGITDfZlA==
   dependencies:
-    "@jsdevtools/ez-spawn" "^3.0.3"
+    "@jsdevtools/ez-spawn" "^3.0.4"
     command-line-args "^5.1.1"
     detect-indent "^6.0.0"
     detect-newline "^3.1.0"
@@ -5016,10 +5016,19 @@ cross-spawn@^6.0.0, cross-spawn@^6.0.5:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-cross-spawn@^7.0.0, cross-spawn@^7.0.1, cross-spawn@^7.0.2:
+cross-spawn@^7.0.0, cross-spawn@^7.0.2:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.2.tgz#d0d7dcfa74e89115c7619f4f721a94e1fdb716d6"
   integrity sha512-PD6G8QG3S4FK/XCGFbEQrDqO2AnMMsy0meR7lerlIOHAAbkuavGU/pOqprrlvfTNjvowivTeBsjebAL0NSoMxw==
+  dependencies:
+    path-key "^3.1.0"
+    shebang-command "^2.0.0"
+    which "^2.0.1"
+
+cross-spawn@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
+  integrity sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==
   dependencies:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
@@ -13743,12 +13752,12 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-version-bump-prompt@^6.0.5:
-  version "6.0.5"
-  resolved "https://registry.yarnpkg.com/version-bump-prompt/-/version-bump-prompt-6.0.5.tgz#da01232683944a7ca7a22cc031a7f76d6f4320e2"
-  integrity sha512-EcY0GJGFr0BZu+nm7Gc1/b00xk1kQQWSBqgRmywM8M5EOiD+BxZ6RzcqviJWg1QNnhoMiMaMa5bINul+ZdcQnA==
+version-bump-prompt@^6.0.6:
+  version "6.0.6"
+  resolved "https://registry.yarnpkg.com/version-bump-prompt/-/version-bump-prompt-6.0.6.tgz#317fd24b07b751490df90ffd5ed632a6ca66f0ef"
+  integrity sha512-5sn3kLLYf6k+2Z7smnfKzRKFpI5U2vCDULJqe0SWnGgixcNUXD0lKv5ynZ6JPpHftpBKodc+0SO67KnCRGTdOw==
   dependencies:
-    "@jsdevtools/version-bump-prompt" "6.0.5"
+    "@jsdevtools/version-bump-prompt" "6.0.6"
 
 vm-browserify@^1.0.1:
   version "1.1.2"

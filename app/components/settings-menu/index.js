@@ -1,10 +1,13 @@
 import Component from '@glimmer/component';
 import { action, set } from '@ember/object';
+import { inject as service } from '@ember/service';
 import { storageFor } from 'ember-local-storage';
 
 const IDBExportImport = require('indexeddb-export-import');
 
 export default class SettingsMenu extends Component {
+  @service dataCoordinator;
+  @service store;
   @storageFor('settings') settings;
 
   themes = ['dynamic', 'light', 'dark'];
@@ -43,6 +46,7 @@ export default class SettingsMenu extends Component {
         } else {
           if (this.ipcRenderer) {
             this.ipcRenderer.send('exportData', jsonString);
+            idbDatabase.close();
           }
         }
       });
@@ -51,7 +55,39 @@ export default class SettingsMenu extends Component {
 
   @action
   importIndexedDB() {
-    // TODO open file chooser in Electron, clear all current data and pass json to IDBExportImport
+    if (this.ipcRenderer) {
+      this.ipcRenderer.invoke('importData').then((jsonString) => {
+        if (jsonString) {
+          const DBOpenRequest = window.indexedDB.open('orbit', 1);
+          DBOpenRequest.onsuccess = () => {
+            const idbDatabase = DBOpenRequest.result;
+            IDBExportImport.clearDatabase(idbDatabase, (err) => {
+              if (!err) {
+                // cleared data successfully
+                IDBExportImport.importFromJsonString(
+                  idbDatabase,
+                  jsonString,
+                  async (err) => {
+                    if (!err) {
+                      idbDatabase.close();
+                      // TODO is pulling from the backup with orbit the best "refresh" here?
+                      const backup = this.dataCoordinator.getSource('backup');
+
+                      if (backup) {
+                        const transform = await backup.pull((q) =>
+                          q.findRecords()
+                        );
+                        await this.store.sync(transform);
+                      }
+                    }
+                  }
+                );
+              }
+            });
+          };
+        }
+      });
+    }
   }
 
   @action

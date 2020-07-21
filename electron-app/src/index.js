@@ -1,4 +1,4 @@
-const { clipboard, protocol, ipcMain } = require('electron');
+const { clipboard, dialog, protocol, ipcMain } = require('electron');
 const AutoLaunch = require('auto-launch');
 const { dirname, join, resolve } = require('path');
 const isDev = require('electron-is-dev');
@@ -105,6 +105,16 @@ ipcMain.on('exportData', async (channel, jsonString) => {
     if (err) throw err;
     console.log(`${downloadPath} was deleted`);
   });
+});
+
+ipcMain.handle('importData', async () => {
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    properties: ['openFile']
+  });
+
+  if (!canceled && filePaths.length) {
+    return fs.readFileSync(filePaths[0], { encoding: 'utf8' });
+  }
 });
 
 ipcMain.on('exitApp', () => mb.app.quit());

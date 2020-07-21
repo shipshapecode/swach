@@ -2,8 +2,7 @@ import Component from '@glimmer/component';
 import { action, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { storageFor } from 'ember-local-storage';
-
-const IDBExportImport = require('indexeddb-export-import');
+import IDBExportImport from 'indexeddb-export-import';
 
 export default class SettingsMenu extends Component {
   @service dataCoordinator;

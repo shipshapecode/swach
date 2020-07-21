@@ -89,6 +89,7 @@
     "eslint-plugin-ember": "^8.9.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "indexeddb-export-import": "^2.1.0",
     "lerna-changelog": "^1.0.1",
     "liquid-fire": "^0.31.0",
     "loader.js": "^4.7.0",

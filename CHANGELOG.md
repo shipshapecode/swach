@@ -1,3 +1,12 @@
+## v0.1.42 (2020-07-24)
+
+#### :rocket: Enhancement
+* [#171](https://github.com/shipshapecode/swach/pull/171) Add data import/export feature ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 2
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.1.41 (2020-06-26)
 
 #### :rocket: Enhancement

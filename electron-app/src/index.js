@@ -1,8 +1,10 @@
-const { clipboard, protocol, ipcMain } = require('electron');
+const { clipboard, dialog, protocol, ipcMain } = require('electron');
 const AutoLaunch = require('auto-launch');
 const { dirname, join, resolve } = require('path');
 const isDev = require('electron-is-dev');
 const protocolServe = require('electron-protocol-serve');
+const fs = require('fs');
+const { download } = require('electron-dl');
 const { menubar } = require('menubar');
 const { launchPicker } = require('./color-picker');
 const { noUpdatesAvailableDialog, restartDialog } = require('./dialogs');
@@ -93,6 +95,26 @@ if (process.platform === 'win32') {
 
 ipcMain.on('copyColorToClipboard', (channel, color) => {
   clipboard.writeText(color);
+});
+
+ipcMain.on('exportData', async (channel, jsonString) => {
+  const downloadPath = `${mb.app.getPath('temp')}/swach-data.json`;
+  fs.writeFileSync(downloadPath, jsonString);
+  await download(mb.window, `file://${downloadPath}`);
+  fs.unlink(downloadPath, (err) => {
+    if (err) throw err;
+    console.log(`${downloadPath} was deleted`);
+  });
+});
+
+ipcMain.handle('importData', async () => {
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    properties: ['openFile']
+  });
+
+  if (!canceled && filePaths.length) {
+    return fs.readFileSync(filePaths[0], { encoding: 'utf8' });
+  }
 });
 
 ipcMain.on('exitApp', () => mb.app.quit());

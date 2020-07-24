@@ -58,6 +58,24 @@
     <button
       class="btn btn-primary pb-1 pl-2 pr-2 pt-1"
       type="button"
+      {{on "click" this.exportIndexedDB}}
+    >
+      Export data
+    </button>
+
+    <button
+      class="btn btn-primary pb-1 pl-2 pr-2 pt-1"
+      type="button"
+      {{on "click" this.importIndexedDB}}
+    >
+      Import data
+    </button>
+  </div>
+
+  <div class="p-1 pb-4 pt-4">
+    <button
+      class="btn btn-primary pb-1 pl-2 pr-2 pt-1"
+      type="button"
       {{on "click" @checkForUpdates}}
     >
       Check for updates

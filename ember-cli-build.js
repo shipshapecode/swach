@@ -10,16 +10,17 @@ module.exports = function (defaults) {
     postcssOptions: {
       compile: {
         extension: 'scss',
+        enabled: true,
+        parser: require('postcss-scss'),
         syntax: 'postcss-scss',
         plugins: [
           {
-            module: require('postcss-import'),
+            module: require('@csstools/postcss-sass'),
             options: {
-              path: ['node_modules']
+              includePaths: ['node_modules/three-dots/sass']
             }
           },
-          require('tailwindcss')('./tailwind.config.js'),
-          require('postcss-nested')
+          require('tailwindcss')('./tailwind.config.js')
         ]
       }
     }

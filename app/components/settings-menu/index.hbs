@@ -55,31 +55,35 @@
   </div>
 
   <div class="p-1 pb-4 pt-4">
-    <button
-      class="btn btn-primary pb-1 pl-2 pr-2 pt-1"
-      type="button"
-      {{on "click" this.exportIndexedDB}}
-    >
-      Export data
-    </button>
+    <div class="flex h-8 w-full">
+      <LoadingButton
+        class="h-full mr-2"
+        @loading={{this.isExporting}}
+        @onClick={{this.exportIndexedDB}}
+      >
+        Export data
+      </LoadingButton>
 
-    <button
-      class="btn btn-primary pb-1 pl-2 pr-2 pt-1"
-      type="button"
-      {{on "click" this.importIndexedDB}}
-    >
-      Import data
-    </button>
+      <LoadingButton
+        class="h-full"
+        @loading={{this.isImporting}}
+        @onClick={{this.importIndexedDB}}
+      >
+        Import data
+      </LoadingButton>
+    </div>
   </div>
 
   <div class="p-1 pb-4 pt-4">
-    <button
-      class="btn btn-primary pb-1 pl-2 pr-2 pt-1"
-      type="button"
-      {{on "click" @checkForUpdates}}
-    >
-      Check for updates
-    </button>
+    <div class="flex h-8 w-full">
+      <LoadingButton
+        class="h-full w-40"
+        @loading={{this.checkingForUpdates}}
+        @onClick={{@checkForUpdates}}
+      >
+        Check for updates
+      </LoadingButton>
+    </div>
   </div>
 
   <div class="p-1">

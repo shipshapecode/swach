@@ -1583,21 +1583,30 @@
     "@orbit/serializers" "^0.16.3"
     "@orbit/utils" "^0.16.3"
 
-"@orbit/memory@^0.16.5":
-  version "0.16.5"
-  resolved "https://registry.yarnpkg.com/@orbit/memory/-/memory-0.16.5.tgz#1ac46597308c8d4f65a251e3d633a26cb35587d5"
-  integrity sha512-P4eSlUIap4Z4X4/elDrt7Mv0++SC+cZTx5vCj6C5d6E0ke75gQNItOYuynRcyNODlVTfjThFch61oUOHz5a4kA==
+"@orbit/memory@^0.16.6":
+  version "0.16.6"
+  resolved "https://registry.yarnpkg.com/@orbit/memory/-/memory-0.16.6.tgz#a74db30b0ea29e355c111c3b8b7ee710e101eecc"
+  integrity sha512-A3PALNudBQlTjQqWwWbT9tjkLsbIuRegMa2p1KZR+9OdI2fW0j9RTrPtzitUf7Y4ElP30vTK42IImpELvzra3g==
   dependencies:
     "@orbit/core" "^0.16.3"
     "@orbit/data" "^0.16.5"
     "@orbit/immutable" "^0.16.3"
-    "@orbit/record-cache" "^0.16.5"
+    "@orbit/record-cache" "^0.16.6"
     "@orbit/utils" "^0.16.3"
 
 "@orbit/record-cache@^0.16.5":
   version "0.16.5"
   resolved "https://registry.yarnpkg.com/@orbit/record-cache/-/record-cache-0.16.5.tgz#7a2360864e7a812697f4b9bbfca713509af4e694"
   integrity sha512-hM2hzeU3XqQikKb72EaLjYSFTuKUXguJeT48DlALkOsdfLMpDTKYyc0RjnNebSbVCzY+kDdOYb2l+4PchkGacg==
+  dependencies:
+    "@orbit/core" "^0.16.3"
+    "@orbit/data" "^0.16.5"
+    "@orbit/utils" "^0.16.3"
+
+"@orbit/record-cache@^0.16.6":
+  version "0.16.6"
+  resolved "https://registry.yarnpkg.com/@orbit/record-cache/-/record-cache-0.16.6.tgz#d04aa5b5c6cccbb69e59370b2c5b01fa2547c573"
+  integrity sha512-M5DQq3IXhgYN5eshg3k1jqIFtBG8QcdnEHxHfvCzAiMJz0M5oMAx1Q2oZi6Acs4MhjkL4bTuDitUCPa41DwNLg==
   dependencies:
     "@orbit/core" "^0.16.3"
     "@orbit/data" "^0.16.5"
@@ -6388,16 +6397,16 @@ ember-on-modifier@^1.0.0:
     ember-cli-version-checker "^4.1.0"
     ember-modifier-manager-polyfill "^1.2.0"
 
-ember-orbit@^0.16.7:
-  version "0.16.7"
-  resolved "https://registry.yarnpkg.com/ember-orbit/-/ember-orbit-0.16.7.tgz#58439bb3b1b8511c494d6ff6511587960759c9ee"
-  integrity sha512-rMjdCQMJH+7DWR4L2aSoUqkBsinrkrWF7zyi9N024Fy/whmaoB6iwbTvWXQ+2zHPf0N9blm7dT5SupZHU1yPLw==
+ember-orbit@^0.16.8:
+  version "0.16.8"
+  resolved "https://registry.yarnpkg.com/ember-orbit/-/ember-orbit-0.16.8.tgz#abc8c3cd63df92aa72e93493717d4555a35c6c9f"
+  integrity sha512-juCmnFKBm5gvpcw/VHW6y+kVnQDsn4bkCxVR6W3Or4BaryagZGz5G8IlcfDfw86YWy3JiEWpF+p6gyCaWe8qmw==
   dependencies:
     "@orbit/coordinator" "^0.16.5"
     "@orbit/core" "^0.16.3"
     "@orbit/data" "^0.16.5"
     "@orbit/identity-map" "^0.16.5"
-    "@orbit/memory" "^0.16.5"
+    "@orbit/memory" "^0.16.6"
     "@orbit/utils" "^0.16.3"
     ember-auto-import "^1.5.3"
     ember-cli-babel "^7.19.0"

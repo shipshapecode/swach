@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { action, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { storageFor } from 'ember-local-storage';
@@ -10,6 +11,9 @@ export default class SettingsMenu extends Component {
   @storageFor('settings') settings;
 
   themes = ['dynamic', 'light', 'dark'];
+
+  @tracked isExporting = false;
+  @tracked isImporting = false;
 
   constructor() {
     super(...arguments);
@@ -35,26 +39,30 @@ export default class SettingsMenu extends Component {
 
   @action
   exportIndexedDB() {
-    const DBOpenRequest = window.indexedDB.open('orbit', 1);
-    DBOpenRequest.onsuccess = () => {
-      const idbDatabase = DBOpenRequest.result;
+    if (this.ipcRenderer) {
+      this.isExporting = true;
+      const DBOpenRequest = window.indexedDB.open('orbit', 1);
+      DBOpenRequest.onsuccess = () => {
+        const idbDatabase = DBOpenRequest.result;
 
-      IDBExportImport.exportToJsonString(idbDatabase, (err, jsonString) => {
-        if (err) {
-          console.error(err);
-        } else {
-          if (this.ipcRenderer) {
+        IDBExportImport.exportToJsonString(idbDatabase, (err, jsonString) => {
+          if (err) {
+            this.isExporting = false;
+            console.error(err);
+          } else {
             this.ipcRenderer.send('exportData', jsonString);
             idbDatabase.close();
+            this.isExporting = false;
           }
-        }
-      });
-    };
+        });
+      };
+    }
   }
 
   @action
   importIndexedDB() {
     if (this.ipcRenderer) {
+      this.isImporting = true;
       this.ipcRenderer.invoke('importData').then((jsonString) => {
         if (jsonString) {
           const DBOpenRequest = window.indexedDB.open('orbit', 1);
@@ -79,11 +87,15 @@ export default class SettingsMenu extends Component {
                         await this.store.sync(transform);
                       }
                     }
+
+                    this.isImporting = false;
                   }
                 );
               }
             });
           };
+        } else {
+          this.isImporting = false;
         }
       });
     }

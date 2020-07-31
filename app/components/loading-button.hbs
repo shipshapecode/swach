@@ -1,0 +1,16 @@
+<button
+  class="btn btn-primary h-8 pl-2 pr-2 w-32"
+  type="button"
+  ...attributes
+  {{on "click" @onClick}}
+>
+  <div
+    class="flex h-full items-center justify-center overflow-hidden relative w-full"
+  >
+    {{#if @loading}}
+      <div class="dot-typing"></div>
+    {{else}}
+      {{yield}}
+    {{/if}}
+  </div>
+</button>

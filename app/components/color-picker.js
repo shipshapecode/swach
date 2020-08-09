@@ -58,36 +58,39 @@ export default class ColorPicker extends Component {
         createdAt: colorToEdit.createdAt
       };
 
-      const colorsList = palette.colors.map((color) => {
-        return { type: 'color', id: color.id };
-      });
-      const colorsListRecord = colorsList.findBy('id', colorToEdit.id);
-      const colorToEditIndex = colorsList.indexOf(colorsListRecord);
-      colorsList.removeAt(colorToEditIndex);
+      // TODO: figure out what makes this case happen. This is guarding against when palette.colors is undefined, but it should never be.
+      if (palette.colors) {
+        const colorsList = palette.colors.map((color) => {
+          return { type: 'color', id: color.id };
+        });
+        const colorsListRecord = colorsList.findBy('id', colorToEdit.id);
+        const colorToEditIndex = colorsList.indexOf(colorsListRecord);
+        colorsList.removeAt(colorToEditIndex);
 
-      await this.store.update((t) => {
-        const addColorOperation = t.addRecord(colorCopy);
-        colorsList.insertAt(colorToEditIndex, {
-          type: 'color',
-          id: addColorOperation.record.id
+        await this.store.update((t) => {
+          const addColorOperation = t.addRecord(colorCopy);
+          colorsList.insertAt(colorToEditIndex, {
+            type: 'color',
+            id: addColorOperation.record.id
+          });
+
+          return [
+            addColorOperation,
+            t.replaceRelatedRecords(
+              { type: 'palette', id: palette.id },
+              'colors',
+              colorsList
+            ),
+            t.replaceAttribute(
+              { type: 'palette', id: palette.id },
+              'colorOrder',
+              colorsList
+            )
+          ];
         });
 
-        return [
-          addColorOperation,
-          t.replaceRelatedRecords(
-            { type: 'palette', id: palette.id },
-            'colors',
-            colorsList
-          ),
-          t.replaceAttribute(
-            { type: 'palette', id: palette.id },
-            'colorOrder',
-            colorsList
-          )
-        ];
-      });
-
-      this.undoManager.setupUndoRedo();
+        this.undoManager.setupUndoRedo();
+      }
     } else {
       this.args.saveColor(this.selectedColor.hex);
     }

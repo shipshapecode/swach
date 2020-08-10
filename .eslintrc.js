@@ -52,36 +52,32 @@ module.exports = {
         document: false
       },
       plugins: ['node'],
-      rules: Object.assign(
-        {},
-        require('eslint-plugin-node').configs.recommended.rules,
-        {
-          // add your custom rules and overrides for node files here
-
-          // this can be removed once the following is fixed
-          // https://github.com/mysticatea/eslint-plugin-node/issues/77
-          'no-console': 'off',
-          'node/no-unpublished-require': 'off',
-          'node/no-extraneous-require': [
-            'error',
-            {
-              allowModules: ['ember-electron', 'electron']
-            }
-          ],
-          'node/no-missing-require': [
-            'error',
-            {
-              allowModules: [
-                'electron',
-                'menubar',
-                'osx-mouse',
-                'robotjs',
-                'win-mouse'
-              ]
-            }
-          ]
-        }
-      )
+      extends: ['plugin:node/recommended'],
+      rules: {
+        // this can be removed once the following is fixed
+        // https://github.com/mysticatea/eslint-plugin-node/issues/77
+        'no-console': 'off',
+        'node/no-unpublished-require': 'off',
+        'node/no-extraneous-require': [
+          'error',
+          {
+            allowModules: ['ember-electron', 'electron']
+          }
+        ],
+        'node/no-missing-require': [
+          'error',
+          {
+            allowModules: [
+              'electron',
+              'ember-electron',
+              'menubar',
+              'osx-mouse',
+              'robotjs',
+              'win-mouse'
+            ]
+          }
+        ]
+      }
     }
   ]
 };

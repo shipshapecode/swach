@@ -15,9 +15,7 @@
     "test": "tests"
   },
   "scripts": {
-    "bump-versions": "bump --commit --tag --push package.json electron-app/package.json",
     "build": "ember build --environment=production",
-    "changelog": "lerna-changelog --from=v0.1.41",
     "install-deps": "cd electron-app && yarn install && cd ../ && yarn install",
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*",
     "lint:hbs": "ember-template-lint .",
@@ -41,6 +39,7 @@
     "@jaames/iro": "5.1.9",
     "@orbit/indexeddb": "^0.16.6",
     "@orbit/jsonapi": "^0.16.5",
+    "@release-it/bumper": "^1.4.1",
     "@sentry/browser": "^5.20.1",
     "@sentry/integrations": "^5.20.1",
     "babel-eslint": "^10.1.0",
@@ -91,7 +90,6 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
     "indexeddb-export-import": "^2.1.0",
-    "lerna-changelog": "^1.0.1",
     "liquid-fire": "^0.31.0",
     "loader.js": "^4.7.0",
     "nearest-color": "^0.4.4",
@@ -101,14 +99,37 @@
     "postcss-scss": "^2.1.1",
     "prettier": "^2.0.5",
     "qunit-dom": "^1.4.0",
+    "release-it": "^13.6.5",
+    "release-it-lerna-changelog": "^2.3.0",
     "tailwindcss": "^1.6.2",
-    "version-bump-prompt": "^6.0.6",
     "wcag-contrast": "^3.0.0"
   },
   "engines": {
     "node": "10.* || >= 12"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "ember": {
     "edition": "octane"
+  },
+  "release-it": {
+    "plugins": {
+      "@release-it/bumper": {
+        "out": ["electron-app/package.json"]
+      },
+      "release-it-lerna-changelog": {
+        "infile": "CHANGELOG.md",
+        "launchEditor": false
+      }
+    },
+    "git": {
+      "tagName": "v${version}"
+    },
+    "github": {
+      "release": false,
+      "tokenRef": "GITHUB_AUTH"
+    },
+    "npm": false
   }
 }

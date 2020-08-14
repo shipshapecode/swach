@@ -6364,6 +6364,16 @@ ember-font-awesome@^3.1.1:
     ember-cli-htmlbars "^2.0.2"
     font-awesome "^4.7.0"
 
+ember-in-element-polyfill@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ember-in-element-polyfill/-/ember-in-element-polyfill-1.0.0.tgz#10365af6fe31bc59e71ec463ed209d4ba4caecda"
+  integrity sha512-0eSfWWgkOMvj7lcjo20VX8uX4HYxSOxm6MY3bAzqW5RpnHcpcrRf6o4y80xLGh5pp9z8FobiUfFwubphACP8mQ==
+  dependencies:
+    debug "^4.1.1"
+    ember-cli-babel "^7.19.0"
+    ember-cli-htmlbars "^4.3.1"
+    ember-cli-version-checker "^5.0.2"
+
 ember-inflector@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/ember-inflector/-/ember-inflector-3.0.1.tgz#04be6df4d7e4000f6d6bd70787cdc995f77be4ab"
@@ -6436,6 +6446,14 @@ ember-maybe-in-element@^0.4.0:
   integrity sha512-ADQ9jewz46Y2MWiTAKrheIukHiU6p0QHn3xqz1BBDDOmubW1WdAjSrvtkEWsJQ08DyxIn3RdMuNDzAUo6HN6qw==
   dependencies:
     ember-cli-babel "^7.1.0"
+
+ember-maybe-in-element@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ember-maybe-in-element/-/ember-maybe-in-element-1.0.0.tgz#55fdbe3784a9807c69bf681c53926426a4a16498"
+  integrity sha512-aXYAb+u/kkZmPqjRhBNoaGAr3vZndf9Lrqy6xdPfpQ5ekM/a0oE9fAAZNg4Cq09bPecEnty4LJqAYZqS/oWvjg==
+  dependencies:
+    ember-cli-babel "^7.7.3"
+    ember-in-element-polyfill "^1.0.0"
 
 ember-modifier-manager-polyfill@^1.1.0, ember-modifier-manager-polyfill@^1.2.0:
   version "1.2.0"
@@ -6684,10 +6702,10 @@ ember-text-measurer@^0.6.0:
     ember-cli-babel "^7.19.0"
     ember-cli-htmlbars "^4.3.1"
 
-ember-tooltips@^3.4.3:
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/ember-tooltips/-/ember-tooltips-3.4.3.tgz#a017de33e53a9b9ca6d38b8c2f829cc3024b8f8b"
-  integrity sha512-/swhfhodVvpKi6R+tkcqLgS0YTMo3S6Mzb8qtfTneFSz+tBhY/kd/+eI8OIZf9qocpJ9b54dbbqTw5ZBkeZe2g==
+ember-tooltips@^3.4.4:
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/ember-tooltips/-/ember-tooltips-3.4.4.tgz#b15348461788e0706b719d6b705e53c79e046706"
+  integrity sha512-MeWHBr/cSjeeKVW0OYZ8moOkCuitIkH6SUbcYsq2lcePpY0iVNKbhHu1Gd1lpxZK+MZGh2m2350SUoQnYsaENA==
   dependencies:
     broccoli-file-creator "^2.1.1"
     broccoli-funnel "^2.0.2"
@@ -6696,7 +6714,8 @@ ember-tooltips@^3.4.3:
     broccoli-string-replace "^0.1.2"
     ember-cli-babel "^7.13.0"
     ember-cli-htmlbars "^4.2.0"
-    ember-maybe-in-element "^0.4.0"
+    ember-in-element-polyfill "^1.0.0"
+    ember-maybe-in-element "^1.0.0"
     popper.js "^1.12.5"
     resolve "^1.10.1"
     tooltip.js "^1.1.5"

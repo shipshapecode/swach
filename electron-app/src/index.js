@@ -12,6 +12,7 @@ const { pathToFileURL } = require('url');
 const isDev = require('electron-is-dev');
 const fs = require('fs');
 const { download } = require('electron-dl');
+const { menubar } = require('menubar');
 const {
   default: installExtension,
   EMBER_INSPECTOR

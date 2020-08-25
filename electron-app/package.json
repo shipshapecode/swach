@@ -30,7 +30,6 @@
     "electron-dl": "^3.0.1",
     "electron-is-dev": "^1.2.0",
     "electron-notification-state": "^1.0.4",
-    "electron-protocol-serve": "^1.4.0",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^6.0.0",
     "menubar": "^9.0.1"

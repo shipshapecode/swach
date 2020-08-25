@@ -1538,11 +1538,6 @@ electron-positioner@^4.1.0:
   resolved "https://registry.yarnpkg.com/electron-positioner/-/electron-positioner-4.1.0.tgz#e158f8f6aabd6725a8a9b4f2279b9504bcbea1b0"
   integrity sha512-726DfbI9ZNoCg+Fcu6XLuTKTnzf+6nFqv7h+K/V6Ug7IbaPMI7s9S8URnGtWFCy5N5PL4HSzRFF2mXuinftDdg==
 
-electron-protocol-serve@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/electron-protocol-serve/-/electron-protocol-serve-1.4.0.tgz#c2dc986094b8138ae8f292995ce592090295745e"
-  integrity sha512-RZqtCQDuEES2sHjHux/Lauo8GQ2wBKqPgN4vBXQDq7NOlDQ+2cGXN57AH7riHSPhEsQ/XG73WWJAbedQgKqbEQ==
-
 electron-publish@22.8.0:
   version "22.8.0"
   resolved "https://registry.yarnpkg.com/electron-publish/-/electron-publish-22.8.0.tgz#7f410fe043abc5d3d896c4ee9eea7a43ea352c7d"

@@ -2,7 +2,6 @@ const { clipboard, dialog, protocol, ipcMain } = require('electron');
 const AutoLaunch = require('auto-launch');
 const { dirname, join, resolve } = require('path');
 const isDev = require('electron-is-dev');
-const protocolServe = require('electron-protocol-serve');
 const fs = require('fs');
 const { download } = require('electron-dl');
 const { menubar } = require('menubar');
@@ -156,11 +155,6 @@ if (typeof protocol.registerSchemesAsPrivileged === 'function') {
   // For compatibility with Electron < 5
   protocol.registerStandardSchemes(['serve'], { secure: true });
 }
-protocolServe({
-  cwd: join(__dirname || resolve(dirname('')), '..', 'ember-dist'),
-  app: mb.app,
-  protocol
-});
 
 // Uncomment the lines below to enable Electron's crash reporter
 // For more information, see http://electron.atom.io/docs/api/crash-reporter/

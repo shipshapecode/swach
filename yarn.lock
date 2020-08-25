@@ -6298,7 +6298,7 @@ ember-drag-sort@^3.0.0:
     ember-cli-htmlbars "^4.2.0"
     eslint-plugin-varspacing "^1.2.1"
 
-ember-electron@^3.0.0-beta.2:
+ember-electron@^3.0.0-beta.3:
   version "3.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/ember-electron/-/ember-electron-3.0.0-beta.3.tgz#81b7773d9036322981eb7397d79b819bc67bf9a6"
   integrity sha512-8wr9niiDZXi30y3MWhPsAapiQjKs2AIerqKBxlpb71cr3qL7MMH9HxyHNRV/Ijj77MvGEif/+Ee/CJSpQ4d4Pw==

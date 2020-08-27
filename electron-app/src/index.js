@@ -1,4 +1,5 @@
 const {
+  app,
   clipboard,
   dialog,
   ipcMain,
@@ -111,6 +112,10 @@ ipcMain.on('exportData', async (channel, jsonString) => {
     if (err) throw err;
     console.log(`${downloadPath} was deleted`);
   });
+});
+
+ipcMain.handle('getAppVersion', async () => {
+  return app.getVersion();
 });
 
 ipcMain.handle('importData', async () => {

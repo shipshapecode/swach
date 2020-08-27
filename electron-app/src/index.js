@@ -1,18 +1,18 @@
-const {
-  app,
-  clipboard,
-  dialog,
-  ipcMain,
-  nativeTheme,
-  protocol
-} = require('electron');
+const { app, clipboard, dialog, ipcMain, nativeTheme } = require('electron');
 const AutoLaunch = require('auto-launch');
 const { dirname, join, resolve } = require('path');
+const { pathToFileURL } = require('url');
 const isDev = require('electron-is-dev');
-const protocolServe = require('electron-protocol-serve');
 const fs = require('fs');
 const { download } = require('electron-dl');
 const { menubar } = require('menubar');
+const {
+  default: installExtension,
+  EMBER_INSPECTOR
+} = require('electron-devtools-installer');
+const handleFileUrls = require('./handle-file-urls');
+
+const emberAppDir = resolve(__dirname, '..', 'ember-dist');
 const { launchPicker } = require('./color-picker');
 const { noUpdatesAvailableDialog, restartDialog } = require('./dialogs');
 const {
@@ -41,11 +41,11 @@ const store = new Store({
   }
 });
 
-let emberAppLocation = 'serve://dist';
+let emberAppURL = pathToFileURL(join(emberAppDir, 'index.html')).toString();
 
 // On first boot of the application, go through the welcome screen
 if (store.get('firstRun')) {
-  emberAppLocation = `${emberAppLocation}/welcome`;
+  emberAppURL = `${emberAppURL}#/welcome`;
   store.set('firstRun', false);
 }
 
@@ -151,28 +151,6 @@ ipcMain.on('setShowDockIcon', (channel, showDockIcon) => {
   restartDialog();
 });
 
-// Registering a protocol & schema to serve our Ember application
-if (typeof protocol.registerSchemesAsPrivileged === 'function') {
-  // Available in Electron >= 5
-  protocol.registerSchemesAsPrivileged([
-    {
-      scheme: 'serve',
-      privileges: {
-        secure: true,
-        standard: true
-      }
-    }
-  ]);
-} else {
-  // For compatibility with Electron < 5
-  protocol.registerStandardSchemes(['serve'], { secure: true });
-}
-protocolServe({
-  cwd: join(__dirname || resolve(dirname('')), '..', 'ember-dist'),
-  app: mb.app,
-  protocol
-});
-
 // Uncomment the lines below to enable Electron's crash reporter
 // For more information, see http://electron.atom.io/docs/api/crash-reporter/
 // electron.crashReporter.start({
@@ -193,7 +171,7 @@ mb.on('after-create-window', function () {
   setupContextMenu(mb, launchPicker, openContrastChecker);
 });
 
-mb.on('ready', () => {
+mb.on('ready', async () => {
   // TODO: make theme setting invokable from the Ember side, to make sure first boot is correct.
   const setOSTheme = () => {
     let theme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light';
@@ -205,25 +183,29 @@ mb.on('ready', () => {
   setOSTheme();
 
   if (isDev) {
-    const {
-      default: installExtension,
-      EMBER_INSPECTOR
-    } = require('electron-devtools-installer');
-
-    installExtension(EMBER_INSPECTOR)
-      .then((name) => console.log(`Added Extension:  ${name}`))
-      .catch((err) => console.log('An error occurred: ', err));
+    try {
+      require('devtron').install();
+    } catch (err) {
+      console.log('Failed to install Devtrom: ', err);
+    }
+    try {
+      await installExtension(EMBER_INSPECTOR);
+    } catch (err) {
+      console.log('Failed to install Ember Inspector: ', err);
+    }
   }
   // If you want to open up dev tools programmatically, call
   // mb.window.openDevTools();
 
   // Load the ember application using our custom protocol/scheme
-  mb.window.loadURL(emberAppLocation);
+  await handleFileUrls(emberAppDir);
+
+  mb.window.loadURL(emberAppURL);
 
   // If a loading operation goes wrong, we'll send Electron back to
   // Ember App entry point
   mb.window.webContents.on('did-fail-load', () => {
-    mb.window.loadURL(emberAppLocation);
+    mb.window.loadURL(emberAppURL);
   });
 
   mb.window.once('ready-to-show', function () {

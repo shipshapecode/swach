@@ -4,8 +4,8 @@ module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'swach',
     environment,
-    rootURL: '/',
-    locationType: 'auto',
+    rootURL: process.env.EMBER_CLI_ELECTRON ? getElectronRootURL() : '/',
+    locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'auto',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -72,3 +72,7 @@ module.exports = function (environment) {
 
   return ENV;
 };
+
+function getElectronRootURL() {
+  return process.env.EMBER_ENV === 'test' ? '../' : '';
+}

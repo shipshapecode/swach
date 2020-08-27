@@ -1,4 +1,10 @@
-const { clipboard, dialog, protocol, ipcMain } = require('electron');
+const {
+  clipboard,
+  dialog,
+  ipcMain,
+  nativeTheme,
+  protocol
+} = require('electron');
 const AutoLaunch = require('auto-launch');
 const { dirname, join, resolve } = require('path');
 const isDev = require('electron-is-dev');
@@ -183,6 +189,16 @@ mb.on('after-create-window', function () {
 });
 
 mb.on('ready', () => {
+  // TODO: make theme setting invokable from the Ember side, to make sure first boot is correct.
+  const setOSTheme = () => {
+    let theme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light';
+    mb.window.webContents.send('setTheme', theme);
+  };
+
+  nativeTheme.on('updated', setOSTheme);
+
+  setOSTheme();
+
   if (isDev) {
     const {
       default: installExtension,

@@ -1,4 +1,5 @@
 const {
+  TouchBar,
   app,
   clipboard,
   dialog,
@@ -6,11 +7,13 @@ const {
   nativeTheme,
   protocol
 } = require('electron');
+const { TouchBarColorPicker } = TouchBar;
 const AutoLaunch = require('auto-launch');
 const { dirname, join, resolve } = require('path');
 const { pathToFileURL } = require('url');
 const isDev = require('electron-is-dev');
 const fs = require('fs');
+const { debounce } = require('throttle-debounce');
 const { download } = require('electron-dl');
 const { menubar } = require('menubar');
 const handleFileUrls = require('./handle-file-urls');
@@ -220,6 +223,20 @@ mb.on('ready', async () => {
 
   // If you want to open up dev tools programmatically, call
   // mb.window.openDevTools();
+
+  if (process.platform === 'darwin') {
+    const touchBar = new TouchBar({
+      items: [
+        new TouchBarColorPicker({
+          change: debounce(1000, (color) => {
+            mb.window.webContents.send('changeColor', color);
+          })
+        })
+      ]
+    });
+
+    mb.window.setTouchBar(touchBar);
+  }
 
   // Load the ember application using our custom protocol/scheme
   await handleFileUrls(emberAppDir);

@@ -2,6 +2,9 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const isProduction = EmberApp.env() === 'production';
 
 module.exports = {
+  future: {
+    removeDeprecatedGapUtilities: true
+  },
   purge: {
     enabled: isProduction,
     content: [
@@ -36,7 +39,7 @@ module.exports = {
         xxs: '0.65rem'
       },
       width: {
-        '36': '9rem'
+        36: '9rem'
       }
     },
     fill: (theme) => ({

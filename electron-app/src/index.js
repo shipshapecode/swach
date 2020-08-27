@@ -1,4 +1,11 @@
-const { clipboard, dialog, protocol, ipcMain } = require('electron');
+const {
+  app,
+  clipboard,
+  dialog,
+  ipcMain,
+  nativeTheme,
+  protocol
+} = require('electron');
 const AutoLaunch = require('auto-launch');
 const { dirname, join, resolve } = require('path');
 const isDev = require('electron-is-dev');
@@ -107,6 +114,10 @@ ipcMain.on('exportData', async (channel, jsonString) => {
   });
 });
 
+ipcMain.handle('getAppVersion', async () => {
+  return app.getVersion();
+});
+
 ipcMain.handle('importData', async () => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ['openFile']
@@ -183,6 +194,16 @@ mb.on('after-create-window', function () {
 });
 
 mb.on('ready', () => {
+  // TODO: make theme setting invokable from the Ember side, to make sure first boot is correct.
+  const setOSTheme = () => {
+    let theme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light';
+    mb.window.webContents.send('setTheme', theme);
+  };
+
+  nativeTheme.on('updated', setOSTheme);
+
+  setOSTheme();
+
   if (isDev) {
     const {
       default: installExtension,

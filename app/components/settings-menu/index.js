@@ -14,6 +14,7 @@ export default class SettingsMenu extends Component {
 
   @tracked isExporting = false;
   @tracked isImporting = false;
+  @tracked version = 'Version not available';
 
   constructor() {
     super(...arguments);
@@ -21,15 +22,11 @@ export default class SettingsMenu extends Component {
     if (typeof requireNode !== 'undefined') {
       let { ipcRenderer } = requireNode('electron');
       this.ipcRenderer = ipcRenderer;
-    }
-  }
 
-  get version() {
-    if (typeof requireNode !== 'undefined') {
-      return requireNode('electron').remote.app.getVersion();
+      this.ipcRenderer.invoke('getAppVersion').then((version) => {
+        this.version = version;
+      });
     }
-
-    return 'Version not available';
   }
 
   @action

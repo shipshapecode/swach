@@ -55,8 +55,7 @@
                 {{on "click" (stop-propagation (fn this.deleteColor @color))}}
                 {{on "mouseleave" (set this.deleteConfirm false)}}
               >
-                {{
-                  svg-jar
+                {{svg-jar
                   "trash"
                   class=(concat
                     "icon " (if this.deleteConfirm "delete-confirm")

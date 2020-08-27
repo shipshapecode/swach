@@ -2,6 +2,9 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const isProduction = EmberApp.env() === 'production';
 
 module.exports = {
+  future: {
+    removeDeprecatedGapUtilities: true
+  },
   purge: {
     enabled: isProduction,
     content: [

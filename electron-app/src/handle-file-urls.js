@@ -26,4 +26,4 @@ module.exports = function handleFileURLs(emberAppDir) {
       callback(urlPath);
     }
   });
-}
+};

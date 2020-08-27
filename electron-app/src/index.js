@@ -1,11 +1,4 @@
-const {
-  app,
-  clipboard,
-  dialog,
-  ipcMain,
-  nativeTheme,
-  protocol
-} = require('electron');
+const { app, clipboard, dialog, ipcMain, nativeTheme } = require('electron');
 const AutoLaunch = require('auto-launch');
 const { dirname, join, resolve } = require('path');
 const { pathToFileURL } = require('url');
@@ -41,7 +34,6 @@ Sentry.init({
 });
 
 const Store = require('electron-store');
-const { existsSync, renameSync, rmdirSync } = require('fs');
 const store = new Store({
   defaults: {
     firstRun: true,
@@ -90,30 +82,6 @@ const mb = menubar({
   preloadWindow: true,
   showDockIcon: store.get('showDockIcon')
 });
-
-// Rename the IndexedDB file so people do not lose their data
-const appDataPath = mb.app.getPath('appData');
-const oldIndexedDBPath = join(
-  appDataPath,
-  'swach',
-  'IndexedDB',
-  'serve_dist_0.indexeddb.leveldb'
-);
-
-if (existsSync(oldIndexedDBPath)) {
-  const newIndexedDBPath = join(
-    appDataPath,
-    'swach',
-    'IndexedDB',
-    'file__0.indexeddb.leveldb'
-  );
-
-  if (existsSync(newIndexedDBPath)) {
-    rmdirSync(newIndexedDBPath, { recursive: true });
-  }
-
-  renameSync(oldIndexedDBPath, newIndexedDBPath);
-}
 
 mb.app.allowRendererProcessReuse = true;
 

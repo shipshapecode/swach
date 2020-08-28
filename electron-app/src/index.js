@@ -1,4 +1,11 @@
-const { app, clipboard, dialog, ipcMain, nativeTheme } = require('electron');
+const {
+  app,
+  clipboard,
+  dialog,
+  ipcMain,
+  nativeTheme,
+  protocol
+} = require('electron');
 const AutoLaunch = require('auto-launch');
 const { dirname, join, resolve } = require('path');
 const { pathToFileURL } = require('url');
@@ -11,6 +18,7 @@ const {
   EMBER_INSPECTOR
 } = require('electron-devtools-installer');
 const handleFileUrls = require('./handle-file-urls');
+const migrateData = require('./migrate-data');
 
 const emberAppDir = resolve(__dirname, '..', 'ember-dist');
 const { launchPicker } = require('./color-picker');
@@ -37,9 +45,27 @@ const Store = require('electron-store');
 const store = new Store({
   defaults: {
     firstRun: true,
+    needsMigration: true,
     showDockIcon: false
   }
 });
+
+if (store.get('needsMigration')) {
+  // Check if there is a serve database, if not let's set needsMigration to false
+  //store.set('needsMigration', false);
+}
+
+if (store.get('needsMigration')) {
+  protocol.registerSchemesAsPrivileged([
+    {
+      scheme: 'serve',
+      privileges: {
+        secure: true,
+        standard: true
+      }
+    }
+  ]);
+}
 
 let emberAppURL = pathToFileURL(join(emberAppDir, 'index.html')).toString();
 
@@ -172,6 +198,10 @@ mb.on('after-create-window', function () {
 });
 
 mb.on('ready', async () => {
+  if (store.get('needsMigration')) {
+    await migrateData();
+  }
+
   // TODO: make theme setting invokable from the Ember side, to make sure first boot is correct.
   const setOSTheme = () => {
     let theme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light';

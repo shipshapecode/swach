@@ -108,27 +108,3 @@ function clearDatabase(idbDatabase, cb) {
     };
   });
 }
-
-async function getJsonForIndexedDb() {
-  console.log('called getJsonForIndexedDb');
-  const DBOpenRequest = window.indexedDB.open('orbit', 1);
-
-  return await new Promise((resolve, reject) => {
-    DBOpenRequest.onsuccess = () => {
-      const idbDatabase = DBOpenRequest.result;
-      exportToJsonString(idbDatabase, async (err, jsonString) => {
-        console.log('***jsonString***', jsonString);
-        if (err) {
-          reject(err);
-        } else {
-          idbDatabase.close();
-          resolve(jsonString);
-        }
-      });
-    };
-  });
-}
-
-((win) => {
-  win.getJsonForIndexedDb = getJsonForIndexedDb;
-})(window);

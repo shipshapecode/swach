@@ -6,7 +6,6 @@ const { fileSync } = require('tmp');
 const IDBExportImport = require('indexeddb-export-import');
 
 module.exports = async function migrateData() {
-  console.log('****start migrating data****');
   protocol.registerStringProtocol('serve', (request, callback) => {
     callback({ mimeType: 'text/html', data: '<html></html>' });
   });
@@ -14,143 +13,31 @@ module.exports = async function migrateData() {
   let window = new BrowserWindow({ show: false });
   try {
     await window.loadURL('serve://dist');
-    console.log('serve window loaded');
 
     const jsonString = await window.webContents.executeJavaScript(
       `
-      /**
- * Export all data from an IndexedDB database
- * @param {IDBDatabase} idbDatabase - to export from
- * @param {function(Object?, string?)} cb - callback with signature (error, jsonString)
- */
-function exportToJsonString(idbDatabase, cb) {
-  const exportObject = {};
-  const size = new Set(idbDatabase.objectStoreNames).size;
-  if (size === 0) {
-    cb(null, JSON.stringify(exportObject));
-  } else {
-    const transaction = idbDatabase.transaction(
-      idbDatabase.objectStoreNames,
-      'readonly'
-    );
-    transaction.onerror = (event) => cb(event, null);
+      ${IDBExportImport.exportToJsonString.toString()}
 
-    const objectStoreNames = Array.from(new Set(idbDatabase.objectStoreNames));
-
-    objectStoreNames.forEach((storeName) => {
-      const allObjects = [];
-      transaction.objectStore(storeName).openCursor().onsuccess = (event) => {
-        const cursor = event.target.result;
-        if (cursor) {
-          allObjects.push(cursor.value);
-          cursor.continue();
-        } else {
-          exportObject[storeName] = allObjects;
-          if (objectStoreNames.length === Object.keys(exportObject).length) {
-            cb(null, JSON.stringify(exportObject));
-          }
-        }
-      };
-    });
-  }
-}
-
-/**
- * Import data from JSON into an IndexedDB database. This does not delete any existing data
- *  from the database, so keys could clash
- *
- * @param {IDBDatabase} idbDatabase - to import into
- * @param {string} jsonString - data to import, one key per object store
- * @param {function(Object)} cb - callback with signature (error), where error is null on success
- */
-function importFromJsonString(idbDatabase, jsonString, cb) {
-  const transaction = idbDatabase.transaction(
-    idbDatabase.objectStoreNames,
-    'readwrite'
-  );
-  transaction.onerror = (event) => cb(event);
-
-  const importObject = JSON.parse(jsonString);
-  const objectStoreNames = new Set(idbDatabase.objectStoreNames);
-  Array.from(objectStoreNames).forEach((storeName) => {
-    let count = 0;
-    const aux = Array.from(importObject[storeName]);
-    if (importObject[storeName] && aux.length > 0) {
-      aux.forEach((toAdd) => {
-        const request = transaction.objectStore(storeName).add(toAdd);
-        request.onsuccess = () => {
-          count++;
-          if (count === importObject[storeName].length) {
-            // added all objects for this store
-            delete importObject[storeName];
-            if (Object.keys(importObject).length === 0) {
-              // added all object stores
-              cb(null);
-            }
-          }
-        };
-        request.onerror = (event) => {
-          console.log(event);
-        };
-      });
-    } else {
-      delete importObject[storeName];
-      if (Object.keys(importObject).length === 0) {
-        // added all object stores
-        cb(null);
+      function getJsonForIndexedDb() {
+        const DBOpenRequest = window.indexedDB.open('orbit', 1);
+      
+        return new Promise((resolve, reject) => {
+          DBOpenRequest.onsuccess = () => {
+            const idbDatabase = DBOpenRequest.result;
+            exportToJsonString(idbDatabase, (err, jsonString) => {
+              if (err) {
+                idbDatabase.close();
+                reject(err);
+              } else {
+                idbDatabase.close();
+                resolve(jsonString);
+              }
+            });
+          };
+        });
       }
-    }
-  });
-}
-
-/**
- * Clears a database of all data
- *
- * @param {IDBDatabase} idbDatabase - to delete all data from
- * @param {function(Object)} cb - callback with signature (error), where error is null on success
- */
-function clearDatabase(idbDatabase, cb) {
-  const transaction = idbDatabase.transaction(
-    idbDatabase.objectStoreNames,
-    'readwrite'
-  );
-  const size = new Set(idbDatabase.objectStoreNames).size;
-  transaction.onerror = (event) => cb(event);
-
-  let count = 0;
-  Array.from(idbDatabase.objectStoreNames).forEach(function (storeName) {
-    transaction.objectStore(storeName).clear().onsuccess = () => {
-      count++;
-      if (count === size) {
-        // cleared all object stores
-        cb(null);
-      }
-    };
-  });
-}
-
-async function getJsonForIndexedDb() {
-  console.log('called getJsonForIndexedDb');
-  const DBOpenRequest = window.indexedDB.open('orbit', 1);
-
-  return await new Promise((resolve, reject) => {
-    DBOpenRequest.onsuccess = () => {
-      const idbDatabase = DBOpenRequest.result;
-      exportToJsonString(idbDatabase, async (err, jsonString) => {
-        console.log('***jsonString***', jsonString);
-        if (err) {
-          reject(err);
-        } else {
-          idbDatabase.close();
-          resolve(jsonString);
-        }
-      });
-    };
-  });
-}
-
-getJsonForIndexedDb();
-
+      
+      getJsonForIndexedDb();
       `
     );
 
@@ -166,26 +53,43 @@ getJsonForIndexedDb();
     await window.loadFile(tempFile.name);
 
     if (jsonString) {
-      const theWindow = await window.webContents.executeJavaScript(`window`);
-
-      const DBOpenRequest = theWindow.indexedDB.open('orbit', 1);
-      DBOpenRequest.onsuccess = () => {
-        const idbDatabase = DBOpenRequest.result;
-        IDBExportImport.clearDatabase(idbDatabase, (err) => {
-          if (!err) {
-            // cleared data successfully
-            IDBExportImport.importFromJsonString(
-              idbDatabase,
-              jsonString,
-              async (err) => {
-                if (!err) {
-                  idbDatabase.close();
-                }
-              }
-            );
-          }
-        });
-      };
+      // TODO: figure out why this import refuses to work
+      // const result = await window.webContents.executeJavaScript(
+      //   `
+      //   ${IDBExportImport.importFromJsonString.toString()}
+      //   ${IDBExportImport.clearDatabase.toString()}
+      //   function restoreJsonForIndexedDb() {
+      //     const DBOpenRequest = window.indexedDB.open('orbit', 1);
+      //     return new Promise((resolve, reject) => {
+      //       DBOpenRequest.onsuccess = () => {
+      //         const idbDatabase = DBOpenRequest.result;
+      //         clearDatabase(idbDatabase, (err) => {
+      //           if (!err) {
+      //             // cleared data successfully
+      //             importFromJsonString(
+      //               idbDatabase,
+      //               ${jsonString},
+      //               (err) => {
+      //                 if (err) {
+      //                   idbDatabase.close();
+      //                   reject(err);
+      //                 } else {
+      //                   idbDatabase.close();
+      //                   resolve();
+      //                 }
+      //               }
+      //             );
+      //           } else {
+      //             reject(err);
+      //           }
+      //         });
+      //       };
+      //     });
+      //   }
+      //   restoreJsonForIndexedDb();
+      // `
+      // );
+      // console.log('*****END*******', result);
     }
   } finally {
     window.destroy();

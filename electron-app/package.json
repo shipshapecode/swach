@@ -33,7 +33,8 @@
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^6.0.0",
     "indexeddb-export-import": "^2.1.0",
-    "menubar": "^9.0.1"
+    "menubar": "^9.0.1",
+    "tmp": "^0.2.1"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.53",

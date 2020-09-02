@@ -2232,6 +2232,11 @@ indent-string@^2.1.0:
   dependencies:
     repeating "^2.0.0"
 
+indexeddb-export-import@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/indexeddb-export-import/-/indexeddb-export-import-2.1.0.tgz#df6688f6294a4dbf5f12b03bf8302ace3e856329"
+  integrity sha512-KYgHUGbMCRfMvLHlka4Ymi2ZnfQ8diDr7GeeiCCYJiVRVl3n2uZ5oZeFc3sveFiDj57D1JPyQHHe+lZOKDLbNA==
+
 inflight@^1.0.4:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/inflight/-/inflight-1.0.6.tgz#49bd6331d7d02d0c09bc910a1075ba8165b56df9"
@@ -4021,7 +4026,7 @@ tmp@^0.0.33:
   dependencies:
     os-tmpdir "~1.0.2"
 
-tmp@^0.2.0:
+tmp@^0.2.0, tmp@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.2.1.tgz#8457fc3037dcf4719c251367a1af6500ee1ccf14"
   integrity sha512-76SUhtfqR2Ijn+xllcI5P1oyannHNHByD80W1q447gU3mp9G9PSpGdWmjUOHRDPiHYacIk66W7ubDTuPF3BEtQ==

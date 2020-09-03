@@ -163,6 +163,13 @@ ipcMain.on('launchPicker', () => {
   launchPicker(mb);
 });
 
+ipcMain.handle('migrateData', async () => {
+  if (store.get('needsMigration')) {
+    await migrateData();
+    store.set('needsMigration', false);
+  }
+});
+
 ipcMain.handle('getStoreValue', (event, key) => {
   return store.get(key);
 });
@@ -193,11 +200,6 @@ mb.on('after-create-window', function () {
 });
 
 mb.on('ready', async () => {
-  if (store.get('needsMigration')) {
-    await migrateData();
-    store.set('needsMigration', false);
-  }
-
   // TODO: make theme setting invokable from the Ember side, to make sure first boot is correct.
   const setOSTheme = () => {
     let theme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light';

@@ -5,12 +5,26 @@ import ENV from 'swach/config/environment';
 export default class ApplicationRoute extends Route {
   @service dataCoordinator;
 
+  constructor() {
+    super(...arguments);
+
+    if (typeof requireNode !== 'undefined') {
+      let { ipcRenderer } = requireNode('electron');
+      this.ipcRenderer = ipcRenderer;
+    }
+  }
+
   async beforeModel() {
     if (ENV.environment === 'test') {
       this.dataCoordinator.removeStrategy('store-backup-sync');
       this.dataCoordinator.removeSource('backup');
     } else {
       const backup = this.dataCoordinator.getSource('backup');
+
+      // TODO: remove this migration code when we are sure everyone has migrated.
+      if (this.ipcRenderer) {
+        await this.ipcRenderer.invoke('migrateData');
+      }
 
       if (backup) {
         const transform = await backup.pull((q) => q.findRecords());

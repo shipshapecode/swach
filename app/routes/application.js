@@ -48,6 +48,13 @@ export default class ApplicationRoute extends Route {
     // TODO: remove this migration code when we are sure everyone has migrated.
     if (this.ipcRenderer) {
       await this.ipcRenderer.invoke('migrateData');
+
+      const backup = this.dataCoordinator.getSource('backup');
+
+      if (backup) {
+        const transform = await backup.pull((q) => q.findRecords());
+        await this.store.sync(transform);
+      }
     }
   }
 }

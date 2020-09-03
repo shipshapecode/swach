@@ -37,6 +37,26 @@ export default class KulerComponent extends Component {
     this.baseColor = this.args.baseColor;
     this.baseColorChanged().then(() => {
       this._setupColorWheel();
+
+      if (typeof requireNode !== 'undefined') {
+        let { ipcRenderer } = requireNode('electron');
+
+        this.ipcRenderer = ipcRenderer;
+
+        this._updateTouchbar();
+
+        this.ipcRenderer.on('selectKulerColor', async (event, colorIndex) => {
+          this.setSelectedIroColor(colorIndex);
+        });
+
+        this.ipcRenderer.on('updateKulerColor', async (event, color) => {
+          await this._onColorChange(color);
+          this.colorPicker.setColors(
+            this.selectedPalette.colors.mapBy('hex'),
+            this.selectedPalette.selectedColorIndex
+          );
+        });
+      }
     });
   }
 
@@ -54,6 +74,7 @@ export default class KulerComponent extends Component {
       class Palette {
         @tracked colors = [];
         @tracked selectedColorIndex = 0;
+
         constructor(harmony) {
           this.type = 'palette';
           this.name = capitalize(harmony);
@@ -63,6 +84,7 @@ export default class KulerComponent extends Component {
           this.isLocked = false;
         }
       }
+
       const palette = new Palette(harmony);
 
       let colors = new TinyColor(this.baseColor.hex)[harmony](5);
@@ -117,6 +139,8 @@ export default class KulerComponent extends Component {
       this.selectedPalette.colors.mapBy('hex'),
       palette.selectedColorIndex
     );
+
+    this._updateTouchbar();
   }
 
   @action
@@ -134,11 +158,18 @@ export default class KulerComponent extends Component {
     //   this.baseColor = newColor.attributes;
     //   await this.baseColorChanged();
     // } else {
-    const newColor = this.colorUtils.createColorPOJO(color.rgba);
+    const newColor = this.colorUtils.createColorPOJO(color?.rgba ?? color);
     this.selectedPalette.colors.replace(selectedColorIndex, 1, [
       newColor.attributes
     ]);
     // }
+
+    this.colorPicker.setColors(
+      this.selectedPalette.colors.mapBy('hex'),
+      this.selectedPalette.selectedColorIndex
+    );
+
+    this._updateTouchbar();
   }
 
   @action
@@ -190,5 +221,19 @@ export default class KulerComponent extends Component {
 
     this.colorPicker.on('color:change', this._onColorChange);
     this.colorPicker.on('color:setActive', this._onColorSetActive);
+  }
+
+  @action
+  _updateTouchbar() {
+    if (this.ipcRenderer) {
+      const itemsToShow = {
+        colorPicker: true,
+        kulerColors: {
+          colors: this.selectedPalette.colors
+        }
+      };
+
+      this.ipcRenderer.send('setTouchbar', itemsToShow);
+    }
   }
 }

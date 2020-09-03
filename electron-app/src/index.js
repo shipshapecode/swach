@@ -1,5 +1,4 @@
 const {
-  TouchBar,
   app,
   clipboard,
   dialog,
@@ -7,13 +6,11 @@ const {
   nativeTheme,
   protocol
 } = require('electron');
-const { TouchBarColorPicker } = TouchBar;
 const AutoLaunch = require('auto-launch');
 const { dirname, join, resolve } = require('path');
 const { pathToFileURL } = require('url');
 const isDev = require('electron-is-dev');
 const fs = require('fs');
-const { debounce } = require('throttle-debounce');
 const { download } = require('electron-dl');
 const { menubar } = require('menubar');
 const handleFileUrls = require('./handle-file-urls');
@@ -27,6 +24,7 @@ const {
   setupContextMenu,
   setupMenu
 } = require('./shortcuts');
+const { setTouchbar } = require('./touchbar');
 const { setupUpdateServer } = require('./auto-update');
 
 if (isDev) {
@@ -162,25 +160,29 @@ ipcMain.on('reload', () => {
 
 ipcMain.on('exitApp', () => mb.app.quit());
 
-ipcMain.on('launchContrastBgPicker', () => {
-  launchPicker(mb, 'contrastBg');
+ipcMain.on('launchContrastBgPicker', async () => {
+  await launchPicker(mb, 'contrastBg');
 });
 
-ipcMain.on('launchContrastFgPicker', () => {
-  launchPicker(mb, 'contrastFg');
+ipcMain.on('launchContrastFgPicker', async () => {
+  await launchPicker(mb, 'contrastFg');
 });
 
-ipcMain.on('launchPicker', () => {
-  launchPicker(mb);
+ipcMain.on('launchPicker', async () => {
+  await launchPicker(mb);
 });
 
 ipcMain.handle('getStoreValue', (event, key) => {
   return store.get(key);
 });
 
-ipcMain.on('setShowDockIcon', (channel, showDockIcon) => {
+ipcMain.on('setTouchbar', (event, itemsToShow) => {
+  setTouchbar(mb, itemsToShow);
+});
+
+ipcMain.on('setShowDockIcon', async (channel, showDockIcon) => {
   store.set('showDockIcon', showDockIcon);
-  restartDialog();
+  await restartDialog();
 });
 
 // Uncomment the lines below to enable Electron's crash reporter
@@ -223,20 +225,6 @@ mb.on('ready', async () => {
 
   // If you want to open up dev tools programmatically, call
   // mb.window.openDevTools();
-
-  if (process.platform === 'darwin') {
-    const touchBar = new TouchBar({
-      items: [
-        new TouchBarColorPicker({
-          change: debounce(1000, (color) => {
-            mb.window.webContents.send('changeColor', color);
-          })
-        })
-      ]
-    });
-
-    mb.window.setTouchBar(touchBar);
-  }
 
   // Load the ember application using our custom protocol/scheme
   await handleFileUrls(emberAppDir);

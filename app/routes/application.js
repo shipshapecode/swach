@@ -21,11 +21,6 @@ export default class ApplicationRoute extends Route {
     } else {
       const backup = this.dataCoordinator.getSource('backup');
 
-      // TODO: remove this migration code when we are sure everyone has migrated.
-      if (this.ipcRenderer) {
-        await this.ipcRenderer.invoke('migrateData');
-      }
-
       if (backup) {
         const transform = await backup.pull((q) => q.findRecords());
         await this.store.sync(transform);
@@ -46,6 +41,13 @@ export default class ApplicationRoute extends Route {
         isFavorite: false,
         isLocked: false
       });
+    }
+  }
+
+  async afterModel() {
+    // TODO: remove this migration code when we are sure everyone has migrated.
+    if (this.ipcRenderer) {
+      await this.ipcRenderer.invoke('migrateData');
     }
   }
 }

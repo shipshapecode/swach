@@ -26,7 +26,6 @@ module.exports = async function migrateData() {
             const idbDatabase = DBOpenRequest.result;
             exportToJsonString(idbDatabase, (err, jsonString) => {
               if (err) {
-                idbDatabase.close();
                 reject(err);
               } else {
                 idbDatabase.close();
@@ -65,7 +64,7 @@ module.exports = async function migrateData() {
                   // cleared data successfully
                   importFromJsonString(
                     idbDatabase,
-                    '${jsonString}',
+                    ${JSON.stringify(jsonString)},
                     (err) => {
                       if (!err) {
                         idbDatabase.close();

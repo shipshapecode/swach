@@ -50,6 +50,9 @@ const store = new Store({
   }
 });
 
+// TODO: remove this when migration is working for everyone
+store.set('needsMigration', true);
+
 if (store.get('needsMigration')) {
   protocol.registerSchemesAsPrivileged([
     {

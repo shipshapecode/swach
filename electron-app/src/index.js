@@ -51,11 +51,6 @@ const store = new Store({
 });
 
 if (store.get('needsMigration')) {
-  // Check if there is a serve database, if not let's set needsMigration to false
-  //store.set('needsMigration', false);
-}
-
-if (store.get('needsMigration')) {
   protocol.registerSchemesAsPrivileged([
     {
       scheme: 'serve',
@@ -200,6 +195,7 @@ mb.on('after-create-window', function () {
 mb.on('ready', async () => {
   if (store.get('needsMigration')) {
     await migrateData();
+    store.set('needsMigration', false);
   }
 
   // TODO: make theme setting invokable from the Ember side, to make sure first boot is correct.

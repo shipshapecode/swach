@@ -20,7 +20,7 @@ module.exports = async function migrateData() {
 
       function getJsonForIndexedDb() {
         const DBOpenRequest = window.indexedDB.open('orbit', 1);
-      
+
         return new Promise((resolve, reject) => {
           DBOpenRequest.onsuccess = () => {
             const idbDatabase = DBOpenRequest.result;
@@ -36,12 +36,10 @@ module.exports = async function migrateData() {
           };
         });
       }
-      
+
       getJsonForIndexedDb();
       `
     );
-
-    console.log('$$$$$$$$$', jsonString);
 
     // Create an empty HTML file in a temporary location that we can load via a
     // `file:` URL so we can write our values to the `file:`-scoped localStorage.
@@ -53,43 +51,40 @@ module.exports = async function migrateData() {
     await window.loadFile(tempFile.name);
 
     if (jsonString) {
-      // TODO: figure out why this import refuses to work
-      // const result = await window.webContents.executeJavaScript(
-      //   `
-      //   ${IDBExportImport.importFromJsonString.toString()}
-      //   ${IDBExportImport.clearDatabase.toString()}
-      //   function restoreJsonForIndexedDb() {
-      //     const DBOpenRequest = window.indexedDB.open('orbit', 1);
-      //     return new Promise((resolve, reject) => {
-      //       DBOpenRequest.onsuccess = () => {
-      //         const idbDatabase = DBOpenRequest.result;
-      //         clearDatabase(idbDatabase, (err) => {
-      //           if (!err) {
-      //             // cleared data successfully
-      //             importFromJsonString(
-      //               idbDatabase,
-      //               ${jsonString},
-      //               (err) => {
-      //                 if (err) {
-      //                   idbDatabase.close();
-      //                   reject(err);
-      //                 } else {
-      //                   idbDatabase.close();
-      //                   resolve();
-      //                 }
-      //               }
-      //             );
-      //           } else {
-      //             reject(err);
-      //           }
-      //         });
-      //       };
-      //     });
-      //   }
-      //   restoreJsonForIndexedDb();
-      // `
-      // );
-      // console.log('*****END*******', result);
+      await window.webContents.executeJavaScript(
+        `
+        ${IDBExportImport.importFromJsonString.toString()}
+        ${IDBExportImport.clearDatabase.toString()}
+        function restoreJsonForIndexedDb() {
+          const DBOpenRequest = window.indexedDB.open('orbit', 1);
+          return new Promise((resolve, reject) => {
+            DBOpenRequest.onsuccess = () => {
+              const idbDatabase = DBOpenRequest.result;
+              clearDatabase(idbDatabase, (err) => {
+                if (!err) {
+                  // cleared data successfully
+                  importFromJsonString(
+                    idbDatabase,
+                    '${jsonString}',
+                    (err) => {
+                      if (!err) {
+                        idbDatabase.close();
+                        resolve();
+                      } else {
+                        reject(err);
+                      }
+                    }
+                  );
+                } else {
+                  reject(err);
+                }
+              });
+            };
+          });
+        }
+        restoreJsonForIndexedDb();
+      `
+      );
     }
   } finally {
     window.destroy();

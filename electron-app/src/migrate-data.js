@@ -1,7 +1,7 @@
 const { protocol, BrowserWindow } = require('electron');
 const IDBExportImport = require('indexeddb-export-import');
 
-module.exports = async function migrateData(mb) {
+module.exports = async function migrateData() {
   protocol.registerStringProtocol('serve', (request, callback) => {
     callback({ mimeType: 'text/html', data: '<html></html>' });
   });

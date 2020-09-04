@@ -81,7 +81,7 @@
     "ember-svg-jar": "^2.2.3",
     "ember-template-lint": "^2.11.0",
     "ember-template-lint-plugin-prettier": "^2.0.0",
-    "ember-test-selectors": "^4.1.0",
+    "ember-test-selectors": "^5.0.0",
     "ember-tooltips": "^3.4.5",
     "ember-truth-helpers": "^2.1.0",
     "eslint": "^7.8.1",

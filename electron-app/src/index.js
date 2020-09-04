@@ -149,6 +149,18 @@ ipcMain.handle('importData', async () => {
   }
 });
 
+ipcMain.handle('getBackupData', async () => {
+  const backupPath = `${mb.app.getPath('temp')}/backup-swach-data.json`;
+  return fs.readFileSync(backupPath, { encoding: 'utf8' });
+});
+
+ipcMain.on('reload', () => {
+  if (store.get('needsMigration')) {
+    mb.window.webContents.reload();
+    store.set('needsMigration', false);
+  }
+});
+
 ipcMain.on('exitApp', () => mb.app.quit());
 
 ipcMain.on('launchContrastBgPicker', () => {
@@ -194,8 +206,10 @@ mb.on('after-create-window', function () {
 
 mb.on('ready', async () => {
   if (store.get('needsMigration')) {
-    await migrateData();
-    store.set('needsMigration', false);
+    const jsonString = await migrateData(mb);
+    const backupPath = `${mb.app.getPath('temp')}/backup-swach-data.json`;
+    fs.writeFileSync(backupPath, jsonString);
+    mb.window.webContents.send('restoreDataFromBackup', jsonString);
   }
 
   // TODO: make theme setting invokable from the Ember side, to make sure first boot is correct.

@@ -1,9 +1,28 @@
 import Route from '@ember/routing/route';
+import { set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import ENV from 'swach/config/environment';
+import IDBExportImport from 'indexeddb-export-import';
 
 export default class ApplicationRoute extends Route {
   @service dataCoordinator;
+
+  needsMigration = false;
+
+  constructor() {
+    super(...arguments);
+
+    if (typeof requireNode !== 'undefined') {
+      let { ipcRenderer } = requireNode('electron');
+      this.ipcRenderer = ipcRenderer;
+
+      this.ipcRenderer
+        .invoke('getStoreValue', 'needsMigration')
+        .then((needsMigration) => {
+          set(this, 'needsMigration', needsMigration);
+        });
+    }
+  }
 
   async beforeModel() {
     if (ENV.environment === 'test') {
@@ -31,6 +50,39 @@ export default class ApplicationRoute extends Route {
         isColorHistory: true,
         isFavorite: false,
         isLocked: false
+      });
+    }
+  }
+
+  async activate() {
+    await super.activate(...arguments);
+    await this._restoreDataBackup();
+  }
+
+  async _restoreDataBackup() {
+    if (this.ipcRenderer && this.needsMigration) {
+      await this.ipcRenderer.invoke('getBackupData').then((jsonString) => {
+        if (jsonString) {
+          const DBOpenRequest = window.indexedDB.open('orbit', 1);
+          DBOpenRequest.onsuccess = () => {
+            const idbDatabase = DBOpenRequest.result;
+            IDBExportImport.clearDatabase(idbDatabase, (err) => {
+              if (!err) {
+                // cleared data successfully
+                IDBExportImport.importFromJsonString(
+                  idbDatabase,
+                  jsonString,
+                  async (err) => {
+                    if (!err) {
+                      idbDatabase.close();
+                      this.ipcRenderer.send('reload');
+                    }
+                  }
+                );
+              }
+            });
+          };
+        }
       });
     }
   }

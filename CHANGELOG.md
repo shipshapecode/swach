@@ -1,3 +1,17 @@
+## v0.2.0 (2020-09-04)
+
+#### :boom: Breaking Change
+* [#234](https://github.com/shipshapecode/swach/pull/234) Migrate data from `serve` to `file`  ([@rwwagner90](https://github.com/rwwagner90))
+* [#230](https://github.com/shipshapecode/swach/pull/230) Switch to serving via file urls ([@rwwagner90](https://github.com/rwwagner90))
+
+#### :rocket: Enhancement
+* [#243](https://github.com/shipshapecode/swach/pull/243) Tweak data migration ([@rwwagner90](https://github.com/rwwagner90))
+* [#229](https://github.com/shipshapecode/swach/pull/229) Electron 10 ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 2
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.1.42 (2020-07-24)
 
 #### :rocket: Enhancement

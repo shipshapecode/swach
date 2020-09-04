@@ -89,7 +89,7 @@
     "eslint-plugin-ember": "^8.13.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "indexeddb-export-import": "^2.1.0",
+    "indexeddb-export-import": "^2.1.1",
     "liquid-fire": "^0.31.0",
     "loader.js": "^4.7.0",
     "nearest-color": "^0.4.4",

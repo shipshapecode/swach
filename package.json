@@ -101,7 +101,7 @@
     "qunit-dom": "^1.4.0",
     "release-it": "^14.0.2",
     "release-it-lerna-changelog": "^2.3.0",
-    "tailwindcss": "^1.7.6",
+    "tailwindcss": "^1.8.2",
     "wcag-contrast": "^3.0.0"
   },
   "engines": {

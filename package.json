@@ -39,7 +39,7 @@
     "@jaames/iro": "^5.2.2",
     "@orbit/indexeddb": "^0.16.6",
     "@orbit/jsonapi": "^0.16.5",
-    "@release-it/bumper": "^1.4.1",
+    "@release-it/bumper": "^2.0.0",
     "@sentry/browser": "^5.22.3",
     "@sentry/integrations": "^5.22.3",
     "babel-eslint": "^10.1.0",

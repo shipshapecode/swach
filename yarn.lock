@@ -1610,10 +1610,10 @@
   resolved "https://registry.yarnpkg.com/@orbit/utils/-/utils-0.16.3.tgz#fa94700191360c4c49fc9fdf464994cfe817dd0b"
   integrity sha512-JSF9xVRUEWugGtcR9mFOCzsMLphWMh/8xAe0FOuEpyyBFxBlWLuovatg/cwvlHo7AJh3J5StiiJXmBecTk/m6A==
 
-"@release-it/bumper@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@release-it/bumper/-/bumper-1.4.1.tgz#d820acbb82a53fe6ac805cc9b0cbe92f62699080"
-  integrity sha512-twZbXe/oiPv8ciVGM0iOeorijsV5keN3gclu2TKaaI2rz2MvO97ZNhrSUzq5vs845XVqSRVhQnX1N6ah3TbVpw==
+"@release-it/bumper@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@release-it/bumper/-/bumper-2.0.0.tgz#d6894d0f2a268dd48eb9698c6c2754e100d94674"
+  integrity sha512-r8JeyuQfonY9g9CJjBcG1PrGZmpHIccbDb3TFyfTPknxFHVanE2gMGYijncE259zZ/oCo+u9fRpx0WkiRJxhtw==
   dependencies:
     "@iarna/toml" "^2.2.5"
     detect-indent "^6.0.0"
@@ -1623,8 +1623,7 @@
     lodash.castarray "^4.4.0"
     lodash.get "^4.4.2"
     lodash.set "^4.3.2"
-    mock-fs "^4.12.0"
-    release-it "^13.6.5"
+    mock-fs "^4.13.0"
 
 "@sentry/browser@^5.22.3":
   version "5.22.3"
@@ -10500,7 +10499,7 @@ mktemp@~0.4.0:
   resolved "https://registry.yarnpkg.com/mktemp/-/mktemp-0.4.0.tgz#6d0515611c8a8c84e484aa2000129b98e981ff0b"
   integrity sha1-bQUVYRyKjITkhKogABKbmOmB/ws=
 
-mock-fs@^4.12.0:
+mock-fs@^4.13.0:
   version "4.13.0"
   resolved "https://registry.yarnpkg.com/mock-fs/-/mock-fs-4.13.0.tgz#31c02263673ec3789f90eb7b6963676aa407a598"
   integrity sha512-DD0vOdofJdoaRNtnWcrXe6RQbpHkPPmtqGq14uRX0F8ZKJ5nv89CVTYl/BZdppDxBDaV0hl75htg3abpEWlPZA==
@@ -12330,7 +12329,7 @@ release-it-lerna-changelog@^2.3.0:
     tmp "^0.2.0"
     which "^2.0.2"
 
-release-it@^13.5.5, release-it@^13.6.5:
+release-it@^13.5.5:
   version "13.7.0"
   resolved "https://registry.yarnpkg.com/release-it/-/release-it-13.7.0.tgz#a25f1052688a4ecc30e0ef9c580d365702ce5e95"
   integrity sha512-zrCQcw9vXh/ROHiYMLI9Nl/lgSlMg6XgxTjc8XmVWy/boaeRMXg935MnU6W1cF8WqhWAuUGfy3ZGqSvD6eYoBw==

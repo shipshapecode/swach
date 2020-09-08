@@ -1,5 +1,5 @@
 import Controller, { inject as controller } from '@ember/controller';
-import { action, computed, get } from '@ember/object';
+import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
@@ -61,8 +61,8 @@ export default class PalettesController extends Controller {
     // If the same list and same index, we are not moving anywhere, so return
     if (sourceList === targetList && sourceIndex === targetIndex) return;
 
-    const sourceParent = get(sourceArgs, 'parent');
-    const targetParent = get(targetArgs, 'parent');
+    const sourceParent = sourceArgs.parent;
+    const targetParent = targetArgs.parent;
 
     // If the palette is locked, we should not allow dragging colors into or out of it
     if (
@@ -74,7 +74,7 @@ export default class PalettesController extends Controller {
     let item = sourceList.objectAt(sourceIndex);
 
     // Dragging color out of color history
-    if (get(sourceArgs, 'isColorHistory')) {
+    if (sourceArgs.isColorHistory) {
       if (sourceList !== targetList) {
         const colorsList = targetList.map((color) => {
           return { type: 'color', id: color.id };
@@ -143,7 +143,7 @@ export default class PalettesController extends Controller {
           )
         );
 
-        if (!get(targetArgs, 'isColorHistory')) {
+        if (!targetArgs.isColorHistory) {
           const targetColorsList = targetList.map((color) => {
             return { type: 'color', id: color.id };
           });

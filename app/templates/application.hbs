@@ -6,82 +6,84 @@
   <div class="flex flex-col max-w-xl h-full relative w-full">
     <nav
       class="bg-menu flex justify-between items-center p-4 w-full {{
-        if this.isWelcomeRoute "hidden"
+      if this.isWelcomeRoute "hidden"
       }}"
     >
-      <div class="flex-grow">
-        <div class="flex h-4 items-center w-4">
-          <button
-            id="toggle-menu"
-            type="button"
-            {{on "click" this.toggleMenuIsShown}}
+      <ClickOutside @onClickOutside={{set this.menuIsShown false}}>
+        <div class="flex-grow">
+          <div class="flex h-4 items-center w-4">
+            <button
+              id="toggle-menu"
+              type="button"
+              {{on "click" this.toggleMenuIsShown}}
+            >
+              {{svg-jar "menu" class="stroke-menu-icon" height="15" width="15"}}
+            </button>
+          </div>
+
+          <EmberPopover
+            @arrowClass="custom-arrow"
+            @event="none"
+            @isShown={{this.menuIsShown}}
+            @side="bottom-start"
+            @spacing={{10}}
+            @targetId="toggle-menu"
+            @tooltipClass="bg-menu border-main text-menu-text"
           >
-            {{svg-jar "menu" class="stroke-menu-icon" height="15" width="15"}}
-          </button>
+            <LinkTo
+              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
+              @route="palettes"
+              {{on "click" this.toggleMenuIsShown}}
+            >
+              {{svg-jar
+                "palettes"
+                class="menu-icon inline-block mr-2"
+                height="13"
+                width="13"
+              }} Palettes
+            </LinkTo>
+
+            <LinkTo
+              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
+              @route="contrast"
+              {{on "click" this.toggleMenuIsShown}}
+            >
+              {{svg-jar
+                "contrast"
+                class="menu-icon inline-block mr-2"
+                height="13"
+                width="13"
+              }} Check Contrast
+            </LinkTo>
+
+            <LinkTo
+              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
+              @route="settings"
+              {{on "click" this.toggleMenuIsShown}}
+            >
+              {{svg-jar
+                "settings"
+                class="menu-icon inline-block mr-2"
+                height="13"
+                width="13"
+              }} Settings
+            </LinkTo>
+
+            <button
+              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
+              type="button"
+              {{on "click" this.exitApp}}
+            >
+              {{svg-jar
+                "close"
+                class="menu-icon inline-block mr-2"
+                height="13"
+                width="13"
+              }} Close Swach
+            </button>
+          </EmberPopover>
         </div>
-
-        <EmberPopover
-          @arrowClass="custom-arrow"
-          @event="none"
-          @isShown={{this.menuIsShown}}
-          @side="bottom-start"
-          @spacing={{10}}
-          @targetId="toggle-menu"
-          @tooltipClass="bg-menu border-main text-menu-text"
-        >
-          <LinkTo
-            class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
-            @route="palettes"
-            {{on "click" this.toggleMenuIsShown}}
-          >
-            {{svg-jar
-              "palettes"
-              class="menu-icon inline-block mr-2"
-              height="13"
-              width="13"
-            }} Palettes
-          </LinkTo>
-
-          <LinkTo
-            class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
-            @route="contrast"
-            {{on "click" this.toggleMenuIsShown}}
-          >
-            {{svg-jar
-              "contrast"
-              class="menu-icon inline-block mr-2"
-              height="13"
-              width="13"
-            }} Check Contrast
-          </LinkTo>
-
-          <LinkTo
-            class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
-            @route="settings"
-            {{on "click" this.toggleMenuIsShown}}
-          >
-            {{svg-jar
-              "settings"
-              class="menu-icon inline-block mr-2"
-              height="13"
-              width="13"
-            }} Settings
-          </LinkTo>
-
-          <button
-            class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
-            type="button"
-            {{on "click" this.exitApp}}
-          >
-            {{svg-jar
-              "close"
-              class="menu-icon inline-block mr-2"
-              height="13"
-              width="13"
-            }} Close Swach
-          </button>
-        </EmberPopover>
-      </div>
+      </ClickOutside>
 
       <div class="flex flex-grow items-center justify-end">
         <div class="h-4 w-4 mr-2">

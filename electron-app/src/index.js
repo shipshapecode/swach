@@ -13,10 +13,6 @@ const isDev = require('electron-is-dev');
 const fs = require('fs');
 const { download } = require('electron-dl');
 const { menubar } = require('menubar');
-const {
-  default: installExtension,
-  EMBER_INSPECTOR
-} = require('electron-devtools-installer');
 const handleFileUrls = require('./handle-file-urls');
 const migrateData = require('./migrate-data');
 
@@ -222,18 +218,6 @@ mb.on('ready', async () => {
 
   setOSTheme();
 
-  if (isDev) {
-    try {
-      require('devtron').install();
-    } catch (err) {
-      console.log('Failed to install Devtrom: ', err);
-    }
-    try {
-      await installExtension(EMBER_INSPECTOR);
-    } catch (err) {
-      console.log('Failed to install Ember Inspector: ', err);
-    }
-  }
   // If you want to open up dev tools programmatically, call
   // mb.window.openDevTools();
 

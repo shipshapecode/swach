@@ -3,6 +3,7 @@ const isProduction = EmberApp.env() === 'production';
 
 module.exports = {
   future: {
+    purgeLayersByDefault: true,
     removeDeprecatedGapUtilities: true
   },
   purge: {

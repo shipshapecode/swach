@@ -319,10 +319,10 @@
     "@sentry/utils" "5.21.4"
     tslib "^1.9.3"
 
-"@sentry/cli@^1.55.2":
-  version "1.55.2"
-  resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.55.2.tgz#d7c32c87be1fb5b7469b3c57229177296ad9a364"
-  integrity sha512-XLHlqLUY3E/ggYvTqAy76sbUDzr3yxXD7cSeyT2e3rxORSVwMkP2MqMeRJ8sCmQ0DXMdMHfbFOKMDwMqmRZeqQ==
+"@sentry/cli@^1.56.1":
+  version "1.56.1"
+  resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.56.1.tgz#8fc5b78859f33ffb02a4f19a7a559573b90971bf"
+  integrity sha512-NKCjgWH6d5JRn0afwP9DrLhSc81oHdxsriceZ0oZhv4cWjRObV9+bvy7hYKDhJ/7tMiTVwHTME05KPjiG9tSCQ==
   dependencies:
     https-proxy-agent "^5.0.0"
     mkdirp "^0.5.5"
@@ -1577,10 +1577,10 @@ electron-winstaller@^4.0.1:
     lodash.template "^4.2.2"
     temp "^0.9.0"
 
-electron@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-10.0.0.tgz#4e777612ead76b39bc7241c7749bf6b0ece47889"
-  integrity sha512-0XX/LqYAHHCSbfLjUk9VRDPOeYjDPEzA9i7F50AqpEpFIWR2bp++0S0beRANUpPdkvtBDp+0R6vHV3iXPvuKyA==
+electron@^10.1.1:
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-10.1.1.tgz#44ff9207afc9df253d3b5ea40c7e6513c5dc08d8"
+  integrity sha512-ZJtZHMr17AvvBosuA6XUmpehwAlGM4/n46Mw9BcyD8tpgdI6IQd0X5OU9meE3X3M8Y6Ja2Kr2udTMgtjvot2hA==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^12.0.12"
@@ -2232,10 +2232,10 @@ indent-string@^2.1.0:
   dependencies:
     repeating "^2.0.0"
 
-indexeddb-export-import@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/indexeddb-export-import/-/indexeddb-export-import-2.1.0.tgz#df6688f6294a4dbf5f12b03bf8302ace3e856329"
-  integrity sha512-KYgHUGbMCRfMvLHlka4Ymi2ZnfQ8diDr7GeeiCCYJiVRVl3n2uZ5oZeFc3sveFiDj57D1JPyQHHe+lZOKDLbNA==
+indexeddb-export-import@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/indexeddb-export-import/-/indexeddb-export-import-2.1.1.tgz#1fa890592b1f01733b65101f1ac2e53f4c366ede"
+  integrity sha512-joKcnJEisAYABARHl9qdT7S3FWDg+PW9Eb81LeHSXO6Jqc3xu/u89GGUGsmn7HfA6mgyPEjrI3SeYFCvNNDd4A==
 
 inflight@^1.0.4:
   version "1.0.6"

@@ -24,6 +24,7 @@ const {
   setupContextMenu,
   setupMenu
 } = require('./shortcuts');
+const { setTouchbar } = require('./touchbar');
 const { setupUpdateServer } = require('./auto-update');
 
 if (isDev) {
@@ -159,25 +160,29 @@ ipcMain.on('reload', () => {
 
 ipcMain.on('exitApp', () => mb.app.quit());
 
-ipcMain.on('launchContrastBgPicker', () => {
-  launchPicker(mb, 'contrastBg');
+ipcMain.on('launchContrastBgPicker', async () => {
+  await launchPicker(mb, 'contrastBg');
 });
 
-ipcMain.on('launchContrastFgPicker', () => {
-  launchPicker(mb, 'contrastFg');
+ipcMain.on('launchContrastFgPicker', async () => {
+  await launchPicker(mb, 'contrastFg');
 });
 
-ipcMain.on('launchPicker', () => {
-  launchPicker(mb);
+ipcMain.on('launchPicker', async () => {
+  await launchPicker(mb);
 });
 
 ipcMain.handle('getStoreValue', (event, key) => {
   return store.get(key);
 });
 
-ipcMain.on('setShowDockIcon', (channel, showDockIcon) => {
+ipcMain.on('setTouchbar', (event, itemsToShow) => {
+  setTouchbar(mb, itemsToShow);
+});
+
+ipcMain.on('setShowDockIcon', async (channel, showDockIcon) => {
   store.set('showDockIcon', showDockIcon);
-  restartDialog();
+  await restartDialog();
 });
 
 // Uncomment the lines below to enable Electron's crash reporter

@@ -176,6 +176,10 @@ ipcMain.handle('getStoreValue', (event, key) => {
   return store.get(key);
 });
 
+ipcMain.handle('getShouldUseDarkColors', () => {
+  return nativeTheme.shouldUseDarkColors ? 'dark' : 'light';
+});
+
 ipcMain.on('setTouchbar', (event, itemsToShow) => {
   setTouchbar(mb, itemsToShow);
 });
@@ -200,28 +204,13 @@ mb.app.on('window-all-closed', () => {
   }
 });
 
-mb.on('after-create-window', function () {
-  setupMenu(mb, launchPicker, openContrastChecker);
-  setupContextMenu(mb, launchPicker, openContrastChecker);
-});
-
-mb.on('ready', async () => {
+mb.on('after-create-window', async () => {
   if (store.get('needsMigration')) {
     const jsonString = await migrateData(mb);
     const backupPath = `${mb.app.getPath('temp')}/backup-swach-data.json`;
     fs.writeFileSync(backupPath, jsonString);
     mb.window.webContents.send('restoreDataFromBackup', jsonString);
   }
-
-  // TODO: make theme setting invokable from the Ember side, to make sure first boot is correct.
-  const setOSTheme = () => {
-    let theme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light';
-    mb.window.webContents.send('setTheme', theme);
-  };
-
-  nativeTheme.on('updated', setOSTheme);
-
-  setOSTheme();
 
   // If you want to open up dev tools programmatically, call
   // mb.window.openDevTools();
@@ -243,7 +232,7 @@ mb.on('ready', async () => {
     }, 750);
   });
 
-  mb.window.webContents.on('crashed', () => {
+  mb.window.webContents.on('render-process-gone', () => {
     console.log(
       'Your Ember app (or other code) in the main window has crashed.'
     );
@@ -264,6 +253,17 @@ mb.on('ready', async () => {
 
   registerKeyboardShortcuts(mb, launchPicker, openContrastChecker);
 
+  setupMenu(mb, launchPicker, openContrastChecker);
+  setupContextMenu(mb, launchPicker, openContrastChecker);
+  const setOSTheme = () => {
+    let theme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light';
+    mb.window.webContents.send('setTheme', theme);
+  };
+
+  nativeTheme.on('updated', setOSTheme);
+});
+
+mb.on('ready', async () => {
   const autoLaunch = new AutoLaunch({
     name: 'Swach'
   });

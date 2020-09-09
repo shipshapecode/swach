@@ -84,6 +84,10 @@ export default class ApplicationController extends Controller {
         .then((showDockIcon) => {
           set(this, 'settings.showDockIcon', showDockIcon);
         });
+
+      this.ipcRenderer.invoke('getShouldUseDarkColors').then((theme) => {
+        set(this, 'settings.osTheme', theme);
+      });
     }
   }
 

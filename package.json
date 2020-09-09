@@ -118,6 +118,7 @@
     "plugins": {
       "@release-it/bumper": {
         "out": [
+          "package.json",
           "electron-app/package.json"
         ]
       },

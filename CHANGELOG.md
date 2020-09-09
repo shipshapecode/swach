@@ -1,3 +1,13 @@
+## v0.2.2 (2020-09-09)
+
+#### :rocket: Enhancement
+* [#258](https://github.com/shipshapecode/swach/pull/258) Set theme earlier, various style and performance tweaks ([@rwwagner90](https://github.com/rwwagner90))
+* [#256](https://github.com/shipshapecode/swach/pull/256) Support TouchBar on Color Harmonies page ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 2
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.2.1 (2020-09-04)
 
 ## v0.2.0 (2020-09-04)

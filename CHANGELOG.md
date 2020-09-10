@@ -1,3 +1,11 @@
+## v0.2.5 (2020-09-10)
+
+#### :bug: Bug Fix
+* [#259](https://github.com/shipshapecode/swach/pull/259) Fix dock icon always showing on MacOS ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v0.2.4 (2020-09-10)
 
 ## v0.2.3 (2020-09-09)

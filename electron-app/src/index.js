@@ -98,7 +98,8 @@ const mb = menubar({
   },
   icon: join(__dirname || resolve(dirname('')), '..', menubarIcon),
   preloadWindow: true,
-  showDockIcon: store.get('showDockIcon')
+  showDockIcon: store.get('showDockIcon'),
+  showOnAllWorkspaces: false
 });
 
 mb.app.allowRendererProcessReuse = true;

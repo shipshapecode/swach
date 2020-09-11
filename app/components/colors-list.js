@@ -39,7 +39,7 @@ export default class ColorsList extends Component {
   @action
   async deleteColor(color) {
     const { palette } = this.args;
-    if (!palette.isLocked) {
+    if (color && palette && !palette.isLocked) {
       const colorsList = palette.colors.map((color) => {
         return { type: 'color', id: color.id };
       });

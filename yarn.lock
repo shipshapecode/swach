@@ -1577,13 +1577,13 @@
     "@orbit/record-cache" "^0.16.7"
     "@orbit/utils" "^0.16.3"
 
-"@orbit/jsonapi@^0.16.5":
-  version "0.16.5"
-  resolved "https://registry.yarnpkg.com/@orbit/jsonapi/-/jsonapi-0.16.5.tgz#d02fa7a3ad381555cc763e71470a02217255ba22"
-  integrity sha512-6/Z5rGLnn4E1x00ZrIyu+pgJO06sqXoMnF5/RBWi3rCkL37PX9re353deCe6bkEv173PgWbqY8dp5gfEKJtWmg==
+"@orbit/jsonapi@^0.16.7":
+  version "0.16.7"
+  resolved "https://registry.yarnpkg.com/@orbit/jsonapi/-/jsonapi-0.16.7.tgz#c8418fd4a123cff23605616192e36c19ddf87883"
+  integrity sha512-IvT9GSqDqzGPhXo/Y83s+KPmeoJVX/Y9xBcL+6Z8xvnaBWK/bPJZiD42p+8jVkM/ZI14k/HI6e45Xvq0uCnwjQ==
   dependencies:
     "@orbit/core" "^0.16.3"
-    "@orbit/data" "^0.16.5"
+    "@orbit/data" "^0.16.7"
     "@orbit/serializers" "^0.16.3"
     "@orbit/utils" "^0.16.3"
 

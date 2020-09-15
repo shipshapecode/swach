@@ -87,6 +87,7 @@ jobs:
           SENTRY_PROJECT: swach-electron
         with:
           tagName: ${{ github.ref }}
+          environment: production
           sourceMapOptions: '{"include": ["electron-app/ember-dist/assets"]}'
 
   snapcraft:

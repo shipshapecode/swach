@@ -4747,10 +4747,10 @@ color-convert@^2.0.1:
   dependencies:
     color-name "~1.1.4"
 
-color-name-list@^6.13.0:
-  version "6.14.0"
-  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-6.14.0.tgz#f5f1ff3c91fd2f0da739dd41133d6b7a242b4a9e"
-  integrity sha512-v77DFdHWOsGjRPxHDMCWmgmV2XwabUKfXcnOBV1lbPyXDr9a5afjCS//90t3T74FrzZ6IT2cQ62c3vOGKkjz+g==
+color-name-list@^6.15.0:
+  version "6.15.0"
+  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-6.15.0.tgz#4fd9c03c9f0ffb71dccd69a87b0ea8fc4481e644"
+  integrity sha512-8Hi/TPiYx+pIHHhGUgi0AsGhuy1jgZqy5Hd6lfzU0kfcgLNuk/B4NZoBzjQbM4+jp6VOf2YB9u5sOxEsWP6PQA==
 
 color-name@1.1.3:
   version "1.1.3"

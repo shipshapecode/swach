@@ -80,14 +80,14 @@ jobs:
             electron-app/out/**/*.rpm
             electron-app/out/**/*.zip
       - name: Create a Sentry.io release
-          uses: tclindner/sentry-releases-action@v1.2.0
-          env:
-            SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-            SENTRY_ORG: ship-shape-consulting-llc
-            SENTRY_PROJECT: swach-electron
-          with:
-            tagName: ${{ github.ref }}
-            sourceMapOptions: '{"include": ["electron-app/ember-dist/assets"]}'
+        uses: tclindner/sentry-releases-action@v1.2.0
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ship-shape-consulting-llc
+          SENTRY_PROJECT: swach-electron
+        with:
+          tagName: ${{ github.ref }}
+          sourceMapOptions: '{"include": ["electron-app/ember-dist/assets"]}'
 
   snapcraft:
     name: Snapcraft Build and Publish

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   root: true,
   parser: 'babel-eslint',
@@ -67,14 +69,7 @@ module.exports = {
         'node/no-missing-require': [
           'error',
           {
-            allowModules: [
-              'electron',
-              'ember-electron',
-              'menubar',
-              'osx-mouse',
-              'robotjs',
-              'win-mouse'
-            ]
+            allowModules: ['electron', 'ember-electron', 'menubar']
           }
         ]
       }

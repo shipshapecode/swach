@@ -32,7 +32,7 @@
     "electron-notification-state": "^1.0.4",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^6.0.0",
-    "indexeddb-export-import": "^2.1.1",
+    "indexeddb-export-import": "rwwagner90/indexeddb-export-import#4dd833aa61bd5d20514058c774157d354c0652ea",
     "menubar": "^9.0.1",
     "throttle-debounce": "^2.3.0"
   },

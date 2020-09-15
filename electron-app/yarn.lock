@@ -2208,10 +2208,9 @@ indent-string@^2.1.0:
   dependencies:
     repeating "^2.0.0"
 
-indexeddb-export-import@^2.1.1:
+indexeddb-export-import@rwwagner90/indexeddb-export-import#4dd833aa61bd5d20514058c774157d354c0652ea:
   version "2.1.1"
-  resolved "https://registry.yarnpkg.com/indexeddb-export-import/-/indexeddb-export-import-2.1.1.tgz#1fa890592b1f01733b65101f1ac2e53f4c366ede"
-  integrity sha512-joKcnJEisAYABARHl9qdT7S3FWDg+PW9Eb81LeHSXO6Jqc3xu/u89GGUGsmn7HfA6mgyPEjrI3SeYFCvNNDd4A==
+  resolved "https://codeload.github.com/rwwagner90/indexeddb-export-import/tar.gz/4dd833aa61bd5d20514058c774157d354c0652ea"
 
 inflight@^1.0.4:
   version "1.0.6"

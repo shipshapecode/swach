@@ -37,7 +37,7 @@
     "@glimmer/component": "^1.0.1",
     "@glimmer/tracking": "^1.0.1",
     "@jaames/iro": "^5.2.3",
-    "@orbit/indexeddb": "^0.16.6",
+    "@orbit/indexeddb": "^0.16.7",
     "@orbit/jsonapi": "^0.16.5",
     "@release-it/bumper": "^2.0.0",
     "@sentry/browser": "^5.23.0",

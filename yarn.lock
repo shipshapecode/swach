@@ -1549,7 +1549,7 @@
   dependencies:
     "@orbit/utils" "^0.16.3"
 
-"@orbit/data@^0.16.5", "@orbit/data@^0.16.7":
+"@orbit/data@^0.16.7":
   version "0.16.7"
   resolved "https://registry.yarnpkg.com/@orbit/data/-/data-0.16.7.tgz#0bbe7a005ee8b7f20615cf18fce0b56ea325fcd1"
   integrity sha512-hCLDBcX0ocUgHfyH9ViJOrnR3w9gaKR7w80scQEioY2oPM1CwKVAC+qZBxgeIUuo2dH7BP2ZegqS8AB7ToJyuQ==
@@ -1596,15 +1596,6 @@
     "@orbit/data" "^0.16.7"
     "@orbit/immutable" "^0.16.3"
     "@orbit/record-cache" "^0.16.7"
-    "@orbit/utils" "^0.16.3"
-
-"@orbit/record-cache@^0.16.6", "@orbit/record-cache@^0.16.7":
-  version "0.16.7"
-  resolved "https://registry.yarnpkg.com/@orbit/record-cache/-/record-cache-0.16.7.tgz#f28f7a1778d91a6b206c2deda2111729aaec0cc1"
-  integrity sha512-1aJ8ix3FwD0YpuCcJyXu0lFaaJ6cpHPfgoRI8YjvXfunmoDJJ/+ozd2OApZqLxgNK7xK8P8R+btlLa58gvoUog==
-  dependencies:
-    "@orbit/core" "^0.16.3"
-    "@orbit/data" "^0.16.7"
     "@orbit/utils" "^0.16.3"
 
 "@orbit/record-cache@^0.16.7":

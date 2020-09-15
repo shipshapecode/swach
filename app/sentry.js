@@ -7,6 +7,8 @@ import config from './config/environment';
 export function startSentry() {
   Sentry.init({
     ...config.sentry,
+    dsn:
+      'https://7c2313d0bc4c444192387c0e6a3c6de9@o361681.ingest.sentry.io/5430079',
     integrations: [
       new Ember(),
       new CaptureConsole({

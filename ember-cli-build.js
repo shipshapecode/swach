@@ -23,6 +23,9 @@ module.exports = function (defaults) {
           require('tailwindcss')('./tailwind.config.js')
         ]
       }
+    },
+    sourcemaps: {
+      enabled: true
     }
   });
 

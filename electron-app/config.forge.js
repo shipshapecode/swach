@@ -4,6 +4,15 @@ module.exports = {
     darwinDarkModeSupport: 'true',
     icon: 'electron-app/resources/icon',
     name: 'Swach',
+    packageManager: 'yarn',
+    ignore: [
+      '/.gitignore',
+      '/electron-forge-config.js',
+      '/yarn.lock',
+      '/ember-test(/|$)',
+      '/tests(/|$)',
+      '\\.map$'
+    ],
     osxSign: {
       entitlements: 'electron-app/src/entitlements.plist',
       'entitlements-inherit': 'electron-app/src/entitlements.plist',
@@ -15,8 +24,7 @@ module.exports = {
     osxNotarize: {
       appleId: process.env['APPLE_ID'],
       appleIdPassword: process.env['APPLE_ID_PASSWORD']
-    },
-    packageManager: 'yarn'
+    }
   },
   makers: [
     {

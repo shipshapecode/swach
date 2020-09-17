@@ -6,6 +6,7 @@ import IDBExportImport from 'indexeddb-export-import';
 
 export default class ApplicationRoute extends Route {
   @service dataCoordinator;
+  @service router;
 
   needsMigration = false;
 
@@ -21,6 +22,10 @@ export default class ApplicationRoute extends Route {
         .then((needsMigration) => {
           set(this, 'needsMigration', needsMigration);
         });
+
+      this.router.on('routeDidChange', () => {
+        this.ipcRenderer.send('setTouchbar', []);
+      });
     }
   }
 

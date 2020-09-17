@@ -40,7 +40,7 @@
     "@orbit/indexeddb": "^0.16.7",
     "@orbit/jsonapi": "^0.16.7",
     "@release-it/bumper": "^2.0.0",
-    "@sentry/browser": "^5.23.0",
+    "@sentry/electron": "^2.0.0",
     "@sentry/integrations": "^5.23.0",
     "babel-eslint": "^10.1.0",
     "babel-preset-env": "^1.7.0",

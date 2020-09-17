@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/electron';
 import { Ember } from '@sentry/integrations/esm/ember';
 import { CaptureConsole } from '@sentry/integrations/esm/captureconsole';
 

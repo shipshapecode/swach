@@ -69,7 +69,7 @@ module.exports = function (environment) {
 
   if (environment === 'production') {
     ENV.sentry.dsn =
-      'https://7c2313d0bc4c444192387c0e6a3c6de9@o361681.ingest.sentry.io/5430079';
+      'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140';
     ENV.sentry.release = `v${version}`;
   }
 

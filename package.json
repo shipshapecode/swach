@@ -24,6 +24,7 @@
     "make:snapcraft": "ember electron:build",
     "start": "ember serve",
     "test": "npm-run-all lint:* test:*",
+    "test:electron": "ember electron:test",
     "test:ember": "ember test"
   },
   "devDependencies": {

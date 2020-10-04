@@ -27,8 +27,8 @@ jobs:
         run: yarn lint:hbs
       - name: Get xvfb
         run: sudo apt-get install xvfb
-      - name: Test
-        run: xvfb-run --auto-servernum yarn test
+      - name: Browser Test
+        run: xvfb-run --auto-servernum yarn test:ember
   build:
     name: Build (${{ matrix.os }})
     if: startsWith(github.ref, 'refs/tags/')

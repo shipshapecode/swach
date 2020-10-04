@@ -4,16 +4,6 @@ import config from 'swach/config/environment';
 export default class Router extends EmberRouter {
   location = config.locationType;
   rootURL = config.rootURL;
-
-  didTransition() {
-    super.didTransition(...arguments);
-
-    if (typeof requireNode !== 'undefined') {
-      let { ipcRenderer } = requireNode('electron');
-      this.ipcRenderer = ipcRenderer;
-      this.ipcRenderer.send('setTouchbar', []);
-    }
-  }
 }
 
 Router.map(function () {

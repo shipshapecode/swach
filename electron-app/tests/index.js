@@ -17,6 +17,10 @@ const {
 
 const emberAppDir = path.resolve(__dirname, '..', 'ember-test');
 
+ipcMain.handle('getAppVersion', async () => {
+  return app.getVersion();
+});
+
 ipcMain.handle('getStoreValue', (event, key) => {
   return store.get(key);
 });

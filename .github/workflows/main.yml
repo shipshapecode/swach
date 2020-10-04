@@ -85,7 +85,7 @@ jobs:
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ship-shape-consulting-llc
-          SENTRY_PROJECT: swach-electron
+          SENTRY_PROJECT: swach
         with:
           tagName: ${{ github.ref }}
           environment: production

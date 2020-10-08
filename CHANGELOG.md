@@ -1,3 +1,11 @@
+## v0.2.16 (2020-10-08)
+
+#### :bug: Bug Fix
+* [#298](https://github.com/shipshapecode/swach/pull/298) Fix sentry and font issues ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v0.2.15 (2020-10-04)
 
 ## v0.2.14 (2020-10-04)

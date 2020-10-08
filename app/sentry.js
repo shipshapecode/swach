@@ -9,6 +9,7 @@ export function startSentry() {
 
     Sentry.init({
       ...config.sentry,
+      appName: 'swach',
       integrations: [
         new Ember(),
         new CaptureConsole({

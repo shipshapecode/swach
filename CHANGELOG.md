@@ -1,3 +1,11 @@
+## v0.2.17 (2020-10-09)
+
+#### :bug: Bug Fix
+* [#300](https://github.com/shipshapecode/swach/pull/300) Fix audio path in Windows ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v0.2.16 (2020-10-08)
 
 #### :bug: Bug Fix

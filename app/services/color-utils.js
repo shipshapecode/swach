@@ -42,7 +42,7 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  copyColorToClipboard(color, event) {
+  async copyColorToClipboard(color, event) {
     const isDropping =
       event &&
       event.target &&
@@ -54,8 +54,8 @@ export default class ColorUtilsService extends Service {
 
       // eslint-disable-next-line ember/no-get
       if (get(this, 'settings.sounds')) {
-        const audio = new Audio('/sounds/pluck_short.wav');
-        audio.play();
+        const audio = new Audio('assets/sounds/pluck_short.wav');
+        await audio.play();
       }
 
       // eslint-disable-next-line ember/no-get

@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "@sentry/electron": "^2.0.1",
-    "auto-launch": "^5.0.5",
     "electron-color-picker": "^0.2.0",
     "electron-dl": "^3.0.1",
     "electron-is-dev": "^1.2.0",

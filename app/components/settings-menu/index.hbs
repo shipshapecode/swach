@@ -1,26 +1,30 @@
 <div class="font-normal text-main-text text-sm w-full" data-test-settings-menu>
   <div class="p-1 pb-4">
-    <label class="block">
-      <Input
-        data-test-settings-startup
-        @type="checkbox"
-        @checked={{this.settings.openOnStartup}}
-        {{on "change" @enableDisableAutoStart}}
-      />
+    {{#if this.isMacOSOrWindows}}
+      <label class="block">
+        <Input
+          data-test-settings-startup
+          @type="checkbox"
+          @checked={{this.settings.openOnStartup}}
+          {{on "change" @enableDisableAutoStart}}
+        />
 
-      Start Swach on system startup
-    </label>
+        Start Swach on system startup
+      </label>
+    {{/if}}
 
-    <label class="block">
-      <Input
-        data-test-settings-show-dock-icon
-        @type="checkbox"
-        @checked={{this.settings.showDockIcon}}
-        {{on "change" @toggleShowDockIcon}}
-      />
+    {{#if this.isMacOS}}
+      <label class="block">
+        <Input
+          data-test-settings-show-dock-icon
+          @type="checkbox"
+          @checked={{this.settings.showDockIcon}}
+          {{on "change" @toggleShowDockIcon}}
+        />
 
-      Show dock icon
-    </label>
+        Show dock icon
+      </label>
+    {{/if}}
 
     <label class="block">
       <Input
@@ -78,17 +82,19 @@
     </div>
   </div>
 
-  <div class="p-1 pb-4 pt-4">
-    <div class="flex h-8 w-full">
-      <LoadingButton
-        class="h-full w-40"
-        @loading={{this.checkingForUpdates}}
-        @onClick={{@checkForUpdates}}
-      >
-        Check for updates
-      </LoadingButton>
+  {{#if this.isMacOSOrWindows}}
+    <div class="p-1 pb-4 pt-4">
+      <div class="flex h-8 w-full">
+        <LoadingButton
+          class="h-full w-40"
+          @loading={{this.checkingForUpdates}}
+          @onClick={{@checkForUpdates}}
+        >
+          Check for updates
+        </LoadingButton>
+      </div>
     </div>
-  </div>
+  {{/if}}
 
   <div class="p-1">
     <h6 class="font-semibold text-heading">

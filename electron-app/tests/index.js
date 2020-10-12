@@ -21,6 +21,10 @@ ipcMain.handle('getAppVersion', async () => {
   return app.getVersion();
 });
 
+ipcMain.handle('getPlatform', () => {
+  return process.platform;
+});
+
 ipcMain.handle('getStoreValue', (event, key) => {
   return store.get(key);
 });

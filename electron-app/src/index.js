@@ -6,8 +6,7 @@ const {
   nativeTheme,
   protocol
 } = require('electron');
-const AutoLaunch = require('auto-launch');
-const { dirname, join, resolve } = require('path');
+const { basename, dirname, join, resolve } = require('path');
 const { pathToFileURL } = require('url');
 const isDev = require('electron-is-dev');
 const fs = require('fs');
@@ -175,6 +174,10 @@ ipcMain.on('launchPicker', async () => {
   await launchPicker(mb);
 });
 
+ipcMain.handle('getPlatform', () => {
+  return process.platform;
+});
+
 ipcMain.handle('getStoreValue', (event, key) => {
   return store.get(key);
 });
@@ -267,20 +270,31 @@ mb.on('after-create-window', async () => {
 });
 
 mb.on('ready', async () => {
-  const autoLaunch = new AutoLaunch({
-    name: 'Swach'
-  });
-
-  ipcMain.on('enableDisableAutoStart', (event, shouldEnable) => {
+  ipcMain.on('enableDisableAutoStart', (event, openAtLogin) => {
     // We only want to allow auto-start if in production mode
     if (!isDev) {
-      autoLaunch.isEnabled().then((isEnabled) => {
-        if (!isEnabled && shouldEnable) {
-          autoLaunch.enable();
-        } else if (isEnabled && !shouldEnable) {
-          autoLaunch.disable();
-        }
-      });
+      if (process.platform === 'darwin') {
+        mb.app.setLoginItemSettings({
+          openAtLogin
+        });
+      }
+
+      if (process.platform === 'win32') {
+        const appFolder = dirname(process.execPath);
+        const updateExe = resolve(appFolder, '..', 'Update.exe');
+        const exeName = basename(process.execPath);
+
+        mb.app.setLoginItemSettings({
+          openAtLogin,
+          path: updateExe,
+          args: [
+            '--processStart',
+            `"${exeName}"`,
+            '--process-start-args',
+            `"--hidden"`
+          ]
+        });
+      }
     }
   });
 });

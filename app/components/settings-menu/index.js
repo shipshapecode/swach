@@ -14,6 +14,7 @@ export default class SettingsMenu extends Component {
 
   @tracked isExporting = false;
   @tracked isImporting = false;
+  @tracked platform = null;
   @tracked version = 'Version not available';
 
   constructor() {
@@ -26,7 +27,19 @@ export default class SettingsMenu extends Component {
       this.ipcRenderer.invoke('getAppVersion').then((version) => {
         this.version = version;
       });
+
+      this.ipcRenderer.invoke('getPlatform').then((platform) => {
+        this.platform = platform;
+      });
     }
+  }
+
+  get isMacOS() {
+    return this.platform === 'darwin';
+  }
+
+  get isMacOSOrWindows() {
+    return this.platform === 'darwin' || this.platform === 'win32';
   }
 
   @action

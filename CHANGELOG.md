@@ -1,3 +1,12 @@
+## v0.2.18 (2020-10-13)
+
+#### :house: Internal
+* [#306](https://github.com/shipshapecode/swach/pull/306) Use setLoginItemSettings to set openAtLogin ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 2
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.2.17 (2020-10-09)
 
 #### :bug: Bug Fix

@@ -6729,12 +6729,12 @@ ember-router-generator@^2.0.0:
     "@babel/traverse" "^7.4.5"
     recast "^0.18.1"
 
-ember-set-body-class@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/ember-set-body-class/-/ember-set-body-class-0.4.2.tgz#93065767bb6a9f6754661d5bf52e473cdab69228"
-  integrity sha512-yAWDR2KWm7BYr5Iit1sOZwamfJI0t/2NiQKbNSiDNnIWnc9GdI6Muv22uYxRktFCvHgLHsp4+YD7YkcHjygJlg==
+ember-set-body-class@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ember-set-body-class/-/ember-set-body-class-1.0.1.tgz#94c0126a5fdb1e780e6568f41c443b0c657f5724"
+  integrity sha512-W4y36lozFstvrv1XERCghgQx8s7RuyJbnPhM+9PTrdwwLpSEQYLEdeASHgeCLqb6Bz7AQeIbyf++2b7u5jPfTw==
   dependencies:
-    ember-cli-babel "^6.6.0"
+    ember-cli-babel "^7.22.1"
 
 ember-set-helper@^1.1.0:
   version "1.1.0"

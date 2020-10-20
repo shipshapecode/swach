@@ -60,7 +60,7 @@
     "ember-cli-sri": "^2.1.1",
     "ember-cli-string-helpers": "^5.0.0",
     "ember-cli-terser": "^4.0.0",
-    "ember-click-outside": "^2.0.0-beta.1",
+    "ember-click-outside": "^2.0.0",
     "ember-context-menu": "^0.5.2",
     "ember-decorators": "^6.1.1",
     "ember-drag-sort": "^3.0.0",

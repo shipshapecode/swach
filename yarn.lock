@@ -6741,10 +6741,10 @@ ember-set-body-class@^1.0.1:
   dependencies:
     ember-cli-babel "^7.22.1"
 
-ember-set-helper@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/ember-set-helper/-/ember-set-helper-1.1.0.tgz#d24d7fc1824cab4f2a6e4984af6acd301695dd2a"
-  integrity sha512-jDAxnhVJdU6Cjeh4JTbjaj8JJraepuoV6QRF+qU+FajelBdlZGPpEhwU3sEXMWJZOJT/nEuvgOFPb0odbP5DLw==
+ember-set-helper@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ember-set-helper/-/ember-set-helper-2.0.0.tgz#afdb6cf2f5750f6f69e38a387f19615560f30a0f"
+  integrity sha512-cnKbQEkPi+plRI9eWj76zt4pjRKM/PsKIlYP2ZcSI7R83c1Zig5DLDUft+1PJI/1/fnPGLB8s3E6hjFBQo+T9g==
   dependencies:
     ember-cli-babel "^7.18.0"
     ember-cli-htmlbars "^4.2.3"

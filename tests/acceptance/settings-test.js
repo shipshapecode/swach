@@ -25,15 +25,6 @@ module('Acceptance | settings', function (hooks) {
     assert.dom('[data-test-settings-menu]').exists();
   });
 
-  test('has two checkboxes', function (assert) {
-    assert.dom('[data-test-settings-menu] input').exists({ count: 2 });
-  });
-
-  // TODO: move this to electron specific tests and check platform
-  // test('start on startup is not checked by default', async function (assert) {
-  //   assert.dom('[data-test-settings-startup]').isNotChecked();
-  // });
-
   test('sounds is checked by default', function (assert) {
     assert.dom('[data-test-settings-sounds]').isChecked();
   });
@@ -45,4 +36,22 @@ module('Acceptance | settings', function (hooks) {
 
     assert.equal(theme, 'light');
   });
+
+  // Ember specific tests
+  if (typeof requireNode === 'undefined') {
+    test('has two checkboxes', function (assert) {
+      assert.dom('[data-test-settings-menu] input').exists({ count: 2 });
+    });
+  }
+
+  // Electron specific tests
+  if (typeof requireNode !== 'undefined') {
+    test('has four checkboxes', function (assert) {
+      assert.dom('[data-test-settings-menu] input').exists({ count: 4 });
+    });
+
+    test('start on startup is not checked by default', async function (assert) {
+      assert.dom('[data-test-settings-startup]').isNotChecked();
+    });
+  }
 });

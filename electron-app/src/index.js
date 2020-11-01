@@ -13,7 +13,6 @@ const fs = require('fs');
 const { download } = require('electron-dl');
 const { menubar } = require('menubar');
 const handleFileUrls = require('./handle-file-urls');
-const migrateData = require('./migrate-data');
 
 const emberAppDir = resolve(__dirname, '..', 'ember-dist');
 const { launchPicker } = require('./color-picker');
@@ -43,22 +42,9 @@ const Store = require('electron-store');
 const store = new Store({
   defaults: {
     firstRun: true,
-    needsMigration: true,
     showDockIcon: false
   }
 });
-
-if (store.get('needsMigration')) {
-  protocol.registerSchemesAsPrivileged([
-    {
-      scheme: 'serve',
-      privileges: {
-        secure: true,
-        standard: true
-      }
-    }
-  ]);
-}
 
 let emberAppURL = pathToFileURL(join(emberAppDir, 'index.html')).toString();
 
@@ -153,13 +139,6 @@ ipcMain.handle('getBackupData', async () => {
   return fs.readFileSync(backupPath, { encoding: 'utf8' });
 });
 
-ipcMain.on('reload', () => {
-  if (store.get('needsMigration')) {
-    mb.window.webContents.reload();
-    store.set('needsMigration', false);
-  }
-});
-
 ipcMain.on('exitApp', () => mb.app.quit());
 
 ipcMain.on('launchContrastBgPicker', async () => {
@@ -211,13 +190,6 @@ mb.app.on('window-all-closed', () => {
 });
 
 mb.on('after-create-window', async () => {
-  if (store.get('needsMigration')) {
-    const jsonString = await migrateData(mb);
-    const backupPath = `${mb.app.getPath('temp')}/backup-swach-data.json`;
-    fs.writeFileSync(backupPath, jsonString);
-    mb.window.webContents.send('restoreDataFromBackup', jsonString);
-  }
-
   // If you want to open up dev tools programmatically, call
   // mb.window.openDevTools();
 

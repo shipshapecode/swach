@@ -46,7 +46,7 @@
   <div>
     <button
       type="button"
-      {{on "click" (set this.showFavorites (not this.showFavorites))}}
+      {{on "click" (set this "showFavorites" (not this.showFavorites))}}
     >
       {{svg-jar
         (if this.showFavorites "filled-heart" "outline-heart")

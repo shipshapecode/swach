@@ -9,8 +9,8 @@
 
     <div
       data-test-kuler-palette-menu
-      {{on "mouseenter" (set this.showMenu true)}}
-      {{on "mouseleave" (set this.showMenu false)}}
+      {{on "mouseenter" (set this "showMenu" true)}}
+      {{on "mouseleave" (set this "showMenu" false)}}
     >
       {{#animated-if this.showMenu use=this.fade}}
         <div>

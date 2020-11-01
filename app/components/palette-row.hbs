@@ -28,8 +28,8 @@
 
     <div
       data-test-palette-row-menu
-      {{on "mouseenter" (set this.showMenu true)}}
-      {{on "mouseleave" (set this.showMenu false)}}
+      {{on "mouseenter" (set this "showMenu" true)}}
+      {{on "mouseleave" (set this "showMenu" false)}}
     >
       {{#animated-if this.showMenu duration=350 use=this.fade}}
         <div>
@@ -65,7 +65,7 @@
             disabled={{@palette.isLocked}}
             type="button"
             {{on "click" (stop-propagation (fn this.deletePalette))}}
-            {{on "mouseleave" (set this.deleteConfirm false)}}
+            {{on "mouseleave" (set this "deleteConfirm" false)}}
           >
             {{svg-jar
               "trash"

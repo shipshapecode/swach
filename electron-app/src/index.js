@@ -1,11 +1,4 @@
-const {
-  app,
-  clipboard,
-  dialog,
-  ipcMain,
-  nativeTheme,
-  protocol
-} = require('electron');
+const { app, clipboard, dialog, ipcMain, nativeTheme } = require('electron');
 const { basename, dirname, join, resolve } = require('path');
 const { pathToFileURL } = require('url');
 const isDev = require('electron-is-dev');

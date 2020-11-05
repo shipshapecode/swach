@@ -1,3 +1,12 @@
+## v0.3.0 (2020-11-05)
+
+#### :boom: Breaking Change
+* [#343](https://github.com/shipshapecode/swach/pull/343) Remove data migration scripts ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 2
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.2.18 (2020-10-13)
 
 #### :house: Internal

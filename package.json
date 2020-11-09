@@ -69,7 +69,7 @@
     "ember-export-application-global": "^2.0.1",
     "ember-fetch": "^8.0.2",
     "ember-inputmask": "^0.11.0",
-    "ember-load-initializers": "^2.1.1",
+    "ember-load-initializers": "^2.1.2",
     "ember-local-storage": "^1.7.2",
     "ember-math-helpers": "^2.15.0",
     "ember-maybe-import-regenerator": "^0.1.6",

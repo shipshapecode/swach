@@ -5020,10 +5020,10 @@ color-convert@^2.0.1:
   dependencies:
     color-name "~1.1.4"
 
-color-name-list@^7.15.0:
-  version "7.15.0"
-  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-7.15.0.tgz#ef983b97ed5f1a075606840a184c0c60d9b812c1"
-  integrity sha512-X5EHyYKCLFhah7u0MiVt2fGQC0O4FgGtqds57kMC1co+qYT9B0r+/Y7ga4i3/09kAx7Mm3uoZACXUNOciFO6hg==
+color-name-list@^7.17.0:
+  version "7.17.0"
+  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-7.17.0.tgz#6da55d988d964c4d9f29f10db35dd81ed7271044"
+  integrity sha512-qmw/Utk436ffOpLBfO/oEhE7qgiXmwg2yaPi6meFONMgJFH3Tu6+Ah/p3ka3vEUoL3+RhcUfFw98uA/GCBX3ZA==
 
 color-name@1.1.3:
   version "1.1.3"

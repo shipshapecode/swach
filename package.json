@@ -102,7 +102,7 @@
     "postcss-scss": "^3.0.4",
     "prettier": "^2.2.0",
     "qunit-dom": "^1.6.0",
-    "release-it": "^14.2.1",
+    "release-it": "^14.2.2",
     "release-it-lerna-changelog": "^3.1.0",
     "tailwindcss": "^1.9.6",
     "wcag-contrast": "^3.0.0"

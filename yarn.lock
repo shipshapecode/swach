@@ -5007,10 +5007,10 @@ color-convert@^2.0.1:
   dependencies:
     color-name "~1.1.4"
 
-color-name-list@^7.19.0:
-  version "7.19.0"
-  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-7.19.0.tgz#34917aa5b19045a6e3b5b60bc744e55fcf63faac"
-  integrity sha512-WMncZb2Lk++x7xgy23crHRfnY33nbh+PvEFvrlK/xIwYOC2+Z8tH+3v7L5YMfz8KOw2VbnEf1FnfiG4WptIDgQ==
+color-name-list@^7.21.0:
+  version "7.21.0"
+  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-7.21.0.tgz#179643a6c8bd668a2335510742b505904e577099"
+  integrity sha512-T3XYVJVgiaB3Be+Yi4G+XuWr4SGe6h2Xt9/gw9D27M9BFNvAkknRYyARFTm9pJstu+7wTINYI6VctpLoeyOUnw==
 
 color-name@1.1.3:
   version "1.1.3"

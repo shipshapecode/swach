@@ -77,7 +77,7 @@
     "ember-power-select": "^4.1.0",
     "ember-qunit": "^4.6.0",
     "ember-resolver": "^8.0.2",
-    "ember-set-body-class": "^1.0.1",
+    "ember-set-body-class": "^1.0.2",
     "ember-set-helper": "^2.0.0",
     "ember-source": "~3.22.1",
     "ember-svg-jar": "^2.2.3",

@@ -1,3 +1,3 @@
-export default class {
-  public storageFor: any;
+declare module 'ember-local-storage' {
+  export declare function storageFor(key: string, modelName?: string, options: {} = {}): Function;
 }

@@ -2,10 +2,10 @@ import Service from '@ember/service';
 import { action, get } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { rgbaToHex } from 'swach/data-models/color';
-// @ts-ignore
 import { storageFor } from 'ember-local-storage';
 import { TinyColor } from '@ctrl/tinycolor';
 import NearestColor from 'swach/services/nearest-color';
+import Color from 'swach/data-models/color';
 // import { Store } from 'ember-orbit/addon/index';
 
 export default class ColorUtilsService extends Service {
@@ -14,7 +14,7 @@ export default class ColorUtilsService extends Service {
 
   ipcRenderer: any;
 
-  @storageFor('settings') settings: any;
+  @storageFor('settings') settings?: {};
 
   constructor() {
     super(...arguments);
@@ -47,7 +47,7 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  async copyColorToClipboard(color: any, event: any) {
+  async copyColorToClipboard(color: Color, event: any) {
     const isDropping =
       event &&
       event.target &&
@@ -73,11 +73,5 @@ export default class ColorUtilsService extends Service {
         });
       }
     }
-  }
-}
-
-declare module '@ember/service' {
-  interface Registry {
-    'color-utils': ColorUtilsService;
   }
 }

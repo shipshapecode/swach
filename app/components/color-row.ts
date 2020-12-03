@@ -42,7 +42,7 @@ export default class ColorRow extends Component<ColorRowArgs>{
   }
 
   @action
-  transitionToKuler(event: any) {
+  transitionToKuler(event: Event) {
     event.stopPropagation();
     this.router.transitionTo('kuler', {
       queryParams: { colorId: this.args.color.id }

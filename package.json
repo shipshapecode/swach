@@ -90,7 +90,7 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-ember": "^9.6.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-prettier": "^3.2.0",
     "indexeddb-export-import": "^2.1.2",
     "liquid-fire": "^0.31.0",
     "loader.js": "^4.7.0",

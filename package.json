@@ -88,7 +88,7 @@
     "ember-truth-helpers": "^3.0.0",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-ember": "^9.6.0",
+    "eslint-plugin-ember": "^10.0.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.2.0",
     "indexeddb-export-import": "^2.1.2",

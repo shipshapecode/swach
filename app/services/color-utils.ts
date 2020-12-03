@@ -2,17 +2,22 @@ import Service from '@ember/service';
 import { action, get } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { rgbaToHex } from 'swach/data-models/color';
+// @ts-ignore
 import { storageFor } from 'ember-local-storage';
 import { TinyColor } from '@ctrl/tinycolor';
+import NearestColor from 'swach/services/nearest-color';
+// import { Store } from 'ember-orbit/addon/index';
 
 export default class ColorUtilsService extends Service {
-  @service nearestColor;
-  @service store;
+  @service nearestColor!: NearestColor;
+  @service store!: any;
 
-  @storageFor('settings') settings;
+  ipcRenderer: any;
 
-  init() {
-    super.init(...arguments);
+  @storageFor('settings') settings: any;
+
+  constructor() {
+    super(...arguments);
 
     if (typeof requireNode !== 'undefined') {
       let { ipcRenderer } = requireNode('electron');
@@ -21,7 +26,7 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  createColorPOJO(color) {
+  createColorPOJO(color: any) {
     const tinyColor = new TinyColor(color);
     const { r, g, b, a } = tinyColor.toRgb();
     const namedColor = this.nearestColor.nearest({ r, g, b });
@@ -42,7 +47,7 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  async copyColorToClipboard(color, event) {
+  async copyColorToClipboard(color: any, event: any) {
     const isDropping =
       event &&
       event.target &&
@@ -52,12 +57,14 @@ export default class ColorUtilsService extends Service {
     if (!isDropping) {
       this.ipcRenderer.send('copyColorToClipboard', color.hex);
 
+      // @ts-ignore
       // eslint-disable-next-line ember/no-get
       if (get(this, 'settings.sounds')) {
         const audio = new Audio('assets/sounds/pluck_short.wav');
         await audio.play();
       }
 
+      // @ts-ignore
       // eslint-disable-next-line ember/no-get
       if (get(this, 'settings.notifications')) {
         new window.Notification(`${color.name} - ${color.hex}`, {
@@ -66,5 +73,11 @@ export default class ColorUtilsService extends Service {
         });
       }
     }
+  }
+}
+
+declare module '@ember/service' {
+  interface Registry {
+    'color-utils': ColorUtilsService;
   }
 }

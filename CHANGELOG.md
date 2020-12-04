@@ -1,3 +1,18 @@
+## v0.4.0 (2020-12-04)
+
+#### :rocket: Enhancement
+* [#397](https://github.com/shipshapecode/swach/pull/397) Add support for Apple silicon ([@rwwagner90](https://github.com/rwwagner90))
+* [#396](https://github.com/shipshapecode/swach/pull/396) Update settings page ([@rwwagner90](https://github.com/rwwagner90))
+* [#395](https://github.com/shipshapecode/swach/pull/395) Add cut/copy/paste support to inputs ([@rwwagner90](https://github.com/rwwagner90))
+
+#### :house: Internal
+* [#394](https://github.com/shipshapecode/swach/pull/394) Add types for models ([@rwwagner90](https://github.com/rwwagner90))
+* [#393](https://github.com/shipshapecode/swach/pull/393) Start converting to TypeScript ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 2
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.3.0 (2020-11-05)
 
 #### :boom: Breaking Change

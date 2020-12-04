@@ -54,7 +54,7 @@
     "broccoli-asset-rev": "^3.0.0",
     "color-name-list": "^7.22.0",
     "ember-animated": "^0.10.1",
-    "ember-auto-import": "^1.7.0",
+    "ember-auto-import": "^1.8.0",
     "ember-box": "^0.1.0",
     "ember-cli": "~3.22.0",
     "ember-cli-app-version": "^4.0.0",

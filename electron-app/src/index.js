@@ -65,7 +65,7 @@ if (process.platform === 'linux') {
 const mb = menubar({
   index: false,
   browserWindow: {
-    alwaysOnTop: false,
+    alwaysOnTop: true,
     height: 697,
     resizable: false,
     width: 360,
@@ -184,7 +184,7 @@ mb.app.on('window-all-closed', () => {
 
 mb.on('after-create-window', async () => {
   // If you want to open up dev tools programmatically, call
-  // mb.window.openDevTools();
+  mb.window.openDevTools();
 
   // Load the ember application using our custom protocol/scheme
   await handleFileUrls(emberAppDir);

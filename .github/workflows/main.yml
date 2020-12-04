@@ -67,12 +67,12 @@ jobs:
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
           WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
           WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
-      # - name: Make Apple arm64
-      #   if: matrix.os == 'macos-11.0' && startsWith(github.ref, 'refs/tags/')
-      #   run: yarn make --arch=arm64
-      #   env:
-      #     APPLE_ID: ${{ secrets.APPLE_ID }}
-      #     APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}  
+      - name: Make Apple arm64
+        if: matrix.os == 'macos-11.0' && startsWith(github.ref, 'refs/tags/')
+        run: yarn make --arch=arm64
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD_ARM }}  
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')

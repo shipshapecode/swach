@@ -1,9 +1,10 @@
 <div class="font-normal text-main-text text-sm w-full" data-test-settings-menu>
-  <div class="p-1 pb-4">
+  <div class="p-1 pb-2">
     {{#if this.isMacOSOrWindows}}
-      <label class="block">
+      <label class="flex items-center mb-1">
         <Input
           data-test-settings-startup
+          class="form-checkbox h-4 mr-2 text-checkbox w-4"
           @type="checkbox"
           @checked={{this.settings.openOnStartup}}
           {{on "change" @enableDisableAutoStart}}
@@ -14,9 +15,10 @@
     {{/if}}
 
     {{#if this.isMacOS}}
-      <label class="block">
+      <label class="flex items-center mb-1">
         <Input
           data-test-settings-show-dock-icon
+          class="form-checkbox h-4 mr-2 text-checkbox w-4"
           @type="checkbox"
           @checked={{this.settings.showDockIcon}}
           {{on "change" @toggleShowDockIcon}}
@@ -26,9 +28,10 @@
       </label>
     {{/if}}
 
-    <label class="block">
+    <label class="flex items-center mb-1">
       <Input
         data-test-settings-sounds
+        class="form-checkbox h-4 mr-2 text-checkbox w-4"
         @type="checkbox"
         @checked={{this.settings.sounds}}
       />
@@ -36,69 +39,104 @@
       Play sounds
     </label>
 
-    <label class="block">
-      <Input @type="checkbox" @checked={{this.settings.notifications}} />
+    <label class="flex items-center mb-1">
+      <Input
+        class="form-checkbox h-4 mr-2 text-checkbox w-4"
+        @type="checkbox"
+        @checked={{this.settings.notifications}}
+      />
 
       Show notifications
     </label>
   </div>
 
   <div class="p-1 pb-4 pt-3" data-test-settings-select-theme>
-    <h6 class="font-semibold mb-2 text-heading">
-      App theme:
+    <h6 class="font-semibold mb-2 mt-4 text-heading text-sm">
+      Appearance
     </h6>
 
-    <PowerSelect
-      @options={{this.themes}}
-      @placeholder="Choose theme"
-      @selected={{this.settings.userTheme}}
-      @onChange={{this.changeTheme}} as |theme|
-    >
-      {{capitalize theme}}
-    </PowerSelect>
+    <div class="grid grid-cols-3 gap-2">
+      <label>
+        <Input
+          data-test-settings-select-theme="light"
+          class="image-radio absolute h-0 w-0"
+          checked={{eq this.settings.userTheme "light"}}
+          name="theme"
+          @type="radio"
+          @value="light"
+          {{on "change" (fn this.changeTheme "light")}}
+        />
+
+        {{svg-jar "light-theme"}}
+
+        <div class="text-center w-full">
+          Light
+        </div>
+      </label>
+      <label>
+        <Input
+          data-test-settings-select-theme="dark"
+          class="image-radio absolute h-0 w-0"
+          checked={{eq this.settings.userTheme "dark"}}
+          name="theme"
+          @type="radio"
+          @value="dark"
+          {{on "change" (fn this.changeTheme "dark")}}
+        />
+
+        {{svg-jar "dark-theme"}}
+
+        <div class="text-center w-full">
+          Dark
+        </div>
+      </label>
+      <label>
+        <Input
+          data-test-settings-select-theme="dynamic"
+          class="image-radio absolute h-0 w-0"
+          checked={{eq this.settings.userTheme "dynamic"}}
+          name="theme"
+          @type="radio"
+          @value="dynamic"
+          {{on "change" (fn this.changeTheme "dynamic")}}
+        />
+
+        {{svg-jar "dynamic-theme"}}
+
+        <div class="text-center w-full">
+          Dynamic
+        </div>
+      </label>
+    </div>
   </div>
 
-  <div class="p-1 pb-4 pt-4">
-    <h6 class="font-semibold mb-2 text-heading">
-      Import/Export Data
+  <div class="p-1 pb-4 pt-2">
+    <h6 class="font-semibold mb-2 mt-4 text-heading text-sm">
+      Data management
     </h6>
 
     <div class="flex h-8 w-full">
       <LoadingButton
-        class="h-full mr-2"
+        class="flex-1 mr-2"
         @loading={{this.isExporting}}
         @onClick={{this.exportIndexedDB}}
       >
-        Export data
+        Export swatches
       </LoadingButton>
 
       <LoadingButton
-        class="h-full"
+        class="flex-1"
         @loading={{this.isImporting}}
         @onClick={{this.importIndexedDB}}
       >
-        Import data
+        Import swatches
       </LoadingButton>
     </div>
   </div>
 
-  {{#if this.isMacOSOrWindows}}
-    <div class="p-1 pb-4 pt-4">
-      <div class="flex h-8 w-full">
-        <LoadingButton
-          class="h-full w-40"
-          @loading={{this.checkingForUpdates}}
-          @onClick={{@checkForUpdates}}
-        >
-          Check for updates
-        </LoadingButton>
-      </div>
-    </div>
-  {{/if}}
-
-  <div class="p-1">
-    <h6 class="font-semibold text-heading">
-      About:
+  <div class="p-1 text-xs">
+    <h6 class="font-semibold mt-4 text-heading text-sm">
+      About
     </h6>
 
     <p class="mt-2">
@@ -109,14 +147,24 @@
       Copyright © 2020 Ship Shape Consulting LLC. All rights reserved.
     </p>
 
-    <p class="font-semibold mt-2">
-      <a
-        href
-        class="text-alt hover:text-alt-hover"
-        {{on "click" this.visitWebsite}}
-      >
+    <p>
+      <a href class="hover:text-alt-hover" {{on "click" this.visitWebsite}}>
         https://swach.io/
       </a>
     </p>
   </div>
+
+  {{#if this.isMacOSOrWindows}}
+    <div class="p-1 pb-4 pt-4">
+      <div class="flex h-8 w-full">
+        <LoadingButton
+          class="w-full"
+          @loading={{this.checkingForUpdates}}
+          @onClick={{@checkForUpdates}}
+        >
+          Check for updates
+        </LoadingButton>
+      </div>
+    </div>
+  {{/if}}
 </div>

@@ -105,3 +105,7 @@ input[type=number]::-webkit-outer-spin-button {
 button:disabled * {
   pointer-events: none;
 }
+
+.image-radio:checked + svg {
+  @apply border-4 border-blue-600 rounded-lg;
+}

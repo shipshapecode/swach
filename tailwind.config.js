@@ -25,6 +25,7 @@ module.exports = {
         'btn-bg-secondary-hover': 'var(--btn-bg-secondary-hover)',
         'btn-text-primary': 'var(--btn-text-primary)',
         'btn-text-secondary': 'var(--btn-text-secondary)',
+        checkbox: 'var(--checkbox)',
         heading: 'var(--heading-color)',
         'input-bg': 'var(--input-bg)',
         'input-border': 'var(--input-border)',
@@ -55,5 +56,5 @@ module.exports = {
     })
   },
   variants: {},
-  plugins: []
+  plugins: [require('@tailwindcss/custom-forms')]
 };

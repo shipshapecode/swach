@@ -96,7 +96,11 @@ function setupMenu(mb, launchPicker, openContrastChecker) {
           async click() {
             await mb.window.webContents.send('undoRedo', 'redo');
           }
-        }
+        },
+        { type: 'separator' },
+        { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
+        { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
+        { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' }
       ]
     },
     {

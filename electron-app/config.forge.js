@@ -45,7 +45,7 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-dmg',
-      platforms: ['darwin'],
+      platforms: ['darwin', 'darwin-arm64'],
       config: {
         name: 'Swach',
         background: 'electron-app/resources/installBackground.png',
@@ -62,7 +62,7 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-zip',
-      platforms: ['darwin']
+      platforms: ['darwin', 'darwin-arm64']
     }
   ]
 };

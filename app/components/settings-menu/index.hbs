@@ -58,6 +58,7 @@
     <div class="grid grid-cols-3 gap-2">
       <label>
         <Input
+          data-test-settings-select-theme="light"
           class="image-radio absolute h-0 w-0"
           checked={{eq this.settings.userTheme "light"}}
           name="theme"
@@ -74,6 +75,7 @@
       </label>
       <label>
         <Input
+          data-test-settings-select-theme="dark"
           class="image-radio absolute h-0 w-0"
           checked={{eq this.settings.userTheme "dark"}}
           name="theme"
@@ -90,6 +92,7 @@
       </label>
       <label>
         <Input
+          data-test-settings-select-theme="dynamic"
           class="image-radio absolute h-0 w-0"
           checked={{eq this.settings.userTheme "dynamic"}}
           name="theme"

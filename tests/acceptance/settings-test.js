@@ -1,8 +1,7 @@
 import { module, test } from 'qunit';
-import { visit, currentURL } from '@ember/test-helpers';
+import { click, visit, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import resetStorages from 'ember-local-storage/test-support/reset-storage';
-import { selectChoose } from 'ember-power-select/test-support';
 import seedOrbit from '../orbit/seed';
 
 module('Acceptance | settings', function (hooks) {
@@ -30,7 +29,7 @@ module('Acceptance | settings', function (hooks) {
   });
 
   test('theme setting updates when selected', async function (assert) {
-    await selectChoose('[data-test-settings-select-theme]', 'Light');
+    await click('[data-test-settings-select-theme="light"]');
     const theme = JSON.parse(localStorage.getItem('storage:settings'))
       .userTheme;
 
@@ -40,7 +39,7 @@ module('Acceptance | settings', function (hooks) {
   // Ember specific tests
   if (typeof requireNode === 'undefined') {
     test('has two checkboxes', function (assert) {
-      assert.dom('[data-test-settings-menu] input').exists({ count: 2 });
+      assert.dom('[data-test-settings-menu] input').exists({ count: 5 });
     });
   }
 

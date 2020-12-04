@@ -46,10 +46,12 @@ module.exports = {
     {
       name: '@electron-forge/maker-dmg',
       platforms: ['darwin'],
-      config: {
-        name: 'Swach',
-        background: 'electron-app/resources/installBackground.png',
-        icon: 'electron-app/resources/dmg.icns'
+      config(arch) {
+        return {
+          name: arch === 'arm64' ? 'Swach-arm64' : 'Swach',
+          background: 'electron-app/resources/installBackground.png',
+          icon: 'electron-app/resources/dmg.icns'
+        };
       }
     },
     {

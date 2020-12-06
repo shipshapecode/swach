@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import { action, set, setProperties } from '@ember/object';
 import { inject as service } from '@ember/service';
+import mapBy from 'ember-array-utils/utils/map-by';
 
 export default class EditSelectedColorComponent extends Component {
   @service colorUtils;
@@ -60,7 +61,7 @@ export default class EditSelectedColorComponent extends Component {
   @action
   updateColor() {
     this.args.colorPicker.setColors(
-      this.args.palette.colors.mapBy('hex'),
+      mapBy(this.args.palette.colors, 'hex'),
       this.args.palette.selectedColorIndex
     );
   }

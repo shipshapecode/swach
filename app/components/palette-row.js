@@ -7,6 +7,7 @@ import ContextMenuMixin from 'ember-context-menu';
 import fade from 'ember-animated/transitions/fade';
 import { clone } from '@orbit/utils';
 import classic from 'ember-classic-decorator';
+import findBy from 'ember-array-utils/utils/find-by';
 
 class ContextMenuOption {
   @tracked palette;
@@ -81,7 +82,7 @@ export default class PaletteRowComponent extends Component.extend(
   @computed('palette.{colors.[],colorOrder.[]}')
   get sortedColors() {
     return this.palette.colorOrder.map((color) => {
-      return this.palette.colors.findBy('id', color.id);
+      return findBy(this.palette.colors, 'id', color.id);
     });
   }
 

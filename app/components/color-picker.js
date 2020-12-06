@@ -6,6 +6,8 @@ import { rgbaToHex } from 'swach/data-models/color';
 import iro from '@jaames/iro';
 import { TinyColor } from '@ctrl/tinycolor';
 import { clone } from '@orbit/utils';
+import findBy from 'ember-array-utils/utils/find-by';
+import mapBy from 'ember-array-utils/utils/map-by';
 
 export default class ColorPicker extends Component {
   @service nearestColor;
@@ -62,7 +64,7 @@ export default class ColorPicker extends Component {
         const colorsList = palette.colors.map((color) => {
           return { type: 'color', id: color.id };
         });
-        const colorsListRecord = colorsList.findBy('id', colorToEdit.id);
+        const colorsListRecord = findBy(colorsList, 'id', colorToEdit.id);
         const colorToEditIndex = colorsList.indexOf(colorsListRecord);
         colorsList.removeAt(colorToEditIndex);
 
@@ -130,7 +132,7 @@ export default class ColorPicker extends Component {
     const namedColor = this.nearestColor.nearest({ r, g, b });
     set(this.selectedColor, 'name', namedColor.name);
 
-    this.colorPicker.setColors([this.selectedColor].mapBy('hex'));
+    this.colorPicker.setColors(mapBy([this.selectedColor], 'hex'));
   }
 
   /**

@@ -2,6 +2,8 @@ import Controller, { inject as controller } from '@ember/controller';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
+import filterBy from 'ember-array-utils/utils/filter-by';
+import findBy from 'ember-array-utils/utils/find-by';
 
 export default class PalettesController extends Controller {
   @controller application;
@@ -22,10 +24,10 @@ export default class PalettesController extends Controller {
     let palettes = this.model.palettes || [];
 
     if (this.showFavorites) {
-      palettes = palettes.filterBy('isFavorite', true);
+      palettes = filterBy(palettes, 'isFavorite', true);
     }
 
-    return palettes.filterBy('isColorHistory', false);
+    return filterBy(palettes, 'isColorHistory', false);
   }
 
   @action
@@ -79,9 +81,9 @@ export default class PalettesController extends Controller {
           return { type: 'color', id: color.id };
         });
 
-        const existingColor = targetList.findBy('hex', item.hex);
+        const existingColor = findBy(targetList, 'hex', item.hex);
         if (existingColor) {
-          const colorToRemove = colorsList.findBy('id', existingColor.id);
+          const colorToRemove = findBy(colorsList, 'id', existingColor.id);
           colorsList.removeObject(colorToRemove);
         }
 
@@ -119,7 +121,7 @@ export default class PalettesController extends Controller {
         return { type: 'color', id: color.id };
       });
 
-      const colorToRemove = sourceColorList.findBy('id', sourceColor.id);
+      const colorToRemove = findBy(sourceColorList, 'id', sourceColor.id);
 
       sourceColorList.removeObject(colorToRemove);
 
@@ -147,9 +149,10 @@ export default class PalettesController extends Controller {
             return { type: 'color', id: color.id };
           });
 
-          const existingColor = targetList.findBy('hex', item.hex);
+          const existingColor = findBy(targetList, 'hex', item.hex);
           if (existingColor) {
-            const colorToRemove = targetColorsList.findBy(
+            const colorToRemove = findBy(
+              targetColorsList,
               'id',
               existingColor.id
             );

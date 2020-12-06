@@ -5,6 +5,7 @@ import { capitalize } from '@ember/string';
 import { tracked } from '@glimmer/tracking';
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
+import mapBy from 'ember-array-utils/utils/map-by';
 
 iro.ColorPicker.prototype.setColors = function (
   newColorValues,
@@ -52,7 +53,7 @@ export default class KulerComponent extends Component {
         this.ipcRenderer.on('updateKulerColor', async (event, color) => {
           await this._onColorChange(color);
           this.colorPicker.setColors(
-            this.selectedPalette.colors.mapBy('hex'),
+            mapBy(this.selectedPalette.colors, 'hex'),
             this.selectedPalette.selectedColorIndex
           );
         });
@@ -113,7 +114,7 @@ export default class KulerComponent extends Component {
     ];
     return this.baseColorChanged().then(() => {
       this.colorPicker.setColors(
-        this.selectedPalette.colors.mapBy('hex'),
+        mapBy(this.selectedPalette.colors, 'hex'),
         this.selectedPalette.selectedColorIndex
       );
     });
@@ -136,7 +137,7 @@ export default class KulerComponent extends Component {
   setSelectedPalette(palette) {
     this.selectedPalette = palette;
     this.colorPicker.setColors(
-      this.selectedPalette.colors.mapBy('hex'),
+      mapBy(this.selectedPalette.colors, 'hex'),
       palette.selectedColorIndex
     );
 
@@ -165,7 +166,7 @@ export default class KulerComponent extends Component {
     // }
 
     this.colorPicker.setColors(
-      this.selectedPalette.colors.mapBy('hex'),
+      mapBy(this.selectedPalette.colors, 'hex'),
       this.selectedPalette.selectedColorIndex
     );
 
@@ -182,7 +183,7 @@ export default class KulerComponent extends Component {
   @action
   _setupColorWheel() {
     this.colorPicker = new iro.ColorPicker('#kuler-color-picker-container', {
-      colors: this.selectedPalette.colors.mapBy('hex'),
+      colors: mapBy(this.selectedPalette.colors, 'hex'),
       layoutDirection: 'horizontal',
       layout: [
         {

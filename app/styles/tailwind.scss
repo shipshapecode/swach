@@ -18,6 +18,11 @@
   @apply bg-btn-bg-primary-hover;
 }
 
+// TODO: add this back when we can make inputs work correctly with @tailwindcss/forms
+// .form-checkbox {
+//   @apply border-gray-300 rounded text-checkbox focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+// }
+
 .input {
   @apply bg-input-bg border border-input-border pb-1 pl-2 pr-2 pt-1 text-main-text text-xs;
 }

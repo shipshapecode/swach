@@ -4,7 +4,7 @@
       <label class="flex items-center mb-1">
         <Input
           data-test-settings-startup
-          class="form-checkbox h-4 mr-2 text-checkbox w-4"
+          class="form-checkbox h-4 mr-2 text-checkbox rounded w-4"
           @type="checkbox"
           @checked={{this.settings.openOnStartup}}
           {{on "change" @enableDisableAutoStart}}
@@ -18,7 +18,7 @@
       <label class="flex items-center mb-1">
         <Input
           data-test-settings-show-dock-icon
-          class="form-checkbox h-4 mr-2 text-checkbox w-4"
+          class="form-checkbox h-4 mr-2 text-checkbox rounded w-4"
           @type="checkbox"
           @checked={{this.settings.showDockIcon}}
           {{on "change" @toggleShowDockIcon}}
@@ -31,7 +31,7 @@
     <label class="flex items-center mb-1">
       <Input
         data-test-settings-sounds
-        class="form-checkbox h-4 mr-2 text-checkbox w-4"
+        class="form-checkbox h-4 mr-2 text-checkbox rounded w-4"
         @type="checkbox"
         @checked={{this.settings.sounds}}
       />
@@ -41,7 +41,7 @@
 
     <label class="flex items-center mb-1">
       <Input
-        class="form-checkbox h-4 mr-2 text-checkbox w-4"
+        class="form-checkbox h-4 mr-2 text-checkbox rounded w-4"
         @type="checkbox"
         @checked={{this.settings.notifications}}
       />
@@ -59,7 +59,7 @@
       <label>
         <Input
           data-test-settings-select-theme="light"
-          class="image-radio absolute h-0 w-0"
+          class="image-radio absolute h-0 opacity-0 w-0"
           checked={{eq this.settings.userTheme "light"}}
           name="theme"
           @type="radio"
@@ -76,7 +76,7 @@
       <label>
         <Input
           data-test-settings-select-theme="dark"
-          class="image-radio absolute h-0 w-0"
+          class="image-radio absolute h-0 opacity-0 w-0"
           checked={{eq this.settings.userTheme "dark"}}
           name="theme"
           @type="radio"
@@ -93,7 +93,7 @@
       <label>
         <Input
           data-test-settings-select-theme="dynamic"
-          class="image-radio absolute h-0 w-0"
+          class="image-radio absolute h-0 opacity-0 w-0"
           checked={{eq this.settings.userTheme "dynamic"}}
           name="theme"
           @type="radio"

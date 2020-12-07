@@ -2,10 +2,6 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const isProduction = EmberApp.env() === 'production';
 
 module.exports = {
-  future: {
-    purgeLayersByDefault: true,
-    removeDeprecatedGapUtilities: true
-  },
   purge: {
     enabled: isProduction,
     content: [
@@ -56,5 +52,9 @@ module.exports = {
     })
   },
   variants: {},
-  plugins: [require('@tailwindcss/custom-forms')]
+  plugins: [
+    // TODO: make forms not look like garbage
+    /*require('@tailwindcss/forms')*/
+    require('@tailwindcss/custom-forms')
+  ]
 };

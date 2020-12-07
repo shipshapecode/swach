@@ -100,14 +100,6 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   showMenu = false;
   @tracked deleteConfirm = false;
 
-  get sortedColors() {
-    return this.args.palette.colorOrder.map(
-      (color: { type: string; id: string }) => {
-        return this.args.palette.colors.findBy('id', color.id);
-      }
-    );
-  }
-
   constructor(owner: unknown, args: PaletteRowArgs) {
     super(owner, args);
 
@@ -146,6 +138,18 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
     );
   }
 
+  get isLocked() {
+    return this.args.palette.isLocked;
+  }
+
+  get sortedColors() {
+    return this.args.palette.colorOrder.map(
+      (color: { type: string; id: string }) => {
+        return this.args.palette.colors.findBy('id', color.id);
+      }
+    );
+  }
+
   @action
   contextMenuTrigger(e: Event) {
     const items = this.contextItems;
@@ -160,7 +164,7 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
 
   @action
   async deletePalette() {
-    if (!this.args.palette.isLocked) {
+    if (!this.isLocked) {
       if (this.deleteConfirm) {
         await this.store.update((t: any) => t.removeRecord(this.args.palette));
         this.undoManager.setupUndoRedo();
@@ -172,7 +176,7 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
 
   @action
   async deletePaletteContextMenu() {
-    if (!this.args.palette.isLocked) {
+    if (!this.isLocked) {
       await this.store.update((t: any) => t.removeRecord(this.args.palette));
       this.undoManager.setupUndoRedo();
     }
@@ -196,7 +200,7 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
 
   @action
   favoritePalette() {
-    if (!this.args.palette.isLocked) {
+    if (!this.isLocked) {
       this.args.palette.toggleProperty('isFavorite');
     }
   }

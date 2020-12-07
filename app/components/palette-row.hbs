@@ -94,11 +94,9 @@
     {{/unless}}
 
     <DragSortList
+      class="absolute palette-color-squares flex flex-grow h-8 top-0 w-full
+      {{if this.isLocked "palette-locked"}}"
       @additionalArgs={{hash parent=@palette}}
-      @classNames="absolute palette-color-squares flex flex-grow h-8 top-0 w-full
-      {{
-        if @palette.isLocked "palette-locked"
-      }}"
       @childClass="flex flex-grow"
       @group={{if @palette.isLocked @palette.id undefined}}
       @isHorizontal={{true}}

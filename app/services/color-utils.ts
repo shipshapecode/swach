@@ -20,7 +20,7 @@ export default class ColorUtilsService extends Service {
     super(...arguments);
 
     if (typeof requireNode !== 'undefined') {
-      let { ipcRenderer } = requireNode('electron');
+      const { ipcRenderer } = requireNode('electron');
       this.ipcRenderer = ipcRenderer;
     }
   }

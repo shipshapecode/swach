@@ -1,3 +1,7 @@
 declare module 'ember-local-storage' {
-  export declare function storageFor(key: string, modelName?: string, options: {} = {}): Function;
+  export declare function storageFor(
+    key: string,
+    modelName?: string,
+    options: {} = {}
+  ): Function;
 }

@@ -6,15 +6,16 @@ import { tracked } from '@glimmer/tracking';
 import fade from 'ember-animated/transitions/fade';
 import ColorUtils from 'swach/services/color-utils';
 import Router from '@ember/routing/router-service';
+import PaletteModel from 'swach/data-models/palette';
 
 interface ColorRowArgs {
   color: any;
   deleteColor: Function;
-  palette: any;
+  palette: PaletteModel;
   showActions: boolean;
 }
 
-export default class ColorRow extends Component<ColorRowArgs>{
+export default class ColorRow extends Component<ColorRowArgs> {
   @service colorUtils!: ColorUtils;
   @service router!: Router;
 

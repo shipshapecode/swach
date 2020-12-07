@@ -10,7 +10,7 @@ export default class PaletteModel extends Model {
   @attr('string') name!: string;
   @attr('number') selectedColorIndex!: number;
   // This is an array to track color order, and is a hack until orbit supports ordered relationships
-  @attr('array') colorOrder!: string[];
+  @attr('array') colorOrder!: { type: string; id: string }[];
 
-  @hasMany('color', { inverse: 'palettes' }) colors!: Color[] ;
+  @hasMany('color', { inverse: 'palettes' }) colors!: Color[];
 }

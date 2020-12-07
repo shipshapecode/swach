@@ -4,6 +4,7 @@
   data-test-palette-row="{{@palette.name}}"
   role="button"
   {{on "click" this.transitionToColors}}
+  {{on "contextmenu" this.contextMenuTrigger}}
 >
   <div class="flex items-center justify-between pb-2 w-full">
     <h6 class="text-sm">

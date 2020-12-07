@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-components, ember/no-computed-properties-in-native-classes, ember/require-tagless-components  */
 import Component from '@ember/component';
 import { action, computed, set } from '@ember/object';
 import { inject as service } from '@ember/service';
@@ -5,6 +6,7 @@ import { tracked } from '@glimmer/tracking';
 import ContextMenuMixin from 'ember-context-menu';
 import fade from 'ember-animated/transitions/fade';
 import { clone } from '@orbit/utils';
+import classic from 'ember-classic-decorator';
 
 class ContextMenuOption {
   @tracked palette;
@@ -60,6 +62,8 @@ class LockOption {
     return isLocked ? 'Unlock Palette' : 'Lock Palette';
   }
 }
+
+@classic
 export default class PaletteRowComponent extends Component.extend(
   ContextMenuMixin
 ) {

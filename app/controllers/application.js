@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
-import { action, computed, get, set } from '@ember/object';
-import { equal } from '@ember/object/computed';
+import { action, get, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { storageFor } from 'ember-local-storage';
 import { tracked } from '@glimmer/tracking';
@@ -18,31 +17,38 @@ export default class ApplicationController extends Controller {
 
   @storageFor('settings') settings;
 
-  @equal('router.currentRouteName', 'contrast') isContrastRoute;
-  @equal('router.currentRouteName', 'kuler') isKulerRoute;
-  @equal('router.currentRouteName', 'palettes') isPalettesRoute;
-  @equal('router.currentRouteName', 'settings') isSettingsRoute;
+  get isContrastRoute() {
+    return this.router.currentRouteName === 'contrast';
+  }
 
-  @computed('router.currentRouteName')
+  get isKulerRoute() {
+    return this.router.currentRouteName === 'kuler';
+  }
+
+  get isPalettesRoute() {
+    return this.router.currentRouteName === 'palettes';
+  }
+
+  get isSettingsRoute() {
+    return this.router.currentRouteName === 'settings';
+  }
+
   get isWelcomeRoute() {
     return this.router.currentRouteName.includes('welcome');
   }
 
-  @computed('isContrastRoute', 'isSettingsRoute', 'isWelcomeRoute')
   get showColorWheel() {
     return (
       !this.isContrastRoute && !this.isSettingsRoute && !this.isWelcomeRoute
     );
   }
 
-  @computed('isContrastRoute', 'isSettingsRoute', 'isWelcomeRoute')
   get showEyedropperIcon() {
     return (
       !this.isContrastRoute && !this.isSettingsRoute && !this.isWelcomeRoute
     );
   }
 
-  @computed('settings.{osTheme,userTheme}')
   get theme() {
     let userTheme = get(this, 'settings.userTheme'); // eslint-disable-line ember/no-get
     let OSTheme = get(this, 'settings.osTheme'); // eslint-disable-line ember/no-get

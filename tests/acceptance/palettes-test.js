@@ -8,7 +8,7 @@ import {
 } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { move, sort } from 'ember-drag-sort/utils/trigger';
-import { triggerContextMenu } from 'ember-context-menu/test-support';
+import { triggerContextMenu } from '../helpers';
 import { waitForAll } from '../helpers';
 import seedOrbit from '../orbit/seed';
 
@@ -30,17 +30,14 @@ module('Acceptance | palettes', function (hooks) {
     test('context menu can be triggered', async function (assert) {
       await visit('/palettes');
 
-      assert.notOk(
-        document.querySelector('[data-test-context-menu]'),
-        'context menu hidden'
-      );
+      assert
+        .dom(document.querySelector('[data-test-context-menu]'))
+        .doesNotExist();
 
       triggerContextMenu('[data-test-palette-row="First Palette"]');
+      await waitForAll();
 
-      assert.ok(
-        document.querySelector('[data-test-context-menu]'),
-        'context menu shown'
-      );
+      assert.dom(document.querySelector('[data-test-context-menu]')).exists();
 
       assert
         .dom(
@@ -62,17 +59,14 @@ module('Acceptance | palettes', function (hooks) {
     test('options disabled when palette is locked', async function (assert) {
       await visit('/palettes');
 
-      assert.notOk(
-        document.querySelector('[data-test-context-menu]'),
-        'context menu hidden'
-      );
+      assert
+        .dom(document.querySelector('[data-test-context-menu]'))
+        .doesNotExist();
 
       triggerContextMenu('[data-test-palette-row="Locked Palette"]');
+      await waitForAll();
 
-      assert.ok(
-        document.querySelector('[data-test-context-menu]'),
-        'context menu shown'
-      );
+      assert.dom(document.querySelector('[data-test-context-menu]')).exists();
 
       assert
         .dom(

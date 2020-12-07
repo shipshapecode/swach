@@ -65,6 +65,21 @@ module.exports = {
     {
       name: '@electron-forge/maker-zip',
       platforms: ['darwin']
+    },
+    {
+      name: '@davidwinter/electron-forge-maker-snap',
+      config: {
+        categories: ['Development'],
+        stagePackages: [
+          'default',
+          'giblib1',
+          'libimlib2',
+          'libx11-6',
+          'libxcursor1',
+          'libxfixes3',
+          'scrot'
+        ]
+      }
     }
   ]
 };

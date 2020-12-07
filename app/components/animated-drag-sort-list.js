@@ -3,7 +3,9 @@ import { action } from '@ember/object';
 import { fadeOut } from 'ember-animated/motions/opacity';
 import move from 'ember-animated/motions/move';
 import { easeOut } from 'ember-animated/easings/cosine';
+import classic from 'ember-classic-decorator';
 
+@classic
 export default class AnimatedDragSortList extends DragSortList {
   didDrag = false;
 

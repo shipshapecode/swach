@@ -1,5 +1,5 @@
 import Controller, { inject as controller } from '@ember/controller';
-import { action, computed } from '@ember/object';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
@@ -18,7 +18,6 @@ export default class PalettesController extends Controller {
     return colors.sortBy('createdAt').reverse().slice(0, 16);
   }
 
-  @computed('model.palettes.[]', 'showFavorites')
   get palettes() {
     let palettes = this.model.palettes || [];
 

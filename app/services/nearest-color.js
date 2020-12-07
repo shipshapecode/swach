@@ -3,8 +3,8 @@ import colorNameList from 'color-name-list';
 import nearestColor from 'nearest-color';
 
 export default class NearestColorService extends Service {
-  init() {
-    super.init(...arguments);
+  constructor() {
+    super(...arguments);
 
     const namedColors = colorNameList.reduce(
       (o, { name, hex }) => Object.assign(o, { [name]: hex }),

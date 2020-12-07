@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { action, computed, set } from '@ember/object';
+import { action, set } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { rgbaToHex } from 'swach/data-models/color';
@@ -13,7 +13,6 @@ export default class ColorPicker extends Component {
   @service store;
   @service undoManager;
 
-  @computed('selectedColor.hex')
   get alternateColorFormats() {
     let hsl = '';
     let hsv = '';

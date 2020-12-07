@@ -24,7 +24,9 @@ module.exports = {
   },
   rules: {
     'ember/no-jquery': 'error',
-    'require-yield': 'off'
+    'require-yield': 'off',
+    'ember/classic-decorator-hooks': 'error',
+    'ember/classic-decorator-no-classic-methods': 'error'
   },
   overrides: [
     // node files

@@ -6254,10 +6254,10 @@ ember-animated@^0.10.1:
     ember-maybe-import-regenerator "^0.1.5"
     ember-named-arguments-polyfill "^1.0.0"
 
-ember-array-utils@^0.0.0:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/ember-array-utils/-/ember-array-utils-0.0.0.tgz#d7dae982ad4a906ee15d9b6e861dc02995a4ff4d"
-  integrity sha512-zbooI6sAFWgCymBrWZlP1wrZebmDuREDXpLcoRiTHXl0jRnDfg1wBn7JOORsVgnzHSMf3PlncUf7RcsW0ZaI9w==
+ember-array-utils@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/ember-array-utils/-/ember-array-utils-0.0.3.tgz#6249cc2f7f4adfb770bb8a7170f2f1e52dae295f"
+  integrity sha512-mCZ/rdEohrL4pi9AMTQFvCw3gSMlKS4L8FjA6RMnUxqh5zYnYZ90SDYW9aJ7zSK852xpm9yKfraDDqR5ZWV0og==
   dependencies:
     ember-cli-babel "^7.20.5"
     ember-cli-htmlbars "^5.1.2"

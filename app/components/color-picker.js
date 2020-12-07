@@ -6,8 +6,7 @@ import { rgbaToHex } from 'swach/data-models/color';
 import iro from '@jaames/iro';
 import { TinyColor } from '@ctrl/tinycolor';
 import { clone } from '@orbit/utils';
-import findBy from 'ember-array-utils/utils/find-by';
-import mapBy from 'ember-array-utils/utils/map-by';
+import { A } from '@ember/array';
 
 export default class ColorPicker extends Component {
   @service nearestColor;
@@ -61,10 +60,12 @@ export default class ColorPicker extends Component {
 
       // TODO: figure out what makes this case happen. This is guarding against when palette.colors is undefined, but it should never be.
       if (palette.colors) {
-        const colorsList = palette.colors.map((color) => {
-          return { type: 'color', id: color.id };
-        });
-        const colorsListRecord = findBy(colorsList, 'id', colorToEdit.id);
+        const colorsList = A(
+          palette.colors.map((color) => {
+            return { type: 'color', id: color.id };
+          })
+        );
+        const colorsListRecord = colorsList.findBy('id', colorToEdit.id);
         const colorToEditIndex = colorsList.indexOf(colorsListRecord);
         colorsList.removeAt(colorToEditIndex);
 
@@ -132,7 +133,7 @@ export default class ColorPicker extends Component {
     const namedColor = this.nearestColor.nearest({ r, g, b });
     set(this.selectedColor, 'name', namedColor.name);
 
-    this.colorPicker.setColors(mapBy([this.selectedColor], 'hex'));
+    this.colorPicker.setColors(A([this.selectedColor]).mapBy('hex'));
   }
 
   /**

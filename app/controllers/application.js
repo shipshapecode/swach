@@ -3,7 +3,7 @@ import { action, get, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { storageFor } from 'ember-local-storage';
 import { tracked } from '@glimmer/tracking';
-import findBy from 'ember-array-utils/utils/find-by';
+import { A } from '@ember/array';
 
 export default class ApplicationController extends Controller {
   @service colorUtils;
@@ -101,7 +101,7 @@ export default class ApplicationController extends Controller {
   @action
   async addColor(color) {
     const palettes = await this.store.find('palette');
-    const colorHistory = findBy(palettes, 'isColorHistory', true);
+    const colorHistory = A(palettes).findBy('isColorHistory', true);
 
     const colorPOJO = this.colorUtils.createColorPOJO(color);
     colorPOJO.id = this.dataSchema.generateId('color');

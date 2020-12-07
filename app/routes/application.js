@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import ENV from 'swach/config/environment';
-import findBy from 'ember-array-utils/utils/find-by';
+import { A } from '@ember/array';
 
 export default class ApplicationRoute extends Route {
   @service dataCoordinator;
@@ -36,7 +36,7 @@ export default class ApplicationRoute extends Route {
     await this.dataCoordinator.activate();
 
     const palettes = await this.store.find('palette');
-    let colorHistory = findBy(palettes, 'isColorHistory', true);
+    let colorHistory = A(palettes).findBy('isColorHistory', true);
 
     if (!colorHistory) {
       colorHistory = await this.store.addRecord({

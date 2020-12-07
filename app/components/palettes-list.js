@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { A } from '@ember/array';
 
 export default class PalettesListComponent extends Component {
   @service store;
@@ -11,7 +12,7 @@ export default class PalettesListComponent extends Component {
    * has reordered them.
    */
   get orderedPalettes() {
-    return this.args.palettes.sortBy('createdAt').reverse().sortBy('index');
+    return A(this.args.palettes).sortBy('createdAt').reverse().sortBy('index');
   }
 
   @action

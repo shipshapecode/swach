@@ -2,8 +2,7 @@ import Controller, { inject as controller } from '@ember/controller';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import filterBy from 'ember-array-utils/utils/filter-by';
-import findBy from 'ember-array-utils/utils/find-by';
+import { A } from '@ember/array';
 
 export default class PalettesController extends Controller {
   @controller application;
@@ -15,22 +14,22 @@ export default class PalettesController extends Controller {
   @tracked showFavorites = false;
 
   get colorHistory() {
-    return findBy(this.model.value, 'isColorHistory', true);
+    return A(this.model.value).findBy('isColorHistory', true);
   }
 
   get last16Colors() {
     const colors = (this.colorHistory && this.colorHistory.colors) || [];
-    return colors.sortBy('createdAt').reverse().slice(0, 16);
+    return A(colors).sortBy('createdAt').reverse().slice(0, 16);
   }
 
   get palettes() {
     let palettes = this.model.value || [];
 
     if (this.showFavorites) {
-      palettes = filterBy(palettes, 'isFavorite', true);
+      palettes = A(palettes).filterBy('isFavorite', true);
     }
 
-    return filterBy(palettes, 'isColorHistory', false);
+    return A(palettes).filterBy('isColorHistory', false);
   }
 
   @action
@@ -84,9 +83,9 @@ export default class PalettesController extends Controller {
           return { type: 'color', id: color.id };
         });
 
-        const existingColor = findBy(targetList, 'hex', item.hex);
+        const existingColor = A(targetList).findBy('hex', item.hex);
         if (existingColor) {
-          const colorToRemove = findBy(colorsList, 'id', existingColor.id);
+          const colorToRemove = A(colorsList).findBy('id', existingColor.id);
           colorsList.removeObject(colorToRemove);
         }
 
@@ -124,7 +123,7 @@ export default class PalettesController extends Controller {
         return { type: 'color', id: color.id };
       });
 
-      const colorToRemove = findBy(sourceColorList, 'id', sourceColor.id);
+      const colorToRemove = A(sourceColorList).findBy('id', sourceColor.id);
 
       sourceColorList.removeObject(colorToRemove);
 
@@ -152,10 +151,9 @@ export default class PalettesController extends Controller {
             return { type: 'color', id: color.id };
           });
 
-          const existingColor = findBy(targetList, 'hex', item.hex);
+          const existingColor = A(targetList).findBy('hex', item.hex);
           if (existingColor) {
-            const colorToRemove = findBy(
-              targetColorsList,
+            const colorToRemove = A(targetColorsList).findBy(
               'id',
               existingColor.id
             );

@@ -5,7 +5,7 @@ import { inject as service } from '@ember/service';
 import { fadeOut } from 'ember-animated/motions/opacity';
 import move from 'ember-animated/motions/move';
 import { easeOut } from 'ember-animated/easings/cosine';
-import findBy from 'ember-array-utils/utils/find-by';
+import { A } from '@ember/array';
 
 export default class ColorsList extends Component {
   @service store;
@@ -15,10 +15,10 @@ export default class ColorsList extends Component {
   get sortedColors() {
     const { palette } = this.args;
     if (palette.isColorHistory) {
-      return palette.colors.sortBy('createdAt').reverse();
+      return A(palette.colors).sortBy('createdAt').reverse();
     } else {
       return palette.colorOrder.map((color) => {
-        return findBy(palette.colors, 'id', color.id);
+        return A(palette.colors).findBy('id', color.id);
       });
     }
   }
@@ -46,7 +46,7 @@ export default class ColorsList extends Component {
         return { type: 'color', id: color.id };
       });
 
-      const colorToRemove = findBy(colorsList, 'id', color.id);
+      const colorToRemove = A(colorsList).findBy('id', color.id);
       colorsList.removeObject(colorToRemove);
 
       await this.store.update((t) => {

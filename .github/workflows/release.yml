@@ -92,7 +92,7 @@ jobs:
         run: |
           cd electron-app/out/make/snapcraft
           sudo snapcraft --destructive-mode
-          sudo snapcraft upload --release=stable electron-app/out/**/*.snap
+          sudo snapcraft upload --release=stable *.snap
           cd ../../../../
       - name: Create a Sentry.io release
         uses: tclindner/sentry-releases-action@v1.2.0
@@ -104,4 +104,4 @@ jobs:
         with:
           tagName: ${{ github.ref }}
           environment: production
-          sourceMapOptions: '{"include": ["electron-app/ember-dist/assets"], "urlPrefix": '~/ember-dist/assets'}'
+          sourceMapOptions: '{"include": ["electron-app/ember-dist/assets"], "urlPrefix": "~/ember-dist/assets"}'

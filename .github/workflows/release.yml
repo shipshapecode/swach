@@ -88,7 +88,7 @@ jobs:
         with:
           snapcraft_token: ${{ secrets.snapcraft_token }}
       - name: Snapcraft release    
-        run: sudo snapcraft push electron-app/out/**/*.snap --release stable  
+        run: sudo snapcraft upload --release=stable electron-app/out/**/*.snap
       - name: Create a Sentry.io release
         uses: tclindner/sentry-releases-action@v1.2.0
         if: matrix.os == 'ubuntu-latest'

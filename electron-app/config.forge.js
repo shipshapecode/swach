@@ -68,6 +68,7 @@ module.exports = {
     },
     {
       name: '@davidwinter/electron-forge-maker-snap',
+      platforms: ['linux'],
       config: {
         categories: ['Development'],
         layout: {

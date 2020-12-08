@@ -1,3 +1,18 @@
+## v0.4.7 (2020-12-08)
+
+#### :rocket: Enhancement
+* [#409](https://github.com/shipshapecode/swach/pull/409) Manually trigger context menu instead of using mixins ([@rwwagner90](https://github.com/rwwagner90))
+
+#### :house: Internal
+* [#412](https://github.com/shipshapecode/swach/pull/412) Build snaps with electron-forge ([@rwwagner90](https://github.com/rwwagner90))
+* [#408](https://github.com/shipshapecode/swach/pull/408) Update eslint-plugin-ember ([@rwwagner90](https://github.com/rwwagner90))
+* [#407](https://github.com/shipshapecode/swach/pull/407) Start splitting up workflows ([@rwwagner90](https://github.com/rwwagner90))
+* [#406](https://github.com/shipshapecode/swach/pull/406) Tailwind v2 ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 2
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.4.6 (2020-12-05)
 
 ## v0.4.5 (2020-12-04)

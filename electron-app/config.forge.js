@@ -70,6 +70,7 @@ module.exports = {
       name: '@davidwinter/electron-forge-maker-snap',
       platforms: ['linux'],
       config: {
+        applicationName: 'Swach',
         categories: ['Development'],
         layout: {
           '/usr/lib/x86_64-linux-gnu/imlib2': {

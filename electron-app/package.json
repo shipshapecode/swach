@@ -34,7 +34,7 @@
     "throttle-debounce": "^3.0.1"
   },
   "devDependencies": {
-    "@davidwinter/electron-forge-maker-snap": "^0.4.1",
+    "@davidwinter/electron-forge-maker-snap": "^0.5.0",
     "@electron-forge/cli": "^6.0.0-beta.54",
     "@electron-forge/maker-deb": "^6.0.0-beta.54",
     "@electron-forge/maker-dmg": "^6.0.0-beta.54",

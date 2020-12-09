@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@davidwinter/electron-forge-maker-snap@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@davidwinter/electron-forge-maker-snap/-/electron-forge-maker-snap-0.4.1.tgz#cfb994a070efe851a60cd7efdb9ab78ffe5aa692"
-  integrity sha512-d+pIvSamLRWvaBSRliIPfJ5M/ZQMFPedaC9ihpAh837IoZ2gAjBpKEf4Y6faJIgCJbL17Cexn+SFGFv+cE298g==
+"@davidwinter/electron-forge-maker-snap@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@davidwinter/electron-forge-maker-snap/-/electron-forge-maker-snap-0.5.0.tgz#f96c76d0609db5c4e3a692008bdc0aa04267d939"
+  integrity sha512-Uk7nRkudk0ERDSV1AhE+sGqcZqnVkAjdTwelqZpDP+CI971aS3iW8HERTcXdNbXdD92BoPl/fzzVdgZ6qzaPxA==
   dependencies:
     "@electron-forge/maker-base" "^6.0.0-beta.54"
     debug "^4.3.1"

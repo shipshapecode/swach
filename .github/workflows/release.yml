@@ -82,18 +82,18 @@ jobs:
             electron-app/out/**/*Setup.exe
             electron-app/out/**/*.rpm
             electron-app/out/**/*.zip
-      # - name: Install Snapcraft
-      #   if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
-      #   uses: samuelmeuli/action-snapcraft@v1
-      #   with:
-      #     snapcraft_token: ${{ secrets.snapcraft_token }}
-      # - name: Snapcraft release
-      #   if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
-      #   run: |
-      #     cd electron-app/out/make/snapcraft
-      #     sudo snapcraft --destructive-mode
-      #     sudo snapcraft upload --release=stable *.snap
-      #     cd ../../../../
+      - name: Install Snapcraft
+        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
+        uses: samuelmeuli/action-snapcraft@v1
+        with:
+          snapcraft_token: ${{ secrets.snapcraft_token }}
+      - name: Snapcraft release
+        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          cd electron-app/out/make/snapcraft
+          sudo snapcraft --destructive-mode
+          sudo snapcraft upload --release=stable *.snap
+          cd ../../../../
       - name: Create a Sentry.io release
         uses: tclindner/sentry-releases-action@v1.2.0
         if: matrix.os == 'ubuntu-latest'

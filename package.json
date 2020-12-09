@@ -48,7 +48,7 @@
     "@types/ember-qunit": "^3.4.13",
     "@types/ember-resolver": "^5.0.10",
     "@types/ember__test-helpers": "^1.7.3",
-    "@types/qunit": "^2.11.0",
+    "@types/qunit": "^2.11.1",
     "babel-eslint": "^10.1.0",
     "babel-preset-env": "^1.7.0",
     "broccoli-asset-rev": "^3.0.0",

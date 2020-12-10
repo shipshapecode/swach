@@ -2,8 +2,7 @@
 @tailwind components;
 
 .btn {
-  @apply bg-btn-bg-secondary cursor-default font-medium rounded text-btn-text-secondary;
-  transition: color 0.25s, background-color 0.25s;
+  @apply bg-btn-bg-secondary cursor-default font-medium rounded text-btn-text-secondary transition-colors;
 }
 
 .btn:hover {

@@ -30,7 +30,7 @@
     "@babel/core": "^7.12.9",
     "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
     "@csstools/postcss-sass": "^4.0.0",
-    "@ctrl/tinycolor": "^3.2.0",
+    "@ctrl/tinycolor": "^3.2.1",
     "@ember/jquery": "^1.1.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/render-modifiers": "^1.0.2",

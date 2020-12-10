@@ -41,7 +41,10 @@ module.exports = function (environment) {
     //   'media-src': ["'self'"]
     // },
     // contentSecurityPolicyMeta: true,
-
+    cognito: {
+      poolId: 'us-east-2_AEr5v3Ogt',
+      clientId: '1jn23hlv9ggi63mc37f4m5hm4h'
+    },
     sentry: {
       environment
     }

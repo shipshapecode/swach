@@ -70,6 +70,7 @@
     "ember-cli-typescript": "^4.0.0",
     "ember-cli-typescript-blueprints": "^3.0.0",
     "ember-click-outside": "^2.0.0",
+    "ember-cognito": "^0.11.0",
     "ember-context-menu": "^0.5.2",
     "ember-decorators": "^6.1.1",
     "ember-drag-sort": "^3.0.0",
@@ -88,6 +89,7 @@
     "ember-resolver": "^8.0.2",
     "ember-set-body-class": "^1.0.2",
     "ember-set-helper": "^2.0.0",
+    "ember-simple-auth": "^3.0.1",
     "ember-source": "~3.23.1",
     "ember-svg-jar": "^2.2.3",
     "ember-template-lint": "^2.15.0",
@@ -111,6 +113,7 @@
     "qunit-dom": "^1.6.0",
     "release-it": "^14.2.2",
     "release-it-lerna-changelog": "^3.1.0",
+    "sinon": "^9.2.2",
     "tailwindcss": "^2.0.2",
     "typescript": "^4.1.3",
     "wcag-contrast": "^3.0.0"

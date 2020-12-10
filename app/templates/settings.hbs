@@ -1,18 +1,37 @@
-<button
-  class="flex flex-grow items-center mb-1 pb-2 pt-2 w-full hover:text-menu-text-hover"
-  type="button"
-  {{on "click" (fn this.goBack)}}
->
+<button class="flex flex-grow items-center mb-1 pb-2 pt-2 w-full hover:text-menu-text-hover" type="button"
+  {{on "click" (fn this.goBack)}}>
   {{svg-jar "arrow-left" class="stroke-icon mr-2" height="15" width="15"}}
   <span class="font-bold text-sm uppercase">
     Back
   </span>
 </button>
 
+<div class="sm:hidden">
+  <label for="tabs" class="sr-only">Select a tab</label>
+  <select id="tabs" name="tabs"
+    class="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+    <option selected>App Settings</option>
+    <option>My Account</option>
+    <option>Data Management</option>
+  </select>
+</div>
+<div class="hidden sm:block">
+  <nav class="flex space-x-4" aria-label="Tabs">
+    <!-- Current: "bg-gray-100 text-gray-700", Default: "text-gray-500 hover:text-gray-700" -->
+    <a href="#" class="bg-gray-100 text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
+      App Settings
+    </a>
+    <a href="#" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
+      My Account
+    </a>
+    <a href="#" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md" aria-current="page">
+      Data Management
+    </a>
+  </nav>
+</div>
+
 <div class="bottom-0 p-4 fixed w-full">
-  <SettingsMenu
-    @checkForUpdates={{this.application.checkForUpdates}}
+  <SettingsMenu @checkForUpdates={{this.application.checkForUpdates}}
     @enableDisableAutoStart={{this.application.enableDisableAutoStart}}
-    @toggleShowDockIcon={{this.application.toggleShowDockIcon}}
-  />
+    @toggleShowDockIcon={{this.application.toggleShowDockIcon}} />
 </div>

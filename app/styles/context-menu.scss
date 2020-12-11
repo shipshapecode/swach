@@ -5,9 +5,7 @@
 }
 
 .context-menu__item {
-  @apply cursor-default flex items-center pl-4 pr-4;
-
-  transition: color 0.25s;
+  @apply cursor-default flex items-center pl-4 pr-4 transition-colors;
 
   &:hover:not(.context-menu__item--disabled) {
     background-color: var(--menu-color);

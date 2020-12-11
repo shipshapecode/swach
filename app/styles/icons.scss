@@ -2,14 +2,14 @@ svg {
   &.drop-icon {
     path {
       fill: var(--drop-icon)!important;
-      transition: fill 0.25s;
+      @apply transition-colors;
     }
   }
 
   &.icon {
     path {
       fill: var(--alt-color) !important;
-      transition: fill 0.25s;
+      @apply transition-colors;
     }
 
     &:hover {
@@ -34,7 +34,7 @@ svg {
   &.stroke-icon {
     path {
       stroke: var(--alt-color) !important;
-      transition: stroke 0.25s;
+      @apply transition-colors;
     }
 
     &:hover {
@@ -47,14 +47,14 @@ svg {
   &.menu-icon {
     path {
       fill: var(--menu-text-color) !important;
-      transition: fill 0.25s;
+      @apply transition-colors;
     }
   }
 
   &.stroke-menu-icon {
     path {
       stroke: var(--menu-text-color) !important;
-      transition: stroke 0.25s;
+      @apply transition-colors;
     }
 
     &:hover {
@@ -71,7 +71,7 @@ button {
     &.filled {
       path {
         fill: var(--alt-color) !important;
-        transition: fill 0.25s;
+        @apply transition-colors;
       }
     }
   }
@@ -85,7 +85,7 @@ button {
       &.filled {
         path {
           fill: var(--alt-hover-color) !important;
-          transition: fill 0.25s;
+          @apply transition-colors;
         }
       }
     }
@@ -98,7 +98,7 @@ button {
       &.filled {
         path {
           fill: var(--menu-text-hover-color) !important;
-          transition: fill 0.25s;
+          @apply transition-colors;
         }
       }
     }
@@ -122,7 +122,7 @@ button {
       &.filled {
         path {
           fill: var(--disabled-color) !important;
-          transition: fill 0.25s;
+          @apply transition-colors;
         }
       }
     }

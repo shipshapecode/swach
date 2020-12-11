@@ -2,17 +2,17 @@
 # yarn lockfile v1
 
 
-"@davidwinter/electron-forge-maker-snap@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@davidwinter/electron-forge-maker-snap/-/electron-forge-maker-snap-0.5.0.tgz#f96c76d0609db5c4e3a692008bdc0aa04267d939"
-  integrity sha512-Uk7nRkudk0ERDSV1AhE+sGqcZqnVkAjdTwelqZpDP+CI971aS3iW8HERTcXdNbXdD92BoPl/fzzVdgZ6qzaPxA==
+"@davidwinter/electron-forge-maker-snap@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@davidwinter/electron-forge-maker-snap/-/electron-forge-maker-snap-0.6.0.tgz#5ed97d5a7dbac2a02e45b0799d0954854e309d59"
+  integrity sha512-JtRqWXBECpEhKQ9okSFFTvCoHZU7x1sH39S3mBhIfoTlsNv+8gzavD1ti7QhpR5cTtkebHgF4B+yhKFtJstLeg==
   dependencies:
     "@electron-forge/maker-base" "^6.0.0-beta.54"
     debug "^4.3.1"
     electron-packager "^15.2.0"
     fs-extra "^9.0.1"
-    ini "^1.3.5"
-    js-yaml "^3.14.0"
+    ini "^1.3.7"
+    js-yaml "^3.14.1"
 
 "@electron-forge/async-ora@6.0.0-beta.54":
   version "6.0.0-beta.54"
@@ -2062,10 +2062,15 @@ inherits@2, inherits@^2.0.3, inherits@~2.0.1, inherits@~2.0.3:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
-ini@^1.3.4, ini@^1.3.5, ini@~1.3.0:
+ini@^1.3.4, ini@~1.3.0:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
   integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
+
+ini@^1.3.7:
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.7.tgz#a09363e1911972ea16d7a8851005d84cf09a9a84"
+  integrity sha512-iKpRpXP+CrP2jyrxvg1kMUpXDyRUFDWurxbnVT1vQPx+Wz9uCYsMIqYuSBLV+PAaZG/d7kRLKRFc9oDMsH+mFQ==
 
 inquirer@^7.3.3:
   version "7.3.3"
@@ -2215,10 +2220,18 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-js-yaml@^3.10.0, js-yaml@^3.14.0:
+js-yaml@^3.10.0:
   version "3.14.0"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.14.0.tgz#a7a34170f26a21bb162424d8adacb4113a69e482"
   integrity sha512-/4IbIeHcD9VMHFqDR/gQ7EdZdLimOvW2DdcxFjdyyZ9NsbS+ccrXqVWDtab/lRl5AlUqmpBx8EhPaWR+OtY17A==
+  dependencies:
+    argparse "^1.0.7"
+    esprima "^4.0.0"
+
+js-yaml@^3.14.1:
+  version "3.14.1"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.14.1.tgz#dae812fdb3825fa306609a8717383c50c36a0537"
+  integrity sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==
   dependencies:
     argparse "^1.0.7"
     esprima "^4.0.0"

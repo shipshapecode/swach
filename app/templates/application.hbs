@@ -1,40 +1,22 @@
 {{set-body-class this.theme}}
 
-<main
-  class="bg-main flex justify-center h-full text-alt transition-colors duration-500 w-full overflow-hidden"
->
+<main class="bg-main flex justify-center h-full text-alt transition-colors duration-500 w-full overflow-hidden">
   <div class="flex flex-col max-w-xl h-full relative w-full">
-    <nav
-      class="bg-menu flex justify-between items-center p-4 w-full {{
+    <nav class="bg-menu flex justify-between items-center p-4 w-full {{
         if this.isWelcomeRoute "hidden"
-      }}"
-    >
+      }}">
       <ClickOutside @onClickOutside={{set this "menuIsShown" false}}>
         <div class="flex-grow">
           <div class="flex h-4 items-center w-4">
-            <button
-              id="toggle-menu"
-              type="button"
-              {{on "click" this.toggleMenuIsShown}}
-            >
+            <button id="toggle-menu" type="button" {{on "click" this.toggleMenuIsShown}}>
               {{svg-jar "menu" class="stroke-menu-icon" height="15" width="15"}}
             </button>
           </div>
 
-          <EmberPopover
-            @arrowClass="custom-arrow"
-            @event="none"
-            @isShown={{this.menuIsShown}}
-            @side="bottom-start"
-            @spacing={{10}}
-            @targetId="toggle-menu"
-            @tooltipClass="bg-menu border-main text-menu-text"
-          >
-            <LinkTo
-              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
-              @route="palettes"
-              {{on "click" this.toggleMenuIsShown}}
-            >
+          <EmberPopover @arrowClass="custom-arrow" @event="none" @isShown={{this.menuIsShown}} @side="bottom-start"
+            @spacing={{10}} @targetId="toggle-menu" @tooltipClass="bg-menu border-main text-menu-text">
+            <LinkTo class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
+              @route="palettes" {{on "click" this.toggleMenuIsShown}}>
               {{svg-jar
                 "palettes"
                 class="menu-icon inline-block mr-2"
@@ -43,11 +25,8 @@
               }} Palettes
             </LinkTo>
 
-            <LinkTo
-              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
-              @route="contrast"
-              {{on "click" this.toggleMenuIsShown}}
-            >
+            <LinkTo class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
+              @route="contrast" {{on "click" this.toggleMenuIsShown}}>
               {{svg-jar
                 "contrast"
                 class="menu-icon inline-block mr-2"
@@ -56,11 +35,8 @@
               }} Check Contrast
             </LinkTo>
 
-            <LinkTo
-              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
-              @route="settings"
-              {{on "click" this.toggleMenuIsShown}}
-            >
+            <LinkTo class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
+              @route="settings.app" {{on "click" this.toggleMenuIsShown}}>
               {{svg-jar
                 "settings"
                 class="menu-icon inline-block mr-2"
@@ -69,11 +45,8 @@
               }} Settings
             </LinkTo>
 
-            <button
-              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
-              type="button"
-              {{on "click" this.exitApp}}
-            >
+            <button class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
+              type="button" {{on "click" this.exitApp}}>
               {{svg-jar
                 "close"
                 class="menu-icon inline-block mr-2"
@@ -88,23 +61,19 @@
       <div class="flex flex-grow items-center justify-end">
         <div class="h-4 w-4 mr-2">
           {{#if this.showEyedropperIcon}}
-            <button type="button" {{on "click" this.launchPicker}}>
-              {{svg-jar "drop" class="menu-icon" height="20" width="20"}}
-            </button>
+          <button type="button" {{on "click" this.launchPicker}}>
+            {{svg-jar "drop" class="menu-icon" height="20" width="20"}}
+          </button>
           {{/if}}
         </div>
 
         <div class="h-4 w-4">
           {{#if this.showColorWheel}}
-            <ColorPicker
-              @isShown={{this.colorPickerIsShown}}
-              @saveColor={{fn this.addColor}}
-              @selectedColor={{this.colorPickerColor}}
-              @toggleIsShown={{this.toggleColorPickerIsShown}}
-            />
-            <button type="button" {{on "click" this.toggleColorPickerIsShown}}>
-              {{svg-jar "edit-color" height="20" width="20"}}
-            </button>
+          <ColorPicker @isShown={{this.colorPickerIsShown}} @saveColor={{fn this.addColor}}
+            @selectedColor={{this.colorPickerColor}} @toggleIsShown={{this.toggleColorPickerIsShown}} />
+          <button type="button" {{on "click" this.toggleColorPickerIsShown}}>
+            {{svg-jar "edit-color" height="20" width="20"}}
+          </button>
           {{/if}}
         </div>
       </div>

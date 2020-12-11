@@ -10,13 +10,13 @@ Router.map(function () {
   this.route('colors');
   this.route('contrast');
   this.route('kuler');
-  this.route('login');
   this.route('palettes');
-  // this.route('register', function () {
-  //   this.route('confirm');
-  //   this.route('resend');
-  // });
-  this.route('settings');
+  this.route('settings', function () {
+    this.route('account');
+    this.route('app');
+    this.route('data');
+    this.route('register');
+  });
   this.route('welcome', function () {
     this.route('auto-start');
     this.route('dock-icon');

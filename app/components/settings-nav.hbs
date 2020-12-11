@@ -1,0 +1,13 @@
+<nav class="flex space-x-4" aria-label="Tabs">
+  <!-- Current: "bg-gray-100 text-gray-700", Default: "text-gray-500 hover:text-gray-700" -->
+  <LinkTo @route="settings.app" class="bg-gray-100 text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
+    App Settings
+  </LinkTo>
+  <LinkTo @route="settings.account" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
+    My Account
+  </LinkTo>
+  <LinkTo @route="settings.data" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md"
+    aria-current="page">
+    Data Management
+  </LinkTo>
+</nav>

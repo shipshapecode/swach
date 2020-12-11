@@ -5341,10 +5341,10 @@ color-convert@^2.0.1:
   dependencies:
     color-name "~1.1.4"
 
-color-name-list@^7.22.0:
-  version "7.22.0"
-  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-7.22.0.tgz#12770dc18e4470394a90ccdfed70b6d642be1b03"
-  integrity sha512-KiziE+hN1+o29VGk7d0Vj2tMdZDAgobaHqcEXHXUe3pU/Y9/aXBBdZ4RAyP7OpN2H5TglLIb/j8xxkQmp06MAg==
+color-name-list@^7.23.0:
+  version "7.23.0"
+  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-7.23.0.tgz#016ef63cbd07bdc25ee59b5b887a16712b7e9e8b"
+  integrity sha512-oI7YoNf9k5Ky3JgTyoIjtvp2+ABFa1qxMJ4pJYpCWGQSJF6RPf0JETF2PNHALyE5e2EFH9x3cVUR1f7UlJJGcQ==
 
 color-name@1.1.3:
   version "1.1.3"

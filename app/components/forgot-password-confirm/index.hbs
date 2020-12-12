@@ -4,39 +4,69 @@
       Reset Password
     </h2>
     {{#if this.errorMessage}}
-    <div class="alert alert-danger">{{this.errorMessage}}</div>
+      <div class="alert alert-danger">
+        {{this.errorMessage}}
+      </div>
     {{/if}}
   </div>
   <div class="mt-8 space-y-6">
     <div class="rounded-md shadow-sm -space-y-px">
       <div>
-        <label for="email-address" class="sr-only">Email address</label>
-        <Input data-test-login-input-user id="email-address" name="email" type="email" autocomplete="email" required
+        <label for="email-address" class="sr-only">
+          Email address
+        </label>
+        <Input
+          data-test-login-input-user
+          id="email-address"
+          name="email"
+          type="email"
+          autocomplete="email"
+          required
           class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-          placeholder="Email address" @value={{this.username}} />
+          placeholder="Email address"
+          @value={{this.username}}
+        />
       </div>
       <div>
-        <label for="confirmation-code" class="sr-only">Confirmation code</label>
-        <Input data-test-login-input-code id="confirmation-code" name="confirmation-code" type="text"
-          autocomplete="current-password" required
+        <label for="confirmation-code" class="sr-only">
+          Confirmation code
+        </label>
+        <Input
+          data-test-login-input-code
+          id="confirmation-code"
+          name="confirmation-code"
+          type="text"
+          autocomplete="current-password"
+          required
           class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-          placeholder="Confirmation code" @value={{this.code}} />
+          placeholder="Confirmation code"
+          @value={{this.code}}
+        />
       </div>
       <div>
-        <label for="password" class="sr-only">Password</label>
-        <Input data-test-login-input-password id="password" name="password" type="password"
-          autocomplete="current-password" required
+        <label for="password" class="sr-only">
+          Password
+        </label>
+        <Input
+          data-test-login-input-password
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          required
           class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-          placeholder="Password" @value={{this.password}} />
+          placeholder="Password"
+          @value={{this.password}}
+        />
       </div>
     </div>
 
-
     <div>
-      <button type="submit"
+      <button
+        type="submit"
         class="btn btn-primary group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        {{on "click" (fn this.forgotPasswordSubmit)}}>
-
+        {{on "click" (fn this.forgotPasswordSubmit)}}
+      >
         Reset Password
       </button>
     </div>

@@ -1,14 +1,22 @@
-<div class="p-1 pb-4 pt-2">
+<div class="pb-4">
   <h6 class="font-semibold mb-2 mt-4 text-heading text-sm">
     Data management
   </h6>
 
   <div class="flex h-8 w-full">
-    <LoadingButton class="flex-1 mr-2" @loading={{this.isExporting}} @onClick={{this.exportIndexedDB}}>
+    <LoadingButton
+      class="flex-1 mr-2"
+      @loading={{this.isExporting}}
+      @onClick={{this.exportIndexedDB}}
+    >
       Export swatches
     </LoadingButton>
 
-    <LoadingButton class="flex-1" @loading={{this.isImporting}} @onClick={{this.importIndexedDB}}>
+    <LoadingButton
+      class="flex-1"
+      @loading={{this.isImporting}}
+      @onClick={{this.importIndexedDB}}
+    >
       Import swatches
     </LoadingButton>
   </div>

@@ -19,9 +19,10 @@ Router.map(function () {
     this.route('resend');
   });
   this.route('settings', function () {
-    this.route('account');
-    this.route('app');
+    this.route('cloud');
+    this.route('general');
     this.route('data');
+    this.route('about');
   });
   this.route('welcome', function () {
     this.route('auto-start');

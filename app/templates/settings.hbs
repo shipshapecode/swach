@@ -1,17 +1,16 @@
-<button class="flex flex-grow items-center mb-1 pb-2 pt-2 w-full hover:text-menu-text-hover" type="button"
-  {{on "click" (fn this.goBack)}}>
+<button
+  class="flex flex-grow items-center mb-1 pb-2 pt-2 text-alt w-full hover:text-alt-hover"
+  type="button"
+  {{on "click" (fn this.goBack)}}
+>
   {{svg-jar "arrow-left" class="stroke-icon mr-2" height="15" width="15"}}
   <span class="font-bold text-sm uppercase">
     Back
   </span>
 </button>
 
-<div class="sm:block">
-  <SettingsNav />
-</div>
+<SettingsNav />
 
-<div class="bottom-0 p-4 fixed w-full">
-  {{outlet}}
-
-  <About />
+<div class="p-4 text-main-text w-full">
+  {{liquid-outlet}}
 </div>

@@ -46,6 +46,22 @@ export default function () {
     this.reverse('toRight', transitionOptions)
   );
 
+  this.transition(
+    this.fromRoute('settings.index'),
+    this.toRoute('settings.cloud'),
+    this.use('fade', transitionOptions)
+  );
+
+  this.transition(
+    this.fromRoute(function (routeName) {
+      return /^settings/.test(routeName);
+    }),
+    this.toRoute(function (routeName) {
+      return /^settings/.test(routeName);
+    }),
+    this.use('fade', transitionOptions)
+  );
+
   // This is a default transition when transitioning to palettes from the welcome screen
   this.transition(this.toRoute('palettes'), this.use('crossFade'));
 }

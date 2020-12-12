@@ -27,7 +27,7 @@ export default class ForgotPasswordConfirm extends Component {
     try {
       await this.cognito.forgotPasswordSubmit(username, code, password);
 
-      this.router.transitionTo('settings.account');
+      this.router.transitionTo('settings.cloud');
     } catch (err) {
       set(this, 'errorMessage', err.message);
     }

@@ -1,37 +1,5 @@
-const transitionOptions = { duration: 300, easing: 'easeInOut' };
+const transitionOptions = { duration: 250, easing: 'easeInOut' };
 export default function () {
-  this.transition(
-    this.fromRoute('palettes'),
-    this.toRoute('colors'),
-    this.use('toLeft', transitionOptions),
-    this.reverse('toRight', transitionOptions)
-  );
-
-  this.transition(
-    this.fromRoute('colors'),
-    this.toRoute('kuler'),
-    this.use('toLeft', transitionOptions),
-    this.reverse('toRight', transitionOptions)
-  );
-
-  this.transition(
-    this.fromRoute('kuler'),
-    this.toRoute('palettes'),
-    this.use('toRight', transitionOptions)
-  );
-
-  this.transition(
-    this.toRoute('contrast'),
-    this.use('toLeft', transitionOptions),
-    this.reverse('toRight', transitionOptions)
-  );
-
-  this.transition(
-    this.toRoute('settings'),
-    this.use('toLeft', transitionOptions),
-    this.reverse('toRight', transitionOptions)
-  );
-
   this.transition(
     this.fromRoute('welcome.index'),
     this.toRoute('welcome.auto-start'),
@@ -47,17 +15,11 @@ export default function () {
   );
 
   this.transition(
-    this.fromRoute('settings.index'),
-    this.toRoute('settings.cloud'),
-    this.use('fade', transitionOptions)
-  );
-
-  this.transition(
     this.fromRoute(function (routeName) {
-      return /^settings/.test(routeName);
+      return !routeName.startsWith('welcome');
     }),
     this.toRoute(function (routeName) {
-      return /^settings/.test(routeName);
+      return !routeName.startsWith('welcome');
     }),
     this.use('fade', transitionOptions)
   );

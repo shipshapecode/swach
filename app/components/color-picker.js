@@ -57,6 +57,13 @@ export default class ColorPicker extends Component {
         createdAt: colorToEdit.createdAt
       };
 
+      for (let attr in colorCopy.attributes) {
+        // Remove private properties
+        if (attr.startsWith('_')) {
+          delete colorCopy.attributes[attr];
+        }
+      }
+
       // TODO: figure out what makes this case happen. This is guarding against when palette.colors is undefined, but it should never be.
       if (palette.colors) {
         const colorsList = palette.colors.map((color) => {
@@ -73,7 +80,7 @@ export default class ColorPicker extends Component {
             id: addColorOperation.record.id
           });
 
-          return [
+          const operations = [
             addColorOperation,
             t.replaceRelatedRecords(
               { type: 'palette', id: palette.id },
@@ -86,6 +93,18 @@ export default class ColorPicker extends Component {
               colorsList
             )
           ];
+
+          // If the color only exists in in color history, and we remove it, we should delete the color
+          if (
+            colorToEdit.palettes.length === 1 &&
+            colorToEdit.palettes.firstObject.isColorHistory
+          ) {
+            operations.push(
+              t.removeRecord({ type: 'color', id: colorToEdit.id })
+            );
+          }
+
+          return operations;
         });
 
         this.undoManager.setupUndoRedo();

@@ -45,6 +45,9 @@ module.exports = function (environment) {
       poolId: 'us-east-2_AEr5v3Ogt',
       clientId: '1jn23hlv9ggi63mc37f4m5hm4h'
     },
+    featureFlags: {
+      'cloud-login': true
+    },
     sentry: {
       environment
     }
@@ -71,6 +74,7 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
+    ENV.featureFlags['cloud-login'] = false;
     ENV.sentry.dsn =
       'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140';
     ENV.sentry.release = `v${version}`;

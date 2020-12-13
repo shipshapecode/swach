@@ -3,9 +3,11 @@
     General
   </LinkTo>
 
-  <LinkTo class="tab" @route="settings.cloud">
-    Cloud
-  </LinkTo>
+  {{#if (feature-flag "cloud-login")}}
+    <LinkTo class="tab" @route="settings.cloud">
+      Cloud
+    </LinkTo>
+  {{/if}}
 
   <LinkTo class="tab" @route="settings.data">
     Data

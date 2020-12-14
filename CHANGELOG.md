@@ -1,3 +1,14 @@
+## v0.4.17 (2020-12-14)
+
+#### :bug: Bug Fix
+* [#424](https://github.com/shipshapecode/swach/pull/424) Cleanup edited color data ([@rwwagner90](https://github.com/rwwagner90))
+
+#### :house: Internal
+* [#418](https://github.com/shipshapecode/swach/pull/418) Use tailwind for transitions ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v0.4.16 (2020-12-11)
 
 ## v0.4.15 (2020-12-10)

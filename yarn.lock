@@ -2,27 +2,27 @@
 # yarn lockfile v1
 
 
-"@aws-amplify/auth@^3.3.4":
-  version "3.4.14"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-3.4.14.tgz#60a388365d486f84a5c004269875d92ff5d727a2"
-  integrity sha512-ZhzrDceIo0ESIRH0Sgags3TVt+fxxYUnHzXo6U7V6Fc63sJ+jjim4HJKZpo8HNVTODjNbROqCtsNoOwsy0i4fQ==
+"@aws-amplify/auth@^3.4.15":
+  version "3.4.15"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-3.4.15.tgz#6cffaf39049b8954c745f15665fa889e5fe17f22"
+  integrity sha512-PECq/N5vBo8ZwoXGcq6BTe75IOe5QfmTUCTZEr8sDJ5lY7pBZmNZmnI46/cNUPUs7frzh6MqN2xE1nmoTpJdvQ==
   dependencies:
-    "@aws-amplify/cache" "3.1.39"
-    "@aws-amplify/core" "3.8.6"
+    "@aws-amplify/cache" "3.1.40"
+    "@aws-amplify/core" "3.8.7"
     amazon-cognito-identity-js "4.5.5"
     crypto-js "^3.3.0"
 
-"@aws-amplify/cache@3.1.39":
-  version "3.1.39"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/cache/-/cache-3.1.39.tgz#a6c8ba9e490d2d4c36aa4446a5ecdf006ffbc1e3"
-  integrity sha512-mP8DbrjWm8sTE7CAoO1z5nJo21BADh+HTpzwCNuAVkryLcarKQN+1bIJsQ3BqRRI+F3tRg0SkAzIHdPiDRkeSg==
+"@aws-amplify/cache@3.1.40":
+  version "3.1.40"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/cache/-/cache-3.1.40.tgz#6eb0970c4cf8a11005f7ac4ada5b1545829f8849"
+  integrity sha512-YKgwhfBfB9n3fDio6q4yJ33ZNko01dtc2r3Sbd7CnalEdLDwqzhxMiJrxL4j/4gg5hNFI/vWLaqKHNkv78B1Nw==
   dependencies:
-    "@aws-amplify/core" "3.8.6"
+    "@aws-amplify/core" "3.8.7"
 
-"@aws-amplify/core@3.8.6", "@aws-amplify/core@^3.4.5":
-  version "3.8.6"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-3.8.6.tgz#2d0ba0abf963c0984616d05957f8817489320756"
-  integrity sha512-liwr8VmSTcF2uD7Nk/Bh4HmVnE4C2tC+6ewHFW2t9aaLq7a53+fojeq2puU58S3SFAJaCF7luVg8xo6tq2b3Yw==
+"@aws-amplify/core@3.8.7", "@aws-amplify/core@^3.8.7":
+  version "3.8.7"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-3.8.7.tgz#060934850473ccb32a1f5b51800d696aac84331d"
+  integrity sha512-m6iggC9lsB0Pnuu4bWKDwofp9q8Ws3mNaXY1YjtXQ93ZEFx5X/0jJbVuLNC0mucTC1jBCWojxabd00lxxgQtPg==
   dependencies:
     "@aws-crypto/sha256-js" "1.0.0-alpha.0"
     "@aws-sdk/client-cognito-identity" "1.0.0-rc.4"
@@ -3291,7 +3291,7 @@ ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.3, ajv@^6.12.4:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-amazon-cognito-identity-js@4.5.5, amazon-cognito-identity-js@^4.3.3:
+amazon-cognito-identity-js@4.5.5, amazon-cognito-identity-js@^4.5.5:
   version "4.5.5"
   resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-4.5.5.tgz#23c5d99de633efb56033d80ce581349bd02509e9"
   integrity sha512-8Sy74oOGzfs/ZivH1kzeCvbYHQh81etSGD8wheSxfNEmD5xav015Cj/V0F9tTw8cI7jiilZcbCcS73j4UbMEXA==
@@ -6964,7 +6964,7 @@ ember-assign-polyfill@^2.5.0, ember-assign-polyfill@^2.6.0:
     ember-cli-babel "^7.20.5"
     ember-cli-version-checker "^2.0.0"
 
-ember-auto-import@^1.10.0:
+ember-auto-import@^1.10.0, ember-auto-import@^1.9.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-1.10.0.tgz#eb6fba6b66974cb86adc42bd835e3cacbf32ebd7"
   integrity sha512-E2dI/8x2rJ3GIgTXy+HMKjLiLrV/yDlHPp9Wgzz4W1UWAV2l0KsdbIxAu+rWGUqFIAEhpzFUe8fj0E+Tin+Z3w==
@@ -6998,7 +6998,7 @@ ember-auto-import@^1.10.0:
     walk-sync "^0.3.3"
     webpack "^4.43.0"
 
-ember-auto-import@^1.5.3, ember-auto-import@^1.6.0:
+ember-auto-import@^1.5.3:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-1.8.0.tgz#de7624b36ceb53a5a5878ebfe86ae70f0fea7921"
   integrity sha512-pX8rqT6oWiotz4n4rHDlYrVnQl0KVGanv/a+E2xUnkjsyL2K5JfrwJdyRaDsMQPNHkrz12HFnR/WKhjRoVDoIA==
@@ -7560,17 +7560,16 @@ ember-click-outside@^2.0.0:
     ember-cli-htmlbars "^4.2.3"
     ember-modifier "^2.1.0"
 
-ember-cognito@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/ember-cognito/-/ember-cognito-0.11.0.tgz#00ead8ac30d36cb58e71231568a1f7a8f4bdb8d5"
-  integrity sha512-MGM/vR11NkJfdJATSQohl9dMaJVw6vVDCzyyb9fmIoJcbHWf/BSz3Zc2c1pQui4uA2o6hEXiEzCeXdcmeXzPQA==
+ember-cognito@rwwagner90/ember-cognito#2f4252dbc9e197f452f96caa7c2022a52b394b67:
+  version "0.10.0"
+  resolved "https://codeload.github.com/rwwagner90/ember-cognito/tar.gz/2f4252dbc9e197f452f96caa7c2022a52b394b67"
   dependencies:
-    "@aws-amplify/auth" "^3.3.4"
-    "@aws-amplify/core" "^3.4.5"
-    amazon-cognito-identity-js "^4.3.3"
-    ember-auto-import "^1.6.0"
-    ember-cli-babel "^7.21.0"
-    ember-cli-htmlbars "^5.2.0"
+    "@aws-amplify/auth" "^3.4.15"
+    "@aws-amplify/core" "^3.8.7"
+    amazon-cognito-identity-js "^4.5.5"
+    ember-auto-import "^1.9.0"
+    ember-cli-babel "^7.22.1"
+    ember-cli-htmlbars "^5.3.1"
 
 ember-compatibility-helpers@^1.0.2, ember-compatibility-helpers@^1.1.2, ember-compatibility-helpers@^1.2.0, ember-compatibility-helpers@^1.2.1:
   version "1.2.1"

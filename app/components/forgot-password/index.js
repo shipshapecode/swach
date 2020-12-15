@@ -14,7 +14,7 @@ export default class ForgotPasswordIndex extends Component {
     try {
       await this.cognito.forgotPassword(username);
 
-      this.router.transitionTo('forgot-password.confirm');
+      this.router.transitionTo('settings.cloud.forgot-password.confirm');
     } catch (err) {
       set(this, 'errorMessage', err.message);
     }

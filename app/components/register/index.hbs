@@ -1,15 +1,12 @@
-<div class="max-w-md w-full space-y-8">
+<div class="w-full space-y-8">
   <div>
-    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+    <h2 class="mt-6 text-center text-2xl font-bold">
       Sign up for an account
     </h2>
-    <p class="mt-2 text-center text-sm text-gray-600">
-      Save your Palettes to share across devices.
-    </p>
   </div>
   <div class="mt-8 space-y-6">
     <input type="hidden" name="remember" value="true" />
-    <div class="rounded-md shadow-sm -space-y-px">
+    <div class="rounded-md -space-y-px">
       <div>
         <label for="email-address" class="sr-only">
           Email address
@@ -21,7 +18,7 @@
           type="email"
           autocomplete="email"
           required
-          class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+          class="input rounded-t w-full"
           placeholder="Email address"
           @value={{this.username}}
         />
@@ -37,7 +34,7 @@
           type="password"
           autocomplete="current-password"
           required
-          class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+          class="input rounded-t w-full"
           placeholder="Password"
           @value={{this.password}}
         />

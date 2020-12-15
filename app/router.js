@@ -9,17 +9,20 @@ export default class Router extends EmberRouter {
 Router.map(function () {
   this.route('colors');
   this.route('contrast');
-  this.route('forgot-password', function () {
-    this.route('confirm');
-  });
   this.route('kuler');
   this.route('palettes');
-  this.route('register', function () {
-    this.route('confirm');
-    this.route('resend');
-  });
   this.route('settings', function () {
-    this.route('cloud');
+    this.route('cloud', function () {
+      this.route('forgot-password', function () {
+        this.route('confirm');
+      });
+      this.route('login');
+      this.route('profile');
+      this.route('register', function () {
+        this.route('confirm');
+        this.route('resend');
+      });
+    });
     this.route('general');
     this.route('data');
     this.route('about');

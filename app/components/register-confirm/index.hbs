@@ -1,6 +1,6 @@
-<div class="max-w-md w-full space-y-8">
+<div class="w-full space-y-8">
   <div>
-    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+    <h2 class="mt-6 text-center text-2xl font-bold">
       Confirm Registration
     </h2>
     {{#if this.errorMessage}}
@@ -22,7 +22,7 @@
           type="email"
           autocomplete="email"
           required
-          class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+          class="input rounded-t w-full"
           placeholder="Email address"
           @value={{this.username}}
         />
@@ -38,23 +38,20 @@
           type="text"
           autocomplete="current-password"
           required
-          class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+          class="input rounded-t w-full"
           placeholder="Confirmation code"
           @value={{this.code}}
         />
       </div>
     </div>
 
-    <div class="flex items-center justify-between">
+    {{! TODO: https://app.clickup.com/t/hcw0ey <div class="flex items-center justify-between">
       <div class="text-sm">
-        <LinkTo
-          @route="register.resend"
-          class="font-medium text-indigo-600 hover:text-indigo-500"
-        >
+        <LinkTo @route="settings.cloud.register.resend" class="font-medium text-indigo-600 hover:text-indigo-500">
           Resend confirmation code
         </LinkTo>
       </div>
-    </div>
+    </div> }}
 
     <div>
       <button

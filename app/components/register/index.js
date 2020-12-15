@@ -17,7 +17,7 @@ export default class Register extends Component {
     try {
       await this.cognito.signUp(username, password, attributes);
 
-      this.router.transitionTo('register.confirm');
+      this.router.transitionTo('settings.cloud.register.confirm');
     } catch (err) {
       set(this, 'errorMessage', err.message);
     }

@@ -1,6 +1,6 @@
-<div class="max-w-md w-full space-y-8">
+<div class="w-full space-y-8">
   <div>
-    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+    <h2 class="mt-6 text-center text-2xl font-bold">
       Forgot Password
     </h2>
     {{#if this.errorMessage}}
@@ -10,7 +10,7 @@
     {{/if}}
   </div>
   <div class="mt-8 space-y-6">
-    <div class="rounded-md shadow-sm -space-y-px">
+    <div class="rounded-md -space-y-px">
       <div>
         <label for="email-address" class="sr-only">
           Email address
@@ -22,7 +22,7 @@
           type="email"
           autocomplete="email"
           required
-          class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+          class="input rounded-t w-full"
           placeholder="Email address"
           @value={{this.username}}
         />

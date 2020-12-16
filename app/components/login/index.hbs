@@ -13,7 +13,7 @@
       </LinkTo>
     </p>
     {{#if this.errorMessage}}
-      <div class="alert alert-danger">
+      <div class="bg-red-400 my-2 p-4 rounded text-xs text-red-800">
         {{this.errorMessage}}
       </div>
     {{/if}}
@@ -27,13 +27,13 @@
 
         <Input
           data-test-login-input-user
+          autocomplete="email"
+          class="input rounded-t w-full"
           id="email-address"
           name="email"
-          type="email"
-          autocomplete="email"
-          required
-          class="input rounded-t w-full"
           placeholder="Email address"
+          required
+          type="email"
           @value={{this.username}}
         />
       </div>
@@ -44,13 +44,13 @@
 
         <Input
           data-test-login-input-password
+          autocomplete="current-password"
+          class="input rounded-b w-full"
           id="password"
           name="password"
-          type="password"
-          autocomplete="current-password"
-          required
-          class="input rounded-b w-full"
           placeholder="Password"
+          required
+          type="password"
           @value={{this.password}}
         />
       </div>
@@ -59,8 +59,8 @@
     <div class="flex items-center justify-between">
       <div class="text-sm">
         <LinkTo
-          @route="settings.cloud.forgot-password"
           class="font-medium text-alt hover:text-alt-hover"
+          @route="settings.cloud.forgot-password"
         >
           Forgot your password?
         </LinkTo>
@@ -70,8 +70,8 @@
     <div>
       <button
         data-test-login-submit
+        class="btn btn-primary w-full"
         type="submit"
-        class="btn btn-primary group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         {{on "click" (fn this.authenticate)}}
       >
         Sign in

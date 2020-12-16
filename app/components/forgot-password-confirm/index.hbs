@@ -63,9 +63,9 @@
 
     <div>
       <button
-        type="submit"
         class="btn btn-primary w-full"
-        {{on "click" (fn this.forgotPasswordSubmit)}}
+        type="button"
+        {{on "click" this.forgotPasswordSubmit}}
       >
         Reset Password
       </button>

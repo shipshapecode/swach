@@ -1,22 +1,24 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import { action, set } from '@ember/object';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class RegisterConfirm extends Component {
   @service cognito;
   @service router;
 
+  @tracked errorMessage = null;
+
   @action
-  async confirm(e) {
+  async confirm() {
     const { username, code } = this;
 
-    e.preventDefault();
     try {
       await this.cognito.confirmSignUp(username, code);
 
       this.router.transitionTo('settings.cloud');
     } catch (err) {
-      set(this, 'errorMessage', err.message);
+      this.errorMessage = err?.message;
     }
   }
 }

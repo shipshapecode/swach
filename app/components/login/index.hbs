@@ -71,8 +71,8 @@
       <button
         data-test-login-submit
         class="btn btn-primary w-full"
-        type="submit"
-        {{on "click" (fn this.authenticate)}}
+        type="button"
+        {{on "click" this.authenticate}}
       >
         Sign in
       </button>

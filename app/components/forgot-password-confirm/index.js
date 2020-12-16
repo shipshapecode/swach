@@ -1,13 +1,14 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import { action, set } from '@ember/object';
+import { action } from '@ember/object';
 
 export default class ForgotPasswordConfirm extends Component {
   @service cognito;
   @service router;
   @service session;
 
+  @tracked errorMessage = null;
   @tracked username = null;
 
   constructor() {
@@ -19,17 +20,15 @@ export default class ForgotPasswordConfirm extends Component {
   }
 
   @action
-  async forgotPasswordSubmit(e) {
+  async forgotPasswordSubmit() {
     const { username, code, password } = this;
-
-    e.preventDefault();
 
     try {
       await this.cognito.forgotPasswordSubmit(username, code, password);
 
       this.router.transitionTo('settings.cloud');
     } catch (err) {
-      set(this, 'errorMessage', err.message);
+      this.errorMessage = err.message;
     }
   }
 }

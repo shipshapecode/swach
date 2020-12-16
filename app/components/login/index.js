@@ -1,10 +1,13 @@
 import Component from '@glimmer/component';
-import { action, set } from '@ember/object';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
 
 export default class Login extends Component {
   @service router;
   @service session;
+
+  @tracked errorMessage = null;
 
   @action
   async authenticate() {
@@ -14,7 +17,7 @@ export default class Login extends Component {
       await this.session.authenticate('authenticator:cognito', credentials);
       this.router.transitionTo('settings.cloud');
     } catch (error) {
-      set(this, 'errorMessage', error.message || error);
+      this.errorMessage = error.message || error;
     }
   }
 }

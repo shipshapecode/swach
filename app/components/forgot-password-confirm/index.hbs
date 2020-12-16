@@ -17,13 +17,13 @@
         </label>
         <Input
           data-test-login-input-user
+          autocomplete="email"
+          class="input rounded-t w-full"
           id="email-address"
           name="email"
-          type="email"
-          autocomplete="email"
-          required
-          class="input rounded-t w-full"
           placeholder="Email address"
+          required
+          type="email"
           @value={{this.username}}
         />
       </div>
@@ -33,13 +33,13 @@
         </label>
         <Input
           data-test-login-input-code
+          autocomplete="current-password"
+          class="input rounded-t w-full"
           id="confirmation-code"
           name="confirmation-code"
-          type="text"
-          autocomplete="current-password"
-          required
-          class="input rounded-t w-full"
           placeholder="Confirmation code"
+          required
+          type="text"
           @value={{this.code}}
         />
       </div>
@@ -49,13 +49,13 @@
         </label>
         <Input
           data-test-login-input-password
+          autocomplete="current-password"
+          class="input rounded-t w-full"
           id="password"
           name="password"
-          type="password"
-          autocomplete="current-password"
-          required
-          class="input rounded-t w-full"
           placeholder="Password"
+          required
+          type="password"
           @value={{this.password}}
         />
       </div>

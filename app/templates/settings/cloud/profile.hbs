@@ -1,17 +1,17 @@
 <div class="mt-10 divide-y divide-gray-200">
   <div class="space-y-1">
-    <h3 class="text-lg leading-6 font-medium text-gray-900">
+    <h3 class="font-semibold text-heading text-sm leading-6">
       Profile
     </h3>
   </div>
   <div class="mt-6">
-    <dl class="divide-y divide-gray-200">
+    <dl class="divide-y divide-gray-200 text-main-text">
       {{#each @model.attributes as |attr|}}
         <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-          <dt class="text-sm font-medium text-gray-500">
+          <dt class="text-sm font-medium">
             {{attr.name}}
           </dt>
-          <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <dd class="mt-1 flex text-sm sm:mt-0 sm:col-span-2">
             <span data-test-profile-detail={{attr.name}} class="flex-grow">
               {{attr.value}}
             </span>

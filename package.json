@@ -41,7 +41,7 @@
     "@orbit/jsonapi": "^0.16.7",
     "@release-it/bumper": "^2.0.0",
     "@sentry/electron": "^2.0.4",
-    "@sentry/integrations": "^5.29.0",
+    "@sentry/integrations": "^5.29.1",
     "@tailwindcss/custom-forms": "^0.2.1",
     "@tailwindcss/forms": "^0.2.1",
     "@types/ember": "^3.16.2",

@@ -1,0 +1,19 @@
+<nav class="grid grid-cols-4 gap-2">
+  <LinkTo class="tab" @replace={{true}} @route="settings.index">
+    General
+  </LinkTo>
+
+  {{#if (feature-flag "cloud-login")}}
+    <LinkTo class="tab" @replace={{true}} @route="settings.cloud">
+      Cloud
+    </LinkTo>
+  {{/if}}
+
+  <LinkTo class="tab" @replace={{true}} @route="settings.data">
+    Data
+  </LinkTo>
+
+  <LinkTo class="tab" @replace={{true}} @route="settings.about">
+    About
+  </LinkTo>
+</nav>

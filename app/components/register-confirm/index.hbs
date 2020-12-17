@@ -1,0 +1,66 @@
+<div class="w-full space-y-8">
+  <div>
+    <h2 class="mt-6 text-center text-2xl font-bold">
+      Confirm Registration
+    </h2>
+    {{#if this.errorMessage}}
+      <div class="bg-red-400 my-2 p-4 rounded text-xs text-red-800">
+        {{this.errorMessage}}
+      </div>
+    {{/if}}
+  </div>
+  <div class="mt-8 space-y-6">
+    <div class="rounded-md shadow-sm -space-y-px">
+      <div>
+        <label for="email-address" class="sr-only">
+          Email address
+        </label>
+        <Input
+          data-test-login-input-user
+          autocomplete="email"
+          class="input rounded-t w-full"
+          id="email-address"
+          name="email"
+          placeholder="Email address"
+          required
+          type="email"
+          @value={{this.username}}
+        />
+      </div>
+      <div>
+        <label for="confirmation-code" class="sr-only">
+          Confirmation code
+        </label>
+        <Input
+          data-test-login-input-code
+          autocomplete="current-password"
+          class="input rounded-t w-full"
+          id="confirmation-code"
+          name="confirmation-code"
+          placeholder="Confirmation code"
+          required
+          type="text"
+          @value={{this.code}}
+        />
+      </div>
+    </div>
+
+    {{! TODO: https://app.clickup.com/t/hcw0ey <div class="flex items-center justify-between">
+      <div class="text-sm">
+        <LinkTo @route="settings.cloud.register.resend" class="font-medium text-indigo-600 hover:text-indigo-500">
+          Resend confirmation code
+        </LinkTo>
+      </div>
+    </div> }}
+
+    <div>
+      <button
+        class="btn btn-primary w-full"
+        type="button"
+        {{on "click" this.confirm}}
+      >
+        Confirm account
+      </button>
+    </div>
+  </div>
+</div>

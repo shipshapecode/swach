@@ -1,5 +1,5 @@
 <button
-  class="flex flex-grow items-center mb-1 pb-2 pt-2 w-full hover:text-menu-text-hover"
+  class="flex flex-grow items-center mb-1 pb-2 pt-2 text-alt w-full hover:text-alt-hover"
   type="button"
   {{on "click" (fn this.goBack)}}
 >
@@ -9,10 +9,8 @@
   </span>
 </button>
 
-<div class="bottom-0 p-4 fixed w-full">
-  <SettingsMenu
-    @checkForUpdates={{this.application.checkForUpdates}}
-    @enableDisableAutoStart={{this.application.enableDisableAutoStart}}
-    @toggleShowDockIcon={{this.application.toggleShowDockIcon}}
-  />
+<SettingsNav />
+
+<div class="p-4 text-main-text w-full">
+  {{liquid-outlet}}
 </div>

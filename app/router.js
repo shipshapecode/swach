@@ -11,7 +11,20 @@ Router.map(function () {
   this.route('contrast');
   this.route('kuler');
   this.route('palettes');
-  this.route('settings');
+  this.route('settings', function () {
+    this.route('cloud', function () {
+      this.route('forgot-password');
+      this.route('login');
+      this.route('profile');
+      this.route('register', function () {
+        this.route('confirm');
+        this.route('resend');
+      });
+    });
+    this.route('general');
+    this.route('data');
+    this.route('about');
+  });
   this.route('welcome', function () {
     this.route('auto-start');
     this.route('dock-icon');

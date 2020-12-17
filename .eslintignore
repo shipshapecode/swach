@@ -28,3 +28,6 @@
 
 # Sentry
 /electron-app/sentry-symbols.js
+
+# Types
+/types/

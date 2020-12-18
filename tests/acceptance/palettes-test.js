@@ -1,7 +1,9 @@
 import { module, test } from 'qunit';
 import {
+  blur,
   click,
   currentURL,
+  fillIn,
   find,
   triggerEvent,
   visit
@@ -83,6 +85,33 @@ module('Acceptance | palettes', function (hooks) {
           ).parentElement
         )
         .hasClass('context-menu__item--disabled');
+    });
+
+    test('rename palette', async function (assert) {
+      await visit('/palettes');
+
+      triggerContextMenu('[data-test-palette-row="First Palette"]');
+      await waitForAll();
+
+      await click(
+        document.querySelector('[data-test-context-menu-item="Rename Palette"]')
+          .parentElement
+      );
+
+      await fillIn(
+        '[data-test-palette-row="First Palette"] [data-test-palette-name-input]',
+        'First Palette 123'
+      );
+
+      await blur(
+        '[data-test-palette-row="First Palette 123"] [data-test-palette-name-input]'
+      );
+
+      assert
+        .dom(
+          '[data-test-palette-row="First Palette 123"] [data-test-palette-name]'
+        )
+        .hasText('First Palette 123');
     });
   });
 

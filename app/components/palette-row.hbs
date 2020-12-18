@@ -10,6 +10,7 @@
     <h6 class="text-sm">
       {{#if this.isEditing}}
         <input
+          data-test-palette-name-input
           class="input h-6"
           value={{@palette.name}}
           type="text"
@@ -19,7 +20,10 @@
           {{on "input" this.updatePaletteName}}
         />
       {{else}}
-        <div class="flex flex-grow h-6 items-center text-main-text w-full">
+        <div
+          data-test-palette-name
+          class="flex flex-grow h-6 items-center text-main-text w-full"
+        >
           {{#if @palette.isLocked}}
             {{svg-jar "lock" class="icon mr-1" height="12" width="12"}}
           {{/if}}

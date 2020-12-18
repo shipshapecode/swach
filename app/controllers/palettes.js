@@ -12,14 +12,21 @@ export default class PalettesController extends Controller {
 
   @tracked showFavorites = false;
 
+  get modelArray() {
+    return this.model.value;
+  }
+
+  get colorHistory() {
+    return this.modelArray.findBy('isColorHistory', true);
+  }
+
   get last16Colors() {
-    const colors =
-      (this.model.colorHistory && this.model.colorHistory.colors) || [];
+    const colors = (this.colorHistory && this.colorHistory.colors) || [];
     return colors.sortBy('createdAt').reverse().slice(0, 16);
   }
 
   get palettes() {
-    let palettes = this.model.palettes || [];
+    let palettes = this.modelArray || [];
 
     if (this.showFavorites) {
       palettes = palettes.filterBy('isFavorite', true);
@@ -195,7 +202,7 @@ export default class PalettesController extends Controller {
   transitionToColorHistory(event) {
     event.stopPropagation();
     this.router.transitionTo('colors', {
-      queryParams: { paletteId: this.model.colorHistory.id }
+      queryParams: { paletteId: this.colorHistory.id }
     });
   }
 }

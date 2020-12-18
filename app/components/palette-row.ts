@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { action, set } from '@ember/object';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import fade from 'ember-animated/transitions/fade';
@@ -95,10 +95,10 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   contextSelection: any;
   contextDetails: any;
   fade = fade;
-  isEditing = false;
   nameInput!: HTMLElement;
   showMenu = false;
   @tracked deleteConfirm = false;
+  @tracked isEditing = false;
 
   constructor(owner: unknown, args: PaletteRowArgs) {
     super(owner, args);
@@ -201,7 +201,10 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   @action
   favoritePalette() {
     if (!this.isLocked) {
-      this.args.palette.toggleProperty('isFavorite');
+      this.args.palette.replaceAttribute(
+        'isFavorite',
+        !this.args.palette.isFavorite
+      );
     }
   }
 
@@ -213,12 +216,12 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
 
   @action
   lockPalette() {
-    this.args.palette.toggleProperty('isLocked');
+    this.args.palette.replaceAttribute('isLocked', !this.args.palette.isLocked);
   }
 
   @action
   toggleIsEditing(): void {
-    set(this, 'isEditing', !this.isEditing);
+    this.isEditing = !this.isEditing;
   }
 
   @action
@@ -230,7 +233,15 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   @action
-  updatePaletteName(): void {
-    set(this, 'isEditing', false);
+  stopEditing(): void {
+    this.isEditing = false;
+  }
+
+  @action
+  updatePaletteName(e: InputEvent): void {
+    this.args.palette.replaceAttribute(
+      'name',
+      (<HTMLInputElement>e.target).value
+    );
   }
 }

@@ -9,13 +9,14 @@
   <div class="flex items-center justify-between pb-2 w-full">
     <h6 class="text-sm">
       {{#if this.isEditing}}
-        <Input
+        <input
           class="input h-6"
-          @type="text"
-          @value={{@palette.name}}
+          value={{@palette.name}}
+          type="text"
           {{did-insert this.insertedNameInput}}
-          {{on "blur" (fn this.updatePaletteName @palette)}}
+          {{on "blur" this.stopEditing}}
           {{on "keypress" this.enterPress}}
+          {{on "input" this.updatePaletteName}}
         />
       {{else}}
         <div class="flex flex-grow h-6 items-center text-main-text w-full">

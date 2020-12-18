@@ -77,7 +77,7 @@ export default class ColorPicker extends Component {
           const addColorOperation = t.addRecord(colorCopy);
           colorsList.insertAt(colorToEditIndex, {
             type: 'color',
-            id: addColorOperation.record.id
+            id: addColorOperation.operation.record.id
           });
 
           const operations = [

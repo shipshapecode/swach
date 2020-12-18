@@ -1,6 +1,6 @@
 /* eslint-disable ember/no-computed-properties-in-native-classes */
 import Component from '@glimmer/component';
-import { action, computed } from '@ember/object';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { fadeOut } from 'ember-animated/motions/opacity';
 import move from 'ember-animated/motions/move';
@@ -10,7 +10,6 @@ export default class ColorsList extends Component {
   @service store;
   @service undoManager;
 
-  @computed('args.palette.{colors.[],colorOrder.[],isColorHistory}')
   get sortedColors() {
     const { palette } = this.args;
     if (palette.isColorHistory) {

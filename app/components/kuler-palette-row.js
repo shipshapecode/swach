@@ -44,7 +44,7 @@ export default class KulerPaletteRowComponent extends Component {
         }
       });
 
-      const paletteId = paletteOperation.record.id;
+      const paletteId = paletteOperation.operation.record.id;
 
       const colorOperations = colors.map((color) => {
         const { createdAt, hex, name, r, g, b, a } = color;
@@ -62,8 +62,8 @@ export default class KulerPaletteRowComponent extends Component {
           }
         });
       });
-      const colorsList = colorOperations.map((op) => {
-        return { type: 'color', id: op.record.id };
+      const colorsList = colorOperations.map(({ operation }) => {
+        return { type: 'color', id: operation.record.id };
       });
 
       return [

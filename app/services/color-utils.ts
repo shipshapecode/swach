@@ -4,17 +4,32 @@ import { inject as service } from '@ember/service';
 import { rgbaToHex } from 'swach/data-models/color';
 import { storageFor } from 'ember-local-storage';
 import { TinyColor } from '@ctrl/tinycolor';
+import { Store } from 'ember-orbit/addon/index';
 import NearestColor from 'swach/services/nearest-color';
 import Color from 'swach/data-models/color';
-// import { Store } from 'ember-orbit/addon/index';
+import { SettingsStorage } from 'swach/storages/settings';
+
+interface ColorPOJO {
+  type: 'color';
+  id?: string;
+  attributes: {
+    name: string;
+    createdAt: Date;
+    hex: string;
+    r: number;
+    g: number;
+    b: number;
+    a: number;
+  };
+}
 
 export default class ColorUtilsService extends Service {
   @service nearestColor!: NearestColor;
-  @service store!: any;
+  @service store!: Store;
 
   ipcRenderer: any;
 
-  @storageFor('settings') settings?: {};
+  @storageFor('settings') settings?: SettingsStorage;
 
   constructor() {
     super(...arguments);
@@ -26,7 +41,7 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  createColorPOJO(color: any) {
+  createColorPOJO(color: any): ColorPOJO {
     const tinyColor = new TinyColor(color);
     const { r, g, b, a } = tinyColor.toRgb();
     const namedColor = this.nearestColor.nearest({ r, g, b });
@@ -47,7 +62,7 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  async copyColorToClipboard(color: Color, event: any) {
+  async copyColorToClipboard(color: Color, event?: any): Promise<void> {
     const isDropping =
       event &&
       event.target &&
@@ -57,14 +72,14 @@ export default class ColorUtilsService extends Service {
     if (!isDropping) {
       this.ipcRenderer.send('copyColorToClipboard', color.hex);
 
-      // @ts-ignore
+      // @ts-expect-error: nested keys do not work for TS
       // eslint-disable-next-line ember/no-get
       if (get(this, 'settings.sounds')) {
         const audio = new Audio('assets/sounds/pluck_short.wav');
         await audio.play();
       }
 
-      // @ts-ignore
+      // @ts-expect-error: nested keys do not work for TS
       // eslint-disable-next-line ember/no-get
       if (get(this, 'settings.notifications')) {
         new window.Notification(`${color.name} - ${color.hex}`, {

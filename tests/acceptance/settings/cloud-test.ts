@@ -4,6 +4,7 @@ import { setupApplicationTest } from 'ember-qunit';
 import resetStorages from 'ember-local-storage/test-support/reset-storage';
 import { mockCognitoUser } from 'ember-cognito/test-support';
 import sinon from 'sinon';
+import { waitForAll } from 'swach/tests/helpers';
 import seedOrbit from '../../orbit/seed';
 
 let sinonSandBox: any;
@@ -31,11 +32,11 @@ module('Acceptance | settings/cloud', function (hooks) {
   test('user can login', async function (assert) {
     await mockCognitoUser({
       username: 'testuser@gmail.com',
-      userAttributes: [
-        { name: 'sub', value: 'aaaabbbb-cccc-dddd-eeee-ffffgggghhhh' },
-        { name: 'email', value: 'testuser@gmail.com' },
-        { name: 'email_verified', value: 'false' }
-      ]
+      attributes: {
+        sub: 'aaaabbbb-cccc-dddd-eeee-ffffgggghhhh',
+        email: 'testuser@gmail.com',
+        email_verified: 'false'
+      }
     });
     const authenticator = this.owner.lookup('authenticator:cognito');
     sinonSandBox.stub(authenticator, 'authenticate').resolves();
@@ -44,6 +45,7 @@ module('Acceptance | settings/cloud', function (hooks) {
     await fillIn('[data-test-login-input-user]', 'testuser@gmail.com');
     await fillIn('[data-test-login-input-password]', 'password');
     await click('[data-test-login-submit]');
+    await waitForAll();
 
     assert.equal(currentURL(), '/settings/cloud/profile');
     assert

@@ -19,7 +19,7 @@
     "install-deps": "cd electron-app && yarn install && cd ../ && yarn install",
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*",
     "lint:hbs": "ember-template-lint .",
-    "lint:js": "eslint .",
+    "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx",
     "make": "ember electron:make",
     "start": "ember serve",
     "test": "npm-run-all lint:* test:*",
@@ -51,6 +51,8 @@
     "@types/ember__test-helpers": "^1.7.3",
     "@types/qunit": "^2.11.1",
     "@types/sinon": "^9.0.9",
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/parser": "^4.10.0",
     "babel-eslint": "^10.1.0",
     "babel-preset-env": "^1.7.0",
     "broccoli-asset-rev": "^3.0.0",
@@ -123,7 +125,7 @@
     "wcag-contrast": "^3.0.0"
   },
   "engines": {
-    "node": ">= 12"
+    "node": ">= 14"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"

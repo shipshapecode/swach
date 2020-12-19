@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, render, triggerEvent } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
-import { waitForAll } from '../../helpers';
+import { waitForAll } from 'swach/tests/helpers';
 
 module('Integration | Component | palette-row', function (hooks) {
   setupRenderingTest(hooks);
@@ -13,7 +13,9 @@ module('Integration | Component | palette-row', function (hooks) {
       isLocked: false,
       name: 'Test Palette'
     });
-    this.set('moveColorsBetweenPalettes', () => {});
+    this.set('moveColorsBetweenPalettes', () => {
+      /* Intentionally empty */
+    });
 
     await render(
       hbs`<PaletteRow @palette={{this.palette}} @moveColorsBetweenPalettes={{this.moveColorsBetweenPalettes}}/>`

@@ -18,7 +18,7 @@ export default class ForgotPasswordComponent extends Component {
   @tracked username?: string;
 
   @action
-  async forgotPassword() {
+  async forgotPassword(): Promise<void> {
     if (this.username) {
       try {
         await this.cognito.forgotPassword(this.username);
@@ -31,7 +31,7 @@ export default class ForgotPasswordComponent extends Component {
   }
 
   @action
-  async forgotPasswordSubmit() {
+  async forgotPasswordSubmit(): Promise<void> {
     const { username, code, password } = this;
 
     if (username && code && password) {

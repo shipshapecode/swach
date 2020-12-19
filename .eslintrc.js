@@ -23,8 +23,8 @@ module.exports = {
     requireNode: false
   },
   rules: {
-    'ember/no-jquery': 'error',
     'require-yield': 'off',
+    'ember/no-jquery': 'error',
     'ember/classic-decorator-hooks': 'error',
     'ember/classic-decorator-no-classic-methods': 'error'
   },
@@ -58,6 +58,7 @@ module.exports = {
       plugins: ['node'],
       extends: ['plugin:node/recommended'],
       rules: {
+        '@typescript-eslint/no-var-requires': 'off',
         // this can be removed once the following is fixed
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
         'no-console': 'off',
@@ -74,6 +75,16 @@ module.exports = {
             allowModules: ['electron', 'ember-electron', 'menubar']
           }
         ]
+      }
+    },
+    // Typescript files
+    {
+      parser: '@typescript-eslint/parser',
+      files: ['app/**/*.ts'],
+      plugins: ['@typescript-eslint'],
+      extends: ['plugin:@typescript-eslint/recommended'],
+      rules: {
+        'prefer-rest-params': 'off'
       }
     }
   ]

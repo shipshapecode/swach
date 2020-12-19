@@ -7,7 +7,7 @@ import {
 } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import seedOrbit from '../orbit/seed';
-import { waitForAll } from '../helpers';
+import { waitForAll } from 'swach/tests/helpers';
 
 module('Acceptance | contrast', function (hooks) {
   setupApplicationTest(hooks);

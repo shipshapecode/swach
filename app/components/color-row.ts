@@ -7,10 +7,11 @@ import fade from 'ember-animated/transitions/fade';
 import ColorUtils from 'swach/services/color-utils';
 import Router from '@ember/routing/router-service';
 import PaletteModel from 'swach/data-models/palette';
+import ColorModel from 'swach/data-models/color';
 
 interface ColorRowArgs {
   color: any;
-  deleteColor: Function;
+  deleteColor: (color: ColorModel) => void;
   palette: PaletteModel;
   showActions: boolean;
 }
@@ -32,7 +33,7 @@ export default class ColorRow extends Component<ColorRowArgs> {
   }
 
   @action
-  deleteColor(color: any) {
+  deleteColor(color: ColorModel): void {
     if (!this.args.palette.isLocked) {
       if (this.deleteConfirm) {
         this.args.deleteColor(color);
@@ -43,7 +44,7 @@ export default class ColorRow extends Component<ColorRowArgs> {
   }
 
   @action
-  transitionToKuler(event: Event) {
+  transitionToKuler(event: Event): void {
     event.stopPropagation();
     this.router.transitionTo('kuler', {
       queryParams: { colorId: this.args.color.id }

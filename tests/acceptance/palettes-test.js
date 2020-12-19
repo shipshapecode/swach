@@ -11,7 +11,7 @@ import {
 import { setupApplicationTest } from 'ember-qunit';
 import { move, sort } from 'ember-drag-sort/utils/trigger';
 import { triggerContextMenu } from '../helpers';
-import { waitForAll } from '../helpers';
+import { waitForAll } from 'swach/tests/helpers';
 import seedOrbit from '../orbit/seed';
 
 module('Acceptance | palettes', function (hooks) {

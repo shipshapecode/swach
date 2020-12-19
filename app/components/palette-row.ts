@@ -4,22 +4,41 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import fade from 'ember-animated/transitions/fade';
 import { clone } from '@orbit/utils';
+import Router from '@ember/routing/router-service';
+import { Store } from 'ember-orbit';
 import PaletteModel from 'swach/data-models/palette';
+import ColorUtils from 'swach/services/color-utils';
+import UndoManager from 'swach/services/undo-manager';
+import ColorModel from 'swach/data-models/color';
 
 interface PaletteRowArgs {
-  moveColorsBetweenPalettes: Function;
+  moveColorsBetweenPalettes: ({
+    sourceArgs,
+    sourceList,
+    sourceIndex,
+    targetArgs,
+    targetList,
+    targetIndex
+  }: {
+    sourceArgs: { isColorHistory: boolean; parent: PaletteModel };
+    sourceList: ColorModel[];
+    sourceIndex: number;
+    targetArgs: { isColorHistory: boolean; parent: PaletteModel };
+    targetList: ColorModel[];
+    targetIndex: number;
+  }) => void;
   palette: PaletteModel;
 }
 
 class ContextMenuOption {
-  action: Function;
+  action: () => void;
   icon: string;
   label: string;
 
   @tracked palette: PaletteModel;
 
   constructor(
-    action: Function,
+    action: () => void,
     icon: string,
     label: string,
     palette: PaletteModel
@@ -36,11 +55,11 @@ class ContextMenuOption {
 }
 
 class FavoriteOption {
-  action: Function;
+  action: () => void;
 
   @tracked palette: PaletteModel;
 
-  constructor(action: Function, palette: PaletteModel) {
+  constructor(action: () => void, palette: PaletteModel) {
     this.action = action;
     this.palette = palette;
   }
@@ -61,11 +80,11 @@ class FavoriteOption {
 }
 
 class LockOption {
-  action: Function;
+  action: () => void;
 
   @tracked palette: PaletteModel;
 
-  constructor(action: Function, palette: PaletteModel) {
+  constructor(action: () => void, palette: PaletteModel) {
     this.action = action;
     this.palette = palette;
   }
@@ -82,12 +101,12 @@ class LockOption {
 }
 
 export default class PaletteRowComponent extends Component<PaletteRowArgs> {
-  @service colorUtils!: any;
+  @service colorUtils!: ColorUtils;
   @service contextMenu!: any;
   @service dragSort!: any;
-  @service router!: any;
-  @service store!: any;
-  @service undoManager!: any;
+  @service router!: Router;
+  @service store!: Store;
+  @service undoManager!: UndoManager;
 
   contextItems:
     | (ContextMenuOption | FavoriteOption | LockOption)[]
@@ -138,11 +157,11 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
     );
   }
 
-  get isLocked() {
+  get isLocked(): boolean {
     return this.args.palette.isLocked;
   }
 
-  get sortedColors() {
+  get sortedColors(): (ColorModel | undefined)[] {
     return this.args.palette.colorOrder.map(
       (color: { type: string; id: string }) => {
         return this.args.palette.colors.findBy('id', color.id);
@@ -151,7 +170,7 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   @action
-  contextMenuTrigger(e: Event) {
+  contextMenuTrigger(e: Event): void {
     const items = this.contextItems;
     const selection = this.contextSelection;
     const details = this.contextDetails;
@@ -163,10 +182,12 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   @action
-  async deletePalette() {
+  async deletePalette(): Promise<void> {
     if (!this.isLocked) {
       if (this.deleteConfirm) {
-        await this.store.update((t: any) => t.removeRecord(this.args.palette));
+        await this.store.update((t: Store['transformBuilder']) =>
+          t.removeRecord(this.args.palette)
+        );
         this.undoManager.setupUndoRedo();
       }
 
@@ -175,31 +196,35 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   @action
-  async deletePaletteContextMenu() {
+  async deletePaletteContextMenu(): Promise<void> {
     if (!this.isLocked) {
-      await this.store.update((t: any) => t.removeRecord(this.args.palette));
+      await this.store.update((t: Store['transformBuilder']) =>
+        t.removeRecord(this.args.palette)
+      );
       this.undoManager.setupUndoRedo();
     }
   }
 
   @action
-  async duplicatePalette() {
+  async duplicatePalette(): Promise<void> {
     const paletteCopy = clone(this.args.palette.getData());
     delete paletteCopy.id;
-    await this.store.update((t: any) => t.addRecord(paletteCopy));
+    await this.store.update((t: Store['transformBuilder']) =>
+      t.addRecord(paletteCopy)
+    );
 
     this.undoManager.setupUndoRedo();
   }
 
   @action
-  enterPress(event: KeyboardEvent) {
+  enterPress(event: KeyboardEvent): void {
     if (event.keyCode === 13) {
       this.nameInput.blur();
     }
   }
 
   @action
-  favoritePalette() {
+  favoritePalette(): void {
     if (!this.isLocked) {
       this.args.palette.replaceAttribute(
         'isFavorite',
@@ -209,13 +234,13 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   @action
-  insertedNameInput(element: HTMLElement) {
+  insertedNameInput(element: HTMLElement): void {
     this.nameInput = element;
     this.nameInput.focus();
   }
 
   @action
-  lockPalette() {
+  lockPalette(): void {
     this.args.palette.replaceAttribute('isLocked', !this.args.palette.isLocked);
   }
 

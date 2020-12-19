@@ -8,6 +8,20 @@ import NearestColor from 'swach/services/nearest-color';
 import Color from 'swach/data-models/color';
 // import { Store } from 'ember-orbit/addon/index';
 
+interface ColorPOJO {
+    type: 'color';
+    id?: string;
+    attributes: {
+      name: string;
+      createdAt: Date;
+      hex: string;
+      r: number;
+      g: number;
+      b: number;
+      a: number;
+    }
+}
+
 export default class ColorUtilsService extends Service {
   @service nearestColor!: NearestColor;
   @service store!: any;
@@ -26,7 +40,7 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  createColorPOJO(color: any) {
+  createColorPOJO(color: any): ColorPOJO {
     const tinyColor = new TinyColor(color);
     const { r, g, b, a } = tinyColor.toRgb();
     const namedColor = this.nearestColor.nearest({ r, g, b });
@@ -47,7 +61,7 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  async copyColorToClipboard(color: Color, event: any) {
+  async copyColorToClipboard(color: Color, event?: any) {
     const isDropping =
       event &&
       event.target &&

@@ -277,3 +277,10 @@ export default class PalettesController extends Controller {
     });
   }
 }
+
+// DO NOT DELETE: this is how TypeScript knows how to look up your controllers.
+declare module '@ember/controller' {
+  interface Registry {
+    'palettes': PalettesController;
+  }
+}

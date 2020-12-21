@@ -54,7 +54,7 @@
     "babel-eslint": "^10.1.0",
     "babel-preset-env": "^1.7.0",
     "broccoli-asset-rev": "^3.0.0",
-    "color-name-list": "^7.25.0",
+    "color-name-list": "^7.29.0",
     "ember-animated": "^0.10.1",
     "ember-auto-import": "^1.10.0",
     "ember-box": "^0.1.0",

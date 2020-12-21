@@ -31,14 +31,14 @@ interface PaletteRowArgs {
 }
 
 class ContextMenuOption {
-  action: Function;
+  action: () => void;
   icon: string;
   label: string;
 
   @tracked palette: PaletteModel;
 
   constructor(
-    action: Function,
+    action: () => void,
     icon: string,
     label: string,
     palette: PaletteModel
@@ -55,11 +55,11 @@ class ContextMenuOption {
 }
 
 class FavoriteOption {
-  action: Function;
+  action: () => void;
 
   @tracked palette: PaletteModel;
 
-  constructor(action: Function, palette: PaletteModel) {
+  constructor(action: () => void, palette: PaletteModel) {
     this.action = action;
     this.palette = palette;
   }
@@ -80,11 +80,11 @@ class FavoriteOption {
 }
 
 class LockOption {
-  action: Function;
+  action: () => void;
 
   @tracked palette: PaletteModel;
 
-  constructor(action: Function, palette: PaletteModel) {
+  constructor(action: () => void, palette: PaletteModel) {
     this.action = action;
     this.palette = palette;
   }

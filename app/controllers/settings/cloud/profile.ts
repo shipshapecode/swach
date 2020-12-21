@@ -9,7 +9,7 @@ export default class SettingsAccountController extends Controller {
   @service session!: Session;
 
   @action
-  logOut() {
+  logOut(): void {
     this.session.invalidate();
     this.router.transitionTo('settings.cloud.login');
   }

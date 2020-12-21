@@ -32,7 +32,7 @@ export default class ColorRow extends Component<ColorRowArgs> {
   }
 
   @action
-  deleteColor(color: any) {
+  deleteColor(color: any): void {
     if (!this.args.palette.isLocked) {
       if (this.deleteConfirm) {
         this.args.deleteColor(color);
@@ -43,7 +43,7 @@ export default class ColorRow extends Component<ColorRowArgs> {
   }
 
   @action
-  transitionToKuler(event: Event) {
+  transitionToKuler(event: Event): void {
     event.stopPropagation();
     this.router.transitionTo('kuler', {
       queryParams: { colorId: this.args.color.id }

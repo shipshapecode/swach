@@ -13,7 +13,9 @@ module('Integration | Component | palette-row', function (hooks) {
       isLocked: false,
       name: 'Test Palette'
     });
-    this.set('moveColorsBetweenPalettes', () => {});
+    this.set('moveColorsBetweenPalettes', () => {
+      /* Intentionally empty */
+    });
 
     await render(
       hbs`<PaletteRow @palette={{this.palette}} @moveColorsBetweenPalettes={{this.moveColorsBetweenPalettes}}/>`

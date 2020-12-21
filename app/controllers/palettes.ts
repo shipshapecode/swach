@@ -19,20 +19,20 @@ export default class PalettesController extends Controller {
 
   @tracked showFavorites = false;
 
-  get modelArray() {
+  get modelArray(): PaletteModel[] {
     return this.model.value;
   }
 
-  get colorHistory() {
+  get colorHistory(): PaletteModel {
     return this.modelArray.findBy('isColorHistory', true);
   }
 
-  get last16Colors() {
+  get last16Colors(): ColorModel[] {
     const colors = (this.colorHistory && this.colorHistory.colors) || [];
     return colors.sortBy('createdAt').reverse().slice(0, 16);
   }
 
-  get palettes() {
+  get palettes(): PaletteModel[] {
     let palettes = this.modelArray || [];
 
     if (this.showFavorites) {
@@ -43,7 +43,7 @@ export default class PalettesController extends Controller {
   }
 
   @action
-  async createNewPalette() {
+  async createNewPalette(): Promise<void> {
     await this.store.addRecord({
       type: 'palette',
       name: 'Palette',
@@ -83,7 +83,7 @@ export default class PalettesController extends Controller {
     targetArgs: { isColorHistory: boolean; parent: PaletteModel };
     targetList: ColorModel[];
     targetIndex: number;
-  }) {
+  }): Promise<void> {
     // If the same list and same index, we are not moving anywhere, so return
     if (sourceList === targetList && sourceIndex === targetIndex) return;
 
@@ -117,7 +117,7 @@ export default class PalettesController extends Controller {
             return { type: 'color', id: color.id };
           });
 
-          let colorToRemove = sourceColorList.findBy('id', sourceColor.id);
+          const colorToRemove = sourceColorList.findBy('id', sourceColor.id);
 
           if (colorToRemove) {
             sourceColorList.removeObject(colorToRemove);
@@ -172,7 +172,7 @@ export default class PalettesController extends Controller {
     targetList: ColorModel[],
     targetIndex: number,
     targetParent: PaletteModel
-  ) {
+  ): Promise<void> {
     if (sourceList !== targetList) {
       const colorsList = targetList.map((color) => {
         return { type: 'color', id: color.id };
@@ -226,7 +226,7 @@ export default class PalettesController extends Controller {
     targetList: ColorModel[],
     targetIndex: number,
     targetParent: PaletteModel
-  ) {
+  ): Promise<void> {
     const targetColorsList = targetList.map((color: ColorModel) => {
       return { type: 'color', id: color.id };
     });
@@ -270,7 +270,7 @@ export default class PalettesController extends Controller {
   }
 
   @action
-  transitionToColorHistory(event: InputEvent) {
+  transitionToColorHistory(event: InputEvent): void {
     event.stopPropagation();
     this.router.transitionTo('colors', {
       queryParams: { paletteId: this.colorHistory.id }
@@ -281,6 +281,6 @@ export default class PalettesController extends Controller {
 // DO NOT DELETE: this is how TypeScript knows how to look up your controllers.
 declare module '@ember/controller' {
   interface Registry {
-    'palettes': PalettesController;
+    palettes: PalettesController;
   }
 }

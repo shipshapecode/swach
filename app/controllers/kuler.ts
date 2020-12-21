@@ -7,7 +7,7 @@ export default class KulerController extends Controller {
   colorId = null;
 
   @action
-  goBack() {
+  goBack(): void {
     window.history.back();
   }
 }
@@ -15,6 +15,6 @@ export default class KulerController extends Controller {
 // DO NOT DELETE: this is how TypeScript knows how to look up your controllers.
 declare module '@ember/controller' {
   interface Registry {
-    'kuler': KulerController;
+    kuler: KulerController;
   }
 }

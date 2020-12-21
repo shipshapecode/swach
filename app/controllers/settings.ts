@@ -9,7 +9,7 @@ export default class SettingsController extends Controller {
   @service session!: Session;
 
   @action
-  goBack() {
+  goBack(): void {
     window.history.back();
   }
 }
@@ -17,6 +17,6 @@ export default class SettingsController extends Controller {
 // DO NOT DELETE: this is how TypeScript knows how to look up your controllers.
 declare module '@ember/controller' {
   interface Registry {
-    'settings': SettingsController;
+    settings: SettingsController;
   }
 }

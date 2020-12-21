@@ -9,9 +9,24 @@ import { Store } from 'ember-orbit';
 import PaletteModel from 'swach/data-models/palette';
 import ColorUtils from 'swach/services/color-utils';
 import UndoManager from 'swach/services/undo-manager';
+import ColorModel from 'swach/data-models/color';
 
 interface PaletteRowArgs {
-  moveColorsBetweenPalettes: Function;
+  moveColorsBetweenPalettes: ({
+    sourceArgs,
+    sourceList,
+    sourceIndex,
+    targetArgs,
+    targetList,
+    targetIndex
+  }: {
+    sourceArgs: { isColorHistory: boolean; parent: PaletteModel };
+    sourceList: ColorModel[];
+    sourceIndex: number;
+    targetArgs: { isColorHistory: boolean; parent: PaletteModel };
+    targetList: ColorModel[];
+    targetIndex: number;
+  }) => void;
   palette: PaletteModel;
 }
 
@@ -142,11 +157,11 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
     );
   }
 
-  get isLocked() {
+  get isLocked(): boolean {
     return this.args.palette.isLocked;
   }
 
-  get sortedColors() {
+  get sortedColors(): ColorModel[] {
     return this.args.palette.colorOrder.map(
       (color: { type: string; id: string }) => {
         return this.args.palette.colors.findBy('id', color.id);
@@ -155,7 +170,7 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   @action
-  contextMenuTrigger(e: Event) {
+  contextMenuTrigger(e: Event): void {
     const items = this.contextItems;
     const selection = this.contextSelection;
     const details = this.contextDetails;
@@ -167,7 +182,7 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   @action
-  async deletePalette() {
+  async deletePalette(): void {
     if (!this.isLocked) {
       if (this.deleteConfirm) {
         await this.store.update((t: Store['transformBuilder']) =>
@@ -181,7 +196,7 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   @action
-  async deletePaletteContextMenu() {
+  async deletePaletteContextMenu(): Promise<void> {
     if (!this.isLocked) {
       await this.store.update((t: Store['transformBuilder']) =>
         t.removeRecord(this.args.palette)
@@ -191,7 +206,7 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   @action
-  async duplicatePalette() {
+  async duplicatePalette(): Promise<void> {
     const paletteCopy = clone(this.args.palette.getData());
     delete paletteCopy.id;
     await this.store.update((t: Store['transformBuilder']) =>
@@ -202,14 +217,14 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   @action
-  enterPress(event: KeyboardEvent) {
+  enterPress(event: KeyboardEvent): void {
     if (event.keyCode === 13) {
       this.nameInput.blur();
     }
   }
 
   @action
-  favoritePalette() {
+  favoritePalette(): void {
     if (!this.isLocked) {
       this.args.palette.replaceAttribute(
         'isFavorite',
@@ -219,13 +234,13 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   @action
-  insertedNameInput(element: HTMLElement) {
+  insertedNameInput(element: HTMLElement): void {
     this.nameInput = element;
     this.nameInput.focus();
   }
 
   @action
-  lockPalette() {
+  lockPalette(): void {
     this.args.palette.replaceAttribute('isLocked', !this.args.palette.isLocked);
   }
 

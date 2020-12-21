@@ -2,7 +2,7 @@
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
@@ -10,11 +10,12 @@ module.exports = {
       legacyDecorators: true
     }
   },
-  plugins: ['ember'],
+  plugins: ['ember', '@typescript-eslint'],
   extends: [
     'eslint:recommended',
     'plugin:ember/recommended',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
+    'plugin:@typescript-eslint/recommended'
   ],
   env: {
     browser: true
@@ -23,8 +24,9 @@ module.exports = {
     requireNode: false
   },
   rules: {
-    'ember/no-jquery': 'error',
+    'prefer-rest-params': 'off',
     'require-yield': 'off',
+    'ember/no-jquery': 'error',
     'ember/classic-decorator-hooks': 'error',
     'ember/classic-decorator-no-classic-methods': 'error'
   },
@@ -58,6 +60,7 @@ module.exports = {
       plugins: ['node'],
       extends: ['plugin:node/recommended'],
       rules: {
+        '@typescript-eslint/no-var-requires': 'off',
         // this can be removed once the following is fixed
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
         'no-console': 'off',

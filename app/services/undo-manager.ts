@@ -1,7 +1,8 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
+import { Store } from 'ember-orbit/addon/index';
 
-function removeFromTo(array, from, to) {
+function removeFromTo(array: any[], from: number, to: number) {
   array.splice(
     from,
     !to ||
@@ -14,30 +15,32 @@ function removeFromTo(array, from, to) {
 }
 
 export default class UndoManager extends Service {
-  @service store;
+  @service store!: Store;
 
   callback = null;
   commands = [];
   index = -1;
+  ipcRenderer: any;
   isExecuting = false;
   limit = 0;
+  undoListener?: (e: KeyboardEvent) => any;
 
   constructor() {
     super(...arguments);
 
     // If we have Electron running, use the application undo/redo, else use document
     if (typeof requireNode !== 'undefined') {
-      let { ipcRenderer } = requireNode('electron');
+      const { ipcRenderer } = requireNode('electron');
       this.ipcRenderer = ipcRenderer;
 
-      this.ipcRenderer.on('undoRedo', async (event, type) => {
+      this.ipcRenderer.on('undoRedo', async (_event: any, type: string) => {
         const isRedo = type === 'redo';
         const isUndo = type === 'undo';
 
         await this._doUndoRedo(isRedo, isUndo);
       });
     } else {
-      this.undoListener = async (e) => {
+      this.undoListener = async (e: KeyboardEvent) => {
         {
           const key = e.which || e.keyCode;
           // testing for CMD or CTRL
@@ -54,7 +57,7 @@ export default class UndoManager extends Service {
     }
   }
 
-  willDestroy() {
+  willDestroy(): void {
     super.willDestroy(...arguments);
 
     if (typeof requireNode === 'undefined' && this.undoListener) {
@@ -64,12 +67,11 @@ export default class UndoManager extends Service {
 
   /**
    * Abstracted out the undo/redo execution so we can use it either in Electron or the browser
-   * @param {boolean} isRedo true if operation is 'redo'
-   * @param {boolean} isUndo true if operation is 'undo'
-   * @returns {Promise<void>}
+   * @param isRedo true if operation is 'redo'
+   * @param isUndo true if operation is 'undo'
    * @private
    */
-  async _doUndoRedo(isRedo, isUndo) {
+  async _doUndoRedo(isRedo: boolean, isUndo: boolean): Promise<void> {
     if (isRedo) {
       if (!this.isExecuting && this.hasRedo()) {
         await this.redo();
@@ -96,7 +98,7 @@ export default class UndoManager extends Service {
   /**
    * Add a command to the queue.
    */
-  async add(command) {
+  async add(command: { undo: () => Promise<void>; redo: () => Promise<void> }) {
     if (this.isExecuting) {
       return this;
     }
@@ -142,9 +144,9 @@ export default class UndoManager extends Service {
     return executed;
   }
 
-  /*
-            Perform redo: call the redo function at the next index and increase the index by 1.
-            */
+  /**
+   * Perform redo: call the redo function at the next index and increase the index by 1.
+   */
   async redo() {
     const command = this.commands[this.index + 1];
     if (!command) {
@@ -161,7 +163,7 @@ export default class UndoManager extends Service {
   /**
    * Clears the memory, losing all stored states. Reset the index.
    */
-  clear() {
+  clear(): void {
     const prev_size = this.commands.length;
 
     this.commands = [];
@@ -172,11 +174,11 @@ export default class UndoManager extends Service {
     }
   }
 
-  hasUndo() {
+  hasUndo(): boolean {
     return this.index !== -1;
   }
 
-  hasRedo() {
+  hasRedo(): boolean {
     return this.index < this.commands.length - 1;
   }
 
@@ -184,11 +186,11 @@ export default class UndoManager extends Service {
     return this.commands;
   }
 
-  getIndex() {
+  getIndex(): number {
     return this.index;
   }
 
-  setLimit(l) {
+  setLimit(l): void {
     this.limit = l;
   }
 

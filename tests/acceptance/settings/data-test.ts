@@ -4,7 +4,7 @@ import { setupApplicationTest } from 'ember-qunit';
 import resetStorages from 'ember-local-storage/test-support/reset-storage';
 import seedOrbit from '../../orbit/seed';
 
-module('Acceptance | settings/data', function(hooks) {
+module('Acceptance | settings/data', function (hooks) {
   setupApplicationTest(hooks);
 
   hooks.beforeEach(async function () {
@@ -16,7 +16,7 @@ module('Acceptance | settings/data', function(hooks) {
     resetStorages();
   });
 
-  test('visiting /settings/data', async function(assert) {
+  test('visiting /settings/data', async function (assert) {
     await visit('/settings/data');
 
     assert.equal(currentURL(), '/settings/data');

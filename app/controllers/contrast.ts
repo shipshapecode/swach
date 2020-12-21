@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 
 export default class ContrastController extends Controller {
   @action
-  goBack() {
+  goBack(): void {
     window.history.back();
   }
 }
@@ -11,6 +11,6 @@ export default class ContrastController extends Controller {
 // DO NOT DELETE: this is how TypeScript knows how to look up your controllers.
 declare module '@ember/controller' {
   interface Registry {
-    'contrast': ContrastController;
+    contrast: ContrastController;
   }
 }

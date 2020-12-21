@@ -1,4 +1,6 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
+import { Store } from 'ember-orbit';
 
 export default class KulerRoute extends Route {
   queryParams = {
@@ -7,7 +9,9 @@ export default class KulerRoute extends Route {
     }
   };
 
-  async model({ colorId }) {
+  @service store!: Store;
+
+  async model({ colorId }: { colorId: string }) {
     if (colorId) {
       return await this.store.findRecord('color', colorId);
     }

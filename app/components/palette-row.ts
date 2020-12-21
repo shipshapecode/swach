@@ -4,7 +4,11 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import fade from 'ember-animated/transitions/fade';
 import { clone } from '@orbit/utils';
+import Router from '@ember/routing/router-service';
+import { Store } from 'ember-orbit';
 import PaletteModel from 'swach/data-models/palette';
+import ColorUtils from 'swach/services/color-utils';
+import UndoManager from 'swach/services/undo-manager';
 
 interface PaletteRowArgs {
   moveColorsBetweenPalettes: Function;
@@ -82,12 +86,12 @@ class LockOption {
 }
 
 export default class PaletteRowComponent extends Component<PaletteRowArgs> {
-  @service colorUtils!: any;
+  @service colorUtils!: ColorUtils;
   @service contextMenu!: any;
   @service dragSort!: any;
-  @service router!: any;
-  @service store!: any;
-  @service undoManager!: any;
+  @service router!: Router;
+  @service store!: Store;
+  @service undoManager!: UndoManager;
 
   contextItems:
     | (ContextMenuOption | FavoriteOption | LockOption)[]
@@ -166,7 +170,9 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   async deletePalette() {
     if (!this.isLocked) {
       if (this.deleteConfirm) {
-        await this.store.update((t: any) => t.removeRecord(this.args.palette));
+        await this.store.update((t: Store['transformBuilder']) =>
+          t.removeRecord(this.args.palette)
+        );
         this.undoManager.setupUndoRedo();
       }
 
@@ -177,7 +183,9 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   @action
   async deletePaletteContextMenu() {
     if (!this.isLocked) {
-      await this.store.update((t: any) => t.removeRecord(this.args.palette));
+      await this.store.update((t: Store['transformBuilder']) =>
+        t.removeRecord(this.args.palette)
+      );
       this.undoManager.setupUndoRedo();
     }
   }
@@ -186,7 +194,9 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   async duplicatePalette() {
     const paletteCopy = clone(this.args.palette.getData());
     delete paletteCopy.id;
-    await this.store.update((t: any) => t.addRecord(paletteCopy));
+    await this.store.update((t: Store['transformBuilder']) =>
+      t.addRecord(paletteCopy)
+    );
 
     this.undoManager.setupUndoRedo();
   }

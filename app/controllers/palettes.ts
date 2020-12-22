@@ -28,7 +28,7 @@ export default class PalettesController extends Controller {
   }
 
   get last16Colors(): ColorModel[] {
-    const colors = (this.colorHistory && this.colorHistory.colors) || [];
+    const colors = this.colorHistory?.colors ?? [];
     return colors.sortBy('createdAt').reverse().slice(0, 16);
   }
 

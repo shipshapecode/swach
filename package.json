@@ -125,7 +125,7 @@
     "wcag-contrast": "^3.0.0"
   },
   "engines": {
-    "node": ">= 12"
+    "node": ">= 14"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"

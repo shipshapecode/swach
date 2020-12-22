@@ -1,6 +1,6 @@
 import StorageObject from 'ember-local-storage/local/object';
 
-type themes = 'dynamic' | 'light' | 'dark';
+export type themes = 'dynamic' | 'light' | 'dark';
 
 export type SettingsStorage = {
   notifications: boolean;

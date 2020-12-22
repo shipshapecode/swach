@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import { Model, Store } from 'ember-orbit';
+import { Store } from 'ember-orbit';
+import PaletteModel from 'swach/data-models/palette';
 
 export default class ColorsRoute extends Route {
   queryParams = {
@@ -15,9 +16,10 @@ export default class ColorsRoute extends Route {
     paletteId
   }: {
     paletteId: string;
-  }): Promise<Model | undefined> {
+  }): Promise<PaletteModel | undefined> {
     if (paletteId) {
-      return await this.store.findRecord('palette', paletteId);
+      const palette = await this.store.findRecord('palette', paletteId);
+      return <PaletteModel>palette;
     }
   }
 }

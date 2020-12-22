@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import { Model, Store } from 'ember-orbit';
+import { Store } from 'ember-orbit';
+import ColorModel from 'swach/data-models/color';
 
 export default class KulerRoute extends Route {
   queryParams = {
@@ -11,9 +12,14 @@ export default class KulerRoute extends Route {
 
   @service store!: Store;
 
-  async model({ colorId }: { colorId: string }): Promise<Model | undefined> {
+  async model({
+    colorId
+  }: {
+    colorId: string;
+  }): Promise<ColorModel | undefined> {
     if (colorId) {
-      return await this.store.findRecord('color', colorId);
+      const color = await this.store.findRecord('color', colorId);
+      return <ColorModel>color;
     }
   }
 }

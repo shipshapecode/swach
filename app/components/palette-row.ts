@@ -161,7 +161,7 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
     return this.args.palette.isLocked;
   }
 
-  get sortedColors(): ColorModel[] {
+  get sortedColors(): (ColorModel | undefined)[] {
     return this.args.palette.colorOrder.map(
       (color: { type: string; id: string }) => {
         return this.args.palette.colors.findBy('id', color.id);

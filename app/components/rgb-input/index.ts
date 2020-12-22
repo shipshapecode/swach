@@ -1,19 +1,25 @@
 import Component from '@glimmer/component';
 import { action, set } from '@ember/object';
-import { rgbaToHex } from 'swach/data-models/color';
+import ColorModel, { rgbaToHex } from 'swach/data-models/color';
 
-export default class RgbaInputComponent extends Component {
+interface RgbaInputArgs {
+  selectedColor: ColorModel;
+  type: 'r' | 'g' | 'b' | 'a';
+  updateColor: () => void;
+}
+
+export default class RgbaInputComponent extends Component<RgbaInputArgs> {
   rgbRegex = /^\d{0,3}$/;
 
   @action
-  enterPress(event) {
+  enterPress(event: KeyboardEvent): void {
     if (event.keyCode === 13) {
-      event.target.blur();
+      (<HTMLInputElement>event.target).blur();
     }
   }
 
   @action
-  isComplete(buffer, opts) {
+  isComplete(buffer: Buffer, opts: { regex: string }): boolean {
     const value = buffer.join('');
     return Boolean(value.length) && new RegExp(opts.regex).test(value);
   }
@@ -23,7 +29,7 @@ export default class RgbaInputComponent extends Component {
    * @param {Event} event
    */
   @action
-  onComplete(event) {
+  onComplete(event): void {
     const { selectedColor, type } = this.args;
     let value = parseFloat(event.target.value);
 
@@ -45,7 +51,7 @@ export default class RgbaInputComponent extends Component {
    * Resets the rgb input value if you navigate away
    */
   @action
-  onIncomplete() {
+  onIncomplete(): void {
     set(
       this.args.selectedColor,
       `_${this.args.type}`,

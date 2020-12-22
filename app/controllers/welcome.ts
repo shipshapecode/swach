@@ -8,3 +8,10 @@ export default class WelcomeController extends Controller {
 
   @storageFor('settings') settings?: SettingsStorage;
 }
+
+// DO NOT DELETE: this is how TypeScript knows how to look up your controllers.
+declare module '@ember/controller' {
+  interface Registry {
+    welcome: WelcomeController;
+  }
+}

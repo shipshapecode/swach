@@ -23,7 +23,7 @@ export default class PalettesController extends Controller {
     return this.model.value;
   }
 
-  get colorHistory(): PaletteModel {
+  get colorHistory(): PaletteModel | undefined {
     return this.modelArray.findBy('isColorHistory', true);
   }
 
@@ -64,7 +64,7 @@ export default class PalettesController extends Controller {
   }: {
     draggedItem: ColorModel;
     items: ColorModel[];
-  }) {
+  }): number {
     return items.indexOf(draggedItem);
   }
 
@@ -221,7 +221,7 @@ export default class PalettesController extends Controller {
   @action
   async _moveColorFromPaletteToPalette(
     item: ColorModel,
-    operations: any[],
+    operations: unknown[],
     t: Store['transformBuilder'],
     targetList: ColorModel[],
     targetIndex: number,
@@ -272,9 +272,11 @@ export default class PalettesController extends Controller {
   @action
   transitionToColorHistory(event: InputEvent): void {
     event.stopPropagation();
-    this.router.transitionTo('colors', {
-      queryParams: { paletteId: this.colorHistory.id }
-    });
+    if (this.colorHistory) {
+      this.router.transitionTo('colors', {
+        queryParams: { paletteId: this.colorHistory.id }
+      });
+    }
   }
 }
 

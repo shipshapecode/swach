@@ -9,5 +9,6 @@ declare module 'ember-cognito/services/cognito' {
       code: string,
       password: string
     ): unknown;
+    signUp(username: string, password: string, attributes: unknown): unknown;
   }
 }

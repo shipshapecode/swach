@@ -10,7 +10,7 @@ import {
 import { setupApplicationTest } from 'ember-qunit';
 import seedOrbit from '../orbit/seed';
 import { animationsSettled } from 'ember-animated/test-support';
-import { waitForAll } from '../helpers';
+import { waitForAll } from 'swach/tests/helpers';
 import { selectChoose } from 'ember-power-select/test-support';
 
 module('Acceptance | kuler', function (hooks) {

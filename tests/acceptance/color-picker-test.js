@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { blur, click, fillIn, visit, triggerEvent } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { animationsSettled } from 'ember-animated/test-support';
-import { waitForAll } from '../helpers';
+import { waitForAll } from 'swach/tests/helpers';
 import seedOrbit from '../orbit/seed';
 
 module('Acceptance | color-picker', function (hooks) {

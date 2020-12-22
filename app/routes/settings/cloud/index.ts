@@ -1,9 +1,11 @@
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
+import CognitoService from 'ember-cognito/services/cognito';
+import Session from 'ember-simple-auth/services/session';
 
 export default class SettingsAccountRoute extends Route {
-  @service cognito;
-  @service session;
+  @service cognito!: CognitoService;
+  @service session!: Session;
 
   async beforeModel(transition) {
     if (!this.session.isAuthenticated) {

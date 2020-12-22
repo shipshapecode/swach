@@ -12,7 +12,11 @@ export default class ColorsRoute extends Route {
 
   @service store!: Store;
 
-  async model({ paletteId }: { paletteId: string }): PaletteModel {
+  async model({
+    paletteId
+  }: {
+    paletteId: string;
+  }): Promise<PaletteModel | undefined> {
     if (paletteId) {
       return await this.store.findRecord('palette', paletteId);
     }

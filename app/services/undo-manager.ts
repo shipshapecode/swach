@@ -17,13 +17,16 @@ function removeFromTo(array: any[], from: number, to: number) {
 export default class UndoManager extends Service {
   @service store!: Store;
 
-  callback = null;
-  commands = [];
+  callback?: () => unknown;
+  commands: {
+    undo: () => Promise<void>;
+    redo: () => Promise<void>;
+  }[] = [];
   index = -1;
   ipcRenderer: any;
   isExecuting = false;
   limit = 0;
-  undoListener?: (e: KeyboardEvent) => any;
+  undoListener?: (e: KeyboardEvent) => unknown;
 
   constructor() {
     super(...arguments);
@@ -33,7 +36,7 @@ export default class UndoManager extends Service {
       const { ipcRenderer } = requireNode('electron');
       this.ipcRenderer = ipcRenderer;
 
-      this.ipcRenderer.on('undoRedo', async (_event: any, type: string) => {
+      this.ipcRenderer.on('undoRedo', async (_event: unknown, type: string) => {
         const isRedo = type === 'redo';
         const isUndo = type === 'undo';
 
@@ -124,7 +127,7 @@ export default class UndoManager extends Service {
   /**
    * Pass a function to be called on undo and redo actions.
    */
-  setCallback(callbackFunc) {
+  setCallback(callbackFunc: () => any): void {
     this.callback = callbackFunc;
   }
 
@@ -182,7 +185,7 @@ export default class UndoManager extends Service {
     return this.index < this.commands.length - 1;
   }
 
-  getCommands() {
+  getCommands(): { undo: () => Promise<void>; redo: () => Promise<void> }[] {
     return this.commands;
   }
 
@@ -194,7 +197,7 @@ export default class UndoManager extends Service {
     this.limit = l;
   }
 
-  setupUndoRedo() {
+  setupUndoRedo(): void {
     const transformId = this.store.transformLog.head;
     const redoTransform = this.store.getTransform(transformId).operations;
     const undoTransform = this.store.getInverseOperations(transformId);

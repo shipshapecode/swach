@@ -12,7 +12,11 @@ export default class KulerRoute extends Route {
 
   @service store!: Store;
 
-  async model({ colorId }: { colorId: string }): ColorModel {
+  async model({
+    colorId
+  }: {
+    colorId: string;
+  }): Promise<ColorModel | undefined> {
     if (colorId) {
       return await this.store.findRecord('color', colorId);
     }

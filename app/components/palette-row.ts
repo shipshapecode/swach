@@ -182,7 +182,7 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   @action
-  async deletePalette(): void {
+  async deletePalette(): Promise<void> {
     if (!this.isLocked) {
       if (this.deleteConfirm) {
         await this.store.update((t: Store['transformBuilder']) =>

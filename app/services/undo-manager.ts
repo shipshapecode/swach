@@ -2,7 +2,7 @@ import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import { Store } from 'ember-orbit/addon/index';
 
-function removeFromTo(array: any[], from: number, to: number) {
+function removeFromTo(array: unknown[], from: number, to: number) {
   array.splice(
     from,
     !to ||
@@ -86,7 +86,10 @@ export default class UndoManager extends Service {
     }
   }
 
-  async execute(command, action) {
+  async execute(
+    command: { undo: () => Promise<void>; redo: () => Promise<void> },
+    action: 'undo' | 'redo'
+  ): Promise<UndoManager | unknown> {
     if (!command || typeof command[action] !== 'function') {
       return this;
     }
@@ -101,7 +104,10 @@ export default class UndoManager extends Service {
   /**
    * Add a command to the queue.
    */
-  async add(command: { undo: () => Promise<void>; redo: () => Promise<void> }) {
+  async add(command: {
+    undo: () => Promise<void>;
+    redo: () => Promise<void>;
+  }): Promise<UndoManager> {
     if (this.isExecuting) {
       return this;
     }
@@ -127,14 +133,14 @@ export default class UndoManager extends Service {
   /**
    * Pass a function to be called on undo and redo actions.
    */
-  setCallback(callbackFunc: () => any): void {
+  setCallback(callbackFunc: () => unknown): void {
     this.callback = callbackFunc;
   }
 
   /**
    * Perform undo: call the undo function at the current index and decrease the index by 1.
    */
-  async undo() {
+  async undo(): Promise<UndoManager | unknown> {
     const command = this.commands[this.index];
     if (!command) {
       return this;
@@ -150,7 +156,7 @@ export default class UndoManager extends Service {
   /**
    * Perform redo: call the redo function at the next index and increase the index by 1.
    */
-  async redo() {
+  async redo(): Promise<UndoManager | unknown> {
     const command = this.commands[this.index + 1];
     if (!command) {
       return this;
@@ -193,7 +199,7 @@ export default class UndoManager extends Service {
     return this.index;
   }
 
-  setLimit(l): void {
+  setLimit(l: number): void {
     this.limit = l;
   }
 

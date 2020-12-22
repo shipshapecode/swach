@@ -1,18 +1,7 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import { Store } from 'ember-orbit/addon/index';
-
-function removeFromTo(array: unknown[], from: number, to: number) {
-  array.splice(
-    from,
-    !to ||
-      1 +
-        to -
-        from +
-        (!((to < 0) ^ (from >= 0)) && (to < 0 || -1) * array.length)
-  );
-  return array.length;
-}
+import removeFromTo from 'swach/utils/remove-from-to';
 
 export default class UndoManager extends Service {
   @service store!: Store;

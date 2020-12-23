@@ -5,7 +5,7 @@
 >
   <div class="flex flex-col max-w-xl h-full relative w-full">
     <nav
-      class="bg-menu flex justify-between items-center p-4 w-full {{
+      class="bg-menu flex justify-between items-center p-4 w-full z-20 {{
         if this.isWelcomeRoute "hidden"
       }}"
     >
@@ -111,7 +111,7 @@
     </nav>
 
     <div class="flex-1 overflow-auto p-3">
-      {{liquid-outlet}}
+      <AnimatedOutlet/>
     </div>
   </div>
 </main>

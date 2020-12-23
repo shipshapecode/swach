@@ -56,13 +56,6 @@ button,
   transform: translate3d(0px, 34px, 0px) !important;
 }
 
-.liquid-container,
-.liquid-child {
-  height: 100%;
-  overflow-y: scroll;
-  width: 100%;
-}
-
 .palette-color-squares {
   &.palette-locked {
     .dragSortItem,

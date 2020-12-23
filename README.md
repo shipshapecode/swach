@@ -1,6 +1,6 @@
 # Swach
 
-[![Build Status](https://travis-ci.com/rwwagner90/swach.svg?token=PCUEYqaV5B7z9BEpymq7&branch=master)](https://travis-ci.com/rwwagner90/swach)
+![CI](https://github.com/shipshapecode/swach/workflows/CI/badge.svg)
 
 Swach is a modern color palette manager.
 

@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { A } from '@ember/array';
-import { action, get, set } from '@ember/object';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { storageFor } from 'ember-local-storage';
 import { tracked } from '@glimmer/tracking';
@@ -9,7 +9,7 @@ import Router from '@ember/routing/router-service';
 import ColorUtils from 'swach/services/color-utils';
 import UndoManager from 'swach/services/undo-manager';
 import ColorModel from 'swach/data-models/color';
-import { SettingsStorage } from 'swach/storages/settings';
+import { SettingsStorage, themes } from 'swach/storages/settings';
 
 export default class ApplicationController extends Controller {
   @service colorUtils!: ColorUtils;
@@ -24,7 +24,7 @@ export default class ApplicationController extends Controller {
   @tracked colorPickerIsShown = false;
   @tracked menuIsShown = false;
 
-  @storageFor('settings') settings?: SettingsStorage;
+  @storageFor('settings') settings!: SettingsStorage;
 
   get isContrastRoute(): boolean {
     return this.router.currentRouteName === 'contrast';
@@ -58,11 +58,9 @@ export default class ApplicationController extends Controller {
     );
   }
 
-  get theme() {
-    // @ts-expect-error: nested keys do not work for TS
-    const userTheme = get(this, 'settings.userTheme'); // eslint-disable-line ember/no-get
-    // @ts-expect-error: nested keys do not work for TS
-    const OSTheme = get(this, 'settings.osTheme'); // eslint-disable-line ember/no-get
+  get theme(): themes {
+    const userTheme = this.settings.get('userTheme');
+    const OSTheme = this.settings.get('osTheme');
 
     if (userTheme && userTheme !== 'dynamic') {
       return userTheme;
@@ -91,27 +89,23 @@ export default class ApplicationController extends Controller {
       });
 
       this.ipcRenderer.on('setTheme', (_event: any, theme: string) => {
-        // @ts-expect-error: nested keys do not work for TS
-        set(this, 'settings.osTheme', theme);
+        this.settings.set('osTheme', theme);
       });
 
-      // @ts-expect-error: nested keys do not work for TS
       // We have to initially set this, in case somehow the checkbox gets out of sync
-      const shouldEnableAutoStart = get(this, 'settings.openOnStartup'); // eslint-disable-line ember/no-get
+      const shouldEnableAutoStart = this.settings.get('openOnStartup');
       this.ipcRenderer.send('enableDisableAutoStart', shouldEnableAutoStart);
 
       this.ipcRenderer
         .invoke('getStoreValue', 'showDockIcon')
         .then((showDockIcon: boolean) => {
-          // @ts-expect-error: nested keys do not work for TS
-          set(this, 'settings.showDockIcon', showDockIcon);
+          this.settings.set('showDockIcon', showDockIcon);
         });
 
       this.ipcRenderer
         .invoke('getShouldUseDarkColors')
         .then((theme: string) => {
-          // @ts-expect-error: nested keys do not work for TS
-          set(this, 'settings.osTheme', theme);
+          this.settings.set('osTheme', theme);
         });
     }
   }
@@ -183,8 +177,7 @@ export default class ApplicationController extends Controller {
   @action
   toggleShowDockIcon(e: InputEvent): void {
     const showDockIcon = (<HTMLInputElement>e.target).checked;
-    // @ts-expect-error: nested keys do not work for TS
-    set(this, 'settings.showDockIcon', showDockIcon);
+    this.settings.set('showDockIcon', showDockIcon);
     this.ipcRenderer.send('setShowDockIcon', showDockIcon);
   }
 }

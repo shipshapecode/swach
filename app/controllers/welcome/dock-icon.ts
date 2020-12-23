@@ -6,5 +6,5 @@ import { SettingsStorage } from 'swach/storages/settings';
 export default class WelcomeDockIconController extends Controller {
   @controller application!: ApplicationController;
 
-  @storageFor('settings') settings?: SettingsStorage;
+  @storageFor('settings') settings!: SettingsStorage;
 }

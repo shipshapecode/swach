@@ -2,19 +2,21 @@ import StorageObject from 'ember-local-storage/local/object';
 
 export type themes = 'dynamic' | 'light' | 'dark';
 
-export type SettingsStorage = {
+interface SettingsValues {
   notifications: boolean;
   osTheme?: themes;
   openOnStartup: boolean;
   showDockIcon: boolean;
   sounds: boolean;
   userTheme: themes;
-};
+}
+
+export interface SettingsStorage extends SettingsValues, StorageObject {}
 
 const Storage = StorageObject.extend();
 
 Storage.reopenClass({
-  initialState(): SettingsStorage {
+  initialState(): SettingsValues {
     return {
       notifications: true,
       openOnStartup: false,

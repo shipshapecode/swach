@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action, set } from '@ember/object';
+import { action } from '@ember/object';
 import { storageFor } from 'ember-local-storage';
 import { SettingsStorage, themes } from 'swach/storages/settings';
 
@@ -11,7 +11,7 @@ interface SettingsMenuArgs {
 }
 
 export default class SettingsMenu extends Component<SettingsMenuArgs> {
-  @storageFor('settings') settings?: SettingsStorage;
+  @storageFor('settings') settings!: SettingsStorage;
 
   ipcRenderer: any;
   themes = ['dynamic', 'light', 'dark'];
@@ -41,7 +41,6 @@ export default class SettingsMenu extends Component<SettingsMenuArgs> {
 
   @action
   changeTheme(theme: themes): void {
-    // @ts-expect-error: nested keys do not work for TS
-    set(this, 'settings.userTheme', theme);
+    this.settings.set('userTheme', theme);
   }
 }

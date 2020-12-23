@@ -6,7 +6,7 @@ import { SettingsStorage } from 'swach/storages/settings';
 export default class WelcomeController extends Controller {
   @controller application!: ApplicationController;
 
-  @storageFor('settings') settings?: SettingsStorage;
+  @storageFor('settings') settings!: SettingsStorage;
 }
 
 // DO NOT DELETE: this is how TypeScript knows how to look up your controllers.

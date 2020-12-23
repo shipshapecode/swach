@@ -1,5 +1,5 @@
 import Service from '@ember/service';
-import { action, get } from '@ember/object';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { rgbaToHex } from 'swach/data-models/color';
 import { storageFor } from 'ember-local-storage';
@@ -29,7 +29,7 @@ export default class ColorUtilsService extends Service {
 
   ipcRenderer: any;
 
-  @storageFor('settings') settings?: SettingsStorage;
+  @storageFor('settings') settings!: SettingsStorage;
 
   constructor() {
     super(...arguments);
@@ -72,16 +72,12 @@ export default class ColorUtilsService extends Service {
     if (!isDropping) {
       this.ipcRenderer.send('copyColorToClipboard', color.hex);
 
-      // @ts-expect-error: nested keys do not work for TS
-      // eslint-disable-next-line ember/no-get
-      if (get(this, 'settings.sounds')) {
+      if (this.settings.get('sounds')) {
         const audio = new Audio('assets/sounds/pluck_short.wav');
         await audio.play();
       }
 
-      // @ts-expect-error: nested keys do not work for TS
-      // eslint-disable-next-line ember/no-get
-      if (get(this, 'settings.notifications')) {
+      if (this.settings.get('notifications')) {
         new window.Notification(`${color.name} - ${color.hex}`, {
           body: `${color.hex} copied to clipboard!`,
           silent: true

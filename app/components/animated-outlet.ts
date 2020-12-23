@@ -6,10 +6,10 @@ export default class AnimatedOutlet extends Component {
   duration = transitionOptions.duration;
   easing = transitionOptions.easing;
 
-  rules({ newItems, oldItems }) {
-    let oldRoute = oldItems[oldItems.length - 1];
-    let newRoute = newItems[newItems.length - 1];
-    let oldRouteName, newRouteName;
+  rules({ newItems, oldItems }: { newItems: any[]; oldItems: any[] }): unknown {
+    const oldRoute = oldItems[oldItems.length - 1];
+    const newRoute = newItems[newItems.length - 1];
+    let oldRouteName: string, newRouteName: string;
 
     if (oldRoute) {
       oldRouteName = oldRoute.outlets.main.render.name;

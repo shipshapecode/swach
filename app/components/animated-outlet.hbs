@@ -1,0 +1,15 @@
+<AnimatedContainer>
+  <AnimatedValue
+    @duration={{this.duration}}
+    @intialInsertion={{true}}
+    @key="outlets.main.render.name"
+    @rules={{this.rules}}
+    @value={{-get-dynamic-var "outletState"}} as |outletState|
+  >
+    {{#-with-dynamic-vars outletState=outletState}}
+      <div class="h-full overflow-y-scroll w-full">
+        {{outlet}}
+      </div>
+    {{/-with-dynamic-vars}}
+  </AnimatedValue>
+</AnimatedContainer>

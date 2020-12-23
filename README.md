@@ -52,7 +52,7 @@ You will need the following things properly installed on your computer.
 * Bump the version with:
 
 ```bash 
-yarn bump-versions
+release-it
 ```
 
 Choose the appropriate major, minor, patch, beta, etc version in the prompt.

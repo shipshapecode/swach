@@ -11,7 +11,6 @@ import { setupApplicationTest } from 'ember-qunit';
 import seedOrbit from '../orbit/seed';
 import { animationsSettled } from 'ember-animated/test-support';
 import { waitForAll } from 'swach/tests/helpers';
-import { selectChoose } from 'ember-power-select/test-support';
 
 module('Acceptance | kuler', function (hooks) {
   setupApplicationTest(hooks);
@@ -27,7 +26,7 @@ module('Acceptance | kuler', function (hooks) {
   });
 
   test('analogous palette', async function (assert) {
-    await selectChoose('[data-test-kuler-select]', 'Analogous');
+    await fillIn('[data-test-kuler-select]', 'Analogous');
 
     assert
       .dom(
@@ -43,7 +42,7 @@ module('Acceptance | kuler', function (hooks) {
   });
 
   test('monochromatic palette', async function (assert) {
-    await selectChoose('[data-test-kuler-select]', 'Monochromatic');
+    await fillIn('[data-test-kuler-select]', 'Monochromatic');
 
     assert
       .dom(
@@ -99,7 +98,7 @@ module('Acceptance | kuler', function (hooks) {
   });
 
   test('tetrad palette', async function (assert) {
-    await selectChoose('[data-test-kuler-select]', 'Tetrad');
+    await fillIn('[data-test-kuler-select]', 'Tetrad');
 
     assert
       .dom('[data-test-kuler-palette="Tetrad"] [data-test-kuler-palette-name]')
@@ -111,7 +110,7 @@ module('Acceptance | kuler', function (hooks) {
   });
 
   test('triad palette', async function (assert) {
-    await selectChoose('[data-test-kuler-select]', 'Triad');
+    await fillIn('[data-test-kuler-select]', 'Triad');
 
     assert
       .dom('[data-test-kuler-palette="Triad"] [data-test-kuler-palette-name]')
@@ -152,7 +151,7 @@ module('Acceptance | kuler', function (hooks) {
   });
 
   test('changing base', async function (assert) {
-    await selectChoose('[data-test-kuler-select]', 'Monochromatic');
+    await fillIn('[data-test-kuler-select]', 'Monochromatic');
 
     assert
       .dom(

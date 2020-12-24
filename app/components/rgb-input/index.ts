@@ -9,7 +9,8 @@ interface PrivateRGBAHex {
   _a: number;
   _hex: string;
 }
-interface SelectedColorPOJO extends ColorModel, PrivateRGBAHex {}
+
+export interface SelectedColorPOJO extends ColorModel, PrivateRGBAHex {}
 
 interface RgbaInputArgs {
   selectedColor: ColorModel;

@@ -1,13 +1,21 @@
 <div class="bg-menu p-4 pb-8 rounded">
-  <div data-test-kuler-select class="mb-4">
-    <PowerSelect
-      @options={{this.palettes}}
-      @placeholder="Choose harmony"
-      @selected={{this.selectedPalette}}
-      @onChange={{this.setSelectedPalette}} as |palette|
+  <div class="mb-4">
+    <select
+      data-test-kuler-select
+      class="input"
+      id="harmony"
+      {{on "change" this.setSelectedPalette}}
     >
-      {{capitalize palette.name}}
-    </PowerSelect>
+      {{#each this.palettes as |palette|}}
+        <option
+          data-test-kuler-select-harmony="{{capitalize palette.name}}"
+          value={{palette.name}}
+          selected={{eq this.selectedPalette palette}}
+        >
+          {{capitalize palette.name}}
+        </option>
+      {{/each}}
+    </select>
   </div>
 
   <div class="flex justify-center pt-2 w-full">

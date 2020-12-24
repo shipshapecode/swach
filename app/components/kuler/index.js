@@ -133,7 +133,9 @@ export default class KulerComponent extends Component {
    * @param {Palette} palette
    */
   @action
-  setSelectedPalette(palette) {
+  setSelectedPalette(e) {
+    const paletteName = e.target.value;
+    const palette = this.palettes.findBy('name', paletteName);
     this.selectedPalette = palette;
     this.colorPicker.setColors(
       this.selectedPalette.colors.mapBy('hex'),

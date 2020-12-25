@@ -29,16 +29,16 @@ export default class ColorsList extends Component<ColorsListArgs> {
   }
 
   *transition({ keptSprites, insertedSprites, removedSprites }) {
-    for (let sprite of insertedSprites) {
+    for (const sprite of insertedSprites) {
       sprite.startTranslatedBy(0, -sprite.finalBounds.height / 2);
       move(sprite, { easing: easeOut });
     }
 
-    for (let sprite of keptSprites) {
+    for (const sprite of keptSprites) {
       move(sprite, { easing: easeOut });
     }
 
-    for (let sprite of removedSprites) {
+    for (const sprite of removedSprites) {
       fadeOut(sprite, { easing: easeOut });
     }
   }

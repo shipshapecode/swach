@@ -97,7 +97,7 @@ export default class ColorPicker extends Component {
           // If the color only exists in in color history, and we remove it, we should delete the color
           if (
             colorToEdit.palettes.length === 1 &&
-            colorToEdit.palettes.firstObject.isColorHistory
+            colorToEdit.palettes[0].isColorHistory
           ) {
             operations.push(
               t.removeRecord({ type: 'color', id: colorToEdit.id })

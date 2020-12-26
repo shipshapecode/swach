@@ -1,15 +1,18 @@
-import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { inject as service } from '@ember/service';
-import { tracked } from '@glimmer/tracking';
-import fade from 'ember-animated/transitions/fade';
-import { clone } from '@orbit/utils';
 import Router from '@ember/routing/router-service';
+import { inject as service } from '@ember/service';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+
+import fade from 'ember-animated/transitions/fade';
 import { Store } from 'ember-orbit';
+
+import { clone } from '@orbit/utils';
+
+import ColorModel from 'swach/data-models/color';
 import PaletteModel from 'swach/data-models/palette';
 import ColorUtils from 'swach/services/color-utils';
 import UndoManager from 'swach/services/undo-manager';
-import ColorModel from 'swach/data-models/color';
 
 interface PaletteRowArgs {
   moveColorsBetweenPalettes: ({

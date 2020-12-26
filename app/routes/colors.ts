@@ -1,6 +1,8 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+
 import { Store } from 'ember-orbit';
+
 import PaletteModel from 'swach/data-models/palette';
 
 export default class ColorsRoute extends Route {

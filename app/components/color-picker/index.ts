@@ -1,17 +1,27 @@
-import Component from '@glimmer/component';
 import { action, set } from '@ember/object';
-import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import { rgbaToHex } from 'swach/data-models/color';
-import iro from '@jaames/iro';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+
+import { Store } from 'ember-orbit';
+
 import { TinyColor } from '@ctrl/tinycolor';
+import iro from '@jaames/iro';
 import { clone } from '@orbit/utils';
 
-export default class ColorPicker extends Component {
+import { SelectedColorPOJO } from 'swach/components/rgb-input';
+import { rgbaToHex } from 'swach/data-models/color';
+import UndoManager from 'swach/services/undo-manager';
+
+interface ColorPickerArgs {
+  selectedColor: SelectedColorPOJO;
+}
+
+export default class ColorPickerComponent extends Component<ColorPickerArgs> {
   @service nearestColor;
   @service router;
-  @service store;
-  @service undoManager;
+  @service store!: Store;
+  @service undoManager!: UndoManager;
 
   get alternateColorFormats() {
     let hsl = '';
@@ -57,7 +67,7 @@ export default class ColorPicker extends Component {
         createdAt: colorToEdit.createdAt
       };
 
-      for (let attr in colorCopy.attributes) {
+      for (const attr in colorCopy.attributes) {
         // Remove private properties
         if (attr.startsWith('_')) {
           delete colorCopy.attributes[attr];

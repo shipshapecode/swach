@@ -1,13 +1,14 @@
-import { module, test } from 'qunit';
 import {
+  currentURL,
   fillIn,
   triggerKeyEvent,
-  visit,
-  currentURL
+  visit
 } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
-import seedOrbit from '../orbit/seed';
+import { module, test } from 'qunit';
+
 import { waitForAll } from 'swach/tests/helpers';
+import seedOrbit from 'swach/tests/orbit/seed';
 
 module('Acceptance | contrast', function (hooks) {
   setupApplicationTest(hooks);

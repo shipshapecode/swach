@@ -1,4 +1,5 @@
 import Service from '@ember/service';
+
 import colorNameList from 'color-name-list';
 import nearestColor from 'nearest-color';
 

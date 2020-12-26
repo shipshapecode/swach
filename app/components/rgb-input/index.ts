@@ -1,5 +1,6 @@
-import Component from '@glimmer/component';
 import { action, set } from '@ember/object';
+import Component from '@glimmer/component';
+
 import ColorModel, { rgbaToHex } from 'swach/data-models/color';
 
 interface PrivateRGBAHex {

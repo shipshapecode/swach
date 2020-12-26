@@ -1,13 +1,15 @@
-import Component from '@glimmer/component';
-import { inject as service } from '@ember/service';
-import fade from 'ember-animated/transitions/fade';
 import { action } from '@ember/object';
-import { Store } from 'ember-orbit';
-import ColorUtils from 'swach/services/color-utils';
 import Router from '@ember/routing/router-service';
-import UndoManager from 'swach/services/undo-manager';
+import { inject as service } from '@ember/service';
+import Component from '@glimmer/component';
+
+import fade from 'ember-animated/transitions/fade';
+import { Store } from 'ember-orbit';
+
 import ColorModel from 'swach/data-models/color';
 import PaletteModel from 'swach/data-models/palette';
+import ColorUtils from 'swach/services/color-utils';
+import UndoManager from 'swach/services/undo-manager';
 
 interface KulerPaletteRowArgs {
   palette: PaletteModel;

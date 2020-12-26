@@ -29,6 +29,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+    "@clark/eslint-config-ember-order-imports": "^2.0.0",
     "@csstools/postcss-sass": "^4.0.0",
     "@ctrl/tinycolor": "^3.3.1",
     "@ember/optional-features": "^2.0.0",
@@ -42,8 +43,8 @@
     "@jaames/iro": "^5.3.1",
     "@orbit/coordinator": "^0.17.0-beta.8",
     "@orbit/indexeddb": "^0.17.0-beta.8",
-    "@orbit/utils": "^0.17.0-beta.8",
     "@orbit/jsonapi": "^0.17.0-beta.8",
+    "@orbit/utils": "^0.17.0-beta.8",
     "@release-it/bumper": "^2.0.0",
     "@sentry/electron": "^2.0.4",
     "@sentry/integrations": "^5.29.2",

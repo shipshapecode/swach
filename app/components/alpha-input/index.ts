@@ -1,7 +1,8 @@
-import Component from '@glimmer/component';
 import { action, set } from '@ember/object';
-import { rgbaToHex } from 'swach/data-models/color';
+import Component from '@glimmer/component';
+
 import { SelectedColorPOJO } from 'swach/components/rgb-input';
+import { rgbaToHex } from 'swach/data-models/color';
 
 interface AlphaInputArgs {
   selectedColor: SelectedColorPOJO;

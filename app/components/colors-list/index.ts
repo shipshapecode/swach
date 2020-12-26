@@ -1,13 +1,15 @@
-import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import { fadeOut } from 'ember-animated/motions/opacity';
-import move from 'ember-animated/motions/move';
+import Component from '@glimmer/component';
+
 import { easeOut } from 'ember-animated/easings/cosine';
+import move from 'ember-animated/motions/move';
+import { fadeOut } from 'ember-animated/motions/opacity';
 import { Store } from 'ember-orbit';
-import UndoManager from 'swach/services/undo-manager';
+
 import ColorModel from 'swach/data-models/color';
 import PaletteModel from 'swach/data-models/palette';
+import UndoManager from 'swach/services/undo-manager';
 
 interface ColorsListArgs {
   palette: PaletteModel;

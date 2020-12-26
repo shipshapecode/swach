@@ -1,8 +1,10 @@
 import Controller, { inject as controller } from '@ember/controller';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import ApplicationController from 'swach/controllers/application';
+
 import Session from 'ember-simple-auth/services/session';
+
+import ApplicationController from 'swach/controllers/application';
 
 export default class SettingsController extends Controller {
   @controller application!: ApplicationController;

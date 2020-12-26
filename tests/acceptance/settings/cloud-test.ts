@@ -1,11 +1,14 @@
-import { module, test } from 'qunit';
-import { visit, click, currentURL, fillIn } from '@ember/test-helpers';
+import { click, currentURL, fillIn, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
-import resetStorages from 'ember-local-storage/test-support/reset-storage';
+import { module, test } from 'qunit';
+
 import { mockCognitoUser } from 'ember-cognito/test-support';
+import resetStorages from 'ember-local-storage/test-support/reset-storage';
+
 import sinon from 'sinon';
+
 import { waitForAll } from 'swach/tests/helpers';
-import seedOrbit from '../../orbit/seed';
+import seedOrbit from 'swach/tests/orbit/seed';
 
 let sinonSandBox: any;
 

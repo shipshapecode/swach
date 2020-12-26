@@ -1,9 +1,9 @@
-import Component from '@glimmer/component';
 import { action } from '@ember/object';
+import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+
 import iro from '@jaames/iro';
 import { hex, score } from 'wcag-contrast';
-
 export default class ContrastChecker extends Component {
   @tracked backgroundColor = '#ffffff';
   @tracked foregroundColor = '#000000';

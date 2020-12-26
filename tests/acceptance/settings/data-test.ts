@@ -1,8 +1,10 @@
-import { module, test } from 'qunit';
-import { visit, currentURL } from '@ember/test-helpers';
+import { currentURL, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
+import { module, test } from 'qunit';
+
 import resetStorages from 'ember-local-storage/test-support/reset-storage';
-import seedOrbit from '../../orbit/seed';
+
+import seedOrbit from 'swach/tests/orbit/seed';
 
 module('Acceptance | settings/data', function (hooks) {
   setupApplicationTest(hooks);

@@ -1,4 +1,3 @@
-import { module, test } from 'qunit';
 import {
   blur,
   click,
@@ -9,10 +8,12 @@ import {
   visit
 } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
+import { module, test } from 'qunit';
+
 import { move, sort } from 'ember-drag-sort/utils/trigger';
-import { triggerContextMenu } from '../helpers';
-import { waitForAll } from 'swach/tests/helpers';
-import seedOrbit from '../orbit/seed';
+
+import { triggerContextMenu, waitForAll } from 'swach/tests/helpers';
+import seedOrbit from 'swach/tests/orbit/seed';
 
 module('Acceptance | palettes', function (hooks) {
   setupApplicationTest(hooks);

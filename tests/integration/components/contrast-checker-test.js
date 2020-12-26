@@ -1,7 +1,9 @@
-import { module, test } from 'qunit';
+import { fillIn, render, triggerKeyEvent } from '@ember/test-helpers';
 import { setupRenderingTest } from 'ember-qunit';
-import { fillIn, triggerKeyEvent, render } from '@ember/test-helpers';
+import { module, test } from 'qunit';
+
 import { hbs } from 'ember-cli-htmlbars';
+
 import { waitForAll } from 'swach/tests/helpers';
 
 module('Integration | Component | contrast-checker', function (hooks) {

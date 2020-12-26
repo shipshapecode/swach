@@ -1,9 +1,10 @@
+import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
-import { storageFor } from 'ember-local-storage';
-import { SettingsStorage, themes } from 'swach/storages/settings';
 
+import { storageFor } from 'ember-local-storage';
+
+import { SettingsStorage, themes } from 'swach/storages/settings';
 interface SettingsMenuArgs {
   checkForUpdates: () => void;
   enableDisableAutoStart: (e: InputEvent) => void;

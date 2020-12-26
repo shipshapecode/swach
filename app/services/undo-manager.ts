@@ -1,6 +1,8 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
+
 import { Store } from 'ember-orbit/addon/index';
+
 import removeFromTo from 'swach/utils/remove-from-to';
 
 export default class UndoManager extends Service {

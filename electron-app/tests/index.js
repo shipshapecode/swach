@@ -1,7 +1,12 @@
-const path = require('path');
-const { app, ipcMain, nativeTheme } = require('electron');
+const {
+  setupTestem,
+  openTestWindow
+} = require('ember-electron/lib/test-support');
 
+const { app, ipcMain, nativeTheme } = require('electron');
 const Store = require('electron-store');
+const path = require('path');
+
 const store = new Store({
   defaults: {
     firstRun: true,
@@ -9,11 +14,8 @@ const store = new Store({
     showDockIcon: false
   }
 });
+
 const handleFileUrls = require('../src/handle-file-urls');
-const {
-  setupTestem,
-  openTestWindow
-} = require('ember-electron/lib/test-support');
 
 const emberAppDir = path.resolve(__dirname, '..', 'ember-test');
 

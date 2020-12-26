@@ -1,16 +1,18 @@
-import { module, test } from 'qunit';
 import {
   blur,
   click,
-  fillIn,
-  visit,
   currentURL,
-  triggerEvent
+  fillIn,
+  triggerEvent,
+  visit
 } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
-import seedOrbit from '../orbit/seed';
+import { module, test } from 'qunit';
+
 import { animationsSettled } from 'ember-animated/test-support';
+
 import { waitForAll } from 'swach/tests/helpers';
+import seedOrbit from 'swach/tests/orbit/seed';
 
 module('Acceptance | kuler', function (hooks) {
   setupApplicationTest(hooks);

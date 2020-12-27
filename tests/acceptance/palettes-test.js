@@ -141,59 +141,6 @@ module('Acceptance | palettes', function (hooks) {
         .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
     });
 
-    test('undo/redo - rearranging colors in palette', async function (assert) {
-      await visit('/palettes');
-
-      let sourceList = find(
-        '[data-test-palette-row="Second Palette"]'
-      ).querySelector('.palette-color-squares');
-      let firstColor = sourceList.querySelector(
-        '[data-test-palette-color-square]'
-      );
-      assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
-
-      await sort(sourceList, 0, 1, true);
-
-      await waitForAll();
-
-      sourceList = find(
-        '[data-test-palette-row="Second Palette"]'
-      ).querySelector('.palette-color-squares');
-      firstColor = sourceList.querySelector('[data-test-palette-color-square]');
-      assert
-        .dom(firstColor)
-        .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
-
-      await triggerEvent(document.body, 'keydown', {
-        keyCode: 90,
-        ctrlKey: true
-      });
-
-      await waitForAll();
-
-      sourceList = find(
-        '[data-test-palette-row="Second Palette"]'
-      ).querySelector('.palette-color-squares');
-      firstColor = sourceList.querySelector('[data-test-palette-color-square]');
-      assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
-
-      await triggerEvent(document.body, 'keydown', {
-        keyCode: 90,
-        ctrlKey: true,
-        shiftKey: true
-      });
-
-      await waitForAll();
-
-      sourceList = find(
-        '[data-test-palette-row="Second Palette"]'
-      ).querySelector('.palette-color-squares');
-      firstColor = sourceList.querySelector('[data-test-palette-color-square]');
-      assert
-        .dom(firstColor)
-        .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
-    });
-
     test('locked palette does not allow rearranging colors', async function (assert) {
       await visit('/palettes');
 
@@ -355,32 +302,88 @@ module('Acceptance | palettes', function (hooks) {
     });
   });
 
-  test('creating palettes and undo / redo', async function (assert) {
-    await visit('/palettes');
+  // Ember specific tests
+  if (typeof requireNode === 'undefined') {
+    test('creating palettes and undo / redo', async function (assert) {
+      await visit('/palettes');
 
-    assert.dom('[data-test-palette-row]').exists({ count: 3 });
+      assert.dom('[data-test-palette-row]').exists({ count: 3 });
 
-    await click('[data-test-create-palette]');
+      await click('[data-test-create-palette]');
 
-    await waitForAll();
+      await waitForAll();
 
-    assert.dom('[data-test-palette-row]').exists({ count: 4 });
+      assert.dom('[data-test-palette-row]').exists({ count: 4 });
 
-    await triggerEvent(document.body, 'keydown', {
-      keyCode: 90,
-      ctrlKey: true
+      await triggerEvent(document.body, 'keydown', {
+        keyCode: 90,
+        ctrlKey: true
+      });
+      await waitForAll();
+
+      assert.dom('[data-test-palette-row]').exists({ count: 3 });
+
+      await triggerEvent(document.body, 'keydown', {
+        keyCode: 90,
+        ctrlKey: true,
+        shiftKey: true
+      });
+      await waitForAll();
+
+      assert.dom('[data-test-palette-row]').exists({ count: 4 });
     });
-    await waitForAll();
 
-    assert.dom('[data-test-palette-row]').exists({ count: 3 });
+    test('undo/redo - rearranging colors in palette', async function (assert) {
+      await visit('/palettes');
 
-    await triggerEvent(document.body, 'keydown', {
-      keyCode: 90,
-      ctrlKey: true,
-      shiftKey: true
+      let sourceList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      let firstColor = sourceList.querySelector(
+        '[data-test-palette-color-square]'
+      );
+      assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
+
+      await sort(sourceList, 0, 1, true);
+
+      await waitForAll();
+
+      sourceList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      firstColor = sourceList.querySelector('[data-test-palette-color-square]');
+      assert
+        .dom(firstColor)
+        .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
+
+      await triggerEvent(document.body, 'keydown', {
+        keyCode: 90,
+        ctrlKey: true
+      });
+
+      await waitForAll();
+
+      sourceList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      firstColor = sourceList.querySelector('[data-test-palette-color-square]');
+      assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
+
+      await triggerEvent(document.body, 'keydown', {
+        keyCode: 90,
+        ctrlKey: true,
+        shiftKey: true
+      });
+
+      await waitForAll();
+
+      sourceList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      firstColor = sourceList.querySelector('[data-test-palette-color-square]');
+      assert
+        .dom(firstColor)
+        .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
     });
-    await waitForAll();
-
-    assert.dom('[data-test-palette-row]').exists({ count: 4 });
-  });
+  }
 });

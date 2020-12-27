@@ -40,15 +40,15 @@ module('Acceptance | settings', function (hooks) {
 
   // Ember specific tests
   if (typeof requireNode === 'undefined') {
-    test('has two checkboxes', function (assert) {
+    test('has five inputs', function (assert) {
       assert.dom('[data-test-settings-menu] input').exists({ count: 5 });
     });
   }
 
   // Electron specific tests
   if (typeof requireNode !== 'undefined') {
-    test('has four checkboxes', function (assert) {
-      assert.dom('[data-test-settings-menu] input').exists({ count: 4 });
+    test('has seven inputs', function (assert) {
+      assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
     });
 
     test('start on startup is not checked by default', async function (assert) {

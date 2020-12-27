@@ -7,6 +7,8 @@ import move from 'ember-animated/motions/move';
 import { fadeOut } from 'ember-animated/motions/opacity';
 import { Store } from 'ember-orbit';
 
+import { OperationTerm } from '@orbit/data/src/operation-term';
+
 import ColorModel from 'swach/data-models/color';
 import PaletteModel from 'swach/data-models/palette';
 import UndoManager from 'swach/services/undo-manager';
@@ -59,7 +61,7 @@ export default class ColorsList extends Component<ColorsListArgs> {
         colorsList.removeObject(colorToRemove);
 
         await this.store.update((t) => {
-          const operations = [
+          const operations: OperationTerm[] = [
             t.removeFromRelatedRecords(
               { type: 'palette', id: palette.id },
               'colors',

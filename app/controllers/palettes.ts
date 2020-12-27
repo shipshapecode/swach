@@ -6,6 +6,8 @@ import { tracked } from '@glimmer/tracking';
 
 import { Store } from 'ember-orbit';
 
+import { OperationTerm } from '@orbit/data/src/operation-term';
+
 import ApplicationController from 'swach/controllers/application';
 import ColorModel from 'swach/data-models/color';
 import PaletteModel from 'swach/data-models/palette';
@@ -125,7 +127,7 @@ export default class PalettesController extends Controller {
             sourceColorList.removeObject(colorToRemove);
 
             await this.store.update((t) => {
-              const operations = [];
+              const operations: OperationTerm[] = [];
 
               operations.push(
                 t.removeFromRelatedRecords(
@@ -194,7 +196,7 @@ export default class PalettesController extends Controller {
       });
 
       await this.store.update((t) => {
-        const operations = [];
+        const operations: OperationTerm[] = [];
 
         operations.push(
           t.replaceAttribute(

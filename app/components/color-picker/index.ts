@@ -1,4 +1,5 @@
 import { action, set } from '@ember/object';
+import Router from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
@@ -7,29 +8,44 @@ import { Store } from 'ember-orbit';
 
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
+import { OperationTerm } from '@orbit/data/src/operation-term';
 import { clone } from '@orbit/utils';
 
-import { SelectedColorPOJO } from 'swach/components/rgb-input';
-import { rgbaToHex } from 'swach/data-models/color';
+import {
+  PrivateRGBAHex,
+  PublicRGBAHex,
+  SelectedColorModel,
+  SelectedColorPOJO
+} from 'swach/components/rgb-input';
+import ColorModel, { rgbaToHex } from 'swach/data-models/color';
+import PaletteModel from 'swach/data-models/palette';
+import NearestColor from 'swach/services/nearest-color';
 import UndoManager from 'swach/services/undo-manager';
 
 interface ColorPickerArgs {
-  selectedColor: SelectedColorPOJO;
+  selectedColor: SelectedColorModel;
+  saveColor: (hex: string) => Promise<ColorModel | undefined>;
+  toggleIsShown: (color?: ColorModel) => void;
 }
 
 export default class ColorPickerComponent extends Component<ColorPickerArgs> {
-  @service nearestColor;
-  @service router;
+  @service nearestColor!: NearestColor;
+  @service router!: Router;
   @service store!: Store;
   @service undoManager!: UndoManager;
 
-  get alternateColorFormats() {
+  colorPicker?: iro.ColorPicker;
+  onChange!: (color?: ColorModel) => void;
+
+  @tracked _selectedColor!: SelectedColorPOJO;
+
+  get alternateColorFormats(): { hsl: string; hsv: string; rgb: string } {
     let hsl = '';
     let hsv = '';
     let rgb = '';
 
-    if (this.selectedColor && this.selectedColor.hex) {
-      const tinyColor = new TinyColor(this.selectedColor.hex);
+    if (this._selectedColor?.hex) {
+      const tinyColor = new TinyColor(this._selectedColor.hex);
       hsl = tinyColor.toHslString();
       hsv = tinyColor.toHsvString();
       rgb = tinyColor.toRgbString();
@@ -38,11 +54,9 @@ export default class ColorPickerComponent extends Component<ColorPickerArgs> {
     return { hsl, hsv, rgb };
   }
 
-  @tracked selectedColor = null;
-
   @action
-  initColorPicker(element) {
-    this.onChange = (color) => {
+  initColorPicker(element: HTMLElement): void {
+    this.onChange = (color): void => {
       if (color) {
         this.setSelectedColor(color.rgba);
       }
@@ -50,20 +64,23 @@ export default class ColorPickerComponent extends Component<ColorPickerArgs> {
 
     const { selectedColor } = this.args;
     this.setSelectedColor(selectedColor ? selectedColor.hex : '#42445a');
-    this._setupColorPicker(element, this.selectedColor.hex);
+    this._setupColorPicker(element, this._selectedColor.hex);
   }
 
   @action
-  async saveColorAndClose() {
+  async saveColorAndClose(): Promise<void> {
     const colorToEdit = this.args.selectedColor;
     // If we passed a color to edit, save it, otherwise create a new global color
     if (colorToEdit) {
       const { paletteId } = this.router.currentRoute.queryParams;
-      const palette = await this.store.find('palette', paletteId);
+      const palette = (await this.store.find(
+        'palette',
+        paletteId
+      )) as PaletteModel;
       const colorCopy = clone(colorToEdit.getData());
       delete colorCopy.id;
       colorCopy.attributes = {
-        ...this.selectedColor,
+        ...this._selectedColor,
         createdAt: colorToEdit.createdAt
       };
 
@@ -80,65 +97,67 @@ export default class ColorPickerComponent extends Component<ColorPickerArgs> {
           return { type: 'color', id: color.id };
         });
         const colorsListRecord = colorsList.findBy('id', colorToEdit.id);
-        const colorToEditIndex = colorsList.indexOf(colorsListRecord);
-        colorsList.removeAt(colorToEditIndex);
+        if (colorsListRecord) {
+          const colorToEditIndex = colorsList.indexOf(colorsListRecord);
+          colorsList.removeAt(colorToEditIndex);
 
-        await this.store.update((t) => {
-          const addColorOperation = t.addRecord(colorCopy);
-          colorsList.insertAt(colorToEditIndex, {
-            type: 'color',
-            id: addColorOperation.operation.record.id
+          await this.store.update((t) => {
+            const addColorOperation = t.addRecord(colorCopy);
+            colorsList.insertAt(colorToEditIndex, {
+              type: 'color',
+              id: addColorOperation.operation.record.id
+            });
+
+            const operations: OperationTerm[] = [
+              addColorOperation,
+              t.replaceRelatedRecords(
+                { type: 'palette', id: palette.id },
+                'colors',
+                colorsList
+              ),
+              t.replaceAttribute(
+                { type: 'palette', id: palette.id },
+                'colorOrder',
+                colorsList
+              )
+            ];
+
+            // If the color only exists in in color history, and we remove it, we should delete the color
+            if (
+              colorToEdit.palettes.length === 1 &&
+              colorToEdit.palettes[0].isColorHistory
+            ) {
+              operations.push(
+                t.removeRecord({ type: 'color', id: colorToEdit.id })
+              );
+            }
+
+            return operations;
           });
 
-          const operations = [
-            addColorOperation,
-            t.replaceRelatedRecords(
-              { type: 'palette', id: palette.id },
-              'colors',
-              colorsList
-            ),
-            t.replaceAttribute(
-              { type: 'palette', id: palette.id },
-              'colorOrder',
-              colorsList
-            )
-          ];
-
-          // If the color only exists in in color history, and we remove it, we should delete the color
-          if (
-            colorToEdit.palettes.length === 1 &&
-            colorToEdit.palettes[0].isColorHistory
-          ) {
-            operations.push(
-              t.removeRecord({ type: 'color', id: colorToEdit.id })
-            );
-          }
-
-          return operations;
-        });
-
-        this.undoManager.setupUndoRedo();
+          this.undoManager.setupUndoRedo();
+        }
       }
     } else {
-      this.args.saveColor(this.selectedColor.hex);
+      this.args.saveColor(this._selectedColor?.hex);
     }
 
     this.args.toggleIsShown();
   }
 
   @action
-  destroyColorPicker() {
-    this.colorPicker.off('color:change', this.onChange);
+  destroyColorPicker(): void {
+    this.colorPicker?.off('color:change', this.onChange);
   }
 
   @action
-  setSelectedColor(color) {
+  setSelectedColor(color: string): void {
     const tinyColor = new TinyColor(color);
     const { r, g, b, a } = tinyColor.toRgb();
     const namedColor = this.nearestColor.nearest({ r, g, b });
     const hex = rgbaToHex(r, g, b, a);
 
-    this.selectedColor = {
+    this._selectedColor = {
       _hex: hex,
       _r: r,
       _g: g,
@@ -154,28 +173,27 @@ export default class ColorPickerComponent extends Component<ColorPickerArgs> {
   }
 
   @action
-  updateColor() {
-    const { r, g, b } = this.selectedColor;
+  updateColor(): void {
+    const { r, g, b } = this._selectedColor;
     const namedColor = this.nearestColor.nearest({ r, g, b });
-    set(this.selectedColor, 'name', namedColor.name);
+    set(this._selectedColor, 'name', namedColor.name);
 
-    this.colorPicker.setColors([this.selectedColor].mapBy('hex'));
+    this.colorPicker?.setColors([this._selectedColor].mapBy('hex'));
   }
 
   /**
    * Updates the internal, private input values
    * @param {string} key The key to the value to change
-   * @param {number|string} value The value from the input mask
    */
   @action
-  updateColorInputs(key, value) {
-    set(this.selectedColor, `_${key}`, value);
+  updateColorInputs(key: keyof PublicRGBAHex, value: number | string): void {
+    set(this._selectedColor, `_${key}` as keyof PrivateRGBAHex, value);
   }
 
   @action
-  _setupColorPicker(element, color) {
-    this.colorPicker = new iro.ColorPicker(element, {
-      colors: [color],
+  _setupColorPicker(element: HTMLElement, hex: string): void {
+    this.colorPicker = new (iro.ColorPicker as any)(element, {
+      colors: [hex],
       layoutDirection: 'vertical',
       layout: [
         {
@@ -211,6 +229,6 @@ export default class ColorPickerComponent extends Component<ColorPickerArgs> {
       width: 207
     });
 
-    this.colorPicker.on('color:change', this.onChange);
+    this.colorPicker?.on('color:change', this.onChange);
   }
 }

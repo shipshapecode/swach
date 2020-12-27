@@ -164,8 +164,8 @@ export default class ApplicationController extends Controller {
   }
 
   @action
-  toggleColorPickerIsShown(color: ColorModel): void {
-    if (color && color.hex) {
+  toggleColorPickerIsShown(color?: ColorModel): void {
+    if (color?.hex) {
       this.colorPickerColor = color;
     }
     this.colorPickerIsShown = !this.colorPickerIsShown;

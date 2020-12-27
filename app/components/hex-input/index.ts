@@ -3,11 +3,11 @@ import Component from '@glimmer/component';
 
 import { TinyColor } from '@ctrl/tinycolor';
 
-import { SelectedColorPOJO } from 'swach/components/rgb-input';
+import { SelectedColorModel } from 'swach/components/rgb-input';
 import { rgbaToHex } from 'swach/data-models/color';
 
 interface HexInputArgs {
-  selectedColor: SelectedColorPOJO;
+  selectedColor: SelectedColorModel;
   updateColor: () => void;
 }
 

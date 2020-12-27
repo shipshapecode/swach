@@ -7,7 +7,7 @@ import { tracked } from '@glimmer/tracking';
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
 
-iro.ColorPicker.prototype.setColors = function (
+new iro.ColorPicker.prototype.setColors = function (
   newColorValues,
   selectedIndex = 0
 ) {

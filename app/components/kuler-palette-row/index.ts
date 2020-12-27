@@ -1,13 +1,26 @@
-import Component from '@glimmer/component';
-import { inject as service } from '@ember/service';
-import fade from 'ember-animated/transitions/fade';
 import { action } from '@ember/object';
+import Router from '@ember/routing/router-service';
+import { inject as service } from '@ember/service';
+import Component from '@glimmer/component';
 
-export default class KulerPaletteRowComponent extends Component {
-  @service colorUtils;
-  @service router;
-  @service store;
-  @service undoManager;
+import fade from 'ember-animated/transitions/fade';
+import { Store } from 'ember-orbit';
+
+import ColorModel from 'swach/data-models/color';
+import PaletteModel from 'swach/data-models/palette';
+import ColorUtils from 'swach/services/color-utils';
+import UndoManager from 'swach/services/undo-manager';
+
+interface KulerPaletteRowArgs {
+  palette: PaletteModel;
+  setSelectedIroColor: (index: number) => void;
+}
+
+export default class KulerPaletteRowComponent extends Component<KulerPaletteRowArgs> {
+  @service colorUtils!: ColorUtils;
+  @service router!: Router;
+  @service store!: Store;
+  @service undoManager!: UndoManager;
 
   fade = fade;
   showMenu = false;
@@ -18,21 +31,21 @@ export default class KulerPaletteRowComponent extends Component {
    * @param {Palette} palette The palette to select
    */
   @action
-  setSelectedColor(color) {
+  setSelectedColor(color: ColorModel): void {
     const selectedColorIndex = this.args.palette.colors.indexOf(color);
     this.args.setSelectedIroColor(selectedColorIndex);
     this.args.palette.selectedColorIndex = selectedColorIndex;
   }
 
   @action
-  async savePalette() {
+  async savePalette(): Promise<void> {
     await this.router.transitionTo('palettes');
 
     const { palette } = this.args;
     const { colors } = palette;
 
     await this.store.update((t) => {
-      let paletteOperation = t.addRecord({
+      const paletteOperation = t.addRecord({
         type: 'palette',
         attributes: {
           name: this.args.palette.name,

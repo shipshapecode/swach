@@ -1,29 +1,30 @@
+const Sentry = require('@sentry/electron');
 const { app, clipboard, dialog, ipcMain, nativeTheme } = require('electron');
+const { download } = require('electron-dl');
+const isDev = require('electron-is-dev');
+const Store = require('electron-store');
+const fs = require('fs');
+const { menubar } = require('menubar');
 const { basename, dirname, join, resolve } = require('path');
 const { pathToFileURL } = require('url');
-const isDev = require('electron-is-dev');
-const fs = require('fs');
-const { download } = require('electron-dl');
-const { menubar } = require('menubar');
-const handleFileUrls = require('./handle-file-urls');
 
-const emberAppDir = resolve(__dirname, '..', 'ember-dist');
+const { setupUpdateServer } = require('./auto-update');
 const { launchPicker } = require('./color-picker');
 const { noUpdatesAvailableDialog, restartDialog } = require('./dialogs');
+const handleFileUrls = require('./handle-file-urls');
 const {
   registerKeyboardShortcuts,
   setupContextMenu,
   setupMenu
 } = require('./shortcuts');
 const { setTouchbar } = require('./touchbar');
-const { setupUpdateServer } = require('./auto-update');
+
+const emberAppDir = resolve(__dirname, '..', 'ember-dist');
 
 if (isDev) {
   const debug = require('electron-debug');
   debug({ showDevTools: false });
 }
-
-const Sentry = require('@sentry/electron');
 
 Sentry.init({
   appName: 'swach',
@@ -31,7 +32,6 @@ Sentry.init({
   release: `v${require('../package').version}`
 });
 
-const Store = require('electron-store');
 const store = new Store({
   defaults: {
     firstRun: true,

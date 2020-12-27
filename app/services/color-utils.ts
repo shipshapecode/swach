@@ -1,12 +1,15 @@
-import Service from '@ember/service';
 import { action } from '@ember/object';
+import Service from '@ember/service';
 import { inject as service } from '@ember/service';
-import { rgbaToHex } from 'swach/data-models/color';
+
 import { storageFor } from 'ember-local-storage';
-import { TinyColor } from '@ctrl/tinycolor';
 import { Store } from 'ember-orbit/addon/index';
-import NearestColor from 'swach/services/nearest-color';
+
+import { TinyColor } from '@ctrl/tinycolor';
+
 import Color from 'swach/data-models/color';
+import { rgbaToHex } from 'swach/data-models/color';
+import NearestColor from 'swach/services/nearest-color';
 import { SettingsStorage } from 'swach/storages/settings';
 
 interface ColorPOJO {

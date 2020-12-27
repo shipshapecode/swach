@@ -1,5 +1,5 @@
-import colors from './fixtures/colors';
-import palettes from './fixtures/palettes';
+import colors from 'swach/tests/orbit/fixtures/colors';
+import palettes from 'swach/tests/orbit/fixtures/palettes';
 
 export default async function seedOrbit(owner) {
   const store = owner.lookup('service:store');

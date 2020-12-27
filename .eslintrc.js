@@ -14,7 +14,8 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:ember/recommended',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
+    '@clark/ember-order-imports'
   ],
   env: {
     browser: true
@@ -24,6 +25,10 @@ module.exports = {
   },
   rules: {
     'require-yield': 'off',
+    'sort-imports': [
+      'error',
+      { allowSeparatedGroups: true, ignoreDeclarationSort: true }
+    ],
     'ember/no-jquery': 'error',
     'ember/classic-decorator-hooks': 'error',
     'ember/classic-decorator-no-classic-methods': 'error'

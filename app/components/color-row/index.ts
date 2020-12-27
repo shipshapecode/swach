@@ -1,13 +1,15 @@
-import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { isEmpty } from '@ember/utils';
-import { inject as service } from '@ember/service';
-import { tracked } from '@glimmer/tracking';
-import fade from 'ember-animated/transitions/fade';
-import ColorUtils from 'swach/services/color-utils';
 import Router from '@ember/routing/router-service';
-import PaletteModel from 'swach/data-models/palette';
+import { inject as service } from '@ember/service';
+import { isEmpty } from '@ember/utils';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+
+import fade from 'ember-animated/transitions/fade';
+
 import ColorModel from 'swach/data-models/color';
+import PaletteModel from 'swach/data-models/palette';
+import ColorUtils from 'swach/services/color-utils';
 
 interface ColorRowArgs {
   color: any;

@@ -1,7 +1,8 @@
-import { module, test } from 'qunit';
-import { visit, currentURL } from '@ember/test-helpers';
+import { currentURL, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
-import seedOrbit from '../orbit/seed';
+import { module, test } from 'qunit';
+
+import seedOrbit from 'swach/tests/orbit/seed';
 
 module('Acceptance | index', function (hooks) {
   setupApplicationTest(hooks);

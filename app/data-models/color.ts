@@ -1,7 +1,10 @@
-import { Model, attr, hasMany } from 'ember-orbit';
-import { TinyColor } from '@ctrl/tinycolor';
 import { isEmpty } from '@ember/utils';
-import Palette from 'swach/data-models/palette';
+
+import { Model, attr, hasMany } from 'ember-orbit';
+
+import { TinyColor } from '@ctrl/tinycolor';
+
+import PaletteModel from 'swach/data-models/palette';
 
 export default class ColorModel extends Model {
   @attr('date') createdAt!: string;
@@ -11,7 +14,7 @@ export default class ColorModel extends Model {
   @attr('number') b!: number;
   @attr('number') a!: number;
 
-  @hasMany('palette', { inverse: 'colors' }) palettes!: Palette[];
+  @hasMany('palette', { inverse: 'colors' }) palettes!: PaletteModel[];
 
   get hex(): string {
     const { r, g, b, a } = this;

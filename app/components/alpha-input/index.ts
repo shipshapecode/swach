@@ -1,19 +1,26 @@
-import Component from '@glimmer/component';
 import { action, set } from '@ember/object';
+import Component from '@glimmer/component';
+
+import { SelectedColorModel } from 'swach/components/rgb-input';
 import { rgbaToHex } from 'swach/data-models/color';
 
-export default class AlphaInputComponent extends Component {
+interface AlphaInputArgs {
+  selectedColor: SelectedColorModel;
+  updateColor: () => void;
+}
+
+export default class AlphaInputComponent extends Component<AlphaInputArgs> {
   alphaRegex = /^[1]$|^[0]$|^(0\.[0-9]{1,2})$/;
 
   @action
-  enterPress(event) {
+  enterPress(event: KeyboardEvent): void {
     if (event.keyCode === 13) {
-      event.target.blur();
+      (<HTMLInputElement>event.target).blur();
     }
   }
 
   @action
-  isComplete(buffer, opts) {
+  isComplete(buffer: Buffer, opts: { regex: string }): boolean {
     const value = buffer.join('');
     return Boolean(value.length) && new RegExp(opts.regex).test(value);
   }
@@ -23,9 +30,9 @@ export default class AlphaInputComponent extends Component {
    * @param {Event} event
    */
   @action
-  onComplete(event) {
+  onComplete(event: InputEvent): void {
     const { selectedColor } = this.args;
-    let value = parseFloat(event.target.value);
+    let value = parseFloat((<HTMLInputElement>event.target).value);
 
     if (value > 1) {
       value = 1;
@@ -45,7 +52,7 @@ export default class AlphaInputComponent extends Component {
    * Resets the alpha input value if you navigate away
    */
   @action
-  onIncomplete() {
+  onIncomplete(): void {
     set(this.args.selectedColor, `_a`, this.args.selectedColor.a);
   }
 }

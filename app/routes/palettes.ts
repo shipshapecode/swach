@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+
 import { LiveQuery, Store } from 'ember-orbit';
 
 export default class PalettesRoute extends Route {

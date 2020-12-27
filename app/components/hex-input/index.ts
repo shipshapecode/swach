@@ -1,20 +1,28 @@
-import Component from '@glimmer/component';
 import { action, set, setProperties } from '@ember/object';
+import Component from '@glimmer/component';
+
 import { TinyColor } from '@ctrl/tinycolor';
+
+import { SelectedColorModel } from 'swach/components/rgb-input';
 import { rgbaToHex } from 'swach/data-models/color';
 
-export default class HexInputComponent extends Component {
+interface HexInputArgs {
+  selectedColor: SelectedColorModel;
+  updateColor: () => void;
+}
+
+export default class HexInputComponent extends Component<HexInputArgs> {
   hexRegex = /^#([A-Fa-f0-9]{8}|[A-Fa-f0-9]{6})$/;
 
   @action
-  enterPress(event) {
+  enterPress(event: KeyboardEvent): void {
     if (event.keyCode === 13) {
-      event.target.blur();
+      (<HTMLInputElement>event.target).blur();
     }
   }
 
   @action
-  isComplete(buffer, opts) {
+  isComplete(buffer: Buffer, opts: { regex: string }): boolean {
     return new RegExp(opts.regex).test(buffer.join(''));
   }
 
@@ -23,11 +31,11 @@ export default class HexInputComponent extends Component {
    * @param {Event} event The event when the hex matches the regex and is valid
    */
   @action
-  onComplete(event) {
-    const tinyColor = new TinyColor(event.target.value);
+  onComplete(event: InputEvent): void {
+    const tinyColor = new TinyColor((<HTMLInputElement>event.target).value);
     const { r, g, b, a } = tinyColor.toRgb();
     const hex = rgbaToHex(r, g, b, a);
-    const alpha = a.toFixed(2);
+    const alpha = parseFloat(a.toFixed(2));
 
     setProperties(this.args.selectedColor, {
       _hex: hex,
@@ -48,7 +56,7 @@ export default class HexInputComponent extends Component {
    * Resets the hex value if you navigate away
    */
   @action
-  onIncomplete() {
+  onIncomplete(): void {
     set(this.args.selectedColor, '_hex', this.args.selectedColor.hex);
   }
 }

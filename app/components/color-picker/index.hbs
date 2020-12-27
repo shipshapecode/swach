@@ -13,7 +13,7 @@
       data-test-color-picker
       {{did-update this.setScrollPosition}}
     >
-      <ColorRow @color={{this.selectedColor}} @showActions={{false}} />
+      <ColorRow @color={{this._selectedColor}} @showActions={{false}} />
 
       <div class="bg-menu flex p-4 relative rounded">
         <div
@@ -27,21 +27,21 @@
           <HexInput
             data-test-color-picker-hex
             class="input rounded mb-4 w-24"
-            @selectedColor={{this.selectedColor}}
+            @selectedColor={{this._selectedColor}}
             @update={{fn this.updateColorInputs "hex"}}
             @updateColor={{this.updateColor}}
-            @value={{this.selectedColor._hex}}
+            @value={{this._selectedColor._hex}}
           />
 
           <div class="input overflow-hidden relative whitespace-nowrap w-24">
             <RgbInput
               data-test-color-picker-r
               class="bg-input-bg text-right text-xs w-full"
-              @selectedColor={{this.selectedColor}}
+              @selectedColor={{this._selectedColor}}
               @type="r"
               @update={{fn this.updateColorInputs "r"}}
               @updateColor={{this.updateColor}}
-              @value={{this.selectedColor._r}}
+              @value={{this._selectedColor._r}}
             />
           </div>
 
@@ -49,11 +49,11 @@
             <RgbInput
               data-test-color-picker-g
               class="bg-input-bg text-right text-xs w-full"
-              @selectedColor={{this.selectedColor}}
+              @selectedColor={{this._selectedColor}}
               @type="g"
               @update={{fn this.updateColorInputs "g"}}
               @updateColor={{this.updateColor}}
-              @value={{this.selectedColor._g}}
+              @value={{this._selectedColor._g}}
             />
           </div>
 
@@ -61,11 +61,11 @@
             <RgbInput
               data-test-color-picker-b
               class="bg-input-bg text-right text-xs w-full"
-              @selectedColor={{this.selectedColor}}
+              @selectedColor={{this._selectedColor}}
               @type="b"
               @update={{fn this.updateColorInputs "b"}}
               @updateColor={{this.updateColor}}
-              @value={{this.selectedColor._b}}
+              @value={{this._selectedColor._b}}
             />
           </div>
 
@@ -75,10 +75,10 @@
             <AlphaInput
               data-test-color-picker-a
               class="bg-input-bg text-right text-xs w-full"
-              @selectedColor={{this.selectedColor}}
+              @selectedColor={{this._selectedColor}}
               @update={{fn this.updateColorInputs "a"}}
               @updateColor={{this.updateColor}}
-              @value={{this.selectedColor._a}}
+              @value={{this._selectedColor._a}}
             />
           </div>
         </div>
@@ -90,7 +90,7 @@
             <div
               class="font-medium text-xxs text-center text-main-text w-full whitespace-nowrap"
             >
-              {{this.selectedColor.hex}}
+              {{this._selectedColor.hex}}
             </div>
 
             <span class="text-smallest">

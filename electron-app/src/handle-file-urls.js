@@ -1,9 +1,8 @@
 const { protocol } = require('electron');
-const { fileURLToPath } = require('url');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
+const { fileURLToPath } = require('url');
 const { promisify } = require('util');
-
 const access = promisify(fs.access);
 
 //

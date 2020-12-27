@@ -1,14 +1,18 @@
 import Controller, { inject as controller } from '@ember/controller';
 import { action } from '@ember/object';
+import Router from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import ApplicationController from 'swach/controllers/application';
+
 import { Store } from 'ember-orbit';
-import Router from '@ember/routing/router-service';
-import ColorUtils from 'swach/services/color-utils';
-import UndoManager from 'swach/services/undo-manager';
+
+import { OperationTerm } from '@orbit/data/src/operation-term';
+
+import ApplicationController from 'swach/controllers/application';
 import ColorModel from 'swach/data-models/color';
 import PaletteModel from 'swach/data-models/palette';
+import ColorUtils from 'swach/services/color-utils';
+import UndoManager from 'swach/services/undo-manager';
 
 export default class PalettesController extends Controller {
   @controller application!: ApplicationController;
@@ -123,7 +127,7 @@ export default class PalettesController extends Controller {
             sourceColorList.removeObject(colorToRemove);
 
             await this.store.update((t) => {
-              const operations = [];
+              const operations: OperationTerm[] = [];
 
               operations.push(
                 t.removeFromRelatedRecords(
@@ -192,7 +196,7 @@ export default class PalettesController extends Controller {
       });
 
       await this.store.update((t) => {
-        const operations = [];
+        const operations: OperationTerm[] = [];
 
         operations.push(
           t.replaceAttribute(

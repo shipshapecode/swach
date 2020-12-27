@@ -1,15 +1,28 @@
-import Component from '@glimmer/component';
 import { action, set } from '@ember/object';
+import Component from '@glimmer/component';
+
 import ColorModel, { rgbaToHex } from 'swach/data-models/color';
 
-interface PrivateRGBAHex {
+export interface PrivateRGBAHex {
   _r: number;
   _g: number;
   _b: number;
   _a: number;
   _hex: string;
 }
-interface SelectedColorPOJO extends ColorModel, PrivateRGBAHex {}
+
+export interface PublicRGBAHex {
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+  hex: string;
+}
+
+export interface SelectedColorModel extends ColorModel, PrivateRGBAHex {}
+export interface SelectedColorPOJO extends PrivateRGBAHex, PublicRGBAHex {
+  name: string;
+}
 
 interface RgbaInputArgs {
   selectedColor: ColorModel;
@@ -39,8 +52,8 @@ export default class RgbaInputComponent extends Component<RgbaInputArgs> {
    */
   @action
   onComplete(event: InputEvent): void {
-    const selectedColor: SelectedColorPOJO = this.args
-      .selectedColor as SelectedColorPOJO;
+    const selectedColor: SelectedColorModel = this.args
+      .selectedColor as SelectedColorModel;
     const { type } = this.args;
     let value = parseFloat((<HTMLInputElement>event.target).value);
 
@@ -63,8 +76,8 @@ export default class RgbaInputComponent extends Component<RgbaInputArgs> {
    */
   @action
   onIncomplete(): void {
-    const selectedColor: SelectedColorPOJO = this.args
-      .selectedColor as SelectedColorPOJO;
+    const selectedColor: SelectedColorModel = this.args
+      .selectedColor as SelectedColorModel;
     const { type } = this.args;
 
     set(

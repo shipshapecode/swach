@@ -1,14 +1,16 @@
-import Controller from '@ember/controller';
 import { A } from '@ember/array';
+import Controller from '@ember/controller';
 import { action } from '@ember/object';
-import { inject as service } from '@ember/service';
-import { storageFor } from 'ember-local-storage';
-import { tracked } from '@glimmer/tracking';
-import { Model, Store } from 'ember-orbit';
 import Router from '@ember/routing/router-service';
+import { inject as service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
+
+import { storageFor } from 'ember-local-storage';
+import { Model, Store } from 'ember-orbit';
+
+import ColorModel from 'swach/data-models/color';
 import ColorUtils from 'swach/services/color-utils';
 import UndoManager from 'swach/services/undo-manager';
-import ColorModel from 'swach/data-models/color';
 import { SettingsStorage, themes } from 'swach/storages/settings';
 
 export default class ApplicationController extends Controller {
@@ -162,8 +164,8 @@ export default class ApplicationController extends Controller {
   }
 
   @action
-  toggleColorPickerIsShown(color: ColorModel): void {
-    if (color && color.hex) {
+  toggleColorPickerIsShown(color?: ColorModel): void {
+    if (color?.hex) {
       this.colorPickerColor = color;
     }
     this.colorPickerIsShown = !this.colorPickerIsShown;

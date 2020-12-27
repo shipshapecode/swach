@@ -1,5 +1,5 @@
-import { toLeft, toRight } from 'ember-animated/transitions/move-over';
 import { easeInAndOut } from 'ember-animated/easings/cosine';
+import { toLeft, toRight } from 'ember-animated/transitions/move-over';
 
 export const transitionOptions = { duration: 250, easing: easeInAndOut };
 

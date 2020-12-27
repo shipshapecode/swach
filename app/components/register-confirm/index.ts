@@ -6,26 +6,23 @@ import { tracked } from '@glimmer/tracking';
 
 import CognitoService from 'ember-cognito/services/cognito';
 
-export default class Register extends Component {
+export default class RegisterConfirm extends Component {
   @service cognito!: CognitoService;
   @service router!: Router;
 
   @tracked errorMessage = null;
-  @tracked password?: string;
+  @tracked code?: string;
   @tracked username?: string;
 
   @action
-  async register(): Promise<void> {
-    const { username, password } = this;
-    if (username && password) {
-      const attributes = {
-        email: username
-      };
+  async confirm(): Promise<void> {
+    const { username, code } = this;
 
+    if (username && code) {
       try {
-        await this.cognito.signUp(username, password, attributes);
+        await this.cognito.confirmSignUp(username, code);
 
-        this.router.transitionTo('settings.cloud.register.confirm');
+        this.router.transitionTo('settings.cloud');
       } catch (err) {
         this.errorMessage = err?.message;
       }

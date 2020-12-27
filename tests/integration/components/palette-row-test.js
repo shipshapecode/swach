@@ -1,7 +1,9 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
 import { click, render, triggerEvent } from '@ember/test-helpers';
+import { setupRenderingTest } from 'ember-qunit';
+import { module, test } from 'qunit';
+
 import { hbs } from 'ember-cli-htmlbars';
+
 import { waitForAll } from 'swach/tests/helpers';
 
 module('Integration | Component | palette-row', function (hooks) {

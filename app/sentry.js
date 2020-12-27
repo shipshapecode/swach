@@ -1,5 +1,5 @@
-import { Ember } from '@sentry/integrations/esm/ember';
 import { CaptureConsole } from '@sentry/integrations/esm/captureconsole';
+import { Ember } from '@sentry/integrations/esm/ember';
 
 import config from './config/environment';
 

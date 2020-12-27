@@ -1,5 +1,7 @@
 import Component from '@glimmer/component';
+
 import fade from 'ember-animated/transitions/fade';
+
 import { transitionOptions, transitions } from 'swach/transitions';
 
 export default class AnimatedOutlet extends Component {

@@ -7,9 +7,9 @@ import resetStorages from 'ember-local-storage/test-support/reset-storage';
 import IDBExportImport from 'indexeddb-export-import';
 import sinon from 'sinon';
 
-import * as utils from 'swach/utils/get-db-open-request';
-import seedOrbit from 'swach/tests/orbit/seed';
 import { waitForAll } from 'swach/tests/helpers';
+import seedOrbit from 'swach/tests/orbit/seed';
+import * as utils from 'swach/utils/get-db-open-request';
 
 module('Acceptance | settings/data', function (hooks) {
   setupApplicationTest(hooks);
@@ -38,7 +38,9 @@ module('Acceptance | settings/data', function (hooks) {
     });
 
     test('export triggers error message', async function (assert) {
-      sinon.stub(IDBExportImport, 'exportToJsonString').callsArgWith(1, 'error')
+      sinon
+        .stub(IDBExportImport, 'exportToJsonString')
+        .callsArgWith(1, 'error');
       await click('[data-test-export-swatches-button]');
       await waitForAll();
       assert.dom('.alert.alert-danger').exists({ count: 1 });

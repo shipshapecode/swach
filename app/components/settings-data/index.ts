@@ -3,20 +3,21 @@ import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
+import { Store } from 'ember-orbit';
+
 import IDBExportImport from 'indexeddb-export-import';
 
 import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
 
 export default class SettingsDataComponent extends Component {
-  @service dataCoordinator;
+  @service dataCoordinator: any;
   @service flashMessages;
-  @service store;
+  @service store!: Store;
 
   ipcRenderer: any;
 
   @tracked isExporting = false;
   @tracked isImporting = false;
-  @tracked platform?: string;
 
   constructor(owner: unknown, args: Record<string, unknown>) {
     super(owner, args);
@@ -24,10 +25,6 @@ export default class SettingsDataComponent extends Component {
     if (typeof requireNode !== 'undefined') {
       const { ipcRenderer } = requireNode('electron');
       this.ipcRenderer = ipcRenderer;
-
-      this.ipcRenderer.invoke('getPlatform').then((platform: string) => {
-        this.platform = platform;
-      });
     }
   }
 

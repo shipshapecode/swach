@@ -2,14 +2,31 @@ import { action, set, setProperties } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 
-export default class EditSelectedColorComponent extends Component {
-  @service colorUtils;
+import iro from '@jaames/iro';
 
-  get selectedColor() {
+import {
+  PrivateRGBAHex,
+  PublicRGBAHex,
+  SelectedColorModel
+} from 'swach/components/rgb-input';
+import PaletteModel from 'swach/data-models/palette';
+import ColorUtils from 'swach/services/color-utils';
+
+interface EditSelectedColorArgs {
+  colorPicker: iro.ColorPicker;
+  palette: PaletteModel;
+}
+
+export default class EditSelectedColorComponent extends Component<EditSelectedColorArgs> {
+  @service colorUtils!: ColorUtils;
+
+  get selectedColor(): SelectedColorModel | Record<string, unknown> {
     const { palette } = this.args;
     if (palette) {
       const { colors } = palette;
-      const selectedColor = colors[palette.selectedColorIndex];
+      const selectedColor = colors[
+        palette.selectedColorIndex
+      ] as SelectedColorModel;
       const { hex, r, g, b, a } = selectedColor;
       setProperties(selectedColor, {
         _hex: hex,
@@ -57,8 +74,9 @@ export default class EditSelectedColorComponent extends Component {
   //   }
   // }
 
+  // TODO: try replacing this with the real setColors method from iro.
   @action
-  updateColor() {
+  updateColor(): void {
     this.args.colorPicker.setColors(
       this.args.palette.colors.mapBy('hex'),
       this.args.palette.selectedColorIndex
@@ -67,11 +85,11 @@ export default class EditSelectedColorComponent extends Component {
 
   /**
    * Updates the internal, private input values
-   * @param {string} key The key to the value to change
-   * @param {number|string} value The value from the input mask
+   * @param key The key to the value to change
+   * @param value The value from the input mask
    */
   @action
-  updateColorInputs(key, value) {
-    set(this.selectedColor, `_${key}`, value);
+  updateColorInputs(key: keyof PublicRGBAHex, value: number | string): void {
+    set(this.selectedColor, `_${key}` as keyof PrivateRGBAHex, value);
   }
 }

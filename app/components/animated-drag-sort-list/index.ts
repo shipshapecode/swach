@@ -10,7 +10,7 @@ import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 export default class AnimatedDragSortList extends DragSortList {
   didDrag = false;
 
-  dragEnter() {
+  dragEnter(): void {
     set(this, 'didDrag', true);
     super.dragEnter(...arguments);
   }
@@ -26,7 +26,15 @@ export default class AnimatedDragSortList extends DragSortList {
     return null;
   }
 
-  *transition({ keptSprites, insertedSprites, removedSprites }) {
+  *transition({
+    keptSprites,
+    insertedSprites,
+    removedSprites
+  }: {
+    keptSprites: any;
+    insertedSprites: any;
+    removedSprites: any;
+  }) {
     for (const sprite of insertedSprites) {
       sprite.startTranslatedBy(0, -sprite.finalBounds.height / 2);
       move(sprite, { easing: easeOut });

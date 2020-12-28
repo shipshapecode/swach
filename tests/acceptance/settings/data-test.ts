@@ -1,13 +1,13 @@
-import { click, currentURL, visit } from '@ember/test-helpers';
+import { currentURL, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
 import resetStorages from 'ember-local-storage/test-support/reset-storage';
 
-import IDBExportImport from 'indexeddb-export-import';
+// import IDBExportImport from 'indexeddb-export-import';
 import sinon from 'sinon';
 
-import { waitForAll } from 'swach/tests/helpers';
+// import { waitForAll } from 'swach/tests/helpers';
 import seedOrbit from 'swach/tests/orbit/seed';
 import * as utils from 'swach/utils/get-db-open-request';
 
@@ -37,7 +37,6 @@ module('Acceptance | settings/data', function (hooks) {
     //   await waitForAll();
     //   assert.dom('.alert.alert-success').exists({ count: 1 });
     // });
-
     // test('export triggers error message', async function (assert) {
     //   sinon
     //     .stub(IDBExportImport, 'exportToJsonString')

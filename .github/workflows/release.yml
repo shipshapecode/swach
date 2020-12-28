@@ -25,7 +25,9 @@ jobs:
       - name: Get xvfb
         run: sudo apt-get install xvfb
       - name: Browser Test
-        run: xvfb-run --auto-servernum yarn test:ember
+        run: yarn test:ember
+      - name: Electron Test
+        run: xvfb-run --auto-servernum yarn test:electron     
   build:
     name: Build (${{ matrix.os }})
     if: startsWith(github.ref, 'refs/tags/')

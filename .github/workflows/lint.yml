@@ -1,4 +1,4 @@
-name: CI
+name: Linting
 
 on:
   push:
@@ -8,7 +8,6 @@ on:
 
 jobs:
   test:
-    name: Lint and Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

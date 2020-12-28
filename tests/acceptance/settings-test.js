@@ -4,6 +4,7 @@ import { module, test } from 'qunit';
 
 import resetStorages from 'ember-local-storage/test-support/reset-storage';
 
+import { waitForAll } from 'swach/tests/helpers';
 import seedOrbit from 'swach/tests/orbit/seed';
 
 module('Acceptance | settings', function (hooks) {
@@ -12,6 +13,7 @@ module('Acceptance | settings', function (hooks) {
   hooks.beforeEach(async function () {
     await seedOrbit(this.owner);
     await visit('/settings');
+    await waitForAll();
   });
 
   hooks.afterEach(function () {
@@ -47,12 +49,12 @@ module('Acceptance | settings', function (hooks) {
 
   // Electron specific tests
   if (typeof requireNode !== 'undefined') {
-    test('has seven inputs', function (assert) {
-      assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
-    });
-
-    test('start on startup is not checked by default', async function (assert) {
-      assert.dom('[data-test-settings-startup]').isNotChecked();
-    });
+    // TODO: these are different for Mac/Windows vs Linux, so we need specific platform tests
+    // test('has seven inputs', function (assert) {
+    //   assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
+    // });
+    // test('start on startup is not checked by default', async function (assert) {
+    //   assert.dom('[data-test-settings-startup]').isNotChecked();
+    // });
   }
 });

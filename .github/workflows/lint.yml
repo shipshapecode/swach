@@ -8,7 +8,7 @@ on:
 
 jobs:
   lint:
-    name: Linting
+    name: JS and HBS
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

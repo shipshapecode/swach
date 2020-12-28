@@ -1,4 +1,4 @@
-name: Ember Tests
+name: Ember
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    name: Ember Test
+    name: Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

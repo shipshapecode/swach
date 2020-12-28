@@ -33,6 +33,14 @@ export default class ContrastChecker extends Component {
     }
   }
 
+  willDestroy() {
+    super.willDestroy(...arguments);
+    if (this.ipcRenderer) {
+      this.ipcRenderer.removeAllListeners('pickContrastBgColor');
+      this.ipcRenderer.removeAllListeners('pickContrastFgColor');
+    }
+  }
+
   @action
   initBackgroundColorPicker(element) {
     this.bgPickr = new iro.ColorPicker(element, {

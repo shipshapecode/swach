@@ -6,6 +6,7 @@ module.exports = {
   },
   launch_in_ci: ['Electron'],
   launch_in_dev: ['Electron'],
+  browser_start_timeout: 120,
   browser_args: {
     Electron: {
       // Note: Some these Chrome options may not be supported in Electron

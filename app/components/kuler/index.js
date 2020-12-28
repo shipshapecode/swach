@@ -61,6 +61,14 @@ export default class KulerComponent extends Component {
     });
   }
 
+  willDestroy() {
+    super.willDestroy(...arguments);
+    if (this.ipcRenderer) {
+      this.ipcRenderer.removeAllListeners('selectKulerColor');
+      this.ipcRenderer.removeAllListeners('updateKulerColor');
+    }
+  }
+
   @action
   async baseColorChanged() {
     // If we already had a selected palette, take note of which type analogous, monochromatic, etc

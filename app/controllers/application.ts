@@ -112,6 +112,16 @@ export default class ApplicationController extends Controller {
     }
   }
 
+  willDestroy(): void {
+    super.willDestroy(...arguments);
+
+    if (this.ipcRenderer) {
+      this.ipcRenderer.removeAllListeners('changeColor');
+      this.ipcRenderer.removeAllListeners('openContrastChecker');
+      this.ipcRenderer.removeAllListeners('setTheme');
+    }
+  }
+
   @action
   async addColor(color: string): Promise<ColorModel | undefined> {
     const palettes = (await this.store.find('palette')) as Model[];

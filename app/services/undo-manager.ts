@@ -57,6 +57,10 @@ export default class UndoManager extends Service {
     if (typeof requireNode === 'undefined' && this.undoListener) {
       document.removeEventListener('keydown', this.undoListener, true);
     }
+
+    if (this.ipcRenderer) {
+      this.ipcRenderer.removeAllListeners('undoRedo');
+    }
   }
 
   /**

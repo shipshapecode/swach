@@ -108,48 +108,6 @@ module('Acceptance | colors', function (hooks) {
     assert.dom('[data-test-color="Red"]').exists();
   });
 
-  test('deleting colors', async function (assert) {
-    await visit('/colors?paletteId=color-history-123');
-
-    assert.dom('[data-test-color]').exists({ count: 4 });
-
-    await triggerEvent(
-      '[data-test-color="Black"] [data-test-color-row-menu]',
-      'mouseenter'
-    );
-
-    await animationsSettled();
-
-    // Click twice to confirm
-    await click('[data-test-color="Black"] [data-test-delete-color]');
-    await click('[data-test-color="Black"] [data-test-delete-color]');
-
-    await waitForAll();
-
-    assert.dom('[data-test-color]').exists({ count: 3 });
-
-    // undo
-    await triggerEvent(document.body, 'keydown', {
-      keyCode: 90,
-      ctrlKey: true
-    });
-
-    await waitForAll();
-
-    assert.dom('[data-test-color]').exists({ count: 4 });
-
-    // redo
-    await triggerEvent(document.body, 'keydown', {
-      keyCode: 90,
-      ctrlKey: true,
-      shiftKey: true
-    });
-
-    await waitForAll();
-
-    assert.dom('[data-test-color]').exists({ count: 3 });
-  });
-
   test('go to kuler', async function (assert) {
     await visit('/colors?paletteId=color-history-123');
 
@@ -168,4 +126,77 @@ module('Acceptance | colors', function (hooks) {
 
     assert.equal(currentURL(), '/kuler?colorId=black');
   });
+
+  // Ember specific tests
+  if (typeof requireNode === 'undefined') {
+    test('ember - deleting colors', async function (assert) {
+      await visit('/colors?paletteId=color-history-123');
+
+      assert.dom('[data-test-color]').exists({ count: 4 });
+
+      await triggerEvent(
+        '[data-test-color="Black"] [data-test-color-row-menu]',
+        'mouseenter'
+      );
+
+      await animationsSettled();
+
+      // Click twice to confirm
+      await click('[data-test-color="Black"] [data-test-delete-color]');
+      await click('[data-test-color="Black"] [data-test-delete-color]');
+
+      await waitForAll();
+
+      assert.dom('[data-test-color]').exists({ count: 3 });
+
+      // undo
+      await triggerEvent(document.body, 'keydown', {
+        keyCode: 90,
+        ctrlKey: true
+      });
+
+      await waitForAll();
+
+      assert.dom('[data-test-color]').exists({ count: 4 });
+
+      // redo
+      await triggerEvent(document.body, 'keydown', {
+        keyCode: 90,
+        ctrlKey: true,
+        shiftKey: true
+      });
+
+      await waitForAll();
+
+      assert.dom('[data-test-color]').exists({ count: 3 });
+    });
+  }
+
+  // Electron specific tests
+  if (typeof requireNode !== 'undefined') {
+    // TODO: We need a way to manually trigger undo and redo in Electron
+    // const { ipcRenderer } = requireNode('electron');
+    // test('electron - deleting colors', async function (assert) {
+    //   await visit('/colors?paletteId=color-history-123');
+    //   assert.dom('[data-test-color]').exists({ count: 4 });
+    //   await triggerEvent(
+    //     '[data-test-color="Black"] [data-test-color-row-menu]',
+    //     'mouseenter'
+    //   );
+    //   await animationsSettled();
+    //   // Click twice to confirm
+    //   await click('[data-test-color="Black"] [data-test-delete-color]');
+    //   await click('[data-test-color="Black"] [data-test-delete-color]');
+    //   await waitForAll();
+    //   assert.dom('[data-test-color]').exists({ count: 3 });
+    //   // undo
+    //   await ipcRenderer.sendSync('undoRedo', 'undo');
+    //   await waitForAll();
+    //   assert.dom('[data-test-color]').exists({ count: 4 });
+    //   // redo
+    //   await ipcRenderer.sendSync('undoRedo', 'redo');
+    //   await waitForAll();
+    //   assert.dom('[data-test-color]').exists({ count: 3 });
+    // });
+  }
 });

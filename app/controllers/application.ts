@@ -16,6 +16,7 @@ import { SettingsStorage, themes } from 'swach/storages/settings';
 export default class ApplicationController extends Controller {
   @service colorUtils!: ColorUtils;
   @service dataSchema!: any;
+  @service flashMessages: any;
   @service router!: Router;
   @service store!: Store;
   @service undoManager!: UndoManager;

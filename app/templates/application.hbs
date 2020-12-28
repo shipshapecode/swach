@@ -113,6 +113,11 @@
     <div class="flex-1 overflow-auto p-3">
       <AnimatedOutlet />
     </div>
+    <div class="bottom-0 h-auto fixed flex flex-col p-3 w-full">
+      {{#each this.flashMessages.queue as |flash|}}
+        <FlashMessage @flash={{flash}} />
+      {{/each}}
+    </div>
   </div>
 </main>
 {{context-menu}}

@@ -10,20 +10,15 @@ import sinon from 'sinon';
 import { waitForAll } from 'swach/tests/helpers';
 import seedOrbit from 'swach/tests/orbit/seed';
 
-let sinonSandBox: any;
-
 module('Acceptance | settings/cloud', function (hooks) {
   setupApplicationTest(hooks);
 
   hooks.beforeEach(async function () {
-    sinonSandBox = await sinon.createSandbox();
     await seedOrbit(this.owner);
-    await visit('/settings');
   });
 
   hooks.afterEach(function () {
     resetStorages();
-    sinonSandBox.restore();
   });
 
   test('visiting /settings/cloud', async function (assert) {
@@ -42,7 +37,7 @@ module('Acceptance | settings/cloud', function (hooks) {
       }
     });
     const authenticator = this.owner.lookup('authenticator:cognito');
-    sinonSandBox.stub(authenticator, 'authenticate').resolves();
+    sinon.stub(authenticator, 'authenticate').resolves();
 
     await visit('/settings/cloud/login');
     await fillIn('[data-test-login-input-user]', 'testuser@gmail.com');

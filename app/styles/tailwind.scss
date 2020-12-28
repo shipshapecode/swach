@@ -1,6 +1,19 @@
 @tailwind base;
 @tailwind components;
 
+.alert {
+  @apply mt-3 p-3 rounded text-sm;
+}
+
+.alert-danger {
+  @apply bg-red-400 text-red-800;
+  
+}
+
+.alert-success {
+  @apply bg-green-400 text-green-800;
+}
+
 .btn {
   @apply bg-btn-bg-secondary cursor-default font-medium h-10 rounded text-btn-text-secondary text-sm transition-colors;
 }

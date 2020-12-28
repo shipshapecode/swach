@@ -5,6 +5,7 @@
 
   <div class="flex h-8 w-full">
     <LoadingButton
+      data-test-export-swatches-button
       class="flex-1 mr-2"
       @loading={{this.isExporting}}
       @onClick={{this.exportIndexedDB}}
@@ -13,6 +14,7 @@
     </LoadingButton>
 
     <LoadingButton
+      data-test-import-swatches-button
       class="flex-1"
       @loading={{this.isImporting}}
       @onClick={{this.importIndexedDB}}

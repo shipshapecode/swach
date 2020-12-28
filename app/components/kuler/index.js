@@ -62,7 +62,10 @@ export default class KulerComponent extends Component {
   }
 
   willDestroy() {
-    super.willDestroy(...arguments);
+    this._destroyLeftoverPalettes();
+    this.colorPicker.off('color:change', this._onColorChange);
+    this.colorPicker.off('color:setActive', this._onColorSetActive);
+
     if (this.ipcRenderer) {
       this.ipcRenderer.removeAllListeners('selectKulerColor');
       this.ipcRenderer.removeAllListeners('updateKulerColor');
@@ -107,12 +110,6 @@ export default class KulerComponent extends Component {
     }
 
     this.selectedPalette = this.palettes[selectedPaletteTypeIndex];
-  }
-
-  willDestroy() {
-    this._destroyLeftoverPalettes();
-    this.colorPicker.off('color:change', this._onColorChange);
-    this.colorPicker.off('color:setActive', this._onColorSetActive);
   }
 
   @action

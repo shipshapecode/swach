@@ -8,6 +8,7 @@ on:
 
 jobs:
   test:
+    name: Ember Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

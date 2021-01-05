@@ -7,6 +7,7 @@ import ENV from 'swach/config/environment';
 
 export default class ApplicationRoute extends Route {
   @service dataCoordinator;
+  @service dataSchema;
   @service router;
   @service store;
 
@@ -31,8 +32,61 @@ export default class ApplicationRoute extends Route {
       const backup = this.dataCoordinator.getSource('backup');
 
       if (backup) {
-        const transform = await backup.pull((q) => q.findRecords());
-        await this.store.sync(transform);
+        let colorTransforms = await backup.pull((q) => q.findRecords('color'));
+        const paletteTransforms = await backup.pull((q) =>
+          q.findRecords('palette')
+        );
+        colorTransforms[0].operations = colorTransforms[0].operations.flatMap(
+          (colorOp) => {
+            const colorRecord = colorOp?.record;
+            const palettesRelationships =
+              colorRecord?.relationships?.palettes?.data;
+            if (palettesRelationships?.length ?? 0 > 1) {
+              colorOp.record.relationships.palettes.data = [
+                palettesRelationships[0]
+              ];
+              const createColorOps = [colorOp];
+              // We start at i = 1 because we can keep the original color in a single palette.
+              for (let i = 1; i < palettesRelationships.length; i++) {
+                const palette = palettesRelationships[i];
+                const colorCopy = clone(colorRecord);
+                colorCopy.id = this.dataSchema.generateId('color');
+                colorCopy.relationships.palettes.data = [palette];
+
+                const paletteOp = paletteTransforms[0].operations.find(
+                  (op) => op.record.id === palette.id
+                );
+
+                if (paletteOp) {
+                  const replaceColorIdWithCopy = (color) => {
+                    return color.id !== colorRecord.id
+                      ? color
+                      : { type: 'color', id: colorCopy.id };
+                  };
+                  // Replace color in palette with color copy
+                  paletteOp.record.relationships.colors.data = paletteOp.record.relationships.colors.data.map(
+                    replaceColorIdWithCopy
+                  );
+
+                  // Replace color id in colorOrder
+                  paletteOp.record.attributes.colorOrder = paletteOp.record.attributes.colorOrder.map(
+                    replaceColorIdWithCopy
+                  );
+                }
+
+                createColorOps.push({ op: 'addRecord', record: colorCopy });
+              }
+              return createColorOps;
+            } else {
+              return colorOp;
+            }
+          }
+        );
+        colorTransforms[0].operations = [
+          ...colorTransforms[0].operations,
+          ...paletteTransforms[0].operations
+        ];
+        await this.store.sync(colorTransforms);
       }
     }
 
@@ -50,87 +104,26 @@ export default class ApplicationRoute extends Route {
         isFavorite: false,
         isLocked: false
       });
-    } else {
-      await this.ensureSinglePalettePerColor();
-      await this.migratePalettesToPalette();
     }
   }
 
-  async ensureSinglePalettePerColor() {
-    const colors = await this.store.findRecords('color');
-    await this.store.update((t) => {
-      const operations = [];
-      for (const color of colors) {
-        // If the color exists in more than one palette, we should copy it for all the other palettes
-        if (color.palettes?.length ?? 0 > 1) {
-          // We start at i = 1 because we can keep the original color in a single palette.
-          for (let i = 1; i < color.palettes.length; i++) {
-            const palette = color.palettes[i];
-            const colorCopy = clone(color.getData());
-            delete colorCopy.id;
-            delete colorCopy.relationships;
+  // async migratePalettesToPalette() {
+  //   const colors = await this.store.findRecords('color');
+  //   await this.store.update((t) => {
+  //     const operations = [];
+  //     for (const color of colors) {
+  //       if (color.palettes) {
+  //         const rawColorData = color.getData();
+  //         debugger;
+  //         rawColorData.relationships.palette = {
+  //           data: rawColorData.relationships.palettes.data[0]
+  //         };
+  //         // delete rawColorData.relationships.palettes;
+  //         operations.push(t.updateRecord(rawColorData));
+  //       }
+  //     }
 
-            const colorsList = palette.colors.map((color) => {
-              return { type: 'color', id: color.id };
-            });
-            const colorsListRecord = colorsList.findBy('id', color.id);
-            if (colorsListRecord) {
-              const colorToRemoveIndex = colorsList.indexOf(colorsListRecord);
-              colorsList.removeAt(colorToRemoveIndex);
-
-              const addColorOperation = t.addRecord(colorCopy);
-              const colorCopyRecord = {
-                type: 'color',
-                id: addColorOperation.operation.record.id
-              };
-              colorsList.insertAt(colorToRemoveIndex, colorCopyRecord);
-
-              operations.push(addColorOperation);
-              operations.push(
-                t.replaceRelatedRecords(
-                  { type: 'palette', id: palette.id },
-                  'colors',
-                  colorsList
-                )
-              );
-              operations.push(
-                t.replaceAttribute(
-                  { type: 'palette', id: palette.id },
-                  'colorOrder',
-                  colorsList
-                )
-              );
-            }
-          }
-
-          operations.push(
-            t.replaceRelatedRecords(color, 'palettes', [
-              { type: 'palette', id: color.palettes[0].id }
-            ])
-          );
-        }
-      }
-
-      return operations;
-    });
-  }
-
-  async migratePalettesToPalette() {
-    const colors = await this.store.findRecords('color');
-    await this.store.update((t) => {
-      const operations = [];
-      for (const color of colors) {
-        if (color.palettes) {
-          const rawColorData = color.getData();
-          rawColorData.relationships.palette = {
-            data: rawColorData.relationships.palettes.data[0]
-          };
-          // delete rawColorData.relationships.palettes;
-          operations.push(t.updateRecord(rawColorData));
-        }
-      }
-
-      return operations;
-    });
-  }
+  //     return operations;
+  //   });
+  // }
 }

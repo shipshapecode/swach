@@ -109,7 +109,7 @@
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-ember": "^10.0.2",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.3.0",
+    "eslint-plugin-prettier": "^3.3.1",
     "indexeddb-export-import": "^2.1.2",
     "loader.js": "^4.7.0",
     "nearest-color": "^0.4.4",

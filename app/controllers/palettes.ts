@@ -193,7 +193,7 @@ export default class PalettesController extends Controller {
       }
 
       const colorCopy = clone(item.getData());
-      colorCopy.createdAt = new Date();
+      colorCopy.attributes.createdAt = new Date();
       // We need to delete the id and relationships from the copy, so the new copy
       // is not associated with the old color or palette.
       delete colorCopy.id;

@@ -64,7 +64,7 @@ export default class ApplicationRoute extends Route {
         // If the color exists in more than one palette, we should copy it for all the other palettes
         if (color.palettes?.length ?? 0 > 1) {
           // We start at i = 1 because we can keep the original color in a single palette.
-          for (let i = 1; i < color.palettes.length - 1; i++) {
+          for (let i = 1; i < color.palettes.length; i++) {
             const palette = color.palettes[i];
             const colorCopy = clone(color.getData());
             delete colorCopy.id;
@@ -102,6 +102,12 @@ export default class ApplicationRoute extends Route {
               );
             }
           }
+
+          operations.push(
+            t.replaceRelatedRecords(color, 'palettes', [
+              { type: 'palette', id: color.palettes[0].id }
+            ])
+          );
         }
       }
 
@@ -119,7 +125,7 @@ export default class ApplicationRoute extends Route {
           rawColorData.relationships.palette = {
             data: rawColorData.relationships.palettes.data[0]
           };
-          delete rawColorData.relationships.palettes;
+          // delete rawColorData.relationships.palettes;
           operations.push(t.updateRecord(rawColorData));
         }
       }

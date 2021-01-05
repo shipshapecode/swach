@@ -1,11 +1,14 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
+import { clone } from '@orbit/utils';
+
 import ENV from 'swach/config/environment';
 
 export default class ApplicationRoute extends Route {
   @service dataCoordinator;
   @service router;
+  @service store;
 
   constructor() {
     super(...arguments);
@@ -47,6 +50,82 @@ export default class ApplicationRoute extends Route {
         isFavorite: false,
         isLocked: false
       });
+    } else {
+      await this.ensureSinglePalettePerColor();
+      await this.migratePalettesToPalette();
     }
+  }
+
+  async ensureSinglePalettePerColor() {
+    const colors = await this.store.findRecords('color');
+    await this.store.update((t) => {
+      const operations = [];
+      for (const color of colors) {
+        // If the color exists in more than one palette, we should copy it for all the other palettes
+        if (color.palettes?.length ?? 0 > 1) {
+          // We start at i = 1 because we can keep the original color in a single palette.
+          for (let i = 1; i < color.palettes.length - 1; i++) {
+            const palette = color.palettes[i];
+            const colorCopy = clone(color.getData());
+            delete colorCopy.id;
+            delete colorCopy.relationships;
+
+            const colorsList = palette.colors.map((color) => {
+              return { type: 'color', id: color.id };
+            });
+            const colorsListRecord = colorsList.findBy('id', color.id);
+            if (colorsListRecord) {
+              const colorToRemoveIndex = colorsList.indexOf(colorsListRecord);
+              colorsList.removeAt(colorToRemoveIndex);
+
+              const addColorOperation = t.addRecord(colorCopy);
+              const colorCopyRecord = {
+                type: 'color',
+                id: addColorOperation.operation.record.id
+              };
+              colorsList.insertAt(colorToRemoveIndex, colorCopyRecord);
+
+              operations.push(addColorOperation);
+              operations.push(
+                t.replaceRelatedRecords(
+                  { type: 'palette', id: palette.id },
+                  'colors',
+                  colorsList
+                )
+              );
+              operations.push(
+                t.replaceAttribute(
+                  { type: 'palette', id: palette.id },
+                  'colorOrder',
+                  colorsList
+                )
+              );
+            }
+          }
+        }
+      }
+
+      return operations;
+    });
+  }
+
+  async migratePalettesToPalette() {
+    const colors = await this.store.findRecords('color');
+    await this.store.update((t) => {
+      const operations = [];
+      for (const color of colors) {
+        if (color.palettes) {
+          const rawColorData = color.getData();
+          rawColorData.relationships.palette = {
+            data: rawColorData.relationships.palettes.data[0]
+          };
+          delete rawColorData.relationships.palettes;
+          debugger;
+          operations.push(t.updateRecord(rawColorData));
+        }
+      }
+
+      return operations;
+    });
   }
 }

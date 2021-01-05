@@ -120,7 +120,6 @@ export default class ApplicationRoute extends Route {
             data: rawColorData.relationships.palettes.data[0]
           };
           delete rawColorData.relationships.palettes;
-          debugger;
           operations.push(t.updateRecord(rawColorData));
         }
       }

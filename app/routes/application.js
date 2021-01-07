@@ -32,61 +32,21 @@ export default class ApplicationRoute extends Route {
       const backup = this.dataCoordinator.getSource('backup');
 
       if (backup) {
-        let colorTransforms = await backup.pull((q) => q.findRecords('color'));
-        const paletteTransforms = await backup.pull((q) =>
-          q.findRecords('palette')
-        );
-        colorTransforms[0].operations = colorTransforms[0].operations.flatMap(
-          (colorOp) => {
-            const colorRecord = colorOp?.record;
-            const palettesRelationships =
-              colorRecord?.relationships?.palettes?.data;
-            if (palettesRelationships?.length ?? 0 > 1) {
-              colorOp.record.relationships.palettes.data = [
-                palettesRelationships[0]
-              ];
-              const createColorOps = [colorOp];
-              // We start at i = 1 because we can keep the original color in a single palette.
-              for (let i = 1; i < palettesRelationships.length; i++) {
-                const palette = palettesRelationships[i];
-                const colorCopy = clone(colorRecord);
-                colorCopy.id = this.dataSchema.generateId('color');
-                colorCopy.relationships.palettes.data = [palette];
+        const transform = await backup.pull((q) => q.findRecords());
+        console.log(transform);
 
-                const paletteOp = paletteTransforms[0].operations.find(
-                  (op) => op.record.id === palette.id
-                );
+        // If a data migration has been loaded that requires the recreation of
+        // inverse relationships, this flag will be set as part of the
+        // migration. In order to recreate the inverse relationships, the data
+        // will simply be reloaded into the backup db.
+        // TODO: This is a bit of a hack that should be replaced with better
+        // support for migrations in `IndexedDBCache` in `@orbit/indexeddb`.
+        if (backup.recreateInverseRelationshipsOnLoad) {
+          backup.recreateInverseRelationshipsOnLoad = false;
+          await backup.sync(transform);
+        }
 
-                if (paletteOp) {
-                  const replaceColorIdWithCopy = (color) => {
-                    return color.id !== colorRecord.id
-                      ? color
-                      : { type: 'color', id: colorCopy.id };
-                  };
-                  // Replace color in palette with color copy
-                  paletteOp.record.relationships.colors.data = paletteOp.record.relationships.colors.data.map(
-                    replaceColorIdWithCopy
-                  );
-
-                  // Replace color id in colorOrder
-                  paletteOp.record.attributes.colorOrder = paletteOp.record.attributes.colorOrder.map(
-                    replaceColorIdWithCopy
-                  );
-                }
-
-                createColorOps.push({ op: 'addRecord', record: colorCopy });
-              }
-              return createColorOps;
-            } else {
-              return colorOp;
-            }
-          }
-        );
-        colorTransforms[0].operations = [
-          ...colorTransforms[0].operations,
-          ...paletteTransforms[0].operations
-        ];
-        await this.store.sync(colorTransforms);
+        await this.store.sync(transform);
       }
     }
 
@@ -106,24 +66,4 @@ export default class ApplicationRoute extends Route {
       });
     }
   }
-
-  // async migratePalettesToPalette() {
-  //   const colors = await this.store.findRecords('color');
-  //   await this.store.update((t) => {
-  //     const operations = [];
-  //     for (const color of colors) {
-  //       if (color.palettes) {
-  //         const rawColorData = color.getData();
-  //         debugger;
-  //         rawColorData.relationships.palette = {
-  //           data: rawColorData.relationships.palettes.data[0]
-  //         };
-  //         // delete rawColorData.relationships.palettes;
-  //         operations.push(t.updateRecord(rawColorData));
-  //       }
-  //     }
-
-  //     return operations;
-  //   });
-  // }
 }

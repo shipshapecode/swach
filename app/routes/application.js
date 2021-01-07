@@ -1,8 +1,6 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
-import { clone } from '@orbit/utils';
-
 import ENV from 'swach/config/environment';
 
 export default class ApplicationRoute extends Route {

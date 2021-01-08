@@ -62,6 +62,8 @@ export default class KulerComponent extends Component {
   }
 
   willDestroy() {
+    super.willDestroy(...arguments);
+
     this._destroyLeftoverPalettes();
     this.colorPicker.off('color:change', this._onColorChange);
     this.colorPicker.off('color:setActive', this._onColorSetActive);

@@ -15,11 +15,12 @@
         if the menubar icon is not showing up.
       </p>
 
-      <div class="flex justify-center p-2 w-full">
+      <div class="flex h-full justify-center p-2 w-full">
         <ToggleSwitch
-          class="p-6"
           @checked={{this.settings.showDockIcon}}
-          {{on "change" this.application.toggleShowDockIcon}}
+          @onClick={{
+            set this "settings.showDockIcon" (not this.settings.showDockIcon)
+          }}
         />
       </div>
     </div>

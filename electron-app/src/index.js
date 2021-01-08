@@ -39,8 +39,6 @@ const store = new Store({
   }
 });
 
-store.set('firstRun', true);
-
 let emberAppURL = pathToFileURL(join(emberAppDir, 'index.html')).toString();
 
 // On first boot of the application, go through the welcome screen

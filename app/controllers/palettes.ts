@@ -7,6 +7,7 @@ import { tracked } from '@glimmer/tracking';
 import { Store } from 'ember-orbit';
 
 import { OperationTerm } from '@orbit/data/src/operation-term';
+import { clone } from '@orbit/utils';
 
 import ApplicationController from 'swach/controllers/application';
 import ColorModel from 'swach/data-models/color';
@@ -106,7 +107,7 @@ export default class PalettesController extends Controller {
     if (item) {
       // Dragging color out of color history
       if (sourceArgs.isColorHistory) {
-        return await this._moveColorFromColorHistory(
+        await this._moveColorFromColorHistory(
           item,
           sourceList,
           targetList,
@@ -150,6 +151,7 @@ export default class PalettesController extends Controller {
                   item,
                   operations,
                   t,
+                  sourceList,
                   targetList,
                   targetIndex,
                   targetParent
@@ -190,13 +192,22 @@ export default class PalettesController extends Controller {
         }
       }
 
-      colorsList.insertAt(targetIndex, {
-        type: 'color',
-        id: item.id
-      });
+      const colorCopy = clone(item.getData());
+      colorCopy.attributes.createdAt = new Date();
+      // We need to delete the id and relationships from the copy, so the new copy
+      // is not associated with the old color or palette.
+      delete colorCopy.id;
+      delete colorCopy.relationships;
 
       await this.store.update((t) => {
-        const operations: OperationTerm[] = [];
+        const addColorToPaletteOperation = t.addRecord(colorCopy);
+
+        colorsList.insertAt(targetIndex, {
+          type: 'color',
+          id: addColorToPaletteOperation.operation.record.id
+        });
+
+        const operations: OperationTerm[] = [addColorToPaletteOperation];
 
         operations.push(
           t.replaceAttribute(
@@ -227,10 +238,12 @@ export default class PalettesController extends Controller {
     item: ColorModel,
     operations: unknown[],
     t: Store['transformBuilder'],
+    sourceList: ColorModel[],
     targetList: ColorModel[],
     targetIndex: number,
     targetParent: PaletteModel
   ): Promise<void> {
+    let insertIndex = targetIndex;
     const targetColorsList = targetList.map((color: ColorModel) => {
       return { type: 'color', id: color.id };
     });
@@ -241,6 +254,15 @@ export default class PalettesController extends Controller {
       const colorToRemove = targetColorsList.findBy('id', existingColor.id);
 
       if (colorToRemove) {
+        // We do not want to modify insertIndex if we are moving a color within the same palette
+        if (sourceList !== targetList) {
+          const existingColorIndex = targetColorsList.indexOf(colorToRemove);
+          // If this color already exists in the palette at a lower index, we need to decrease the index,
+          // so we are not inserting out of bounds
+          if (existingColorIndex < targetIndex) {
+            insertIndex--;
+          }
+        }
         targetColorsList.removeObject(colorToRemove);
       }
 
@@ -251,7 +273,7 @@ export default class PalettesController extends Controller {
       );
     }
 
-    targetColorsList.insertAt(targetIndex, {
+    targetColorsList.insertAt(insertIndex, {
       type: 'color',
       id: item.id
     });

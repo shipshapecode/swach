@@ -5,7 +5,9 @@ import ENV from 'swach/config/environment';
 
 export default class ApplicationRoute extends Route {
   @service dataCoordinator;
+  @service dataSchema;
   @service router;
+  @service store;
 
   constructor() {
     super(...arguments);
@@ -29,6 +31,19 @@ export default class ApplicationRoute extends Route {
 
       if (backup) {
         const transform = await backup.pull((q) => q.findRecords());
+        console.log(transform);
+
+        // If a data migration has been loaded that requires the recreation of
+        // inverse relationships, this flag will be set as part of the
+        // migration. In order to recreate the inverse relationships, the data
+        // will simply be reloaded into the backup db.
+        // TODO: This is a bit of a hack that should be replaced with better
+        // support for migrations in `IndexedDBCache` in `@orbit/indexeddb`.
+        if (backup.recreateInverseRelationshipsOnLoad) {
+          backup.recreateInverseRelationshipsOnLoad = false;
+          await backup.sync(transform);
+        }
+
         await this.store.sync(transform);
       }
     }

@@ -9,7 +9,6 @@ import { Store } from 'ember-orbit';
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
 import { OperationTerm } from '@orbit/data/src/operation-term';
-import { clone } from '@orbit/utils';
 
 import {
   PrivateRGBAHex,
@@ -18,7 +17,6 @@ import {
   SelectedColorPOJO
 } from 'swach/components/rgb-input';
 import ColorModel, { rgbaToHex } from 'swach/data-models/color';
-import PaletteModel from 'swach/data-models/palette';
 import NearestColor from 'swach/services/nearest-color';
 import UndoManager from 'swach/services/undo-manager';
 
@@ -72,72 +70,23 @@ export default class ColorPickerComponent extends Component<ColorPickerArgs> {
     const colorToEdit = this.args.selectedColor;
     // If we passed a color to edit, save it, otherwise create a new global color
     if (colorToEdit) {
-      const { paletteId } = this.router.currentRoute.queryParams;
-      const palette = (await this.store.find(
-        'palette',
-        paletteId
-      )) as PaletteModel;
-      const colorCopy = clone(colorToEdit.getData());
-      delete colorCopy.id;
-      colorCopy.attributes = {
-        ...this._selectedColor,
-        createdAt: colorToEdit.createdAt
-      };
+      await this.store.update((t) => {
+        const operations: OperationTerm[] = [];
 
-      for (const attr in colorCopy.attributes) {
-        // Remove private properties
-        if (attr.startsWith('_')) {
-          delete colorCopy.attributes[attr];
-        }
-      }
-
-      // TODO: figure out what makes this case happen. This is guarding against when palette.colors is undefined, but it should never be.
-      if (palette.colors) {
-        const colorsList = palette.colors.map((color) => {
-          return { type: 'color', id: color.id };
+        ['r', 'g', 'b', 'a', 'name'].forEach((attr) => {
+          operations.push(
+            t.replaceAttribute(
+              { type: 'color', id: colorToEdit.id },
+              attr,
+              this._selectedColor[attr]
+            )
+          );
         });
-        const colorsListRecord = colorsList.findBy('id', colorToEdit.id);
-        if (colorsListRecord) {
-          const colorToEditIndex = colorsList.indexOf(colorsListRecord);
-          colorsList.removeAt(colorToEditIndex);
 
-          await this.store.update((t) => {
-            const addColorOperation = t.addRecord(colorCopy);
-            colorsList.insertAt(colorToEditIndex, {
-              type: 'color',
-              id: addColorOperation.operation.record.id
-            });
+        return operations;
+      });
 
-            const operations: OperationTerm[] = [
-              addColorOperation,
-              t.replaceRelatedRecords(
-                { type: 'palette', id: palette.id },
-                'colors',
-                colorsList
-              ),
-              t.replaceAttribute(
-                { type: 'palette', id: palette.id },
-                'colorOrder',
-                colorsList
-              )
-            ];
-
-            // If the color only exists in in color history, and we remove it, we should delete the color
-            if (
-              colorToEdit.palettes.length === 1 &&
-              colorToEdit.palettes[0].isColorHistory
-            ) {
-              operations.push(
-                t.removeRecord({ type: 'color', id: colorToEdit.id })
-              );
-            }
-
-            return operations;
-          });
-
-          this.undoManager.setupUndoRedo();
-        }
-      }
+      this.undoManager.setupUndoRedo();
     } else {
       this.args.saveColor(this._selectedColor?.hex);
     }

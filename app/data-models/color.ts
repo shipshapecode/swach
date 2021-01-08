@@ -1,6 +1,6 @@
 import { isEmpty } from '@ember/utils';
 
-import { Model, attr, hasMany } from 'ember-orbit';
+import { Model, attr, hasOne } from 'ember-orbit';
 
 import { TinyColor } from '@ctrl/tinycolor';
 
@@ -14,7 +14,7 @@ export default class ColorModel extends Model {
   @attr('number') b!: number;
   @attr('number') a!: number;
 
-  @hasMany('palette', { inverse: 'colors' }) palettes!: PaletteModel[];
+  @hasOne('palette', { inverse: 'colors' }) palette!: PaletteModel;
 
   get hex(): string {
     const { r, g, b, a } = this;

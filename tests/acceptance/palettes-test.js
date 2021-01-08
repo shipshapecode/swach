@@ -10,6 +10,7 @@ import {
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
+import { animationsSettled } from 'ember-animated/test-support';
 import { move, sort } from 'ember-drag-sort/utils/trigger';
 
 import { triggerContextMenu, waitForAll } from 'swach/tests/helpers';
@@ -207,6 +208,106 @@ module('Acceptance | palettes', function (hooks) {
       assert
         .dom(targetListThirdColor)
         .hasStyle({ backgroundColor: 'rgb(176, 245, 102)' });
+    });
+
+    test('copy color from color history to palette and edit', async function (assert) {
+      await visit('/palettes');
+
+      let sourceList = find('[data-test-color-history]');
+      let sourceListThirdColor = sourceList.querySelectorAll(
+        '[data-test-color-history-square]'
+      )[2];
+      assert
+        .dom('[data-test-color-history-square]', sourceList)
+        .exists({ count: 4 });
+
+      let targetList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      assert
+        .dom('[data-test-palette-color-square]', targetList)
+        .exists({ count: 2 });
+      assert
+        .dom(sourceListThirdColor)
+        .hasStyle({ backgroundColor: 'rgb(247, 138, 224)' });
+
+      await move(sourceList, 2, targetList, 1, false);
+
+      await waitForAll();
+
+      targetList = find(
+        '[data-test-palette-row="Second Palette"]'
+      ).querySelector('.palette-color-squares');
+      sourceList = find('[data-test-color-history]');
+      let targetListThirdColor = targetList.querySelectorAll(
+        '[data-test-palette-color-square]'
+      )[2];
+      // Count in colors list does not change when a color is copied out
+      assert
+        .dom('[data-test-color-history-square]', sourceList)
+        .exists({ count: 4 });
+      assert
+        .dom('[data-test-palette-color-square]', targetList)
+        .exists({ count: 3 });
+      assert
+        .dom(targetListThirdColor)
+        .hasStyle({ backgroundColor: 'rgb(247, 138, 224)' });
+
+      // Go to the second palette colors list and edit the third color
+      await visit('/colors?paletteId=second-palette');
+      assert.dom('[data-test-color]').exists({ count: 3 });
+      assert.dom('[data-test-color-picker]').doesNotExist();
+
+      await triggerEvent(
+        '[data-test-color="Pale Magenta"] [data-test-color-row-menu]',
+        'mouseenter'
+      );
+
+      await animationsSettled();
+
+      await click('[data-test-color="Pale Magenta"] [data-test-edit-color]');
+
+      await waitForAll();
+
+      assert.dom('[data-test-color-picker]').exists();
+
+      await fillIn('[data-test-color-picker-r]', '255');
+      await triggerEvent('[data-test-color-picker-r]', 'complete');
+      await fillIn('[data-test-color-picker-g]', '0');
+      await triggerEvent('[data-test-color-picker-g]', 'complete');
+      await fillIn('[data-test-color-picker-b]', '0');
+      await triggerEvent('[data-test-color-picker-b]', 'complete');
+
+      await waitForAll();
+
+      await click('[data-test-color-picker-save]');
+
+      await waitForAll();
+
+      await visit('/palettes');
+      await waitForAll();
+
+      // No new colors should be added to color history
+      assert
+        .dom('[data-test-color-history] [data-test-color-history-square]')
+        .exists({ count: 4 });
+
+      // Pale Magenta should remain in color history and should be replaced with Red in Second Palette
+      assert
+        .dom(
+          '[data-test-color-history] [data-test-color-history-square="Pale Magenta"]'
+        )
+        .exists();
+      assert
+        .dom(
+          '[data-test-palette-row="Second Palette"] [data-test-palette-color-square="Red"]'
+        )
+        .exists();
+      assert
+        .dom(
+          '[data-test-palette-row="Second Palette"] [data-test-palette-color-square="Pale Magenta"]'
+        )
+        .doesNotExist();
     });
 
     test('locked palette does not allow moving colors in', async function (assert) {

@@ -74,11 +74,6 @@ export default class ColorsList extends Component<ColorsListArgs> {
             )
           ];
 
-          // If the color only exists in in color history, and we remove it, we should delete the color
-          if (color.palettes.length === 1 && color.palettes[0].isColorHistory) {
-            operations.push(t.removeRecord({ type: 'color', id: color.id }));
-          }
-
           return operations;
         });
 

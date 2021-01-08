@@ -2,7 +2,9 @@ import { Record, RecordIdentity, Schema } from '@orbit/data';
 import { IndexedDBSource } from '@orbit/indexeddb';
 import { clone } from '@orbit/utils';
 
-const SCHEMA_VERSION = 2;
+import ENV from 'swach/config/environment';
+
+const { SCHEMA_VERSION } = ENV;
 
 export default {
   create(injections: { name?: string; schema: Schema }): IndexedDBSource {
@@ -26,19 +28,17 @@ export default {
       if (newVersion === 2) {
         const oldColors = await getRecordsFromIDB(transaction, 'color');
         const palettes = await getRecordsFromIDB(transaction, 'palette');
-        console.log('old colors', oldColors);
-        console.log('old palettes', palettes);
 
         const newColors = [];
 
         for (const color of oldColors) {
           if (color.relationships?.palettes) {
             const paletteIdentities = color.relationships.palettes
-              ?.data as RecordIdentity[];
+              .data as RecordIdentity[];
 
             delete color.relationships.palettes;
 
-            if (paletteIdentities?.length > 1) {
+            if (paletteIdentities?.length) {
               color.relationships.palette = { data: paletteIdentities[0] };
               newColors.push(color);
 
@@ -60,23 +60,24 @@ export default {
                       ? c
                       : { type: 'color', id: colorCopy.id };
                   };
-                  // Replace color in palette with color copy
-                  palette.relationships.colors.data = palette.relationships.colors.data.map(
-                    replaceColorIdWithCopy
-                  );
+                  if (palette.relationships?.colors.data) {
+                    // Replace color in palette with color copy
+                    palette.relationships.colors.data = palette.relationships.colors.data.map(
+                      replaceColorIdWithCopy
+                    );
+                  }
 
-                  // Replace color id in colorOrder
-                  palette.attributes.colorOrder = palette.attributes.colorOrder.map(
-                    replaceColorIdWithCopy
-                  );
+                  if (palette.attributes?.colorOrder) {
+                    // Replace color id in colorOrder
+                    palette.attributes.colorOrder = palette.attributes.colorOrder.map(
+                      replaceColorIdWithCopy
+                    );
+                  }
                 }
               }
             }
           }
         }
-
-        console.log('new colors', newColors);
-        console.log('new palettes', palettes);
 
         await clearRecordsFromIDB(transaction, 'color');
         await clearRecordsFromIDB(transaction, 'palette');

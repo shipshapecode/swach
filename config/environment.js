@@ -27,23 +27,16 @@ module.exports = function (environment) {
       // when it is created
     },
 
-    // TODO: add CSP back. We need to figure out why it is making tests fail.
-    // contentSecurityPolicy: {
-    //   'default-src': ["'none'"],
-    //   'script-src': [
-    //     'http://localhost:7020',
-    //     "'self'",
-    //     "'unsafe-eval'",
-    //     "'unsafe-inline'"
-    //   ],
-    //   'font-src': ["'self'"],
-    //   'frame-src': ["'none'"],
-    //   'connect-src': ["'self'"],
-    //   'img-src': ['data:', "'self'"],
-    //   'style-src': ["'self'", "'unsafe-inline'"],
-    //   'media-src': ["'self'"]
-    // },
-    // contentSecurityPolicyMeta: true,
+    contentSecurityPolicy: {
+      'default-src': ["'none'"],
+      'script-src': ['http://localhost:7020', "'self'", "'unsafe-inline'"],
+      'font-src': ["'self'"],
+      'connect-src': ["'self'"],
+      'img-src': ['data:', "'self'"],
+      'style-src': ["'self'", "'unsafe-inline'"],
+      'media-src': ["'self'"]
+    },
+    contentSecurityPolicyMeta: true,
     cognito: {
       poolId: 'us-east-2_AEr5v3Ogt',
       clientId: '1jn23hlv9ggi63mc37f4m5hm4h'

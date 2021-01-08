@@ -17,6 +17,7 @@
 
       <div class="flex h-full justify-center p-2 w-full">
         <ToggleSwitch
+          data-test-show-dock-icon-toggle
           @checked={{this.settings.showDockIcon}}
           @onClick={{
             set this "settings.showDockIcon" (not this.settings.showDockIcon)

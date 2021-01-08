@@ -15,6 +15,7 @@
 
       <div class="flex h-full justify-center p-2 w-full">
         <ToggleSwitch
+          data-test-auto-start-toggle
           @checked={{this.settings.openOnStartup}}
           @onClick={{
             set this "settings.openOnStartup" (not this.settings.openOnStartup)
@@ -32,6 +33,7 @@
       </LinkTo>
 
       <LinkTo
+        data-test-link-dock-icon
         class="btn btn-primary flex-1 ml-1 p-2 text-center text-sm"
         @route="welcome.dock-icon"
       >

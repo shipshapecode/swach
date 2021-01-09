@@ -3,6 +3,7 @@ import { IndexedDBSource } from '@orbit/indexeddb';
 import { clone } from '@orbit/utils';
 
 import ENV from 'swach/config/environment';
+import { ColorPOJO } from 'swach/services/color-utils';
 
 const { SCHEMA_VERSION } = ENV;
 
@@ -14,7 +15,7 @@ export default {
     const backup = new IndexedDBSource(injections);
 
     backup.cache.migrateDB = async (
-      db: IDBDatabase,
+      _db: IDBDatabase,
       event: IDBVersionChangeEvent
     ) => {
       const { newVersion, oldVersion, currentTarget } = event;
@@ -55,7 +56,7 @@ export default {
                 );
 
                 if (palette) {
-                  const replaceColorIdWithCopy = (c) => {
+                  const replaceColorIdWithCopy = (c: ColorPOJO) => {
                     return c.id !== color.id
                       ? c
                       : { type: 'color', id: colorCopy.id };
@@ -91,6 +92,7 @@ export default {
         // This would be better handled by adding capabilities to
         // `IndexedDBCache` in `@orbit/indexeddb` so that all changes can be
         // made within the context of the migration transaction.
+        // @ts-expect-error This is a hacked property until we have a real one to use in ember-orbit
         backup.recreateInverseRelationshipsOnLoad = true;
       }
     };

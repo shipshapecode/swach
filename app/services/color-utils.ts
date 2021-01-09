@@ -12,7 +12,7 @@ import { rgbaToHex } from 'swach/data-models/color';
 import NearestColor from 'swach/services/nearest-color';
 import { SettingsStorage } from 'swach/storages/settings';
 
-interface ColorPOJO {
+export interface ColorPOJO {
   type: 'color';
   id?: string;
   attributes: {

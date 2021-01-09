@@ -34,7 +34,7 @@ export default class AnimatedDragSortList extends DragSortList {
     keptSprites: any;
     insertedSprites: any;
     removedSprites: any;
-  }) {
+  }): unknown {
     for (const sprite of insertedSprites) {
       sprite.startTranslatedBy(0, -sprite.finalBounds.height / 2);
       move(sprite, { easing: easeOut });

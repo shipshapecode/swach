@@ -32,7 +32,15 @@ export default class ColorsList extends Component<ColorsListArgs> {
     }
   }
 
-  *transition({ keptSprites, insertedSprites, removedSprites }) {
+  *transition({
+    keptSprites,
+    insertedSprites,
+    removedSprites
+  }: {
+    keptSprites: any;
+    insertedSprites: any;
+    removedSprites: any;
+  }): unknown {
     for (const sprite of insertedSprites) {
       sprite.startTranslatedBy(0, -sprite.finalBounds.height / 2);
       move(sprite, { easing: easeOut });

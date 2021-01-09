@@ -1,3 +1,5 @@
+import 'ember-cli-flash';
+
 // Types for compiled templates
 declare module 'swach/templates/*' {
   import { TemplateFactory } from 'htmlbars-inline-precompile';
@@ -5,4 +7,6 @@ declare module 'swach/templates/*' {
   export default tmpl;
 }
 
-declare var requireNode: (name: string) => any;
+declare global {
+  declare function requireNode(name: string): any;
+}

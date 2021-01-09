@@ -81,7 +81,7 @@ export default class ApplicationController extends Controller {
 
       this.ipcRenderer = ipcRenderer;
 
-      this.ipcRenderer.on('changeColor', async (_event: any, color: string) => {
+      this.ipcRenderer.on('changeColor', async (_event: unknown, color: string) => {
         const addedColor = await this.addColor(color);
         if (addedColor) {
           this.colorUtils.copyColorToClipboard(addedColor);
@@ -92,7 +92,7 @@ export default class ApplicationController extends Controller {
         this.router.transitionTo('contrast');
       });
 
-      this.ipcRenderer.on('setTheme', (_event: any, theme: string) => {
+      this.ipcRenderer.on('setTheme', (_event: unknown, theme: string) => {
         this.settings.set('osTheme', theme);
       });
 

@@ -3,24 +3,27 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
 export default class SettingsMenu extends Component {
+  ipcRenderer: any;
+
   @tracked version = 'Version not available';
 
-  constructor() {
-    super(...arguments);
+  constructor(owner: unknown, args: Record<string, unknown>) {
+    super(owner, args);
 
     if (typeof requireNode !== 'undefined') {
-      let { ipcRenderer } = requireNode('electron');
+      const { ipcRenderer } = requireNode('electron');
       this.ipcRenderer = ipcRenderer;
 
-      this.ipcRenderer.invoke('getAppVersion').then((version) => {
+      this.ipcRenderer.invoke('getAppVersion').then((version: string) => {
         this.version = version;
       });
     }
   }
 
   @action
-  visitWebsite(event) {
+  visitWebsite(event: Event): void {
     event.preventDefault();
+
     if (typeof requireNode !== 'undefined') {
       requireNode('electron').shell.openExternal('https://swach.io/');
     }

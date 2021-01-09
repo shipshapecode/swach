@@ -6,6 +6,7 @@ import { tracked } from '@glimmer/tracking';
 
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
+import { debounce } from 'throttle-debounce';
 
 iro.ColorPicker.prototype.setColors = function (
   newColorValues,
@@ -34,6 +35,8 @@ export default class KulerComponent extends Component {
 
   constructor() {
     super(...arguments);
+
+    this._debouncedColorChange = debounce(10, this._onColorChange);
 
     this.baseColor = this.args.baseColor;
     this.baseColorChanged().then(() => {
@@ -65,7 +68,7 @@ export default class KulerComponent extends Component {
     super.willDestroy();
 
     this._destroyLeftoverPalettes();
-    this.colorPicker.off('color:change', this._onColorChange);
+    this.colorPicker.off('color:change', this._debouncedColorChange);
     this.colorPicker.off('color:setActive', this._onColorSetActive);
 
     if (this.ipcRenderer) {
@@ -160,19 +163,20 @@ export default class KulerComponent extends Component {
 
   @action
   async _onColorChange(color) {
-    // TODO figure out how to choose base colors
     const { selectedColorIndex } = this.selectedPalette;
     // if changing the selected baseColor, we should update all the colors
-    // if (selectedColorIndex === 0) {
-    //   const newColor = this.colorUtils.createColorPOJO(color.rgba);
-    //   this.baseColor = newColor.attributes;
-    //   await this.baseColorChanged();
-    // } else {
     const newColor = this.colorUtils.createColorPOJO(color?.rgba ?? color);
+
     this.selectedPalette.colors.replace(selectedColorIndex, 1, [
       newColor.attributes
     ]);
-    // }
+
+    if (selectedColorIndex === 0) {
+      this.baseColor = this.selectedPalette.colors[
+        this.selectedPalette.selectedColorIndex
+      ];
+      await this.setColorAsBase();
+    }
 
     this.colorPicker.setColors(
       this.selectedPalette.colors.mapBy('hex'),
@@ -229,7 +233,7 @@ export default class KulerComponent extends Component {
       width: 207
     });
 
-    this.colorPicker.on('color:change', this._onColorChange);
+    this.colorPicker.on('color:change', this._debouncedColorChange);
     this.colorPicker.on('color:setActive', this._onColorSetActive);
   }
 

@@ -159,5 +159,8 @@
       "tokenRef": "GITHUB_AUTH"
     },
     "npm": false
+  },
+  "dependencies": {
+    "throttle-debounce": "^3.0.1"
   }
 }

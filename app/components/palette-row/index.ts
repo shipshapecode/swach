@@ -5,6 +5,8 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
 import fade from 'ember-animated/transitions/fade';
+import ContextMenuService from 'ember-context-menu/services/context-menu';
+import DragSortService from 'ember-drag-sort/services/drag-sort';
 import { Store } from 'ember-orbit';
 
 import { clone } from '@orbit/utils';
@@ -105,8 +107,8 @@ class LockOption {
 
 export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   @service colorUtils!: ColorUtils;
-  @service contextMenu!: any;
-  @service dragSort!: any;
+  @service contextMenu!: ContextMenuService;
+  @service dragSort!: DragSortService;
   @service router!: Router;
   @service store!: Store;
   @service undoManager!: UndoManager;

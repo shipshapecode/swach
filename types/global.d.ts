@@ -5,4 +5,4 @@ declare module 'swach/templates/*' {
   export default tmpl;
 }
 
-declare var requireNode: (name:string) => any;
+declare var requireNode: (name: string) => any;

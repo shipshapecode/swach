@@ -65,12 +65,9 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  async copyColorToClipboard(color: Color, event?: any): Promise<void> {
-    const isDropping =
-      event &&
-      event.target &&
-      event.target.parentElement &&
-      event.target.parentElement.classList.contains('is-dropping');
+  async copyColorToClipboard(color: Color, event?: Event): Promise<void> {
+    const target = <HTMLElement>event?.target;
+    const isDropping = target?.parentElement?.classList.contains('is-dropping');
 
     if (!isDropping) {
       this.ipcRenderer.send('copyColorToClipboard', color.hex);

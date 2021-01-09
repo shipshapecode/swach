@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
+import FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { Store } from 'ember-orbit';
 
 import IDBExportImport from 'indexeddb-export-import';
@@ -11,7 +12,7 @@ import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
 
 export default class SettingsDataComponent extends Component {
   @service dataCoordinator: any;
-  @service flashMessages;
+  @service flashMessages!: FlashMessageService;
   @service store!: Store;
 
   ipcRenderer: any;
@@ -38,7 +39,7 @@ export default class SettingsDataComponent extends Component {
 
         IDBExportImport.exportToJsonString(
           idbDatabase,
-          (err: string, jsonString: string) => {
+          (err: Event, jsonString: string) => {
             if (err) {
               this.isExporting = false;
               this.flashMessages.danger('An error occurred.');
@@ -66,13 +67,13 @@ export default class SettingsDataComponent extends Component {
           const DBOpenRequest = getDBOpenRequest();
           DBOpenRequest.onsuccess = () => {
             const idbDatabase = DBOpenRequest.result;
-            IDBExportImport.clearDatabase(idbDatabase, (err: string) => {
+            IDBExportImport.clearDatabase(idbDatabase, (err: Event) => {
               if (!err) {
                 // cleared data successfully
                 IDBExportImport.importFromJsonString(
                   idbDatabase,
                   jsonString,
-                  async (err: string) => {
+                  async (err: Event) => {
                     if (!err) {
                       idbDatabase.close();
                       // TODO is pulling from the backup with orbit the best "refresh" here?

@@ -5,6 +5,7 @@ import Router from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
+import FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
 import { Model, Store } from 'ember-orbit';
 
@@ -16,7 +17,7 @@ import { SettingsStorage, themes } from 'swach/storages/settings';
 export default class ApplicationController extends Controller {
   @service colorUtils!: ColorUtils;
   @service dataSchema!: any;
-  @service flashMessages: any;
+  @service flashMessages!: FlashMessageService;
   @service router!: Router;
   @service store!: Store;
   @service undoManager!: UndoManager;
@@ -114,7 +115,7 @@ export default class ApplicationController extends Controller {
   }
 
   willDestroy(): void {
-    super.willDestroy(...arguments);
+    super.willDestroy();
 
     if (this.ipcRenderer) {
       this.ipcRenderer.removeAllListeners('changeColor');

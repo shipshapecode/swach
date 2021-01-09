@@ -52,7 +52,7 @@ export default class UndoManager extends Service {
   }
 
   willDestroy(): void {
-    super.willDestroy(...arguments);
+    super.willDestroy();
 
     if (typeof requireNode === 'undefined' && this.undoListener) {
       document.removeEventListener('keydown', this.undoListener, true);

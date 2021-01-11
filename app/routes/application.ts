@@ -1,13 +1,18 @@
 import Route from '@ember/routing/route';
+import Router from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
+
+import { Store } from 'ember-orbit';
 
 import ENV from 'swach/config/environment';
 
 export default class ApplicationRoute extends Route {
-  @service dataCoordinator;
-  @service dataSchema;
-  @service router;
-  @service store;
+  @service dataCoordinator: any;
+  @service dataSchema: any;
+  @service router!: Router;
+  @service store!: Store;
+
+  ipcRenderer: any;
 
   constructor() {
     super(...arguments);
@@ -22,7 +27,7 @@ export default class ApplicationRoute extends Route {
     }
   }
 
-  async beforeModel() {
+  async beforeModel(): Promise<void> {
     if (ENV.environment === 'test') {
       this.dataCoordinator.removeStrategy('store-backup-sync');
       this.dataCoordinator.removeSource('backup');

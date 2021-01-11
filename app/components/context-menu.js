@@ -1,4 +1,5 @@
-import { computed, get } from '@ember/object';
+/* eslint-disable ember/no-computed-properties-in-native-classes */
+import { computed } from '@ember/object';
 import { reads } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
@@ -19,6 +20,7 @@ export default class ContextMenuComponent extends Component {
     return [].concat(this._selection);
   }
 
+  @computed('contextMenu.position.{left,top}')
   get position() {
     let { left, top } = this.contextMenu?.position || {};
     return htmlSafe(`left: ${left}px; top: ${top}px;`);

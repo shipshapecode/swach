@@ -18,7 +18,7 @@ export default class ApplicationRoute extends Route {
     super(...arguments);
 
     if (typeof requireNode !== 'undefined') {
-      let { ipcRenderer } = requireNode('electron');
+      const { ipcRenderer } = requireNode('electron');
       this.ipcRenderer = ipcRenderer;
 
       this.router.on('routeDidChange', () => {

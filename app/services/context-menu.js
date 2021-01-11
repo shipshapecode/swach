@@ -1,6 +1,6 @@
-import Service from '@ember/service';
 import { assert } from '@ember/debug';
-import { get, set } from '@ember/object';
+import { set } from '@ember/object';
+import Service from '@ember/service';
 
 const itemHeight = 32;
 const safetyMarginX = 400;
@@ -29,8 +29,8 @@ export default class ContextMenuService extends Service {
 
   activate(event, items, selection, details) {
     let { clientX, clientY } = event;
-    let screenWidth = get(event, 'view.window.innerWidth');
-    let screenHeight = get(event, 'view.window.innerHeight');
+    let screenWidth = event?.view?.window?.innerWidth;
+    let screenHeight = event?.view?.window?.innerHeight;
 
     selection = selection ? [].concat(selection) : [];
 
@@ -46,7 +46,7 @@ export default class ContextMenuService extends Service {
 
     set(this, 'position', {
       left: clientX,
-      top: correctedPositionY(clientY, screenHeight, get(items, 'length'))
+      top: correctedPositionY(clientY, screenHeight, items.length)
     });
 
     set(this, 'event', event);
@@ -64,10 +64,8 @@ export default class ContextMenuService extends Service {
   }
 
   removeDeactivateHandler() {
-    let deactivate = get(this, 'deactivate');
-
-    if (deactivate != null) {
-      document.body.removeEventListener('click', deactivate);
+    if (this.deactivate != null) {
+      document.body.removeEventListener('click', this.deactivate);
       set(this, 'deactivate', null);
     }
   }

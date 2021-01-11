@@ -1,10 +1,8 @@
-import invokeAction from 'ember-invoke-action';
-
-import Component from '@glimmer/component';
+import { computed, get } from '@ember/object';
+import { reads } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
-import { reads } from '@ember/object/computed';
-import { computed, get } from '@ember/object';
+import Component from '@glimmer/component';
 
 export default class ContextMenuComponent extends Component {
   @service contextMenu;
@@ -35,13 +33,13 @@ export default class ContextMenuComponent extends Component {
   }
 
   get itemIsDisabled() {
-    let selection = get(this, 'selection') || [];
-    let details = get(this, 'details');
+    let selection = this.selection || [];
+    let details = this.details;
 
     return function (item) {
-      let disabled = get(item, 'disabled');
+      let disabled = item.disabled;
 
-      if (!get(item, 'action') && !get(item, 'subActions')) {
+      if (!item.action && !item.subActions) {
         return true;
       }
 
@@ -54,12 +52,14 @@ export default class ContextMenuComponent extends Component {
   }
 
   get clickAction() {
-    let selection = get(this, 'selection');
-    let details = get(this, 'details');
-    let event = get(this, 'clickEvent');
+    let selection = this.selection;
+    let details = this.details;
+    let event = this.clickEvent;
 
     return function (item) {
-      invokeAction(item, 'action', selection, details, event);
+      if (typeof item.action === 'function') {
+        item.action(selection, details, event);
+      }
     };
   }
 }

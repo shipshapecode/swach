@@ -4,10 +4,12 @@
     @items={{this.orderedPalettes}}
     @dragEndAction={{fn this.reorderPalettes}} as |palette|
   >
-    <PaletteRow
-      @moveColorsBetweenPalettes={{@moveColorsBetweenPalettes}}
-      @palette={{palette}}
-    />
+    {{#unless palette.disconnected}}
+      <PaletteRow
+        @moveColorsBetweenPalettes={{@moveColorsBetweenPalettes}}
+        @palette={{palette}}
+      />
+    {{/unless}}
   </AnimatedDragSortList>
 {{else}}
   {{#if @showFavorites}}

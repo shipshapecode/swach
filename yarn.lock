@@ -7805,9 +7805,9 @@ ember-named-arguments-polyfill@^1.0.0:
     ember-cli-babel "^6.6.0"
     ember-cli-version-checker "^2.1.2"
 
-ember-orbit@rwwagner90/ember-orbit#51d2ff50d33e27c976723aa8febf686de6c69367:
+ember-orbit@rwwagner90/ember-orbit#8b17336f87c09da322bc2fbfbc904f6bd536f82c:
   version "0.17.0-beta.5"
-  resolved "https://codeload.github.com/rwwagner90/ember-orbit/tar.gz/51d2ff50d33e27c976723aa8febf686de6c69367"
+  resolved "https://codeload.github.com/rwwagner90/ember-orbit/tar.gz/8b17336f87c09da322bc2fbfbc904f6bd536f82c"
   dependencies:
     "@glimmer/tracking" "^1.0.2"
     "@orbit/coordinator" "^0.17.0-beta.6"

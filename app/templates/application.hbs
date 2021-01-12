@@ -1,5 +1,10 @@
 {{set-body-class this.theme}}
 
+<div
+  class="fixed left-0 top-0 z-50"
+  {{create-ref "contextMenuContainer"}}
+></div>
+
 <main
   class="bg-main flex justify-center h-full text-alt transition-colors duration-500 w-full overflow-hidden"
 >
@@ -120,4 +125,5 @@
     </div>
   </div>
 </main>
-{{context-menu}}
+
+<ContextMenu @contextMenuContainer={{ref-to "contextMenuContainer"}} />

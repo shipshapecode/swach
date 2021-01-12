@@ -1,10 +1,6 @@
 {{#if this.isActive}}
-  <EmberWormhole @to="wormhole-context-menu">
-    <div
-      class="context-menu-container"
-      style={{this.position}}
-      {{did-insert this.setWormholeTarget}}
-    >
+  {{#in-element @contextMenuContainer}}
+    <div class="context-menu-container" style={{this.position}}>
       <ul
         class="context-menu {{if this.renderLeft "context-menu--left"}}"
         data-test-context-menu
@@ -19,5 +15,5 @@
         {{/each}}
       </ul>
     </div>
-  </EmberWormhole>
+  {{/in-element}}
 {{/if}}

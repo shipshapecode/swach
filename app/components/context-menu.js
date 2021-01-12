@@ -15,7 +15,6 @@ export default class ContextMenuComponent extends Component {
   @reads('contextMenu.details') details;
   @reads('contextMenu.event') clickEvent;
 
-  @computed('_selection.[]')
   get selection() {
     return [].concat(this._selection);
   }
@@ -24,14 +23,6 @@ export default class ContextMenuComponent extends Component {
   get position() {
     let { left, top } = this.contextMenu?.position || {};
     return htmlSafe(`left: ${left}px; top: ${top}px;`);
-  }
-
-  setWormholeTarget() {
-    let id = 'wormhole-context-menu';
-    let target = document.querySelectorAll(`#${id}`);
-    if (target.length === 0) {
-      document.body.insertAdjacentHTML('beforeend', `<div id="${id}"></div>`);
-    }
   }
 
   get itemIsDisabled() {

@@ -1,14 +1,19 @@
 import Service from '@ember/service';
 
+// @ts-expect-error We do not need types for the colors list or nearest color
 import colorNameList from 'color-name-list';
+// @ts-expect-error We do not need types for the colors list or nearest color
 import nearestColor from 'nearest-color';
 
 export default class NearestColorService extends Service {
+  nearest: ({ r, g, b }: { r: string; g: string; b: string }) => string;
+
   constructor() {
     super(...arguments);
 
     const namedColors = colorNameList.reduce(
-      (o, { name, hex }) => Object.assign(o, { [name]: hex }),
+      (o: any, { name, hex }: { name: string; hex: string }) =>
+        Object.assign(o, { [name]: hex }),
       {}
     );
 

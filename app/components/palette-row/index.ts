@@ -9,6 +9,7 @@ import ContextMenuService from 'ember-context-menu/services/context-menu';
 import DragSortService from 'ember-drag-sort/services/drag-sort';
 import { Store } from 'ember-orbit';
 
+import { OperationTerm } from '@orbit/data/src/operation-term';
 import { clone } from '@orbit/utils';
 
 import ColorModel from 'swach/data-models/color';
@@ -108,6 +109,7 @@ class LockOption {
 export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   @service colorUtils!: ColorUtils;
   @service contextMenu!: ContextMenuService;
+  @service dataSchema!: any;
   @service dragSort!: DragSortService;
   @service router!: Router;
   @service store!: Store;
@@ -167,7 +169,7 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   get sortedColors(): (ColorModel | undefined)[] {
-    return this.args.palette.colorOrder.map(
+    return this.args?.palette?.colorOrder?.map(
       (color: { type: string; id: string }) => {
         return this.args.palette.colors.findBy('id', color.id);
       }
@@ -213,10 +215,46 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   @action
   async duplicatePalette(): Promise<void> {
     const paletteCopy = clone(this.args.palette.getData());
-    delete paletteCopy.id;
-    await this.store.update((t: Store['transformBuilder']) =>
-      t.addRecord(paletteCopy)
-    );
+    paletteCopy.id = this.dataSchema.generateId('palette');
+    delete paletteCopy.attributes.colorOrder;
+    delete paletteCopy.relationships;
+    await this.store.update((t: Store['transformBuilder']) => {
+      let colorOrder = this.args.palette.colorOrder;
+      const addPaletteOperation = t.addRecord(paletteCopy);
+
+      const operations: OperationTerm[] = [addPaletteOperation];
+
+      this.args.palette.colors.forEach((color) => {
+        const colorCopy = clone(color.getData());
+        colorCopy.id = this.dataSchema.generateId('color');
+        delete colorCopy.relationships;
+        const addColorOperation = t.addRecord(colorCopy);
+
+        // Find the color by id and replace it with colorCopy.id
+        colorOrder = colorOrder.map((c) =>
+          c.id === color.id ? { type: 'color', id: colorCopy.id } : c
+        );
+
+        operations.push(addColorOperation);
+        operations.push(
+          t.replaceRelatedRecord(
+            { type: 'color', id: colorCopy.id },
+            'palette',
+            { type: 'palette', id: paletteCopy.id }
+          )
+        );
+      });
+
+      operations.push(
+        t.replaceAttribute(
+          { type: 'palette', id: paletteCopy.id },
+          'colorOrder',
+          colorOrder
+        )
+      );
+
+      return operations;
+    });
 
     this.undoManager.setupUndoRedo();
   }

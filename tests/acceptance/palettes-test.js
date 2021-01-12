@@ -4,6 +4,7 @@ import {
   currentURL,
   fillIn,
   find,
+  findAll,
   triggerEvent,
   visit
 } from '@ember/test-helpers';
@@ -432,6 +433,78 @@ module('Acceptance | palettes', function (hooks) {
       await waitForAll();
 
       assert.dom('[data-test-palette-row]').exists({ count: 4 });
+    });
+
+    test('duplicate palette and undo / redo', async function (assert) {
+      await visit('/palettes');
+
+      triggerContextMenu('[data-test-palette-row="First Palette"]');
+      await waitForAll();
+
+      await click(
+        document.querySelector(
+          '[data-test-context-menu-item="Duplicate Palette"]'
+        ).parentElement
+      );
+
+      await waitForAll();
+
+      assert
+        .dom('[data-test-palette-row="First Palette"]')
+        .exists({ count: 2 });
+
+      const duplicatedPalettes = await findAll(
+        '[data-test-palette-row="First Palette"]'
+      );
+      const firstPaletteColors = duplicatedPalettes[0].querySelectorAll(
+        '[data-test-palette-color-square]'
+      );
+      const duplicatedPaletteColors = duplicatedPalettes[1].querySelectorAll(
+        '[data-test-palette-color-square]'
+      );
+
+      assert
+        .dom('[data-test-palette-color-square]', duplicatedPalettes[0])
+        .exists({ count: 4 });
+      assert
+        .dom('[data-test-palette-color-square]', duplicatedPalettes[1])
+        .exists({ count: 4 });
+
+      assert
+        .dom(firstPaletteColors[0])
+        .hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
+      assert
+        .dom(firstPaletteColors[1])
+        .hasStyle({ backgroundColor: 'rgb(53, 109, 196)' });
+      assert
+        .dom(firstPaletteColors[2])
+        .hasStyle({ backgroundColor: 'rgb(176, 245, 102)' });
+      assert
+        .dom(firstPaletteColors[3])
+        .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
+
+      assert
+        .dom(duplicatedPaletteColors[0])
+        .hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
+      assert
+        .dom(duplicatedPaletteColors[1])
+        .hasStyle({ backgroundColor: 'rgb(53, 109, 196)' });
+      assert
+        .dom(duplicatedPaletteColors[2])
+        .hasStyle({ backgroundColor: 'rgb(176, 245, 102)' });
+      assert
+        .dom(duplicatedPaletteColors[3])
+        .hasStyle({ backgroundColor: 'rgb(255, 255, 255)' });
+
+      await triggerEvent(document.body, 'keydown', {
+        keyCode: 90,
+        ctrlKey: true
+      });
+      await waitForAll();
+
+      assert
+        .dom('[data-test-palette-row="First Palette"]')
+        .exists({ count: 1 });
     });
 
     test('undo/redo - rearranging colors in palette', async function (assert) {

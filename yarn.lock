@@ -2105,7 +2105,7 @@
     "@handlebars/parser" "^1.1.0"
     simple-html-tokenizer "^0.5.10"
 
-"@glimmer/tracking@^1.0.1", "@glimmer/tracking@^1.0.3":
+"@glimmer/tracking@^1.0.2", "@glimmer/tracking@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@glimmer/tracking/-/tracking-1.0.3.tgz#8b9b42aff6c206edeaaea178a95acc1eff62e61e"
   integrity sha512-21WR13vPdzt1IQ6JmPPAu4szjV9yKdmLHV3nD0MLDj6/EoYv1c2PqpFBBlp++6xW8OnyDa++cQ8OFoQDP+MRpA==
@@ -7061,7 +7061,7 @@ ember-assign-polyfill@^2.5.0:
     ember-cli-babel "^7.20.5"
     ember-cli-version-checker "^2.0.0"
 
-ember-auto-import@^1.10.0, ember-auto-import@^1.10.1, ember-auto-import@^1.5.3, ember-auto-import@^1.6.0, ember-auto-import@^1.9.0:
+ember-auto-import@^1.10.0, ember-auto-import@^1.10.1, ember-auto-import@^1.5.3, ember-auto-import@^1.8.0, ember-auto-import@^1.9.0:
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-1.10.1.tgz#6c93a875e494aa0a58b759867d3f20adfd514ae3"
   integrity sha512-7bOWzPELlVwdWDOkB+phDIjg8BNW+/2RiLLQ+Xa/eIvCLT4ABYhHV5wqW5gs5BnXTDVLfE4ddKZdllnGuPGGDQ==
@@ -7103,7 +7103,7 @@ ember-box@^0.1.0:
     ember-cli-babel "^7.7.3"
     ember-cli-typescript "^3.0.0"
 
-ember-cache-primitive-polyfill@^1.0.0:
+ember-cache-primitive-polyfill@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ember-cache-primitive-polyfill/-/ember-cache-primitive-polyfill-1.0.1.tgz#a27075443bd87e5af286c1cd8a7df24e3b9f6715"
   integrity sha512-hSPcvIKarA8wad2/b6jDd/eU+OtKmi6uP+iYQbzi5TQpjsqV6b4QdRqrLk7ClSRRKBAtdTuutx+m+X+WlEd2lw==
@@ -7662,7 +7662,7 @@ ember-decorators@^6.1.1:
     "@ember-decorators/object" "^6.1.1"
     ember-cli-babel "^7.7.3"
 
-ember-destroyable-polyfill@^2.0.1, ember-destroyable-polyfill@^2.0.2:
+ember-destroyable-polyfill@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/ember-destroyable-polyfill/-/ember-destroyable-polyfill-2.0.2.tgz#2cc7532bd3c00e351b4da9b7fc683f4daff79671"
   integrity sha512-9t+ya+9c+FkNM5IAyJIv6ETG8jfZQaUnFCO5SeLlV0wkSw7TOexyb61jh5GVee0KmknfRhrRGGAyT4Y0TwkZ+w==
@@ -7778,13 +7778,6 @@ ember-in-element-polyfill@^1.0.0:
     ember-cli-htmlbars "^4.3.1"
     ember-cli-version-checker "^5.0.2"
 
-ember-inflector@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/ember-inflector/-/ember-inflector-3.0.1.tgz#04be6df4d7e4000f6d6bd70787cdc995f77be4ab"
-  integrity sha512-fngrwMsnhkBt51KZgwNwQYxgURwV4lxtoHdjxf7RueGZ5zM7frJLevhHw7pbQNGqXZ3N+MRkhfNOLkdDK9kFdA==
-  dependencies:
-    ember-cli-babel "^6.6.0"
-
 ember-inputmask@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/ember-inputmask/-/ember-inputmask-0.11.0.tgz#c71a513a94af13aabba5992f5be441811e103ad4"
@@ -7873,25 +7866,22 @@ ember-named-arguments-polyfill@^1.0.0:
     ember-cli-babel "^6.6.0"
     ember-cli-version-checker "^2.1.2"
 
-ember-orbit@^0.17.0-beta.5:
+ember-orbit@rwwagner90/ember-orbit#51d2ff50d33e27c976723aa8febf686de6c69367:
   version "0.17.0-beta.5"
-  resolved "https://registry.yarnpkg.com/ember-orbit/-/ember-orbit-0.17.0-beta.5.tgz#d4e936b9f0baac45effa09d0c53cde2f183453a9"
-  integrity sha512-6VrSWutD6a/WjK5HLUumdGKUZ++RDu2GOIyza3efEBRel8J07cO1vuPuDr8BCAJvT5dy12QeZ9W5cyKNzxOc9A==
+  resolved "https://codeload.github.com/rwwagner90/ember-orbit/tar.gz/51d2ff50d33e27c976723aa8febf686de6c69367"
   dependencies:
-    "@glimmer/tracking" "^1.0.1"
+    "@glimmer/tracking" "^1.0.2"
     "@orbit/coordinator" "^0.17.0-beta.6"
     "@orbit/core" "^0.17.0-beta.4"
     "@orbit/data" "^0.17.0-beta.6"
     "@orbit/identity-map" "^0.17.0-beta.4"
     "@orbit/memory" "^0.17.0-beta.6"
     "@orbit/utils" "^0.17.0-beta.4"
-    ember-auto-import "^1.6.0"
-    ember-cache-primitive-polyfill "^1.0.0"
-    ember-cli-babel "^7.22.1"
-    ember-cli-typescript "^3.1.4"
-    ember-destroyable-polyfill "^2.0.1"
-    ember-inflector "^3.0.1"
-    reflect-metadata "^0.1.13"
+    ember-auto-import "^1.8.0"
+    ember-cache-primitive-polyfill "^1.0.1"
+    ember-cli-babel "^7.23.0"
+    ember-cli-typescript "^4.0.0"
+    ember-destroyable-polyfill "^2.0.2"
 
 ember-qunit@^5.1.1:
   version "5.1.1"
@@ -13610,11 +13600,6 @@ reduce-css-calc@^2.1.6:
   dependencies:
     css-unit-converter "^1.1.1"
     postcss-value-parser "^3.3.0"
-
-reflect-metadata@^0.1.13:
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/reflect-metadata/-/reflect-metadata-0.1.13.tgz#67ae3ca57c972a2aa1642b10fe363fe32d49dc08"
-  integrity sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==
 
 regenerate-unicode-properties@^8.2.0:
   version "8.2.0"

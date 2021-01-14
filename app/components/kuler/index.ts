@@ -115,13 +115,7 @@ export default class KulerComponent extends Component<KulerArgs> {
   }
 
   @action
-  async baseColorChanged(): Promise<void> {
-    // If we already had a selected palette, take note of which type analogous, monochromatic, etc
-    // That way we can show the same type again even when the base changes
-    const selectedPaletteTypeIndex = this.selectedPalette
-      ? this.palettes.indexOf(this.selectedPalette)
-      : 0;
-
+  async baseColorChanged(selectedPaletteTypeIndex: number = 0): Promise<void> {
     this._destroyLeftoverPalettes();
 
     const palettes: Palette[] = [];
@@ -148,7 +142,9 @@ export default class KulerComponent extends Component<KulerArgs> {
     this.baseColor = this.selectedPalette.colors[
       this.selectedPalette.selectedColorIndex
     ];
-    return this.baseColorChanged().then(() => {
+    return this.baseColorChanged(
+      this.palettes.indexOf(this.selectedPalette)
+    ).then(() => {
       this.colorPicker.setColors(
         this.selectedPalette.colors.mapBy('hex'),
         this.selectedPalette.selectedColorIndex

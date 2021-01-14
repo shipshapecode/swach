@@ -1,11 +1,14 @@
 <AnimatedContainer class="colors-list">
   {{#animated-each this.sortedColors duration=400 use=this.transition as |color|
   }}
-    <ColorRow
-      @color={{color}}
-      @deleteColor={{this.deleteColor}}
-      @palette={{@palette}}
-      @toggleColorPickerIsShown={{@toggleColorPickerIsShown}}
-    />
+    {{! TODO: remove this disconnected check when caching is fixed in ember-orbit }}
+    {{#unless color.disconnected}}
+      <ColorRow
+        @color={{color}}
+        @deleteColor={{this.deleteColor}}
+        @palette={{@palette}}
+        @toggleColorPickerIsShown={{@toggleColorPickerIsShown}}
+      />
+    {{/unless}}
   {{/animated-each}}
 </AnimatedContainer>

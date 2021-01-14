@@ -115,15 +115,10 @@ export default class KulerComponent extends Component<KulerArgs> {
   }
 
   @action
-  async baseColorChanged(): Promise<void> {
-    // If we already had a selected palette, take note of which type analogous, monochromatic, etc
-    // That way we can show the same type again even when the base changes
-    const selectedPaletteTypeIndex = this.selectedPalette
-      ? this.palettes.indexOf(this.selectedPalette)
-      : 0;
-
+  async baseColorChanged(selectedPaletteTypeIndex = 0): Promise<void> {
     this._destroyLeftoverPalettes();
 
+    const palettes: Palette[] = [];
     for (const harmony of this.harmonies) {
       const palette = new Palette(harmony);
 
@@ -133,19 +128,23 @@ export default class KulerComponent extends Component<KulerArgs> {
       });
       colors = colors.map((color: ColorPOJO) => color.attributes);
 
-      palette.colors.pushObjects(colors);
-      this.palettes.pushObject(palette);
+      palette.colors = colors;
+      palettes.pushObject(palette);
     }
+
+    this.palettes = palettes;
 
     this.selectedPalette = this.palettes[selectedPaletteTypeIndex];
   }
 
   @action
-  setColorAsBase() {
+  setColorAsBase(): Promise<void> {
     this.baseColor = this.selectedPalette.colors[
       this.selectedPalette.selectedColorIndex
     ];
-    return this.baseColorChanged().then(() => {
+    return this.baseColorChanged(
+      this.palettes.indexOf(this.selectedPalette)
+    ).then(() => {
       this.colorPicker.setColors(
         this.selectedPalette.colors.mapBy('hex'),
         this.selectedPalette.selectedColorIndex
@@ -155,16 +154,15 @@ export default class KulerComponent extends Component<KulerArgs> {
 
   /**
    * Sets the selected color in the iro.js color wheel
-   * @param {number} index The index of the color to make active
+   * @param index The index of the color to make active
    */
   @action
-  setSelectedIroColor(index): void {
+  setSelectedIroColor(index: number): void {
     this.colorPicker.setActiveColor(index);
   }
 
   /**
    * Sets the selected palette and the colors for the color picker
-   * @param {Palette} palette
    */
   @action
   setSelectedPalette(e): void {

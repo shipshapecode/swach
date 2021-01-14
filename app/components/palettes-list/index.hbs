@@ -4,6 +4,7 @@
     @items={{this.orderedPalettes}}
     @dragEndAction={{fn this.reorderPalettes}} as |palette|
   >
+    {{! TODO: remove this disconnected check when caching is fixed in ember-orbit }}
     {{#unless palette.disconnected}}
       <PaletteRow
         @moveColorsBetweenPalettes={{@moveColorsBetweenPalettes}}

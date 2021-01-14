@@ -79,7 +79,8 @@ export default class ColorsList extends Component<ColorsListArgs> {
               { type: 'palette', id: palette.id },
               'colorOrder',
               colorsList
-            )
+            ),
+            t.removeRecord(colorToRemove)
           ];
 
           return operations;

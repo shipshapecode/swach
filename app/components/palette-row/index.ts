@@ -189,13 +189,18 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   @action
+  async _deletePalette(): Promise<void> {
+    await this.store.update((t: Store['transformBuilder']) =>
+      t.removeRecord(this.args.palette)
+    );
+    this.undoManager.setupUndoRedo();
+  }
+
+  @action
   async deletePalette(): Promise<void> {
     if (!this.isLocked) {
       if (this.deleteConfirm) {
-        await this.store.update((t: Store['transformBuilder']) =>
-          t.removeRecord(this.args.palette)
-        );
-        this.undoManager.setupUndoRedo();
+        await this._deletePalette();
       }
 
       this.deleteConfirm = true;
@@ -205,10 +210,7 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   @action
   async deletePaletteContextMenu(): Promise<void> {
     if (!this.isLocked) {
-      await this.store.update((t: Store['transformBuilder']) =>
-        t.removeRecord(this.args.palette)
-      );
-      this.undoManager.setupUndoRedo();
+      await this._deletePalette();
     }
   }
 

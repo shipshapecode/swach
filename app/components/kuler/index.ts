@@ -115,7 +115,7 @@ export default class KulerComponent extends Component<KulerArgs> {
   }
 
   @action
-  async baseColorChanged(selectedPaletteTypeIndex: number = 0): Promise<void> {
+  async baseColorChanged(selectedPaletteTypeIndex = 0): Promise<void> {
     this._destroyLeftoverPalettes();
 
     const palettes: Palette[] = [];

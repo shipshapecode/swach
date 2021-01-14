@@ -93,7 +93,7 @@
     "ember-local-storage": "^1.7.2",
     "ember-math-helpers": "^2.15.0",
     "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-orbit": "rwwagner90/ember-orbit#51d2ff50d33e27c976723aa8febf686de6c69367",
+    "ember-orbit": "rwwagner90/ember-orbit#8b17336f87c09da322bc2fbfbc904f6bd536f82c",
     "ember-qunit": "^5.1.1",
     "ember-ref-bucket": "^2.0.0",
     "ember-resolver": "^8.0.2",

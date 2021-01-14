@@ -124,6 +124,7 @@ export default class KulerComponent extends Component<KulerArgs> {
 
     this._destroyLeftoverPalettes();
 
+    const palettes: Palette[] = [];
     for (const harmony of this.harmonies) {
       const palette = new Palette(harmony);
 
@@ -133,15 +134,17 @@ export default class KulerComponent extends Component<KulerArgs> {
       });
       colors = colors.map((color: ColorPOJO) => color.attributes);
 
-      palette.colors.pushObjects(colors);
-      this.palettes.pushObject(palette);
+      palette.colors = colors;
+      palettes.pushObject(palette);
     }
+
+    this.palettes = palettes;
 
     this.selectedPalette = this.palettes[selectedPaletteTypeIndex];
   }
 
   @action
-  setColorAsBase() {
+  setColorAsBase(): Promise<void> {
     this.baseColor = this.selectedPalette.colors[
       this.selectedPalette.selectedColorIndex
     ];
@@ -155,16 +158,15 @@ export default class KulerComponent extends Component<KulerArgs> {
 
   /**
    * Sets the selected color in the iro.js color wheel
-   * @param {number} index The index of the color to make active
+   * @param index The index of the color to make active
    */
   @action
-  setSelectedIroColor(index): void {
+  setSelectedIroColor(index: number): void {
     this.colorPicker.setActiveColor(index);
   }
 
   /**
    * Sets the selected palette and the colors for the color picker
-   * @param {Palette} palette
    */
   @action
   setSelectedPalette(e): void {

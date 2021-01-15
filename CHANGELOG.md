@@ -1,3 +1,34 @@
+## v0.5.0 (2021-01-15)
+
+#### :boom: Breaking Change
+* [#452](https://github.com/shipshapecode/swach/pull/452) Make color to palette relationship a hasOne ([@rwwagner90](https://github.com/rwwagner90))
+
+#### :rocket: Enhancement
+* [#482](https://github.com/shipshapecode/swach/pull/482) Ensure colors are deleted when they no longer belong to palettes ([@rwwagner90](https://github.com/rwwagner90))
+* [#467](https://github.com/shipshapecode/swach/pull/467) Update welcome page styling ([@rwwagner90](https://github.com/rwwagner90))
+* [#449](https://github.com/shipshapecode/swach/pull/449) Add download success / error flash message ([@rwwagner90](https://github.com/rwwagner90))
+
+#### :bug: Bug Fix
+* [#483](https://github.com/shipshapecode/swach/pull/483) Fix duplicate application route ([@rwwagner90](https://github.com/rwwagner90))
+* [#471](https://github.com/shipshapecode/swach/pull/471) Fix duplicate palette functionality ([@rwwagner90](https://github.com/rwwagner90))
+* [#469](https://github.com/shipshapecode/swach/pull/469) Make updating base color values update all colors ([@rwwagner90](https://github.com/rwwagner90))
+
+#### :house: Internal
+* [#481](https://github.com/shipshapecode/swach/pull/481) Yarn upgrade ([@rwwagner90](https://github.com/rwwagner90))
+* [#470](https://github.com/shipshapecode/swach/pull/470) Convert context menu to glimmer ([@rwwagner90](https://github.com/rwwagner90))
+* [#465](https://github.com/shipshapecode/swach/pull/465) ember-cli 3.24 ([@rwwagner90](https://github.com/rwwagner90))
+* [#451](https://github.com/shipshapecode/swach/pull/451) GitHub actions workflow refactor ([@rwwagner90](https://github.com/rwwagner90))
+* [#450](https://github.com/shipshapecode/swach/pull/450) Fix electron tests ([@rwwagner90](https://github.com/rwwagner90))
+* [#448](https://github.com/shipshapecode/swach/pull/448) Start converting components to TS ([@rwwagner90](https://github.com/rwwagner90))
+* [#446](https://github.com/shipshapecode/swach/pull/446) Build with embroider, remove power select ([@rwwagner90](https://github.com/rwwagner90))
+* [#445](https://github.com/shipshapecode/swach/pull/445) Fix settings TS issues ([@rwwagner90](https://github.com/rwwagner90))
+* [#433](https://github.com/shipshapecode/swach/pull/433) Use ember-orbit beta ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 3
+- Chuck Carpenter ([@chuckcarpenter](https://github.com/chuckcarpenter))
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.4.17 (2020-12-14)
 
 #### :bug: Bug Fix

@@ -32,11 +32,18 @@
       </div>
     </DragSortList>
   {{else}}
-    <div
-      class="bg-main inline-flex items-center justify-center m-1 h-8 rounded text-sm w-full"
-    >
-      Your color history is empty.
-    </div>
+    <span class="inline-block m-1 py-1 text-main-text text-sm w-full">
+      Use the
+      <span class="font-bold">
+        eyedropper
+      </span>
+      {{svg-jar "drop" class="menu-icon inline" height="12" width="12"}} or
+      <span class="font-bold">
+        color selector
+      </span>
+      {{svg-jar "edit-color" class="menu-icon inline" height="12" width="12"}}
+      to start building your palette.
+    </span>
   {{/if}}
 </div>
 

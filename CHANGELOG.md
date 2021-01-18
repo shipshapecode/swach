@@ -1,3 +1,11 @@
+## v0.5.4 (2021-01-18)
+
+#### :bug: Bug Fix
+* [#488](https://github.com/shipshapecode/swach/pull/488) Check if palette is disconnected ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v0.5.3 (2021-01-15)
 
 ## v0.5.2 (2021-01-15)

@@ -23,12 +23,14 @@ export default class ColorsList extends Component<ColorsListArgs> {
 
   get sortedColors(): (ColorModel | undefined)[] {
     const { palette } = this.args;
-    if (palette.isColorHistory) {
-      return palette.colors.sortBy('createdAt').reverse();
-    } else {
-      return palette.colorOrder.map((color: ColorModel) => {
-        return palette.colors.findBy('id', color.id);
-      });
+    if (!palette.disconnected) {
+      if (palette.isColorHistory) {
+        return palette.colors.sortBy('createdAt').reverse();
+      } else {
+        return palette.colorOrder.map((color: ColorModel) => {
+          return palette.colors.findBy('id', color.id);
+        });
+      }
     }
   }
 

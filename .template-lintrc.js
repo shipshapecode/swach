@@ -10,6 +10,7 @@ module.exports = {
     'no-implicit-this': { allow: ['context-menu'] },
     'no-inline-styles': false,
     'no-invalid-interactive': false,
+    'no-negated-condition': false,
     'no-outlet-outside-routes': false
   }
 };

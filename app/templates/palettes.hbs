@@ -1,7 +1,6 @@
 <div class="bg-menu flex flex-wrap items-center p-2 rounded w-full">
   <div
     class="cursor-default flex flex-grow items-center justify-between p-1 text-main-text text-sm w-full"
-    role="button"
     {{on "click" this.transitionToColorHistory}}
   >
     <div>
@@ -43,6 +42,7 @@
           >
             <button
               class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
+              type="button"
               {{on "click" (stop-propagation this.clearColorHistory)}}
             >
               {{svg-jar

@@ -41,13 +41,13 @@
             @tooltipClass="bg-menu border-main text-menu-text"
           >
             <button
-              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
+              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text transition-colors hover:text-menu-text-hover"
               type="button"
               {{on "click" (stop-propagation this.clearColorHistory)}}
             >
               {{svg-jar
                 "clear-history"
-                class="stroke-menu-icon inline-block mr-2"
+                class="menu-icon inline-block mr-2"
                 height="20"
                 width="20"
               }} Clear History

@@ -24,7 +24,6 @@ Router.map(function () {
     });
     this.route('general');
     this.route('data');
-    this.route('about');
   });
   this.route('welcome', function () {
     this.route('auto-start');

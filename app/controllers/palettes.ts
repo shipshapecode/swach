@@ -22,6 +22,7 @@ export default class PalettesController extends Controller {
   @service store!: Store;
   @service undoManager!: UndoManager;
 
+  @tracked colorHistoryMenuIsShown = false;
   @tracked showFavorites = false;
 
   get modelArray(): PaletteModel[] {
@@ -45,6 +46,19 @@ export default class PalettesController extends Controller {
     }
 
     return palettes.filterBy('isColorHistory', false);
+  }
+
+  @action
+  async clearColorHistory(): Promise<void> {
+    const colorHistoryId = this.colorHistory?.id;
+    await this.store.update((t) =>
+      t.replaceRelatedRecords(
+        { type: 'palette', id: colorHistoryId },
+        'colors',
+        []
+      )
+    );
+    this.colorHistoryMenuIsShown = false;
   }
 
   @action

@@ -1,10 +1,61 @@
 <div class="bg-menu flex flex-wrap items-center p-2 rounded w-full">
   <div
-    class="cursor-default flex flex-grow items-center p-1 text-main-text text-sm w-full"
+    class="cursor-default flex flex-grow items-center justify-between p-1 text-main-text text-sm w-full"
     role="button"
     {{on "click" this.transitionToColorHistory}}
   >
-    Color History
+    <div>
+      Color History
+    </div>
+
+    {{#if this.last16Colors.length}}
+      <ClickOutside
+        @onClickOutside={{set this "colorHistoryMenuIsShown" false}}
+      >
+        <div class="flex-grow">
+          <div class="flex h-4 items-center w-4">
+            <button
+              id="toggle-color-history-menu"
+              type="button"
+              {{on
+                "click"
+                (stop-propagation
+                  (set
+                    this
+                    "colorHistoryMenuIsShown"
+                    (not this.colorHistoryMenuIsShown)
+                  )
+                )
+              }}
+            >
+              {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
+            </button>
+          </div>
+
+          <EmberPopover
+            @arrowClass="hidden"
+            @event="none"
+            @isShown={{this.colorHistoryMenuIsShown}}
+            @side="bottom-end"
+            @spacing={{10}}
+            @targetId="toggle-color-history-menu"
+            @tooltipClass="bg-menu border-main text-menu-text"
+          >
+            <button
+              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text hover:text-menu-text-hover"
+              {{on "click" (stop-propagation this.clearColorHistory)}}
+            >
+              {{svg-jar
+                "clear-history"
+                class="stroke-menu-icon inline-block mr-2"
+                height="20"
+                width="20"
+              }} Clear History
+            </button>
+          </EmberPopover>
+        </div>
+      </ClickOutside>
+    {{/if}}
   </div>
 
   {{#if this.last16Colors.length}}

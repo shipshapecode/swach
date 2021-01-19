@@ -1,15 +1,3 @@
-.ember-popover[x-placement^='bottom'] .custom-arrow {
-  border-bottom-color: var(--menu-color);
-  top: -8px;
-  left: calc(50% - 8px);
-}
-
-.ember-popover[x-placement^='left'] .custom-arrow {
-  border-left-color: var(--menu-color);
-  right: -8px;
-  top: calc(50% - 8px);
-}
-
 .ember-popover-inner > div {
   @apply h-full w-full;
 }

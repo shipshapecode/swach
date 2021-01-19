@@ -45,14 +45,14 @@ svg {
   }
 
   &.menu-icon {
-    path {
+    path, mask {
       fill: var(--menu-text-color) !important;
       @apply transition-colors;
     }
   }
 
   &.stroke-menu-icon {
-    path {
+    path, rect {
       stroke: var(--menu-text-color) !important;
       @apply transition-colors;
     }

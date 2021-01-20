@@ -16,8 +16,6 @@ import ColorUtils from 'swach/services/color-utils';
 import UndoManager from 'swach/services/undo-manager';
 
 export default class PalettesController extends Controller {
-  queryParams = ['showFavorites'];
-
   @controller application!: ApplicationController;
   @service colorUtils!: ColorUtils;
   @service router!: Router;

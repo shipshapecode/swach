@@ -1,7 +1,7 @@
-{{#if @palettes.length}}
+{{#if this.palettes.length}}
   <AnimatedDragSortList
     @group="palettes"
-    @items={{@palettes.value}}
+    @items={{this.palettes}}
     @dragEndAction={{fn this.reorderPalettes}} as |palette|
   >
     {{! TODO: remove this disconnected check when caching is fixed in ember-orbit }}

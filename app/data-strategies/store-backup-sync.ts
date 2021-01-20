@@ -1,7 +1,7 @@
 import { SyncStrategy } from '@orbit/coordinator';
 
 export default {
-  create() {
+  create(): SyncStrategy {
     return new SyncStrategy({
       name: 'store-backup-sync',
 

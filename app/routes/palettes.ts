@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
-import Route from '@ember/routing/route';
 import Transition from '@ember/routing/-private/transition';
+import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
 import { LiveQuery, Store } from 'ember-orbit';

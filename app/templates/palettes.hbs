@@ -11,25 +11,24 @@
       <ClickOutside
         @onClickOutside={{set this "colorHistoryMenuIsShown" false}}
       >
-        <div class="flex-grow">
-          <div class="flex h-4 items-center w-4">
-            <button
-              id="toggle-color-history-menu"
-              type="button"
-              {{on
-                "click"
-                (stop-propagation
-                  (set
-                    this
-                    "colorHistoryMenuIsShown"
-                    (not this.colorHistoryMenuIsShown)
-                  )
+        <div class="flex flex-grow items-center">
+          <button
+            class="rounded px-1 {{if this.colorHistoryMenuIsShown "bg-main"}}"
+            id="toggle-color-history-menu"
+            type="button"
+            {{on
+              "click"
+              (stop-propagation
+                (set
+                  this
+                  "colorHistoryMenuIsShown"
+                  (not this.colorHistoryMenuIsShown)
                 )
-              }}
-            >
-              {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
-            </button>
-          </div>
+              )
+            }}
+          >
+            {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
+          </button>
 
           <EmberPopover
             @arrowClass="hidden"

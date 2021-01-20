@@ -1,3 +1,4 @@
+import Controller from '@ember/controller';
 import Route from '@ember/routing/route';
 import Router from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
@@ -68,5 +69,12 @@ export default class ApplicationRoute extends Route {
         isLocked: false
       });
     }
+  }
+
+  setupController(controller: Controller): void {
+    this.router.on('routeWillChange', () => {
+      // @ts-expect-error TODO: we don't have the specific controller here
+      controller.menuIsShown = false;
+    });
   }
 }

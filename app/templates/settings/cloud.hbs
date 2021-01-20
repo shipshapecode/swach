@@ -6,4 +6,10 @@
   Use cloud sync to keep all your palettes and colors up to date across all your devices.
 </p>
 
-<AnimatedOutlet />
+{{#if (feature-flag "cloud-login")}}
+  <AnimatedOutlet />
+{{else}}
+  <div class="font-bold py-2">
+    Coming soon!
+  </div>
+{{/if}}

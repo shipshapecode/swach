@@ -6,10 +6,36 @@ import { inject as service } from '@ember/service';
 import { LiveQuery, Store } from 'ember-orbit';
 
 export default class PalettesRoute extends Route {
+  queryParams = {
+    showFavorites: {
+      refreshModel: true
+    }
+  };
+
   @service store!: Store;
 
-  async model(): Promise<LiveQuery> {
-    return this.store.cache.liveQuery((qb) => qb.findRecords('palette'));
+  async model({
+    showFavorites
+  }: {
+    showFavorites: boolean;
+  }): Promise<LiveQuery> {
+    const palettes = await this.store.cache.liveQuery((qb) =>
+      qb
+        .findRecords('palette')
+        .filter({ attribute: 'isColorHistory', value: false })
+        .filter({ attribute: 'isFavorite', value: showFavorites ?? false })
+        .sort('index')
+    );
+    const colorHistory = await this.store.cache.liveQuery((qb) =>
+      qb
+        .findRecords('palette')
+        .filter({ attribute: 'isColorHistory', value: true })
+    );
+
+    return {
+      palettes,
+      colorHistory
+    };
   }
 
   resetController(

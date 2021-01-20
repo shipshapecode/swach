@@ -37,7 +37,7 @@
             @side="bottom-end"
             @spacing={{10}}
             @targetId="toggle-color-history-menu"
-            @tooltipClass="bg-menu border-main text-menu-text"
+            @tooltipClass="bg-menu border-main text-menu-text z-50"
           >
             <button
               class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text transition-colors hover:text-menu-text-hover"
@@ -128,6 +128,6 @@
 
 <PalettesList
   @moveColorsBetweenPalettes={{this.moveColorsBetweenPalettes}}
-  @palettes={{this.palettes}}
+  @palettes={{this.model.palettes}}
   @showFavorites={{this.showFavorites}}
 />

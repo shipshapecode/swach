@@ -16,6 +16,8 @@ import ColorUtils from 'swach/services/color-utils';
 import UndoManager from 'swach/services/undo-manager';
 
 export default class PalettesController extends Controller {
+  queryParams = ['showFavorites'];
+
   @controller application!: ApplicationController;
   @service colorUtils!: ColorUtils;
   @service router!: Router;
@@ -25,27 +27,13 @@ export default class PalettesController extends Controller {
   @tracked colorHistoryMenuIsShown = false;
   @tracked showFavorites = false;
 
-  get modelArray(): PaletteModel[] {
-    return this.model.value;
-  }
-
   get colorHistory(): PaletteModel | undefined {
-    return this.modelArray.findBy('isColorHistory', true);
+    return this.model.colorHistory.value[0];
   }
 
   get last16Colors(): ColorModel[] {
     const colors = this.colorHistory?.colors ?? [];
     return colors.sortBy('createdAt').reverse().slice(0, 16);
-  }
-
-  get palettes(): PaletteModel[] {
-    let palettes = this.modelArray || [];
-
-    if (this.showFavorites) {
-      palettes = palettes.filterBy('isFavorite', true);
-    }
-
-    return palettes.filterBy('isColorHistory', false);
   }
 
   @action
@@ -58,6 +46,7 @@ export default class PalettesController extends Controller {
         []
       )
     );
+    this.undoManager.setupUndoRedo();
     this.colorHistoryMenuIsShown = false;
   }
 
@@ -70,7 +59,8 @@ export default class PalettesController extends Controller {
       colorOrder: [],
       isColorHistory: false,
       isFavorite: false,
-      isLocked: false
+      isLocked: false,
+      index: 0
     });
 
     this.undoManager.setupUndoRedo();

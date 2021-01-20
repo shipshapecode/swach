@@ -17,14 +17,6 @@ export default class PalettesListComponent extends Component<PalettesListArgs> {
   @service store!: Store;
   @service undoManager!: UndoManager;
 
-  /**
-   * Order palettes by createdAt first, then order by index if the user
-   * has reordered them.
-   */
-  get orderedPalettes(): PaletteModel[] {
-    return this.args.palettes.sortBy('createdAt').reverse().sortBy('index');
-  }
-
   @action
   async reorderPalettes({
     sourceList,

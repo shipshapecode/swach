@@ -13,7 +13,9 @@
       >
         <div class="flex flex-grow items-center">
           <button
-            class="rounded px-1 {{if this.colorHistoryMenuIsShown "bg-main"}}"
+            class="px-1 rounded transition-colors {{
+              if this.colorHistoryMenuIsShown "bg-main"
+            }}"
             id="toggle-color-history-menu"
             type="button"
             {{on

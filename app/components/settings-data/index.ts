@@ -6,6 +6,7 @@ import { tracked } from '@glimmer/tracking';
 import FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { Store } from 'ember-orbit';
 
+import { IpcRenderer } from 'electron';
 import IDBExportImport from 'indexeddb-export-import';
 
 import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
@@ -15,7 +16,7 @@ export default class SettingsDataComponent extends Component {
   @service flashMessages!: FlashMessageService;
   @service store!: Store;
 
-  ipcRenderer: any;
+  ipcRenderer!: IpcRenderer;
 
   @tracked isExporting = false;
   @tracked isImporting = false;

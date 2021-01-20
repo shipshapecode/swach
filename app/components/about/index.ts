@@ -2,8 +2,10 @@ import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
+import { IpcRenderer } from 'electron';
+
 export default class SettingsMenu extends Component {
-  ipcRenderer: any;
+  ipcRenderer!: IpcRenderer;
 
   @tracked version = 'Version not available';
 

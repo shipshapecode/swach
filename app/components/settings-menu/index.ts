@@ -4,6 +4,8 @@ import { tracked } from '@glimmer/tracking';
 
 import { storageFor } from 'ember-local-storage';
 
+import { IpcRenderer } from 'electron';
+
 import { SettingsStorage, themes } from 'swach/storages/settings';
 interface SettingsMenuArgs {
   checkForUpdates: () => void;
@@ -14,7 +16,7 @@ interface SettingsMenuArgs {
 export default class SettingsMenu extends Component<SettingsMenuArgs> {
   @storageFor('settings') settings!: SettingsStorage;
 
-  ipcRenderer: any;
+  ipcRenderer!: IpcRenderer;
   themes = ['dynamic', 'light', 'dark'];
 
   @tracked platform?: string;

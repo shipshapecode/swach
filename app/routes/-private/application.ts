@@ -5,6 +5,8 @@ import { inject as service } from '@ember/service';
 
 import { Store } from 'ember-orbit';
 
+import { IpcRenderer } from 'electron';
+
 import ENV from 'swach/config/environment';
 
 export default class ApplicationRoute extends Route {
@@ -13,7 +15,7 @@ export default class ApplicationRoute extends Route {
   @service router!: Router;
   @service store!: Store;
 
-  ipcRenderer: any;
+  ipcRenderer!: IpcRenderer;
 
   constructor() {
     super(...arguments);

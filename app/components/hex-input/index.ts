@@ -57,6 +57,6 @@ export default class HexInputComponent extends Component<HexInputArgs> {
    */
   @action
   onIncomplete(): void {
-    set(this.args.selectedColor, '_hex', this.args.selectedColor.hex);
+    set(this.args.selectedColor, '_hex', this.args.selectedColor?.hex);
   }
 }

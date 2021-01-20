@@ -6,6 +6,7 @@ import { storageFor } from 'ember-local-storage';
 import { Store } from 'ember-orbit/addon/index';
 
 import { TinyColor } from '@ctrl/tinycolor';
+import { IpcRenderer } from 'electron';
 
 import Color from 'swach/data-models/color';
 import { rgbaToHex } from 'swach/data-models/color';
@@ -30,7 +31,7 @@ export default class ColorUtilsService extends Service {
   @service nearestColor!: NearestColor;
   @service store!: Store;
 
-  ipcRenderer: any;
+  ipcRenderer!: IpcRenderer;
 
   @storageFor('settings') settings!: SettingsStorage;
 
@@ -65,11 +66,11 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  async copyColorToClipboard(color: Color, event?: Event): Promise<void> {
+  async copyColorToClipboard(color?: Color, event?: Event): Promise<void> {
     const target = <HTMLElement>event?.target;
     const isDropping = target?.parentElement?.classList.contains('is-dropping');
 
-    if (!isDropping) {
+    if (!isDropping && color) {
       this.ipcRenderer.send('copyColorToClipboard', color.hex);
 
       if (this.settings.get('sounds')) {

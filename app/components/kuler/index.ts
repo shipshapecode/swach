@@ -8,6 +8,7 @@ import { Store } from 'ember-orbit';
 
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
+import { IpcRenderer } from 'electron';
 import { debounce } from 'throttle-debounce';
 
 import ColorUtils, { ColorPOJO } from 'swach/services/color-utils';
@@ -57,7 +58,7 @@ export default class KulerComponent extends Component<KulerArgs> {
   _debouncedColorChange!: any;
   colorPicker!: iro.ColorPicker;
   harmonies = ['analogous', 'monochromatic', 'tetrad', 'triad'];
-  ipcRenderer: any;
+  ipcRenderer!: IpcRenderer;
 
   @tracked baseColor;
   @tracked colors = [];

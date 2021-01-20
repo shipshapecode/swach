@@ -6,7 +6,15 @@ import colorNameList from 'color-name-list';
 import nearestColor from 'nearest-color';
 
 export default class NearestColorService extends Service {
-  nearest: ({ r, g, b }: { r: string; g: string; b: string }) => string;
+  nearest: ({
+    r,
+    g,
+    b
+  }: {
+    r: string;
+    g: string;
+    b: string;
+  }) => { name: string };
 
   constructor() {
     super(...arguments);

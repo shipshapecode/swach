@@ -37,6 +37,7 @@ module.exports = function (environment) {
         "'unsafe-inline'"
       ],
       'font-src': ["'self'"],
+      'frame-src': ['http://localhost:7357', 'http://testemserver/', "'self'"],
       'connect-src': ["'self'"],
       'img-src': ['data:', "'self'"],
       'style-src': ["'self'", "'unsafe-inline'"],

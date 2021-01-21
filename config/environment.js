@@ -29,7 +29,13 @@ module.exports = function (environment) {
 
     contentSecurityPolicy: {
       'default-src': ["'none'"],
-      'script-src': ['http://localhost:7020', "'self'", "'unsafe-inline'"],
+      'script-src': [
+        'http://localhost:7020',
+        'http://localhost:7357',
+        'http://testemserver',
+        "'self'",
+        "'unsafe-inline'"
+      ],
       'font-src': ["'self'"],
       'connect-src': ["'self'"],
       'img-src': ['data:', "'self'"],

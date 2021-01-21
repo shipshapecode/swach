@@ -7514,12 +7514,11 @@ ember-drag-sort@^3.0.0:
     ember-cli-htmlbars "^4.2.0"
     eslint-plugin-varspacing "^1.2.1"
 
-ember-electron@^3.0.0-beta.4:
+ember-electron@adopted-ember-addons/ember-electron#1452be01ea03604f8a1ba7398f30bc45c03822b8:
   version "3.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/ember-electron/-/ember-electron-3.0.0-beta.4.tgz#3a503f03d43c17e93506eba58a6b0ca3c3537524"
-  integrity sha512-wItNzy0cVBzy7LzKKRzuVEesbDIUBkdgffb2sYri4UfEqdFQoFsPDREgGNbWnbFUoqk+LtdN8QZVHwq+UP0VlA==
+  resolved "https://codeload.github.com/adopted-ember-addons/ember-electron/tar.gz/1452be01ea03604f8a1ba7398f30bc45c03822b8"
   dependencies:
-    "@electron-forge/core" "6.0.0-beta.53"
+    "@electron-forge/core" "6.0.0-beta.54"
     broccoli-string-replace "^0.1.2"
     chalk "^4.0.0"
     debug "^4.1.1"

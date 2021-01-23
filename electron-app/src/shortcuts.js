@@ -52,9 +52,9 @@ function setupMenu(mb, launchPicker, openContrastChecker) {
           {
             label: mb.app.name,
             submenu: [
-              { role: 'about' },
+              { label: 'About Swach', role: 'about' },
               { type: 'separator' },
-              { role: 'quit' }
+              { label: 'Quit Swach', role: 'quit' }
             ]
           }
         ]
@@ -101,7 +101,6 @@ function setupMenu(mb, launchPicker, openContrastChecker) {
         { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
         { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
         { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
-        { type: 'separator' },
         {
           label: 'Select All',
           accelerator: 'CmdOrCtrl+A',

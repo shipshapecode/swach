@@ -262,11 +262,6 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   @action
-  onNameInputClick(): void {
-    // Stub function which uses `stop-propagation` to prevent navigating to palette while clicking to move text cursor
-  }
-
-  @action
   enterPress(event: KeyboardEvent): void {
     if (event.keyCode === 13) {
       this.nameInput.blur();

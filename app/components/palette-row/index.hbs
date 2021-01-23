@@ -15,7 +15,7 @@
           value={{@palette.name}}
           type="text"
           {{did-insert this.insertedNameInput}}
-          {{on "click" (stop-propagation (fn this.onNameInputClick))}}
+          {{on "click" (stop-propagation (noop))}}
           {{on "blur" this.stopEditing}}
           {{on "keypress" this.enterPress}}
           {{on "input" this.updatePaletteName}}

@@ -22,14 +22,11 @@ export default class PalettesController extends Controller {
   @service store!: Store;
   @service undoManager!: UndoManager;
 
+  @tracked colorHistoryMenuIsShown = false;
   @tracked showFavorites = false;
 
-  get modelArray(): PaletteModel[] {
-    return this.model.value;
-  }
-
   get colorHistory(): PaletteModel | undefined {
-    return this.modelArray.findBy('isColorHistory', true);
+    return this.model.colorHistory.value[0];
   }
 
   get last16Colors(): ColorModel[] {
@@ -37,14 +34,18 @@ export default class PalettesController extends Controller {
     return colors.sortBy('createdAt').reverse().slice(0, 16);
   }
 
-  get palettes(): PaletteModel[] {
-    let palettes = this.modelArray || [];
-
-    if (this.showFavorites) {
-      palettes = palettes.filterBy('isFavorite', true);
-    }
-
-    return palettes.filterBy('isColorHistory', false);
+  @action
+  async clearColorHistory(): Promise<void> {
+    const colorHistoryId = this.colorHistory?.id;
+    await this.store.update((t) =>
+      t.replaceRelatedRecords(
+        { type: 'palette', id: colorHistoryId },
+        'colors',
+        []
+      )
+    );
+    this.undoManager.setupUndoRedo();
+    this.colorHistoryMenuIsShown = false;
   }
 
   @action
@@ -56,7 +57,8 @@ export default class PalettesController extends Controller {
       colorOrder: [],
       isColorHistory: false,
       isFavorite: false,
-      isLocked: false
+      isLocked: false,
+      index: 0
     });
 
     this.undoManager.setupUndoRedo();

@@ -6,6 +6,12 @@
   Palettes
 </LinkTo>
 
+{{#if (not this.model.isColorHistory)}}
+  <div class="font-bold py-2 text-main-text text-xl">
+    {{this.model.name}}
+  </div>
+{{/if}}
+
 <ColorsList
   @palette={{this.model}}
   @toggleColorPickerIsShown={{this.application.toggleColorPickerIsShown}}

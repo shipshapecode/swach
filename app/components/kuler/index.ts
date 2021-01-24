@@ -8,6 +8,7 @@ import { Store } from 'ember-orbit';
 
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
+import { IpcRenderer } from 'electron';
 import { debounce } from 'throttle-debounce';
 
 import ColorUtils, { ColorPOJO } from 'swach/services/color-utils';
@@ -37,7 +38,7 @@ iro.ColorPicker.prototype.setColors = function (
   selectedIndex = 0
 ) {
   // Unbind color events
-  this.colors.forEach((color) => color.unbind());
+  this.colors.forEach((color: iro.Color) => color.unbind());
   // Destroy old colors
   this.colors = [];
   // Add new colors
@@ -57,7 +58,7 @@ export default class KulerComponent extends Component<KulerArgs> {
   _debouncedColorChange!: any;
   colorPicker!: iro.ColorPicker;
   harmonies = ['analogous', 'monochromatic', 'tetrad', 'triad'];
-  ipcRenderer: any;
+  ipcRenderer!: IpcRenderer;
 
   @tracked baseColor;
   @tracked colors = [];
@@ -165,8 +166,8 @@ export default class KulerComponent extends Component<KulerArgs> {
    * Sets the selected palette and the colors for the color picker
    */
   @action
-  setSelectedPalette(e): void {
-    const paletteName = e.target.value;
+  setSelectedPalette(event: InputEvent): void {
+    const paletteName = (<HTMLInputElement>event.target).value;
     const palette = this.palettes.findBy('name', paletteName);
     if (palette) {
       this.selectedPalette = palette;
@@ -185,10 +186,12 @@ export default class KulerComponent extends Component<KulerArgs> {
   }
 
   @action
-  async _onColorChange(color) {
+  async _onColorChange(color: iro.Color | string): Promise<void> {
     const { selectedColorIndex } = this.selectedPalette;
     // if changing the selected baseColor, we should update all the colors
-    const newColor = this.colorUtils.createColorPOJO(color?.rgba ?? color);
+    const newColor = this.colorUtils.createColorPOJO(
+      color instanceof iro.Color ? color.rgba : color
+    );
 
     this.selectedPalette.colors.replace(selectedColorIndex, 1, [
       newColor.attributes
@@ -210,7 +213,7 @@ export default class KulerComponent extends Component<KulerArgs> {
   }
 
   @action
-  _onColorSetActive(color): void {
+  _onColorSetActive(color: iro.Color): void {
     if (color) {
       this.selectedPalette.selectedColorIndex = color.index;
     }

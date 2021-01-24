@@ -37,6 +37,8 @@ export default class AnimatedOutlet extends Component {
       return transition.reverse || transition.use;
     }
 
-    return fade;
+    if (oldRouteName !== newRouteName) {
+      return fade;
+    }
   }
 }

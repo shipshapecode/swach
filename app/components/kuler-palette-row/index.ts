@@ -39,7 +39,7 @@ export default class KulerPaletteRowComponent extends Component<KulerPaletteRowA
 
   @action
   async savePalette(): Promise<void> {
-    await this.router.transitionTo('palettes');
+    this.router.transitionTo('palettes');
 
     const { palette } = this.args;
     const { colors } = palette;

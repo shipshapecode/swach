@@ -9,6 +9,8 @@ import FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
 import { Model, Store } from 'ember-orbit';
 
+import { IpcRenderer } from 'electron';
+
 import ColorModel from 'swach/data-models/color';
 import ColorUtils from 'swach/services/color-utils';
 import UndoManager from 'swach/services/undo-manager';
@@ -22,7 +24,7 @@ export default class ApplicationController extends Controller {
   @service store!: Store;
   @service undoManager!: UndoManager;
 
-  ipcRenderer: any;
+  ipcRenderer!: IpcRenderer;
 
   @tracked colorPickerColor?: ColorModel;
   @tracked colorPickerIsShown = false;

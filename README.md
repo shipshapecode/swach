@@ -8,51 +8,51 @@ Swach is a modern color palette manager.
 
 You will need the following things properly installed on your computer.
 
-- [Git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/)
-- [Yarn](https://yarnpkg.com/)
-- [Ember CLI](https://ember-cli.com/)
-- [Google Chrome](https://google.com/chrome/)
-- [Volta](https://docs.volta.sh/guide/)
+* [Git](https://git-scm.com/)
+* [Node.js](https://nodejs.org/)
+* [Yarn](https://yarnpkg.com/)
+* [Ember CLI](https://ember-cli.com/)
+* [Google Chrome](https://google.com/chrome/)
+* [Volta](https://docs.volta.sh/guide/)
 
 ## Installation
 
-- `git clone <repository-url>` this repository
-- `cd swach`
-- `yarn install`
+* `git clone <repository-url>` this repository
+* `cd swach`
+* `yarn install`
 
 ## Running / Development
 
 ### Electron
 
-- `ember electron`
+* `ember electron`
 
 ### Ember
 
-- `ember serve`
-- Visit your app at [http://localhost:4200](http://localhost:4200).
-- Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
+* `ember serve`
+* Visit your app at [http://localhost:4200](http://localhost:4200).
+* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 
 ### Running Tests
 
-- `ember test`
-- `ember test --server`
+* `ember test`
+* `ember test --server`
 
 ### Linting
 
-- `yarn lint:hbs`
-- `yarn lint:js`
-- `yarn lint:js --fix`
+* `yarn lint:hbs`
+* `yarn lint:js`
+* `yarn lint:js --fix`
 
 ### Building / Packaging
 
-- `ember electron:make`
+* `ember electron:make`
 
 ## Releasing
 
-- Bump the version with:
+* Bump the version with:
 
-```bash
+```bash 
 release-it
 ```
 

@@ -1463,10 +1463,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/sass-import-resolve/-/sass-import-resolve-1.0.0.tgz#32c3cdb2f7af3cd8f0dca357b592e7271f3831b5"
   integrity sha512-pH4KCsbtBLLe7eqUrw8brcuFO8IZlN36JjdKlOublibVdAIPHCzEnpBWOVUXK5sCf+DpBi8ZtuWtjF0srybdeA==
 
-"@ctrl/tinycolor@^3.3.2":
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-3.3.2.tgz#902c4c7e6b48553e4f83c0c1c565a6b071b02520"
-  integrity sha512-28A2j9DISNtHRcfc+FSCkxIAMnQoORQYz+UQLjc0+KlsGl80MqfbG3EzqXxzVmCMatlgmHfcX7/DBoMg+ik/Fg==
+"@ctrl/tinycolor@^3.3.3":
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-3.3.3.tgz#980487763bc7c9238d6d88d1ac0dee2d4df3df68"
+  integrity sha512-v75yutF4BDMv9weDQVM+K5XEfjiODhugSV729pnoxtBDO61ij2CsDnQa4N4E9xGaH3/FX5ASZjnajljT2F71tA==
 
 "@electron-forge/async-ora@6.0.0-beta.54":
   version "6.0.0-beta.54"

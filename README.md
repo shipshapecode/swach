@@ -13,6 +13,7 @@ You will need the following things properly installed on your computer.
 * [Yarn](https://yarnpkg.com/)
 * [Ember CLI](https://ember-cli.com/)
 * [Google Chrome](https://google.com/chrome/)
+* [Volta](https://docs.volta.sh/guide/)
 
 ## Installation
 

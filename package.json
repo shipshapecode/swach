@@ -164,5 +164,9 @@
   },
   "dependencies": {
     "throttle-debounce": "^3.0.1"
+  },
+  "volta": {
+    "node": "14.15.4",
+    "yarn": "1.22.10"
   }
 }

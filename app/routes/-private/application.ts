@@ -1,4 +1,3 @@
-import Controller from '@ember/controller';
 import Route from '@ember/routing/route';
 import Router from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
@@ -8,6 +7,7 @@ import { Store } from 'ember-orbit';
 import { IpcRenderer } from 'electron';
 
 import ENV from 'swach/config/environment';
+import ApplicationController from 'swach/controllers/application';
 
 export default class ApplicationRoute extends Route {
   @service dataCoordinator: any;
@@ -73,9 +73,8 @@ export default class ApplicationRoute extends Route {
     }
   }
 
-  setupController(controller: Controller): void {
+  setupController(controller: ApplicationController): void {
     this.router.on('routeWillChange', () => {
-      // @ts-expect-error TODO: we don't have the specific controller here
       controller.menuIsShown = false;
     });
   }

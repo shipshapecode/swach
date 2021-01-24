@@ -15,6 +15,7 @@ module('Acceptance | settings/data', function (hooks) {
   setupApplicationTest(hooks);
 
   hooks.beforeEach(async function () {
+    // @ts-expect-error We do not need a real result object here, so missing fields is fine.
     sinon.stub(utils, 'getDBOpenRequest').returns({ result: {} });
     await seedOrbit(this.owner);
     await visit('/settings/data');

@@ -41,6 +41,7 @@ module.exports = function (defaults) {
     // staticComponents: true,
     packagerOptions: {
       webpackConfig: {
+        devtool: false,
         node: { crypto: true }
       }
     }

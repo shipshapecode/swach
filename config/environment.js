@@ -27,23 +27,6 @@ module.exports = function (environment) {
       // when it is created
     },
 
-    contentSecurityPolicy: {
-      'default-src': ["'none'"],
-      'script-src': [
-        'http://localhost:7020',
-        'http://localhost:7357',
-        'http://testemserver',
-        "'self'",
-        "'unsafe-inline'"
-      ],
-      'font-src': ["'self'"],
-      'frame-src': ['http://localhost:7357', 'http://testemserver/', "'self'"],
-      'connect-src': ["'self'"],
-      'img-src': ['data:', "'self'"],
-      'style-src': ["'self'", "'unsafe-inline'"],
-      'media-src': ["'self'"]
-    },
-    contentSecurityPolicyMeta: true,
     cognito: {
       poolId: 'us-east-2_AEr5v3Ogt',
       clientId: '1jn23hlv9ggi63mc37f4m5hm4h'

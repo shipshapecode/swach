@@ -87,7 +87,7 @@
     "ember-composable-helpers": "^4.4.1",
     "ember-decorators": "^6.1.1",
     "ember-drag-sort": "^3.0.0",
-    "ember-electron": "git+ssh://git@github.com/adopted-ember-addons/ember-electron.git#933bd67e02c1dcccf7e38de1887a54c74a30fad1",
+    "ember-electron": "^3.0.0-beta.6",
     "ember-event-helpers": "^0.1.1",
     "ember-export-application-global": "^2.0.1",
     "ember-feature-flags": "^6.0.0",

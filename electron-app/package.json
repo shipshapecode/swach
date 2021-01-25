@@ -22,7 +22,7 @@
     "forge": "config.forge.js"
   },
   "dependencies": {
-    "@sentry/electron": "^2.1.0",
+    "@sentry/electron": "^2.2.0",
     "electron-color-picker": "^0.2.0",
     "electron-dl": "^3.0.1",
     "electron-is-dev": "^1.2.0",

@@ -72,6 +72,7 @@
     "ember-cli": "~3.24.0",
     "ember-cli-app-version": "^4.0.0",
     "ember-cli-babel": "^7.23.1",
+    "ember-cli-content-security-policy": "^2.0.0-2",
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-flash": "^2.1.0",
     "ember-cli-htmlbars": "^5.3.1",

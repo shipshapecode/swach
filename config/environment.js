@@ -6,7 +6,7 @@ module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'swach',
     environment,
-    rootURL: process.env.EMBER_CLI_ELECTRON ? getElectronRootURL() : '/',
+    rootURL: process.env.EMBER_CLI_ELECTRON ? '' : '/',
     locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'auto',
     EmberENV: {
       FEATURES: {
@@ -85,7 +85,3 @@ module.exports = function (environment) {
 
   return ENV;
 };
-
-function getElectronRootURL() {
-  return process.env.EMBER_ENV === 'test' ? '../' : '';
-}

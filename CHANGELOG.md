@@ -1,3 +1,19 @@
+## v0.5.5 (2021-01-25)
+
+#### :rocket: Enhancement
+* [#489](https://github.com/shipshapecode/swach/pull/489) Update styles, add ability to clear color history ([@rwwagner90](https://github.com/rwwagner90))
+* [#500](https://github.com/shipshapecode/swach/pull/500) Allow select all in inputs ([@r0bc4ry](https://github.com/r0bc4ry))
+
+#### :house: Internal
+* [#502](https://github.com/shipshapecode/swach/pull/502) Add back CSP ([@rwwagner90](https://github.com/rwwagner90))
+* [#499](https://github.com/shipshapecode/swach/pull/499) Add volta ([@chuckcarpenter](https://github.com/chuckcarpenter))
+
+#### Committers: 4
+- Chuck Carpenter ([@chuckcarpenter](https://github.com/chuckcarpenter))
+- Rob Cary ([@r0bc4ry](https://github.com/r0bc4ry))
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v0.5.4 (2021-01-18)
 
 #### :bug: Bug Fix

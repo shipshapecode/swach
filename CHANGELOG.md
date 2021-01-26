@@ -1,3 +1,11 @@
+## v0.6.0 (2021-01-26)
+
+#### :rocket: Enhancement
+* [#503](https://github.com/shipshapecode/swach/pull/503) Fix placement for Windows taskbar ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v0.5.14 (2021-01-26)
 
 ## v0.5.13 (2021-01-26)

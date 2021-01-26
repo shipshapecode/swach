@@ -30,7 +30,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^6.0.1",
     "indexeddb-export-import": "^2.1.2",
-    "menubar": "9.0.1",
+    "menubar": "^9.0.2",
     "throttle-debounce": "^3.0.1"
   },
   "devDependencies": {

@@ -67,22 +67,26 @@ export default class ColorUtilsService extends Service {
 
   @action
   async copyColorToClipboard(color?: Color, event?: Event): Promise<void> {
-    const target = <HTMLElement>event?.target;
-    const isDropping = target?.parentElement?.classList.contains('is-dropping');
+    if (this.ipcRenderer) {
+      const target = <HTMLElement>event?.target;
+      const isDropping = target?.parentElement?.classList.contains(
+        'is-dropping'
+      );
 
-    if (!isDropping && color) {
-      this.ipcRenderer.send('copyColorToClipboard', color.hex);
+      if (!isDropping && color) {
+        this.ipcRenderer.send('copyColorToClipboard', color.hex);
 
-      if (this.settings.get('sounds')) {
-        const audio = new Audio('assets/sounds/pluck_short.wav');
-        await audio.play();
-      }
+        if (this.settings.get('sounds')) {
+          const audio = new Audio('assets/sounds/pluck_short.wav');
+          await audio.play();
+        }
 
-      if (this.settings.get('notifications')) {
-        new window.Notification(`${color.name} - ${color.hex}`, {
-          body: `${color.hex} copied to clipboard!`,
-          silent: true
-        });
+        if (this.settings.get('notifications')) {
+          new window.Notification(`${color.name} - ${color.hex}`, {
+            body: `${color.hex} copied to clipboard!`,
+            silent: true
+          });
+        }
       }
     }
   }

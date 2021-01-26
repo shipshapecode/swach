@@ -1,9 +1,9 @@
 // config/content-security-policy.js
 
-module.exports = function (/*environment*/) {
+module.exports = function (environment) {
   return {
     delivery: ['meta'],
-    enabled: false, // environment !== 'test',
+    enabled: environment !== 'test',
     failTests: true,
     policy: {
       'default-src': ["'none'"],

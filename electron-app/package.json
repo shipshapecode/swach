@@ -42,11 +42,11 @@
     "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
     "@electron-forge/maker-zip": "^6.0.0-beta.54",
     "@sentry/cli": "^1.61.0",
-    "electron": "^11.2.1",
+    "electron": "11.2.0",
     "electron-debug": "^3.2.0",
     "electron-download": "^4.1.1"
   },
   "engines": {
-    "node": ">= 12"
+    "node": ">= 14"
   }
 }

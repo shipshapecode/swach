@@ -1,3 +1,11 @@
+## v0.6.1 (2021-01-26)
+
+#### :bug: Bug Fix
+* [#504](https://github.com/shipshapecode/swach/pull/504) Fix undefined color copy ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v0.6.0 (2021-01-26)
 
 #### :rocket: Enhancement

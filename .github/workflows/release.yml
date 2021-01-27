@@ -9,6 +9,7 @@ jobs:
   test:
     name: Lint and Test
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -43,6 +44,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     needs: test
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
@@ -102,9 +104,10 @@ jobs:
             electron-app/out/**/*Setup.exe
             electron-app/out/**/*.rpm
             electron-app/out/**/*.zip
-      # - name: Snapcraft release
-      #   if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
-      #   run: sudo snapcraft upload --release=stable electron-app/out/make/*.snap
+      - name: Snapcraft release
+        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
+        run: sudo snapcraft upload --release=stable electron-app/out/make/*.snap
+        timeout-minutes: 10
       - name: Create a Sentry.io release
         uses: tclindner/sentry-releases-action@v1.2.0
         if: matrix.os == 'ubuntu-latest'

@@ -1,6 +1,6 @@
 {
   "name": "swach",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "private": true,
   "description": "A robust color management tool for the modern age.",
   "repository": "https://github.com/shipshapecode/swach",

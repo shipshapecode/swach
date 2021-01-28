@@ -1,65 +1,32 @@
 <div class="bg-menu flex flex-wrap items-center p-2 rounded w-full">
   <div
     class="cursor-default flex flex-grow items-center justify-between p-1 text-main-text text-sm w-full"
-    {{on "click" this.transitionToColorHistory}}
+    {{on "click" (stop-propagation this.transitionToColorHistory)}}
   >
     <div>
       Color History
     </div>
 
     {{#if this.last16Colors.length}}
-      <ClickOutside
-        @onClickOutside={{set this "colorHistoryMenuIsShown" false}}
-      >
-        <div class="relative inline-block text-left">
+      <OptionsMenu @showBackground={{true}}>
+        <:trigger>
+          {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
+        </:trigger>
+        <:content>
           <button
-            class="px-1 rounded transition-colors {{
-              if this.colorHistoryMenuIsShown "bg-main"
-            }}"
-            id="toggle-color-history-menu"
+            class="inline-block p-1 text-menu-text transition-colors hover:text-menu-text-hover"
             type="button"
-            {{on
-              "click"
-              (stop-propagation
-                (set
-                  this
-                  "colorHistoryMenuIsShown"
-                  (not this.colorHistoryMenuIsShown)
-                )
-              )
-            }}
+            {{on "click" this.clearColorHistory}}
           >
-            {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
+            {{svg-jar
+              "clear-history"
+              class="menu-icon inline-block mr-2"
+              height="20"
+              width="20"
+            }} Clear History
           </button>
-
-          {{#if this.colorHistoryMenuIsShown}}
-            <div
-              class="absolute bg-menu border-main mt-2 origin-top-right right-0 rounded-md text-menu-text w-36 z-50"
-              {{css-transition
-                enterClass="transform opacity-0 scale-95"
-                enterActiveClass="transition ease-out duration-100"
-                enterToClass="transform opacity-100 scale-100"
-                leaveClass="transform opacity-100 scale-100"
-                leaveActiveClass="transition ease-in duration-75"
-                leaveToClass="transform opacity-0 scale-95"
-              }}
-            >
-              <button
-                class="inline-block p-2 text-menu-text transition-colors hover:text-menu-text-hover"
-                type="button"
-                {{on "click" (stop-propagation this.clearColorHistory)}}
-              >
-                {{svg-jar
-                  "clear-history"
-                  class="menu-icon inline-block mr-2"
-                  height="20"
-                  width="20"
-                }} Clear History
-              </button>
-            </div>
-          {{/if}}
-        </div>
-      </ClickOutside>
+        </:content>
+      </OptionsMenu>
     {{/if}}
   </div>
 

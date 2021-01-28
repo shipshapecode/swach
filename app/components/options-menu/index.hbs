@@ -1,0 +1,38 @@
+<div class="relative inline-block text-left">
+  <button
+    class="px-1 rounded transition-colors {{
+      if (and this.isShown @showBackground) "bg-main"
+    }}"
+    id="toggle-color-history-menu"
+    type="button"
+    {{on "click" (stop-propagation (set this "isShown" (not this.isShown)))}}
+    {{on-click-outside
+      (set this "isShown" false)
+      eventType="mousedown"
+      exceptSelector=".options-menu *"
+    }}
+  >
+    {{yield to="trigger"}}
+  </button>
+
+  {{#if this.isShown}}
+    <div
+      class="options-menu absolute bg-menu mt-2 p-2 origin-top-{{
+        this.position
+      }} {{
+        this.position
+      }}-0 ring-1 ring-main rounded-md shadow-lg text-menu-text w-44 z-50"
+      {{css-transition
+        enterClass="transform opacity-0 scale-95"
+        enterActiveClass="transition ease-out duration-100"
+        enterToClass="transform opacity-100 scale-100"
+        leaveClass="transform opacity-100 scale-100"
+        leaveActiveClass="transition ease-in duration-75"
+        leaveToClass="transform opacity-0 scale-95"
+      }}
+      {{on "click" (stop-propagation (set this "isShown" false))}}
+    >
+      {{yield to="content"}}
+    </div>
+  {{/if}}
+</div>

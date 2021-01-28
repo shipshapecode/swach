@@ -22,7 +22,6 @@ export default class PalettesController extends Controller {
   @service store!: Store;
   @service undoManager!: UndoManager;
 
-  @tracked colorHistoryMenuIsShown = false;
   @tracked showFavorites = false;
 
   get colorHistory(): PaletteModel | undefined {
@@ -45,7 +44,6 @@ export default class PalettesController extends Controller {
       )
     );
     this.undoManager.setupUndoRedo();
-    this.colorHistoryMenuIsShown = false;
   }
 
   @action
@@ -300,7 +298,7 @@ export default class PalettesController extends Controller {
   @action
   transitionToColorHistory(event: InputEvent): void {
     event.stopPropagation();
-    if (this.colorHistory) {
+    if (this.colorHistory.colors.length) {
       this.router.transitionTo('colors', {
         queryParams: { paletteId: this.colorHistory.id }
       });

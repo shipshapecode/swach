@@ -32,20 +32,18 @@ module.exports = function (defaults) {
     }
   });
 
-  return app.toTree();
-
-  // const { Webpack } = require('@embroider/webpack');
-  // //const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-  // return require('@embroider/compat').compatBuild(app, Webpack, {
-  //   staticAddonTestSupportTrees: true,
-  //   staticAddonTrees: true,
-  //   staticHelpers: true,
-  //   // staticComponents: true,
-  //   packagerOptions: {
-  //     webpackConfig: {
-  //       devtool: false,
-  //       node: { crypto: true }
-  //     }
-  //   }
-  // });
+  const { Webpack } = require('@embroider/webpack');
+  //const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+  return require('@embroider/compat').compatBuild(app, Webpack, {
+    staticAddonTestSupportTrees: true,
+    staticAddonTrees: true,
+    staticHelpers: true,
+    // staticComponents: true,
+    packagerOptions: {
+      webpackConfig: {
+        devtool: false,
+        node: { crypto: true }
+      }
+    }
+  });
 };

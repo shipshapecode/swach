@@ -27,11 +27,15 @@ module('Acceptance | welcome', function (hooks) {
 
     assert
       .dom('[data-test-auto-start-toggle]')
-      .hasStyle({ backgroundColor: 'rgb(229, 231, 235)' });
+      .hasProperty('ariaPressed', 'false');
+
     await click('[data-test-auto-start-toggle]');
+
+    await waitForAll();
+
     assert
       .dom('[data-test-auto-start-toggle]')
-      .hasStyle({ backgroundColor: 'rgb(52, 211, 153)' });
+      .hasProperty('ariaPressed', 'true');
 
     await click('[data-test-link-dock-icon]');
     await waitForAll();
@@ -40,10 +44,13 @@ module('Acceptance | welcome', function (hooks) {
 
     assert
       .dom('[data-test-show-dock-icon-toggle]')
-      .hasStyle({ backgroundColor: 'rgb(229, 231, 235)' });
+      .hasProperty('ariaPressed', 'false');
+
     await click('[data-test-show-dock-icon-toggle]');
+    await waitForAll();
+
     assert
       .dom('[data-test-show-dock-icon-toggle]')
-      .hasStyle({ backgroundColor: 'rgb(52, 211, 153)' });
+      .hasProperty('ariaPressed', 'true');
   });
 });

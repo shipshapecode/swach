@@ -1,25 +1,58 @@
-<div class="pb-4">
+<div class="pb-4 h-full">
   <h6 class="font-semibold mb-2 mt-4 text-heading text-sm">
-    Data management
+    Formats
   </h6>
 
-  <div class="flex h-8 w-full">
+  <p class="text-sm">
+    This determines the default color format that gets copied to the clipboard.
+  </p>
+
+  <OptionsMenu
+    class="my-4 w-full"
+    @optionsClasses="divide-y divide-gray-100 w-full"
+    @triggerClasses="inline-flex justify-between rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none w-full"
+  >
+    <:trigger>
+      {{this.settings.defaultColorFormat}}
+
+      <div class="bg-btn-bg-secondary p-1 rounded-full">
+        {{svg-jar "chevron-left" class="h-3 w-3 transform -rotate-90"}}
+      </div>
+    </:trigger>
+    <:content>
+      {{#each this.colorFormats as |format|}}
+        <button
+          class="px-4 py-2 text-left text-sm w-full"
+          type="button"
+          {{on "click" (set this "settings.defaultColorFormat" format)}}
+        >
+          {{format}}
+        </button>
+      {{/each}}
+    </:content>
+  </OptionsMenu>
+
+  <div class="mb-16">
+    <h6 class="font-semibold mb-2 mt-4 text-heading text-sm">
+      Data management
+    </h6>
+
     <LoadingButton
       data-test-export-swatches-button
-      class="flex-1 mr-2"
+      class="mb-2 w-full"
       @loading={{this.isExporting}}
       @onClick={{this.exportIndexedDB}}
     >
-      Export swatches
+      Backup swatches
     </LoadingButton>
 
     <LoadingButton
       data-test-import-swatches-button
-      class="flex-1"
+      class="w-full"
       @loading={{this.isImporting}}
       @onClick={{this.importIndexedDB}}
     >
-      Import swatches
+      Restore from backup
     </LoadingButton>
   </div>
 </div>

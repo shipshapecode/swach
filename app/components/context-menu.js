@@ -2,7 +2,7 @@
 import { computed } from '@ember/object';
 import { reads } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 import Component from '@glimmer/component';
 
 export default class ContextMenuComponent extends Component {

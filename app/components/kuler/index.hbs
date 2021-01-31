@@ -9,10 +9,11 @@
       {{#each this.palettes as |palette|}}
         <option
           data-test-kuler-select-harmony="{{capitalize palette.name}}"
+          class="capitalize"
           value={{palette.name}}
           selected={{eq this.selectedPalette palette}}
         >
-          {{capitalize palette.name}}
+          {{palette.name}}
         </option>
       {{/each}}
     </select>

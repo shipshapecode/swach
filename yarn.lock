@@ -7391,20 +7391,23 @@ ember-cli-preprocess-registry@^3.3.0:
     debug "^3.0.1"
     process-relative-require "^1.0.0"
 
+ember-cli-requestanimationframe-polyfill@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/ember-cli-requestanimationframe-polyfill/-/ember-cli-requestanimationframe-polyfill-0.0.1.tgz#d5531f50d8867b7243d9a85ab9441a0588cf705c"
+  integrity sha512-zm2rLTY8EWgg5eaQ1z/yehvaonrXiEl7R0V/BEUR9PxFUdXnd3dx6cc694LKXj7puH7XUyaWeYM4pLgkhEn+MQ==
+  dependencies:
+    broccoli-funnel "^2.0.1"
+    caniuse-api "^3.0.0"
+    ember-cli-babel "^6.16.0"
+    fastboot-transform "^0.1.3"
+    raf-polyfill "^1.0.0"
+
 ember-cli-sri@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ember-cli-sri/-/ember-cli-sri-2.1.1.tgz#971620934a4b9183cf7923cc03e178b83aa907fd"
   integrity sha1-lxYgk0pLkYPPeSPMA+F4uDqpB/0=
   dependencies:
     broccoli-sri-hash "^2.1.0"
-
-ember-cli-string-helpers@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-string-helpers/-/ember-cli-string-helpers-5.0.0.tgz#b1e08ec3ca1c9a457f9fd9aafff60b5939fbf91d"
-  integrity sha512-PodD3Uf7BkOXIu95E6cWEC0ERroTiUOAwOr828Vb+fPFtV7WYNSC27C9Ds1ggCyyRqnXmpS0JSqCTN1gPZfkWQ==
-  dependencies:
-    broccoli-funnel "^3.0.3"
-    ember-cli-babel "^7.7.3"
 
 ember-cli-string-utils@^1.0.0, ember-cli-string-utils@^1.1.0:
   version "1.1.0"
@@ -7717,6 +7720,16 @@ ember-copy@^1.0.0:
   dependencies:
     ember-cli-babel "^6.6.0"
 
+ember-css-transitions@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ember-css-transitions/-/ember-css-transitions-2.1.0.tgz#146d08a9d667c6432a00184319bc788e62b71ef7"
+  integrity sha512-llIXF46cAOCk6kJiXdFVwoEnax621bbAgPfnkOQgAAXOIC9IrQbYkyj2NDjKyynmLAFUUEkeZbCA8UtajkkN3Q==
+  dependencies:
+    ember-cli-babel "^7.22.1"
+    ember-cli-htmlbars "^5.2.0"
+    ember-cli-requestanimationframe-polyfill "^0.0.1"
+    ember-modifier "^2.1.0"
+
 ember-decorators@^6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/ember-decorators/-/ember-decorators-6.1.1.tgz#6d770f8999cf5a413a1ee459afd520838c0fc470"
@@ -7913,6 +7926,14 @@ ember-named-arguments-polyfill@^1.0.0:
     ember-cli-babel "^6.6.0"
     ember-cli-version-checker "^2.1.2"
 
+ember-named-blocks-polyfill@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/ember-named-blocks-polyfill/-/ember-named-blocks-polyfill-0.2.4.tgz#f5f30711ee89244927b55aae7fa9630edaadc974"
+  integrity sha512-PsohC7ejjS7V++6i/JSy0pl1hXLV3IS3Qs+O7SrjIPYcg1UEmUwqgPiDmXqNgy0p2dc5TK5bIJTtX8wofCI63Q==
+  dependencies:
+    ember-cli-babel "^7.19.0"
+    ember-cli-version-checker "^5.1.1"
+
 ember-orbit@orbitjs/ember-orbit#d7138f8ca8a9435d379ec5f70e467fd31d52ae7b:
   version "0.17.0-beta.5"
   resolved "https://codeload.github.com/orbitjs/ember-orbit/tar.gz/d7138f8ca8a9435d379ec5f70e467fd31d52ae7b"
@@ -8044,7 +8065,7 @@ ember-source-channel-url@^3.0.0:
   dependencies:
     node-fetch "^2.6.0"
 
-ember-source@~3.24.1:
+ember-source@^3.24.1:
   version "3.24.1"
   resolved "https://registry.yarnpkg.com/ember-source/-/ember-source-3.24.1.tgz#183cf2f556921726406c05f86224091133c33790"
   integrity sha512-kP1sGTl64dPoHLSlmEMp2wAl+0hhuRnUsIm7sm3RI7aJ6QutN4pddVQacaMZMWfEtoR4N9Mmw+Wv6UI17AidRA==
@@ -8919,6 +8940,14 @@ fast-sourcemap-concat@^2.1.0:
     source-map "^0.4.2"
     source-map-url "^0.3.0"
     sourcemap-validator "^1.1.0"
+
+fastboot-transform@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/fastboot-transform/-/fastboot-transform-0.1.3.tgz#7dea0b117594afd8772baa6c9b0919644e7f7dcd"
+  integrity sha512-6otygPIJw1ARp1jJb+6KVO56iKBjhO+5x59RSC9qiZTbZRrv+HZAuP00KD3s+nWMvcFDemtdkugki9DNFTTwCQ==
+  dependencies:
+    broccoli-stew "^1.5.0"
+    convert-source-map "^1.5.1"
 
 fastq@^1.6.0:
   version "1.10.0"
@@ -13715,6 +13744,11 @@ qunit@^2.14.0:
     js-reporters "1.2.3"
     node-watch "0.7.1"
     tiny-glob "0.2.8"
+
+raf-polyfill@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/raf-polyfill/-/raf-polyfill-1.0.0.tgz#cc6019be5bbb7112b8eeaae0ea8b5077100802e2"
+  integrity sha512-WwyjuX5kZFOslF+8mGjVrMvDYmOwlN50Eqoc876td1abMaesf1sK4uiOZor3bvJfBRCwCHuJNR3TN4KztC/IhA==
 
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.1.0:
   version "2.1.0"

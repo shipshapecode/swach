@@ -7,7 +7,6 @@ import { Store } from 'ember-orbit';
 import { IpcRenderer } from 'electron';
 
 import ENV from 'swach/config/environment';
-import ApplicationController from 'swach/controllers/application';
 
 export default class ApplicationRoute extends Route {
   @service dataCoordinator: any;
@@ -71,11 +70,5 @@ export default class ApplicationRoute extends Route {
         isLocked: false
       });
     }
-  }
-
-  setupController(controller: ApplicationController): void {
-    this.router.on('routeWillChange', () => {
-      controller.menuIsShown = false;
-    });
   }
 }

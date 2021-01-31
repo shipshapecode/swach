@@ -14,31 +14,15 @@
         if this.isWelcomeRoute "hidden"
       }}"
     >
-      <ClickOutside @onClickOutside={{set this "menuIsShown" false}}>
-        <div class="flex-grow">
-          <div class="flex h-4 items-center w-4">
-            <button
-              id="toggle-menu"
-              type="button"
-              {{on "click" this.toggleMenuIsShown}}
-            >
-              {{svg-jar "menu" class="stroke-menu-icon" height="15" width="15"}}
-            </button>
-          </div>
-
-          <EmberPopover
-            @arrowClass="hidden"
-            @event="none"
-            @isShown={{this.menuIsShown}}
-            @side="bottom-start"
-            @spacing={{10}}
-            @targetId="toggle-menu"
-            @tooltipClass="bg-menu border-main text-menu-text"
-          >
+      <div class="flex-grow">
+        <OptionsMenu @position="left">
+          <:trigger>
+            {{svg-jar "menu" class="stroke-menu-icon" height="15" width="15"}}
+          </:trigger>
+          <:content>
             <LinkTo
-              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text transition-colors hover:text-menu-text-hover"
+              class="flex items-center p-1 text-menu-text text-sm transition-colors hover:text-menu-text-hover"
               @route="palettes"
-              {{on "click" this.toggleMenuIsShown}}
             >
               {{svg-jar
                 "palettes"
@@ -49,9 +33,8 @@
             </LinkTo>
 
             <LinkTo
-              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text transition-colors hover:text-menu-text-hover"
+              class="flex items-center p-1 text-menu-text text-sm transition-colors hover:text-menu-text-hover"
               @route="contrast"
-              {{on "click" this.toggleMenuIsShown}}
             >
               {{svg-jar
                 "contrast"
@@ -62,9 +45,8 @@
             </LinkTo>
 
             <LinkTo
-              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text transition-colors hover:text-menu-text-hover"
+              class="flex items-center p-1 text-menu-text text-sm transition-colors hover:text-menu-text-hover"
               @route="settings"
-              {{on "click" this.toggleMenuIsShown}}
             >
               {{svg-jar
                 "settings"
@@ -75,7 +57,7 @@
             </LinkTo>
 
             <button
-              class="flex items-center h-3 pb-4 pl-2 pr-2 pt-4 text-menu-text transition-colors hover:text-menu-text-hover"
+              class="flex items-center p-1 text-menu-text text-sm transition-colors hover:text-menu-text-hover"
               type="button"
               {{on "click" this.exitApp}}
             >
@@ -86,9 +68,9 @@
                 width="13"
               }} Close Swach
             </button>
-          </EmberPopover>
-        </div>
-      </ClickOutside>
+          </:content>
+        </OptionsMenu>
+      </div>
 
       <div class="flex flex-grow items-center justify-end">
         <div class="h-4 w-4 mr-2">

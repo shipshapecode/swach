@@ -28,7 +28,6 @@ export default class ApplicationController extends Controller {
 
   @tracked colorPickerColor?: ColorModel;
   @tracked colorPickerIsShown = false;
-  @tracked menuIsShown = false;
 
   @storageFor('settings') settings!: SettingsStorage;
 
@@ -186,11 +185,6 @@ export default class ApplicationController extends Controller {
       this.colorPickerColor = color;
     }
     this.colorPickerIsShown = !this.colorPickerIsShown;
-  }
-
-  @action
-  toggleMenuIsShown(): void {
-    this.menuIsShown = !this.menuIsShown;
   }
 
   @action

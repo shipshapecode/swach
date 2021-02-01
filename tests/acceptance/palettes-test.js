@@ -404,6 +404,23 @@ module('Acceptance | palettes', function (hooks) {
     });
   });
 
+  test('clear color history', async function (assert) {
+    await visit('/palettes');
+
+    assert
+      .dom('[data-test-color-history] [data-test-color-history-square]')
+      .exists({ count: 4 });
+
+    await click('[data-test-color-history-menu] [data-test-options-trigger]');
+    await click(
+      '[data-test-color-history-menu] [data-test-options-content] [data-test-clear-color-history]'
+    );
+
+    assert
+      .dom('[data-test-color-history] [data-test-color-history-square]')
+      .exists({ count: 0 });
+  });
+
   // Ember specific tests
   if (typeof requireNode === 'undefined') {
     test('creating palettes and undo / redo', async function (assert) {

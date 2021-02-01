@@ -1,5 +1,6 @@
 <div class="relative inline-block text-left" ...attributes>
   <button
+    data-test-options-trigger
     class="px-1 rounded transition-colors {{
       if (and this.isShown @showBackground) "bg-main"
     }} {{@triggerClasses}}"
@@ -16,6 +17,7 @@
 
   {{#if this.isShown}}
     <div
+      data-test-options-content
       class="options-menu absolute bg-menu mt-2 p-2 origin-top-{{
         this.position
       }} {{

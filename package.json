@@ -50,7 +50,7 @@
     "@orbit/utils": "^0.17.0-beta.8",
     "@release-it/bumper": "^2.0.0",
     "@sentry/electron": "^2.2.0",
-    "@sentry/integrations": "^6.0.2",
+    "@sentry/integrations": "^6.0.3",
     "@tailwindcss/custom-forms": "^0.2.1",
     "@tailwindcss/forms": "^0.2.1",
     "@types/ember": "^3.16.3",

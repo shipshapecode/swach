@@ -4,11 +4,13 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
 import FlashMessageService from 'ember-cli-flash/services/flash-messages';
+import { storageFor } from 'ember-local-storage';
 import { Store } from 'ember-orbit';
 
 import { IpcRenderer } from 'electron';
 import IDBExportImport from 'indexeddb-export-import';
 
+import { SettingsStorage } from 'swach/storages/settings';
 import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
 
 export default class SettingsDataComponent extends Component {
@@ -16,8 +18,11 @@ export default class SettingsDataComponent extends Component {
   @service flashMessages!: FlashMessageService;
   @service store!: Store;
 
+  @storageFor('settings') settings!: SettingsStorage;
+
   ipcRenderer!: IpcRenderer;
 
+  colorFormats = ['hex', 'hsl', 'rgba'];
   @tracked isExporting = false;
   @tracked isImporting = false;
 

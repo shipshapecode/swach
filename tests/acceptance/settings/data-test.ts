@@ -29,6 +29,25 @@ module('Acceptance | settings/data', function (hooks) {
     assert.equal(currentURL(), '/settings/data');
   });
 
+  test('changing formats', async function (assert) {
+    assert
+      .dom('[data-test-settings-format-dropdown] [data-test-options-trigger]')
+      .hasText('hex');
+    await click(
+      '[data-test-settings-format-dropdown] [data-test-options-trigger]'
+    );
+
+    await waitForAll();
+
+    await click(
+      '[data-test-settings-format-dropdown] [data-test-options-content] [data-test-format-option="hsl"]'
+    );
+
+    assert
+      .dom('[data-test-settings-format-dropdown] [data-test-options-trigger]')
+      .hasText('hsl');
+  });
+
   // Electron specific tests
   if (typeof requireNode !== 'undefined') {
     test('export triggers success message', async function (assert) {

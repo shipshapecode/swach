@@ -1,9 +1,9 @@
-<div class="relative inline-block text-left">
+<div class="relative inline-block text-left" ...attributes>
   <button
+    data-test-options-trigger
     class="px-1 rounded transition-colors {{
       if (and this.isShown @showBackground) "bg-main"
-    }}"
-    id="toggle-color-history-menu"
+    }} {{@triggerClasses}}"
     type="button"
     {{on "click" (stop-propagation (set this "isShown" (not this.isShown)))}}
     {{on-click-outside
@@ -17,11 +17,14 @@
 
   {{#if this.isShown}}
     <div
+      data-test-options-content
       class="options-menu absolute bg-menu mt-2 p-2 origin-top-{{
         this.position
       }} {{
         this.position
-      }}-0 ring-1 ring-main rounded-md shadow-lg text-menu-text w-44 z-50"
+      }}-0 ring-1 ring-main rounded-md shadow-lg text-menu-text w-44 z-50 {{
+        @optionsClasses
+      }}"
       {{css-transition
         enterClass="transform opacity-0 scale-95"
         enterActiveClass="transition ease-out duration-100"

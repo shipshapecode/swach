@@ -3,6 +3,7 @@ import StorageObject from 'ember-local-storage/local/object';
 export type themes = 'dynamic' | 'light' | 'dark';
 
 interface SettingsValues {
+  defaultColorFormat: 'hex' | 'hsl' | 'rgba';
   notifications: boolean;
   osTheme?: themes;
   openOnStartup: boolean;
@@ -18,6 +19,7 @@ const Storage = StorageObject.extend();
 Storage.reopenClass({
   initialState(): SettingsValues {
     return {
+      defaultColorFormat: 'hex',
       notifications: true,
       openOnStartup: false,
       showDockIcon: false,

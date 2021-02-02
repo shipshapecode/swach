@@ -8,7 +8,7 @@ import { Store } from 'ember-orbit/addon/index';
 import { TinyColor } from '@ctrl/tinycolor';
 import { IpcRenderer } from 'electron';
 
-import Color from 'swach/data-models/color';
+import ColorModel from 'swach/data-models/color';
 import { rgbaToHex } from 'swach/data-models/color';
 import NearestColor from 'swach/services/nearest-color';
 import { SettingsStorage } from 'swach/storages/settings';
@@ -66,15 +66,16 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  async copyColorToClipboard(color?: Color, event?: Event): Promise<void> {
+  async copyColorToClipboard(color?: ColorModel, event?: Event): Promise<void> {
     if (this.ipcRenderer) {
       const target = <HTMLElement>event?.target;
       const isDropping = target?.parentElement?.classList.contains(
         'is-dropping'
       );
+      const colorFormat = this.settings.get('defaultColorFormat');
 
       if (!isDropping && color) {
-        this.ipcRenderer.send('copyColorToClipboard', color.hex);
+        this.ipcRenderer.send('copyColorToClipboard', color[colorFormat]);
 
         if (this.settings.get('sounds')) {
           const audio = new Audio('assets/sounds/pluck_short.wav');
@@ -82,8 +83,8 @@ export default class ColorUtilsService extends Service {
         }
 
         if (this.settings.get('notifications')) {
-          new window.Notification(`${color.name} - ${color.hex}`, {
-            body: `${color.hex} copied to clipboard!`,
+          new window.Notification(`${color.name} - ${color[colorFormat]}`, {
+            body: `${color[colorFormat]} copied to clipboard!`,
             silent: true
           });
         }

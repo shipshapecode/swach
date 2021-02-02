@@ -42,9 +42,8 @@ module('Acceptance | colors', function (hooks) {
     assert.dom('[data-test-color]').exists({ count: 4 });
     assert.dom('[data-test-color-picker]').doesNotExist();
 
-    await triggerEvent(
-      '[data-test-color="Black"] [data-test-color-row-menu]',
-      'mouseenter'
+    await click(
+      '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
     );
 
     await animationsSettled();
@@ -78,9 +77,8 @@ module('Acceptance | colors', function (hooks) {
     assert.dom('[data-test-color]').exists({ count: 4 });
     assert.dom('[data-test-color-picker]').doesNotExist();
 
-    await triggerEvent(
-      '[data-test-color="Black"] [data-test-color-row-menu]',
-      'mouseenter'
+    await click(
+      '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
     );
 
     await animationsSettled();
@@ -113,9 +111,8 @@ module('Acceptance | colors', function (hooks) {
 
     assert.dom('[data-test-color]').exists({ count: 4 });
 
-    await triggerEvent(
-      '[data-test-color="Black"] [data-test-color-row-menu]',
-      'mouseenter'
+    await click(
+      '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
     );
 
     await animationsSettled();
@@ -134,9 +131,8 @@ module('Acceptance | colors', function (hooks) {
 
       assert.dom('[data-test-color]').exists({ count: 4 });
 
-      await triggerEvent(
-        '[data-test-color="Black"] [data-test-color-row-menu]',
-        'mouseenter'
+      await click(
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
       );
 
       await animationsSettled();

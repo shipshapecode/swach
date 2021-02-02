@@ -10,8 +10,8 @@
   <OptionsMenu
     data-test-settings-format-dropdown
     class="my-4 w-full"
-    @optionsClasses="divide-y divide-gray-100 w-full"
-    @triggerClasses="inline-flex justify-between rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none w-full"
+    @optionsClasses="divide-y divide-alt w-full"
+    @triggerClasses="bg-menu font-medium inline-flex justify-between px-4 py-2 rounded-md text-sm text-menu-text w-full focus:outline-none"
   >
     <:trigger>
       {{this.settings.defaultColorFormat}}
@@ -24,7 +24,7 @@
       {{#each this.colorFormats as |format|}}
         <button
           data-test-format-option={{format}}
-          class="px-4 py-2 text-left text-sm w-full"
+          class="px-4 py-2 text-left text-sm transition-colors w-full hover:text-menu-text-hover"
           type="button"
           {{on "click" (set this "settings.defaultColorFormat" format)}}
         >

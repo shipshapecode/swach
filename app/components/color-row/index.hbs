@@ -27,55 +27,54 @@
     </div>
 
     {{#if this.showActions}}
-      <div
+      <OptionsMenu
         data-test-color-row-menu
-        {{on "mouseenter" (set this "showMenu" true)}}
-        {{on "mouseleave" (set this "showMenu" false)}}
+        class="text-sm"
+        @showBackground={{true}}
       >
-        {{#animated-if this.showMenu duration=350 use=this.fade}}
-          <div>
+        <:trigger>
+          {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
+        </:trigger>
+        <:content>
+          <button
+            data-test-edit-color
+            class="flex items-center p-1 text-menu-text transition-colors hover:text-menu-text-hover"
+            type="button"
+            {{on "click" (fn @toggleColorPickerIsShown @color)}}
+          >
+            {{svg-jar "edit" class="icon mr-4" height="15" width="15"
+            }} Edit Color
+          </button>
+          <button
+            data-test-go-to-kuler
+            class="flex items-center p-1 text-menu-text transition-colors hover:text-menu-text-hover"
+            type="button"
+            {{on "click" this.transitionToKuler}}
+          >
+            {{svg-jar "color-harmonies" class="icon mr-4" height="15" width="15"
+            }} Color Harmonies
+          </button>
+          {{#if @deleteColor}}
             <button
-              data-test-edit-color
+              data-test-delete-color
+              class="flex items-center p-1 text-menu-text transition-colors hover:text-menu-text-hover"
+              disabled={{@palette.isLocked}}
               type="button"
-              {{on
-                "click"
-                (stop-propagation (fn @toggleColorPickerIsShown @color))
-              }}
+              {{on "click" (stop-propagation (fn this.deleteColor @color))}}
+              {{on "mouseleave" (set this "deleteConfirm" false)}}
             >
-              {{svg-jar "rename" class="icon mr-1" height="15" width="15"}}
+              {{svg-jar
+                "trash"
+                class=(concat
+                  "icon mr-4 " (if this.deleteConfirm "delete-confirm")
+                )
+                height="15"
+                width="15"
+              }} Delete Color
             </button>
-            <button
-              data-test-go-to-kuler
-              type="button"
-              {{on "click" (stop-propagation (fn this.transitionToKuler))}}
-            >
-              {{svg-jar "filter" class="icon mr-1" height="15" width="15"}}
-            </button>
-            {{#if @deleteColor}}
-              <button
-                data-test-delete-color
-                disabled={{@palette.isLocked}}
-                type="button"
-                {{on "click" (stop-propagation (fn this.deleteColor @color))}}
-                {{on "mouseleave" (set this "deleteConfirm" false)}}
-              >
-                {{svg-jar
-                  "trash"
-                  class=(concat
-                    "icon " (if this.deleteConfirm "delete-confirm")
-                  )
-                  height="15"
-                  width="15"
-                }}
-              </button>
-            {{/if}}
-          </div>
-        {{else}}
-          <div>
-            {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
-          </div>
-        {{/animated-if}}
-      </div>
+          {{/if}}
+        </:content>
+      </OptionsMenu>
     {{/if}}
   </div>
 </div>

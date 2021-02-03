@@ -18,9 +18,8 @@ module('Acceptance | color-picker', function (hooks) {
     test('hex input updates rgba', async function (assert) {
       await visit('/colors?paletteId=color-history-123');
 
-      await triggerEvent(
-        '[data-test-color="Black"] [data-test-color-row-menu]',
-        'mouseenter'
+      await click(
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
       );
 
       await animationsSettled();
@@ -58,9 +57,8 @@ module('Acceptance | color-picker', function (hooks) {
     test('incomplete clears input', async function (assert) {
       await visit('/colors?paletteId=color-history-123');
 
-      await triggerEvent(
-        '[data-test-color="Black"] [data-test-color-row-menu]',
-        'mouseenter'
+      await click(
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
       );
 
       await animationsSettled();
@@ -83,9 +81,8 @@ module('Acceptance | color-picker', function (hooks) {
     test('values capped at 255', async function (assert) {
       await visit('/colors?paletteId=color-history-123');
 
-      await triggerEvent(
-        '[data-test-color="Black"] [data-test-color-row-menu]',
-        'mouseenter'
+      await click(
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
       );
 
       await animationsSettled();
@@ -113,9 +110,8 @@ module('Acceptance | color-picker', function (hooks) {
     test('incomplete clears input', async function (assert) {
       await visit('/colors?paletteId=color-history-123');
 
-      await triggerEvent(
-        '[data-test-color="Black"] [data-test-color-row-menu]',
-        'mouseenter'
+      await click(
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
       );
 
       await animationsSettled();
@@ -138,9 +134,8 @@ module('Acceptance | color-picker', function (hooks) {
     test('values capped at 255', async function (assert) {
       await visit('/colors?paletteId=color-history-123');
 
-      await triggerEvent(
-        '[data-test-color="Black"] [data-test-color-row-menu]',
-        'mouseenter'
+      await click(
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
       );
 
       await animationsSettled();
@@ -168,9 +163,8 @@ module('Acceptance | color-picker', function (hooks) {
     test('incomplete clears input', async function (assert) {
       await visit('/colors?paletteId=color-history-123');
 
-      await triggerEvent(
-        '[data-test-color="Black"] [data-test-color-row-menu]',
-        'mouseenter'
+      await click(
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
       );
 
       await animationsSettled();
@@ -193,9 +187,8 @@ module('Acceptance | color-picker', function (hooks) {
     test('values capped at 255', async function (assert) {
       await visit('/colors?paletteId=color-history-123');
 
-      await triggerEvent(
-        '[data-test-color="Black"] [data-test-color-row-menu]',
-        'mouseenter'
+      await click(
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
       );
 
       await animationsSettled();
@@ -223,9 +216,8 @@ module('Acceptance | color-picker', function (hooks) {
     test('incomplete clears input', async function (assert) {
       await visit('/colors?paletteId=color-history-123');
 
-      await triggerEvent(
-        '[data-test-color="Black"] [data-test-color-row-menu]',
-        'mouseenter'
+      await click(
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
       );
 
       await animationsSettled();
@@ -248,9 +240,8 @@ module('Acceptance | color-picker', function (hooks) {
     test('values capped at 1', async function (assert) {
       await visit('/colors?paletteId=color-history-123');
 
-      await triggerEvent(
-        '[data-test-color="Black"] [data-test-color-row-menu]',
-        'mouseenter'
+      await click(
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
       );
 
       await animationsSettled();

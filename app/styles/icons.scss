@@ -1,18 +1,20 @@
 svg {
   &.drop-icon {
     path {
-      fill: var(--drop-icon)!important;
+      fill: var(--drop-icon) !important;
       @apply transition-colors;
     }
   }
 
   &.icon {
+    g,
     path {
       fill: var(--alt-color) !important;
       @apply transition-colors;
     }
 
     &:hover {
+      g,
       path {
         fill: var(--alt-hover-color) !important;
       }
@@ -22,7 +24,7 @@ svg {
       path {
         fill: #f56565 !important;
       }
-      
+
       &:hover {
         path {
           fill: #f56565 !important;

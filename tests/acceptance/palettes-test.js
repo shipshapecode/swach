@@ -259,9 +259,8 @@ module('Acceptance | palettes', function (hooks) {
       assert.dom('[data-test-color]').exists({ count: 3 });
       assert.dom('[data-test-color-picker]').doesNotExist();
 
-      await triggerEvent(
-        '[data-test-color="Pale Magenta"] [data-test-color-row-menu]',
-        'mouseenter'
+      await click(
+        '[data-test-color="Pale Magenta"] [data-test-color-row-menu] [data-test-options-trigger]'
       );
 
       await animationsSettled();

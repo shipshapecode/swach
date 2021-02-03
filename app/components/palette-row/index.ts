@@ -76,7 +76,7 @@ class FavoriteOption {
 
   get icon() {
     const isFavorite = this.palette.isFavorite;
-    return isFavorite ? 'filled-heart' : 'outline-heart';
+    return isFavorite ? 'slash-heart' : 'filled-heart';
   }
 
   get label() {
@@ -142,15 +142,20 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
         'Duplicate Palette',
         this.args.palette
       ),
+      new LockOption(this.lockPalette, this.args.palette),
+      new FavoriteOption(this.favoritePalette, this.args.palette),
+      new ContextMenuOption(
+        this.sharePalette,
+        'share',
+        'Share Palette',
+        this.args.palette
+      ),
       new ContextMenuOption(
         this.deletePaletteContextMenu,
         'trash',
         'Delete Palette',
         this.args.palette
-      ),
-      new LockOption(this.lockPalette, this.args.palette),
-
-      new FavoriteOption(this.favoritePalette, this.args.palette)
+      )
     ];
 
     this.dragSort.on(
@@ -287,6 +292,21 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   @action
   lockPalette(): void {
     this.args.palette.replaceAttribute('isLocked', !this.args.palette.isLocked);
+  }
+
+  @action
+  sharePalette(): void {
+    const { colors, name } = this.args.palette;
+    if (colors.length) {
+      const urlColors = encodeURIComponent(
+        colors.map((color) => color.hex).join(',')
+      );
+      const url = `https://swach.io/palette?name=${name}&colors=${urlColors}`;
+
+      if (typeof requireNode !== 'undefined') {
+        requireNode('electron').shell.openExternal(url);
+      }
+    }
   }
 
   @action

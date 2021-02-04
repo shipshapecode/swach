@@ -10,7 +10,6 @@ import { storageFor } from 'ember-local-storage';
 import { Model, Store } from 'ember-orbit';
 
 import { IpcRenderer } from 'electron';
-import queryString from 'query-string';
 
 import ColorModel from 'swach/data-models/color';
 import ColorUtils from 'swach/services/color-utils';
@@ -98,9 +97,9 @@ export default class ApplicationController extends Controller {
       });
 
       this.ipcRenderer.on('openSharedPalette', async (event, query) => {
-        let { colors, name } = queryString.parse(query);
-        colors = colors?.split(',') ?? [];
-        name = name ?? 'Palette';
+        const data = JSON.parse(decodeURIComponent(query));
+        const colors = data?.colors ?? [];
+        const name = data?.name ?? 'Palette';
         await this.createPalette(name, colors);
       });
 
@@ -170,7 +169,10 @@ export default class ApplicationController extends Controller {
   }
 
   @action
-  async createPalette(paletteName: string, colors: string[]): Promise<void> {
+  async createPalette(
+    paletteName: string,
+    colors: { name: string; hex: string }[]
+  ): Promise<void> {
     this.router.transitionTo('palettes');
 
     await this.store.update((t) => {
@@ -190,7 +192,7 @@ export default class ApplicationController extends Controller {
       const paletteId = paletteOperation.operation.record.id;
 
       const colorOperations = colors.map((color) => {
-        const { attributes } = this.colorUtils.createColorPOJO(color);
+        const { attributes } = this.colorUtils.createColorPOJO(color.hex);
 
         return t.addRecord({
           type: 'color',

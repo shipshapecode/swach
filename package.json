@@ -166,7 +166,6 @@
     "npm": false
   },
   "dependencies": {
-    "query-string": "^6.13.8",
     "throttle-debounce": "^3.0.1"
   },
   "volta": {

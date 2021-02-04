@@ -94,7 +94,7 @@ let sharedPaletteLink;
 mb.app.on('open-url', function (event, data) {
   event.preventDefault();
   sharedPaletteLink = data;
-  const query = sharedPaletteLink.slice(8);
+  const query = sharedPaletteLink.slice(14);
   mb.showWindow();
   mb.window.webContents.send('openSharedPalette', query);
 });

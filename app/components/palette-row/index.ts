@@ -298,10 +298,13 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   sharePalette(): void {
     const { colors, name } = this.args.palette;
     if (colors.length) {
-      const urlColors = encodeURIComponent(
-        colors.map((color) => color.hex).join(',')
-      );
-      const url = `https://swach.io/palette?name=${name}&colors=${urlColors}`;
+      const urlColors = colors.map((color) => {
+        return { hex: color.hex, name: color.name };
+      });
+
+      const url = `https://swach.io/palette?data=${encodeURIComponent(
+        JSON.stringify({ name, colors: urlColors })
+      )}`;
 
       if (typeof requireNode !== 'undefined') {
         requireNode('electron').shell.openExternal(url);

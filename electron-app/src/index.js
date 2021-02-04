@@ -87,17 +87,45 @@ mb.app.commandLine.appendSwitch(
   'true'
 );
 
-mb.app.setAsDefaultProtocolClient('swach');
-
 let sharedPaletteLink;
+
+function openSharedPalette() {
+  const query = sharedPaletteLink.slice(14);
+  mb.showWindow();
+  if (query) {
+    mb.window.webContents.send('openSharedPalette', query);
+  }
+}
+
+mb.app.setAsDefaultProtocolClient('swach');
 
 mb.app.on('open-url', function (event, data) {
   event.preventDefault();
   sharedPaletteLink = data;
-  const query = sharedPaletteLink.slice(14);
-  mb.showWindow();
-  mb.window.webContents.send('openSharedPalette', query);
+  openSharedPalette();
 });
+
+// Someone tried to run a second instance, we should focus our window.
+const gotTheLock = mb.app.requestSingleInstanceLock((argv) => {
+  // Protocol handler for win32
+  // argv: An array of the second instance’s (command line / deep linked) arguments
+  if (process.platform !== 'darwin') {
+    // Keep only command line / deep linked arguments
+    sharedPaletteLink = argv.slice(1);
+  }
+});
+
+if (!gotTheLock) {
+  mb.app.quit();
+  return;
+} else {
+  mb.app.on('second-instance', () => {
+    // Someone tried to run a second instance, we should focus our window.
+    if (mb.window) {
+      openSharedPalette();
+    }
+  });
+}
 
 if (process.platform === 'win32') {
   if (require('electron-squirrel-startup')) mb.app.exit();

@@ -51,6 +51,7 @@ export default class KulerPaletteRowComponent extends Component<KulerPaletteRowA
           name: this.args.palette.name,
           colorOrder: [],
           createdAt: new Date(),
+          index: 0,
           isColorHistory: false,
           isFavorite: false,
           isLocked: false

@@ -1,23 +1,21 @@
 const Sentry = require('@sentry/electron');
-const { app, clipboard, dialog, ipcMain, nativeTheme } = require('electron');
-const { download } = require('electron-dl');
+const { ipcMain, nativeTheme } = require('electron');
 const isDev = require('electron-is-dev');
 const Store = require('electron-store');
-const fs = require('fs');
 const { menubar } = require('menubar');
 const { basename, dirname, join, resolve } = require('path');
 const { pathToFileURL } = require('url');
 
 const { setupUpdateServer } = require('./auto-update');
 const { launchPicker } = require('./color-picker');
-const { noUpdatesAvailableDialog, restartDialog } = require('./dialogs');
+const { noUpdatesAvailableDialog } = require('./dialogs');
 const handleFileUrls = require('./handle-file-urls');
+const { setupEventHandlers } = require('./ipc-events');
 const {
   registerKeyboardShortcuts,
   setupContextMenu,
   setupMenu
 } = require('./shortcuts');
-const { setTouchbar } = require('./touchbar');
 
 const emberAppDir = resolve(__dirname, '..', 'ember-dist');
 
@@ -89,6 +87,18 @@ mb.app.commandLine.appendSwitch(
   'true'
 );
 
+mb.app.setAsDefaultProtocolClient('swach');
+
+let sharedPaletteLink;
+
+mb.app.on('open-url', function (event, data) {
+  event.preventDefault();
+  sharedPaletteLink = data;
+  const query = sharedPaletteLink.slice(8);
+  mb.showWindow();
+  mb.window.webContents.send('openSharedPalette', query);
+});
+
 if (process.platform === 'win32') {
   if (require('electron-squirrel-startup')) mb.app.exit();
 }
@@ -99,73 +109,7 @@ if (process.platform === 'win32') {
 // const showPreferences = () => settings.init();
 // ipcMain.on('showPreferences', showPreferences);
 
-ipcMain.on('copyColorToClipboard', (channel, color) => {
-  clipboard.writeText(color);
-});
-
-ipcMain.on('exportData', async (channel, jsonString) => {
-  const downloadPath = `${mb.app.getPath('temp')}/swach-data.json`;
-  fs.writeFileSync(downloadPath, jsonString);
-  await download(mb.window, `file://${downloadPath}`);
-  fs.unlink(downloadPath, (err) => {
-    if (err) throw err;
-    console.log(`${downloadPath} was deleted`);
-  });
-});
-
-ipcMain.handle('getAppVersion', async () => {
-  return app.getVersion();
-});
-
-ipcMain.handle('importData', async () => {
-  const { canceled, filePaths } = await dialog.showOpenDialog({
-    properties: ['openFile']
-  });
-
-  if (!canceled && filePaths.length) {
-    return fs.readFileSync(filePaths[0], { encoding: 'utf8' });
-  }
-});
-
-ipcMain.handle('getBackupData', async () => {
-  const backupPath = `${mb.app.getPath('temp')}/backup-swach-data.json`;
-  return fs.readFileSync(backupPath, { encoding: 'utf8' });
-});
-
-ipcMain.on('exitApp', () => mb.app.quit());
-
-ipcMain.on('launchContrastBgPicker', async () => {
-  await launchPicker(mb, 'contrastBg');
-});
-
-ipcMain.on('launchContrastFgPicker', async () => {
-  await launchPicker(mb, 'contrastFg');
-});
-
-ipcMain.on('launchPicker', async () => {
-  await launchPicker(mb);
-});
-
-ipcMain.handle('getPlatform', () => {
-  return process.platform;
-});
-
-ipcMain.handle('getStoreValue', (event, key) => {
-  return store.get(key);
-});
-
-ipcMain.handle('getShouldUseDarkColors', () => {
-  return nativeTheme.shouldUseDarkColors ? 'dark' : 'light';
-});
-
-ipcMain.on('setTouchbar', (event, itemsToShow) => {
-  setTouchbar(mb, itemsToShow);
-});
-
-ipcMain.on('setShowDockIcon', async (channel, showDockIcon) => {
-  store.set('showDockIcon', showDockIcon);
-  await restartDialog();
-});
+setupEventHandlers(mb, store);
 
 // Uncomment the lines below to enable Electron's crash reporter
 // For more information, see http://electron.atom.io/docs/api/crash-reporter/

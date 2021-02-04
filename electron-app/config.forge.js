@@ -24,7 +24,14 @@ module.exports = {
     osxNotarize: {
       appleId: process.env['APPLE_ID'],
       appleIdPassword: process.env['APPLE_ID_PASSWORD']
-    }
+    },
+    protocols: [
+      {
+        protocol: 'swach',
+        name: 'swach',
+        schemes: 'swach'
+      }
+    ]
   },
   makers: [
     {

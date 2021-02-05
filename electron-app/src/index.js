@@ -90,14 +90,21 @@ mb.app.commandLine.appendSwitch(
 let sharedPaletteLink;
 
 function openSharedPalette() {
-  const query = sharedPaletteLink.slice(14);
+  const query = sharedPaletteLink.split('?data=')[1];
   mb.showWindow();
   if (query) {
     mb.window.webContents.send('openSharedPalette', query);
   }
 }
 
-mb.app.setAsDefaultProtocolClient('swach');
+if (isDev && process.platform === 'win32') {
+  // Set the path of electron.exe and your app.
+  // These two additional parameters are only available on windows.
+  // Setting this is required to get this working in dev mode.
+  mb.app.setAsDefaultProtocolClient('swach', process.execPath, [resolve(process.argv[1])]);        
+} else {
+  mb.app.setAsDefaultProtocolClient('swach');
+}
 
 mb.app.on('open-url', function (event, data) {
   event.preventDefault();
@@ -105,23 +112,18 @@ mb.app.on('open-url', function (event, data) {
   openSharedPalette();
 });
 
-// Someone tried to run a second instance, we should focus our window.
-const gotTheLock = mb.app.requestSingleInstanceLock((argv) => {
-  // Protocol handler for win32
-  // argv: An array of the second instance’s (command line / deep linked) arguments
-  if (process.platform !== 'darwin') {
-    // Keep only command line / deep linked arguments
-    sharedPaletteLink = argv.slice(1);
-  }
-});
+// Force single application instance
+const gotTheLock = mb.app.requestSingleInstanceLock();
 
 if (!gotTheLock) {
   mb.app.quit();
   return;
 } else {
-  mb.app.on('second-instance', () => {
-    // Someone tried to run a second instance, we should focus our window.
+  mb.app.on('second-instance', (e, argv) => {
     if (mb.window) {
+      if (process.platform !== 'darwin') {
+        sharedPaletteLink = argv.find(arg => arg.startsWith('swach://'));
+      }
       openSharedPalette();
     }
   });

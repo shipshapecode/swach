@@ -20,8 +20,6 @@ export default class ColorRow extends Component<ColorRowArgs> {
   @service colorUtils!: ColorUtils;
   @service router!: Router;
 
-  @tracked deleteConfirm = false;
-
   get showActions(): boolean {
     if (isEmpty(this.args.showActions)) {
       return true;
@@ -33,11 +31,7 @@ export default class ColorRow extends Component<ColorRowArgs> {
   @action
   deleteColor(color: ColorModel): void {
     if (!this.args.palette.isLocked) {
-      if (this.deleteConfirm) {
-        this.args.deleteColor(color);
-      }
-
-      this.deleteConfirm = true;
+      this.args.deleteColor(color);
     }
   }
 

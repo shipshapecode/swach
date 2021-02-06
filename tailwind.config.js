@@ -51,7 +51,11 @@ module.exports = {
       main: theme('colors.main')
     })
   },
-  variants: {},
+  variants: {
+    extend: {
+      opacity: ['disabled']
+    }
+  },
   plugins: [
     // TODO: make forms not look like garbage
     /*require('@tailwindcss/forms')*/

@@ -1,102 +1,106 @@
-<div class="bg-menu flex flex-wrap items-center p-2 rounded w-full">
-  <div
-    class="cursor-default flex flex-grow items-center justify-between p-1 text-main-text text-sm w-full"
-    {{on "click" (stop-propagation this.transitionToColorHistory)}}
-  >
-    <div>
-      Color History
+<div
+  class="color-history-container bg-main fixed left-1/2 transform -translate-x-1/2 z-20"
+>
+  <div class="bg-menu flex flex-wrap h-32 p-2 rounded w-full">
+    <div
+      class="cursor-default flex flex-grow items-center justify-between mb-2 p-1 text-main-text text-sm w-full"
+      {{on "click" (stop-propagation this.transitionToColorHistory)}}
+    >
+      <div>
+        Color History
+      </div>
+
+      {{#if this.last16Colors.length}}
+        <OptionsMenu data-test-color-history-menu @showBackground={{true}}>
+          <:trigger>
+            {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
+          </:trigger>
+          <:content>
+            <button
+              data-test-clear-color-history
+              class="inline-block p-1 text-menu-text transition-colors hover:text-menu-text-hover"
+              type="button"
+              {{on "click" this.clearColorHistory}}
+            >
+              {{svg-jar
+                "clear-history"
+                class="menu-icon inline-block mr-2"
+                height="20"
+                width="20"
+              }} Clear History
+            </button>
+          </:content>
+        </OptionsMenu>
+      {{/if}}
     </div>
 
     {{#if this.last16Colors.length}}
-      <OptionsMenu data-test-color-history-menu @showBackground={{true}}>
-        <:trigger>
-          {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
-        </:trigger>
-        <:content>
-          <button
-            data-test-clear-color-history
-            class="inline-block p-1 text-menu-text transition-colors hover:text-menu-text-hover"
-            type="button"
-            {{on "click" this.clearColorHistory}}
-          >
-            {{svg-jar
-              "clear-history"
-              class="menu-icon inline-block mr-2"
-              height="20"
-              width="20"
-            }} Clear History
-          </button>
-        </:content>
-      </OptionsMenu>
+      <DragSortList
+        data-test-color-history
+        @additionalArgs={{hash isColorHistory=true}}
+        @classNames="color-history-list flex h-20 flex-wrap w-full"
+        @isHorizontal={{true}}
+        @items={{this.last16Colors}}
+        @sourceOnly={{true}}
+        @dragEndAction={{fn this.moveColorsBetweenPalettes}} as |color|
+      >
+        <div
+          class="inline-block mx-1 h-8 relative rounded-md w-8"
+          {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
+        >
+          <div
+            data-test-color-history-square={{color.name}}
+            class="absolute h-8 left-0 rounded top-0 w-8 z-10"
+            style={{html-safe (concat "background-color: " color.hex)}}
+          ></div>
+          <div
+            class="opacity-checkerboard absolute h-8 left-0 rounded top-0 w-8 z-0"
+          ></div>
+        </div>
+      </DragSortList>
+    {{else}}
+      <span class="inline-block m-1 py-1 text-main-text text-sm w-full">
+        Use the
+        <span class="font-bold">
+          eyedropper
+        </span>
+        {{svg-jar "drop" class="menu-icon inline" height="12" width="12"}} or
+        <span class="font-bold">
+          color selector
+        </span>
+        {{svg-jar "edit-color" class="menu-icon inline" height="12" width="12"}}
+        to start building your palette.
+      </span>
     {{/if}}
   </div>
 
-  {{#if this.last16Colors.length}}
-    <DragSortList
-      data-test-color-history
-      @additionalArgs={{hash isColorHistory=true}}
-      @classNames="color-history-list flex flex-wrap w-full"
-      @isHorizontal={{true}}
-      @items={{this.last16Colors}}
-      @sourceOnly={{true}}
-      @dragEndAction={{fn this.moveColorsBetweenPalettes}} as |color|
-    >
-      <div
-        class="inline-block m-1 h-8 relative rounded w-8"
-        {{on "click" (fn this.colorUtils.copyColorToClipboard color)}}
+  <div class="flex items-center justify-between mt-4 p-1 pt-2 w-full">
+    <h2 class="pl-1 text-lg text-heading">
+      Palettes
+    </h2>
+
+    <div>
+      <button
+        type="button"
+        {{on "click" (set this "showFavorites" (not this.showFavorites))}}
       >
-        <div
-          data-test-color-history-square={{color.name}}
-          class="absolute h-8 left-0 rounded top-0 w-8 z-10"
-          style={{html-safe (concat "background-color: " color.hex)}}
-        ></div>
-        <div
-          class="opacity-checkerboard absolute h-8 left-0 rounded top-0 w-8 z-0"
-        ></div>
-      </div>
-    </DragSortList>
-  {{else}}
-    <span class="inline-block m-1 py-1 text-main-text text-sm w-full">
-      Use the
-      <span class="font-bold">
-        eyedropper
-      </span>
-      {{svg-jar "drop" class="menu-icon inline" height="12" width="12"}} or
-      <span class="font-bold">
-        color selector
-      </span>
-      {{svg-jar "edit-color" class="menu-icon inline" height="12" width="12"}}
-      to start building your palette.
-    </span>
-  {{/if}}
-</div>
+        {{svg-jar
+          (if this.showFavorites "filled-heart" "outline-heart")
+          class=(concat "icon " (if this.showFavorites "filled"))
+          height="18"
+          width="18"
+        }}
+      </button>
 
-<div class="flex items-center justify-between mt-4 p-1 py-4 w-full">
-  <h2 class="pl-1 text-lg text-heading">
-    Palettes
-  </h2>
-
-  <div>
-    <button
-      type="button"
-      {{on "click" (set this "showFavorites" (not this.showFavorites))}}
-    >
-      {{svg-jar
-        (if this.showFavorites "filled-heart" "outline-heart")
-        class=(concat "icon " (if this.showFavorites "filled"))
-        height="18"
-        width="18"
-      }}
-    </button>
-
-    <button
-      data-test-create-palette
-      class="ml-1 mt-1 text-sm hover:text-alt-hover"
-      type="button"
-      {{on "click" this.createNewPalette}}
-    >
-      {{svg-jar "plus-circle" class="icon" height="18" width="18"}}
-    </button>
+      <button
+        data-test-create-palette
+        class="ml-1 mt-1 text-sm hover:text-alt-hover"
+        type="button"
+        {{on "click" this.createNewPalette}}
+      >
+        {{svg-jar "plus-circle" class="icon" height="18" width="18"}}
+      </button>
+    </div>
   </div>
 </div>
 

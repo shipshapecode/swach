@@ -5,7 +5,6 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
 import fade from 'ember-animated/transitions/fade';
-import ContextMenuService from 'ember-context-menu/services/context-menu';
 import DragSortService from 'ember-drag-sort/services/drag-sort';
 import { Store } from 'ember-orbit';
 
@@ -81,7 +80,7 @@ class FavoriteOption {
 
   get label() {
     const isFavorite = this.palette.isFavorite;
-    return isFavorite ? 'Remove from favorites' : 'Add to favorites';
+    return isFavorite ? 'Unfavorite' : 'Favorite';
   }
 }
 
@@ -115,21 +114,15 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   @service store!: Store;
   @service undoManager!: UndoManager;
 
-  contextItems:
-    | (ContextMenuOption | FavoriteOption | LockOption)[]
-    | null = null;
-  contextSelection: any;
-  contextDetails: any;
+  menuItems: (ContextMenuOption | FavoriteOption | LockOption)[] | null = null;
   fade = fade;
   nameInput!: HTMLElement;
-  showMenu = false;
-  @tracked deleteConfirm = false;
   @tracked isEditing = false;
 
   constructor(owner: unknown, args: PaletteRowArgs) {
     super(owner, args);
 
-    this.contextItems = [
+    this.menuItems = [
       new ContextMenuOption(
         this.toggleIsEditing,
         'rename',
@@ -151,7 +144,7 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
         this.args.palette
       ),
       new ContextMenuOption(
-        this.deletePaletteContextMenu,
+        this.deletePalette,
         'trash',
         'Delete Palette',
         this.args.palette
@@ -194,28 +187,12 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   }
 
   @action
-  async _deletePalette(): Promise<void> {
-    await this.store.update((t: Store['transformBuilder']) =>
-      t.removeRecord(this.args.palette)
-    );
-    this.undoManager.setupUndoRedo();
-  }
-
-  @action
   async deletePalette(): Promise<void> {
     if (!this.isLocked) {
-      if (this.deleteConfirm) {
-        await this._deletePalette();
-      }
-
-      this.deleteConfirm = true;
-    }
-  }
-
-  @action
-  async deletePaletteContextMenu(): Promise<void> {
-    if (!this.isLocked) {
-      await this._deletePalette();
+      await this.store.update((t: Store['transformBuilder']) =>
+        t.removeRecord(this.args.palette)
+      );
+      this.undoManager.setupUndoRedo();
     }
   }
 

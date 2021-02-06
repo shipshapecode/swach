@@ -101,7 +101,6 @@
     "ember-named-blocks-polyfill": "^0.2.4",
     "ember-orbit": "orbitjs/ember-orbit#d7138f8ca8a9435d379ec5f70e467fd31d52ae7b",
     "ember-qunit": "^5.1.2",
-    "ember-ref-bucket": "^2.0.0",
     "ember-resolver": "^8.0.2",
     "ember-set-body-class": "^1.0.2",
     "ember-set-helper": "^2.0.0",

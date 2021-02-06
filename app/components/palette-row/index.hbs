@@ -1,12 +1,12 @@
 {{! template-lint-disable no-nested-interactive }}
 <div
-  class="bg-menu cursor-default mb-3 p-3 rounded w-full"
+  class="bg-menu cursor-default mb-2 overflow-visible p-3 rounded w-full"
   data-test-palette-row="{{@palette.name}}"
   role="button"
   {{on "click" this.transitionToColors}}
   {{on "contextmenu" this.contextMenuTrigger}}
 >
-  <div class="flex items-center justify-between pb-2 w-full">
+  <div class="flex items-center justify-between overflow-visible pb-2 w-full">
     <h6 class="text-sm">
       {{#if this.isEditing}}
         <input
@@ -33,61 +33,32 @@
       {{/if}}
     </h6>
 
-    <div
+    <OptionsMenu
       data-test-palette-row-menu
-      {{on "mouseenter" (set this "showMenu" true)}}
-      {{on "mouseleave" (set this "showMenu" false)}}
+      class="text-sm"
+      @showBackground={{true}}
     >
-      {{#animated-if this.showMenu duration=350 use=this.fade}}
-        <div>
+      <:trigger>
+        {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
+      </:trigger>
+      <:content>
+        {{#each this.menuItems as |item|}}
           <button
-            class="mr-1"
+            data-test-menu-item={{item.label}}
+            class="flex items-center p-1 text-menu-text transition-colors whitespace-nowrap disabled:opacity-50 {{
+              if (not item.disabled) "hover:text-menu-text-hover"
+            }}"
+            disabled={{item.disabled}}
             type="button"
-            {{on "click" (stop-propagation (fn this.lockPalette))}}
+            {{on "click" item.action}}
           >
-            {{svg-jar
-              (if @palette.isLocked "lock" "unlock")
-              class="icon"
-              height="13"
-              width="13"
+            {{svg-jar item.icon class="icon mr-4" height="15" width="15"}} {{
+              item.label
             }}
           </button>
-
-          <button
-            class="mr-1"
-            disabled={{@palette.isLocked}}
-            type="button"
-            {{on "click" (stop-propagation (fn this.favoritePalette))}}
-          >
-            {{svg-jar
-              (if @palette.isFavorite "slash-heart" "filled-heart")
-              class=(concat "icon " (if @palette.isFavorite "filled"))
-              height="13"
-              width="13"
-            }}
-          </button>
-
-          <button
-            data-test-delete-palette
-            disabled={{@palette.isLocked}}
-            type="button"
-            {{on "click" (stop-propagation (fn this.deletePalette))}}
-            {{on "mouseleave" (set this "deleteConfirm" false)}}
-          >
-            {{svg-jar
-              "trash"
-              class=(concat "icon " (if this.deleteConfirm "delete-confirm"))
-              height="13"
-              width="13"
-            }}
-          </button>
-        </div>
-      {{else}}
-        <div>
-          {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
-        </div>
-      {{/animated-if}}
-    </div>
+        {{/each}}
+      </:content>
+    </OptionsMenu>
   </div>
 
   <div class="palette flex flex-grow h-8 relative w-full">

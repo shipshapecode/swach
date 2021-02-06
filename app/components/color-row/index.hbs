@@ -61,15 +61,8 @@
               disabled={{@palette.isLocked}}
               type="button"
               {{on "click" (stop-propagation (fn this.deleteColor @color))}}
-              {{on "mouseleave" (set this "deleteConfirm" false)}}
             >
-              {{svg-jar
-                "trash"
-                class=(concat
-                  "icon mr-4 " (if this.deleteConfirm "delete-confirm")
-                )
-                height="15"
-                width="15"
+              {{svg-jar "trash" class="icon mr-4" height="15" width="15"
               }} Delete Color
             </button>
           {{/if}}

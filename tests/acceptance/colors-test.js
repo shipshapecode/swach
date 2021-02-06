@@ -137,9 +137,9 @@ module('Acceptance | colors', function (hooks) {
 
       await animationsSettled();
 
-      // Click twice to confirm
-      await click('[data-test-color="Black"] [data-test-delete-color]');
-      await click('[data-test-color="Black"] [data-test-delete-color]');
+      await click(
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-content] [data-test-delete-color]'
+      );
 
       await waitForAll();
 

@@ -5,6 +5,7 @@ import {
   fillIn,
   find,
   findAll,
+  pauseTest,
   triggerEvent,
   visit
 } from '@ember/test-helpers';
@@ -14,7 +15,7 @@ import { module, test } from 'qunit';
 import { animationsSettled } from 'ember-animated/test-support';
 import { move, sort } from 'ember-drag-sort/utils/trigger';
 
-import { triggerContextMenu, waitForAll } from 'swach/tests/helpers';
+import { waitForAll } from 'swach/tests/helpers';
 import seedOrbit from 'swach/tests/orbit/seed';
 
 module('Acceptance | palettes', function (hooks) {
@@ -31,74 +32,84 @@ module('Acceptance | palettes', function (hooks) {
     assert.dom('[data-test-palette-row]').exists({ count: 3 });
   });
 
-  module('context menu', function () {
-    test('context menu can be triggered', async function (assert) {
+  module('options menu', function () {
+    test('options enabled when palette is not locked', async function (assert) {
       await visit('/palettes');
 
       assert
-        .dom(document.querySelector('[data-test-context-menu]'))
-        .doesNotExist();
+        .dom(
+          '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content]'
+        )
+        .isNotVisible();
 
-      triggerContextMenu('[data-test-palette-row="First Palette"]');
+      await click(
+        '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-trigger]'
+      );
       await waitForAll();
 
-      assert.dom(document.querySelector('[data-test-context-menu]')).exists();
+      assert
+        .dom(
+          '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content]'
+        )
+        .isVisible();
 
       assert
         .dom(
-          document.querySelector(
-            '[data-test-context-menu-item="Delete Palette"]'
-          ).parentElement
+          '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Delete Palette"]'
         )
-        .doesNotHaveClass('context-menu__item--disabled');
+        .hasNoAttribute('disabled');
 
       assert
         .dom(
-          document.querySelector(
-            '[data-test-context-menu-item="Duplicate Palette"]'
-          ).parentElement
+          '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Duplicate Palette"]'
         )
-        .doesNotHaveClass('context-menu__item--disabled');
+        .hasNoAttribute('disabled');
     });
 
     test('options disabled when palette is locked', async function (assert) {
       await visit('/palettes');
 
       assert
-        .dom(document.querySelector('[data-test-context-menu]'))
-        .doesNotExist();
+        .dom(
+          '[data-test-palette-row="Locked Palette"] [data-test-palette-row-menu] [data-test-options-content]'
+        )
+        .isNotVisible();
 
-      triggerContextMenu('[data-test-palette-row="Locked Palette"]');
+      await click(
+        '[data-test-palette-row="Locked Palette"] [data-test-palette-row-menu] [data-test-options-trigger]'
+      );
       await waitForAll();
 
-      assert.dom(document.querySelector('[data-test-context-menu]')).exists();
+      assert
+        .dom(
+          '[data-test-palette-row="Locked Palette"] [data-test-palette-row-menu] [data-test-options-content]'
+        )
+        .isVisible();
 
       assert
         .dom(
-          document.querySelector(
-            '[data-test-context-menu-item="Delete Palette"]'
-          ).parentElement
+          '[data-test-palette-row="Locked Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Delete Palette"]'
         )
-        .hasClass('context-menu__item--disabled');
+        .hasAttribute('disabled');
 
       assert
         .dom(
-          document.querySelector(
-            '[data-test-context-menu-item="Duplicate Palette"]'
-          ).parentElement
+          '[data-test-palette-row="Locked Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Duplicate Palette"]'
         )
-        .hasClass('context-menu__item--disabled');
+        .hasAttribute('disabled');
     });
 
     test('rename palette', async function (assert) {
       await visit('/palettes');
 
-      triggerContextMenu('[data-test-palette-row="First Palette"]');
+      await click(
+        '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-trigger]'
+      );
+
       await waitForAll();
 
       await click(
-        document.querySelector('[data-test-context-menu-item="Rename Palette"]')
-          .parentElement
+        '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Rename Palette"]'
       );
 
       await fillIn(
@@ -454,13 +465,13 @@ module('Acceptance | palettes', function (hooks) {
     test('duplicate palette and undo / redo', async function (assert) {
       await visit('/palettes');
 
-      triggerContextMenu('[data-test-palette-row="First Palette"]');
+      await click(
+        '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-trigger]'
+      );
       await waitForAll();
 
       await click(
-        document.querySelector(
-          '[data-test-context-menu-item="Duplicate Palette"]'
-        ).parentElement
+        '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Duplicate Palette"]'
       );
 
       await waitForAll();

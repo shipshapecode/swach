@@ -19,18 +19,6 @@ svg {
         fill: var(--alt-hover-color) !important;
       }
     }
-
-    &.delete-confirm {
-      path {
-        fill: #f56565 !important;
-      }
-
-      &:hover {
-        path {
-          fill: #f56565 !important;
-        }
-      }
-    }
   }
 
   &.stroke-icon {
@@ -79,7 +67,7 @@ button {
   }
 
   &:hover:not([disabled]) {
-    svg.icon:not(.delete-confirm) {
+    svg.icon {
       path {
         fill: var(--alt-hover-color) !important;
       }

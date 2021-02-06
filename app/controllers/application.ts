@@ -96,6 +96,13 @@ export default class ApplicationController extends Controller {
         this.router.transitionTo('contrast');
       });
 
+      this.ipcRenderer.on('openSharedPalette', async (event, query) => {
+        const data = JSON.parse(decodeURIComponent(query));
+        const colors = data?.colors ?? [];
+        const name = data?.name ?? 'Palette';
+        await this.createPalette(name, colors);
+      });
+
       this.ipcRenderer.on('setTheme', (_event: unknown, theme: string) => {
         this.settings.set('osTheme', theme);
       });
@@ -159,6 +166,60 @@ export default class ApplicationController extends Controller {
   @action
   checkForUpdates(): void {
     this.ipcRenderer.send('checkForUpdates');
+  }
+
+  @action
+  async createPalette(
+    paletteName: string,
+    colors: { name: string; hex: string }[]
+  ): Promise<void> {
+    this.router.transitionTo('palettes');
+
+    await this.store.update((t) => {
+      const paletteOperation = t.addRecord({
+        type: 'palette',
+        attributes: {
+          name: paletteName,
+          colorOrder: [],
+          createdAt: new Date(),
+          index: 0,
+          isColorHistory: false,
+          isFavorite: false,
+          isLocked: false
+        }
+      });
+
+      const paletteId = paletteOperation.operation.record.id;
+
+      const colorOperations = colors.map((color) => {
+        const { attributes } = this.colorUtils.createColorPOJO(color.hex);
+
+        return t.addRecord({
+          type: 'color',
+          attributes
+        });
+      });
+      const colorsList = colorOperations.map(({ operation }) => {
+        return { type: 'color', id: operation.record.id };
+      });
+
+      return [
+        paletteOperation,
+        ...colorOperations,
+        t.replaceRelatedRecords(
+          { type: 'palette', id: paletteId },
+          'colors',
+          colorsList
+        ),
+        t.replaceAttribute(
+          { type: 'palette', id: paletteId },
+          'colorOrder',
+          colorsList
+        )
+      ];
+    });
+
+    this.undoManager.setupUndoRedo();
   }
 
   @action

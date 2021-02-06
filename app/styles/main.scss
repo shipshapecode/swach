@@ -42,8 +42,16 @@ button {
   }
 }
 
+.color-history-container {
+  width: calc(100% - 1.5rem);
+}
+
 .color-picker-popover.ember-popover {
   transform: translate3d(0px, 34px, 0px) !important;
+}
+
+.dragSortItem {
+  @apply leading-none;
 }
 
 .palette-color-squares {

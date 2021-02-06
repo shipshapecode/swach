@@ -101,7 +101,9 @@ if (isDev && process.platform === 'win32') {
   // Set the path of electron.exe and your app.
   // These two additional parameters are only available on windows.
   // Setting this is required to get this working in dev mode.
-  mb.app.setAsDefaultProtocolClient('swach', process.execPath, [resolve(process.argv[1])]);        
+  mb.app.setAsDefaultProtocolClient('swach', process.execPath, [
+    resolve(process.argv[1])
+  ]);
 } else {
   mb.app.setAsDefaultProtocolClient('swach');
 }
@@ -122,7 +124,7 @@ if (!gotTheLock) {
   mb.app.on('second-instance', (e, argv) => {
     if (mb.window) {
       if (process.platform !== 'darwin') {
-        sharedPaletteLink = argv.find(arg => arg.startsWith('swach://'));
+        sharedPaletteLink = argv.find((arg) => arg.startsWith('swach://'));
       }
       openSharedPalette();
     }

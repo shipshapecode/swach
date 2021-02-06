@@ -32,7 +32,7 @@ module.exports = function (defaults) {
     }
   });
 
-  return app.toTree()
+  return app.toTree();
 
   // const { Webpack } = require('@embroider/webpack');
   // //const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');

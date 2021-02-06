@@ -5,7 +5,6 @@ import {
   fillIn,
   find,
   findAll,
-  pauseTest,
   triggerEvent,
   visit
 } from '@ember/test-helpers';

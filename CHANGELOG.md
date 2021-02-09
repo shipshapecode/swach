@@ -1,3 +1,14 @@
+## v0.7.0 (2021-02-09)
+
+#### :rocket: Enhancement
+* [#521](https://github.com/shipshapecode/swach/pull/521) Add share palette functionality ([@rwwagner90](https://github.com/rwwagner90))
+* [#517](https://github.com/shipshapecode/swach/pull/517) Update color row menu ([@rwwagner90](https://github.com/rwwagner90))
+* [#507](https://github.com/shipshapecode/swach/pull/507) Add color format setting ([@rwwagner90](https://github.com/rwwagner90))
+* [#505](https://github.com/shipshapecode/swach/pull/505) Replace EmberPopover with Tailwind dropdown ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v0.6.7 (2021-01-28)
 
 ## v0.6.6 (2021-01-27)

@@ -1471,25 +1471,25 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@clark/eslint-config-ember-order-imports@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@clark/eslint-config-ember-order-imports/-/eslint-config-ember-order-imports-2.0.0.tgz#2ac5228b172539b04030166279174074df8f772f"
-  integrity sha512-BMjo5M3Stn/ayeaUYpPvm8KxtoNhruQelPXYic7sTznz85mJQO7ZfDYTz/6vbE8ew/H0c0TMC6r1VTBsA6rGwQ==
+"@clark/eslint-config-ember-order-imports@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@clark/eslint-config-ember-order-imports/-/eslint-config-ember-order-imports-2.1.0.tgz#aaa12dcb6b426bbe72bae484726170bb6e6612f2"
+  integrity sha512-hWjuRfu9d/uREITdzeUVhpWQtis+Un5/4Sc5DaHb4A+0Z4/Kvbla3+/6sn2oMby9/rRrOzOplfUySpFEt4lSlQ==
   dependencies:
-    "@clark/eslint-plugin-import-helpers-with-package" "^2.0.0"
+    "@clark/eslint-plugin-import-helpers-with-package" "^2.1.0"
 
-"@clark/eslint-plugin-import-helpers-with-package@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@clark/eslint-plugin-import-helpers-with-package/-/eslint-plugin-import-helpers-with-package-2.0.0.tgz#58ec7fd47118388360273f384b626ea7aa0f39b9"
-  integrity sha512-rqxA4KOC48vBkhHOz28w1yUIYUifCRqQXLCBHF5hG8yM0fYRSfeEPaj9dyULe+jHgxtqTvDtfLYViwHqy9/IqQ==
+"@clark/eslint-plugin-import-helpers-with-package@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@clark/eslint-plugin-import-helpers-with-package/-/eslint-plugin-import-helpers-with-package-2.1.0.tgz#ec47b06f7715b36665af2c4d12e0627eb2135311"
+  integrity sha512-j1kZF2BnSUpwUMybOkx5ME3HO5y3xUcOrREiI5/YWjxDjY+2SGtToa9TT247tGQoUH6f3l7etzX0OsEcMe6K1w==
   dependencies:
-    "@clark/eslint-util-get-package" "^2.0.0"
+    "@clark/eslint-util-get-package" "^2.1.0"
     eslint-plugin-import-helpers "^1.1.0"
 
-"@clark/eslint-util-get-package@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@clark/eslint-util-get-package/-/eslint-util-get-package-2.0.0.tgz#c4503e7a09455671431568493a21c1f511fa378f"
-  integrity sha512-zQmEUqYZ9QRJH4rHO504hJr5cXumQSb3+bDLEtsPQFtZOe1HP8pgZ2da6ua7HAVwgS0eTxHMMK/9T5wo0HA97g==
+"@clark/eslint-util-get-package@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@clark/eslint-util-get-package/-/eslint-util-get-package-2.1.0.tgz#a24f0a72b04660800b8a928694b594917194bd68"
+  integrity sha512-PSsaw4OcJ6RHMJhBwX5noOo1ctVHLYwVKNmY7RTo7kJfOK2w5ua6lIWcGKeG9d8Cs0aKT8fWFtPRcgAs7rIn+Q==
   dependencies:
     find-up "^5.0.0"
     type-fest "^0.20.2"

@@ -46,7 +46,7 @@
     "@jaames/iro": "^5.3.1",
     "@orbit/coordinator": "^0.17.0-beta.8",
     "@orbit/indexeddb": "^0.17.0-beta.8",
-    "@orbit/jsonapi": "^0.17.0-beta.8",
+    "@orbit/jsonapi": "^0.17.0-beta.9",
     "@orbit/utils": "^0.17.0-beta.9",
     "@release-it/bumper": "^2.0.0",
     "@sentry/electron": "^2.2.0",

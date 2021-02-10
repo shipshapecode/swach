@@ -2437,20 +2437,20 @@
     "@orbit/data" "^0.17.0-beta.8"
     "@orbit/utils" "^0.17.0-beta.8"
 
-"@orbit/core@^0.17.0-beta.4", "@orbit/core@^0.17.0-beta.8":
-  version "0.17.0-beta.8"
-  resolved "https://registry.yarnpkg.com/@orbit/core/-/core-0.17.0-beta.8.tgz#617397b4ee53e97172301882b9262d7d7c9d14bb"
-  integrity sha512-Bo7AsYUSGYK5dkS6vKTUxOLGVuAOoxkPKpVq8Y0rQ+41gsoyXOMBLU5zZ0gbt9xKn1tJmy4k6EHkVRaXO5LCTA==
+"@orbit/core@^0.17.0-beta.4", "@orbit/core@^0.17.0-beta.8", "@orbit/core@^0.17.0-beta.9":
+  version "0.17.0-beta.9"
+  resolved "https://registry.yarnpkg.com/@orbit/core/-/core-0.17.0-beta.9.tgz#39275a6270baf92f5f9b5ab670301bd926f0b22c"
+  integrity sha512-i1K978YN3nPUqKwYvlKJFBosqxywXyaPpGeGrSHd/W74yg9vldQe8Rgra/bOKY/XbiB9CCiWiRhsKrx3ckrRIQ==
   dependencies:
-    "@orbit/utils" "^0.17.0-beta.8"
+    "@orbit/utils" "^0.17.0-beta.9"
 
-"@orbit/data@^0.17.0-beta.6", "@orbit/data@^0.17.0-beta.8":
-  version "0.17.0-beta.8"
-  resolved "https://registry.yarnpkg.com/@orbit/data/-/data-0.17.0-beta.8.tgz#16360814f7841069c0ab75f1b6f00c5ab0ef0ff7"
-  integrity sha512-pfdVCOSB9BvClC3nFTgBC9USrQ+z862m+kiASvgwdVa3l7t2nWZW5xTl/G2er0lpXSQzsSnFUYqxmcPY9u1XnQ==
+"@orbit/data@^0.17.0-beta.6", "@orbit/data@^0.17.0-beta.8", "@orbit/data@^0.17.0-beta.9":
+  version "0.17.0-beta.9"
+  resolved "https://registry.yarnpkg.com/@orbit/data/-/data-0.17.0-beta.9.tgz#f9045cc458480f1c687d6df164e5bc090f37b49b"
+  integrity sha512-TJg3RFVC4e2TDley18ibz5G+lh8GKTO76gEngmUWYMr/j5nYcj/vsrmYuU+heYBvFSIRRf2osWUMcD14hUi/zA==
   dependencies:
-    "@orbit/core" "^0.17.0-beta.8"
-    "@orbit/utils" "^0.17.0-beta.8"
+    "@orbit/core" "^0.17.0-beta.9"
+    "@orbit/utils" "^0.17.0-beta.9"
 
 "@orbit/identity-map@^0.17.0-beta.4":
   version "0.17.0-beta.8"
@@ -2472,15 +2472,16 @@
     "@orbit/record-cache" "^0.17.0-beta.8"
     "@orbit/utils" "^0.17.0-beta.8"
 
-"@orbit/jsonapi@^0.17.0-beta.8":
-  version "0.17.0-beta.8"
-  resolved "https://registry.yarnpkg.com/@orbit/jsonapi/-/jsonapi-0.17.0-beta.8.tgz#8357c651caa566b10a7808e24c4c4e3a6e11f672"
-  integrity sha512-F23+kiHkPs9iqBiCPUgbQGkMtwqnoOhN6BSEvfasBVwEcA9Yf0VxDzrIxPZzS1qhlGXkib/plbsil2VMZfRrfA==
+"@orbit/jsonapi@^0.17.0-beta.9":
+  version "0.17.0-beta.9"
+  resolved "https://registry.yarnpkg.com/@orbit/jsonapi/-/jsonapi-0.17.0-beta.9.tgz#6a28c8d453600979e838728319dfb621e8ac0834"
+  integrity sha512-VXedpB2lhl92cdUSmmeIn1FNxfsLnqspsAntHxqz535W20i2/shBn30tr6gdwRWWmKTausUcKycxKX11hxb6aQ==
   dependencies:
-    "@orbit/core" "^0.17.0-beta.8"
-    "@orbit/data" "^0.17.0-beta.8"
-    "@orbit/serializers" "^0.17.0-beta.8"
-    "@orbit/utils" "^0.17.0-beta.8"
+    "@orbit/core" "^0.17.0-beta.9"
+    "@orbit/data" "^0.17.0-beta.9"
+    "@orbit/records" "^0.17.0-beta.9"
+    "@orbit/serializers" "^0.17.0-beta.9"
+    "@orbit/utils" "^0.17.0-beta.9"
 
 "@orbit/memory@^0.17.0-beta.6":
   version "0.17.0-beta.8"
@@ -2502,12 +2503,20 @@
     "@orbit/data" "^0.17.0-beta.8"
     "@orbit/utils" "^0.17.0-beta.8"
 
-"@orbit/serializers@^0.17.0-beta.8":
-  version "0.17.0-beta.8"
-  resolved "https://registry.yarnpkg.com/@orbit/serializers/-/serializers-0.17.0-beta.8.tgz#9e108959224f28a37083c56c41ca2ab4ba08b82a"
-  integrity sha512-v0p6mE8Xhr72FU3+HC+RGOOnf60fGX5dR0amEGI74z0gS21UmAxVw/XASOHcVhB/7r3tZPnF/HKfXr31UQOW1w==
+"@orbit/records@^0.17.0-beta.9":
+  version "0.17.0-beta.9"
+  resolved "https://registry.yarnpkg.com/@orbit/records/-/records-0.17.0-beta.9.tgz#71571a4f9b3b8f5158101bad501346e7d8aeddad"
+  integrity sha512-MfiWTy7mtGeNXu+xyvriPFPVec9+x0NTIMUWilU+5rarxbWwaY8ZbhSxNWOifOu9df99b9ASlkATPmhYiflGXw==
   dependencies:
-    "@orbit/utils" "^0.17.0-beta.8"
+    "@orbit/data" "^0.17.0-beta.9"
+    "@orbit/utils" "^0.17.0-beta.9"
+
+"@orbit/serializers@^0.17.0-beta.9":
+  version "0.17.0-beta.9"
+  resolved "https://registry.yarnpkg.com/@orbit/serializers/-/serializers-0.17.0-beta.9.tgz#1e8ab922ad0bfaaf198ec0512b703d077c736eda"
+  integrity sha512-y6IGrJX1ACGVnxdqYIB+hkCMZMx5vabH/TtuTEhj4ATX7vVSo/uXdB30/WEh9ossN7C42UkMUM38w9TZBzAu3A==
+  dependencies:
+    "@orbit/utils" "^0.17.0-beta.9"
 
 "@orbit/utils@^0.17.0-beta.4", "@orbit/utils@^0.17.0-beta.8", "@orbit/utils@^0.17.0-beta.9":
   version "0.17.0-beta.9"

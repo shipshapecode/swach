@@ -90,10 +90,13 @@ mb.app.commandLine.appendSwitch(
 let sharedPaletteLink;
 
 function openSharedPalette() {
-  const query = sharedPaletteLink.split('?data=')[1];
   mb.showWindow();
-  if (query) {
-    mb.window.webContents.send('openSharedPalette', query);
+
+  if (sharedPaletteLink) {
+    const query = sharedPaletteLink.split('?data=')[1];
+    if (query) {
+      mb.window.webContents.send('openSharedPalette', query);
+    }
   }
 }
 
@@ -125,8 +128,8 @@ if (!gotTheLock) {
     if (mb.window) {
       if (process.platform !== 'darwin') {
         sharedPaletteLink = argv.find((arg) => arg.startsWith('swach://'));
+        openSharedPalette();
       }
-      openSharedPalette();
     }
   });
 }

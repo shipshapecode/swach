@@ -30,7 +30,7 @@
     "test:ember": "ember test"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.13",
+    "@babel/core": "^7.12.16",
     "@babel/plugin-proposal-object-rest-spread": "^7.12.13",
     "@clark/eslint-config-ember-order-imports": "^2.1.0",
     "@csstools/postcss-sass": "^4.0.0",

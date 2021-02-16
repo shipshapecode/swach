@@ -28,7 +28,6 @@ export default {
     injections.name = 'remote';
     injections.host =
       'https://jpuj8ukmx8.execute-api.us-east-2.amazonaws.com/dev';
-    injections.namespace = 'api';
     injections.RequestProcessorClass = RemoteRequestProcessor;
 
     return new RemoteSource(injections);

@@ -1,3 +1,11 @@
+## v0.7.3 (2021-02-16)
+
+#### :house: Internal
+* [#550](https://github.com/shipshapecode/swach/pull/550) Fix some types, bump some deps ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v0.7.2 (2021-02-16)
 
 ## v0.7.1 (2021-02-09)

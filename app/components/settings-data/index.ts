@@ -7,6 +7,8 @@ import FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
 import { Store } from 'ember-orbit';
 
+import { Coordinator } from '@orbit/coordinator';
+import IndexedDBSource from '@orbit/indexeddb';
 import { IpcRenderer } from 'electron';
 import IDBExportImport from 'indexeddb-export-import';
 
@@ -14,7 +16,7 @@ import { SettingsStorage } from 'swach/storages/settings';
 import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
 
 export default class SettingsDataComponent extends Component {
-  @service dataCoordinator: any;
+  @service dataCoordinator!: Coordinator;
   @service flashMessages!: FlashMessageService;
   @service store!: Store;
 
@@ -83,7 +85,9 @@ export default class SettingsDataComponent extends Component {
                     if (!err) {
                       idbDatabase.close();
                       // TODO is pulling from the backup with orbit the best "refresh" here?
-                      const backup = this.dataCoordinator.getSource('backup');
+                      const backup = this.dataCoordinator.getSource(
+                        'backup'
+                      ) as IndexedDBSource;
 
                       if (backup) {
                         const transform = await backup.pull((q) =>

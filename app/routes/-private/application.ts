@@ -4,14 +4,17 @@ import { inject as service } from '@ember/service';
 
 import { Store } from 'ember-orbit';
 
+import { Coordinator } from '@orbit/coordinator';
+import IndexedDBSource from '@orbit/indexeddb';
+import { RecordSchema } from '@orbit/records';
 import { IpcRenderer } from 'electron';
 
 import ENV from 'swach/config/environment';
 import PaletteModel from 'swach/data-models/palette';
 
 export default class ApplicationRoute extends Route {
-  @service dataCoordinator: any;
-  @service dataSchema: any;
+  @service dataCoordinator!: Coordinator;
+  @service dataSchema!: RecordSchema;
   @service router!: Router;
   @service store!: Store;
 
@@ -32,10 +35,14 @@ export default class ApplicationRoute extends Route {
 
   async beforeModel(): Promise<void> {
     if (ENV.environment === 'test') {
+      this.dataCoordinator.removeStrategy('remote-store-sync');
       this.dataCoordinator.removeStrategy('store-backup-sync');
       this.dataCoordinator.removeSource('backup');
+      this.dataCoordinator.removeSource('remote');
     } else {
-      const backup = this.dataCoordinator.getSource('backup');
+      const backup = this.dataCoordinator.getSource(
+        'backup'
+      ) as IndexedDBSource;
 
       if (backup) {
         const transform = await backup.pull((q) => q.findRecords());
@@ -54,9 +61,9 @@ export default class ApplicationRoute extends Route {
 
         await this.store.sync(transform);
       }
-    }
 
-    await this.dataCoordinator.activate();
+      await this.dataCoordinator.activate();
+    }
 
     const palettes = (await this.store.find('palette')) as PaletteModel[];
     let colorHistory = palettes.find(

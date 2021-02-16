@@ -7,6 +7,7 @@ import { Store } from 'ember-orbit';
 import { IpcRenderer } from 'electron';
 
 import ENV from 'swach/config/environment';
+import PaletteModel from 'swach/data-models/palette';
 
 export default class ApplicationRoute extends Route {
   @service dataCoordinator: any;
@@ -57,18 +58,20 @@ export default class ApplicationRoute extends Route {
 
     await this.dataCoordinator.activate();
 
-    const palettes = await this.store.find('palette');
-    let colorHistory = palettes.findBy('isColorHistory', true);
+    const palettes = (await this.store.find('palette')) as PaletteModel[];
+    let colorHistory = palettes.find(
+      (palette: PaletteModel) => palette.isColorHistory
+    );
 
     if (!colorHistory) {
-      colorHistory = await this.store.addRecord({
+      colorHistory = (await this.store.addRecord({
         type: 'palette',
         createdAt: new Date(),
         colorOrder: [],
         isColorHistory: true,
         isFavorite: false,
         isLocked: false
-      });
+      })) as PaletteModel;
     }
   }
 }

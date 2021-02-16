@@ -11,7 +11,8 @@ export default class AnimatedOutlet extends Component {
   rules({ newItems, oldItems }: { newItems: any[]; oldItems: any[] }): unknown {
     const oldRoute = oldItems[oldItems.length - 1];
     const newRoute = newItems[newItems.length - 1];
-    let oldRouteName: string, newRouteName: string;
+    let oldRouteName: string | undefined = undefined;
+    let newRouteName: string | undefined = undefined;
 
     if (oldRoute) {
       oldRouteName = oldRoute.outlets.main.render.name;

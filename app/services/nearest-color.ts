@@ -11,17 +11,19 @@ export default class NearestColorService extends Service {
     g,
     b
   }: {
-    r: string;
-    g: string;
-    b: string;
+    r: number;
+    g: number;
+    b: number;
   }) => { name: string };
 
   constructor() {
     super(...arguments);
 
     const namedColors = colorNameList.reduce(
-      (o: any, { name, hex }: { name: string; hex: string }) =>
-        Object.assign(o, { [name]: hex }),
+      (
+        o: { [key: string]: string },
+        { name, hex }: { name: string; hex: string }
+      ) => Object.assign(o, { [name]: hex }),
       {}
     );
 

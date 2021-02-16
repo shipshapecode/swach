@@ -49,7 +49,7 @@
     "@orbit/jsonapi": "^0.17.0-beta.10",
     "@orbit/utils": "^0.17.0-beta.9",
     "@release-it/bumper": "^2.0.0",
-    "@sentry/electron": "^2.2.0",
+    "@sentry/electron": "^2.3.0",
     "@sentry/integrations": "^6.1.0",
     "@tailwindcss/custom-forms": "^0.2.1",
     "@tailwindcss/forms": "^0.2.1",
@@ -134,7 +134,7 @@
     "wcag-contrast": "^3.0.0"
   },
   "engines": {
-    "node": ">= 14"
+    "node": ">= 15"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -168,7 +168,7 @@
     "throttle-debounce": "^3.0.1"
   },
   "volta": {
-    "node": "14.15.4",
+    "node": "15.8.0",
     "yarn": "1.22.10"
   }
 }

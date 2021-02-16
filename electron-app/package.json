@@ -22,7 +22,7 @@
     "forge": "config.forge.js"
   },
   "dependencies": {
-    "@sentry/electron": "^2.2.0",
+    "@sentry/electron": "^2.3.0",
     "electron-color-picker": "^0.2.0",
     "electron-dl": "^3.0.3",
     "electron-is-dev": "^1.2.0",
@@ -47,6 +47,10 @@
     "electron-download": "^4.1.1"
   },
   "engines": {
-    "node": ">= 14"
+    "node": ">= 15"
+  },
+  "volta": {
+    "node": "15.8.0",
+    "yarn": "1.22.10"
   }
 }

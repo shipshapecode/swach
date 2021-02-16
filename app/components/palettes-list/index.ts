@@ -4,13 +4,13 @@ import Component from '@glimmer/component';
 
 import { LiveQuery, Store } from 'ember-orbit';
 
-import { OperationTerm } from '@orbit/data/src/operation-term';
+import { RecordOperationTerm } from '@orbit/records';
 
 import PaletteModel from 'swach/data-models/palette';
 import UndoManager from 'swach/services/undo-manager';
 
 interface PalettesListArgs {
-  palettes: LiveQuery<PaletteModel>;
+  palettes: LiveQuery;
   showFavorites: boolean;
 }
 
@@ -19,11 +19,13 @@ export default class PalettesListComponent extends Component<PalettesListArgs> {
   @service undoManager!: UndoManager;
 
   get palettes(): PaletteModel[] {
+    const palettes = (this.args.palettes?.value ?? []) as PaletteModel[];
+
     if (this.args.showFavorites) {
-      return this.args.palettes.value.filterBy('isFavorite', true);
+      return palettes.filter((palette) => palette.isFavorite);
     }
 
-    return this.args.palettes.value;
+    return palettes;
   }
 
   @action
@@ -46,7 +48,7 @@ export default class PalettesListComponent extends Component<PalettesListArgs> {
     targetList.insertAt(targetIndex, movedItem);
 
     await this.store.update((t) => {
-      const operations: OperationTerm[] = [];
+      const operations: RecordOperationTerm[] = [];
 
       targetList.forEach((palette: PaletteModel, index: number) => {
         operations.push(

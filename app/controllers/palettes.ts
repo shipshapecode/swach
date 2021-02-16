@@ -6,7 +6,7 @@ import { tracked } from '@glimmer/tracking';
 
 import { Store } from 'ember-orbit';
 
-import { OperationTerm } from '@orbit/data/src/operation-term';
+import { RecordOperationTerm } from '@orbit/records';
 import { clone } from '@orbit/utils';
 
 import ApplicationController from 'swach/controllers/application';
@@ -24,7 +24,7 @@ export default class PalettesController extends Controller {
 
   @tracked showFavorites = false;
 
-  get colorHistory(): PaletteModel | undefined {
+  get colorHistory(): PaletteModel {
     return this.model.colorHistory.value[0];
   }
 
@@ -128,7 +128,7 @@ export default class PalettesController extends Controller {
             sourceColorList.removeObject(colorToRemove);
 
             await this.store.update((t) => {
-              const operations: OperationTerm[] = [];
+              const operations: RecordOperationTerm[] = [];
 
               operations.push(
                 t.removeFromRelatedRecords(
@@ -207,7 +207,7 @@ export default class PalettesController extends Controller {
           id: addColorToPaletteOperation.operation.record.id
         });
 
-        const operations: OperationTerm[] = [addColorToPaletteOperation];
+        const operations: RecordOperationTerm[] = [addColorToPaletteOperation];
 
         operations.push(
           t.replaceAttribute(
@@ -298,6 +298,7 @@ export default class PalettesController extends Controller {
   @action
   transitionToColorHistory(event: InputEvent): void {
     event.stopPropagation();
+
     if (this.colorHistory.colors.length) {
       this.router.transitionTo('colors', {
         queryParams: { paletteId: this.colorHistory.id }

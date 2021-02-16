@@ -3,7 +3,6 @@ import Router from '@ember/routing/router-service';
 import { inject as service } from '@ember/service';
 import { isEmpty } from '@ember/utils';
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
 
 import ColorModel from 'swach/data-models/color';
 import PaletteModel from 'swach/data-models/palette';

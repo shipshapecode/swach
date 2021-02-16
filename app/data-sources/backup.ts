@@ -1,5 +1,5 @@
-import { Record, RecordIdentity, Schema } from '@orbit/data';
 import { IndexedDBSource } from '@orbit/indexeddb';
+import { Record, RecordIdentity, RecordSchema } from '@orbit/records';
 import { clone } from '@orbit/utils';
 
 import ENV from 'swach/config/environment';
@@ -8,7 +8,7 @@ import { ColorPOJO } from 'swach/services/color-utils';
 const { SCHEMA_VERSION } = ENV;
 
 export default {
-  create(injections: { name?: string; schema: Schema }): IndexedDBSource {
+  create(injections: { name?: string; schema: RecordSchema }): IndexedDBSource {
     injections.name = 'backup';
 
     const { schema } = injections;

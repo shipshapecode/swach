@@ -32,7 +32,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/plugin-proposal-object-rest-spread": "^7.12.13",
-    "@clark/eslint-config-ember-order-imports": "^2.1.0",
+    "@clark/eslint-config-ember-order-imports": "^2.2.0",
     "@csstools/postcss-sass": "^4.0.0",
     "@ctrl/tinycolor": "^3.4.0",
     "@ember/optional-features": "^2.0.0",

@@ -47,10 +47,10 @@
     "electron-download": "^4.1.1"
   },
   "engines": {
-    "node": ">= 15"
+    "node": ">= 14"
   },
   "volta": {
-    "node": "15.8.0",
+    "node": "14.15.5",
     "yarn": "1.22.10"
   }
 }

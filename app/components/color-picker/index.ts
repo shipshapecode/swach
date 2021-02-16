@@ -8,7 +8,7 @@ import { Store } from 'ember-orbit';
 
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
-import { OperationTerm } from '@orbit/data/src/operation-term';
+import { RecordOperationTerm } from '@orbit/records';
 
 import {
   PrivateRGBAHex,
@@ -71,7 +71,7 @@ export default class ColorPickerComponent extends Component<ColorPickerArgs> {
     // If we passed a color to edit, save it, otherwise create a new global color
     if (colorToEdit) {
       await this.store.update((t) => {
-        const operations: OperationTerm[] = [];
+        const operations: RecordOperationTerm[] = [];
 
         ['r', 'g', 'b', 'a', 'name'].forEach((attr) => {
           operations.push(

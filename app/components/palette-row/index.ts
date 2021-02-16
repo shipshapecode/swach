@@ -8,7 +8,7 @@ import fade from 'ember-animated/transitions/fade';
 import DragSortService from 'ember-drag-sort/services/drag-sort';
 import { Store } from 'ember-orbit';
 
-import { OperationTerm } from '@orbit/data/src/operation-term';
+import { RecordOperationTerm } from '@orbit/records';
 import { clone } from '@orbit/utils';
 
 import ColorModel from 'swach/data-models/color';
@@ -206,7 +206,7 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
       let colorOrder = this.args.palette.colorOrder;
       const addPaletteOperation = t.addRecord(paletteCopy);
 
-      const operations: OperationTerm[] = [addPaletteOperation];
+      const operations: RecordOperationTerm[] = [addPaletteOperation];
 
       this.args.palette.colors.forEach((color) => {
         const colorCopy = clone(color.getData());

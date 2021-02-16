@@ -3,7 +3,7 @@ import { htmlSafe as _htmlSafe } from '@ember/template';
 
 import { SafeString } from 'ember__template/-private/handlebars';
 
-export function htmlSafe([string]): SafeString {
+export function htmlSafe([string]: [string]): SafeString {
   return _htmlSafe(string);
 }
 

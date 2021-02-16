@@ -35,7 +35,7 @@ interface PaletteRowArgs {
   palette: PaletteModel;
 }
 
-class ContextMenuOption {
+class MenuOption {
   action: () => void;
   icon: string;
   label: string;
@@ -107,14 +107,13 @@ class LockOption {
 
 export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   @service colorUtils!: ColorUtils;
-  @service contextMenu!: ContextMenuService;
   @service dataSchema!: any;
   @service dragSort!: DragSortService;
   @service router!: Router;
   @service store!: Store;
   @service undoManager!: UndoManager;
 
-  menuItems: (ContextMenuOption | FavoriteOption | LockOption)[] | null = null;
+  menuItems: (MenuOption | FavoriteOption | LockOption)[] | null = null;
   fade = fade;
   nameInput!: HTMLElement;
   @tracked isEditing = false;
@@ -123,13 +122,13 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
     super(owner, args);
 
     this.menuItems = [
-      new ContextMenuOption(
+      new MenuOption(
         this.toggleIsEditing,
         'rename',
         'Rename Palette',
         this.args.palette
       ),
-      new ContextMenuOption(
+      new MenuOption(
         this.duplicatePalette,
         'duplicate',
         'Duplicate Palette',
@@ -137,13 +136,13 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
       ),
       new LockOption(this.lockPalette, this.args.palette),
       new FavoriteOption(this.favoritePalette, this.args.palette),
-      new ContextMenuOption(
+      new MenuOption(
         this.sharePalette,
         'share',
         'Share Palette',
         this.args.palette
       ),
-      new ContextMenuOption(
+      new MenuOption(
         this.deletePalette,
         'trash',
         'Delete Palette',
@@ -172,18 +171,6 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
         return this.args.palette.colors.findBy('id', color.id);
       }
     );
-  }
-
-  @action
-  contextMenuTrigger(e: Event): void {
-    const items = this.contextItems;
-    const selection = this.contextSelection;
-    const details = this.contextDetails;
-
-    if (items && items.length) {
-      e.preventDefault();
-      this.contextMenu.activate(e, items, selection, details);
-    }
   }
 
   @action

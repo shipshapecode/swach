@@ -127,7 +127,7 @@ export default class ContrastChecker extends Component {
 
   setBgColor(color) {
     try {
-      this.bgPickr.setColors([color], 0);
+      this.bgPickr.setColors([color]);
       this.backgroundColor = this.bgPickr.color.hexString;
     } catch (err) {
       // TODO: maybe mention the color is invalid here?
@@ -141,7 +141,7 @@ export default class ContrastChecker extends Component {
 
   setFgColor(color) {
     try {
-      this.fgPickr.setColors([color], 0);
+      this.fgPickr.setColors([color]);
       this.foregroundColor = this.fgPickr.color.hexString;
     } catch (err) {
       // TODO: maybe mention the color is invalid here?

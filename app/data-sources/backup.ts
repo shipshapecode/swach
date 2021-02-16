@@ -1,5 +1,5 @@
-import { Record, RecordIdentity, RecordSchema } from '@orbit/records';
 import { IndexedDBSource } from '@orbit/indexeddb';
+import { Record, RecordIdentity, RecordSchema } from '@orbit/records';
 import { clone } from '@orbit/utils';
 
 import ENV from 'swach/config/environment';

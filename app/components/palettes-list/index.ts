@@ -19,11 +19,13 @@ export default class PalettesListComponent extends Component<PalettesListArgs> {
   @service undoManager!: UndoManager;
 
   get palettes(): PaletteModel[] {
+    const palettes = (this.args.palettes?.value ?? []) as PaletteModel[];
+
     if (this.args.showFavorites) {
-      return this.args.palettes.value.filterBy('isFavorite', true);
+      return palettes.filter((palette) => palette.isFavorite);
     }
 
-    return this.args.palettes.value;
+    return palettes;
   }
 
   @action

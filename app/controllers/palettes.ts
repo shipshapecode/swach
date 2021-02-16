@@ -24,7 +24,7 @@ export default class PalettesController extends Controller {
 
   @tracked showFavorites = false;
 
-  get colorHistory(): PaletteModel | undefined {
+  get colorHistory(): PaletteModel {
     return this.model.colorHistory.value[0];
   }
 
@@ -298,6 +298,7 @@ export default class PalettesController extends Controller {
   @action
   transitionToColorHistory(event: InputEvent): void {
     event.stopPropagation();
+
     if (this.colorHistory.colors.length) {
       this.router.transitionTo('colors', {
         queryParams: { paletteId: this.colorHistory.id }

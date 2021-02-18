@@ -2391,16 +2391,16 @@
     "@orbit/records" "^0.17.0-beta.12"
     "@orbit/utils" "^0.17.0-beta.12"
 
-"@orbit/jsonapi@^0.17.0-beta.10":
-  version "0.17.0-beta.10"
-  resolved "https://registry.yarnpkg.com/@orbit/jsonapi/-/jsonapi-0.17.0-beta.10.tgz#81998eb5f0f84a0ed75c0ced42b4e884e01e1ad2"
-  integrity sha512-RTCvPgZStBYtgYsM3RqO1REhOAkYVNPIeg680c9KF6echrKxCa7gjYIMd+j5bRaMFsti0O7mVyi0lwdxrx/eQw==
+"@orbit/jsonapi@^0.17.0-beta.12":
+  version "0.17.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@orbit/jsonapi/-/jsonapi-0.17.0-beta.12.tgz#aab312db05927c9cd6700213fb7b6b757532e4fa"
+  integrity sha512-786PE2uj2KQhRh32oyBWTH6kKXSJ8nxdKDRMnlDBmxBS9+gLi0gZfF9MQoCh0FKvj9lxcuU7PWheu3F5o1gaAg==
   dependencies:
-    "@orbit/core" "^0.17.0-beta.9"
-    "@orbit/data" "^0.17.0-beta.9"
-    "@orbit/records" "^0.17.0-beta.10"
-    "@orbit/serializers" "^0.17.0-beta.9"
-    "@orbit/utils" "^0.17.0-beta.9"
+    "@orbit/core" "^0.17.0-beta.12"
+    "@orbit/data" "^0.17.0-beta.12"
+    "@orbit/records" "^0.17.0-beta.12"
+    "@orbit/serializers" "^0.17.0-beta.12"
+    "@orbit/utils" "^0.17.0-beta.12"
 
 "@orbit/memory@^0.17.0-beta.11":
   version "0.17.0-beta.11"
@@ -2432,12 +2432,12 @@
     "@orbit/data" "^0.17.0-beta.12"
     "@orbit/utils" "^0.17.0-beta.12"
 
-"@orbit/serializers@^0.17.0-beta.9":
-  version "0.17.0-beta.9"
-  resolved "https://registry.yarnpkg.com/@orbit/serializers/-/serializers-0.17.0-beta.9.tgz#1e8ab922ad0bfaaf198ec0512b703d077c736eda"
-  integrity sha512-y6IGrJX1ACGVnxdqYIB+hkCMZMx5vabH/TtuTEhj4ATX7vVSo/uXdB30/WEh9ossN7C42UkMUM38w9TZBzAu3A==
+"@orbit/serializers@^0.17.0-beta.12":
+  version "0.17.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@orbit/serializers/-/serializers-0.17.0-beta.12.tgz#3283704118891faffb758d7407b0e338f9cee5cb"
+  integrity sha512-wbZnGuqm5l/ho6AVMjiRkkAr0Ug/Yzmcy7D9nR0KRxkNX6F6tcMrK2fAn7uZ99eUlgsdMp6Ule0ffzrifW5bvg==
   dependencies:
-    "@orbit/utils" "^0.17.0-beta.9"
+    "@orbit/utils" "^0.17.0-beta.12"
 
 "@orbit/utils@^0.17.0-beta.12", "@orbit/utils@^0.17.0-beta.9":
   version "0.17.0-beta.12"

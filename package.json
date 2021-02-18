@@ -44,7 +44,7 @@
     "@glimmer/component": "^1.0.3",
     "@glimmer/tracking": "^1.0.3",
     "@jaames/iro": "^5.3.1",
-    "@orbit/coordinator": "^0.17.0-beta.9",
+    "@orbit/coordinator": "^0.17.0-beta.12",
     "@orbit/indexeddb": "^0.17.0-beta.12",
     "@orbit/jsonapi": "^0.17.0-beta.10",
     "@orbit/utils": "^0.17.0-beta.9",

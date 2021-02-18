@@ -54,7 +54,9 @@ export default class ApplicationRoute extends Route {
         // will simply be reloaded into the backup db.
         // TODO: This is a bit of a hack that should be replaced with better
         // support for migrations in `IndexedDBCache` in `@orbit/indexeddb`.
+        // @ts-expect-error This is a hacked property until we have a real one to use in ember-orbit
         if (backup.recreateInverseRelationshipsOnLoad) {
+          // @ts-expect-error This is a hacked property until we have a real one to use in ember-orbit
           backup.recreateInverseRelationshipsOnLoad = false;
           await backup.sync(transform);
         }

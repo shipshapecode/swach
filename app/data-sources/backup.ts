@@ -30,7 +30,7 @@ export default {
         const oldColors = await getRecordsFromIDB(transaction, 'color');
         const palettes = await getRecordsFromIDB(transaction, 'palette');
 
-        const newColors = [];
+        const newColors: Record[] = [];
 
         for (const color of oldColors) {
           if (color.relationships?.palettes) {

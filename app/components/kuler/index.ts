@@ -94,6 +94,7 @@ export default class KulerComponent extends Component<KulerArgs> {
             await this._onColorChange(color);
             this.colorPicker.setColors(
               this.selectedPalette.colors.mapBy('hex'),
+              //@ts-expect-error We override setColors, so the types do not match here
               this.selectedPalette.selectedColorIndex
             );
           }
@@ -102,7 +103,7 @@ export default class KulerComponent extends Component<KulerArgs> {
     });
   }
 
-  willDestroy() {
+  willDestroy(): void {
     super.willDestroy();
 
     this._destroyLeftoverPalettes();
@@ -121,7 +122,7 @@ export default class KulerComponent extends Component<KulerArgs> {
 
     const palettes: Palette[] = [];
     for (const harmony of this.harmonies) {
-      const palette = new Palette(harmony);
+      const palette = new Palette(harmony as harmonyTypes);
 
       let colors = new TinyColor(this.baseColor.hex)[harmony](5);
       colors = colors.map((color: TinyColor) => {
@@ -148,6 +149,7 @@ export default class KulerComponent extends Component<KulerArgs> {
     ).then(() => {
       this.colorPicker.setColors(
         this.selectedPalette.colors.mapBy('hex'),
+        //@ts-expect-error We override setColors, so the types do not match here
         this.selectedPalette.selectedColorIndex
       );
     });
@@ -173,6 +175,7 @@ export default class KulerComponent extends Component<KulerArgs> {
       this.selectedPalette = palette;
       this.colorPicker.setColors(
         this.selectedPalette.colors.mapBy('hex'),
+        //@ts-expect-error We override setColors, so the types do not match here
         palette.selectedColorIndex
       );
 
@@ -206,6 +209,7 @@ export default class KulerComponent extends Component<KulerArgs> {
 
     this.colorPicker.setColors(
       this.selectedPalette.colors.mapBy('hex'),
+      //@ts-expect-error We override setColors, so the types do not match here
       this.selectedPalette.selectedColorIndex
     );
 

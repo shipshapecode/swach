@@ -74,12 +74,10 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
   //   }
   // }
 
-  // TODO: try replacing this with the real setColors method from iro.
   @action
   updateColor(): void {
     this.args.colorPicker.setColors(
       this.args.palette.colors.mapBy('hex'),
-      //@ts-expect-error We override setColors, so the types do not match here
       this.args.palette.selectedColorIndex
     );
   }

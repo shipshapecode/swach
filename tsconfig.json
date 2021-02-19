@@ -25,7 +25,8 @@
       "swach/tests/*": ["tests/*"],
       "swach/*": ["app/*"],
       "*": ["types/*"],
-      "@ember/destroyable": ["node_modules/ember-destroyable-polyfill"]
+      "@ember/destroyable": ["node_modules/ember-destroyable-polyfill"],
+      "@glimmer/tracking/primitives/cache": ["node_modules/ember-cache-primitive-polyfill"],
     }
   },
   "include": ["app/**/*", "tests/**/*", "types/**/*"]

@@ -109,6 +109,7 @@ export default class KulerComponent extends Component<KulerArgs> {
     for (const harmony of this.harmonies) {
       const palette = new Palette(harmony as harmonyTypes);
 
+      //@ts-expect-error TODO fix this error later
       let colors = new TinyColor(this.baseColor.hex)[harmony](5);
       colors = colors.map((color: TinyColor) => {
         return this.colorUtils.createColorPOJO(color.toHexString());

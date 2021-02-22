@@ -78,6 +78,7 @@ export default class ColorPickerComponent extends Component<ColorPickerArgs> {
             t.replaceAttribute(
               { type: 'color', id: colorToEdit.id },
               attr,
+              //@ts-expect-error TODO fix this error later
               this._selectedColor[attr]
             )
           );

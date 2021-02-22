@@ -30,6 +30,7 @@
     "test:ember": "ember test"
   },
   "devDependencies": {
+    "aws4fetch": "^1.0.13",
     "@babel/core": "^7.14.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.14.2",
     "@clark/eslint-config-ember-order-imports": "^2.2.0",

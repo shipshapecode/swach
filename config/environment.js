@@ -29,7 +29,9 @@ module.exports = function (environment) {
 
     cognito: {
       poolId: 'us-east-2_AEr5v3Ogt',
-      clientId: '1jn23hlv9ggi63mc37f4m5hm4h'
+      clientId: '1jn23hlv9ggi63mc37f4m5hm4h',
+      identityPoolId: 'us-east-2:af67b33e-b9cd-4eaa-9669-e478e56e9310',
+      region: 'us-east-2'
     },
     featureFlags: {
       'cloud-login': true

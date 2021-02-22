@@ -46,7 +46,6 @@ export default class ApplicationRoute extends Route {
 
       if (backup) {
         const transform = await backup.pull((q) => q.findRecords());
-        console.log(transform);
 
         // If a data migration has been loaded that requires the recreation of
         // inverse relationships, this flag will be set as part of the

@@ -2418,16 +2418,16 @@
   resolved "https://registry.yarnpkg.com/@orbit/immutable/-/immutable-0.17.0-beta.12.tgz#26d3bbe86949a37ba9f1747d188d837bec641366"
   integrity sha512-2/RC0gqWGLPGqRouc1ffDXGH0AXFC2TeLCfe03EEfaI6UmGsITaGklIiwrfhyd1mZ9SgAxR9sMfvqYbt2y31YA==
 
-"@orbit/indexeddb@^0.17.0-beta.12":
-  version "0.17.0-beta.12"
-  resolved "https://registry.yarnpkg.com/@orbit/indexeddb/-/indexeddb-0.17.0-beta.12.tgz#e261a4bff067169e9486fa9acb179b2bc9330027"
-  integrity sha512-zwgfenFV6P7rcSfYt91Dy9dzTgOu0SC9f7xIIlIgJuzazcF//tT27Cvro8nEGkDWxkz/3fSD6q8B5OOtIk/R5Q==
+"@orbit/indexeddb@^0.17.0-beta.14":
+  version "0.17.0-beta.14"
+  resolved "https://registry.yarnpkg.com/@orbit/indexeddb/-/indexeddb-0.17.0-beta.14.tgz#0c5ff768f414cabc6dea74a37c4b49189880c83d"
+  integrity sha512-kXfQhVMLrGPuFH8yLI8g1RXUIJROQC2F9qXag57xeX5OXYEHzFnYajQ6WlWZHqvWJo+31JYxBasuqzhS3JTByA==
   dependencies:
-    "@orbit/core" "^0.17.0-beta.12"
-    "@orbit/data" "^0.17.0-beta.12"
-    "@orbit/record-cache" "^0.17.0-beta.12"
-    "@orbit/records" "^0.17.0-beta.12"
-    "@orbit/utils" "^0.17.0-beta.12"
+    "@orbit/core" "^0.17.0-beta.14"
+    "@orbit/data" "^0.17.0-beta.14"
+    "@orbit/record-cache" "^0.17.0-beta.14"
+    "@orbit/records" "^0.17.0-beta.14"
+    "@orbit/utils" "^0.17.0-beta.14"
 
 "@orbit/jsonapi@^0.17.0-beta.14":
   version "0.17.0-beta.14"
@@ -2452,15 +2452,15 @@
     "@orbit/records" "^0.17.0-beta.12"
     "@orbit/utils" "^0.17.0-beta.12"
 
-"@orbit/record-cache@^0.17.0-beta.12":
-  version "0.17.0-beta.12"
-  resolved "https://registry.yarnpkg.com/@orbit/record-cache/-/record-cache-0.17.0-beta.12.tgz#35fe1b9fc813a8a53fc37a01058af2e60c43a22e"
-  integrity sha512-DZI3kWIXinWgT2LVGKFLZ57I2fI0PoPeQb0IsIpHpNctA8OzpCL52A42u/mi2gdlzQg7uUNUPHspxtG7FYW92A==
+"@orbit/record-cache@^0.17.0-beta.12", "@orbit/record-cache@^0.17.0-beta.14":
+  version "0.17.0-beta.14"
+  resolved "https://registry.yarnpkg.com/@orbit/record-cache/-/record-cache-0.17.0-beta.14.tgz#91884ae49f3d11b54db8a4dc4e5a853313fb05f9"
+  integrity sha512-ygBtm25+ayrsN0sUjwUUhevHaW30g6H9JBrU8lo4Tu0v1Id5NVxsikPTtFCXiZBDQM1QxH1XpV6DLDLPIjH6bQ==
   dependencies:
-    "@orbit/core" "^0.17.0-beta.12"
-    "@orbit/data" "^0.17.0-beta.12"
-    "@orbit/records" "^0.17.0-beta.12"
-    "@orbit/utils" "^0.17.0-beta.12"
+    "@orbit/core" "^0.17.0-beta.14"
+    "@orbit/data" "^0.17.0-beta.14"
+    "@orbit/records" "^0.17.0-beta.14"
+    "@orbit/utils" "^0.17.0-beta.14"
 
 "@orbit/records@^0.17.0-beta.12", "@orbit/records@^0.17.0-beta.14":
   version "0.17.0-beta.14"

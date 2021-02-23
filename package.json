@@ -47,7 +47,7 @@
     "@orbit/coordinator": "^0.17.0-beta.12",
     "@orbit/indexeddb": "^0.17.0-beta.12",
     "@orbit/jsonapi": "^0.17.0-beta.12",
-    "@orbit/utils": "^0.17.0-beta.9",
+    "@orbit/utils": "^0.17.0-beta.14",
     "@release-it/bumper": "^2.0.0",
     "@sentry/electron": "^2.3.0",
     "@sentry/integrations": "^6.2.0",

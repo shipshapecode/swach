@@ -1,7 +1,9 @@
+import { getOwner } from '@ember/application';
+
 import { SyncStrategy } from '@orbit/coordinator';
 
 export default {
-  create() {
+  create(injections = {}) {
     return new SyncStrategy({
       name: 'remote-store-sync',
 
@@ -30,7 +32,13 @@ export default {
        * `filter` will be invoked in the context of this strategy (and thus will
        * have access to both `this.source` and `this.target`).
        */
-      // filter(...args) {},
+      filter() {
+        // the strategy is only to query remote if authenticated
+        const app = getOwner(injections);
+        const session = app.lookup('service:session');
+
+        return session.isAuthenticated;
+      },
 
       /**
        * Should resolution of the target's `sync` block the completion of the

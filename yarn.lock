@@ -2384,14 +2384,14 @@
   dependencies:
     "@octokit/openapi-types" "^5.1.0"
 
-"@orbit/coordinator@^0.17.0-beta.12":
-  version "0.17.0-beta.12"
-  resolved "https://registry.yarnpkg.com/@orbit/coordinator/-/coordinator-0.17.0-beta.12.tgz#f7b04cc13ec323ca20e37db8c22a41790787fcc9"
-  integrity sha512-UXy70gfqaRy5hkle7t49nUZklDOFPVZMzwPgujaEZRcu0dJTXVRJvyCG7AIKPRK8eC6qUpOjf457aTqNoS843A==
+"@orbit/coordinator@^0.17.0-beta.12", "@orbit/coordinator@^0.17.0-beta.14":
+  version "0.17.0-beta.14"
+  resolved "https://registry.yarnpkg.com/@orbit/coordinator/-/coordinator-0.17.0-beta.14.tgz#4eb1db825d192bb4338e3298ee50d817472f053c"
+  integrity sha512-v4ou9OqXzD5nMoBCxFG6Ml10iLJlLy24V2qKrgzNgG3Vr2cFdweZxR4d3gU3d7m9gwQbgwsnTxUgSr866a9RKg==
   dependencies:
-    "@orbit/core" "^0.17.0-beta.12"
-    "@orbit/data" "^0.17.0-beta.12"
-    "@orbit/utils" "^0.17.0-beta.12"
+    "@orbit/core" "^0.17.0-beta.14"
+    "@orbit/data" "^0.17.0-beta.14"
+    "@orbit/utils" "^0.17.0-beta.14"
 
 "@orbit/core@^0.17.0-beta.12", "@orbit/core@^0.17.0-beta.14":
   version "0.17.0-beta.14"

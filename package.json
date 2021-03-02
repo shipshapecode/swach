@@ -30,7 +30,6 @@
     "test:ember": "ember test"
   },
   "devDependencies": {
-    "aws4fetch": "^1.0.13",
     "@babel/core": "^7.14.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.14.2",
     "@clark/eslint-config-ember-order-imports": "^2.2.0",
@@ -62,6 +61,7 @@
     "@types/sinon": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
+    "aws4fetch": "^1.0.13",
     "babel-eslint": "^10.1.0",
     "babel-preset-env": "^1.7.0",
     "broccoli-asset-rev": "^3.0.0",
@@ -96,6 +96,7 @@
     "ember-export-application-global": "^2.0.1",
     "ember-feature-flags": "^6.0.0",
     "ember-fetch": "^8.0.4",
+    "ember-inflector": "^4.0.1",
     "ember-inputmask": "^0.11.0",
     "ember-load-initializers": "^2.1.2",
     "ember-local-storage": "^1.7.2",

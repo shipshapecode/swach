@@ -1,7 +1,14 @@
 import { getOwner } from '@ember/application';
 import { isPresent } from '@ember/utils';
 
-import RemoteSource, { JSONAPIRequestProcessor } from '@orbit/jsonapi';
+import { pluralize, singularize } from 'ember-inflector';
+
+import {
+  JSONAPIRequestProcessor,
+  JSONAPISerializers,
+  JSONAPISource
+} from '@orbit/jsonapi';
+import { buildSerializerSettingsFor } from '@orbit/serializers';
 import { AwsClient } from 'aws4fetch';
 
 export default {
@@ -86,6 +93,32 @@ export default {
       'https://jpuj8ukmx8.execute-api.us-east-2.amazonaws.com/dev';
     injections.RequestProcessorClass = RemoteRequestProcessor;
 
-    return new RemoteSource(injections);
+    injections.serializerSettingsFor = buildSerializerSettingsFor({
+      sharedSettings: {
+        inflectors: {
+          pluralize,
+          singularize
+        }
+      },
+      settingsByType: {
+        [JSONAPISerializers.ResourceField]: {
+          serializationOptions: { inflectors: ['dasherize'] }
+        },
+        [JSONAPISerializers.ResourceFieldParam]: {
+          serializationOptions: { inflectors: ['dasherize'] }
+        },
+        [JSONAPISerializers.ResourceFieldPath]: {
+          serializationOptions: { inflectors: ['dasherize'] }
+        },
+        [JSONAPISerializers.ResourceType]: {
+          serializationOptions: { inflectors: ['pluralize', 'dasherize'] }
+        },
+        [JSONAPISerializers.ResourceTypePath]: {
+          serializationOptions: { inflectors: ['pluralize', 'dasherize'] }
+        }
+      }
+    });
+
+    return new JSONAPISource(injections);
   }
 };

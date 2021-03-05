@@ -101,20 +101,11 @@ export default {
         }
       },
       settingsByType: {
-        [JSONAPISerializers.ResourceField]: {
-          serializationOptions: { inflectors: ['dasherize'] }
-        },
-        [JSONAPISerializers.ResourceFieldParam]: {
-          serializationOptions: { inflectors: ['dasherize'] }
-        },
-        [JSONAPISerializers.ResourceFieldPath]: {
-          serializationOptions: { inflectors: ['dasherize'] }
-        },
         [JSONAPISerializers.ResourceType]: {
-          serializationOptions: { inflectors: ['pluralize', 'dasherize'] }
+          serializationOptions: { inflectors: ['pluralize'] }
         },
         [JSONAPISerializers.ResourceTypePath]: {
-          serializationOptions: { inflectors: ['pluralize', 'dasherize'] }
+          serializationOptions: { inflectors: ['pluralize'] }
         }
       }
     });

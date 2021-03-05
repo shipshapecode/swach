@@ -48,6 +48,7 @@
     "@orbit/indexeddb": "^0.17.0-beta.15",
     "@orbit/indexeddb-bucket": "0.17.0-beta.14",
     "@orbit/jsonapi": "^0.17.0-beta.14",
+    "@orbit/serializers": "^0.17.0-beta.14",
     "@orbit/utils": "^0.17.0-beta.14",
     "@release-it/bumper": "^2.0.0",
     "@sentry/electron": "^2.4.1",

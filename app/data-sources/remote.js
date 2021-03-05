@@ -39,7 +39,7 @@ export default {
           region: 'us-east-2' // AWS region, by default parsed at fetch time
         });
         const method = settings.body ? 'POST' : 'GET';
-        const request = await aws.sign(url, { method });
+        const request = await aws.sign(url, { method, body: settings.body });
 
         let fullUrl = url;
         if (settings.params) {
@@ -48,8 +48,6 @@ export default {
         }
 
         let fetchFn = fetch;
-
-        console.log('fetch', fullUrl, request, 'polyfill', fetchFn.polyfill);
 
         if (settings.timeout !== undefined && settings.timeout > 0) {
           let timeout = settings.timeout;
@@ -102,10 +100,10 @@ export default {
       },
       settingsByType: {
         [JSONAPISerializers.ResourceType]: {
-          serializationOptions: { inflectors: ['pluralize'] }
+          deserializationOptions: { inflectors: ['singularize'] }
         },
-        [JSONAPISerializers.ResourceTypePath]: {
-          serializationOptions: { inflectors: ['pluralize'] }
+        [JSONAPISerializers.ResourceDocument]: {
+          deserializationOptions: { inflectors: ['singularize'] }
         }
       }
     });

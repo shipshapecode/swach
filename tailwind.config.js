@@ -57,8 +57,8 @@ module.exports = {
     }
   },
   plugins: [
-    // TODO: make forms not look like garbage
-    /*require('@tailwindcss/forms')*/
-    require('@tailwindcss/custom-forms')
+    require('@tailwindcss/forms')({
+      useFormClasses: true
+    })
   ]
 };

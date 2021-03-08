@@ -2414,10 +2414,10 @@
   resolved "https://registry.yarnpkg.com/@orbit/immutable/-/immutable-0.17.0-beta.12.tgz#26d3bbe86949a37ba9f1747d188d837bec641366"
   integrity sha512-2/RC0gqWGLPGqRouc1ffDXGH0AXFC2TeLCfe03EEfaI6UmGsITaGklIiwrfhyd1mZ9SgAxR9sMfvqYbt2y31YA==
 
-"@orbit/indexeddb@^0.17.0-beta.14":
-  version "0.17.0-beta.14"
-  resolved "https://registry.yarnpkg.com/@orbit/indexeddb/-/indexeddb-0.17.0-beta.14.tgz#0c5ff768f414cabc6dea74a37c4b49189880c83d"
-  integrity sha512-kXfQhVMLrGPuFH8yLI8g1RXUIJROQC2F9qXag57xeX5OXYEHzFnYajQ6WlWZHqvWJo+31JYxBasuqzhS3JTByA==
+"@orbit/indexeddb@^0.17.0-beta.15":
+  version "0.17.0-beta.15"
+  resolved "https://registry.yarnpkg.com/@orbit/indexeddb/-/indexeddb-0.17.0-beta.15.tgz#8069162582e5b53d6274394a782e4776e6cdbdcf"
+  integrity sha512-ATbn+/WxzEoF4eUlui3IOdaRcBayd71LYBKsUIIwBDfz0Nh93qGzFUkGLWFVPvS0qRbvTVNgplRBSVcYoS65BA==
   dependencies:
     "@orbit/core" "^0.17.0-beta.14"
     "@orbit/data" "^0.17.0-beta.14"

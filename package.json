@@ -99,7 +99,7 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-named-blocks-polyfill": "^0.2.4",
     "ember-orbit": "^0.17.0-beta.9",
-    "ember-qunit": "^5.1.3",
+    "ember-qunit": "^5.1.4",
     "ember-resolver": "^8.0.2",
     "ember-set-body-class": "^1.0.2",
     "ember-set-helper": "^2.0.0",

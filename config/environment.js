@@ -20,7 +20,7 @@ module.exports = function (environment) {
     },
 
     // The indexedDB schema version. We can increment this to run migrations.
-    SCHEMA_VERSION: 2,
+    SCHEMA_VERSION: 3,
 
     APP: {
       // Here you can pass flags/options to your application instance

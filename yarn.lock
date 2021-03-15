@@ -7773,10 +7773,10 @@ ember-drag-sort@^3.0.0:
     ember-cli-htmlbars "^4.2.0"
     eslint-plugin-varspacing "^1.2.1"
 
-ember-electron@^3.0.0-beta.6:
-  version "3.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/ember-electron/-/ember-electron-3.0.0-beta.6.tgz#f683069c1b07fac2465743bbf5828433f832b4b5"
-  integrity sha512-5Or0Sa72o0udzE7mjSpyJk4/RU5X3c3q8uJXvPmsuylC7FZqO71ATV1eGeNlWhpO3fvlWNTdeuIe0viKtq0bDg==
+ember-electron@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ember-electron/-/ember-electron-3.0.0.tgz#60f8b3f27cd890e1b37f24dd4271a789ee83aa55"
+  integrity sha512-YnTvwPFjNxLpplUI8aN8zvXHbgH2R6eiwDSAheUvyMjLdlb/ga0yOoPBRou7JpHDOjlqOKI5zQVb10mqWOTryw==
   dependencies:
     "@electron-forge/core" "6.0.0-beta.54"
     chalk "^4.0.0"

@@ -2695,9 +2695,10 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
-"@tailwindcss/forms@rwwagner90/tailwindcss-forms#e84f83f144c2d1f5f6d522632016b97b0a0e5740":
-  version "0.2.0"
-  resolved "https://codeload.github.com/rwwagner90/tailwindcss-forms/tar.gz/e84f83f144c2d1f5f6d522632016b97b0a0e5740"
+"@tailwindcss/forms@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.3.1.tgz#977c214e60a53f9399addc51bd01e2db97c2ec8e"
+  integrity sha512-eIymtMPcJ9VwIRAapsuVAQGlhy0UcZaTXrMu0jW9Bzlh8FD2WfV3Hnfq1ddAlgK7YE+ASaIB/wNtDEFasCso9Q==
   dependencies:
     mini-svg-data-uri "^1.2.3"
 

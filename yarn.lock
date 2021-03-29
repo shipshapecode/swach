@@ -2256,17 +2256,17 @@
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.5.tgz#b32366c89b43c6f8cefbdefac778b9c828e3ba8c"
   integrity sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==
 
-"@irojs/iro-core@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@irojs/iro-core/-/iro-core-1.1.0.tgz#3d22dd5650985d68699d1563cc4b9cac61599a3f"
-  integrity sha512-h794d4mxTRVfEBfAEhgHO3RCsFO7QNR6VhPjUuuU5RqHnfKvcw4qyM5TWb9Ypy2SyQ/vA0v20lbKDmZbC3yuXA==
+"@irojs/iro-core@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@irojs/iro-core/-/iro-core-1.2.0.tgz#3587c2db7a6de09f76dbf75b94605ac251039ca8"
+  integrity sha512-RVxd4lEx3KPXRBYo7urLSr9C3PJsm3t9AgPQppP5LDqQcMrXCXcZoeneMtQndMk60k72NziNiPpbZlZIvcT4VQ==
 
-"@jaames/iro@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@jaames/iro/-/iro-5.4.0.tgz#e88a8fcc36aeafd9bcca906d7520b2acb32a902a"
-  integrity sha512-8FQGoItiJU+sa3kqP+qoBDFKXq67eIeLslk6M8qglONna4LgkABOpr5Z3mlCiR72DPirHsgpJz2o7hFWxfgkJA==
+"@jaames/iro@^5.5.0":
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/@jaames/iro/-/iro-5.5.0.tgz#96acd4fbe4506d29f42895344fe1cb23ca5924a9"
+  integrity sha512-vhSMttBS7dcQ4ZKoZjG8NLxMw3k+48NCVtkfzRoPR4+FnlPmClVxtyYY7CJSZoyXxOkxuUsX+I/w8FbbYekh4A==
   dependencies:
-    "@irojs/iro-core" "^1.1.0"
+    "@irojs/iro-core" "^1.2.0"
     preact "^10.0.0"
 
 "@malept/cross-spawn-promise@^1.1.0", "@malept/cross-spawn-promise@^1.1.1":

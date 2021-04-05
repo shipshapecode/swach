@@ -52,7 +52,7 @@
     "@sentry/electron": "^2.4.0",
     "@sentry/integrations": "^6.2.5",
     "@tailwindcss/forms": "rwwagner90/tailwindcss-forms#e84f83f144c2d1f5f6d522632016b97b0a0e5740",
-    "@types/ember": "^3.16.4",
+    "@types/ember": "^3.16.5",
     "@types/ember-qunit": "^3.4.13",
     "@types/ember-resolver": "^5.0.10",
     "@types/ember__test-helpers": "^1.7.3",

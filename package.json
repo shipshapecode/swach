@@ -43,7 +43,7 @@
     "@embroider/webpack": "^0.39.1",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
-    "@jaames/iro": "^5.5.0",
+    "@jaames/iro": "^5.5.1",
     "@orbit/coordinator": "^0.17.0-beta.14",
     "@orbit/indexeddb": "^0.17.0-beta.15",
     "@orbit/jsonapi": "^0.17.0-beta.14",

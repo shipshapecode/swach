@@ -124,7 +124,7 @@
     "postcss": "^8.2.10",
     "postcss-scss": "^3.0.5",
     "prettier": "^2.2.1",
-    "qunit": "^2.14.1",
+    "qunit": "^2.15.0",
     "qunit-dom": "^1.6.0",
     "release-it": "^14.6.1",
     "release-it-lerna-changelog": "^3.1.0",

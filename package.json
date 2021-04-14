@@ -113,7 +113,7 @@
     "ember-tooltips": "^3.4.7",
     "ember-truth-helpers": "^3.0.0",
     "eslint": "^7.24.0",
-    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-ember": "^10.3.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.3.1",

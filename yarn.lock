@@ -7468,7 +7468,7 @@ ember-cli-htmlbars@^4.2.0, ember-cli-htmlbars@^4.2.3:
     strip-bom "^4.0.0"
     walk-sync "^2.0.2"
 
-ember-cli-htmlbars@^5.1.2, ember-cli-htmlbars@^5.2.0, ember-cli-htmlbars@^5.3.1, ember-cli-htmlbars@^5.7.1:
+ember-cli-htmlbars@^5.1.2, ember-cli-htmlbars@^5.3.1, ember-cli-htmlbars@^5.7.1:
   version "5.7.1"
   resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-5.7.1.tgz#eb5b88c7d9083bc27665fb5447a9b7503b32ce4f"
   integrity sha512-9laCgL4tSy48orNoQgQKEHp93MaqAs9ZOl7or5q+8iyGGJHW6sVXIYrVv5/5O9HfV6Ts8/pW1rSoaeKyLUE+oA==
@@ -7541,17 +7541,6 @@ ember-cli-preprocess-registry@^3.3.0:
     broccoli-funnel "^2.0.1"
     debug "^3.0.1"
     process-relative-require "^1.0.0"
-
-ember-cli-requestanimationframe-polyfill@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/ember-cli-requestanimationframe-polyfill/-/ember-cli-requestanimationframe-polyfill-0.0.1.tgz#d5531f50d8867b7243d9a85ab9441a0588cf705c"
-  integrity sha512-zm2rLTY8EWgg5eaQ1z/yehvaonrXiEl7R0V/BEUR9PxFUdXnd3dx6cc694LKXj7puH7XUyaWeYM4pLgkhEn+MQ==
-  dependencies:
-    broccoli-funnel "^2.0.1"
-    caniuse-api "^3.0.0"
-    ember-cli-babel "^6.16.0"
-    fastboot-transform "^0.1.3"
-    raf-polyfill "^1.0.0"
 
 ember-cli-sri@^2.1.1:
   version "2.1.1"
@@ -7871,14 +7860,13 @@ ember-copy@^1.0.0:
   dependencies:
     ember-cli-babel "^6.6.0"
 
-ember-css-transitions@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/ember-css-transitions/-/ember-css-transitions-2.1.0.tgz#146d08a9d667c6432a00184319bc788e62b71ef7"
-  integrity sha512-llIXF46cAOCk6kJiXdFVwoEnax621bbAgPfnkOQgAAXOIC9IrQbYkyj2NDjKyynmLAFUUEkeZbCA8UtajkkN3Q==
+ember-css-transitions@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ember-css-transitions/-/ember-css-transitions-2.1.1.tgz#616069b8adef0175ec310cf504587587e8789f65"
+  integrity sha512-Kue3tMUHlmeEQvnV1YXoJSjk/wIKiywAT72ny89Yl7rRzEjgjOMcUD69HSg3ShsQNOpyzU0eOCANVtk00FjJig==
   dependencies:
     ember-cli-babel "^7.22.1"
-    ember-cli-htmlbars "^5.2.0"
-    ember-cli-requestanimationframe-polyfill "^0.0.1"
+    ember-cli-htmlbars "^5.3.1"
     ember-modifier "^2.1.0"
 
 ember-decorators@^6.1.1:
@@ -9086,14 +9074,6 @@ fast-sourcemap-concat@^2.1.0:
     source-map "^0.4.2"
     source-map-url "^0.3.0"
     sourcemap-validator "^1.1.0"
-
-fastboot-transform@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/fastboot-transform/-/fastboot-transform-0.1.3.tgz#7dea0b117594afd8772baa6c9b0919644e7f7dcd"
-  integrity sha512-6otygPIJw1ARp1jJb+6KVO56iKBjhO+5x59RSC9qiZTbZRrv+HZAuP00KD3s+nWMvcFDemtdkugki9DNFTTwCQ==
-  dependencies:
-    broccoli-stew "^1.5.0"
-    convert-source-map "^1.5.1"
 
 fastq@^1.6.0:
   version "1.10.1"
@@ -13946,11 +13926,6 @@ qunit@^2.15.0:
     js-reporters "2.0.0"
     node-watch "0.7.1"
     tiny-glob "0.2.8"
-
-raf-polyfill@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/raf-polyfill/-/raf-polyfill-1.0.0.tgz#cc6019be5bbb7112b8eeaae0ea8b5077100802e2"
-  integrity sha512-WwyjuX5kZFOslF+8mGjVrMvDYmOwlN50Eqoc876td1abMaesf1sK4uiOZor3bvJfBRCwCHuJNR3TN4KztC/IhA==
 
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.1.0:
   version "2.1.0"

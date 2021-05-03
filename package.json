@@ -87,7 +87,7 @@
     "ember-css-transitions": "^2.1.1",
     "ember-decorators": "^6.1.1",
     "ember-drag-sort": "^3.0.0",
-    "ember-electron": "^3.0.0",
+    "ember-electron": "^3.1.0",
     "ember-event-helpers": "^0.1.1",
     "ember-export-application-global": "^2.0.1",
     "ember-feature-flags": "^6.0.0",

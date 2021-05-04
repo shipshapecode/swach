@@ -58,7 +58,7 @@
     "@types/ember__test-helpers": "^2.0.0",
     "@types/qunit": "^2.11.1",
     "@types/sinon": "^10.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
     "babel-eslint": "^10.1.0",
     "babel-preset-env": "^1.7.0",

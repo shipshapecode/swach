@@ -1841,10 +1841,10 @@
     babel-core "^6.26.3"
     babel-loader "7"
 
-"@embroider/compat@^0.39.1":
-  version "0.39.1"
-  resolved "https://registry.yarnpkg.com/@embroider/compat/-/compat-0.39.1.tgz#0df717c8f94c7ad110a8a222ac4e4cc68ec70992"
-  integrity sha512-YNcTFEQ58fXR+QN1/NCTHblAYJbs4D5uMXEkkBKKu+2xMVzx0bJFi2lhAdJXXfIgc3/HoEudHZ82F8A16l0W8g==
+"@embroider/compat@^0.40.0":
+  version "0.40.0"
+  resolved "https://registry.yarnpkg.com/@embroider/compat/-/compat-0.40.0.tgz#231a3782948c5fe7eede4d6bdfe26af2d5f8e411"
+  integrity sha512-5Dh/1zg+7cF15l4v5MmPB6Kl+X0uMfQbcoXec+lDPkCbUMzF95RiQlwkNffegM0pMzAwSiheoYq7mpqxOy9yew==
   dependencies:
     "@babel/code-frame" "^7.10.4"
     "@babel/core" "^7.12.3"
@@ -1852,7 +1852,7 @@
     "@babel/preset-env" "^7.12.1"
     "@babel/traverse" "^7.12.1"
     "@babel/types" "^7.12.1"
-    "@embroider/macros" "0.39.1"
+    "@embroider/macros" "0.40.0"
     "@types/babel__code-frame" "^7.0.2"
     "@types/yargs" "^15.0.9"
     assert-never "^1.1.0"
@@ -2044,10 +2044,35 @@
     resolve "^1.8.1"
     semver "^7.3.2"
 
+"@embroider/macros@0.40.0":
+  version "0.40.0"
+  resolved "https://registry.yarnpkg.com/@embroider/macros/-/macros-0.40.0.tgz#f58763b4cfb9b4089679b478a28627595341bc5a"
+  integrity sha512-ygChvFoebSi/N8b+A+XFncd454gLYBYHancrtY0AE/h6Y1HouoqQvji/IfaLisGoeuwUWuI9rCBv97COweu/rA==
+  dependencies:
+    "@embroider/shared-internals" "0.40.0"
+    assert-never "^1.1.0"
+    ember-cli-babel "^7.23.0"
+    lodash "^4.17.10"
+    resolve "^1.8.1"
+    semver "^7.3.2"
+
 "@embroider/shared-internals@0.39.1":
   version "0.39.1"
   resolved "https://registry.yarnpkg.com/@embroider/shared-internals/-/shared-internals-0.39.1.tgz#33c88778fc7c42ba20dbe625b34abe51816dfc77"
   integrity sha512-fpENfZqPWd/JUlmpAW1pN967rxSoUg7dTGmkgtAt+UZQh/d4XMeyUGGHTkRToboKa0W19xRu64RZ9LT94xUkeQ==
+  dependencies:
+    ember-rfc176-data "^0.3.17"
+    fs-extra "^7.0.1"
+    lodash "^4.17.10"
+    pkg-up "^3.1.0"
+    resolve-package-path "^1.2.2"
+    semver "^7.3.2"
+    typescript-memoize "^1.0.0-alpha.3"
+
+"@embroider/shared-internals@0.40.0":
+  version "0.40.0"
+  resolved "https://registry.yarnpkg.com/@embroider/shared-internals/-/shared-internals-0.40.0.tgz#2f768c60f4f35ba5f9228f046f70324851e8bfe2"
+  integrity sha512-Ovr/i0Qgn6W6jdGXMvYJKlRoRpyBY9uhYozDSFKlBjeEmRJ0Plp7OST41+O5Td6Pqp+Rv2jVSnGzhA/MpC++NQ==
   dependencies:
     ember-rfc176-data "^0.3.17"
     fs-extra "^7.0.1"

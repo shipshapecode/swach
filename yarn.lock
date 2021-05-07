@@ -8317,14 +8317,14 @@ ember-template-recast@^5.0.1:
     tmp "^0.2.1"
     workerpool "^6.0.3"
 
-ember-test-selectors@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/ember-test-selectors/-/ember-test-selectors-5.0.0.tgz#36c30f64498039cb88797cdda682275a460ee624"
-  integrity sha512-hqAPqyJLEGBYcQ9phOKvHhSCyvcSbUL8Yj2si8OASsQWxwRqbxrtk5YlkN2aZiZdp9PAd2wErS8uClG0U7tNpA==
+ember-test-selectors@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/ember-test-selectors/-/ember-test-selectors-5.1.0.tgz#60c47ecee2dfe513eebe5c34565762eb67ce0530"
+  integrity sha512-gxK0ODCyKGnPahM3Ri3zbeoXVD7H06WRPrBr1gjjcul8MuD+e6B7kVcAnG6HlDNLFdlWARyZcFNI6fYCIYbgpg==
   dependencies:
     calculate-cache-key-for-tree "^2.0.0"
-    ember-cli-babel "^7.22.1"
-    ember-cli-version-checker "^5.1.1"
+    ember-cli-babel "^7.26.4"
+    ember-cli-version-checker "^5.1.2"
 
 ember-tooltips@^3.4.7:
   version "3.4.7"

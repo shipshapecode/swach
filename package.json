@@ -51,7 +51,7 @@
     "@release-it/bumper": "^2.0.0",
     "@sentry/electron": "^2.4.1",
     "@sentry/integrations": "^6.4.1",
-    "@tailwindcss/forms": "rwwagner90/tailwindcss-forms#e84f83f144c2d1f5f6d522632016b97b0a0e5740",
+    "@tailwindcss/forms": "^0.3.2",
     "@types/ember": "^3.16.5",
     "@types/ember-qunit": "^3.4.13",
     "@types/ember-resolver": "^5.0.10",

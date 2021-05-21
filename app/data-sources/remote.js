@@ -38,7 +38,7 @@ export default {
           service: 'execute-api', // AWS service, by default parsed at fetch time
           region: 'us-east-2' // AWS region, by default parsed at fetch time
         });
-        const method = settings.body ? 'POST' : 'GET';
+        const method = customSettings.method ?? 'GET';
         const request = await aws.sign(url, { method, body: settings.body });
 
         let fullUrl = url;

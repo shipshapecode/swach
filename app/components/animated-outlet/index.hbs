@@ -4,7 +4,8 @@
     @intialInsertion={{true}}
     @key="outlets"
     @rules={{this.rules}}
-    @value={{-get-dynamic-var "outletState"}} as |outletState|
+    @value={{-get-dynamic-var "outletState"}}
+    as |outletState|
   >
     {{#-with-dynamic-vars outletState=outletState}}
       <div class="h-full overflow-y-scroll w-full">

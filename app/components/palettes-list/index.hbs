@@ -4,7 +4,8 @@
       class="overflow-visible"
       @group="palettes"
       @items={{this.palettes}}
-      @dragEndAction={{fn this.reorderPalettes}} as |palette|
+      @dragEndAction={{this.reorderPalettes}}
+      as |palette|
     >
       {{! TODO: remove this disconnected check when caching is fixed in ember-orbit }}
       {{#unless palette.disconnected}}
@@ -27,8 +28,8 @@
 
         <p class="font-light mt-1">
           You can favorite a palette by clicking the
-          {{svg-jar "filled-heart" class="inline" height="14" width="14"
-          }} icon in the palette's menu.
+          {{svg-jar "filled-heart" class="inline" height="14" width="14"}}
+          icon in the palette's menu.
         </p>
       </div>
     {{/if}}

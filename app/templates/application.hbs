@@ -5,9 +5,8 @@
 >
   <div class="flex flex-col max-w-xl h-full relative w-full">
     <nav
-      class="bg-menu flex justify-between items-center p-4 w-full z-50 {{
-        if this.isWelcomeRoute "hidden"
-      }}"
+      class="bg-menu flex justify-between items-center p-4 w-full z-50
+        {{if this.isWelcomeRoute "hidden"}}"
     >
       <div class="flex-grow">
         {{#if (not this.colorPickerIsShown)}}
@@ -25,7 +24,8 @@
                   class="menu-icon inline-block mr-2"
                   height="13"
                   width="13"
-                }} Palettes
+                }}
+                Palettes
               </LinkTo>
 
               <LinkTo
@@ -37,7 +37,8 @@
                   class="menu-icon inline-block mr-2"
                   height="13"
                   width="13"
-                }} Check Contrast
+                }}
+                Check Contrast
               </LinkTo>
 
               <LinkTo
@@ -49,7 +50,8 @@
                   class="menu-icon inline-block mr-2"
                   height="13"
                   width="13"
-                }} Settings
+                }}
+                Settings
               </LinkTo>
 
               <button
@@ -62,7 +64,8 @@
                   class="menu-icon inline-block mr-2"
                   height="13"
                   width="13"
-                }} Close Swach
+                }}
+                Close Swach
               </button>
             </:content>
           </OptionsMenu>
@@ -82,7 +85,7 @@
           {{#if this.showColorWheel}}
             <ColorPicker
               @isShown={{this.colorPickerIsShown}}
-              @saveColor={{fn this.addColor}}
+              @saveColor={{this.addColor}}
               @selectedColor={{this.colorPickerColor}}
               @toggleIsShown={{this.toggleColorPickerIsShown}}
             />

@@ -10,66 +10,68 @@
       }}"
     >
       <div class="flex-grow">
-        <OptionsMenu @position="left">
-          <:trigger>
-            {{svg-jar "menu" class="stroke-menu-icon" height="15" width="15"}}
-          </:trigger>
-          <:content>
-            <LinkTo
-              class="flex items-center p-1 text-menu-text text-sm transition-colors hover:text-menu-text-hover"
-              @route="palettes"
-            >
-              {{svg-jar
-                "palettes"
-                class="menu-icon inline-block mr-2"
-                height="13"
-                width="13"
-              }} Palettes
-            </LinkTo>
+        {{#if (not this.colorPickerIsShown)}}
+          <OptionsMenu @position="left">
+            <:trigger>
+              {{svg-jar "menu" class="stroke-menu-icon" height="15" width="15"}}
+            </:trigger>
+            <:content>
+              <LinkTo
+                class="flex items-center p-1 text-menu-text text-sm transition-colors hover:text-menu-text-hover"
+                @route="palettes"
+              >
+                {{svg-jar
+                  "palettes"
+                  class="menu-icon inline-block mr-2"
+                  height="13"
+                  width="13"
+                }} Palettes
+              </LinkTo>
 
-            <LinkTo
-              class="flex items-center p-1 text-menu-text text-sm transition-colors hover:text-menu-text-hover"
-              @route="contrast"
-            >
-              {{svg-jar
-                "contrast"
-                class="menu-icon inline-block mr-2"
-                height="13"
-                width="13"
-              }} Check Contrast
-            </LinkTo>
+              <LinkTo
+                class="flex items-center p-1 text-menu-text text-sm transition-colors hover:text-menu-text-hover"
+                @route="contrast"
+              >
+                {{svg-jar
+                  "contrast"
+                  class="menu-icon inline-block mr-2"
+                  height="13"
+                  width="13"
+                }} Check Contrast
+              </LinkTo>
 
-            <LinkTo
-              class="flex items-center p-1 text-menu-text text-sm transition-colors hover:text-menu-text-hover"
-              @route="settings"
-            >
-              {{svg-jar
-                "settings"
-                class="menu-icon inline-block mr-2"
-                height="13"
-                width="13"
-              }} Settings
-            </LinkTo>
+              <LinkTo
+                class="flex items-center p-1 text-menu-text text-sm transition-colors hover:text-menu-text-hover"
+                @route="settings"
+              >
+                {{svg-jar
+                  "settings"
+                  class="menu-icon inline-block mr-2"
+                  height="13"
+                  width="13"
+                }} Settings
+              </LinkTo>
 
-            <button
-              class="flex items-center p-1 text-menu-text text-sm transition-colors hover:text-menu-text-hover"
-              type="button"
-              {{on "click" this.exitApp}}
-            >
-              {{svg-jar
-                "close"
-                class="menu-icon inline-block mr-2"
-                height="13"
-                width="13"
-              }} Close Swach
-            </button>
-          </:content>
-        </OptionsMenu>
+              <button
+                class="flex items-center p-1 text-menu-text text-sm transition-colors hover:text-menu-text-hover"
+                type="button"
+                {{on "click" this.exitApp}}
+              >
+                {{svg-jar
+                  "close"
+                  class="menu-icon inline-block mr-2"
+                  height="13"
+                  width="13"
+                }} Close Swach
+              </button>
+            </:content>
+          </OptionsMenu>
+        {{/if}}
       </div>
 
       <div class="flex flex-grow items-center justify-end">
         <div class="h-4 w-4 mr-2">
-          {{#if this.showEyedropperIcon}}
+          {{#if (and this.showEyedropperIcon (not this.colorPickerIsShown))}}
             <button type="button" {{on "click" this.launchPicker}}>
               {{svg-jar "drop" class="menu-icon" height="20" width="20"}}
             </button>

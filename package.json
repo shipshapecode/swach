@@ -108,7 +108,7 @@
     "ember-source": "^3.26.1",
     "ember-svg-jar": "^2.3.3",
     "ember-template-lint": "^2.21.0",
-    "ember-template-lint-plugin-prettier": "^2.0.0",
+    "ember-template-lint-plugin-prettier": "^2.0.1",
     "ember-test-selectors": "^5.3.0",
     "ember-tooltips": "^3.4.7",
     "ember-truth-helpers": "^3.0.0",

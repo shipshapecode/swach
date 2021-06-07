@@ -17,8 +17,10 @@
         <ToggleSwitch
           data-test-auto-start-toggle
           @checked={{this.settings.openOnStartup}}
-          @onClick={{
-            set this "settings.openOnStartup" (not this.settings.openOnStartup)
+          @onClick={{set
+            this
+            "settings.openOnStartup"
+            (not this.settings.openOnStartup)
           }}
         />
       </div>

@@ -10,17 +10,19 @@
 
     <div class="flex-auto flex-grow mb-2 mt-2 text-main-text">
       <p class="text-sm">
-        Swach lives in your menubar and hides the dock icon by default.
-        This setting allows you to show the dock icon, and can be useful
-        if the menubar icon is not showing up.
+        Swach lives in your menubar and hides the dock icon by default. This
+        setting allows you to show the dock icon, and can be useful if the
+        menubar icon is not showing up.
       </p>
 
       <div class="flex h-full justify-center p-2 w-full">
         <ToggleSwitch
           data-test-show-dock-icon-toggle
           @checked={{this.settings.showDockIcon}}
-          @onClick={{
-            set this "settings.showDockIcon" (not this.settings.showDockIcon)
+          @onClick={{set
+            this
+            "settings.showDockIcon"
+            (not this.settings.showDockIcon)
           }}
         />
       </div>

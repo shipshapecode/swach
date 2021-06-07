@@ -42,8 +42,8 @@
             type="button"
             {{on "click" (fn @toggleColorPickerIsShown @color)}}
           >
-            {{svg-jar "edit" class="icon mr-4" height="15" width="15"
-            }} Edit Color
+            {{svg-jar "edit" class="icon mr-4" height="15" width="15"}}
+            Edit Color
           </button>
           <button
             data-test-go-to-kuler
@@ -51,8 +51,13 @@
             type="button"
             {{on "click" this.transitionToKuler}}
           >
-            {{svg-jar "color-harmonies" class="icon mr-4" height="15" width="15"
-            }} Color Harmonies
+            {{svg-jar
+              "color-harmonies"
+              class="icon mr-4"
+              height="15"
+              width="15"
+            }}
+            Color Harmonies
           </button>
           {{#if @deleteColor}}
             <button
@@ -62,8 +67,8 @@
               type="button"
               {{on "click" (stop-propagation (fn this.deleteColor @color))}}
             >
-              {{svg-jar "trash" class="icon mr-4" height="15" width="15"
-              }} Delete Color
+              {{svg-jar "trash" class="icon mr-4" height="15" width="15"}}
+              Delete Color
             </button>
           {{/if}}
         </:content>

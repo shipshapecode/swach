@@ -30,7 +30,7 @@
     "test:ember": "ember test"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.3",
+    "@babel/core": "^7.14.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.14.4",
     "@clark/eslint-config-ember-order-imports": "^2.2.0",
     "@csstools/postcss-sass": "^4.0.0",
@@ -50,7 +50,7 @@
     "@orbit/utils": "^0.17.0-beta.14",
     "@release-it/bumper": "^2.0.0",
     "@sentry/electron": "^2.4.1",
-    "@sentry/integrations": "^6.5.1",
+    "@sentry/integrations": "^6.6.0",
     "@tailwindcss/forms": "rwwagner90/tailwindcss-forms#e84f83f144c2d1f5f6d522632016b97b0a0e5740",
     "@types/ember": "^3.16.5",
     "@types/ember-qunit": "^3.4.13",

@@ -34,14 +34,11 @@ export default class ApplicationRoute extends Route {
   }
 
   async beforeModel(): Promise<void> {
-    // TODO: Setup 3 scenarios one for test, one for all offline, and one for offline + remote and add strategies and sources we need.
-    // Move remote sources and strategies to another folder, so they are not auto loaded
-    this.dataCoordinator.removeStrategy('remote-store-sync');
-    this.dataCoordinator.removeStrategy('store-beforequery-remote-query');
-    this.dataCoordinator.removeStrategy('store-beforeupdate-remote-update');
-    this.dataCoordinator.removeSource('remote');
-
     if (ENV.environment === 'test') {
+      this.dataCoordinator.removeStrategy('remote-store-sync');
+      this.dataCoordinator.removeStrategy('store-beforequery-remote-query');
+      this.dataCoordinator.removeStrategy('store-beforeupdate-remote-update');
+      this.dataCoordinator.removeSource('remote');
       this.dataCoordinator.removeStrategy('store-backup-sync');
       this.dataCoordinator.removeSource('backup');
     } else {
@@ -71,7 +68,14 @@ export default class ApplicationRoute extends Route {
       await this.dataCoordinator.activate();
     }
 
-    const palettes = (await this.store.find('palette')) as PaletteModel[];
+    const palettes = (await this.store.query((q) => q.findRecords('palette'), {
+      sources: {
+        remote: {
+          include: ['colors']
+        }
+      }
+    })) as PaletteModel[];
+
     let colorHistory = palettes.find(
       (palette: PaletteModel) => palette.isColorHistory
     );
@@ -83,7 +87,8 @@ export default class ApplicationRoute extends Route {
         colorOrder: [],
         isColorHistory: true,
         isFavorite: false,
-        isLocked: false
+        isLocked: false,
+        selectedColorIndex: 0
       })) as PaletteModel;
     }
   }

@@ -33,6 +33,9 @@ module.exports = function (environment) {
       identityPoolId: 'us-east-2:af67b33e-b9cd-4eaa-9669-e478e56e9310',
       region: 'us-east-2'
     },
+    api: {
+      host: 'http://localhost:3000'
+    },
     featureFlags: {
       'cloud-login': true
     },
@@ -62,6 +65,7 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
+    ENV.api.host = 'https://jpuj8ukmx8.execute-api.us-east-2.amazonaws.com/dev';
     ENV.featureFlags['cloud-login'] = false;
     ENV.sentry.dsn =
       'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140';

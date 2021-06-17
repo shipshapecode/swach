@@ -10,6 +10,7 @@ import {
 } from '@orbit/jsonapi';
 import { buildSerializerSettingsFor } from '@orbit/serializers';
 import { AwsClient } from 'aws4fetch';
+import ENV from 'swach/config/environment';
 
 export default {
   create(injections = {}) {
@@ -31,6 +32,11 @@ export default {
       }
       async fetch(url, customSettings) {
         let settings = this.initFetchSettings(customSettings);
+        let fullUrl = url;
+        if (settings.params) {
+          fullUrl = this.urlBuilder.appendQueryParams(fullUrl, settings.params);
+          delete settings.params;
+        }
         const aws = new AwsClient({
           accessKeyId: settings.sessionCredentials.accessKeyId, // required, akin to AWS_ACCESS_KEY_ID
           secretAccessKey: settings.sessionCredentials.secretAccessKey, // required, akin to AWS_SECRET_ACCESS_KEY
@@ -39,13 +45,10 @@ export default {
           region: 'us-east-2' // AWS region, by default parsed at fetch time
         });
         const method = customSettings.method ?? 'GET';
-        const request = await aws.sign(url, { method, body: settings.body });
-
-        let fullUrl = url;
-        if (settings.params) {
-          fullUrl = this.urlBuilder.appendQueryParams(fullUrl, settings.params);
-          delete settings.params;
-        }
+        const request = await aws.sign(fullUrl, {
+          method,
+          body: settings.body
+        });
 
         let fetchFn = fetch;
 
@@ -79,7 +82,7 @@ export default {
               .then(resolve, reject);
           });
         } else {
-          return fetchFn(fullUrl, settings)
+          return fetchFn(request)
             .catch((e) => this.handleFetchError(e))
             .then((response) => this.handleFetchResponse(response));
         }
@@ -87,8 +90,7 @@ export default {
     }
 
     injections.name = 'remote';
-    injections.host =
-      'https://jpuj8ukmx8.execute-api.us-east-2.amazonaws.com/dev';
+    injections.host = ENV.api.host;
     injections.RequestProcessorClass = RemoteRequestProcessor;
 
     injections.serializerSettingsFor = buildSerializerSettingsFor({

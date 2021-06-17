@@ -2707,13 +2707,13 @@
     "@sentry/utils" "5.27.6"
     tslib "^1.9.3"
 
-"@sentry/integrations@^6.6.0":
-  version "6.6.0"
-  resolved "https://registry.yarnpkg.com/@sentry/integrations/-/integrations-6.6.0.tgz#9c2c3ab77d9dd11d0159913e7250560f3e0ecadd"
-  integrity sha512-MStwI3yAjVCZ5BY7aUMpHFe9sdU9tIG2U95Jq9YGvYkdFIAAR1IEHlHIpsEpEPo0OFW0RIsDEhQg19a0D4Z9VQ==
+"@sentry/integrations@^6.7.1":
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/@sentry/integrations/-/integrations-6.7.1.tgz#9a6723e35589dfdb13c2cd22259184946f0b275e"
+  integrity sha512-nWxAPTunZxE+E6bi4FyhKHXcUUVpbSpvtwvdHiw/K72p7FuX/K0qU002Ltdfs4U1nyMIjesE776IGMrBLU67uA==
   dependencies:
-    "@sentry/types" "6.6.0"
-    "@sentry/utils" "6.6.0"
+    "@sentry/types" "6.7.1"
+    "@sentry/utils" "6.7.1"
     localforage "^1.8.1"
     tslib "^1.9.3"
 
@@ -2757,10 +2757,10 @@
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-5.27.6.tgz#b5054eafcb8ac11d4bc4787c7bc7fc113cad8b80"
   integrity sha512-XOW9W8DrMk++4Hk7gWi9o5VR0o/GrqGfTKyFsHSIjqt2hL6kiMPvKeb2Hhmp7Iq37N2bDmRdWpM5m+68S2Jk6w==
 
-"@sentry/types@6.6.0":
-  version "6.6.0"
-  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-6.6.0.tgz#55cbca23859bad87411f0f32135a968e6e40a639"
-  integrity sha512-lZ1uFN0lSNftAohi0lciEoSL58Gk/Ib1lLKaj0FSOvB1PAUmvo5dPtLdd0qjtNdtoaM8zqhrAbwCTQ8XZCDRsg==
+"@sentry/types@6.7.1":
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-6.7.1.tgz#c8263e1886df5e815570c4668eb40a1cfaa1c88b"
+  integrity sha512-9AO7HKoip2MBMNQJEd6+AKtjj2+q9Ze4ooWUdEvdOVSt5drg7BGpK221/p9JEOyJAZwEPEXdcMd3VAIMiOb4MA==
 
 "@sentry/utils@5.27.6":
   version "5.27.6"
@@ -2770,12 +2770,12 @@
     "@sentry/types" "5.27.6"
     tslib "^1.9.3"
 
-"@sentry/utils@6.6.0":
-  version "6.6.0"
-  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-6.6.0.tgz#b34d342d05eefc25b7ddd3f27f41c050f1e7e1ef"
-  integrity sha512-FK9yqz2x+ef50B54tueeJ6mfb7Pf3lN75omx/YQBDL5cicyOV4j4kJDqn8/VKYhcSuX+ZaCZ/8bvOf0lxe0aHg==
+"@sentry/utils@6.7.1":
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-6.7.1.tgz#909184ad580f0f6375e1e4d4a6ffd33dfe64a4d1"
+  integrity sha512-Tq2otdbWlHAkctD+EWTYKkEx6BL1Qn3Z/imkO06/PvzpWvVhJWQ5qHAzz5XnwwqNHyV03KVzYB6znq1Bea9HuA==
   dependencies:
-    "@sentry/types" "6.6.0"
+    "@sentry/types" "6.7.1"
     tslib "^1.9.3"
 
 "@simple-dom/interface@^1.4.0":
@@ -7729,12 +7729,11 @@ ember-cli-path-utils@^1.0.0:
   resolved "https://registry.yarnpkg.com/ember-cli-path-utils/-/ember-cli-path-utils-1.0.0.tgz#4e39af8b55301cddc5017739b77a804fba2071ed"
   integrity sha1-Tjmvi1UwHN3FAXc5t3qAT7ogce0=
 
-ember-cli-postcss@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/ember-cli-postcss/-/ember-cli-postcss-7.0.1.tgz#bbd4ba63e013977196643bc6063aca5a645d416e"
-  integrity sha512-mrGGgR1jTASPHLdv14Tl+f+m5BX6OKBnzG9xSpjJFxyPcfgEDZ4n05n5Jgry4Nkt7MI0GsgQv1MLQ0sIeSzdZw==
+ember-cli-postcss@^7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-postcss/-/ember-cli-postcss-7.0.2.tgz#b7df580296cbffad4db943c7d2be739b7f68148b"
+  integrity sha512-nlr5glZlk6VN0nZuxO5yBbhofHo2waoCHYqTQH2CennDgdC0Fph4Kp+VHtif3qCgMyMXTqqvvgkBz2YpOBgsgw==
   dependencies:
-    broccoli-file-creator "^2.1.1"
     broccoli-merge-trees "^4.0.0"
     broccoli-postcss "^6.0.0"
     broccoli-postcss-single "^5.0.0"

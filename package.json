@@ -37,7 +37,7 @@
     "@ctrl/tinycolor": "^3.4.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/render-modifiers": "^1.0.2",
-    "@ember/test-helpers": "^2.2.6",
+    "@ember/test-helpers": "^2.2.8",
     "@embroider/compat": "^0.41.0",
     "@embroider/core": "^0.41.0",
     "@embroider/webpack": "^0.39.1",
@@ -49,7 +49,7 @@
     "@orbit/jsonapi": "^0.17.0-beta.14",
     "@orbit/utils": "^0.17.0-beta.14",
     "@release-it/bumper": "^2.0.0",
-    "@sentry/electron": "^2.4.1",
+    "@sentry/electron": "^2.5.0",
     "@sentry/integrations": "^6.7.1",
     "@tailwindcss/forms": "rwwagner90/tailwindcss-forms#e84f83f144c2d1f5f6d522632016b97b0a0e5740",
     "@types/ember": "^3.16.5",
@@ -129,7 +129,7 @@
     "release-it": "^14.9.0",
     "release-it-lerna-changelog": "^3.1.0",
     "tailwindcss": "^2.1.4",
-    "typescript": "^4.3.2",
+    "typescript": "^4.3.4",
     "wcag-contrast": "^3.0.0"
   },
   "engines": {

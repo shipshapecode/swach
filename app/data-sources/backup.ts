@@ -63,16 +63,16 @@ export default {
                   };
                   if (palette.relationships?.colors.data) {
                     // Replace color in palette with color copy
-                    palette.relationships.colors.data = palette.relationships.colors.data.map(
-                      replaceColorIdWithCopy
-                    );
+                    palette.relationships.colors.data =
+                      palette.relationships.colors.data.map(
+                        replaceColorIdWithCopy
+                      );
                   }
 
                   if (palette.attributes?.colorOrder) {
                     // Replace color id in colorOrder
-                    palette.attributes.colorOrder = palette.attributes.colorOrder.map(
-                      replaceColorIdWithCopy
-                    );
+                    palette.attributes.colorOrder =
+                      palette.attributes.colorOrder.map(replaceColorIdWithCopy);
                   }
                 }
               }

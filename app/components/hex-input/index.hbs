@@ -11,7 +11,7 @@
     oncomplete=this.onComplete
   }}
   @mask="\#*{6,8}"
-  @update={{fn @update}}
+  @update={{@update}}
   @value={{@value}}
   {{on "keypress" this.enterPress}}
 />

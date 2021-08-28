@@ -44,16 +44,14 @@
         {{#each this.menuItems as |item|}}
           <button
             data-test-menu-item={{item.label}}
-            class="flex items-center p-1 text-menu-text transition-colors whitespace-nowrap disabled:opacity-50 {{
-              if (not item.disabled) "hover:text-menu-text-hover"
-            }}"
+            class="flex items-center p-1 text-menu-text transition-colors whitespace-nowrap disabled:opacity-50
+              {{if (not item.disabled) "hover:text-menu-text-hover"}}"
             disabled={{item.disabled}}
             type="button"
             {{on "click" item.action}}
           >
-            {{svg-jar item.icon class="icon mr-4" height="15" width="15"}} {{
-              item.label
-            }}
+            {{svg-jar item.icon class="icon mr-4" height="15" width="15"}}
+            {{item.label}}
           </button>
         {{/each}}
       </:content>
@@ -71,25 +69,26 @@
 
     <DragSortList
       class="absolute palette-color-squares flex flex-grow h-8 top-0 w-full
-      {{if this.isLocked "palette-locked"}}"
+        {{if this.isLocked "palette-locked"}}"
       @additionalArgs={{hash parent=@palette}}
       @childClass="flex flex-grow"
       @group={{if @palette.isLocked @palette.id undefined}}
       @isHorizontal={{true}}
       @items={{this.sortedColors}}
       @sourceOnly={{@palette.isLocked}}
-      @dragEndAction={{fn @moveColorsBetweenPalettes}} as |color index|
+      @dragEndAction={{@moveColorsBetweenPalettes}}
+      as |color index|
     >
       <div
         class="flex flex-grow relative
-        {{if (eq index 0) "rounded-l"}}
-         {{if (eq index (sub @palette.colors.length 1)) "rounded-r"}}"
+          {{if (eq index 0) "rounded-l"}}
+          {{if (eq index (sub @palette.colors.length 1)) "rounded-r"}}"
       >
         <div
           data-test-palette-color-square={{color.name}}
           class="absolute h-full left-0 top-0 w-full z-10
-          {{if (eq index 0) "rounded-l"}}
-           {{if (eq index (sub @palette.colors.length 1)) "rounded-r"}}"
+            {{if (eq index 0) "rounded-l"}}
+            {{if (eq index (sub @palette.colors.length 1)) "rounded-r"}}"
           style={{html-safe (concat "background-color: " color.hex)}}
           {{on
             "click"
@@ -98,8 +97,8 @@
         ></div>
         <div
           class="opacity-checkerboard absolute h-full left-0 top-0 w-full z-0
-          {{if (eq index 0) "rounded-l"}}
-           {{if (eq index (sub @palette.colors.length 1)) "rounded-r"}}"
+            {{if (eq index 0) "rounded-l"}}
+            {{if (eq index (sub @palette.colors.length 1)) "rounded-r"}}"
         ></div>
       </div>
     </DragSortList>

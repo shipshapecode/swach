@@ -6,8 +6,7 @@
   ...attributes
   maxlength={{3}}
   @mask="9{1,3}"
-  @options={{
-    hash
+  @options={{hash
     isComplete=this.isComplete
     min=0
     max=255
@@ -18,7 +17,7 @@
     showMaskOnHover=false
     unmaskAsNumber=false
   }}
-  @update={{fn @update}}
+  @update={{@update}}
   @value={{@value}}
   {{on "keypress" this.enterPress}}
 />

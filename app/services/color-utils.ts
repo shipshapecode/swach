@@ -69,9 +69,8 @@ export default class ColorUtilsService extends Service {
   async copyColorToClipboard(color?: ColorModel, event?: Event): Promise<void> {
     if (this.ipcRenderer) {
       const target = <HTMLElement>event?.target;
-      const isDropping = target?.parentElement?.classList.contains(
-        'is-dropping'
-      );
+      const isDropping =
+        target?.parentElement?.classList.contains('is-dropping');
       const colorFormat = this.settings.get('defaultColorFormat');
 
       if (!isDropping && color) {

@@ -127,9 +127,8 @@ export default class KulerComponent extends Component<KulerArgs> {
 
   @action
   setColorAsBase(): Promise<void> {
-    this.baseColor = this.selectedPalette.colors[
-      this.selectedPalette.selectedColorIndex
-    ];
+    this.baseColor =
+      this.selectedPalette.colors[this.selectedPalette.selectedColorIndex];
     return this.baseColorChanged(
       this.palettes.indexOf(this.selectedPalette)
     ).then(() => {
@@ -185,9 +184,8 @@ export default class KulerComponent extends Component<KulerArgs> {
     ]);
 
     if (selectedColorIndex === 0) {
-      this.baseColor = this.selectedPalette.colors[
-        this.selectedPalette.selectedColorIndex
-      ];
+      this.baseColor =
+        this.selectedPalette.colors[this.selectedPalette.selectedColorIndex];
       await this.setColorAsBase();
     }
 

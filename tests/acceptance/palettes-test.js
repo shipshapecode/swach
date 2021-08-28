@@ -116,6 +116,8 @@ module('Acceptance | palettes', function (hooks) {
         'First Palette 123'
       );
 
+      await waitForAll();
+
       await blur(
         '[data-test-palette-row="First Palette 123"] [data-test-palette-name-input]'
       );

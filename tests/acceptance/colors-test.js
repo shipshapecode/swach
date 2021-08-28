@@ -172,6 +172,7 @@ module('Acceptance | colors', function (hooks) {
   if (typeof requireNode !== 'undefined') {
     // TODO: We need a way to manually trigger undo and redo in Electron
     // const { ipcRenderer } = requireNode('electron');
+    // eslint-disable-next-line qunit/no-commented-tests
     // test('electron - deleting colors', async function (assert) {
     //   await visit('/colors?paletteId=color-history-123');
     //   assert.dom('[data-test-color]').exists({ count: 4 });

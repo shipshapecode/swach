@@ -5,4 +5,3 @@ export default {
     return new EventLoggingStrategy();
   }
 };
-

@@ -96,12 +96,15 @@ export default class ApplicationController extends Controller {
         this.router.transitionTo('contrast');
       });
 
-      this.ipcRenderer.on('openSharedPalette', async (event, query) => {
-        const data = JSON.parse(decodeURIComponent(query));
-        const colors = data?.colors ?? [];
-        const name = data?.name ?? 'Palette';
-        await this.createPalette(name, colors);
-      });
+      this.ipcRenderer.on(
+        'openSharedPalette',
+        async (_event: unknown, query: string) => {
+          const data = JSON.parse(decodeURIComponent(query));
+          const colors = data?.colors ?? [];
+          const name = data?.name ?? 'Palette';
+          await this.createPalette(name, colors);
+        }
+      );
 
       this.ipcRenderer.on('setTheme', (_event: unknown, theme: string) => {
         this.settings.set('osTheme', theme);

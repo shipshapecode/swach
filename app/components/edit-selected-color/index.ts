@@ -74,7 +74,6 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
   //   }
   // }
 
-  // TODO: try replacing this with the real setColors method from iro.
   @action
   updateColor(): void {
     this.args.colorPicker.setColors(

@@ -50,10 +50,6 @@ module('Acceptance | color-picker', function (hooks) {
   });
 
   module('red', function () {
-    hooks.beforeEach(async function () {
-      await seedOrbit(this.owner);
-    });
-
     test('incomplete clears input', async function (assert) {
       await visit('/colors?paletteId=color-history-123');
 
@@ -103,10 +99,6 @@ module('Acceptance | color-picker', function (hooks) {
   });
 
   module('green', function () {
-    hooks.beforeEach(async function () {
-      await seedOrbit(this.owner);
-    });
-
     test('incomplete clears input', async function (assert) {
       await visit('/colors?paletteId=color-history-123');
 
@@ -156,10 +148,6 @@ module('Acceptance | color-picker', function (hooks) {
   });
 
   module('blue', function () {
-    hooks.beforeEach(async function () {
-      await seedOrbit(this.owner);
-    });
-
     test('incomplete clears input', async function (assert) {
       await visit('/colors?paletteId=color-history-123');
 
@@ -209,10 +197,6 @@ module('Acceptance | color-picker', function (hooks) {
   });
 
   module('alpha', function () {
-    hooks.beforeEach(async function () {
-      await seedOrbit(this.owner);
-    });
-
     test('incomplete clears input', async function (assert) {
       await visit('/colors?paletteId=color-history-123');
 

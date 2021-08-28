@@ -37,18 +37,18 @@ module.exports = {
     // node files
     {
       files: [
-        '.eslintrc.js',
-        '.prettierrc.js',
-        '.template-lintrc.js',
-        'ember-cli-build.js',
-        'tailwind.config.js',
-        'testem.js',
-        'testem-electron.js',
-        'blueprints/*/index.js',
-        'config/**/*.js',
-        'electron-app/**/*.js',
-        'lib/*/index.js',
-        'server/**/*.js'
+        './.eslintrc.js',
+        './.prettierrc.js',
+        './.template-lintrc.js',
+        './ember-cli-build.js',
+        './tailwind.config.js',
+        './testem.js',
+        './testem-electron.js',
+        './blueprints/*/index.js',
+        './config/**/*.js',
+        './electron-app/**/*.js',
+        './lib/*/index.js',
+        './server/**/*.js'
       ],
       parserOptions: {
         sourceType: 'script'
@@ -91,6 +91,11 @@ module.exports = {
       rules: {
         'prefer-rest-params': 'off'
       }
+    },
+    {
+      // Test files:
+      files: ['tests/**/*-test.{js,ts}'],
+      extends: ['plugin:qunit/recommended']
     }
   ]
 };

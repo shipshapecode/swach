@@ -43,7 +43,12 @@ module.exports = function (defaults) {
       packagerOptions: {
         webpackConfig: {
           devtool: false,
-          node: { crypto: true }
+          resolve: {
+            fallback: {
+              crypto: require.resolve('crypto-browserify'),
+              stream: require.resolve('stream-browserify')
+            }
+          }
         }
       }
     });

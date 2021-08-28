@@ -306,10 +306,10 @@
     "@sentry/utils" "5.27.6"
     tslib "^1.9.3"
 
-"@sentry/cli@^1.62.0":
-  version "1.62.0"
-  resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.62.0.tgz#2e2d8cacb5ec494f86c188ef95b41745605be028"
-  integrity sha512-MCkx+zjetdIWhAVaFuEuoD4MOAFlb3/GLR5B5uFZ1AcegcsggasLo/3rb2gq6jYIic/pubtRjH4ltmOL/s3cag==
+"@sentry/cli@^1.63.1":
+  version "1.63.1"
+  resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.63.1.tgz#306a0591190432574082d4ce4a72363201972461"
+  integrity sha512-qksIcrnObkGvtubs1FmW4EMXLo7R43Dobgzuxnyoebo1Y5KfRLziiw6H+ux8D4c1Nui4SuvDGDq0ObAfO5oE6Q==
   dependencies:
     https-proxy-agent "^5.0.0"
     mkdirp "^0.5.5"
@@ -328,10 +328,10 @@
     "@sentry/utils" "5.27.6"
     tslib "^1.9.3"
 
-"@sentry/electron@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@sentry/electron/-/electron-2.3.0.tgz#6e86d4208374076830a86bb33105535d7a56502e"
-  integrity sha512-+MHNgJq7oeO/3fLArKRdE2w/XV52eXnaZfAQzlQi5zyoGWJD5/fC9GWDHukU+mq5y0uW/93y421T/zPQkK+EYQ==
+"@sentry/electron@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@sentry/electron/-/electron-2.4.0.tgz#b45e5c8922b1c895f7ad39e4e775588a4e33bdf0"
+  integrity sha512-xA+cdcVms8JCR2Oc/gSSKbuQ/KQQ+u1DCZ6klxgMF1qzdHkaXuj+t+9leIuiHyYCs1RlKfF/Fd8I+ieGigSrtw==
   dependencies:
     "@sentry/browser" "5.27.6"
     "@sentry/core" "5.27.6"
@@ -2487,10 +2487,10 @@ mem@^4.3.0:
     mimic-fn "^2.0.0"
     p-is-promise "^2.0.0"
 
-menubar@^9.0.2:
-  version "9.0.2"
-  resolved "https://registry.yarnpkg.com/menubar/-/menubar-9.0.2.tgz#d0850105c59ede14ee6150561a0147fd4be6f74f"
-  integrity sha512-/AN0h1z82qc9d0LYOI5lRnUSm/TAZPOQrjdR3LREbYs63BZcxUDbzi9h0iwckovDY6nJDdmjL0WRo6SeyyMT5A==
+menubar@^9.0.3:
+  version "9.0.3"
+  resolved "https://registry.yarnpkg.com/menubar/-/menubar-9.0.3.tgz#ba884a0ab0003d9b0f2a18bfda9da09b4d212eae"
+  integrity sha512-J5MVygpC5L9cCdZQuCSSdorSidKVqwHKabHcL+oavl2wScWL1jVWFYikxA03L1k3Q58QFF2szFXTceJpMshJSA==
   dependencies:
     electron-positioner "^4.1.0"
 

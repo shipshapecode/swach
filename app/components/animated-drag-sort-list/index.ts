@@ -3,20 +3,18 @@ import { action, set } from '@ember/object';
 import { easeOut } from 'ember-animated/easings/cosine';
 import move from 'ember-animated/motions/move';
 import { fadeOut } from 'ember-animated/motions/opacity';
-import classic from 'ember-classic-decorator';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 
-@classic
 export default class AnimatedDragSortList extends DragSortList {
   didDrag = false;
 
-  dragEnter(): void {
+  dragEnter(event: Event): void {
     set(this, 'didDrag', true);
-    super.dragEnter(...arguments);
+    super.dragEnter(event);
   }
 
   @action
-  rules() {
+  rules(): unknown {
     if (!this.didDrag) {
       return this.transition;
     }

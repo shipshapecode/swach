@@ -21,7 +21,7 @@ export default class ColorsList extends Component<ColorsListArgs> {
   @service store!: Store;
   @service undoManager!: UndoManager;
 
-  get sortedColors(): (ColorModel | undefined)[] {
+  get sortedColors(): (ColorModel | undefined)[] | undefined {
     const { palette } = this.args;
     if (!palette.disconnected) {
       if (palette.isColorHistory) {

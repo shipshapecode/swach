@@ -26,11 +26,11 @@ export default {
         `migrating indexeddb from version ${oldVersion} to ${newVersion}`
       );
 
-      if (newVersion === 2) {
+      if (oldVersion === 1) {
         const oldColors = await getRecordsFromIDB(transaction, 'color');
         const palettes = await getRecordsFromIDB(transaction, 'palette');
 
-        const newColors = [];
+        const newColors: Record[] = [];
 
         for (const color of oldColors) {
           if (color.relationships?.palettes) {
@@ -94,6 +94,15 @@ export default {
         // made within the context of the migration transaction.
         // @ts-expect-error This is a hacked property until we have a real one to use in ember-orbit
         backup.recreateInverseRelationshipsOnLoad = true;
+      }
+
+      if (oldVersion < 3) {
+        const objectStore = transaction.objectStore('__inverseRels__');
+
+        // Add missing `relatedIdentity` index. This is required.
+        objectStore.createIndex('relatedIdentity', 'relatedIdentity', {
+          unique: false
+        });
       }
     };
 

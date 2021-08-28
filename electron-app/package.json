@@ -22,7 +22,7 @@
     "forge": "config.forge.js"
   },
   "dependencies": {
-    "@sentry/electron": "^2.3.0",
+    "@sentry/electron": "^2.4.0",
     "electron-color-picker": "^0.2.0",
     "electron-dl": "^3.0.3",
     "electron-is-dev": "^1.2.0",
@@ -30,7 +30,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^6.0.1",
     "indexeddb-export-import": "^2.1.2",
-    "menubar": "^9.0.2",
+    "menubar": "^9.0.3",
     "throttle-debounce": "^3.0.1"
   },
   "devDependencies": {
@@ -41,7 +41,7 @@
     "@electron-forge/maker-snap": "^6.0.0-beta.54",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
     "@electron-forge/maker-zip": "^6.0.0-beta.54",
-    "@sentry/cli": "^1.62.0",
+    "@sentry/cli": "^1.63.1",
     "electron": "11.2.3",
     "electron-debug": "^3.2.0",
     "electron-download": "^4.1.1"

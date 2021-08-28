@@ -2,7 +2,6 @@ import Service from '@ember/service';
 
 // @ts-expect-error We do not need types for the colors list or nearest color
 import colorNameList from 'color-name-list';
-// @ts-expect-error We do not need types for the colors list or nearest color
 import nearestColor from 'nearest-color';
 
 export default class NearestColorService extends Service {

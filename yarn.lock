@@ -2789,10 +2789,10 @@
   dependencies:
     "@orbit/utils" "^0.17.0-beta.14"
 
-"@orbit/utils@^0.17.0-beta.12", "@orbit/utils@^0.17.0-beta.14":
-  version "0.17.0-beta.14"
-  resolved "https://registry.yarnpkg.com/@orbit/utils/-/utils-0.17.0-beta.14.tgz#b9b8dec255cee355e82b21e754e8e2c3bb1e2287"
-  integrity sha512-1eGvrGKJjXtgBWJ2nQe83nkIk6Kv4QvataoPoc+waRjLdoBIAgIpX7XnVTJ3XMCQO0yDxHQ7wOTpfvtnYwma0A==
+"@orbit/utils@^0.17.0-beta.12", "@orbit/utils@^0.17.0-beta.14", "@orbit/utils@^0.17.0-beta.25":
+  version "0.17.0-beta.25"
+  resolved "https://registry.yarnpkg.com/@orbit/utils/-/utils-0.17.0-beta.25.tgz#95c34c58f732a42addbcb7271213896cb3b29a25"
+  integrity sha512-7YdfdHlQr+838ikOlu053/dG+8wrn5Ddw/E/7+YCT3UuNtonWy69e3omZkuFsHEf+6zNDV8FouxfOS9txCXFcg==
 
 "@release-it/bumper@^3.0.1":
   version "3.0.1"

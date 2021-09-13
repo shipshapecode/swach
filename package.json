@@ -48,7 +48,7 @@
     "@orbit/indexeddb": "^0.17.0-beta.15",
     "@orbit/jsonapi": "^0.17.0-beta.14",
     "@orbit/utils": "^0.17.0-beta.14",
-    "@release-it/bumper": "^2.0.0",
+    "@release-it/bumper": "^3.0.1",
     "@sentry/electron": "^2.5.0",
     "@sentry/integrations": "^6.7.1",
     "@tailwindcss/forms": "rwwagner90/tailwindcss-forms#e84f83f144c2d1f5f6d522632016b97b0a0e5740",

@@ -128,7 +128,7 @@
     "qunit-dom": "^1.6.0",
     "release-it": "^14.9.0",
     "release-it-lerna-changelog": "^3.1.0",
-    "tailwindcss": "^2.1.4",
+    "tailwindcss": "^2.2.19",
     "typescript": "^4.3.5",
     "wcag-contrast": "^3.0.0"
   },

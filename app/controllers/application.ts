@@ -15,6 +15,7 @@ import ColorModel from 'swach/data-models/color';
 import ColorUtils from 'swach/services/color-utils';
 import UndoManager from 'swach/services/undo-manager';
 import { SettingsStorage, themes } from 'swach/storages/settings';
+import PaletteModel from 'swach/data-models/palette';
 
 export default class ApplicationController extends Controller {
   @service colorUtils!: ColorUtils;
@@ -140,7 +141,7 @@ export default class ApplicationController extends Controller {
 
   @action
   async addColor(color: string): Promise<ColorModel | undefined> {
-    const palettes = (await this.store.find('palette')) as Model[];
+    const palettes = await this.store.findRecords<PaletteModel[]>('palette');
     const colorHistory = A(palettes).findBy('isColorHistory', true);
 
     if (colorHistory) {
@@ -148,7 +149,7 @@ export default class ApplicationController extends Controller {
       colorPOJO.id = this.dataSchema.generateId('color');
 
       if (colorPOJO?.id) {
-        await this.store.update((t) => {
+        const [colorModel] = await this.store.update<[ColorModel]>((t) => {
           return [
             t.addRecord(colorPOJO),
             t.addToRelatedRecords(
@@ -161,7 +162,7 @@ export default class ApplicationController extends Controller {
 
         this.undoManager.setupUndoRedo();
 
-        return (await this.store.find('color', colorPOJO.id)) as ColorModel;
+        return colorModel;
       }
     }
   }

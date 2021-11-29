@@ -1,5 +1,9 @@
 import { IndexedDBSource } from '@orbit/indexeddb';
-import { Record, RecordIdentity, RecordSchema } from '@orbit/records';
+import {
+  InitializedRecord,
+  RecordIdentity,
+  RecordSchema
+} from '@orbit/records';
 import { clone } from '@orbit/utils';
 
 import ENV from 'swach/config/environment';
@@ -30,7 +34,7 @@ export default {
         const oldColors = await getRecordsFromIDB(transaction, 'color');
         const palettes = await getRecordsFromIDB(transaction, 'palette');
 
-        const newColors: Record[] = [];
+        const newColors: InitializedRecord[] = [];
 
         for (const color of oldColors) {
           if (color.relationships?.palettes) {
@@ -120,16 +124,16 @@ export default {
 function getRecordsFromIDB(
   transaction: IDBTransaction,
   type: string
-): Promise<Record[]> {
+): Promise<InitializedRecord[]> {
   return new Promise((resolve) => {
     const objectStore = transaction.objectStore(type);
     const request = objectStore.openCursor();
-    const records: Record[] = [];
+    const records: InitializedRecord[] = [];
 
     request.onsuccess = (event: any) => {
       const cursor = event.target.result;
       if (cursor) {
-        const record = cursor.value as Record;
+        const record = cursor.value as InitializedRecord;
         records.push(record);
         cursor.continue();
       } else {
@@ -156,7 +160,7 @@ function clearRecordsFromIDB(
 function setRecordsInIDB(
   transaction: IDBTransaction,
   type: string,
-  records: Record[]
+  records: InitializedRecord[]
 ): Promise<void> {
   return new Promise((resolve) => {
     let i = 0;

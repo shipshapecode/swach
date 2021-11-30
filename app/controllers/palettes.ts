@@ -7,7 +7,6 @@ import { tracked } from '@glimmer/tracking';
 import { Store } from 'ember-orbit';
 
 import { RecordOperationTerm } from '@orbit/records';
-import { clone } from '@orbit/utils';
 
 import ApplicationController from 'swach/controllers/application';
 import ColorModel from 'swach/data-models/color';
@@ -180,6 +179,20 @@ export default class PalettesController extends Controller {
     targetParent: PaletteModel
   ): Promise<void> {
     if (sourceList !== targetList) {
+      // Clone the atttributes of the original color but not its id and
+      // relationships, so the new color will not be associated with the
+      // original color or palette.
+      const data = item.$getData();
+      const attributes = data?.attributes;
+      const colorCopy = {
+        type: 'color',
+        id: this.store.schema.generateId('color'),
+        attributes: {
+          ...attributes,
+          createdAt: new Date()
+        }
+      };
+
       const colorsList = targetList.map((color) => {
         return { type: 'color', id: color.id };
       });
@@ -192,41 +205,24 @@ export default class PalettesController extends Controller {
         }
       }
 
-      const colorCopy = clone(item.getData());
-      colorCopy.attributes.createdAt = new Date();
-      // We need to delete the id and relationships from the copy, so the new copy
-      // is not associated with the old color or palette.
-      delete colorCopy.id;
-      delete colorCopy.relationships;
-
-      await this.store.update((t) => {
-        const addColorToPaletteOperation = t.addRecord(colorCopy);
-
-        colorsList.insertAt(targetIndex, {
-          type: 'color',
-          id: addColorToPaletteOperation.operation.record.id
-        });
-
-        const operations: RecordOperationTerm[] = [addColorToPaletteOperation];
-
-        operations.push(
-          t.replaceAttribute(
-            { type: 'palette', id: targetParent.id },
-            'colorOrder',
-            colorsList
-          )
-        );
-
-        operations.push(
-          t.replaceRelatedRecords(
-            { type: 'palette', id: targetParent.id },
-            'colors',
-            colorsList
-          )
-        );
-
-        return operations;
+      colorsList.insertAt(targetIndex, {
+        type: 'color',
+        id: colorCopy.id
       });
+
+      await this.store.update((t) => [
+        t.addRecord(colorCopy),
+        t.replaceAttribute(
+          { type: 'palette', id: targetParent.id },
+          'colorOrder',
+          colorsList
+        ),
+        t.replaceRelatedRecords(
+          { type: 'palette', id: targetParent.id },
+          'colors',
+          colorsList
+        )
+      ]);
     }
   }
 

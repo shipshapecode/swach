@@ -7,6 +7,9 @@ import { tracked } from '@glimmer/tracking';
 import CognitoService from 'ember-cognito/services/cognito';
 
 import { Coordinator } from '@orbit/coordinator';
+import IndexedDBSource from '@orbit/indexeddb';
+import JSONAPISource from '@orbit/jsonapi';
+import { InitializedRecord } from '@orbit/records';
 
 export default class RegisterConfirm extends Component {
   @service cognito!: CognitoService;
@@ -27,11 +30,13 @@ export default class RegisterConfirm extends Component {
 
         await this.dataCoordinator.deactivate();
 
-        const backup = this.dataCoordinator.getSource('backup');
-        const remote = this.dataCoordinator.getSource('remote');
-        const transform = await backup.pull((q) => q.findRecords());
-
-        await remote.update(transform);
+        const backup =
+          this.dataCoordinator.getSource<IndexedDBSource>('backup');
+        const remote = this.dataCoordinator.getSource<JSONAPISource>('remote');
+        const records = await backup.query<InitializedRecord[]>((q) =>
+          q.findRecords()
+        );
+        await remote.update((t) => records.map((r) => t.addRecord(r)));
         await this.dataCoordinator.activate();
 
         this.router.transitionTo('settings.cloud');

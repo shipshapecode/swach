@@ -14,6 +14,7 @@ import IDBExportImport from 'indexeddb-export-import';
 
 import { SettingsStorage } from 'swach/storages/settings';
 import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
+import { InitializedRecord } from '@orbit/records';
 
 export default class SettingsDataComponent extends Component {
   @service dataCoordinator!: Coordinator;
@@ -85,15 +86,18 @@ export default class SettingsDataComponent extends Component {
                     if (!err) {
                       idbDatabase.close();
                       // TODO is pulling from the backup with orbit the best "refresh" here?
-                      const backup = this.dataCoordinator.getSource(
-                        'backup'
-                      ) as IndexedDBSource;
+                      const backup =
+                        this.dataCoordinator.getSource<IndexedDBSource>(
+                          'backup'
+                        );
 
                       if (backup) {
-                        const transform = await backup.pull((q) =>
-                          q.findRecords()
+                        const records = await backup.query<InitializedRecord[]>(
+                          (q) => q.findRecords()
                         );
-                        await this.store.sync(transform);
+                        await this.store.sync((t) =>
+                          records.map((r) => t.addRecord(r))
+                        );
                         this.flashMessages.success(
                           'Data successfully replaced.'
                         );

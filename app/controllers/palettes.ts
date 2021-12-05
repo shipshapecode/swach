@@ -187,10 +187,8 @@ export default class PalettesController extends Controller {
       const colorCopy = {
         type: 'color',
         id: this.store.schema.generateId('color'),
-        attributes: {
-          ...attributes,
-          createdAt: new Date()
-        }
+        ...attributes,
+        createdAt: new Date()
       };
 
       const colorsList = targetList.map((color) => {

@@ -146,25 +146,23 @@ export default class ApplicationController extends Controller {
     const colorHistory = A(palettes).findBy('isColorHistory', true);
 
     if (colorHistory) {
-      const colorPOJO = this.colorUtils.createColorPOJO(color);
-      colorPOJO.id = this.dataSchema.generateId('color');
+      const colorPOJO = this.colorUtils.createColorPOJO(
+        color,
+        this.dataSchema.generateId('color')
+      );
 
-      if (colorPOJO?.id) {
-        const [colorModel] = await this.store.update<[ColorModel]>((t) => {
-          return [
-            t.addRecord(colorPOJO),
-            t.addToRelatedRecords(
-              { type: 'palette', id: colorHistory.id },
-              'colors',
-              { type: 'color', id: String(colorPOJO.id) }
-            )
-          ];
-        });
+      const [colorModel] = await this.store.update<[ColorModel]>((t) => [
+        t.addRecord(colorPOJO),
+        t.addToRelatedRecords(
+          { type: 'palette', id: colorHistory.id },
+          'colors',
+          { type: 'color', id: String(colorPOJO.id) }
+        )
+      ]);
 
-        this.undoManager.setupUndoRedo();
+      this.undoManager.setupUndoRedo();
 
-        return colorModel;
-      }
+      return colorModel;
     }
   }
 

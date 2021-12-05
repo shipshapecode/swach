@@ -70,20 +70,23 @@ export default class ApplicationRoute extends Route {
       await this.dataCoordinator.activate();
     }
 
-    const palettes = (await this.store.query((q) => q.findRecords('palette'), {
-      sources: {
-        remote: {
-          include: ['colors']
+    const palettes = await this.store.query<PaletteModel[]>(
+      (q) => q.findRecords('palette'),
+      {
+        sources: {
+          remote: {
+            include: ['colors']
+          }
         }
       }
-    })) as PaletteModel[];
+    );
 
     let colorHistory = palettes.find(
       (palette: PaletteModel) => palette.isColorHistory
     );
 
     if (!colorHistory) {
-      colorHistory = (await this.store.addRecord({
+      colorHistory = await this.store.addRecord<PaletteModel>({
         type: 'palette',
         createdAt: new Date(),
         colorOrder: [],
@@ -91,7 +94,7 @@ export default class ApplicationRoute extends Route {
         isFavorite: false,
         isLocked: false,
         selectedColorIndex: 0
-      })) as PaletteModel;
+      });
     }
   }
 }

@@ -44,57 +44,43 @@ export default class KulerPaletteRowComponent extends Component<KulerPaletteRowA
     const { palette } = this.args;
     const { colors } = palette;
 
-    await this.store.update((t) => {
-      const paletteOperation = t.addRecord({
-        type: 'palette',
-        attributes: {
-          name: this.args.palette.name,
-          colorOrder: [],
-          createdAt: new Date(),
-          index: 0,
-          isColorHistory: false,
-          isFavorite: false,
-          isLocked: false
-        }
-      });
+    const newColors = colors.map((color) => {
+      const { createdAt, hex, name, r, g, b, a } = color;
 
-      const paletteId = paletteOperation.operation.record.id;
-
-      const colorOperations = colors.map((color) => {
-        const { createdAt, hex, name, r, g, b, a } = color;
-
-        return t.addRecord({
-          type: 'color',
-          attributes: {
-            createdAt,
-            hex,
-            name,
-            r,
-            g,
-            b,
-            a
-          }
-        });
-      });
-      const colorsList = colorOperations.map(({ operation }) => {
-        return { type: 'color', id: operation.record.id };
-      });
-
-      return [
-        paletteOperation,
-        ...colorOperations,
-        t.replaceRelatedRecords(
-          { type: 'palette', id: paletteId },
-          'colors',
-          colorsList
-        ),
-        t.replaceAttribute(
-          { type: 'palette', id: paletteId },
-          'colorOrder',
-          colorsList
-        )
-      ];
+      return {
+        type: 'color',
+        id: this.store.schema.generateId('color'),
+        createdAt,
+        hex,
+        name,
+        r,
+        g,
+        b,
+        a
+      };
     });
+
+    const colorsList = newColors.map((color) => {
+      return { type: 'color', id: color.id };
+    });
+
+    const newPalette = {
+      type: 'palette',
+      id: this.store.schema.generateId('palette'),
+      name: this.args.palette.name,
+      colors: colorsList,
+      colorOrder: colorsList,
+      createdAt: new Date(),
+      index: 0,
+      isColorHistory: false,
+      isFavorite: false,
+      isLocked: false
+    };
+
+    await this.store.update((t) => [
+      ...newColors.map((c) => t.addRecord(c)),
+      t.addRecord(newPalette)
+    ]);
 
     this.undoManager.setupUndoRedo();
   }

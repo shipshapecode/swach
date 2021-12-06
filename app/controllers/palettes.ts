@@ -179,7 +179,7 @@ export default class PalettesController extends Controller {
     targetParent: PaletteModel
   ): Promise<void> {
     if (sourceList !== targetList) {
-      // Clone the atttributes of the original color but not its id and
+      // Clone the attributes of the original color but not its id and
       // relationships, so the new color will not be associated with the
       // original color or palette.
       const data = item.$getData();

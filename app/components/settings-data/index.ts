@@ -9,12 +9,12 @@ import { Store } from 'ember-orbit';
 
 import { Coordinator } from '@orbit/coordinator';
 import IndexedDBSource from '@orbit/indexeddb';
+import { InitializedRecord } from '@orbit/records';
 import { IpcRenderer } from 'electron';
 import IDBExportImport from 'indexeddb-export-import';
 
 import { SettingsStorage } from 'swach/storages/settings';
 import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
-import { InitializedRecord } from '@orbit/records';
 
 export default class SettingsDataComponent extends Component {
   @service dataCoordinator!: Coordinator;

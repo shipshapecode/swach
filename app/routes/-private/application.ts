@@ -6,7 +6,7 @@ import { Store } from 'ember-orbit';
 
 import { Coordinator } from '@orbit/coordinator';
 import IndexedDBSource from '@orbit/indexeddb';
-import { RecordSchema } from '@orbit/records';
+import { InitializedRecord, RecordSchema } from '@orbit/records';
 import { IpcRenderer } from 'electron';
 
 import ENV from 'swach/config/environment';
@@ -47,7 +47,9 @@ export default class ApplicationRoute extends Route {
       ) as IndexedDBSource;
 
       if (backup) {
-        const transform = await backup.pull((q) => q.findRecords());
+        const records = await backup.query<InitializedRecord[]>((q) =>
+          q.findRecords()
+        );
 
         // If a data migration has been loaded that requires the recreation of
         // inverse relationships, this flag will be set as part of the
@@ -59,29 +61,32 @@ export default class ApplicationRoute extends Route {
         if (backup.recreateInverseRelationshipsOnLoad) {
           // @ts-expect-error This is a hacked property until we have a real one to use in ember-orbit
           backup.recreateInverseRelationshipsOnLoad = false;
-          await backup.sync(transform);
+          await backup.sync((t) => records.map((r) => t.addRecord(r)));
         }
 
-        await this.store.sync(transform);
+        await this.store.sync((t) => records.map((r) => t.addRecord(r)));
       }
 
       await this.dataCoordinator.activate();
     }
 
-    const palettes = (await this.store.query((q) => q.findRecords('palette'), {
-      sources: {
-        remote: {
-          include: ['colors']
+    const palettes = await this.store.query<PaletteModel[]>(
+      (q) => q.findRecords('palette'),
+      {
+        sources: {
+          remote: {
+            include: ['colors']
+          }
         }
       }
-    })) as PaletteModel[];
+    );
 
     let colorHistory = palettes.find(
       (palette: PaletteModel) => palette.isColorHistory
     );
 
     if (!colorHistory) {
-      colorHistory = (await this.store.addRecord({
+      colorHistory = await this.store.addRecord<PaletteModel>({
         type: 'palette',
         createdAt: new Date(),
         colorOrder: [],
@@ -89,7 +94,7 @@ export default class ApplicationRoute extends Route {
         isFavorite: false,
         isLocked: false,
         selectedColorIndex: 0
-      })) as PaletteModel;
+      });
     }
   }
 }

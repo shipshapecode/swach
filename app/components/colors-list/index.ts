@@ -23,7 +23,7 @@ export default class ColorsList extends Component<ColorsListArgs> {
 
   get sortedColors(): (ColorModel | undefined)[] | undefined {
     const { palette } = this.args;
-    if (!palette.disconnected) {
+    if (!palette.$isDisconnected) {
       if (palette.isColorHistory) {
         return palette.colors.sortBy('createdAt').reverse();
       } else {

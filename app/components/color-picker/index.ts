@@ -8,7 +8,6 @@ import { Store } from 'ember-orbit';
 
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
-import { RecordOperationTerm } from '@orbit/records';
 
 import {
   PrivateRGBAHex,
@@ -70,22 +69,18 @@ export default class ColorPickerComponent extends Component<ColorPickerArgs> {
     const colorToEdit = this.args.selectedColor;
     // If we passed a color to edit, save it, otherwise create a new global color
     if (colorToEdit) {
-      await this.store.update((t) => {
-        const operations: RecordOperationTerm[] = [];
-
-        ['r', 'g', 'b', 'a', 'name'].forEach((attr) => {
-          operations.push(
-            t.replaceAttribute(
-              { type: 'color', id: colorToEdit.id },
-              attr,
-              //@ts-expect-error TODO fix this error later
-              this._selectedColor[attr]
-            )
-          );
-        });
-
-        return operations;
-      });
+      // TODO: Consider refactoring to use a single `updateRecord` operation
+      // instead of multiple `replaceAttribute` operations.
+      await this.store.update((t) =>
+        ['r', 'g', 'b', 'a', 'name'].map((attr) =>
+          t.replaceAttribute(
+            { type: 'color', id: colorToEdit.id },
+            attr,
+            //@ts-expect-error TODO fix this error later
+            this._selectedColor[attr]
+          )
+        )
+      );
 
       this.undoManager.setupUndoRedo();
     } else {

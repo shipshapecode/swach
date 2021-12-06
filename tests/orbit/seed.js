@@ -22,9 +22,9 @@ export default async function seedOrbit(owner) {
       if (id === 'color-history-123') {
         const ids = [];
         colorHistoryColors.forEach((color) => {
-          const addRecordOperation = t.addRecord(color);
-          ids.push(addRecordOperation.operation.record.id);
-          operations.push(addRecordOperation);
+          color.id ??= store.schema.generateId('color');
+          ids.push(color.id);
+          operations.push(t.addRecord(color));
         });
 
         operations.push(
@@ -42,9 +42,9 @@ export default async function seedOrbit(owner) {
       } else if (id === 'first-palette') {
         const ids = [];
         firstPaletteColors.forEach((color) => {
-          const addRecordOperation = t.addRecord(color);
-          ids.push(addRecordOperation.operation.record.id);
-          operations.push(addRecordOperation);
+          color.id ??= store.schema.generateId('color');
+          ids.push(color.id);
+          operations.push(t.addRecord(color));
         });
         const colorsList = ids.map((id) => {
           return {
@@ -71,9 +71,9 @@ export default async function seedOrbit(owner) {
       } else if (id === 'second-palette') {
         const ids = [];
         secondPaletteColors.forEach((color) => {
-          const addRecordOperation = t.addRecord(color);
-          ids.push(addRecordOperation.operation.record.id);
-          operations.push(addRecordOperation);
+          color.id ??= store.schema.generateId('color');
+          ids.push(color.id);
+          operations.push(t.addRecord(color));
         });
         const colorsList = ids.map((id) => {
           return {
@@ -99,9 +99,9 @@ export default async function seedOrbit(owner) {
       } else if (id === 'locked-palette') {
         const ids = [];
         lockedPaletteColors.forEach((color) => {
-          const addRecordOperation = t.addRecord(color);
-          ids.push(addRecordOperation.operation.record.id);
-          operations.push(addRecordOperation);
+          color.id ??= store.schema.generateId('color');
+          ids.push(color.id);
+          operations.push(t.addRecord(color));
         });
         const colorsList = ids.map((id) => {
           return {

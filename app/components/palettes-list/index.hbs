@@ -8,7 +8,7 @@
       as |palette|
     >
       {{! TODO: remove this disconnected check when caching is fixed in ember-orbit }}
-      {{#unless palette.disconnected}}
+      {{#unless palette.$isDisconnected}}
         <PaletteRow
           @moveColorsBetweenPalettes={{@moveColorsBetweenPalettes}}
           @palette={{palette}}

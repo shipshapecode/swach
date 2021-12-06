@@ -9,6 +9,7 @@ import { Store } from 'ember-orbit';
 
 import { Coordinator } from '@orbit/coordinator';
 import IndexedDBSource from '@orbit/indexeddb';
+import { InitializedRecord } from '@orbit/records';
 import { IpcRenderer } from 'electron';
 import IDBExportImport from 'indexeddb-export-import';
 
@@ -85,15 +86,18 @@ export default class SettingsDataComponent extends Component {
                     if (!err) {
                       idbDatabase.close();
                       // TODO is pulling from the backup with orbit the best "refresh" here?
-                      const backup = this.dataCoordinator.getSource(
-                        'backup'
-                      ) as IndexedDBSource;
+                      const backup =
+                        this.dataCoordinator.getSource<IndexedDBSource>(
+                          'backup'
+                        );
 
                       if (backup) {
-                        const transform = await backup.pull((q) =>
-                          q.findRecords()
+                        const records = await backup.query<InitializedRecord[]>(
+                          (q) => q.findRecords()
                         );
-                        await this.store.sync(transform);
+                        await this.store.sync((t) =>
+                          records.map((r) => t.addRecord(r))
+                        );
                         this.flashMessages.success(
                           'Data successfully replaced.'
                         );

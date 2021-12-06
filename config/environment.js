@@ -34,7 +34,10 @@ module.exports = function (environment) {
       region: 'us-east-2'
     },
     api: {
-      host: 'http://localhost:3000'
+      host:
+        environment === 'test'
+          ? 'http://localhost:3000'
+          : 'https://jpuj8ukmx8.execute-api.us-east-2.amazonaws.com/dev'
     },
     featureFlags: {
       'cloud-login': true

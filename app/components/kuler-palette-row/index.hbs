@@ -35,22 +35,22 @@
       {{#each @palette.colors as |color index|}}
         <div
           class="flex flex-grow relative
-            {{if (eq index 0) "rounded-l"}}
-            {{if (eq index (sub @palette.colors.length 1)) "rounded-r"}}"
+            {{if (eq index 0) 'rounded-l'}}
+            {{if (eq index (sub @palette.colors.length 1)) 'rounded-r'}}"
         >
           <div
             data-test-kuler-palette-color="{{index}}"
             class="absolute h-full left-0 top-0 w-full z-10
-              {{if (eq index 0) "rounded-l"}}
-              {{if (eq index (sub @palette.colors.length 1)) "rounded-r"}}
-              {{if (eq index @palette.selectedColorIndex) "selected-color"}}"
+              {{if (eq index 0) 'rounded-l'}}
+              {{if (eq index (sub @palette.colors.length 1)) 'rounded-r'}}
+              {{if (eq index @palette.selectedColorIndex) 'selected-color'}}"
             style={{html-safe (concat "background-color: " color.hex)}}
             {{on "click" (stop-propagation (fn this.setSelectedColor color))}}
           ></div>
           <div
             class="opacity-checkerboard absolute h-full left-0 top-0 w-full z-0
-              {{if (eq index 0) "rounded-l"}}
-              {{if (eq index (sub @palette.colors.length 1)) "rounded-r"}}"
+              {{if (eq index 0) 'rounded-l'}}
+              {{if (eq index (sub @palette.colors.length 1)) 'rounded-r'}}"
           ></div>
         </div>
       {{/each}}

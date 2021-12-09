@@ -151,6 +151,8 @@ export default class ApplicationController extends Controller {
         this.dataSchema.generateId('color')
       );
 
+      delete colorPOJO.attributes.hex;
+
       const [colorModel] = await this.store.update<[ColorModel]>((t) => [
         t.addRecord(colorPOJO),
         t.addToRelatedRecords(

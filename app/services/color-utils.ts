@@ -19,7 +19,7 @@ export interface ColorPOJO {
   attributes: {
     name: string;
     createdAt: Date;
-    hex: string;
+    hex?: string;
     r: number;
     g: number;
     b: number;

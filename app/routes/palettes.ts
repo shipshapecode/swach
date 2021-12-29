@@ -8,19 +8,17 @@ import { RecordQueryBuilder } from '@orbit/records';
 export default class PalettesRoute extends Route {
   @service store!: Store;
 
-  async model(): Promise<{ palettes: LiveQuery; colorHistory: LiveQuery }> {
-    const palettes = await this.store.cache.liveQuery(
-      (qb: RecordQueryBuilder) =>
-        qb
-          .findRecords('palette')
-          .filter({ attribute: 'isColorHistory', value: false })
-          .sort('index')
+  model(): { palettes: LiveQuery; colorHistory: LiveQuery } {
+    const palettes = this.store.cache.liveQuery((qb: RecordQueryBuilder) =>
+      qb
+        .findRecords('palette')
+        .filter({ attribute: 'isColorHistory', value: false })
+        .sort('index')
     );
-    const colorHistory = await this.store.cache.liveQuery(
-      (qb: RecordQueryBuilder) =>
-        qb
-          .findRecords('palette')
-          .filter({ attribute: 'isColorHistory', value: true })
+    const colorHistory = this.store.cache.liveQuery((qb: RecordQueryBuilder) =>
+      qb
+        .findRecords('palette')
+        .filter({ attribute: 'isColorHistory', value: true })
     );
 
     return {

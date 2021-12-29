@@ -42,9 +42,7 @@ export default class ApplicationRoute extends Route {
       this.dataCoordinator.removeStrategy('store-backup-sync');
       this.dataCoordinator.removeSource('backup');
     } else {
-      const backup = this.dataCoordinator.getSource(
-        'backup'
-      ) as IndexedDBSource;
+      const backup = this.dataCoordinator.getSource<IndexedDBSource>('backup');
 
       if (backup) {
         const records = await backup.query<InitializedRecord[]>((q) =>

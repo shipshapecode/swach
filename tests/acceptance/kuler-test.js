@@ -24,7 +24,7 @@ module('Acceptance | kuler', function (hooks) {
   });
 
   test('visiting /kuler with query parameters', function (assert) {
-    assert.equal(currentURL(), '/kuler?colorId=pale-magenta');
+    assert.strictEqual(currentURL(), '/kuler?colorId=pale-magenta');
   });
 
   test('analogous palette', async function (assert) {
@@ -135,7 +135,7 @@ module('Acceptance | kuler', function (hooks) {
 
     await waitForAll();
 
-    assert.equal(currentURL(), '/palettes');
+    assert.strictEqual(currentURL(), '/palettes');
 
     const colorsList = document.querySelector(
       '[data-test-palette-row="Triad"] .palette-color-squares'

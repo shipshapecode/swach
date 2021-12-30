@@ -27,7 +27,7 @@ module('Acceptance | palettes', function (hooks) {
   test('visiting /palettes', async function (assert) {
     await visit('/palettes');
 
-    assert.equal(currentURL(), '/palettes');
+    assert.strictEqual(currentURL(), '/palettes');
     assert.dom('[data-test-palette-row]').exists({ count: 3 });
   });
 

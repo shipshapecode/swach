@@ -24,7 +24,7 @@ module('Acceptance | settings/cloud', function (hooks) {
   test('visiting /settings/cloud', async function (assert) {
     await visit('/settings/cloud/login');
 
-    assert.equal(currentURL(), '/settings/cloud/login');
+    assert.strictEqual(currentURL(), '/settings/cloud/login');
   });
 
   test('user can login', async function (assert) {
@@ -45,7 +45,7 @@ module('Acceptance | settings/cloud', function (hooks) {
     await click('[data-test-login-submit]');
     await waitForAll();
 
-    assert.equal(currentURL(), '/settings/cloud/profile');
+    assert.strictEqual(currentURL(), '/settings/cloud/profile');
     assert
       .dom('[data-test-profile-detail="email"]')
       .hasText('testuser@gmail.com');

@@ -21,7 +21,7 @@ module('Acceptance | settings', function (hooks) {
   });
 
   test('visiting /settings', function (assert) {
-    assert.equal(currentURL(), '/settings');
+    assert.strictEqual(currentURL(), '/settings');
   });
 
   test('settings menu is shown', function (assert) {
@@ -38,7 +38,7 @@ module('Acceptance | settings', function (hooks) {
       localStorage.getItem('storage:settings')
     ).userTheme;
 
-    assert.equal(theme, 'light');
+    assert.strictEqual(theme, 'light');
   });
 
   // Ember specific tests

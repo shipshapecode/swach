@@ -23,7 +23,7 @@ module('Acceptance | colors', function (hooks) {
   test('visiting /colors', async function (assert) {
     await visit('/colors?paletteId=color-history-123');
 
-    assert.equal(currentURL(), '/colors?paletteId=color-history-123');
+    assert.strictEqual(currentURL(), '/colors?paletteId=color-history-123');
 
     assert.dom('[data-test-color]').exists({ count: 4 });
 
@@ -121,7 +121,7 @@ module('Acceptance | colors', function (hooks) {
 
     await waitForAll();
 
-    assert.equal(currentURL(), '/kuler?colorId=black');
+    assert.strictEqual(currentURL(), '/kuler?colorId=black');
   });
 
   // Ember specific tests

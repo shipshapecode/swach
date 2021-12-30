@@ -180,12 +180,16 @@ export default class ApplicationController extends Controller {
   ): Promise<void> {
     this.router.transitionTo('palettes');
 
-    const colorPOJOs = colors.map((c) =>
-      this.colorUtils.createColorPOJO(
+    const colorPOJOs = colors.map((c) => {
+      const colorPOJO = this.colorUtils.createColorPOJO(
         c.hex,
         this.dataSchema.generateId('color')
-      )
-    );
+      );
+
+      delete colorPOJO.attributes.hex;
+
+      return colorPOJO;
+    });
     const colorsList = colorPOJOs.map((c) => ({ type: c.type, id: c.id }));
 
     await this.store.update((t) => [

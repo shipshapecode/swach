@@ -6,7 +6,7 @@
     as |color|
   }}
     {{! TODO: remove this disconnected check when caching is fixed in ember-orbit }}
-    {{#unless color.disconnected}}
+    {{#unless color.$isDisconnected}}
       <ColorRow
         @color={{color}}
         @deleteColor={{this.deleteColor}}

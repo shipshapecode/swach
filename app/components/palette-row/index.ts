@@ -8,8 +8,7 @@ import fade from 'ember-animated/transitions/fade';
 import DragSortService from 'ember-drag-sort/services/drag-sort';
 import { Store } from 'ember-orbit';
 
-import { RecordOperationTerm } from '@orbit/records';
-import { clone } from '@orbit/utils';
+import { RecordSchema } from '@orbit/records';
 
 import ColorModel from 'swach/data-models/color';
 import PaletteModel from 'swach/data-models/palette';
@@ -107,7 +106,7 @@ class LockOption {
 
 export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   @service colorUtils!: ColorUtils;
-  @service dataSchema!: any;
+  @service dataSchema!: RecordSchema;
   @service dragSort!: DragSortService;
   @service router!: Router;
   @service store!: Store;
@@ -176,56 +175,45 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   @action
   async deletePalette(): Promise<void> {
     if (!this.isLocked) {
-      await this.store.update((t: Store['transformBuilder']) =>
-        t.removeRecord(this.args.palette)
-      );
+      await this.store.update((t) => t.removeRecord(this.args.palette));
       this.undoManager.setupUndoRedo();
     }
   }
 
   @action
   async duplicatePalette(): Promise<void> {
-    const paletteCopy = clone(this.args.palette.getData());
-    paletteCopy.id = this.dataSchema.generateId('palette');
-    delete paletteCopy.attributes.colorOrder;
-    delete paletteCopy.relationships;
-    await this.store.update((t: Store['transformBuilder']) => {
-      let colorOrder = this.args.palette.colorOrder;
-      const addPaletteOperation = t.addRecord(paletteCopy);
-
-      const operations: RecordOperationTerm[] = [addPaletteOperation];
-
-      this.args.palette.colors.forEach((color) => {
-        const colorCopy = clone(color.getData());
-        colorCopy.id = this.dataSchema.generateId('color');
-        delete colorCopy.relationships;
-        const addColorOperation = t.addRecord(colorCopy);
-
-        // Find the color by id and replace it with colorCopy.id
-        colorOrder = colorOrder.map((c) =>
-          c.id === color.id ? { type: 'color', id: colorCopy.id } : c
-        );
-
-        operations.push(addColorOperation);
-        operations.push(
-          t.replaceRelatedRecord(
-            { type: 'color', id: colorCopy.id },
-            'palette',
-            { type: 'palette', id: paletteCopy.id }
-          )
-        );
-      });
-
-      operations.push(
-        t.replaceAttribute(
-          { type: 'palette', id: paletteCopy.id },
-          'colorOrder',
-          colorOrder
-        )
+    let colorOrder = this.args.palette.colorOrder;
+    const newColors = this.args.palette.colors.map((color) => {
+      const colorData = color.$getData();
+      const attributes = colorData?.attributes;
+      const colorCopy = {
+        type: 'color',
+        id: this.dataSchema.generateId('color'),
+        ...attributes,
+        createdAt: new Date()
+      };
+      // Find the color by id and replace it with colorCopy.id
+      colorOrder = colorOrder.map((c) =>
+        c.id === color.id ? { type: 'color', id: colorCopy.id } : c
       );
-
-      return operations;
+      return colorCopy;
     });
+
+    const paletteData = this.args.palette.$getData();
+    const attributes = paletteData?.attributes;
+    const newPalette = {
+      type: 'palette',
+      id: this.dataSchema.generateId('palette'),
+      ...attributes,
+      colors: colorOrder,
+      colorOrder,
+      createdAt: new Date()
+    };
+
+    await this.store.update((t) => [
+      ...newColors.map((c) => t.addRecord(c)),
+      t.addRecord(newPalette)
+    ]);
 
     this.undoManager.setupUndoRedo();
   }
@@ -240,9 +228,12 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   @action
   favoritePalette(): void {
     if (!this.isLocked) {
-      this.args.palette.replaceAttribute(
-        'isFavorite',
-        !this.args.palette.isFavorite
+      this.store.update((t) =>
+        t.replaceAttribute(
+          this.args.palette,
+          'isFavorite',
+          !this.args.palette.isFavorite
+        )
       );
     }
   }
@@ -255,7 +246,13 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
 
   @action
   lockPalette(): void {
-    this.args.palette.replaceAttribute('isLocked', !this.args.palette.isLocked);
+    this.store.update((t) =>
+      t.replaceAttribute(
+        this.args.palette,
+        'isLocked',
+        !this.args.palette.isLocked
+      )
+    );
   }
 
   @action
@@ -296,9 +293,12 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
 
   @action
   updatePaletteName(e: InputEvent): void {
-    this.args.palette.replaceAttribute(
-      'name',
-      (<HTMLInputElement>e.target).value
+    this.store.update((t) =>
+      t.replaceAttribute(
+        this.args.palette,
+        'name',
+        (<HTMLInputElement>e.target).value
+      )
     );
   }
 }

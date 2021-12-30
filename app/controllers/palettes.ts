@@ -7,7 +7,6 @@ import { tracked } from '@glimmer/tracking';
 import { Store } from 'ember-orbit';
 
 import { RecordOperationTerm } from '@orbit/records';
-import { clone } from '@orbit/utils';
 
 import ApplicationController from 'swach/controllers/application';
 import ColorModel from 'swach/data-models/color';
@@ -89,79 +88,44 @@ export default class PalettesController extends Controller {
     targetList: ColorModel[];
     targetIndex: number;
   }): Promise<void> {
-    // If the same list and same index, we are not moving anywhere, so return
-    if (sourceList === targetList && sourceIndex === targetIndex) return;
-
-    const sourceParent = sourceArgs.parent;
-    const targetParent = targetArgs.parent;
+    const sourcePalette = sourceArgs.parent;
+    const targetPalette = targetArgs.parent;
 
     // If the palette is locked, we should not allow dragging colors into or out of it
-    if (
-      (sourceParent && sourceParent.isLocked) ||
-      (targetParent && targetParent.isLocked)
-    )
-      return;
+    if (sourcePalette?.isLocked || targetPalette?.isLocked) return;
 
-    const item = sourceList.objectAt(sourceIndex);
+    const sourceColor = sourceList.objectAt(sourceIndex);
 
-    if (item) {
-      // Dragging color out of color history
+    if (sourceColor) {
       if (sourceArgs.isColorHistory) {
+        // Drag color out of color history
         await this._moveColorFromColorHistory(
-          item,
+          sourceColor,
           sourceList,
           targetList,
           targetIndex,
-          targetParent
+          targetPalette
         );
-      } else {
-        const sourceColor = sourceList.objectAt(sourceIndex);
-
-        if (sourceColor) {
-          const sourceColorList = sourceList.map((color: ColorModel) => {
-            return { type: 'color', id: color.id };
-          });
-
-          const colorToRemove = sourceColorList.findBy('id', sourceColor.id);
-
-          if (colorToRemove) {
-            sourceColorList.removeObject(colorToRemove);
-
-            await this.store.update((t) => {
-              const operations: RecordOperationTerm[] = [];
-
-              operations.push(
-                t.removeFromRelatedRecords(
-                  { type: 'palette', id: sourceParent.id },
-                  'colors',
-                  { type: 'color', id: sourceColor.id }
-                )
-              );
-
-              operations.push(
-                t.replaceAttribute(
-                  { type: 'palette', id: sourceParent.id },
-                  'colorOrder',
-                  sourceColorList
-                )
-              );
-
-              if (!targetArgs.isColorHistory) {
-                this._moveColorFromPaletteToPalette(
-                  item,
-                  operations,
-                  t,
-                  sourceList,
-                  targetList,
-                  targetIndex,
-                  targetParent
-                );
-              }
-
-              return operations;
-            });
-          }
+      } else if (sourceList === targetList) {
+        // Move color within a single palette
+        if (sourceIndex !== targetIndex) {
+          await this._moveColorWithinPalette(
+            sourceColor,
+            sourceList,
+            sourcePalette,
+            targetIndex
+          );
         }
+      } else {
+        // Move color between palettes
+        this._moveColorBetweenPalettes(
+          sourceColor,
+          sourceList,
+          sourcePalette,
+          targetList,
+          targetIndex,
+          targetPalette
+        );
       }
 
       this.undoManager.setupUndoRedo();
@@ -171,20 +135,28 @@ export default class PalettesController extends Controller {
   /**
    * Called when dragging a color from color history to another palette.
    */
-  @action
   async _moveColorFromColorHistory(
-    item: ColorModel,
+    sourceColor: ColorModel,
     sourceList: ColorModel[],
     targetList: ColorModel[],
     targetIndex: number,
     targetParent: PaletteModel
   ): Promise<void> {
     if (sourceList !== targetList) {
-      const colorsList = targetList.map((color) => {
-        return { type: 'color', id: color.id };
-      });
+      // Clone the attributes of the original color but not its id and
+      // relationships, so the new color will not be associated with the
+      // original color or palette.
+      const data = sourceColor.$getData();
+      const attributes = data?.attributes;
+      const colorCopy = {
+        type: 'color',
+        id: this.store.schema.generateId('color'),
+        ...attributes,
+        createdAt: new Date()
+      };
+      const colorsList = targetList.map((c) => c.$identity);
 
-      const existingColor = targetList.findBy('hex', item.hex);
+      const existingColor = targetList.findBy('hex', sourceColor.hex);
       if (existingColor) {
         const colorToRemove = colorsList.findBy('id', existingColor.id);
         if (colorToRemove) {
@@ -192,107 +164,111 @@ export default class PalettesController extends Controller {
         }
       }
 
-      const colorCopy = clone(item.getData());
-      colorCopy.attributes.createdAt = new Date();
-      // We need to delete the id and relationships from the copy, so the new copy
-      // is not associated with the old color or palette.
-      delete colorCopy.id;
-      delete colorCopy.relationships;
-
-      await this.store.update((t) => {
-        const addColorToPaletteOperation = t.addRecord(colorCopy);
-
-        colorsList.insertAt(targetIndex, {
-          type: 'color',
-          id: addColorToPaletteOperation.operation.record.id
-        });
-
-        const operations: RecordOperationTerm[] = [addColorToPaletteOperation];
-
-        operations.push(
-          t.replaceAttribute(
-            { type: 'palette', id: targetParent.id },
-            'colorOrder',
-            colorsList
-          )
-        );
-
-        operations.push(
-          t.replaceRelatedRecords(
-            { type: 'palette', id: targetParent.id },
-            'colors',
-            colorsList
-          )
-        );
-
-        return operations;
+      colorsList.insertAt(targetIndex, {
+        type: 'color',
+        id: colorCopy.id
       });
+
+      await this.store.update((t) => [
+        t.addRecord(colorCopy),
+        t.replaceAttribute(
+          { type: 'palette', id: targetParent.id },
+          'colorOrder',
+          colorsList
+        ),
+        t.replaceRelatedRecords(
+          { type: 'palette', id: targetParent.id },
+          'colors',
+          colorsList
+        )
+      ]);
+    }
+  }
+
+  /**
+   * Called when dragging a color within a single palette
+   */
+  async _moveColorWithinPalette(
+    sourceColor: ColorModel,
+    sourceList: ColorModel[],
+    sourcePalette: PaletteModel,
+    targetIndex: number
+  ): Promise<void> {
+    const sourceColorList = sourceList.map((c) => c.$identity);
+    const colorToMove = sourceColorList.findBy('id', sourceColor.id);
+
+    if (colorToMove) {
+      sourceColorList.removeObject(colorToMove);
+      sourceColorList.insertAt(targetIndex, colorToMove);
+
+      await this.store.update((t) =>
+        t.replaceAttribute(sourcePalette, 'colorOrder', sourceColorList)
+      );
     }
   }
 
   /**
    * Called when dragging a color from a palette to another palette
    */
-  @action
-  async _moveColorFromPaletteToPalette(
-    item: ColorModel,
-    operations: unknown[],
-    t: Store['transformBuilder'],
+  async _moveColorBetweenPalettes(
+    sourceColor: ColorModel,
     sourceList: ColorModel[],
+    sourcePalette: PaletteModel,
     targetList: ColorModel[],
     targetIndex: number,
-    targetParent: PaletteModel
+    targetPalette: PaletteModel
   ): Promise<void> {
-    let insertIndex = targetIndex;
-    const targetColorsList = targetList.map((color: ColorModel) => {
-      return { type: 'color', id: color.id };
-    });
+    const sourceColorOrder = sourceList.map((c) => c.$identity);
+    const colorToRemove = sourceColorOrder.findBy('id', sourceColor.id);
 
-    const existingColor = targetList.findBy('hex', item.hex);
+    if (colorToRemove) {
+      sourceColorOrder.removeObject(colorToRemove);
 
-    if (existingColor) {
-      const colorToRemove = targetColorsList.findBy('id', existingColor.id);
+      await this.store.update((t) => {
+        const operations: RecordOperationTerm[] = [
+          t.removeFromRelatedRecords(sourcePalette, 'colors', sourceColor),
+          t.replaceAttribute(sourcePalette, 'colorOrder', sourceColorOrder)
+        ];
 
-      if (colorToRemove) {
-        // We do not want to modify insertIndex if we are moving a color within the same palette
-        if (sourceList !== targetList) {
-          const existingColorIndex = targetColorsList.indexOf(colorToRemove);
-          // If this color already exists in the palette at a lower index, we need to decrease the index,
-          // so we are not inserting out of bounds
-          if (existingColorIndex < targetIndex) {
-            insertIndex--;
+        if (!targetPalette.isColorHistory) {
+          let insertIndex = targetIndex;
+          const targetColorOrder = targetList.map((c) => c.$identity);
+          const existingColor = targetList.findBy('hex', sourceColor.hex);
+
+          if (existingColor) {
+            const colorToRemove = targetColorOrder.findBy(
+              'id',
+              existingColor.id
+            );
+
+            if (colorToRemove) {
+              const existingColorIndex =
+                targetColorOrder.indexOf(colorToRemove);
+              // If this color already exists in the palette at a lower index, we need to decrease the index,
+              // so we are not inserting out of bounds
+              if (existingColorIndex < targetIndex) {
+                insertIndex--;
+              }
+              targetColorOrder.removeObject(colorToRemove);
+            }
+
+            t.removeFromRelatedRecords(targetPalette, 'colors', existingColor);
           }
+
+          targetColorOrder.insertAt(insertIndex, sourceColor.$identity);
+
+          operations.push(
+            t.addToRelatedRecords(targetPalette, 'colors', sourceColor)
+          );
+
+          operations.push(
+            t.replaceAttribute(targetPalette, 'colorOrder', targetColorOrder)
+          );
         }
-        targetColorsList.removeObject(colorToRemove);
-      }
 
-      t.removeFromRelatedRecords(
-        { type: 'palette', id: targetParent.id },
-        'colors',
-        { type: 'color', id: existingColor.id }
-      );
+        return operations;
+      });
     }
-
-    targetColorsList.insertAt(insertIndex, {
-      type: 'color',
-      id: item.id
-    });
-
-    operations.push(
-      t.replaceAttribute(
-        { type: 'palette', id: targetParent.id },
-        'colorOrder',
-        targetColorsList
-      )
-    );
-
-    operations.push(
-      t.addToRelatedRecords(
-        { type: 'palette', id: targetParent.id },
-        'colors',
-        { type: 'color', id: item.id }
-      )
-    );
   }
 
   @action

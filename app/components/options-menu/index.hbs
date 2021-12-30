@@ -2,7 +2,7 @@
   <button
     data-test-options-trigger
     class="px-1 rounded transition-colors
-      {{if (and this.isShown @showBackground) "bg-main"}}
+      {{if (and this.isShown @showBackground) 'bg-main'}}
       {{@triggerClasses}}"
     type="button"
     {{on "click" (stop-propagation (set this "isShown" (not this.isShown)))}}

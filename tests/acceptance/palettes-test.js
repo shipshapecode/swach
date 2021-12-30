@@ -116,9 +116,13 @@ module('Acceptance | palettes', function (hooks) {
         'First Palette 123'
       );
 
+      await waitForAll();
+
       await blur(
         '[data-test-palette-row="First Palette 123"] [data-test-palette-name-input]'
       );
+
+      await waitForAll();
 
       assert
         .dom(
@@ -282,10 +286,13 @@ module('Acceptance | palettes', function (hooks) {
       assert.dom('[data-test-color-picker]').exists();
 
       await fillIn('[data-test-color-picker-r]', '255');
+      await waitForAll();
       await triggerEvent('[data-test-color-picker-r]', 'complete');
       await fillIn('[data-test-color-picker-g]', '0');
+      await waitForAll();
       await triggerEvent('[data-test-color-picker-g]', 'complete');
       await fillIn('[data-test-color-picker-b]', '0');
+      await waitForAll();
       await triggerEvent('[data-test-color-picker-b]', 'complete');
 
       await waitForAll();
@@ -421,9 +428,11 @@ module('Acceptance | palettes', function (hooks) {
       .exists({ count: 4 });
 
     await click('[data-test-color-history-menu] [data-test-options-trigger]');
+    await waitForAll();
     await click(
       '[data-test-color-history-menu] [data-test-options-content] [data-test-clear-color-history]'
     );
+    await waitForAll();
 
     assert
       .dom('[data-test-color-history] [data-test-color-history-square]')

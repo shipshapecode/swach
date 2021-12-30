@@ -7,18 +7,20 @@ import { tracked } from '@glimmer/tracking';
 
 import FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
-import { Model, Store } from 'ember-orbit';
+import { Store } from 'ember-orbit';
 
+import { RecordSchema } from '@orbit/records';
 import { IpcRenderer } from 'electron';
 
 import ColorModel from 'swach/data-models/color';
+import PaletteModel from 'swach/data-models/palette';
 import ColorUtils from 'swach/services/color-utils';
 import UndoManager from 'swach/services/undo-manager';
 import { SettingsStorage, themes } from 'swach/storages/settings';
 
 export default class ApplicationController extends Controller {
   @service colorUtils!: ColorUtils;
-  @service dataSchema!: any;
+  @service dataSchema!: RecordSchema;
   @service flashMessages!: FlashMessageService;
   @service router!: Router;
   @service store!: Store;
@@ -96,12 +98,15 @@ export default class ApplicationController extends Controller {
         this.router.transitionTo('contrast');
       });
 
-      this.ipcRenderer.on('openSharedPalette', async (event, query) => {
-        const data = JSON.parse(decodeURIComponent(query));
-        const colors = data?.colors ?? [];
-        const name = data?.name ?? 'Palette';
-        await this.createPalette(name, colors);
-      });
+      this.ipcRenderer.on(
+        'openSharedPalette',
+        async (_event: unknown, query: string) => {
+          const data = JSON.parse(decodeURIComponent(query));
+          const colors = data?.colors ?? [];
+          const name = data?.name ?? 'Palette';
+          await this.createPalette(name, colors);
+        }
+      );
 
       this.ipcRenderer.on('setTheme', (_event: unknown, theme: string) => {
         this.settings.set('osTheme', theme);
@@ -137,29 +142,29 @@ export default class ApplicationController extends Controller {
 
   @action
   async addColor(color: string): Promise<ColorModel | undefined> {
-    const palettes = (await this.store.find('palette')) as Model[];
+    const palettes = await this.store.findRecords<PaletteModel[]>('palette');
     const colorHistory = A(palettes).findBy('isColorHistory', true);
 
     if (colorHistory) {
-      const colorPOJO = this.colorUtils.createColorPOJO(color);
-      colorPOJO.id = this.dataSchema.generateId('color');
+      const colorPOJO = this.colorUtils.createColorPOJO(
+        color,
+        this.dataSchema.generateId('color')
+      );
 
-      if (colorPOJO?.id) {
-        await this.store.update((t) => {
-          return [
-            t.addRecord(colorPOJO),
-            t.addToRelatedRecords(
-              { type: 'palette', id: colorHistory.id },
-              'colors',
-              { type: 'color', id: String(colorPOJO.id) }
-            )
-          ];
-        });
+      delete colorPOJO.attributes.hex;
 
-        this.undoManager.setupUndoRedo();
+      const [colorModel] = await this.store.update<[ColorModel]>((t) => [
+        t.addRecord(colorPOJO),
+        t.addToRelatedRecords(
+          { type: 'palette', id: colorHistory.id },
+          'colors',
+          { type: 'color', id: String(colorPOJO.id) }
+        )
+      ]);
 
-        return (await this.store.find('color', colorPOJO.id)) as ColorModel;
-      }
+      this.undoManager.setupUndoRedo();
+
+      return colorModel;
     }
   }
 
@@ -175,49 +180,29 @@ export default class ApplicationController extends Controller {
   ): Promise<void> {
     this.router.transitionTo('palettes');
 
-    await this.store.update((t) => {
-      const paletteOperation = t.addRecord({
+    const colorPOJOs = colors.map((c) =>
+      this.colorUtils.createColorPOJO(
+        c.hex,
+        this.dataSchema.generateId('color')
+      )
+    );
+    const colorsList = colorPOJOs.map((c) => ({ type: c.type, id: c.id }));
+
+    await this.store.update((t) => [
+      ...colorPOJOs.map((c) => t.addRecord(c)),
+      t.addRecord({
         type: 'palette',
-        attributes: {
-          name: paletteName,
-          colorOrder: [],
-          createdAt: new Date(),
-          index: 0,
-          isColorHistory: false,
-          isFavorite: false,
-          isLocked: false
-        }
-      });
-
-      const paletteId = paletteOperation.operation.record.id;
-
-      const colorOperations = colors.map((color) => {
-        const { attributes } = this.colorUtils.createColorPOJO(color.hex);
-
-        return t.addRecord({
-          type: 'color',
-          attributes
-        });
-      });
-      const colorsList = colorOperations.map(({ operation }) => {
-        return { type: 'color', id: operation.record.id };
-      });
-
-      return [
-        paletteOperation,
-        ...colorOperations,
-        t.replaceRelatedRecords(
-          { type: 'palette', id: paletteId },
-          'colors',
-          colorsList
-        ),
-        t.replaceAttribute(
-          { type: 'palette', id: paletteId },
-          'colorOrder',
-          colorsList
-        )
-      ];
-    });
+        id: this.dataSchema.generateId('palette'),
+        name: paletteName,
+        colorOrder: colorsList,
+        colors: colorsList,
+        createdAt: new Date(),
+        index: 0,
+        isColorHistory: false,
+        isFavorite: false,
+        isLocked: false
+      })
+    ]);
 
     this.undoManager.setupUndoRedo();
   }

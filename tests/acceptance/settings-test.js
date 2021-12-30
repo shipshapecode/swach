@@ -51,9 +51,11 @@ module('Acceptance | settings', function (hooks) {
   // Electron specific tests
   if (typeof requireNode !== 'undefined') {
     // TODO: these are different for Mac/Windows vs Linux, so we need specific platform tests
+    // eslint-disable-next-line qunit/no-commented-tests
     // test('has seven inputs', function (assert) {
     //   assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
     // });
+    // eslint-disable-next-line qunit/no-commented-tests
     // test('start on startup is not checked by default', async function (assert) {
     //   assert.dom('[data-test-settings-startup]').isNotChecked();
     // });

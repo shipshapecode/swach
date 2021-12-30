@@ -33,20 +33,6 @@ class Palette {
   }
 }
 
-iro.ColorPicker.prototype.setColors = function (
-  newColorValues,
-  selectedIndex = 0
-) {
-  // Unbind color events
-  this.colors.forEach((color: iro.Color) => color.unbind());
-  // Destroy old colors
-  this.colors = [];
-  // Add new colors
-  newColorValues.forEach((colorValue) => this.addColor(colorValue));
-  // Reset active color
-  this.setActiveColor(selectedIndex);
-};
-
 interface KulerArgs {
   baseColor: any;
 }
@@ -102,7 +88,7 @@ export default class KulerComponent extends Component<KulerArgs> {
     });
   }
 
-  willDestroy() {
+  willDestroy(): void {
     super.willDestroy();
 
     this._destroyLeftoverPalettes();
@@ -121,8 +107,9 @@ export default class KulerComponent extends Component<KulerArgs> {
 
     const palettes: Palette[] = [];
     for (const harmony of this.harmonies) {
-      const palette = new Palette(harmony);
+      const palette = new Palette(harmony as harmonyTypes);
 
+      //@ts-expect-error TODO fix this error later
       let colors = new TinyColor(this.baseColor.hex)[harmony](5);
       colors = colors.map((color: TinyColor) => {
         return this.colorUtils.createColorPOJO(color.toHexString());

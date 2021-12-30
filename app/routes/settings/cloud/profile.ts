@@ -9,6 +9,7 @@ export default class SettingsAccountRoute extends Route {
   @service session!: Session;
 
   model(): CognitoService['user']['attributes'] {
+    console.log(this.cognito);
     return this.cognito.user?.attributes;
   }
 }

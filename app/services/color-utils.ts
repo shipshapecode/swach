@@ -19,7 +19,7 @@ export interface ColorPOJO {
   attributes: {
     name: string;
     createdAt: Date;
-    hex: string;
+    hex?: string;
     r: number;
     g: number;
     b: number;
@@ -45,7 +45,7 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  createColorPOJO(color: any): ColorPOJO {
+  createColorPOJO(color: any, id?: string): ColorPOJO {
     const tinyColor = new TinyColor(color);
     const { r, g, b, a } = tinyColor.toRgb();
     const namedColor = this.nearestColor.nearest({ r, g, b });
@@ -53,6 +53,7 @@ export default class ColorUtilsService extends Service {
 
     return {
       type: 'color',
+      id,
       attributes: {
         name: namedColor.name,
         createdAt: new Date(),

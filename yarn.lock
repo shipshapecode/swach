@@ -8167,15 +8167,15 @@ ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.0, ember-cli-babel@^7.1.3, ember-cl
     rimraf "^3.0.1"
     semver "^5.5.0"
 
-ember-cli-content-security-policy@^2.0.0-4:
-  version "2.0.0-4"
-  resolved "https://registry.yarnpkg.com/ember-cli-content-security-policy/-/ember-cli-content-security-policy-2.0.0-4.tgz#4552187dcfc8f0ed4979e9a33146e321bc4f5c1d"
-  integrity sha512-pmJcR4ABodKQDNYgpWVHqbFsm6/wLJrfPvwVcUY5CFQGbZaKNmkzuTqkntUdnQZQ2+WSNcwDVRtJLpyBsTw75A==
+ember-cli-content-security-policy@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-content-security-policy/-/ember-cli-content-security-policy-2.0.2.tgz#b99acf171a81c1d12395e669508bc18713797735"
+  integrity sha512-rrJVH0Y0suT+YikbcAcS0qp5YW/fXFANbA1bvo4WI+tuvp1yaBhzo08iuX5sgmE7ldeuVuiKpkwSfwoncFENSg==
   dependencies:
     body-parser "^1.17.0"
     chalk "^4.1.1"
     debug "^4.3.1"
-    ember-cli-babel "^7.17.2"
+    ember-cli-babel "^7.26.3"
     ember-cli-version-checker "^5.0.2"
 
 ember-cli-dependency-checker@^3.2.0:

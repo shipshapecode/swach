@@ -18,12 +18,12 @@ module('Acceptance | welcome', function (hooks) {
   test('welcome flow', async function (assert) {
     await visit('/welcome');
 
-    assert.equal(currentURL(), '/welcome');
+    assert.strictEqual(currentURL(), '/welcome');
 
     await click('[data-test-link-auto-start]');
     await waitForAll();
 
-    assert.equal(currentURL(), '/welcome/auto-start');
+    assert.strictEqual(currentURL(), '/welcome/auto-start');
 
     assert
       .dom('[data-test-auto-start-toggle]')
@@ -40,7 +40,7 @@ module('Acceptance | welcome', function (hooks) {
     await click('[data-test-link-dock-icon]');
     await waitForAll();
 
-    assert.equal(currentURL(), '/welcome/dock-icon');
+    assert.strictEqual(currentURL(), '/welcome/dock-icon');
 
     assert
       .dom('[data-test-show-dock-icon-toggle]')

@@ -26,7 +26,7 @@ module('Acceptance | settings/data', function (hooks) {
   });
 
   test('visiting /settings/data', async function (assert) {
-    assert.equal(currentURL(), '/settings/data');
+    assert.strictEqual(currentURL(), '/settings/data');
   });
 
   test('changing formats', async function (assert) {

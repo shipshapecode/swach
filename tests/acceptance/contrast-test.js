@@ -19,7 +19,7 @@ module('Acceptance | contrast', function (hooks) {
   });
 
   test('visiting /contrast', async function (assert) {
-    assert.equal(currentURL(), '/contrast');
+    assert.strictEqual(currentURL(), '/contrast');
   });
 
   test('has default value on open', function (assert) {

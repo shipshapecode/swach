@@ -14,6 +14,6 @@ module('Acceptance | index', function (hooks) {
   test('visiting /index', async function (assert) {
     await visit('/');
 
-    assert.equal(currentURL(), '/palettes');
+    assert.strictEqual(currentURL(), '/palettes');
   });
 });

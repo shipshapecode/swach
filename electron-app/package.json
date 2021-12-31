@@ -42,15 +42,15 @@
     "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
     "@electron-forge/maker-zip": "^6.0.0-beta.61",
     "@sentry/cli": "^1.71.0",
-    "electron": "13.6.2",
+    "electron": "^16.0.5",
     "electron-debug": "^3.2.0",
     "electron-download": "^4.1.1"
   },
   "engines": {
-    "node": ">= 14"
+    "node": ">= 16"
   },
   "volta": {
-    "node": "14.15.5",
-    "yarn": "1.22.10"
+    "node": "16.13.1",
+    "yarn": "1.22.17"
   }
 }

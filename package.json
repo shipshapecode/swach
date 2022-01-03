@@ -103,7 +103,7 @@
     "ember-load-initializers": "^2.1.2",
     "ember-local-storage": "^2.0.0",
     "ember-math-helpers": "^2.18.0",
-    "ember-named-blocks-polyfill": "^0.2.4",
+    "ember-named-blocks-polyfill": "^0.2.5",
     "ember-orbit": "^0.17.0-beta.17",
     "ember-qunit": "^5.1.5",
     "ember-resolver": "^8.0.3",

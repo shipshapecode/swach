@@ -2888,9 +2888,10 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
-"@tailwindcss/forms@rwwagner90/tailwindcss-forms#e84f83f144c2d1f5f6d522632016b97b0a0e5740":
-  version "0.2.0"
-  resolved "https://codeload.github.com/rwwagner90/tailwindcss-forms/tar.gz/e84f83f144c2d1f5f6d522632016b97b0a0e5740"
+"@tailwindcss/forms@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.4.0.tgz#a46715e347a32d216a3973eb67473bd29ae3798e"
+  integrity sha512-DeaQBx6EgEeuZPQACvC+mKneJsD8am1uiJugjgQK1+/Vt+Ai0GpFBC2T2fqnUad71WgOxyrZPE6BG1VaI6YqfQ==
   dependencies:
     mini-svg-data-uri "^1.2.3"
 
@@ -8270,14 +8271,6 @@ ember-modifier@^2.1.0:
     ember-compatibility-helpers "^1.2.4"
     ember-destroyable-polyfill "^2.0.2"
     ember-modifier-manager-polyfill "^1.2.0"
-
-ember-named-blocks-polyfill@^0.2.4:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/ember-named-blocks-polyfill/-/ember-named-blocks-polyfill-0.2.4.tgz#f5f30711ee89244927b55aae7fa9630edaadc974"
-  integrity sha512-PsohC7ejjS7V++6i/JSy0pl1hXLV3IS3Qs+O7SrjIPYcg1UEmUwqgPiDmXqNgy0p2dc5TK5bIJTtX8wofCI63Q==
-  dependencies:
-    ember-cli-babel "^7.19.0"
-    ember-cli-version-checker "^5.1.1"
 
 ember-orbit@^0.17.0-beta.17:
   version "0.17.0-beta.17"

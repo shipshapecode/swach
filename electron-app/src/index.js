@@ -63,8 +63,8 @@ if (process.platform === 'linux') {
 const mb = menubar({
   index: false,
   browserWindow: {
-    alwaysOnTop: false,
-    height: 642,
+    alwaysOnTop: true,
+    height: 660,
     resizable: false,
     width: 362,
     webPreferences: {

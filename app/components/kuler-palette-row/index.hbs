@@ -30,11 +30,11 @@
     </div>
   </div>
 
-  <div class="palette flex flex-grow h-8 relative w-full">
-    <div class="absolute palette-color-squares flex flex-grow h-8 top-0 w-full">
+  <div class="palette flex grow h-8 relative w-full">
+    <div class="absolute palette-color-squares flex grow h-8 top-0 w-full">
       {{#each @palette.colors as |color index|}}
         <div
-          class="flex flex-grow relative
+          class="flex grow relative
             {{if (eq index 0) 'rounded-l'}}
             {{if (eq index (sub @palette.colors.length 1)) 'rounded-r'}}"
         >

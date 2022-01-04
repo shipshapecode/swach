@@ -22,12 +22,12 @@
         {{this.position}}-0 ring-1 ring-main rounded-md shadow-lg text-menu-text w-44 z-50
         {{@optionsClasses}}"
       {{css-transition
-        enterClass="transform opacity-0 scale-95"
+        enterClass="opacity-0 scale-95"
         enterActiveClass="transition ease-out duration-100"
-        enterToClass="transform opacity-100 scale-100"
-        leaveClass="transform opacity-100 scale-100"
+        enterToClass="opacity-100 scale-100"
+        leaveClass="opacity-100 scale-100"
         leaveActiveClass="transition ease-in duration-75"
-        leaveToClass="transform opacity-0 scale-95"
+        leaveToClass="opacity-0 scale-95"
       }}
       {{on "click" (stop-propagation (set this "isShown" false))}}
     >

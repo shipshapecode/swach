@@ -1,15 +1,9 @@
-const EmberApp = require('ember-cli/lib/broccoli/ember-app');
-const isProduction = EmberApp.env() === 'production';
-
 module.exports = {
-  purge: {
-    enabled: isProduction,
-    content: [
-      './app/index.html',
-      './app/components/**/*.hbs',
-      './app/templates/**/*.hbs'
-    ]
-  },
+  content: [
+    './app/index.html',
+    './app/components/**/*.hbs',
+    './app/templates/**/*.hbs'
+  ],
   theme: {
     extend: {
       colors: {
@@ -50,11 +44,6 @@ module.exports = {
       'alt-hover': theme('colors.alt-hover'),
       main: theme('colors.main')
     })
-  },
-  variants: {
-    extend: {
-      opacity: ['disabled']
-    }
   },
   plugins: [
     require('@tailwindcss/forms')({

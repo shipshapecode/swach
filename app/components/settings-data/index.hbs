@@ -17,7 +17,7 @@
       {{this.settings.defaultColorFormat}}
 
       <div class="bg-btn-bg-secondary p-1 rounded-full">
-        {{svg-jar "chevron-left" class="h-3 w-3 transform -rotate-90"}}
+        {{svg-jar "chevron-left" class="h-3 w-3 -rotate-90"}}
       </div>
     </:trigger>
     <:content>
@@ -41,7 +41,7 @@
 
     <LoadingButton
       data-test-export-swatches-button
-      class="mb-2 w-full"
+      class="mb-2"
       @loading={{this.isExporting}}
       @onClick={{this.exportIndexedDB}}
     >
@@ -50,7 +50,6 @@
 
     <LoadingButton
       data-test-import-swatches-button
-      class="w-full"
       @loading={{this.isImporting}}
       @onClick={{this.importIndexedDB}}
     >

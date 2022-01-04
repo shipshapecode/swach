@@ -8,7 +8,7 @@
       class="bg-menu flex justify-between items-center p-4 w-full z-50
         {{if this.isWelcomeRoute 'hidden'}}"
     >
-      <div class="flex-grow">
+      <div class="grow">
         {{#if (not this.colorPickerIsShown)}}
           <OptionsMenu @position="left">
             <:trigger>
@@ -72,7 +72,7 @@
         {{/if}}
       </div>
 
-      <div class="flex flex-grow items-center justify-end">
+      <div class="flex grow items-center justify-end">
         <div class="h-4 w-4 mr-2">
           {{#if (and this.showEyedropperIcon (not this.colorPickerIsShown))}}
             <button type="button" {{on "click" this.launchPicker}}>

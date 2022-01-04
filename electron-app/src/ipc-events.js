@@ -2,7 +2,6 @@ const { app, clipboard, dialog, ipcMain, nativeTheme } = require('electron');
 const { download } = require('electron-dl');
 const fs = require('fs');
 
-const { launchPicker } = require('./color-picker');
 const { restartDialog } = require('./dialogs');
 const { setTouchbar } = require('./touchbar');
 
@@ -52,18 +51,6 @@ function setupEventHandlers(mb, store) {
     if (!canceled && filePaths.length) {
       return fs.readFileSync(filePaths[0], { encoding: 'utf8' });
     }
-  });
-
-  ipcMain.on('launchContrastBgPicker', async () => {
-    await launchPicker(mb, 'contrastBg');
-  });
-
-  ipcMain.on('launchContrastFgPicker', async () => {
-    await launchPicker(mb, 'contrastFg');
-  });
-
-  ipcMain.on('launchPicker', async () => {
-    await launchPicker(mb);
   });
 
   ipcMain.on('setTouchbar', (event, itemsToShow) => {

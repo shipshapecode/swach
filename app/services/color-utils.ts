@@ -91,4 +91,18 @@ export default class ColorUtilsService extends Service {
       }
     }
   }
+
+  @action
+  async launchPicker(): Promise<string> {
+    const eyeDropper = new EyeDropper();
+
+    try {
+      const result = await eyeDropper.open();
+
+      return result.sRGBHex;
+    } catch (error) {
+      console.warn(`[ERROR] launchPicker EyeDropper`, error);
+      return '';
+    }
+  }
 }

@@ -2,23 +2,23 @@ async function launchPicker(mb, type = 'global') {
   mb.hideWindow();
 
   const color = await mb.window.webContents.executeJavaScript(
-    `async function openEyeDropper() {
-  const eyeDropper = new EyeDropper();
+    `
+  async function openEyeDropper() {
+    const eyeDropper = new EyeDropper();
 
-  let color = '';
+    let color = '';
 
-  try {
-    const result = await eyeDropper.open();
-    color = result.sRGBHex;
-  } catch (error) {
-    console.warn(\`[ERROR] launchPicker EyeDropper\`, error);
-  }
+    try {
+      const result = await eyeDropper.open();
+      color = result.sRGBHex;
+    } catch (error) {
+      console.warn(\`[ERROR] launchPicker EyeDropper\`, error);
+    }
 
-  return color;
+    return color;
   }
   
-  openEyeDropper();
-  `,
+  openEyeDropper();`,
     true
   );
 

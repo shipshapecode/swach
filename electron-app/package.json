@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@sentry/electron": "^2.5.4",
+    "electron-color-picker": "^0.2.0",
     "electron-dl": "^3.3.0",
     "electron-is-dev": "^2.0.0",
     "electron-notification-state": "^1.0.4",

@@ -1,14 +1,10 @@
 import { action } from '@ember/object';
-import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
 import iro from '@jaames/iro';
 import { hex, score } from 'wcag-contrast';
-
 export default class ContrastChecker extends Component {
-  @service colorUtils;
-
   @tracked backgroundColor = '#ffffff';
   @tracked foregroundColor = '#000000';
 
@@ -18,6 +14,31 @@ export default class ContrastChecker extends Component {
 
   get wcagString() {
     return score(this.wcagScore);
+  }
+
+  constructor() {
+    super(...arguments);
+
+    if (typeof requireNode !== 'undefined') {
+      let { ipcRenderer } = requireNode('electron');
+      this.ipcRenderer = ipcRenderer;
+
+      this.ipcRenderer.on('pickContrastBgColor', async (event, color) => {
+        this.setBgColor(color);
+      });
+
+      this.ipcRenderer.on('pickContrastFgColor', async (event, color) => {
+        this.setFgColor(color);
+      });
+    }
+  }
+
+  willDestroy() {
+    super.willDestroy();
+    if (this.ipcRenderer) {
+      this.ipcRenderer.removeAllListeners('pickContrastBgColor');
+      this.ipcRenderer.removeAllListeners('pickContrastFgColor');
+    }
   }
 
   @action
@@ -90,15 +111,13 @@ export default class ContrastChecker extends Component {
   }
 
   @action
-  async launchContrastBgPicker() {
-    const color = await this.colorUtils.launchPicker();
-    this.setBgColor(color);
+  launchContrastBgPicker() {
+    this.ipcRenderer.send('launchContrastBgPicker');
   }
 
   @action
-  async launchContrastFgPicker() {
-    const color = await this.colorUtils.launchPicker();
-    this.setFgColor(color);
+  launchContrastFgPicker() {
+    this.ipcRenderer.send('launchContrastFgPicker');
   }
 
   @action

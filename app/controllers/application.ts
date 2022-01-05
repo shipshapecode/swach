@@ -84,6 +84,16 @@ export default class ApplicationController extends Controller {
 
       this.ipcRenderer = ipcRenderer;
 
+      this.ipcRenderer.on(
+        'changeColor',
+        async (_event: unknown, color: string) => {
+          const addedColor = await this.addColor(color);
+          if (addedColor) {
+            this.colorUtils.copyColorToClipboard(addedColor);
+          }
+        }
+      );
+
       this.ipcRenderer.on('openContrastChecker', () => {
         this.router.transitionTo('contrast');
       });
@@ -124,6 +134,7 @@ export default class ApplicationController extends Controller {
     super.willDestroy();
 
     if (this.ipcRenderer) {
+      this.ipcRenderer.removeAllListeners('changeColor');
       this.ipcRenderer.removeAllListeners('openContrastChecker');
       this.ipcRenderer.removeAllListeners('setTheme');
     }
@@ -214,15 +225,8 @@ export default class ApplicationController extends Controller {
   }
 
   @action
-  async launchPicker(): Promise<void> {
-    const color = await this.colorUtils.launchPicker();
-
-    if (color) {
-      const addedColor = await this.addColor(color);
-      if (addedColor) {
-        this.colorUtils.copyColorToClipboard(addedColor);
-      }
-    }
+  launchPicker(): void {
+    this.ipcRenderer.send('launchPicker');
   }
 
   @action

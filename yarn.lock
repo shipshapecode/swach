@@ -8109,10 +8109,10 @@ ember-load-initializers@^2.1.2:
     ember-cli-babel "^7.13.0"
     ember-cli-typescript "^2.0.2"
 
-ember-local-storage@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/ember-local-storage/-/ember-local-storage-2.0.0.tgz#dc6dcf31967b0412cda56aa58264d40dac64c063"
-  integrity sha512-TfqlnEvJjz8+Mx7e/bY1n3wib17YHekd6SIhmbJXzMy58wCqUhjSpDD47dtlNsmqhcmUAsuw2bCdDEQEn15efQ==
+ember-local-storage@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/ember-local-storage/-/ember-local-storage-2.0.1.tgz#e38722f571b6024e850b4c059df7aa744fb63757"
+  integrity sha512-i1U+Xnv7CgsNO01fjVVkaOhqPDWp8ovU5otJrBMmMLDbM7ouLjO7O9B4rvMzS82xtI4EcEWwhYQx2AjCRXoe1w==
   dependencies:
     blob-polyfill "^2.0.20171115"
     broccoli-funnel "^2.0.1"

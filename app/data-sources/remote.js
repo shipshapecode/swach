@@ -2,6 +2,7 @@ import { getOwner } from '@ember/application';
 import { isPresent } from '@ember/utils';
 
 import { pluralize, singularize } from 'ember-inflector';
+import { applyStandardSourceInjections } from 'ember-orbit';
 
 import {
   JSONAPIRequestProcessor,
@@ -15,6 +16,8 @@ import ENV from 'swach/config/environment';
 
 export default {
   create(injections = {}) {
+    applyStandardSourceInjections(injections);
+
     class RemoteRequestProcessor extends JSONAPIRequestProcessor {
       initFetchSettings(customSettings = {}) {
         let settings = super.initFetchSettings(customSettings);

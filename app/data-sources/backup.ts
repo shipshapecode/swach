@@ -1,3 +1,5 @@
+import { applyStandardSourceInjections } from 'ember-orbit';
+
 import { IndexedDBSource } from '@orbit/indexeddb';
 import {
   InitializedRecord,
@@ -13,6 +15,8 @@ const { SCHEMA_VERSION } = ENV;
 
 export default {
   create(injections: { name?: string; schema: RecordSchema }): IndexedDBSource {
+    applyStandardSourceInjections(injections);
+
     injections.name = 'backup';
 
     const { schema } = injections;

@@ -2,7 +2,7 @@
 
 module.exports = {
   plugins: ['ember-template-lint-plugin-prettier'],
-  extends: ['octane', 'ember-template-lint-plugin-prettier:recommended'],
+  extends: ['recommended', 'ember-template-lint-plugin-prettier:recommended'],
   rules: {
     'no-curly-component-invocation': {
       allow: ['svg-jar', '-with-dynamic-vars']
@@ -11,6 +11,7 @@ module.exports = {
     'no-invalid-interactive': false,
     'no-negated-condition': false,
     'no-outlet-outside-routes': false,
-    'require-input-label': false
+    'require-input-label': false,
+    'require-presentational-children': false
   }
 };

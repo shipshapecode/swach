@@ -7964,10 +7964,9 @@ ember-click-outside@^3.0.0:
     ember-cli-htmlbars "^5.7.1"
     ember-modifier "^2.1.0 || ^3.0.0"
 
-ember-cognito@0.12.0:
+ember-cognito@rwwagner90/ember-cognito#cb00bc808ef398243d222321bf82b8f29e5f3904:
   version "0.12.0"
-  resolved "https://registry.yarnpkg.com/ember-cognito/-/ember-cognito-0.12.0.tgz#31c01cbc3f5a93e1f42ec834d1f5702c01ee7ecb"
-  integrity sha512-HI6K+veUL/HlB8M0GEdgm6w5QpGUxVhDCS0gMMhSu9ZQhaP8ZHSKLyj6gZ0j2y47t49NCUM8/xUiIq2VMEKpYA==
+  resolved "https://codeload.github.com/rwwagner90/ember-cognito/tar.gz/cb00bc808ef398243d222321bf82b8f29e5f3904"
   dependencies:
     "@aws-amplify/auth" "^3.4.15"
     "@aws-amplify/core" "^3.8.7"

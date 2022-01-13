@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import Router from '@ember/routing/router-service';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 
 import { Store } from 'ember-orbit';
 

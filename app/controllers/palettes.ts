@@ -1,7 +1,7 @@
 import Controller, { inject as controller } from '@ember/controller';
 import { action } from '@ember/object';
 import Router from '@ember/routing/router-service';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
 import { Store } from 'ember-orbit';

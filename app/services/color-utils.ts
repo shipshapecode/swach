@@ -1,6 +1,6 @@
 import { action } from '@ember/object';
 import Service from '@ember/service';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
 import { Store } from 'ember-orbit/addon/index';

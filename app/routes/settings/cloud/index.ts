@@ -1,7 +1,7 @@
 import Transition from '@ember/routing/-private/transition';
 import Route from '@ember/routing/route';
 import Router from '@ember/routing/router-service';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 
 import CognitoService from 'ember-cognito/services/cognito';
 import Session from 'ember-simple-auth/services/session';

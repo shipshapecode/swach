@@ -1,5 +1,5 @@
 import Service from '@ember/service';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 
 import { Store } from 'ember-orbit/addon/index';
 

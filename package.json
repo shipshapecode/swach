@@ -87,7 +87,7 @@
     "ember-cli-terser": "^4.0.2",
     "ember-cli-typescript": "^4.2.1",
     "ember-cli-typescript-blueprints": "^3.0.0",
-    "ember-click-outside": "^2.0.0",
+    "ember-click-outside": "^3.0.0",
     "ember-cognito": "0.12.0",
     "ember-composable-helpers": "^5.0.0",
     "ember-css-transitions": "^2.1.1",

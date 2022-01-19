@@ -7961,14 +7961,14 @@ ember-cli@~4.1.0:
     workerpool "^6.1.4"
     yam "^1.0.0"
 
-ember-click-outside@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/ember-click-outside/-/ember-click-outside-2.0.0.tgz#4b056a1f737ed2b2c933b05fff7b3501c967cd8f"
-  integrity sha512-d53L+Of9rRhB8RU32xKFDG58e8MJZRPFF9HAuUIcn3Hl5U7v8Gb9YqB59khcryCkRXWzLOvVgmNFjNaV9iZJyQ==
+ember-click-outside@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ember-click-outside/-/ember-click-outside-3.0.0.tgz#a7271345c5960b5dfe1e45a7f7245d1cf8f383dc"
+  integrity sha512-X2hLE9Set/tQ9KAEUxfGzCTUgJu/g2sKG+t2ghk/EDz8zF+Y/DPtlxeyZTR6NEPsUbzu3Pqe9gWJUxwaiXC0wg==
   dependencies:
-    ember-cli-babel "^7.18.0"
-    ember-cli-htmlbars "^4.2.3"
-    ember-modifier "^2.1.0"
+    ember-cli-babel "^7.26.6"
+    ember-cli-htmlbars "^5.7.1"
+    ember-modifier "^2.1.0 || ^3.0.0"
 
 ember-cognito@0.12.0:
   version "0.12.0"
@@ -7982,7 +7982,7 @@ ember-cognito@0.12.0:
     ember-cli-babel "^7.22.1"
     ember-cli-htmlbars "^5.3.1"
 
-ember-compatibility-helpers@^1.0.2, ember-compatibility-helpers@^1.1.2, ember-compatibility-helpers@^1.2.0, ember-compatibility-helpers@^1.2.1, ember-compatibility-helpers@^1.2.4:
+ember-compatibility-helpers@^1.0.2, ember-compatibility-helpers@^1.1.2, ember-compatibility-helpers@^1.2.0, ember-compatibility-helpers@^1.2.1, ember-compatibility-helpers@^1.2.4, ember-compatibility-helpers@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/ember-compatibility-helpers/-/ember-compatibility-helpers-1.2.5.tgz#b8363b1d5b8725afa9a4fe2b2986ac28626c6f23"
   integrity sha512-7cddkQQp8Rs2Mqrj0xqZ0uO7eC9tBCKyZNcP2iE1RxQqOGPv8fiPkj1TUeidUB/Qe80lstoVXWMEuqqhW7Yy9A==
@@ -8224,6 +8224,17 @@ ember-modifier@^2.1.0:
     ember-compatibility-helpers "^1.2.4"
     ember-destroyable-polyfill "^2.0.2"
     ember-modifier-manager-polyfill "^1.2.0"
+
+"ember-modifier@^2.1.0 || ^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ember-modifier/-/ember-modifier-3.0.0.tgz#74466d32e4ef9b80004915676cc3bfd6e3fd7a3d"
+  integrity sha512-ccXfMnjWhjEUCB5taeIPQmf0h1zPUIMbmsCV7W+JZ2BioPUZTLhE1WuHspmV0iEOiX3Fwx8jMOx6b74sFcKJ0g==
+  dependencies:
+    ember-cli-babel "^7.26.6"
+    ember-cli-normalize-entity-name "^1.0.0"
+    ember-cli-string-utils "^1.1.0"
+    ember-cli-typescript "^4.2.1"
+    ember-compatibility-helpers "^1.2.5"
 
 ember-orbit@^0.17.0-beta.18:
   version "0.17.0-beta.18"

@@ -2960,17 +2960,16 @@
     "@types/jquery" "*"
     "@types/rsvp" "*"
 
-"@types/ember@*", "@types/ember@^3.16.5":
-  version "3.16.5"
-  resolved "https://registry.yarnpkg.com/@types/ember/-/ember-3.16.5.tgz#c2d6b0f178761c0c2fbc6fc39b4b6958c256d0ac"
-  integrity sha512-8BzT1g8r7xQsN2p7qIUZ0AXWEVpJ5LmaRWP3iT79PLyIQfTAYvHSueUl14lrB8renETjwr4+ZvVPKurn9TKxNA==
+"@types/ember@*", "@types/ember@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@types/ember/-/ember-4.0.0.tgz#0c29294fa0e5aa07ba6090f60243707dde8fc411"
+  integrity sha512-IR4o8OkFgoiRKVLRI8URvyNhEBSkjO5DXp2900/TptxOl0Retu8/tKtFaRTwkqteg2a0/6zXAA1rpFb3BbxNpA==
   dependencies:
     "@types/ember__application" "*"
     "@types/ember__array" "*"
     "@types/ember__component" "*"
     "@types/ember__controller" "*"
     "@types/ember__debug" "*"
-    "@types/ember__destroyable" "*"
     "@types/ember__engine" "*"
     "@types/ember__error" "*"
     "@types/ember__object" "*"
@@ -2983,7 +2982,6 @@
     "@types/ember__test" "*"
     "@types/ember__utils" "*"
     "@types/htmlbars-inline-precompile" "*"
-    "@types/jquery" "*"
     "@types/rsvp" "*"
 
 "@types/ember__application@*":
@@ -3028,11 +3026,6 @@
     "@types/ember__debug" "*"
     "@types/ember__engine" "*"
     "@types/ember__object" "*"
-
-"@types/ember__destroyable@*":
-  version "3.22.0"
-  resolved "https://registry.yarnpkg.com/@types/ember__destroyable/-/ember__destroyable-3.22.0.tgz#2af2c27f5d8996694c3f0fe906e2536b2e4c5aca"
-  integrity sha512-T5wZGK1MwEelNIv1bbAvRQZPo9zvfjpGyyFPwjz+sakjImKVcQzb/yq1SgGyT0QTAQAT7l0L+kFru9+fSVVo5A==
 
 "@types/ember__engine@*":
   version "3.16.3"
@@ -6372,10 +6365,10 @@ color-convert@^2.0.1:
   dependencies:
     color-name "~1.1.4"
 
-color-name-list@^8.37.1:
-  version "8.37.1"
-  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-8.37.1.tgz#9e83243dce7a7b11b0aad3fa2ccf85dffb9dc695"
-  integrity sha512-P9bXvmK5fN1RJtKHzwHP6GDa9ArwkOweHKO5utB8Ta8y7VnxoIJBw/jL/pw9hc4dH/rRAW/cloTNhsBichzxcw==
+color-name-list@^8.38.0:
+  version "8.38.0"
+  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-8.38.0.tgz#8fe15d95c8b9c711c478e12b9e5c80683ac16789"
+  integrity sha512-fONj+viDejkQri20m8gZjh1ARU0IDUcEafXzo3Rx0EIqUN+vAmyQG8h6X+xWjjJpkYj3rWd5O88SGiKD3iMv5A==
 
 color-name@1.1.3:
   version "1.1.3"

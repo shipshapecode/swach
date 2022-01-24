@@ -50,7 +50,7 @@
     "@orbit/jsonapi": "^0.17.0-beta.25",
     "@orbit/records": "^0.17.0-beta.25",
     "@orbit/serializers": "^0.17.0-beta.25",
-    "@orbit/utils": "^0.17.0-beta.25",
+    "@orbit/utils": "^0.17.0-beta.26",
     "@release-it/bumper": "^3.0.1",
     "@sentry/electron": "^2.5.4",
     "@sentry/integrations": "^6.12.0",

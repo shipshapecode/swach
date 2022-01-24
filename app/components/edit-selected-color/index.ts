@@ -1,5 +1,5 @@
 import { action, set, setProperties } from '@ember/object';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import Component from '@glimmer/component';
 
 import iro from '@jaames/iro';

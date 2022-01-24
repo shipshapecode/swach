@@ -1,4 +1,4 @@
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 
 import CognitoAuthenticator from 'ember-cognito/authenticators/cognito';
 

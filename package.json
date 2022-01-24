@@ -55,7 +55,7 @@
     "@sentry/electron": "^2.5.4",
     "@sentry/integrations": "^6.12.0",
     "@tailwindcss/forms": "^0.4.0",
-    "@types/ember": "^3.16.5",
+    "@types/ember": "^4.0.0",
     "@types/ember-qunit": "^3.4.15",
     "@types/ember-resolver": "^5.0.10",
     "@types/ember__test-helpers": "^2.6.0",
@@ -139,7 +139,7 @@
     "throttle-debounce": "^3.0.1",
     "typescript": "^4.5.4",
     "wcag-contrast": "^3.0.0",
-    "webpack": "^5.66.0"
+    "webpack": "^5.67.0"
   },
   "engines": {
     "node": ">= 16"

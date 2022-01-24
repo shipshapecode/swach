@@ -2538,29 +2538,29 @@
   dependencies:
     "@octokit/openapi-types" "^11.2.0"
 
-"@orbit/coordinator@^0.17.0-beta.25":
-  version "0.17.0-beta.25"
-  resolved "https://registry.yarnpkg.com/@orbit/coordinator/-/coordinator-0.17.0-beta.25.tgz#508e7a37ae3c7120772c8db0c5b4658e977ba516"
-  integrity sha512-Jw4fJ1454DF6fapb7gcsFxbN0Axq5VpCoFfwxihhVvxFtvjwGmfNHFI3suTZjuLsBrVzQyYwlFm/zK2/gaRVWA==
+"@orbit/coordinator@^0.17.0-beta.25", "@orbit/coordinator@^0.17.0-beta.26":
+  version "0.17.0-beta.26"
+  resolved "https://registry.yarnpkg.com/@orbit/coordinator/-/coordinator-0.17.0-beta.26.tgz#a7091fb46ce69879ecc8cab4fb484963143850ba"
+  integrity sha512-nHAgXCS5APV5GNbNGvaZIKWbesh3AuSImfzLi4itaj68Lj+3RGLKCoAOawLYmEHmZ9WwMcv12kpXsgas7D761w==
   dependencies:
-    "@orbit/core" "^0.17.0-beta.25"
-    "@orbit/data" "^0.17.0-beta.25"
-    "@orbit/utils" "^0.17.0-beta.25"
+    "@orbit/core" "^0.17.0-beta.26"
+    "@orbit/data" "^0.17.0-beta.26"
+    "@orbit/utils" "^0.17.0-beta.26"
 
-"@orbit/core@^0.17.0-beta.25":
-  version "0.17.0-beta.25"
-  resolved "https://registry.yarnpkg.com/@orbit/core/-/core-0.17.0-beta.25.tgz#a166531146ba275c32109022cf6903e3f2dc06bf"
-  integrity sha512-7g26BNqbFipTUjDCIXGkBAVMI3nYihADezS0FA0vsNMMpAPsX8mgEYJYpPaXq6c9C8VUKaz0H700IRqAvP1ZmQ==
+"@orbit/core@^0.17.0-beta.25", "@orbit/core@^0.17.0-beta.26":
+  version "0.17.0-beta.26"
+  resolved "https://registry.yarnpkg.com/@orbit/core/-/core-0.17.0-beta.26.tgz#da517ea932389e264769886b91d658b51745059f"
+  integrity sha512-LfN7XJyPpB7BtQc+4auPy0PzjNiDyKdfda7j+b50qNElKsC+30UtQsyrH36QYtUpeTGjYywmSXygLvudkCaEZw==
   dependencies:
-    "@orbit/utils" "^0.17.0-beta.25"
+    "@orbit/utils" "^0.17.0-beta.26"
 
-"@orbit/data@^0.17.0-beta.25":
-  version "0.17.0-beta.25"
-  resolved "https://registry.yarnpkg.com/@orbit/data/-/data-0.17.0-beta.25.tgz#8513b48fa587a4d9a7751685deb348f87bab107b"
-  integrity sha512-eDzZGSn2ocUIuR8N2LTzEgBnVQ1MlHiB8/ZpFoCyL8Acy8ALSAaOx5J5gylDooiSA/+100XtOHhquDgINKFv2g==
+"@orbit/data@^0.17.0-beta.25", "@orbit/data@^0.17.0-beta.26":
+  version "0.17.0-beta.26"
+  resolved "https://registry.yarnpkg.com/@orbit/data/-/data-0.17.0-beta.26.tgz#6135346752f86a8cb3a830e1c8d9bde1d4334c2a"
+  integrity sha512-eSSuWlOCR4XGzDd+N7KiKUJou1CnY+dnSe6ctmHpQRHrv767jwpQJEuB031n9HuMo50YgC0CDeTxnzYWAtXyDQ==
   dependencies:
-    "@orbit/core" "^0.17.0-beta.25"
-    "@orbit/utils" "^0.17.0-beta.25"
+    "@orbit/core" "^0.17.0-beta.26"
+    "@orbit/utils" "^0.17.0-beta.26"
 
 "@orbit/identity-map@^0.17.0-beta.25":
   version "0.17.0-beta.25"
@@ -2640,10 +2640,10 @@
   dependencies:
     "@orbit/utils" "^0.17.0-beta.25"
 
-"@orbit/utils@^0.17.0-beta.25":
-  version "0.17.0-beta.25"
-  resolved "https://registry.yarnpkg.com/@orbit/utils/-/utils-0.17.0-beta.25.tgz#95c34c58f732a42addbcb7271213896cb3b29a25"
-  integrity sha512-7YdfdHlQr+838ikOlu053/dG+8wrn5Ddw/E/7+YCT3UuNtonWy69e3omZkuFsHEf+6zNDV8FouxfOS9txCXFcg==
+"@orbit/utils@^0.17.0-beta.25", "@orbit/utils@^0.17.0-beta.26":
+  version "0.17.0-beta.26"
+  resolved "https://registry.yarnpkg.com/@orbit/utils/-/utils-0.17.0-beta.26.tgz#0b8beedfa0e31e4615d63dbbba9826107807a840"
+  integrity sha512-6nG/LRYldAg0Giv0qUItz1YGjE/9zwPuGAA5uZGgOOYcTiZCJJZ/NC/D3yVxBoZVM0IKGJDr0DRxG/vKIjbtFw==
 
 "@orbit/validators@^0.17.0-beta.25":
   version "0.17.0-beta.25"
@@ -2960,17 +2960,16 @@
     "@types/jquery" "*"
     "@types/rsvp" "*"
 
-"@types/ember@*", "@types/ember@^3.16.5":
-  version "3.16.5"
-  resolved "https://registry.yarnpkg.com/@types/ember/-/ember-3.16.5.tgz#c2d6b0f178761c0c2fbc6fc39b4b6958c256d0ac"
-  integrity sha512-8BzT1g8r7xQsN2p7qIUZ0AXWEVpJ5LmaRWP3iT79PLyIQfTAYvHSueUl14lrB8renETjwr4+ZvVPKurn9TKxNA==
+"@types/ember@*", "@types/ember@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@types/ember/-/ember-4.0.0.tgz#0c29294fa0e5aa07ba6090f60243707dde8fc411"
+  integrity sha512-IR4o8OkFgoiRKVLRI8URvyNhEBSkjO5DXp2900/TptxOl0Retu8/tKtFaRTwkqteg2a0/6zXAA1rpFb3BbxNpA==
   dependencies:
     "@types/ember__application" "*"
     "@types/ember__array" "*"
     "@types/ember__component" "*"
     "@types/ember__controller" "*"
     "@types/ember__debug" "*"
-    "@types/ember__destroyable" "*"
     "@types/ember__engine" "*"
     "@types/ember__error" "*"
     "@types/ember__object" "*"
@@ -2983,7 +2982,6 @@
     "@types/ember__test" "*"
     "@types/ember__utils" "*"
     "@types/htmlbars-inline-precompile" "*"
-    "@types/jquery" "*"
     "@types/rsvp" "*"
 
 "@types/ember__application@*":
@@ -3028,11 +3026,6 @@
     "@types/ember__debug" "*"
     "@types/ember__engine" "*"
     "@types/ember__object" "*"
-
-"@types/ember__destroyable@*":
-  version "3.22.0"
-  resolved "https://registry.yarnpkg.com/@types/ember__destroyable/-/ember__destroyable-3.22.0.tgz#2af2c27f5d8996694c3f0fe906e2536b2e4c5aca"
-  integrity sha512-T5wZGK1MwEelNIv1bbAvRQZPo9zvfjpGyyFPwjz+sakjImKVcQzb/yq1SgGyT0QTAQAT7l0L+kFru9+fSVVo5A==
 
 "@types/ember__engine@*":
   version "3.16.3"

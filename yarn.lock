@@ -2444,7 +2444,7 @@
   dependencies:
     "@orbit/utils" "^0.17.0-beta.26"
 
-"@orbit/data@^0.17.0-beta.25", "@orbit/data@^0.17.0-beta.26":
+"@orbit/data@^0.17.0-beta.26":
   version "0.17.0-beta.26"
   resolved "https://registry.yarnpkg.com/@orbit/data/-/data-0.17.0-beta.26.tgz#6135346752f86a8cb3a830e1c8d9bde1d4334c2a"
   integrity sha512-eSSuWlOCR4XGzDd+N7KiKUJou1CnY+dnSe6ctmHpQRHrv767jwpQJEuB031n9HuMo50YgC0CDeTxnzYWAtXyDQ==
@@ -2514,16 +2514,7 @@
     "@orbit/records" "^0.17.0-beta.26"
     "@orbit/utils" "^0.17.0-beta.26"
 
-"@orbit/records@^0.17.0-beta.25":
-  version "0.17.0-beta.25"
-  resolved "https://registry.yarnpkg.com/@orbit/records/-/records-0.17.0-beta.25.tgz#46d41b688499d959422926ee0c66ec7e515e0938"
-  integrity sha512-Eg9YzvOuWnbNeK69WvSw3huoTFt+7DkDuwsTBeTi4bLjyo+NHbOHmZPHwS7U+VsXjAUtMWA0LCGRKdU836UjDg==
-  dependencies:
-    "@orbit/data" "^0.17.0-beta.25"
-    "@orbit/utils" "^0.17.0-beta.25"
-    "@orbit/validators" "^0.17.0-beta.25"
-
-"@orbit/records@^0.17.0-beta.26":
+"@orbit/records@^0.17.0-beta.25", "@orbit/records@^0.17.0-beta.26":
   version "0.17.0-beta.26"
   resolved "https://registry.yarnpkg.com/@orbit/records/-/records-0.17.0-beta.26.tgz#7f654dc7a5a1707257aafa3685e695158caca056"
   integrity sha512-EaqOqzIZPjJAShPK5z1f9c7E7w+qwXnY0uMBN1pcWJMh1cqm/117+6jn8Me4jSI9ex3IjIO9EBn9r5+6n8GgJQ==
@@ -2539,17 +2530,10 @@
   dependencies:
     "@orbit/utils" "^0.17.0-beta.26"
 
-"@orbit/utils@^0.17.0-beta.25", "@orbit/utils@^0.17.0-beta.26":
+"@orbit/utils@^0.17.0-beta.26":
   version "0.17.0-beta.26"
   resolved "https://registry.yarnpkg.com/@orbit/utils/-/utils-0.17.0-beta.26.tgz#0b8beedfa0e31e4615d63dbbba9826107807a840"
   integrity sha512-6nG/LRYldAg0Giv0qUItz1YGjE/9zwPuGAA5uZGgOOYcTiZCJJZ/NC/D3yVxBoZVM0IKGJDr0DRxG/vKIjbtFw==
-
-"@orbit/validators@^0.17.0-beta.25":
-  version "0.17.0-beta.25"
-  resolved "https://registry.yarnpkg.com/@orbit/validators/-/validators-0.17.0-beta.25.tgz#54a7d8a591e6128ba3a13e7cf44f5907ea6986b4"
-  integrity sha512-eB0OIC8gIoeoBDgjKRqW9nji+SNgGA0sD0fr0lQuGmmWmTax4+GQuciXhibiWuh4sBxzQzxfNMrCfOos4h2MSw==
-  dependencies:
-    "@orbit/utils" "^0.17.0-beta.25"
 
 "@orbit/validators@^0.17.0-beta.26":
   version "0.17.0-beta.26"
@@ -7717,10 +7701,10 @@ ember-modifier@^2.1.0:
     ember-cli-typescript "^4.2.1"
     ember-compatibility-helpers "^1.2.5"
 
-ember-orbit@^0.17.0-beta.19:
-  version "0.17.0-beta.19"
-  resolved "https://registry.yarnpkg.com/ember-orbit/-/ember-orbit-0.17.0-beta.19.tgz#916ca4107d3ffc47355096d1e560dd79c17aa7f7"
-  integrity sha512-8iyWJzGE7hvE7WC0AB0kmD5TrPxhR/VeF4R8vvKIQDUqTNqUzoor2mk9oalp+BRfCqrDWHfnP5wuUAHDerr+Lw==
+ember-orbit@^0.17.0-beta.20:
+  version "0.17.0-beta.20"
+  resolved "https://registry.yarnpkg.com/ember-orbit/-/ember-orbit-0.17.0-beta.20.tgz#3d03aa271debc908eae26dfba61e8615f2988e83"
+  integrity sha512-7rpQRaaoJnE5qQ+YvE/iQce54Hguy/npm1FW2onAdcpZ+NgEtMxp81rtSoqNiphlFvhLQ20za6tEukTl2J2GfQ==
   dependencies:
     "@orbit/coordinator" "^0.17.0-beta.26"
     "@orbit/core" "^0.17.0-beta.26"

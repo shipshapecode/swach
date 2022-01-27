@@ -7701,10 +7701,10 @@ ember-modifier@^2.1.0:
     ember-cli-typescript "^4.2.1"
     ember-compatibility-helpers "^1.2.5"
 
-ember-orbit@^0.17.0-beta.20:
-  version "0.17.0-beta.20"
-  resolved "https://registry.yarnpkg.com/ember-orbit/-/ember-orbit-0.17.0-beta.20.tgz#3d03aa271debc908eae26dfba61e8615f2988e83"
-  integrity sha512-7rpQRaaoJnE5qQ+YvE/iQce54Hguy/npm1FW2onAdcpZ+NgEtMxp81rtSoqNiphlFvhLQ20za6tEukTl2J2GfQ==
+ember-orbit@^0.17.0-beta.21:
+  version "0.17.0-beta.21"
+  resolved "https://registry.yarnpkg.com/ember-orbit/-/ember-orbit-0.17.0-beta.21.tgz#f60f87d86773152a44726cc37c30d4b6e026dbbc"
+  integrity sha512-XMFY2LdBqMCTiJDjDR8O8K887kMixbqH+xg6PsejycTsx03VMnLn5XAd63xTSHIDMnpkZ+ZXLTaKhO1ce1KWkA==
   dependencies:
     "@orbit/coordinator" "^0.17.0-beta.26"
     "@orbit/core" "^0.17.0-beta.26"

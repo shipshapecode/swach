@@ -2492,10 +2492,10 @@
     "@orbit/serializers" "^0.17.0-beta.26"
     "@orbit/utils" "^0.17.0-beta.26"
 
-"@orbit/memory@^0.17.0-beta.26":
-  version "0.17.0-beta.26"
-  resolved "https://registry.yarnpkg.com/@orbit/memory/-/memory-0.17.0-beta.26.tgz#39cf15afa40ce60ae6a2178e02cd2a6600e88cad"
-  integrity sha512-i6OAoHSdPsFf5OvL3rINf1Nd1IG1Z1BGjaG9HUsi6uyXytRKAkvDFven/d9E06AUD2DIRqGEGfcgcaL5V8FZgQ==
+"@orbit/memory@^0.17.0-beta.27":
+  version "0.17.0-beta.28"
+  resolved "https://registry.yarnpkg.com/@orbit/memory/-/memory-0.17.0-beta.28.tgz#2564682a2ef19df7af8b172153141ae41bd54e7d"
+  integrity sha512-nrgSOJ1jyBOhgf1ws5eOQxEfHB9u1J/vV2/wm/vrM4zleEQve5QHjtbmsWYQFnon5pZ9ov/mlArqaWTmyd1n7w==
   dependencies:
     "@orbit/core" "^0.17.0-beta.26"
     "@orbit/data" "^0.17.0-beta.26"
@@ -7690,16 +7690,16 @@ ember-modifier@^2.1.0:
     ember-cli-typescript "^4.2.1"
     ember-compatibility-helpers "^1.2.5"
 
-ember-orbit@^0.17.0-beta.21:
-  version "0.17.0-beta.21"
-  resolved "https://registry.yarnpkg.com/ember-orbit/-/ember-orbit-0.17.0-beta.21.tgz#f60f87d86773152a44726cc37c30d4b6e026dbbc"
-  integrity sha512-XMFY2LdBqMCTiJDjDR8O8K887kMixbqH+xg6PsejycTsx03VMnLn5XAd63xTSHIDMnpkZ+ZXLTaKhO1ce1KWkA==
+ember-orbit@^0.17.0-beta.22:
+  version "0.17.0-beta.22"
+  resolved "https://registry.yarnpkg.com/ember-orbit/-/ember-orbit-0.17.0-beta.22.tgz#817058b460def979968b3fdcb0c80a22e6923ae2"
+  integrity sha512-edNs1T31cmq9El6MHnsSFsiW2nipaBTOXS89b3Exrfb1tBfUAchZc93M+0vRoBvB8S75bMzftVIp2aKCujuxtQ==
   dependencies:
     "@orbit/coordinator" "^0.17.0-beta.26"
     "@orbit/core" "^0.17.0-beta.26"
     "@orbit/data" "^0.17.0-beta.26"
     "@orbit/identity-map" "^0.17.0-beta.26"
-    "@orbit/memory" "^0.17.0-beta.26"
+    "@orbit/memory" "^0.17.0-beta.27"
     "@orbit/records" "^0.17.0-beta.26"
     "@orbit/serializers" "^0.17.0-beta.26"
     "@orbit/utils" "^0.17.0-beta.26"

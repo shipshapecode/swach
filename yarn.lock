@@ -2470,10 +2470,10 @@
     "@orbit/core" "^0.17.0-beta.26"
     "@orbit/utils" "^0.17.0-beta.26"
 
-"@orbit/indexeddb@^0.17.0-beta.26":
-  version "0.17.0-beta.26"
-  resolved "https://registry.yarnpkg.com/@orbit/indexeddb/-/indexeddb-0.17.0-beta.26.tgz#6e54ea3306e50925e3c5370bbb8fe5c8c2995af8"
-  integrity sha512-VNdZTRgfF4+N0QtUibIbXIxzrVa+4WzeXLmI0mBmMDVbnkH0mXEjx7gIA3vaCS4/duq19/SoOIgnEXdES/QKNQ==
+"@orbit/indexeddb@^0.17.0-beta.27":
+  version "0.17.0-beta.27"
+  resolved "https://registry.yarnpkg.com/@orbit/indexeddb/-/indexeddb-0.17.0-beta.27.tgz#465848f8da1b6bf0b6dfdfb31201362df9547b4e"
+  integrity sha512-0Qicak7i5+qTK4RGTYgLV/a9haIWeUENqTmmoQi2YQKNXzoOER1at377cl7mJMrKCcdYARBjojanpOhHcmdn5w==
   dependencies:
     "@orbit/core" "^0.17.0-beta.26"
     "@orbit/data" "^0.17.0-beta.26"

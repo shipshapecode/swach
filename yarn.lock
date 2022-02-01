@@ -2470,16 +2470,16 @@
     "@orbit/core" "^0.17.0"
     "@orbit/utils" "^0.17.0"
 
-"@orbit/indexeddb@^0.17.0-beta.27":
-  version "0.17.0-beta.27"
-  resolved "https://registry.yarnpkg.com/@orbit/indexeddb/-/indexeddb-0.17.0-beta.27.tgz#465848f8da1b6bf0b6dfdfb31201362df9547b4e"
-  integrity sha512-0Qicak7i5+qTK4RGTYgLV/a9haIWeUENqTmmoQi2YQKNXzoOER1at377cl7mJMrKCcdYARBjojanpOhHcmdn5w==
+"@orbit/indexeddb@^0.17.0":
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/@orbit/indexeddb/-/indexeddb-0.17.0.tgz#105148f149e571d4d5397c3b93d009ed8f91a181"
+  integrity sha512-FQDX6ze15kj+eOVKOYrULS0QU+JcysAdAZEMiDa4NCu/cnQWyDm/kBo3lLL5543uUXaiDhPjzGXFc6UOHhJDWQ==
   dependencies:
-    "@orbit/core" "^0.17.0-beta.26"
-    "@orbit/data" "^0.17.0-beta.26"
-    "@orbit/record-cache" "^0.17.0-beta.26"
-    "@orbit/records" "^0.17.0-beta.26"
-    "@orbit/utils" "^0.17.0-beta.26"
+    "@orbit/core" "^0.17.0"
+    "@orbit/data" "^0.17.0"
+    "@orbit/record-cache" "^0.17.0"
+    "@orbit/records" "^0.17.0"
+    "@orbit/utils" "^0.17.0"
 
 "@orbit/jsonapi@^0.17.0-beta.26":
   version "0.17.0-beta.26"
@@ -2504,15 +2504,15 @@
     "@orbit/records" "^0.17.0-beta.26"
     "@orbit/utils" "^0.17.0-beta.26"
 
-"@orbit/record-cache@^0.17.0-beta.26":
-  version "0.17.0-beta.26"
-  resolved "https://registry.yarnpkg.com/@orbit/record-cache/-/record-cache-0.17.0-beta.26.tgz#5551d310fd911b07a3c56a074bdd2e17e08e73a9"
-  integrity sha512-rR69CGMub+CSpgBQY/MxxtOjFi+RVO50q9KQ/YHxunDBpB1iXPjYejprRcBNrk1HRjDjv+Tcm/Pyaf5uVolxzA==
+"@orbit/record-cache@^0.17.0", "@orbit/record-cache@^0.17.0-beta.26":
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/@orbit/record-cache/-/record-cache-0.17.0.tgz#01a834ac5be024d39ae3a12e48e297aace4bf1f0"
+  integrity sha512-oU5HINZ/oZ0bsIAalQFGl4dZN/YNknwO+lVFF4tdQmuT1icVRL9RGxoAhR9aJAdcGr/n1DhXkZI62VBC+0DPdA==
   dependencies:
-    "@orbit/core" "^0.17.0-beta.26"
-    "@orbit/data" "^0.17.0-beta.26"
-    "@orbit/records" "^0.17.0-beta.26"
-    "@orbit/utils" "^0.17.0-beta.26"
+    "@orbit/core" "^0.17.0"
+    "@orbit/data" "^0.17.0"
+    "@orbit/records" "^0.17.0"
+    "@orbit/utils" "^0.17.0"
 
 "@orbit/records@^0.17.0", "@orbit/records@^0.17.0-beta.26":
   version "0.17.0"

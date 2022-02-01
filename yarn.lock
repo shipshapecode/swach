@@ -2530,10 +2530,10 @@
   dependencies:
     "@orbit/utils" "^0.17.0-beta.26"
 
-"@orbit/utils@^0.17.0-beta.26":
-  version "0.17.0-beta.26"
-  resolved "https://registry.yarnpkg.com/@orbit/utils/-/utils-0.17.0-beta.26.tgz#0b8beedfa0e31e4615d63dbbba9826107807a840"
-  integrity sha512-6nG/LRYldAg0Giv0qUItz1YGjE/9zwPuGAA5uZGgOOYcTiZCJJZ/NC/D3yVxBoZVM0IKGJDr0DRxG/vKIjbtFw==
+"@orbit/utils@^0.17.0", "@orbit/utils@^0.17.0-beta.26":
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/@orbit/utils/-/utils-0.17.0.tgz#a14898a7fe999176a356d3655c28415804f41787"
+  integrity sha512-nRxzl0pvFHK9+g0WhQMq++6EZ5YQjPxEkqRDAeIfPJtX2+hu8hG7Oyz/KzHJRWimzjC9nRDL4M2HatZleFCwNg==
 
 "@orbit/validators@^0.17.0-beta.26":
   version "0.17.0-beta.26"

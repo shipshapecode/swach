@@ -2437,19 +2437,12 @@
     "@orbit/data" "^0.17.0-beta.26"
     "@orbit/utils" "^0.17.0-beta.26"
 
-"@orbit/core@^0.17.0":
+"@orbit/core@^0.17.0", "@orbit/core@^0.17.0-beta.26":
   version "0.17.0"
   resolved "https://registry.yarnpkg.com/@orbit/core/-/core-0.17.0.tgz#04f526cd0d7d2d88124e154f72b5a04095a9053b"
   integrity sha512-wzaA7d04QU+Bi/ebVk100vPhVNDe8CHiACK7h0FjX+qTa54M9YmCNOOlXHj6PvO6GWY6s5eDBaloJdijKXjFHQ==
   dependencies:
     "@orbit/utils" "^0.17.0"
-
-"@orbit/core@^0.17.0-beta.26":
-  version "0.17.0-beta.26"
-  resolved "https://registry.yarnpkg.com/@orbit/core/-/core-0.17.0-beta.26.tgz#da517ea932389e264769886b91d658b51745059f"
-  integrity sha512-LfN7XJyPpB7BtQc+4auPy0PzjNiDyKdfda7j+b50qNElKsC+30UtQsyrH36QYtUpeTGjYywmSXygLvudkCaEZw==
-  dependencies:
-    "@orbit/utils" "^0.17.0-beta.26"
 
 "@orbit/data@^0.17.0", "@orbit/data@^0.17.0-beta.26":
   version "0.17.0"
@@ -2469,13 +2462,13 @@
   resolved "https://registry.yarnpkg.com/@orbit/immutable/-/immutable-0.17.0-beta.26.tgz#22ada384a9abc119999228948abc84e493d479cf"
   integrity sha512-CSX1lHAMtUiafH3knUmPcdDcCAR3qlMgyiBMGPKfYdyeigO6XO25T4KMfgEdOgRpet2QNxOtEptVH/Rsw1DCXw==
 
-"@orbit/indexeddb-bucket@0.17.0-beta.26":
-  version "0.17.0-beta.26"
-  resolved "https://registry.yarnpkg.com/@orbit/indexeddb-bucket/-/indexeddb-bucket-0.17.0-beta.26.tgz#ac105ecddfeb044d9955d35ae074c7aa3c510e0a"
-  integrity sha512-WQ4gTz7IHPKOb45IWDY5emYxzOU1e8wnErnJkyQwnitp/+YaB0c1fx5ohNqiudIEaovXEoKm9JkUjEjs3G23PA==
+"@orbit/indexeddb-bucket@0.17.0":
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/@orbit/indexeddb-bucket/-/indexeddb-bucket-0.17.0.tgz#8b7a7907f589478cb25198f579f1794b94672518"
+  integrity sha512-TjxBQIPvYbde40NzNPEyE7D8ga8dJw4uV7d2j9gweeJ3jVnTa4gAnFCldNMD2GLyK8RxteP82Ik4sGTNJXjz/A==
   dependencies:
-    "@orbit/core" "^0.17.0-beta.26"
-    "@orbit/utils" "^0.17.0-beta.26"
+    "@orbit/core" "^0.17.0"
+    "@orbit/utils" "^0.17.0"
 
 "@orbit/indexeddb@^0.17.0-beta.27":
   version "0.17.0-beta.27"

@@ -2481,16 +2481,16 @@
     "@orbit/records" "^0.17.0"
     "@orbit/utils" "^0.17.0"
 
-"@orbit/jsonapi@^0.17.0-beta.26":
-  version "0.17.0-beta.26"
-  resolved "https://registry.yarnpkg.com/@orbit/jsonapi/-/jsonapi-0.17.0-beta.26.tgz#596726c8f136a7e9b4a22917f4c5f2fb2cf7e000"
-  integrity sha512-W1mEYKS3oQXV+dc4+p0xaN/dN5mztFt+s8hNxB+gnH00CTvoJPI4ywGINDNM5eW+a3KZnTfedvJ+T8Df5M0aVw==
+"@orbit/jsonapi@^0.17.0":
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/@orbit/jsonapi/-/jsonapi-0.17.0.tgz#2e6d0ba80040dd91c869ddc78ca27be9a4516dbb"
+  integrity sha512-5KQtA9rAi4ay+ZsouvxL2XqEJL54Sx44cUFiyNaIEOG177fACS0GAxkJfKHkIc7/n1w+U0SGiO7RREn2xGcmZw==
   dependencies:
-    "@orbit/core" "^0.17.0-beta.26"
-    "@orbit/data" "^0.17.0-beta.26"
-    "@orbit/records" "^0.17.0-beta.26"
-    "@orbit/serializers" "^0.17.0-beta.26"
-    "@orbit/utils" "^0.17.0-beta.26"
+    "@orbit/core" "^0.17.0"
+    "@orbit/data" "^0.17.0"
+    "@orbit/records" "^0.17.0"
+    "@orbit/serializers" "^0.17.0"
+    "@orbit/utils" "^0.17.0"
 
 "@orbit/memory@^0.17.0-beta.28":
   version "0.17.0"

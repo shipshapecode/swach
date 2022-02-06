@@ -14,13 +14,15 @@ import { ColorPOJO } from 'swach/services/color-utils';
 const { SCHEMA_VERSION } = ENV;
 
 export default {
-  create(injections: { name?: string; schema: RecordSchema }): IndexedDBSource {
+  create(injections: { schema: RecordSchema }): IndexedDBSource {
     applyStandardSourceInjections(injections);
 
-    injections.name = 'backup';
-
     const { schema } = injections;
-    const backup = new IndexedDBSource(injections);
+    const backup = new IndexedDBSource({
+      name: 'backup',
+      defaultTransformOptions: { useBuffer: true },
+      ...injections
+    });
 
     backup.cache.migrateDB = async (
       _db: IDBDatabase,

@@ -2,10 +2,11 @@ import { click, fillIn, triggerEvent, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
-import { waitForAll } from 'swach/tests/helpers';
+import { resetStorage, waitForAll } from 'swach/tests/helpers';
 
 module('Acceptance | from scratch', function (hooks) {
   setupApplicationTest(hooks);
+  resetStorage(hooks);
 
   test('add a color', async function (assert) {
     await visit('/palettes');

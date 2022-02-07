@@ -2,18 +2,11 @@ import { click, currentURL, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
-import resetStorages from 'ember-local-storage/test-support/reset-storage';
-
-import { waitForAll } from 'swach/tests/helpers';
+import { resetStorage, waitForAll } from 'swach/tests/helpers';
 
 module('Acceptance | welcome', function (hooks) {
   setupApplicationTest(hooks);
-
-  hooks.afterEach(function () {
-    // Not sure why we need to manually call this, and resetStorages is not resetting, but the toggles were storing old values.
-    localStorage.removeItem('storage:settings');
-    resetStorages();
-  });
+  resetStorage(hooks);
 
   test('welcome flow', async function (assert) {
     await visit('/welcome');

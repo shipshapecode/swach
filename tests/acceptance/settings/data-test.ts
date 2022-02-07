@@ -2,27 +2,17 @@ import { click, currentURL, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
-import resetStorages from 'ember-local-storage/test-support/reset-storage';
-
 import IDBExportImport from 'indexeddb-export-import';
 import sinon from 'sinon';
 
-import { waitForAll } from 'swach/tests/helpers';
-import seedOrbit from 'swach/tests/orbit/seed';
-import * as utils from 'swach/utils/get-db-open-request';
+import { resetStorage, waitForAll } from 'swach/tests/helpers';
 
 module('Acceptance | settings/data', function (hooks) {
   setupApplicationTest(hooks);
+  resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
   hooks.beforeEach(async function () {
-    // @ts-expect-error We do not need a real result object here, so missing fields is fine.
-    sinon.stub(utils, 'getDBOpenRequest').returns({ result: {} });
-    await seedOrbit(this.owner);
     await visit('/settings/data');
-  });
-
-  hooks.afterEach(function () {
-    resetStorages();
   });
 
   test('visiting /settings/data', async function (assert) {

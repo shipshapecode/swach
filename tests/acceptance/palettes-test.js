@@ -14,15 +14,11 @@ import { module, test } from 'qunit';
 import { animationsSettled } from 'ember-animated/test-support';
 import { move, sort } from 'ember-drag-sort/utils/trigger';
 
-import { waitForAll } from 'swach/tests/helpers';
-import seedOrbit from 'swach/tests/orbit/seed';
+import { resetStorage, waitForAll } from 'swach/tests/helpers';
 
 module('Acceptance | palettes', function (hooks) {
   setupApplicationTest(hooks);
-
-  hooks.beforeEach(async function () {
-    await seedOrbit(this.owner);
-  });
+  resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
   test('visiting /palettes', async function (assert) {
     await visit('/palettes');

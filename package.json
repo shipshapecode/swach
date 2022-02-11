@@ -134,7 +134,7 @@
     "release-it": "^14.12.4",
     "release-it-lerna-changelog": "^4.0.1",
     "stream-browserify": "^3.0.0",
-    "tailwindcss": "^3.0.19",
+    "tailwindcss": "^3.0.21",
     "throttle-debounce": "^3.0.1",
     "typescript": "^4.5.5",
     "wcag-contrast": "^3.0.0",

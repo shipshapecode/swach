@@ -50,7 +50,6 @@ export default class SettingsDataComponent extends Component {
           idbDatabase,
           (err: Event, jsonString: string) => {
             if (err) {
-              this.isExporting = false;
               this.flashMessages.danger('An error occurred.');
               console.error(err);
             } else {
@@ -58,9 +57,9 @@ export default class SettingsDataComponent extends Component {
               this.flashMessages.success(
                 'Export saved to downloads directory.'
               );
-              idbDatabase.close();
-              this.isExporting = false;
             }
+            idbDatabase.close();
+            this.isExporting = false;
           }
         );
       };

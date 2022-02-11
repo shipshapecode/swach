@@ -2,22 +2,14 @@ import { click, currentURL, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
-import resetStorages from 'ember-local-storage/test-support/reset-storage';
-
-import { waitForAll } from 'swach/tests/helpers';
-import seedOrbit from 'swach/tests/orbit/seed';
+import { resetStorage } from 'swach/tests/helpers';
 
 module('Acceptance | settings', function (hooks) {
   setupApplicationTest(hooks);
+  resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
   hooks.beforeEach(async function () {
-    await seedOrbit(this.owner);
     await visit('/settings');
-    await waitForAll();
-  });
-
-  hooks.afterEach(function () {
-    resetStorages();
   });
 
   test('visiting /settings', function (assert) {

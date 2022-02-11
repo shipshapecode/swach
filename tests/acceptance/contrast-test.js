@@ -7,14 +7,13 @@ import {
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
-import { waitForAll } from 'swach/tests/helpers';
-import seedOrbit from 'swach/tests/orbit/seed';
+import { resetStorage, waitForAll } from 'swach/tests/helpers';
 
 module('Acceptance | contrast', function (hooks) {
   setupApplicationTest(hooks);
+  resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
   hooks.beforeEach(async function () {
-    await seedOrbit(this.owner);
     await visit('/contrast');
   });
 

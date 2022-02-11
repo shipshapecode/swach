@@ -3,23 +3,14 @@ import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
 import { mockCognitoUser } from 'ember-cognito/test-support';
-import resetStorages from 'ember-local-storage/test-support/reset-storage';
 
 import sinon from 'sinon';
 
-import { waitForAll } from 'swach/tests/helpers';
-import seedOrbit from 'swach/tests/orbit/seed';
+import { resetStorage, waitForAll } from 'swach/tests/helpers';
 
 module('Acceptance | settings/cloud', function (hooks) {
   setupApplicationTest(hooks);
-
-  hooks.beforeEach(async function () {
-    await seedOrbit(this.owner);
-  });
-
-  hooks.afterEach(function () {
-    resetStorages();
-  });
+  resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
   test('visiting /settings/cloud', async function (assert) {
     await visit('/settings/cloud/login');

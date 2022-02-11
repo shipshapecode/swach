@@ -10,15 +10,11 @@ import { module, test } from 'qunit';
 
 import { animationsSettled } from 'ember-animated/test-support';
 
-import { waitForAll } from 'swach/tests/helpers';
-import seedOrbit from 'swach/tests/orbit/seed';
+import { resetStorage, waitForAll } from 'swach/tests/helpers';
 
 module('Acceptance | colors', function (hooks) {
   setupApplicationTest(hooks);
-
-  hooks.beforeEach(async function () {
-    await seedOrbit(this.owner);
-  });
+  resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
   test('visiting /colors', async function (assert) {
     await visit('/colors?paletteId=color-history-123');

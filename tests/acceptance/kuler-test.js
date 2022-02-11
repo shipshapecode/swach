@@ -11,15 +11,13 @@ import { module, test } from 'qunit';
 
 import { animationsSettled } from 'ember-animated/test-support';
 
-import { waitForAll } from 'swach/tests/helpers';
-import seedOrbit from 'swach/tests/orbit/seed';
+import { resetStorage, waitForAll } from 'swach/tests/helpers';
 
 module('Acceptance | kuler', function (hooks) {
   setupApplicationTest(hooks);
+  resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
   hooks.beforeEach(async function () {
-    await seedOrbit(this.owner);
-
     await visit('/kuler?colorId=pale-magenta');
   });
 

@@ -4,6 +4,9 @@ import { SyncStrategy } from '@orbit/coordinator';
 
 export default {
   create(injections = {}) {
+    const app = getOwner(injections);
+    const session = app.lookup('service:session');
+
     return new SyncStrategy({
       name: 'remote-store-sync',
 
@@ -33,10 +36,7 @@ export default {
        * have access to both `this.source` and `this.target`).
        */
       filter() {
-        // the strategy is only to query remote if authenticated
-        const app = getOwner(injections);
-        const session = app.lookup('service:session');
-
+        // only sync remote if authenticated
         return session.isAuthenticated;
       },
 

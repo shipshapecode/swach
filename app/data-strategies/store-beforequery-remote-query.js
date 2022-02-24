@@ -4,6 +4,9 @@ import { RequestStrategy } from '@orbit/coordinator';
 
 export default {
   create(injections = {}) {
+    const app = getOwner(injections);
+    const session = app.lookup('service:session');
+
     return new RequestStrategy({
       name: 'store-beforequery-remote-query',
 
@@ -44,10 +47,7 @@ export default {
        * have access to both `this.source` and `this.target`).
        */
       filter() {
-        // the strategy is only to query remote if authenticated
-        const app = getOwner(injections);
-        const session = app.lookup('service:session');
-
+        // only query remote if authenticated
         return session.isAuthenticated;
       },
 

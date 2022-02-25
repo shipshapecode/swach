@@ -52,7 +52,7 @@
     "@orbit/serializers": "^0.17.0",
     "@orbit/utils": "^0.17.0",
     "@release-it/bumper": "^3.0.1",
-    "@sentry/electron": "^2.5.4",
+    "@sentry/electron": "^3.0.2",
     "@sentry/integrations": "^6.18.0",
     "@tailwindcss/forms": "^0.4.0",
     "@types/ember": "^4.0.0",

@@ -41,14 +41,10 @@ export default {
       },
 
       /**
-       * Should resolution of the target's `sync` block the completion of the
-       * source's `transform`?
-       *
-       * Can be specified as a boolean or a function which which will be
-       * invoked in the context of this strategy (and thus will have access to
-       * both `this.source` and `this.target`).
+       * Ensure that remote transforms are sync'd with the store before
+       * remote requests resolve.
        */
-      blocking: false
+      blocking: true
     });
   }
 };

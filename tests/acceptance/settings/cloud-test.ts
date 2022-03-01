@@ -78,7 +78,10 @@ module('Acceptance | settings/cloud', function (hooks) {
     );
   });
 
-  test('user can login', async function (assert) {
+  test('user can log in and log out', async function (assert) {
+    await visit('/settings/cloud/login');
+    await waitForAll();
+
     await mockCognitoUser({
       username: 'testuser@gmail.com',
       attributes: {
@@ -88,17 +91,31 @@ module('Acceptance | settings/cloud', function (hooks) {
       }
     });
     const authenticator = this.owner.lookup('authenticator:cognito');
-    sinon.stub(authenticator, 'authenticate').resolves();
+    const authenticateStub = sinon
+      .stub(authenticator, 'authenticate')
+      .resolves();
 
-    await visit('/settings/cloud/login');
+    const dataService = this.owner.lookup('service:data');
+    const synchronizeStub = sinon.stub(dataService, 'synchronize').resolves();
+    const resetStub = sinon.stub(dataService, 'reset').resolves();
+
     await fillIn('[data-test-login-input-user]', 'testuser@gmail.com');
     await fillIn('[data-test-login-input-password]', 'password');
     await click('[data-test-login-submit]');
     await waitForAll();
 
+    assert.strictEqual(authenticateStub.callCount, 1, 'authenticate called');
+    assert.strictEqual(synchronizeStub.callCount, 1, 'synchronize called');
+    assert.strictEqual(resetStub.callCount, 0, 'reset NOT called yet');
+
     assert.strictEqual(currentURL(), '/settings/cloud/profile');
     assert
       .dom('[data-test-profile-detail="email"]')
       .hasText('testuser@gmail.com');
+
+    await click('[data-test-logout-submit]');
+    await waitForAll();
+
+    assert.strictEqual(resetStub.callCount, 1, 'reset called');
   });
 });

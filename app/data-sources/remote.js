@@ -95,6 +95,11 @@ export default {
     injections.host = ENV.api.host;
     injections.RequestProcessorClass = RemoteRequestProcessor;
 
+    // Delay activation until coordinator has been activated. This prevents
+    // queues from being processed before coordination strategies have been
+    // configured.
+    injections.autoActivate = false;
+
     injections.serializerSettingsFor = buildSerializerSettingsFor({
       sharedSettings: {
         inflectors: {

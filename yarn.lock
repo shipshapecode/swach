@@ -2496,10 +2496,10 @@
     "@orbit/records" "^0.17.0"
     "@orbit/utils" "^0.17.0"
 
-"@orbit/jsonapi@^0.17.0":
-  version "0.17.0"
-  resolved "https://registry.yarnpkg.com/@orbit/jsonapi/-/jsonapi-0.17.0.tgz#2e6d0ba80040dd91c869ddc78ca27be9a4516dbb"
-  integrity sha512-5KQtA9rAi4ay+ZsouvxL2XqEJL54Sx44cUFiyNaIEOG177fACS0GAxkJfKHkIc7/n1w+U0SGiO7RREn2xGcmZw==
+"@orbit/jsonapi@^0.17.1":
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/@orbit/jsonapi/-/jsonapi-0.17.1.tgz#a268dda27427fd9d0662ebb3606d21e9848e7427"
+  integrity sha512-icaXQOX5ItVuC1SrPS4U+D+xxEDhk473VMMrvn2xIg+h6nEW51g6wgEcHookjwJLMRhxgbShJLiR9WCwHWiEdA==
   dependencies:
     "@orbit/core" "^0.17.0"
     "@orbit/data" "^0.17.0"

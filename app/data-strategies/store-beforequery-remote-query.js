@@ -4,6 +4,9 @@ import { RequestStrategy } from '@orbit/coordinator';
 
 export default {
   create(injections = {}) {
+    const app = getOwner(injections);
+    const session = app.lookup('service:session');
+
     return new RequestStrategy({
       name: 'store-beforequery-remote-query',
 
@@ -44,10 +47,7 @@ export default {
        * have access to both `this.source` and `this.target`).
        */
       filter() {
-        // the strategy is only to query remote if authenticated
-        const app = getOwner(injections);
-        const session = app.lookup('service:session');
-
+        // only query remote if authenticated
         return session.isAuthenticated;
       },
 
@@ -71,17 +71,13 @@ export default {
        * This setting is only effective for `blocking` strategies, since only in
        * those scenarios is processing delayed.
        */
-      passHints: true,
+      passHints: false,
 
       /**
-       * Should resolution of the target's `action` invocation block the
-       * completion of the source's `on` event?
-       *
-       * Can be specified as a boolean or a function which which will be
-       * invoked in the context of this strategy (and thus will have access to
-       * both `this.source` and `this.target`).
+       * Don't block fulfillment of requests to the store with associated remote
+       * requests. Allows for optimistic UX.
        */
-      blocking: true
+      blocking: false
     });
   }
 };

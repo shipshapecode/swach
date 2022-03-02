@@ -12,36 +12,40 @@ import ApplicationController from 'swach/controllers/application';
 import ColorModel from 'swach/data-models/color';
 import PaletteModel from 'swach/data-models/palette';
 import ColorUtils from 'swach/services/color-utils';
+import DataService from 'swach/services/data';
 import UndoManager from 'swach/services/undo-manager';
 
 export default class PalettesController extends Controller {
   @controller application!: ApplicationController;
   @service colorUtils!: ColorUtils;
+  @service data!: DataService;
   @service router!: Router;
   @service store!: Store;
   @service undoManager!: UndoManager;
 
   @tracked showFavorites = false;
 
-  get colorHistory(): PaletteModel {
-    return this.model.colorHistory.value[0];
-  }
-
   get last16Colors(): ColorModel[] {
-    const colors = this.colorHistory?.colors ?? [];
-    return colors.sortBy('createdAt').reverse().slice(0, 16);
+    const { colorHistory } = this.data;
+    if (colorHistory) {
+      return colorHistory.colors
+        .slice()
+        .sortBy('createdAt')
+        .reverse()
+        .slice(0, 16);
+    } else {
+      return [];
+    }
   }
 
   @action
   async clearColorHistory(): Promise<void> {
-    const colorHistoryId = this.colorHistory?.id;
-    await this.store.update((t) =>
-      t.replaceRelatedRecords(
-        { type: 'palette', id: colorHistoryId },
-        'colors',
-        []
-      )
-    );
+    const { colorHistory } = this.data;
+    if (colorHistory) {
+      await this.store.update((t) =>
+        t.replaceRelatedRecords(colorHistory, 'colors', [])
+      );
+    }
     this.undoManager.setupUndoRedo();
   }
 
@@ -88,6 +92,9 @@ export default class PalettesController extends Controller {
     targetList: ColorModel[];
     targetIndex: number;
   }): Promise<void> {
+    // The color history palette is not a valid target
+    if (targetArgs.isColorHistory) return;
+
     const sourcePalette = sourceArgs.parent;
     const targetPalette = targetArgs.parent;
 
@@ -275,9 +282,11 @@ export default class PalettesController extends Controller {
   transitionToColorHistory(event: InputEvent): void {
     event.stopPropagation();
 
-    if (this.colorHistory.colors.length) {
+    const { colorHistory } = this.data;
+
+    if (colorHistory && colorHistory.colors.length > 0) {
       this.router.transitionTo('colors', {
-        queryParams: { paletteId: this.colorHistory.id }
+        queryParams: { paletteId: colorHistory.id }
       });
     }
   }

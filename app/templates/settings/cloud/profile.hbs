@@ -12,6 +12,11 @@
   {{/if}}
 </div>
 
-<button class="btn btn-primary w-full" type="button" {{on "click" this.logOut}}>
+<button
+  data-test-logout-submit
+  class="btn btn-primary w-full"
+  type="button"
+  {{on "click" this.logOut}}
+>
   Log Out
 </button>

@@ -15,11 +15,13 @@ import { IpcRenderer } from 'electron';
 import ColorModel from 'swach/data-models/color';
 import PaletteModel from 'swach/data-models/palette';
 import ColorUtils from 'swach/services/color-utils';
+import DataService from 'swach/services/data';
 import UndoManager from 'swach/services/undo-manager';
 import { SettingsStorage, themes } from 'swach/storages/settings';
 
 export default class ApplicationController extends Controller {
   @service colorUtils!: ColorUtils;
+  @service data!: DataService;
   @service dataSchema!: RecordSchema;
   @service flashMessages!: FlashMessageService;
   @service router!: Router;
@@ -142,8 +144,7 @@ export default class ApplicationController extends Controller {
 
   @action
   async addColor(color: string): Promise<ColorModel | undefined> {
-    const palettes = await this.store.findRecords<PaletteModel[]>('palette');
-    const colorHistory = A(palettes).findBy('isColorHistory', true);
+    const { colorHistory } = this.data;
 
     if (colorHistory) {
       const colorPOJO = this.colorUtils.createColorPOJO(
@@ -155,11 +156,10 @@ export default class ApplicationController extends Controller {
 
       const [colorModel] = await this.store.update<[ColorModel]>((t) => [
         t.addRecord(colorPOJO),
-        t.addToRelatedRecords(
-          { type: 'palette', id: colorHistory.id },
-          'colors',
-          { type: 'color', id: String(colorPOJO.id) }
-        )
+        t.addToRelatedRecords(colorHistory, 'colors', {
+          type: 'color',
+          id: String(colorPOJO.id)
+        })
       ]);
 
       this.undoManager.setupUndoRedo();

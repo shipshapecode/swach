@@ -16,7 +16,7 @@
           Email address
         </label>
         <Input
-          data-test-login-input-user
+          data-test-register-input-user
           autocomplete="email"
           class="input rounded-t w-full"
           id="email-address"
@@ -32,7 +32,7 @@
           Confirmation code
         </label>
         <Input
-          data-test-login-input-code
+          data-test-register-input-code
           autocomplete="current-password"
           class="input rounded-t w-full"
           id="confirmation-code"
@@ -55,6 +55,7 @@
 
     <div>
       <button
+        data-test-register-submit
         class="btn btn-primary w-full"
         type="button"
         {{on "click" this.confirm}}

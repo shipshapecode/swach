@@ -1,5 +1,4 @@
 import { getOwner } from '@ember/application';
-import { isPresent } from '@ember/utils';
 
 import { pluralize, singularize } from 'ember-inflector';
 import { applyStandardSourceInjections } from 'ember-orbit';
@@ -18,19 +17,18 @@ export default {
   create(injections = {}) {
     applyStandardSourceInjections(injections);
 
+    const app = getOwner(injections);
+    const session = app.lookup('service:session');
+
     class RemoteRequestProcessor extends JSONAPIRequestProcessor {
       initFetchSettings(customSettings = {}) {
-        let settings = super.initFetchSettings(customSettings);
-
-        const app = getOwner(injections);
-        const session = app.lookup('service:session');
-
-        if (session.isAuthenticated) {
-          let { sessionCredentials } = session.data.authenticated;
-          if (isPresent(sessionCredentials)) {
-            settings.sessionCredentials = sessionCredentials;
-          }
+        if (!session.isAuthenticated) {
+          throw new Error('Remote requests require authentication');
         }
+
+        const settings = super.initFetchSettings(customSettings);
+        settings.sessionCredentials =
+          session.data.authenticated.sessionCredentials;
 
         return settings;
       }
@@ -96,6 +94,11 @@ export default {
     injections.name = 'remote';
     injections.host = ENV.api.host;
     injections.RequestProcessorClass = RemoteRequestProcessor;
+
+    // Delay activation until coordinator has been activated. This prevents
+    // queues from being processed before coordination strategies have been
+    // configured.
+    injections.autoActivate = false;
 
     injections.serializerSettingsFor = buildSerializerSettingsFor({
       sharedSettings: {

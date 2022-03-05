@@ -1,10 +1,12 @@
+@use 'sass:math';
+
 $dot-width: 8px !default;
 $dot-height: 8px !default;
-$dot-radius: $dot-width/2 !default;
+$dot-radius: math.div($dot-width, 2) !default;
 
 $dot-color: var(--btn-text-primary) !default;
 $dot-bg-color: $dot-color !default;
 $dot-before-color: $dot-color !default;
 $dot-after-color: $dot-color !default;
 
-$dot-spacing: $dot-width + $dot-width/2 !default;
+$dot-spacing: $dot-width + math.div($dot-width, 2) !default;

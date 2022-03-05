@@ -1,3 +1,4 @@
+@use 'sass:math';
 /**
  * ==============================================
  * Dot Bricks
@@ -5,7 +6,7 @@
  */
 
 $spacing: $dot-width + 6px;
-$top-pos: $spacing/2;
+$top-pos: math.div($spacing, 2);
 $left-pos: -9999px;
 $x1: -$left-pos - $top-pos;
 $x2: -$left-pos - $top-pos + $spacing;

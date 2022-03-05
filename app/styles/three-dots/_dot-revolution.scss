@@ -1,3 +1,4 @@
+@use 'sass:math';
 /**
  * ==============================================
  * Dot Revolution
@@ -22,7 +23,7 @@
 
     @include dot($bg-color: $dot-before-color);
 
-    transform-origin: $dot-width/2 ($dot-spacing + $dot-width/2);
+    transform-origin: math.div($dot-width, 2) ($dot-spacing + math.div($dot-width, 2));
     animation: dot-revolution 1.4s linear infinite;
   }
 
@@ -32,7 +33,7 @@
 
     @include dot($bg-color: $dot-after-color);
 
-    transform-origin: $dot-width/2 ($dot-spacing * 2 + $dot-width/2);
+    transform-origin: math.div($dot-width, 2) ($dot-spacing * 2 + math.div($dot-width, 2));
     animation: dot-revolution 1s linear infinite;
   }
 }

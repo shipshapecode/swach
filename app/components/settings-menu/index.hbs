@@ -58,13 +58,13 @@
 
     <div class="grid grid-cols-3 gap-2">
       <label>
-        <Input
+        <input
           data-test-settings-select-theme="light"
           class="image-radio absolute h-0 opacity-0 w-0"
           checked={{eq this.settings.userTheme "light"}}
           name="theme"
-          @type="radio"
-          @value="light"
+          type="radio"
+          value="light"
           {{on "change" (fn this.changeTheme "light")}}
         />
 
@@ -75,13 +75,13 @@
         </div>
       </label>
       <label>
-        <Input
+        <input
           data-test-settings-select-theme="dark"
           class="image-radio absolute h-0 opacity-0 w-0"
           checked={{eq this.settings.userTheme "dark"}}
           name="theme"
-          @type="radio"
-          @value="dark"
+          type="radio"
+          value="dark"
           {{on "change" (fn this.changeTheme "dark")}}
         />
 
@@ -92,13 +92,13 @@
         </div>
       </label>
       <label>
-        <Input
+        <input
           data-test-settings-select-theme="dynamic"
           class="image-radio absolute h-0 opacity-0 w-0"
           checked={{eq this.settings.userTheme "dynamic"}}
           name="theme"
-          @type="radio"
-          @value="dynamic"
+          type="radio"
+          value="dynamic"
           {{on "change" (fn this.changeTheme "dynamic")}}
         />
 

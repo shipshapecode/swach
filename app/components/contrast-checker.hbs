@@ -71,11 +71,11 @@
       ></div>
 
       <div class="relative w-36">
-        <Input
+        <input
           data-test-bg-input
-          class="input rounded mt-3"
-          @type="text"
-          @value={{this.backgroundColor}}
+          class="input rounded mt-3 w-36"
+          type="text"
+          value={{this.backgroundColor}}
           {{on "blur" this.onBlurBg}}
           {{on "keypress" this.enterPress}}
         />
@@ -97,11 +97,11 @@
       ></div>
 
       <div class="relative w-36">
-        <Input
+        <input
           data-test-fg-input
-          class="input rounded mt-3"
-          @type="text"
-          @value={{this.foregroundColor}}
+          class="input rounded mt-3 w-36"
+          type="text"
+          value={{this.foregroundColor}}
           {{on "blur" this.onBlurFg}}
           {{on "keypress" this.enterPress}}
         />

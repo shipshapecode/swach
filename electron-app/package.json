@@ -40,8 +40,8 @@
     "@electron-forge/maker-snap": "^6.0.0-beta.63",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
     "@electron-forge/maker-zip": "^6.0.0-beta.63",
-    "@sentry/cli": "^1.72.0",
-    "electron": "^16.0.7",
+    "@sentry/cli": "^1.73.2",
+    "electron": "^16.0.10",
     "electron-debug": "^3.2.0",
     "electron-download": "^4.1.1"
   },

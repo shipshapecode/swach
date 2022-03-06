@@ -44,11 +44,11 @@
 }
 
 .tab {
-  @apply text-center text-menu-text px-3 py-2 font-medium rounded-full text-sm hover:text-menu-text-hover;
+  @apply text-center text-menu-text p-3 font-medium rounded-full text-sm hover:text-menu-text-hover;
 }
 
 .tab.active {
-  @apply bg-menu text-menu-text;
+  @apply bg-menu text-menu-text-hover;
 }
 
 @tailwind utilities;

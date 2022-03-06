@@ -39,9 +39,6 @@ module.exports = function (environment) {
           ? 'http://localhost:3000'
           : 'https://jpuj8ukmx8.execute-api.us-east-2.amazonaws.com/dev'
     },
-    featureFlags: {
-      'cloud-login': true
-    },
     sentry: {
       environment
     }
@@ -69,7 +66,6 @@ module.exports = function (environment) {
 
   if (environment === 'production') {
     ENV.api.host = 'https://jpuj8ukmx8.execute-api.us-east-2.amazonaws.com/dev';
-    ENV.featureFlags['cloud-login'] = false;
     ENV.sentry.dsn =
       'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140';
     ENV.sentry.release = `v${version}`;

@@ -45,7 +45,7 @@
     "@glimmer/tracking": "^1.0.4",
     "@jaames/iro": "^5.5.2",
     "@orbit/coordinator": "^0.17.0",
-    "@orbit/indexeddb": "^0.17.1",
+    "@orbit/indexeddb": "^0.17.2",
     "@orbit/indexeddb-bucket": "0.17.0",
     "@orbit/jsonapi": "^0.17.1",
     "@orbit/records": "^0.17.0",

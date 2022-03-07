@@ -24,7 +24,7 @@
   </p>
 
   <div class="mt-3">
-    <div class="mb-4 rounded-md">
+    <div class="mb-4">
       <div>
         <label for="email-address" class="sr-only">
           Email address
@@ -32,7 +32,7 @@
         <Input
           data-test-forgot-password-input-user
           autocomplete="email"
-          class="input py-2 rounded-t text-sm w-full"
+          class="input py-2 rounded-sm text-sm w-full"
           id="email-address"
           name="email"
           placeholder="Email address"
@@ -47,10 +47,11 @@
           <label for="confirmation-code" class="sr-only">
             Confirmation code
           </label>
+
           <Input
             data-test-forgot-password-input-code
             autocomplete="current-password"
-            class="input py-2 rounded-t text-sm w-full"
+            class="input py-2 rounded-sm text-sm w-full"
             id="confirmation-code"
             name="confirmation-code"
             placeholder="Confirmation code"
@@ -64,10 +65,11 @@
           <label for="password" class="sr-only">
             Password
           </label>
+
           <Input
             data-test-forgot-password-input-password
             autocomplete="current-password"
-            class="input py-2 rounded-t text-sm w-full"
+            class="input py-2 rounded-sm text-sm w-full"
             id="password"
             name="password"
             placeholder="Password"
@@ -77,24 +79,24 @@
           />
         </div>
 
-        <div class="mt-3">
-          <button
+        <div class="mt-6">
+          <LoadingButton
             class="btn btn-primary w-full"
-            type="button"
-            {{on "click" this.forgotPasswordSubmit}}
+            @loading={{this.loading}}
+            @onClick={{this.forgotPasswordSubmit}}
           >
             Reset Password
-          </button>
+          </LoadingButton>
         </div>
       {{else}}
-        <div class="mt-3">
-          <button
+        <div class="mt-6">
+          <LoadingButton
             class="btn btn-primary w-full"
-            type="button"
-            {{on "click" this.forgotPassword}}
+            @loading={{this.loading}}
+            @onClick={{this.forgotPassword}}
           >
             Send Code
-          </button>
+          </LoadingButton>
         </div>
       {{/if}}
     </div>

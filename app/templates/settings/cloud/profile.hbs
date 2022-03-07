@@ -1,22 +1,27 @@
-<h3 class="font-semibold leading-6 mt-4 text-heading text-sm">
-  Account
-</h3>
+<div class="bg-menu p-4 rounded w-full">
+  <div class="pt-4 w-full">
+    {{#if @model.email}}
+      <h2 class="font-bold mb-6 text-2xl">
+        Signed in as...
+      </h2>
 
-<div class="my-2 text-sm">
-  {{#if @model.email}}
-    Signed in as
-    <span data-test-profile-detail="email" class="text-menu-text">
-      {{@model.email}}
-    </span>
-    .
-  {{/if}}
+      <div
+        data-test-profile-detail="email"
+        class="border-input-border border-t border-b py-5 text-menu-text text-sm"
+      >
+        {{@model.email}}
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="mt-6">
+    <LoadingButton
+      data-test-logout-submit
+      class="btn btn-primary w-full"
+      @loading={{this.loading}}
+      @onClick={{this.logOut}}
+    >
+      Sign Out
+    </LoadingButton>
+  </div>
 </div>
-
-<button
-  data-test-logout-submit
-  class="btn btn-primary w-full"
-  type="button"
-  {{on "click" this.logOut}}
->
-  Log Out
-</button>

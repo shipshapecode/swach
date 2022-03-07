@@ -11,11 +11,13 @@ export default class Login extends Component {
   @service session!: Session;
 
   @tracked errorMessage = null;
+  @tracked loading = false;
   @tracked password?: string;
   @tracked username?: string;
 
   @action
   async authenticate(): Promise<void> {
+    this.loading = true;
     const { username, password } = this;
     const credentials = { username, password };
     try {
@@ -23,6 +25,8 @@ export default class Login extends Component {
       this.router.transitionTo('settings.cloud');
     } catch (error) {
       this.errorMessage = error.message || error;
+    } finally {
+      this.loading = false;
     }
   }
 }

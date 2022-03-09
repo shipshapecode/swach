@@ -27,6 +27,7 @@ Router.map(function () {
   });
   this.route('welcome', function () {
     this.route('auto-start');
+    this.route('cloud-sync');
     this.route('dock-icon');
   });
 });

@@ -32,7 +32,7 @@ Sentry.init({
 
 const store = new Store({
   defaults: {
-    firstRun: true,
+    firstRunV1: true,
     showDockIcon: false
   }
 });
@@ -40,9 +40,9 @@ const store = new Store({
 let emberAppURL = pathToFileURL(join(emberAppDir, 'index.html')).toString();
 
 // On first boot of the application, go through the welcome screen
-if (store.get('firstRun')) {
+if (store.get('firstRunV1')) {
   emberAppURL = `${emberAppURL}#/welcome`;
-  store.set('firstRun', false);
+  store.set('firstRunV1', false);
 }
 
 function openContrastChecker(mb) {

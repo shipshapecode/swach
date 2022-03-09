@@ -7,7 +7,7 @@ module.exports = function (environment) {
     modulePrefix: 'swach',
     environment,
     rootURL: process.env.EMBER_CLI_ELECTRON ? '' : '/',
-    locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'auto',
+    locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'history',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -28,19 +28,13 @@ module.exports = function (environment) {
     },
 
     cognito: {
-      poolId: 'us-east-2_AEr5v3Ogt',
-      clientId: '1jn23hlv9ggi63mc37f4m5hm4h',
-      identityPoolId: 'us-east-2:af67b33e-b9cd-4eaa-9669-e478e56e9310',
+      poolId: 'us-east-2_QwzHPTSIB',
+      clientId: '3qt66sk0l4k4bnm3ndge7inp80',
+      identityPoolId: 'us-east-2:b38b2ff6-f0e2-4ddb-8c51-294480a7fdb4',
       region: 'us-east-2'
     },
     api: {
-      host:
-        environment === 'test'
-          ? 'http://localhost:3000'
-          : 'https://jpuj8ukmx8.execute-api.us-east-2.amazonaws.com/dev'
-    },
-    featureFlags: {
-      'cloud-login': true
+      host: 'https://n3tygwauml.execute-api.us-east-2.amazonaws.com/prod'
     },
     sentry: {
       environment
@@ -53,6 +47,13 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    // ENV.api.host = 'https://jpuj8ukmx8.execute-api.us-east-2.amazonaws.com/dev';
+    // ENV.cognito = {
+    //   poolId: 'us-east-2_AEr5v3Ogt',
+    //   clientId: '1jn23hlv9ggi63mc37f4m5hm4h',
+    //   identityPoolId: 'us-east-2:af67b33e-b9cd-4eaa-9669-e478e56e9310',
+    //   region: 'us-east-2'
+    // };
   }
 
   if (environment === 'test') {
@@ -65,11 +66,20 @@ module.exports = function (environment) {
 
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
+    ENV.api.host = 'http://localhost:3000';
   }
 
   if (environment === 'production') {
-    ENV.api.host = 'https://jpuj8ukmx8.execute-api.us-east-2.amazonaws.com/dev';
-    ENV.featureFlags['cloud-login'] = false;
+    ENV.api.host =
+      'https://n3tygwauml.execute-api.us-east-2.amazonaws.com/prod';
+
+    ENV.cognito = {
+      poolId: 'us-east-2_QwzHPTSIB',
+      clientId: '3qt66sk0l4k4bnm3ndge7inp80',
+      identityPoolId: 'us-east-2:b38b2ff6-f0e2-4ddb-8c51-294480a7fdb4',
+      region: 'us-east-2'
+    };
+
     ENV.sentry.dsn =
       'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140';
     ENV.sentry.release = `v${version}`;

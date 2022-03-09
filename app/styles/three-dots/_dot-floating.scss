@@ -1,3 +1,4 @@
+@use 'sass:math';
 /**
  * ==============================================
  * Dot Floating
@@ -41,15 +42,15 @@ $d-min: 12px;
 
 @keyframes dot-floating {
   0% {
-    left: calc(-50% - #{$dot-width/2});
+    left: calc(-50% - #{math.div($dot-width, 2)});
   }
 
   75% {
-    left: calc(50% + #{$d-max * 2 + $dot-width/2});
+    left: calc(50% + #{$d-max * 2 + math.div($dot-width, 2)});
   }
 
   100% {
-    left: calc(50% + #{$d-max * 2 + $dot-width/2});
+    left: calc(50% + #{$d-max * 2 + math.div($dot-width, 2)});
   }
 }
 

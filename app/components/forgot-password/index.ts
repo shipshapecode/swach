@@ -15,18 +15,22 @@ export default class ForgotPasswordComponent extends Component {
   @tracked code?: string;
   @tracked errorMessage?: string;
   @tracked isConfirming = false;
+  @tracked loading = false;
   @tracked password?: string;
   @tracked username?: string;
 
   @action
   async forgotPassword(): Promise<void> {
     if (this.username) {
+      this.loading = true;
       try {
         await this.cognito.forgotPassword(this.username);
 
         this.isConfirming = true;
       } catch (err) {
         this.errorMessage = err.message;
+      } finally {
+        this.loading = false;
       }
     }
   }
@@ -36,12 +40,15 @@ export default class ForgotPasswordComponent extends Component {
     const { username, code, password } = this;
 
     if (username && code && password) {
+      this.loading = true;
       try {
         await this.cognito.forgotPasswordSubmit(username, code, password);
 
         this.router.transitionTo('settings.cloud');
       } catch (err) {
         this.errorMessage = err.message;
+      } finally {
+        this.loading = false;
       }
     }
   }

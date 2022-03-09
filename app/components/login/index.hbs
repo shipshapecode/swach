@@ -21,7 +21,7 @@
   {{/if}}
 
   <div class="mt-3">
-    <div class="mb-4 rounded-md">
+    <div class="mb-6">
       <div class="mb-2">
         <label for="email-address" class="sr-only">
           Email address
@@ -39,7 +39,7 @@
           @value={{this.username}}
         />
       </div>
-      <div class="mb-3">
+      <div>
         <label for="password" class="sr-only">
           Password
         </label>
@@ -47,7 +47,7 @@
         <Input
           data-test-login-input-password
           autocomplete="current-password"
-          class="input py-2 rounded-b text-sm w-full"
+          class="input py-2 rounded-sm text-sm w-full"
           id="password"
           name="password"
           placeholder="Password"
@@ -59,14 +59,14 @@
     </div>
 
     <div>
-      <button
+      <LoadingButton
         data-test-login-submit
         class="btn btn-primary w-full"
-        type="button"
-        {{on "click" this.authenticate}}
+        @loading={{this.loading}}
+        @onClick={{this.authenticate}}
       >
         Sign in
-      </button>
+      </LoadingButton>
     </div>
 
     <div class="flex items-center justify-center mt-2">

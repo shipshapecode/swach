@@ -7,6 +7,7 @@ import { IpcRenderer } from 'electron';
 export default class SettingsMenu extends Component {
   ipcRenderer!: IpcRenderer;
 
+  copyrightYear = new Date().getFullYear();
   @tracked version = 'Version not available';
 
   constructor(owner: unknown, args: Record<string, unknown>) {

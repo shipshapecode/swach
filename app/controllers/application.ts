@@ -1,4 +1,3 @@
-import { A } from '@ember/array';
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import Router from '@ember/routing/router-service';
@@ -13,7 +12,6 @@ import { RecordSchema } from '@orbit/records';
 import { IpcRenderer } from 'electron';
 
 import ColorModel from 'swach/data-models/color';
-import PaletteModel from 'swach/data-models/palette';
 import ColorUtils from 'swach/services/color-utils';
 import DataService from 'swach/services/data';
 import UndoManager from 'swach/services/undo-manager';

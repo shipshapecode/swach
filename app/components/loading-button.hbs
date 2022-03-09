@@ -1,5 +1,6 @@
 <button
-  class="btn btn-primary h-10 leading-5 pl-2 pr-2 w-full"
+  class="btn btn-primary h-10 leading-5 pl-2 pr-2 w-full disabled:opacity-50"
+  disabled={{@loading}}
   type="button"
   ...attributes
   {{on "click" @onClick}}

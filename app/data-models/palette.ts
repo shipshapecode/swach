@@ -3,7 +3,7 @@ import { Model, attr, hasMany } from 'ember-orbit';
 import ColorModel from 'swach/data-models/color';
 
 export default class PaletteModel extends Model {
-  @attr('date') createdAt!: string;
+  @attr('datetime') createdAt!: string;
   @attr('number') index!: number;
   @attr('boolean') isColorHistory!: boolean;
   @attr('boolean') isFavorite!: boolean;

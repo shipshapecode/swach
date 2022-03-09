@@ -17,7 +17,7 @@ export default class SettingsMenu extends Component<SettingsMenuArgs> {
   @storageFor('settings') settings!: SettingsStorage;
 
   ipcRenderer!: IpcRenderer;
-  themes = ['dynamic', 'light', 'dark'];
+  themes = ['light', 'dark', 'dynamic'];
 
   @tracked platform?: string;
 

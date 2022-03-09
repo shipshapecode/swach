@@ -14,6 +14,8 @@ module.exports = function (environment) {
         'https://cognito-idp.us-east-2.amazonaws.com/',
         'https://cognito-identity.us-east-2.amazonaws.com/',
         'https://jpuj8ukmx8.execute-api.us-east-2.amazonaws.com/dev/',
+        'https://n3tygwauml.execute-api.us-east-2.amazonaws.com/prod/',
+        'https://sentry.io/',
         'http://localhost:3000',
         "'self'"
       ],

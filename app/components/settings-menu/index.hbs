@@ -1,6 +1,9 @@
 {{! template-lint-disable builtin-component-arguments }}
-<div class="font-normal text-main-text text-sm w-full" data-test-settings-menu>
-  <div class="p-1 pb-2">
+<div
+  class="font-normal p-4 text-main-text text-sm w-full"
+  data-test-settings-menu
+>
+  <div class="pb-2">
     {{#if this.isMacOSOrWindows}}
       <label class="flex items-center mb-1">
         <Input
@@ -51,70 +54,40 @@
     </label>
   </div>
 
-  <div class="p-1 pb-4" data-test-settings-select-theme>
+  <div class="pb-4" data-test-settings-select-theme>
     <h6 class="font-semibold mb-2 mt-4 text-heading text-sm">
       Appearance
     </h6>
 
     <div class="grid grid-cols-3 gap-2">
-      <label>
-        <Input
-          data-test-settings-select-theme="light"
-          class="image-radio absolute h-0 opacity-0 w-0"
-          checked={{eq this.settings.userTheme "light"}}
-          name="theme"
-          @type="radio"
-          @value="light"
-          {{on "change" (fn this.changeTheme "light")}}
-        />
+      {{#each this.themes as |theme|}}
+        {{#let (eq this.settings.userTheme theme) as |checked|}}
+          <label>
+            <input
+              data-test-settings-select-theme={{theme}}
+              class="image-radio absolute h-0 opacity-0 w-0"
+              checked={{checked}}
+              name="theme"
+              type="radio"
+              value="dynamic"
+              {{on "change" (fn this.changeTheme theme)}}
+            />
 
-        {{svg-jar "light-theme"}}
+            {{svg-jar (concat theme "-theme")}}
 
-        <div class="text-center w-full">
-          Light
-        </div>
-      </label>
-      <label>
-        <Input
-          data-test-settings-select-theme="dark"
-          class="image-radio absolute h-0 opacity-0 w-0"
-          checked={{eq this.settings.userTheme "dark"}}
-          name="theme"
-          @type="radio"
-          @value="dark"
-          {{on "change" (fn this.changeTheme "dark")}}
-        />
-
-        {{svg-jar "dark-theme"}}
-
-        <div class="text-center w-full">
-          Dark
-        </div>
-      </label>
-      <label>
-        <Input
-          data-test-settings-select-theme="dynamic"
-          class="image-radio absolute h-0 opacity-0 w-0"
-          checked={{eq this.settings.userTheme "dynamic"}}
-          name="theme"
-          @type="radio"
-          @value="dynamic"
-          {{on "change" (fn this.changeTheme "dynamic")}}
-        />
-
-        {{svg-jar "dynamic-theme"}}
-
-        <div class="text-center w-full">
-          Dynamic
-        </div>
-      </label>
+            <div class="mt-1 text-center w-full {{if checked 'font-bold'}}">
+              {{capitalize theme}}
+            </div>
+          </label>
+        {{/let}}
+      {{/each}}
     </div>
   </div>
 
   <About />
 
   {{#if this.isMacOSOrWindows}}
-    <div class="p-1 pb-4 pt-4">
+    <div class="py-6">
       <div class="flex h-8 w-full">
         <LoadingButton
           @loading={{this.checkingForUpdates}}

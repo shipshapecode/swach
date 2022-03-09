@@ -9,7 +9,7 @@ const path = require('path');
 
 const store = new Store({
   defaults: {
-    firstRun: true,
+    firstRunV1: true,
     needsMigration: true,
     showDockIcon: false
   }

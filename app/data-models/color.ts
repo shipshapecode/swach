@@ -7,7 +7,7 @@ import { TinyColor } from '@ctrl/tinycolor';
 import PaletteModel from 'swach/data-models/palette';
 
 export default class ColorModel extends Model {
-  @attr('date') createdAt!: string;
+  @attr('datetime') createdAt!: string;
   @attr('string') name!: string;
   @attr('number') r!: number;
   @attr('number') g!: number;

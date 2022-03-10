@@ -2,6 +2,7 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 
+import Sprite from 'ember-animated/-private/sprite';
 import { easeOut } from 'ember-animated/easings/cosine';
 import move from 'ember-animated/motions/move';
 import { fadeOut } from 'ember-animated/motions/opacity';
@@ -39,12 +40,14 @@ export default class ColorsList extends Component<ColorsListArgs> {
     insertedSprites,
     removedSprites
   }: {
-    keptSprites: any;
-    insertedSprites: any;
-    removedSprites: any;
+    keptSprites: Array<Sprite>;
+    insertedSprites: Array<Sprite>;
+    removedSprites: Array<Sprite>;
   }): unknown {
     for (const sprite of insertedSprites) {
-      sprite.startTranslatedBy(0, -sprite.finalBounds.height / 2);
+      if (sprite.finalBounds?.height) {
+        sprite.startTranslatedBy(0, -sprite.finalBounds.height / 2);
+      }
       move(sprite, { easing: easeOut });
     }
 

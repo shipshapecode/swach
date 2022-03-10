@@ -7,6 +7,7 @@ import { tracked } from '@glimmer/tracking';
 import { storageFor } from 'ember-local-storage';
 import Session from 'ember-simple-auth/services/session';
 
+import config from 'swach/config/environment';
 import { SettingsStorage } from 'swach/storages/settings';
 
 export default class Login extends Component {
@@ -27,7 +28,12 @@ export default class Login extends Component {
     const credentials = { username, password };
     try {
       await this.session.authenticate('authenticator:cognito', credentials);
-      this.settings.set('userHasLoggedInBefore', true);
+
+      // We want to skip this in tests, since once a user has logged in routes become inaccessible
+      if (config.environment !== 'test') {
+        this.settings.set('userHasLoggedInBefore', true);
+      }
+
       this.router.transitionTo('settings.cloud');
     } catch (error) {
       this.errorMessage = error.message || error;

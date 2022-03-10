@@ -72,7 +72,14 @@
         {{/if}}
       </div>
 
-      {{#if this.session.isAuthenticated}}
+      {{#if
+        (not
+          (and
+            this.settings.userHasLoggedInBefore
+            (not this.session.isAuthenticated)
+          )
+        )
+      }}
         <div class="flex grow items-center justify-end">
           <div class="h-4 w-4 mr-2">
             {{#if (and this.showEyedropperIcon (not this.colorPickerIsShown))}}

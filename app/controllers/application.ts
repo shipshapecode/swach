@@ -26,12 +26,12 @@ export default class ApplicationController extends Controller {
   @service store!: Store;
   @service undoManager!: UndoManager;
 
+  @storageFor('settings') settings!: SettingsStorage;
+
   ipcRenderer!: IpcRenderer;
 
   @tracked colorPickerColor?: ColorModel;
   @tracked colorPickerIsShown = false;
-
-  @storageFor('settings') settings!: SettingsStorage;
 
   get isContrastRoute(): boolean {
     return this.router.currentRouteName === 'contrast';

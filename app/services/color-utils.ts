@@ -31,9 +31,9 @@ export default class ColorUtilsService extends Service {
   @service nearestColor!: NearestColor;
   @service store!: Store;
 
-  ipcRenderer!: IpcRenderer;
-
   @storageFor('settings') settings!: SettingsStorage;
+
+  ipcRenderer!: IpcRenderer;
 
   constructor() {
     super(...arguments);

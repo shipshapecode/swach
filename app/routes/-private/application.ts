@@ -29,6 +29,8 @@ export default class ApplicationRoute extends Route {
   }
 
   async beforeModel(): Promise<void> {
+    await this.session.setup();
+
     await this.data.activate();
     await this.data.synchronize();
 

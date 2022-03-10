@@ -6,7 +6,7 @@
   <div class="flex flex-col max-w-xl h-full relative w-full">
     <nav
       class="bg-menu flex justify-between items-center p-4 w-full z-50
-        {{if this.isWelcomeRoute 'hidden'}}"
+      {{if this.isWelcomeRoute "hidden"}}"
     >
       <div class="grow">
         {{#if (not this.colorPickerIsShown)}}
@@ -72,33 +72,35 @@
         {{/if}}
       </div>
 
-      <div class="flex grow items-center justify-end">
-        <div class="h-4 w-4 mr-2">
-          {{#if (and this.showEyedropperIcon (not this.colorPickerIsShown))}}
-            <button type="button" {{on "click" this.launchPicker}}>
-              {{svg-jar "drop" class="menu-icon" height="20" width="20"}}
-            </button>
-          {{/if}}
-        </div>
+      {{#if this.session.isAuthenticated}}
+        <div class="flex grow items-center justify-end">
+          <div class="h-4 w-4 mr-2">
+            {{#if (and this.showEyedropperIcon (not this.colorPickerIsShown))}}
+              <button type="button" {{on "click" this.launchPicker}}>
+                {{svg-jar "drop" class="menu-icon" height="20" width="20"}}
+              </button>
+            {{/if}}
+          </div>
 
-        <div class="h-4 w-4">
-          {{#if this.showColorWheel}}
-            <ColorPicker
-              @isShown={{this.colorPickerIsShown}}
-              @saveColor={{this.addColor}}
-              @selectedColor={{this.colorPickerColor}}
-              @toggleIsShown={{this.toggleColorPickerIsShown}}
-            />
-            <button
-              data-test-toggle-color-picker
-              type="button"
-              {{on "click" this.toggleColorPickerIsShown}}
-            >
-              {{svg-jar "edit-color" height="20" width="20"}}
-            </button>
-          {{/if}}
+          <div class="h-4 w-4">
+            {{#if this.showColorWheel}}
+              <ColorPicker
+                @isShown={{this.colorPickerIsShown}}
+                @saveColor={{this.addColor}}
+                @selectedColor={{this.colorPickerColor}}
+                @toggleIsShown={{this.toggleColorPickerIsShown}}
+              />
+              <button
+                data-test-toggle-color-picker
+                type="button"
+                {{on "click" this.toggleColorPickerIsShown}}
+              >
+                {{svg-jar "edit-color" height="20" width="20"}}
+              </button>
+            {{/if}}
+          </div>
         </div>
-      </div>
+      {{/if}}
     </nav>
 
     <div class="flex-1 overflow-auto p-3">

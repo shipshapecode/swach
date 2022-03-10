@@ -6,11 +6,9 @@
   Palettes
 </LinkTo>
 
-{{#if (not this.model.isColorHistory)}}
-  <div class="font-bold py-2 text-main-text text-xl">
-    {{this.model.name}}
-  </div>
-{{/if}}
+<div class="font-bold py-2 text-main-text text-xl">
+  {{if this.model.isColorHistory "Color History" this.model.name}}
+</div>
 
 <ColorsList
   @palette={{this.model}}

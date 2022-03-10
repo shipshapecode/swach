@@ -1,7 +1,9 @@
+import Transition from '@ember/routing/-private/transition';
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
 import { Store } from 'ember-orbit';
+import Session from 'ember-simple-auth/services/session';
 
 import ColorModel from 'swach/data-models/color';
 
@@ -12,7 +14,12 @@ export default class KulerRoute extends Route {
     }
   };
 
+  @service session!: Session;
   @service store!: Store;
+
+  beforeModel(transition: Transition): void {
+    this.session.requireAuthentication(transition, 'settings.cloud.login');
+  }
 
   async model({
     colorId

@@ -4,11 +4,16 @@ import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
+import { storageFor } from 'ember-local-storage';
 import Session from 'ember-simple-auth/services/session';
+
+import { SettingsStorage } from 'swach/storages/settings';
 
 export default class Login extends Component {
   @service router!: Router;
   @service session!: Session;
+
+  @storageFor('settings') settings!: SettingsStorage;
 
   @tracked errorMessage = null;
   @tracked loading = false;
@@ -22,6 +27,7 @@ export default class Login extends Component {
     const credentials = { username, password };
     try {
       await this.session.authenticate('authenticator:cognito', credentials);
+      this.settings.set('userHasLoggedInBefore', true);
       this.router.transitionTo('settings.cloud');
     } catch (error) {
       this.errorMessage = error.message || error;

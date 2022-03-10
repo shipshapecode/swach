@@ -2,15 +2,22 @@ import Transition from '@ember/routing/-private/transition';
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
+import { storageFor } from 'ember-local-storage';
 import { LiveQuery, Store } from 'ember-orbit';
 import Session from 'ember-simple-auth/services/session';
+
+import { SettingsStorage } from 'swach/storages/settings';
 
 export default class PalettesRoute extends Route {
   @service session!: Session;
   @service store!: Store;
 
+  @storageFor('settings') settings!: SettingsStorage;
+
   beforeModel(transition: Transition): void {
-    this.session.requireAuthentication(transition, 'settings.cloud.login');
+    if (this.settings.get('userHasLoggedInBefore')) {
+      this.session.requireAuthentication(transition, 'settings.cloud.login');
+    }
   }
 
   model(): LiveQuery {

@@ -7648,10 +7648,10 @@ ember-modifier-manager-polyfill@^1.2.0:
     ember-cli-typescript "^4.2.1"
     ember-compatibility-helpers "^1.2.5"
 
-ember-orbit@^0.17.2:
-  version "0.17.2"
-  resolved "https://registry.yarnpkg.com/ember-orbit/-/ember-orbit-0.17.2.tgz#f3be81f9132e03d824658b09584e755ab9ad9964"
-  integrity sha512-CFkzrpLUvRDHqwn/zmXphukZMA287uAQj+LPD6LDUDQWL+WJD45BDE7HTvkKqbOL97sPH5ZLEnYx5A+kCn35Sg==
+ember-orbit@^0.17.3:
+  version "0.17.3"
+  resolved "https://registry.yarnpkg.com/ember-orbit/-/ember-orbit-0.17.3.tgz#0dcf61f54ca263644fc278db767be791aeb66524"
+  integrity sha512-Fy/XehOYWBmzstnlJNTwIV6xOUfwtdHfh6ijCItB63ieavGpBZiRXVOIR0h6Ps9YR/IV2cR2Csw4ctuVrKcFRw==
   dependencies:
     "@orbit/coordinator" "^0.17.0"
     "@orbit/core" "^0.17.0"

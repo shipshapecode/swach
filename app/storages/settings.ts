@@ -9,6 +9,7 @@ interface SettingsValues {
   openOnStartup: boolean;
   showDockIcon: boolean;
   sounds: boolean;
+  userHasLoggedInBefore: boolean;
   userTheme: themes;
 }
 
@@ -24,6 +25,7 @@ Storage.reopenClass({
       openOnStartup: false,
       showDockIcon: false,
       sounds: true,
+      userHasLoggedInBefore: false,
       userTheme: 'dynamic'
     };
   }

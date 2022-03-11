@@ -10,6 +10,9 @@ module.exports = function (defaults) {
     babel: {
       plugins: ['@babel/plugin-proposal-object-rest-spread']
     },
+    'ember-simple-auth': {
+      useSessionSetupMethod: true
+    },
     postcssOptions: {
       compile: {
         extension: 'scss',

@@ -1,3 +1,30 @@
+
+## v1.0.0 (2022-03-11)
+
+#### :boom: Breaking Change
+* [#1021](https://github.com/shipshapecode/swach/pull/1021) Require users to authenticate, after authenticating once before ([@rwwagner90](https://github.com/rwwagner90))
+* [#897](https://github.com/shipshapecode/swach/pull/897) Electron and node 16 ([@rwwagner90](https://github.com/rwwagner90))
+* [#832](https://github.com/shipshapecode/swach/pull/832) Swach v1: Add user accounts and API integration ([@rwwagner90](https://github.com/rwwagner90))
+
+#### :rocket: Enhancement
+* [#1012](https://github.com/shipshapecode/swach/pull/1012) Update deps, fix styles, tweak things for 1.0 ([@rwwagner90](https://github.com/rwwagner90))
+* [#692](https://github.com/shipshapecode/swach/pull/692) CU-kgwa48 - Hide menu and eyedropper when color picker is active ([@hannakim91](https://github.com/hannakim91))
+
+#### :house: Internal
+* [#971](https://github.com/shipshapecode/swach/pull/971) Testing refactor ([@dgeb](https://github.com/dgeb))
+* [#918](https://github.com/shipshapecode/swach/pull/918) Remove ember-box, update to ember 4 ([@rwwagner90](https://github.com/rwwagner90))
+* [#911](https://github.com/shipshapecode/swach/pull/911) Use explicit injections, update ember-orbit ([@rwwagner90](https://github.com/rwwagner90))
+* [#904](https://github.com/shipshapecode/swach/pull/904) ember-cli 4.1.0 ([@rwwagner90](https://github.com/rwwagner90))
+* [#903](https://github.com/shipshapecode/swach/pull/903) Switch to native EyeDropper ([@rwwagner90](https://github.com/rwwagner90))
+* [#900](https://github.com/shipshapecode/swach/pull/900) Tailwind v3 ([@rwwagner90](https://github.com/rwwagner90))
+* [#893](https://github.com/shipshapecode/swach/pull/893) V1 tweaks ([@rwwagner90](https://github.com/rwwagner90))
+* [#780](https://github.com/shipshapecode/swach/pull/780) Bump deps, fix lint ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 3
+- Dan Gebhardt ([@dgeb](https://github.com/dgeb))
+- Hanna (she/her) ([@hannakim91](https://github.com/hannakim91))
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v0.7.5 (2021-02-16)
 
 ## v0.7.4 (2021-02-16)

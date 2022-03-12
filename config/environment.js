@@ -27,14 +27,17 @@ module.exports = function (environment) {
       // when it is created
     },
 
+    api: {
+      host: 'https://n3tygwauml.execute-api.us-east-2.amazonaws.com/prod'
+    },
     cognito: {
       poolId: 'us-east-2_QwzHPTSIB',
       clientId: '3qt66sk0l4k4bnm3ndge7inp80',
       identityPoolId: 'us-east-2:b38b2ff6-f0e2-4ddb-8c51-294480a7fdb4',
       region: 'us-east-2'
     },
-    api: {
-      host: 'https://n3tygwauml.execute-api.us-east-2.amazonaws.com/prod'
+    orbit: {
+      skipValidatorService: true
     },
     sentry: {
       environment
@@ -54,6 +57,7 @@ module.exports = function (environment) {
     //   identityPoolId: 'us-east-2:af67b33e-b9cd-4eaa-9669-e478e56e9310',
     //   region: 'us-east-2'
     // };
+    ENV.orbit.skipValidatorService = false;
   }
 
   if (environment === 'test') {

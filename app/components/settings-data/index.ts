@@ -95,7 +95,12 @@ export default class SettingsDataComponent extends Component {
                           (q) => q.findRecords()
                         );
                         await this.store.sync((t) =>
-                          records.map((r) => t.addRecord(r))
+                          records.map((r) => {
+                            if (r?.attributes?.hex) {
+                              delete r.attributes.hex;
+                            }
+                            return t.addRecord(r);
+                          })
                         );
                         this.flashMessages.success(
                           'Data successfully replaced.'

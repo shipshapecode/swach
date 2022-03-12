@@ -25,7 +25,15 @@ export default class DataService extends Service {
     const records = await this.getRecordsFromBackup();
 
     if (records.length > 0) {
-      await this.store.sync((t) => records.map((r) => t.addRecord(r)));
+      await this.store.sync((t) =>
+        records.map((r) => {
+          if (r?.attributes?.hex) {
+            delete r.attributes.hex;
+          }
+
+          return t.addRecord(r);
+        })
+      );
     }
 
     await this.dataCoordinator.activate();

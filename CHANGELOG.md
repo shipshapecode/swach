@@ -1,4 +1,13 @@
 
+
+## v1.0.2 (2022-03-12)
+
+#### :bug: Bug Fix
+* [#1023](https://github.com/shipshapecode/swach/pull/1023) Fix issue with hex on existing colors ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v1.0.1 (2022-03-11)
 
 ## v1.0.0 (2022-03-11)

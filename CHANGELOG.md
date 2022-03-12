@@ -1,5 +1,14 @@
 
 
+
+## v1.0.3 (2022-03-12)
+
+#### :bug: Bug Fix
+* [#1024](https://github.com/shipshapecode/swach/pull/1024) Skip validators for prod ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v1.0.2 (2022-03-12)
 
 #### :bug: Bug Fix

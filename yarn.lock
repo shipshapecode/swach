@@ -5968,10 +5968,10 @@ color-convert@^2.0.1:
   dependencies:
     color-name "~1.1.4"
 
-color-name-list@^9.0.1:
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-9.0.1.tgz#77735a665373b6640abb19a838fcad0194f08bd1"
-  integrity sha512-7Pjv8lYNT/OYhNFimxBH26wDiuEhXFkwFSv0m3loMB/NeJBIMBsKw75epzQRBycyMTsYDBkFkJ9xrEJorJ22Bw==
+color-name-list@^9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-9.1.0.tgz#fa0bdff44cb3f94f5c435beccabbb1b1b30ff877"
+  integrity sha512-yIEBgDvQnSj9uZ0O4PhJBgBw+NWT9B9P6f74Q/1EDiOj3KMwTJ4puVVNhBPNkjW7gaVoNwCVE/xWSxthZTKMxQ==
 
 color-name@1.1.3:
   version "1.1.3"

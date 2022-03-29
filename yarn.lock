@@ -6882,10 +6882,10 @@ elliptic@^6.5.3:
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
 
-ember-animated@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/ember-animated/-/ember-animated-1.0.0.tgz#050749819600fcaa9bd5594a40313aaf42facc82"
-  integrity sha512-kEN0xikMl29gRYbggiagben0j+njX+qu+ew+DCtabQLng40C+NOHWPGms9SHKcJrjvBNMdZRRAkUNznh9D4viA==
+ember-animated@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ember-animated/-/ember-animated-1.0.1.tgz#c714402f37f732efe6178c92fb21dd37a9d5500b"
+  integrity sha512-XCoYi5ijg16lxLEKPHBReZYihCdgGnfJVp4gXGJ5iJA7EJLmPHOcVFlUvjSV8Z/zB4Y4nVyZz4IKhTqqdUhY7Q==
   dependencies:
     "@embroider/addon-shim" "^1.5.0"
     assert-never "^1.2.0"

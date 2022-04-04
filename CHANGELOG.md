@@ -1,6 +1,15 @@
 
 
 
+
+## v1.0.4 (2022-04-04)
+
+#### :bug: Bug Fix
+* [#1055](https://github.com/shipshapecode/swach/pull/1055) Fix certificate error issues ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v1.0.3 (2022-03-12)
 
 #### :bug: Bug Fix

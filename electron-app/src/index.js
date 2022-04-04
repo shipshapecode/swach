@@ -87,14 +87,16 @@ mb.app.commandLine.appendSwitch(
   'true'
 );
 
+mb.app.commandLine.appendSwitch('ignore-certificate-errors', true);
+
 let sharedPaletteLink;
 
-function openSharedPalette() {
-  mb.showWindow();
+async function openSharedPalette() {
+  await mb.showWindow();
 
   if (sharedPaletteLink) {
     const query = sharedPaletteLink.split('?data=')[1];
-    if (query) {
+    if (mb?.window && query) {
       mb.window.webContents.send('openSharedPalette', query);
     }
   }

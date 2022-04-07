@@ -2067,10 +2067,10 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
-"@glimmer/component@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@glimmer/component/-/component-1.1.0.tgz#a9ab87896444b01b6af6a885fc2da3cb02ddba42"
-  integrity sha512-oqGUX84p4qu9Kfdv3nxqS9NUuDiJFUFS4jxGqRYrm5i3KgEKss48or21GZo279OX2LrUjDvRT+EMp6Mz5h2Ryw==
+"@glimmer/component@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@glimmer/component/-/component-1.1.1.tgz#ed8252f6431b4c0c988338cd38bd98ac34da85b9"
+  integrity sha512-+nEj8nH/0WiCFz3dZOy50BLRuYiCZ3C2qrsckquJS/bQF9/nf0ZQ7Hwd53kAp7rLnxkYSLk4z4cUDBqiOf2nBQ==
   dependencies:
     "@glimmer/di" "^0.1.9"
     "@glimmer/env" "^0.1.7"

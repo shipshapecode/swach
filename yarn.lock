@@ -14899,10 +14899,10 @@ thread-loader@^3.0.4:
     neo-async "^2.6.2"
     schema-utils "^3.0.0"
 
-throttle-debounce@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/throttle-debounce/-/throttle-debounce-3.0.1.tgz#32f94d84dfa894f786c9a1f290e7a645b6a19abb"
-  integrity sha512-dTEWWNu6JmeVXY0ZYoPuH5cRIwc0MeGbJwah9KUNYSJwommQpCzTySTpEe8Gs1J23aeWEuAobe4Ag7EHVt/LOg==
+throttle-debounce@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/throttle-debounce/-/throttle-debounce-4.0.0.tgz#ec763b1c050c3a8f73eddd2e853a720893102a40"
+  integrity sha512-bO2OiH++k8Z3cTNZccOJRlxY5Sk3Tx3Kz6cQl3VY5pTRcEgqbPxwEKtrC00whFAo2jIBQlaH1ZG5mtfrBef3qw==
 
 throttleit@0.0.2:
   version "0.0.2"

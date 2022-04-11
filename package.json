@@ -34,7 +34,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.17.3",
     "@clark/eslint-config-ember-order-imports": "^2.2.0",
     "@csstools/postcss-sass": "^5.0.1",
-    "@ctrl/tinycolor": "^3.4.0",
+    "@ctrl/tinycolor": "^3.4.1",
     "@ember/optional-features": "^2.0.0",
     "@ember/render-modifiers": "^2.0.4",
     "@ember/test-helpers": "^2.7.0",

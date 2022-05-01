@@ -2,6 +2,16 @@
 
 
 
+
+## v1.0.5 (2022-05-01)
+
+#### :house: Internal
+* [#1093](https://github.com/shipshapecode/swach/pull/1093) Electron 18 ([@rwwagner90](https://github.com/rwwagner90))
+* [#1083](https://github.com/shipshapecode/swach/pull/1083) ember-cli 4.3.0 ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v1.0.4 (2022-04-04)
 
 #### :bug: Bug Fix

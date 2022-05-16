@@ -6040,10 +6040,10 @@ color-convert@^2.0.1:
   dependencies:
     color-name "~1.1.4"
 
-color-name-list@^9.6.0:
-  version "9.6.0"
-  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-9.6.0.tgz#ae753ad812e7ef87f8ab259f83d7916deddd8f6a"
-  integrity sha512-llsH/x/K/hnag3zNR5ZVTyZYFEnvbGdnwdgvxuQrWGiWxq50YKSLz/1B6KDQW7EIgwAcDo8/0sPcVKHZXvX+sQ==
+color-name-list@^9.7.1:
+  version "9.7.1"
+  resolved "https://registry.yarnpkg.com/color-name-list/-/color-name-list-9.7.1.tgz#ecc629feabf68dafa233aef8f68195ca58952a30"
+  integrity sha512-fgfPRApxcejOGWVAMfpocvOuRB+XPJM3BRyWia9N36bwzUcWPG/tHGFIvtCZM+9rHbN+carC46QEwT+RehICQg==
 
 color-name@1.1.3:
   version "1.1.3"

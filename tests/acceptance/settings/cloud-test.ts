@@ -1,5 +1,4 @@
 import { click, currentURL, fillIn, visit } from '@ember/test-helpers';
-import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
 import {
@@ -12,6 +11,7 @@ import {
 import sinon from 'sinon';
 
 import { resetStorage, waitForAll } from 'swach/tests/helpers';
+import { setupApplicationTest } from 'swach/tests/helpers/index';
 
 module('Acceptance | settings/cloud', function (hooks) {
   setupApplicationTest(hooks);

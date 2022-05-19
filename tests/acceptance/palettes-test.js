@@ -8,13 +8,13 @@ import {
   triggerEvent,
   visit
 } from '@ember/test-helpers';
-import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
 import { animationsSettled } from 'ember-animated/test-support';
 import { move, sort } from 'ember-drag-sort/utils/trigger';
 
 import { resetStorage, waitForAll } from 'swach/tests/helpers';
+import { setupApplicationTest } from 'swach/tests/helpers/index';
 
 module('Acceptance | palettes', function (hooks) {
   setupApplicationTest(hooks);

@@ -1,8 +1,8 @@
 import { click, fillIn, triggerEvent, visit } from '@ember/test-helpers';
-import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
 import { resetStorage, waitForAll } from 'swach/tests/helpers';
+import { setupApplicationTest } from 'swach/tests/helpers/index';
 
 module('Acceptance | from scratch', function (hooks) {
   setupApplicationTest(hooks);

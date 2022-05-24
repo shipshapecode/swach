@@ -1927,10 +1927,10 @@
     walk-sync "^3.0.0"
     yargs "^17.0.1"
 
-"@embroider/core@1.6.0", "@embroider/core@^1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@embroider/core/-/core-1.6.0.tgz#95267ccd019bb250d4e207b13ee530bb1aec6c92"
-  integrity sha512-VM+M09gtPu9Gg7byVyjkrGTtdKQWvgE/lodut/GJPhTq3Wnx/2ume4bKWAUTfJ9mQNF9EUiya8Sb44G5OMKJ9g==
+"@embroider/core@1.6.0", "@embroider/core@^1.6.0", "@embroider/core@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@embroider/core/-/core-1.7.1.tgz#73390a1835b921f9533406cec0a6b8c13da49441"
+  integrity sha512-A1kzC6ULNr8cNeZPUlM2aBwNewfP76buWKtrmlhKaaUwVWockctJhcY/+7AjbOwfuagjQCWX7zuUtuFMWPUVAA==
   dependencies:
     "@babel/core" "^7.14.5"
     "@babel/parser" "^7.14.5"
@@ -1938,8 +1938,8 @@
     "@babel/plugin-transform-runtime" "^7.14.5"
     "@babel/runtime" "^7.14.5"
     "@babel/traverse" "^7.14.5"
-    "@embroider/macros" "1.6.0"
-    "@embroider/shared-internals" "1.6.0"
+    "@embroider/macros" "1.7.1"
+    "@embroider/shared-internals" "1.7.1"
     assert-never "^1.2.1"
     babel-import-util "^1.1.0"
     babel-plugin-ember-template-compilation "^1.0.0"
@@ -1969,7 +1969,7 @@
   resolved "https://registry.yarnpkg.com/@embroider/hbs-loader/-/hbs-loader-1.6.0.tgz#a6a06248969bdb425d6ecc67ac11040e6493f8fb"
   integrity sha512-WwZ6vaG5GevL4xpSXj5tIziaubdoB+dMFoI7rqved8To5WK1MfHJFhHp8S9s0KyzSwb/dL1SdjVzYWbB6SAbzg==
 
-"@embroider/macros@1.6.0", "@embroider/macros@^1.0.0", "@embroider/macros@^1.6.0":
+"@embroider/macros@1.6.0", "@embroider/macros@1.7.1", "@embroider/macros@^1.0.0", "@embroider/macros@^1.6.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@embroider/macros/-/macros-1.6.0.tgz#2b764f965c645fdcfbf05897c88195368b046ba1"
   integrity sha512-yUEXJGJGP3rjtxorxrbkdxriBFEwnmzOrNk4zK64IXKBfyRjiDZFUHV9DSTrbaYLS29Mw5yK73ZIwi8L13C4Zw==
@@ -1983,10 +1983,24 @@
     resolve "^1.20.0"
     semver "^7.3.2"
 
-"@embroider/shared-internals@1.6.0", "@embroider/shared-internals@^1.0.0", "@embroider/shared-internals@^1.6.0":
+"@embroider/shared-internals@1.6.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@embroider/shared-internals/-/shared-internals-1.6.0.tgz#35ade2ce1202e529107bf6d1fae4ca753f6ebe5a"
   integrity sha512-es7+pV2S9+tgX5T4losppheXfa+xWtKD6x0gq7mxqA4DIdE14mORNeSWM8/Fu9f/t0tJnPqttddbgnDYw+SvrA==
+  dependencies:
+    babel-import-util "^1.1.0"
+    ember-rfc176-data "^0.3.17"
+    fs-extra "^9.1.0"
+    js-string-escape "^1.0.1"
+    lodash "^4.17.21"
+    resolve-package-path "^4.0.1"
+    semver "^7.3.5"
+    typescript-memoize "^1.0.1"
+
+"@embroider/shared-internals@1.7.1", "@embroider/shared-internals@^1.0.0", "@embroider/shared-internals@^1.6.0":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@embroider/shared-internals/-/shared-internals-1.7.1.tgz#68afe26aa84e7431b858fcc1f1e0e8a5aaa7c90b"
+  integrity sha512-qT7i3EnOogwvi6xRl7wjJmx27rLlUZG6B6HJXAKXvZOyGFVs0GnQKIJX+7zX2PZAcqlpqhmdWm9MPdrof0dj5g==
   dependencies:
     babel-import-util "^1.1.0"
     ember-rfc176-data "^0.3.17"

@@ -1890,18 +1890,18 @@
     "@embroider/core" "1.7.1"
     babel-loader "8"
 
-"@embroider/compat@^1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@embroider/compat/-/compat-1.6.0.tgz#8044a1217d3fdd9daccdf12f25223fc5518a6e88"
-  integrity sha512-c+SSadnHLX5Qr1Y/r+38abn9hwhAkKWinTI6sZ09RtQD6AFASQRxzQs7Ba7Lr3gTbmlIsPmPyM0Bz0DUOGOgGQ==
+"@embroider/compat@^1.6.0", "@embroider/compat@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@embroider/compat/-/compat-1.7.1.tgz#2b578de5756bd6e9430ce58d12e36a4e07513b49"
+  integrity sha512-/4yqY3Y5e0H43qDUm1FDOPlZa4GbhNVeldpEH+O95AFVNFZANKL07/PiQlHz9PYUzasRbBC3ibqUlbKGqop2EQ==
   dependencies:
     "@babel/code-frame" "^7.14.5"
     "@babel/core" "^7.14.5"
     "@babel/plugin-syntax-dynamic-import" "^7.8.3"
     "@babel/preset-env" "^7.14.5"
     "@babel/traverse" "^7.14.5"
-    "@embroider/macros" "1.6.0"
-    "@embroider/shared-internals" "1.6.0"
+    "@embroider/macros" "1.7.1"
+    "@embroider/shared-internals" "1.7.1"
     "@types/babel__code-frame" "^7.0.2"
     "@types/yargs" "^17.0.3"
     assert-never "^1.1.0"

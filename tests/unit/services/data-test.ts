@@ -30,7 +30,7 @@ module('Unit | Service | data', function (hooks) {
     resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
     test('loads records from backup and syncs them with the store', async function (assert) {
-      let backupPalettes = await backup.query<Palette[]>((q) =>
+      const backupPalettes = await backup.query<Palette[]>((q) =>
         q.findRecords('palette')
       );
 
@@ -84,7 +84,7 @@ module('Unit | Service | data', function (hooks) {
 
       await dataService.synchronize();
 
-      let palettes = store.cache.query<Palette[]>((q) =>
+      const palettes = store.cache.query<Palette[]>((q) =>
         q.findRecords('palette')
       );
 
@@ -129,7 +129,7 @@ module('Unit | Service | data', function (hooks) {
 
       await dataService.synchronize();
 
-      let palettes = store.cache.query<Palette[]>((q) =>
+      const palettes = store.cache.query<Palette[]>((q) =>
         q.findRecords('palette')
       );
 

@@ -2,9 +2,9 @@
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
     sourceType: 'module',
     ecmaFeatures: {
       legacyDecorators: true
@@ -40,6 +40,7 @@ module.exports = {
         './.eslintrc.js',
         './.prettierrc.js',
         './.template-lintrc.js',
+        './babel.config.js',
         './ember-cli-build.js',
         './tailwind.config.js',
         './testem.js',
@@ -85,7 +86,7 @@ module.exports = {
     // Typescript files
     {
       parser: '@typescript-eslint/parser',
-      files: ['app/**/*.ts'],
+      files: ['app/**/*.ts', 'tests/**/*.ts'],
       plugins: ['@typescript-eslint'],
       extends: ['plugin:@typescript-eslint/recommended'],
       rules: {

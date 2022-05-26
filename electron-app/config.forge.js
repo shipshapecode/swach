@@ -75,7 +75,7 @@ module.exports = {
       platforms: ['darwin']
     },
     {
-      name: '@davidwinter/electron-forge-maker-snap',
+      name: '@electron-forge/maker-snap',
       platforms: ['linux'],
       config: {
         applicationName: 'Swach',

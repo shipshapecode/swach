@@ -3,6 +3,15 @@
 
 
 
+
+## v1.1.0 (2022-05-30)
+
+#### :house: Internal
+* [#1135](https://github.com/shipshapecode/swach/pull/1135) Try electron builder for snap ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v1.0.10 (2022-05-26)
 
 ## v1.0.9 (2022-05-26)

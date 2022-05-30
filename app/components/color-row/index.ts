@@ -9,7 +9,7 @@ import PaletteModel from 'swach/data-models/palette';
 import ColorUtils from 'swach/services/color-utils';
 
 interface ColorRowArgs {
-  color: any;
+  color: ColorModel;
   deleteColor: (color: ColorModel) => void;
   palette: PaletteModel;
   showActions: boolean;

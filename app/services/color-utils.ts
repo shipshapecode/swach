@@ -45,7 +45,7 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  createColorPOJO(color: any, id?: string): ColorPOJO {
+  createColorPOJO(color: string, id?: string): ColorPOJO {
     const tinyColor = new TinyColor(color);
     const { r, g, b, a } = tinyColor.toRgb();
     const namedColor = this.nearestColor.nearest({ r, g, b });

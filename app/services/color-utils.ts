@@ -5,7 +5,7 @@ import { service } from '@ember/service';
 import { storageFor } from 'ember-local-storage';
 import { Store } from 'ember-orbit/addon/index';
 
-import { TinyColor } from '@ctrl/tinycolor';
+import { ColorInput, TinyColor } from '@ctrl/tinycolor';
 import { IpcRenderer } from 'electron';
 
 import ColorModel from 'swach/data-models/color';
@@ -45,7 +45,7 @@ export default class ColorUtilsService extends Service {
   }
 
   @action
-  createColorPOJO(color: string, id?: string): ColorPOJO {
+  createColorPOJO(color: ColorInput, id?: string): ColorPOJO {
     const tinyColor = new TinyColor(color);
     const { r, g, b, a } = tinyColor.toRgb();
     const namedColor = this.nearestColor.nearest({ r, g, b });

@@ -129,5 +129,9 @@ jobs:
         run: |
           sudo apt update
           yarn make:snapcraft
+          cd electron-app
+          set +e
+          yarn build
+          set -e
         env:
           SNAPCRAFT_BUILD_ENVIRONMENT: host

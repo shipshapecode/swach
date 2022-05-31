@@ -62,7 +62,7 @@
       "target": [
         "snap"
       ],
-      "publish": null
+      "publish": "always"
     },
     "snap": {
       "stagePackages": [

@@ -71,10 +71,8 @@
         }
       },
       "publish": {
-        "snapStore": {
-          "provider": "snapStore",
-          "channels": "stable"
-        }
+        "provider": "snapStore",
+        "channels": "stable"
       },
       "stagePackages": [
         "default",

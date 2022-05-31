@@ -58,13 +58,14 @@
       "icon": "./resources/icon.png",
       "category": "Development",
       "description": "A robust color management tool for the modern age.",
+      "publish": null,
       "synopsis": "A robust color management tool for the modern age.",
       "target": [
         "snap"
-      ],
-      "publish": "always"
+      ]
     },
     "snap": {
+      "publish": "always",
       "stagePackages": [
         "default",
         "giblib1",

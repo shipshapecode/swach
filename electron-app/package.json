@@ -61,7 +61,8 @@
       "synopsis": "A robust color management tool for the modern age.",
       "target": [
         "snap"
-      ]
+      ],
+      "publish": "never"
     },
     "snap": {
       "stagePackages": [

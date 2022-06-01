@@ -8,8 +8,6 @@ import {
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 
-import { animationsSettled } from 'ember-animated/test-support';
-
 import { resetStorage, waitForAll } from 'swach/tests/helpers';
 import { setupApplicationTest } from 'swach/tests/helpers/index';
 
@@ -125,7 +123,7 @@ module('Acceptance | kuler', function (hooks) {
       'mouseenter'
     );
 
-    await animationsSettled();
+    await waitForAll();
 
     await click(
       '[data-test-kuler-palette="Triad"] [data-test-save-kuler-palette]'
@@ -134,6 +132,8 @@ module('Acceptance | kuler', function (hooks) {
     await waitForAll();
 
     assert.strictEqual(currentURL(), '/palettes');
+
+    await waitForAll();
 
     const colorsList = document.querySelector(
       '[data-test-palette-row="Triad"] .palette-color-squares'

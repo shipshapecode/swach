@@ -36,6 +36,9 @@ module.exports = function (environment) {
       identityPoolId: 'us-east-2:b38b2ff6-f0e2-4ddb-8c51-294480a7fdb4',
       region: 'us-east-2'
     },
+    flashMessageDefaults: {
+      injectionFactories: []
+    },
     orbit: {
       skipValidatorService: true
     },

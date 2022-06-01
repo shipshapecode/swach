@@ -18,6 +18,7 @@ interface KulerPaletteRowArgs {
 
 export default class KulerPaletteRowComponent extends Component<KulerPaletteRowArgs> {
   @service colorUtils!: ColorUtils;
+  @service('-ea-motion') eaMotion!: any;
   @service router!: Router;
   @service store!: Store;
   @service undoManager!: UndoManager;
@@ -76,6 +77,8 @@ export default class KulerPaletteRowComponent extends Component<KulerPaletteRowA
       isFavorite: false,
       isLocked: false
     };
+
+    await this.eaMotion.waitUntilIdle.perform();
 
     await this.store.update((t) => [
       ...newColors.map((c) => t.addRecord(c)),

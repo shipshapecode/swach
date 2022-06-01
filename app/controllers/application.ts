@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import { action } from '@ember/object';
+import { action, get } from '@ember/object';
 import Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
@@ -7,6 +7,7 @@ import { tracked } from '@glimmer/tracking';
 import FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
 import { Store } from 'ember-orbit';
+import Session from 'ember-simple-auth/services/session';
 
 import { RecordSchema } from '@orbit/records';
 import { IpcRenderer } from 'electron';
@@ -23,6 +24,7 @@ export default class ApplicationController extends Controller {
   @service dataSchema!: RecordSchema;
   @service flashMessages!: FlashMessageService;
   @service router!: Router;
+  @service session!: Session;
   @service store!: Store;
   @service undoManager!: UndoManager;
 
@@ -32,6 +34,16 @@ export default class ApplicationController extends Controller {
 
   @tracked colorPickerColor?: ColorModel;
   @tracked colorPickerIsShown = false;
+
+  get hasLoggedInBeforeAndIsAuthenticated(): boolean {
+    // eslint-disable-next-line ember/no-get
+    const userHasLoggedInBefore = get(this.settings, 'userHasLoggedInBefore');
+
+    return (
+      !userHasLoggedInBefore ||
+      (userHasLoggedInBefore && this.session.isAuthenticated)
+    );
+  }
 
   get isContrastRoute(): boolean {
     return this.router.currentRouteName === 'contrast';
@@ -55,13 +67,19 @@ export default class ApplicationController extends Controller {
 
   get showColorWheel(): boolean {
     return (
-      !this.isContrastRoute && !this.isSettingsRoute && !this.isWelcomeRoute
+      this.hasLoggedInBeforeAndIsAuthenticated &&
+      !this.isContrastRoute &&
+      !this.isSettingsRoute &&
+      !this.isWelcomeRoute
     );
   }
 
   get showEyedropperIcon(): boolean {
     return (
-      !this.isContrastRoute && !this.isSettingsRoute && !this.isWelcomeRoute
+      this.hasLoggedInBeforeAndIsAuthenticated &&
+      !this.isContrastRoute &&
+      !this.isSettingsRoute &&
+      !this.isWelcomeRoute
     );
   }
 

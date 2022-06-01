@@ -8,8 +8,6 @@ import {
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 
-import { animationsSettled } from 'ember-animated/test-support';
-
 import { resetStorage, waitForAll } from 'swach/tests/helpers';
 import { setupApplicationTest } from 'swach/tests/helpers/index';
 

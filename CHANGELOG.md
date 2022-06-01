@@ -4,6 +4,15 @@
 
 
 
+
+## v1.1.12 (2022-06-01)
+
+#### :bug: Bug Fix
+* [#1142](https://github.com/shipshapecode/swach/pull/1142) Fix dropper, wait for animation, Electron 19 ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v1.1.11 (2022-05-31)
 
 ## v1.1.10 (2022-05-31)

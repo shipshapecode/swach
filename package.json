@@ -63,7 +63,7 @@
     "@types/ember-qunit": "^5.0.0",
     "@types/ember-resolver": "^5.0.11",
     "@types/ember__test-helpers": "^2.6.1",
-    "@types/qunit": "^2.11.3",
+    "@types/qunit": "^2.19.0",
     "@types/sinon": "^10.0.11",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",

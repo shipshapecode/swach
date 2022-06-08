@@ -3,10 +3,11 @@ import Application from '@ember/application';
 import loadInitializers from 'ember-load-initializers';
 import Resolver from 'ember-resolver';
 
-import config from 'swach/config/environment';
-import { startSentry } from 'swach/sentry';
+import { InitSentryForEmber } from '@sentry/ember';
 
-startSentry();
+import config from 'swach/config/environment';
+
+InitSentryForEmber();
 
 export default class App extends Application {
   modulePrefix = config.modulePrefix;

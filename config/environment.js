@@ -41,7 +41,10 @@ module.exports = function (environment) {
     },
     orbit: {
       skipValidatorService: true
-    },
+    }
+  };
+
+  ENV['@sentry/ember'] = {
     sentry: {
       environment
     }
@@ -87,9 +90,9 @@ module.exports = function (environment) {
       region: 'us-east-2'
     };
 
-    ENV.sentry.dsn =
+    ENV['@sentry/ember'].sentry.dsn =
       'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140';
-    ENV.sentry.release = `v${version}`;
+    ENV['@sentry/ember'].sentry.release = `v${version}`;
   }
 
   return ENV;

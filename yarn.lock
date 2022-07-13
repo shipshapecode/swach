@@ -7509,14 +7509,14 @@ ember-cli@~4.4.0:
     workerpool "^6.2.0"
     yam "^1.0.0"
 
-ember-click-outside@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/ember-click-outside/-/ember-click-outside-4.0.0.tgz#49f3522da340580411f16ce0d51f251839922fa6"
-  integrity sha512-3SstFhDWu3K5PQzo0FZwk66Ehe1l6QFU/R+WjAt8yOXw2sHzJHOdx2N+fNWJHZsJ97BSqdL7L0qotJEMX46u6Q==
+ember-click-outside@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/ember-click-outside/-/ember-click-outside-5.0.0.tgz#513a28145da152ed96030eead30e3f7d47d7eb09"
+  integrity sha512-Id2s2Pd6Xaf61Fyz0+XajIJDBw1MyTo19g4NaNqMXmdTija0uVxZHL9kh322za2jbZZbgWe/Na4qtvHRnQw+0A==
   dependencies:
     ember-cli-babel "^7.26.6"
     ember-cli-htmlbars "^5.7.1"
-    ember-modifier "^2.1.0 || ^3.0.0"
+    ember-modifier "^3.2.0"
 
 ember-cognito@^1.0.0:
   version "1.0.0"
@@ -7751,7 +7751,7 @@ ember-modifier-manager-polyfill@^1.2.0:
     ember-cli-version-checker "^2.1.2"
     ember-compatibility-helpers "^1.2.0"
 
-"ember-modifier@^2.1.0 || ^3.0.0", "ember-modifier@^2.1.2 || ^3.1.0 || ^4.0.0":
+"ember-modifier@^2.1.2 || ^3.1.0 || ^4.0.0", ember-modifier@^3.2.0:
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/ember-modifier/-/ember-modifier-3.2.7.tgz#f2d35b7c867cbfc549e1acd8d8903c5ecd02ea4b"
   integrity sha512-ezcPQhH8jUfcJQbbHji4/ZG/h0yyj1jRDknfYue/ypQS8fM8LrGcCMo0rjDZLzL1Vd11InjNs3BD7BdxFlzGoA==

@@ -111,7 +111,7 @@
     "ember-set-helper": "^2.0.1",
     "ember-simple-auth": "^4.2.2",
     "ember-sinon-qunit": "^6.0.0",
-    "ember-source": "^4.5.0",
+    "ember-source": "^4.6.0",
     "ember-svg-jar": "^2.3.4",
     "ember-template-lint": "^4.10.1",
     "ember-template-lint-plugin-prettier": "^4.0.0",

@@ -29,9 +29,7 @@ module.exports = {
       'error',
       { allowSeparatedGroups: true, ignoreDeclarationSort: true }
     ],
-    'ember/no-jquery': 'error',
-    'ember/classic-decorator-hooks': 'error',
-    'ember/classic-decorator-no-classic-methods': 'error'
+    'ember/no-array-prototype-extensions': 'off'
   },
   overrides: [
     // node files

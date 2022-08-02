@@ -5,6 +5,15 @@
 
 
 
+
+## v1.1.13 (2022-08-02)
+
+#### :house: Internal
+* [#1244](https://github.com/shipshapecode/swach/pull/1244) ember-cli 4.6, bump several deps ([@rwwagner90](https://github.com/rwwagner90))
+
+#### Committers: 1
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
+
 ## v1.1.12 (2022-06-01)
 
 #### :bug: Bug Fix

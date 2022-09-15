@@ -65,7 +65,7 @@
     "@types/qunit": "^2.19.2",
     "@types/sinon": "^10.0.13",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
-    "@typescript-eslint/parser": "^5.36.2",
+    "@typescript-eslint/parser": "^5.37.0",
     "aws4fetch": "^1.0.13",
     "babel-eslint": "^10.1.0",
     "babel-preset-env": "^1.7.0",

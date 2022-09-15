@@ -33,7 +33,7 @@
   "devDependencies": {
     "@babel/core": "^7.19.1",
     "@babel/eslint-parser": "^7.19.1",
-    "@babel/plugin-proposal-decorators": "^7.19.0",
+    "@babel/plugin-proposal-decorators": "^7.19.1",
     "@babel/plugin-proposal-object-rest-spread": "^7.18.9",
     "@babel/preset-env": "^7.19.1",
     "@clark/eslint-config-ember-order-imports": "^2.2.0",

@@ -4,6 +4,14 @@
 
 Swach is a modern color palette manager.
 
+<a href="https://swach.io/">
+  <img width="1728" 
+    alt="Swach homepage showing the app running." 
+    src="https://user-images.githubusercontent.com/2640861/194164254-4504e8f3-497c-43b2-8eb9-4bcacd1a69c8.png"
+  />
+</a>
+
+
 ## Prerequisites
 
 You will need the following things properly installed on your computer.

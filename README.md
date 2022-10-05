@@ -11,6 +11,8 @@ Swach is a modern color palette manager.
   />
 </a>
 
+**[Swach is built and maintained by Ship Shape. Contact us for web and native app development services.](https://shipshape.io/)**
+
 
 ## Prerequisites
 

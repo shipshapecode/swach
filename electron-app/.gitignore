@@ -97,3 +97,4 @@ ember-test/
 
 # Sentry
 .electron-symbols/
+sentry.properties

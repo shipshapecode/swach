@@ -1915,15 +1915,14 @@
     "@embroider/shared-internals" "^1.8.3"
     semver "^7.3.5"
 
-"@embroider/babel-loader-8@1.8.3":
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/@embroider/babel-loader-8/-/babel-loader-8-1.8.3.tgz#47d009e01eed9f296df28c29eda78e5eaa41e22a"
-  integrity sha512-hi+MnBE4TBSOepD7svzr7BVho8jiq2ljplvztE5VinqxoXGeGlk/9VRih0B4VFnZQk4loC6DZqC4BYTlxYh2gA==
+"@embroider/babel-loader-8@1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@embroider/babel-loader-8/-/babel-loader-8-1.9.0.tgz#c6bc48722274ee3689d1390abd927c6303a2369a"
+  integrity sha512-kEAPkyHXEWxJA9n/zmExhRIOCZPhEgWGyAb3t1hxcJGUzzD6r8zAEE6zfZGRIwpfi3jhkCn/FOZi43eVLJsjgA==
   dependencies:
     "@babel/core" "^7.14.5"
     "@babel/plugin-proposal-nullish-coalescing-operator" "^7.14.5"
     "@babel/plugin-proposal-optional-chaining" "^7.14.5"
-    "@embroider/core" "1.8.3"
     babel-loader "8"
 
 "@embroider/compat@^1.8.3":
@@ -1968,7 +1967,7 @@
     walk-sync "^3.0.0"
     yargs "^17.0.1"
 
-"@embroider/core@1.8.3", "@embroider/core@^1.8.3":
+"@embroider/core@^1.8.3":
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/@embroider/core/-/core-1.8.3.tgz#a3014a0c790c5469339a10aba2d0447631871267"
   integrity sha512-/VdguyT/yhibgrjxL/J1ZFLvHo3EvUaBAxu9jAT3CYO9hIjWUKmJ81EZ0uK4zWykdifaefoz1/ctHnFjvm3/+w==
@@ -2005,10 +2004,10 @@
     walk-sync "^3.0.0"
     wrap-legacy-hbs-plugin-if-needed "^1.0.1"
 
-"@embroider/hbs-loader@1.8.3":
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/@embroider/hbs-loader/-/hbs-loader-1.8.3.tgz#94c37dfacbe14c0133b6b958aa5d4171463a9b0f"
-  integrity sha512-Lkl14BnOGHNeBJSbGbxdmakmyIzeHdGO7820gCBMTG+klC8F1JqJbr7p7DfNEc/ci/2E8UirDx3OlnYV/yWOXA==
+"@embroider/hbs-loader@1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@embroider/hbs-loader/-/hbs-loader-1.9.0.tgz#b7e4eb9163026e757bff012dc70e629cb89d3bb0"
+  integrity sha512-HBJ/zND9Pwe/eSAPJzR+b8XR/RrjxFKLq80YMEevkkmFLgkT/7aiK3FnZoN3eyuHRZwO5+ela1c57FIM3zSoWg==
 
 "@embroider/macros@1.8.3", "@embroider/macros@^1.0.0", "@embroider/macros@^1.6.0", "@embroider/macros@^1.8.0", "@embroider/macros@^1.8.3":
   version "1.8.3"
@@ -2047,16 +2046,16 @@
     broccoli-funnel "^3.0.5"
     ember-cli-babel "^7.23.1"
 
-"@embroider/webpack@^1.8.3":
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/@embroider/webpack/-/webpack-1.8.3.tgz#19555433aeebd2680127d4b31b914da709c8c876"
-  integrity sha512-YP0Gm1rT7DkZ7o1kH1nK3UvC3gev3UmyLdWkgINN7TrN4NTd7IygWfve53PDTFDag7cJS+O2wWO6HkkvlHPxzQ==
+"@embroider/webpack@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@embroider/webpack/-/webpack-1.9.0.tgz#a356c08eea468ce847f168c19dc8e72743851a47"
+  integrity sha512-/jq+Tr6Lbp86vT9+PuTT8l7+xXURBmN0fQcRdMSClRlgJhjgz+f/NT0Yn9UUsEe3tRQVo9u8dnnlBo67loyhaA==
   dependencies:
     "@babel/core" "^7.14.5"
     "@babel/plugin-proposal-nullish-coalescing-operator" "^7.14.5"
     "@babel/plugin-proposal-optional-chaining" "^7.14.5"
-    "@embroider/babel-loader-8" "1.8.3"
-    "@embroider/hbs-loader" "1.8.3"
+    "@embroider/babel-loader-8" "1.9.0"
+    "@embroider/hbs-loader" "1.9.0"
     "@embroider/shared-internals" "1.8.3"
     "@types/source-map" "^0.5.7"
     "@types/supports-color" "^8.1.0"

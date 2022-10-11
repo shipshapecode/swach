@@ -4109,10 +4109,10 @@ author-regex@^1.0.0:
   resolved "https://registry.yarnpkg.com/author-regex/-/author-regex-1.0.0.tgz#d08885be6b9bbf9439fe087c76287245f0a81450"
   integrity sha512-KbWgR8wOYRAPekEmMXrYYdc7BRyhn2Ftk7KWfMUnQ43hFdojWEFRxhhRUm3/OFEdPa1r0KAvTTg9YQK57xTe0g==
 
-aws4fetch@^1.0.15:
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/aws4fetch/-/aws4fetch-1.0.15.tgz#62931c19f2bbf7c332f32d44f3bcc37ae95adafe"
-  integrity sha512-6KUMZDPmwLUTry+OLpMsD0+QkVJpPnIBDVoegw3toq/Cb2FpHbExNaoeNQ6NV+iPexbi4F8Eb3OJ9LjTo0/3HQ==
+aws4fetch@^1.0.16:
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/aws4fetch/-/aws4fetch-1.0.16.tgz#7fc65e4716003f1e1a6211a3f1645f7ff1b834cf"
+  integrity sha512-S3C81MM1adgOH8XL4Ur2QSwEgBI57rHq0XkuJj5GExXQoM8Ohy26xEad2/cx1kv0hTuvf2JAHyaZZSuR5/24eQ==
 
 babel-code-frame@^6.26.0:
   version "6.26.0"

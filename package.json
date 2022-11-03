@@ -60,7 +60,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "@types/ember": "^4.0.2",
     "@types/ember-qunit": "^5.0.2",
-    "@types/ember-resolver": "^5.0.11",
+    "@types/ember-resolver": "^5.0.12",
     "@types/ember__test-helpers": "^2.8.2",
     "@types/qunit": "^2.19.3",
     "@types/sinon": "^10.0.13",

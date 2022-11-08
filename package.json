@@ -34,7 +34,7 @@
     "@babel/core": "^7.20.2",
     "@babel/eslint-parser": "^7.19.1",
     "@babel/plugin-proposal-decorators": "^7.20.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.19.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.20.2",
     "@babel/preset-env": "^7.19.4",
     "@clark/eslint-config-ember-order-imports": "^2.2.0",
     "@csstools/postcss-sass": "^5.0.1",

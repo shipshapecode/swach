@@ -42,9 +42,9 @@
     "@ember/optional-features": "^2.0.0",
     "@ember/render-modifiers": "^2.0.4",
     "@ember/test-helpers": "^2.8.1",
-    "@embroider/compat": "1.8.3",
-    "@embroider/core": "1.8.3",
-    "@embroider/webpack": "1.8.3",
+    "@embroider/compat": "^2.0.2",
+    "@embroider/core": "^2.0.2",
+    "@embroider/webpack": "^2.0.2",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
     "@jaames/iro": "^5.5.2",
@@ -142,8 +142,8 @@
     "webpack": "^5.75.0"
   },
   "resolutions": {
-    "**/ember-auto-import": "^2.4.2",
-    "@sentry/ember/@embroider/macros": "1.8.3",
+    "**/ember-auto-import": "^2.5.0",
+    "@sentry/ember/@embroider/macros": "^1.10.0",
     "ember-animated/@ember/test-helpers": "^2.8.1",
     "ember-animated/ember-element-helper": "^0.6.1"
   },

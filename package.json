@@ -70,7 +70,7 @@
     "babel-eslint": "^10.1.0",
     "babel-preset-env": "^1.7.0",
     "broccoli-asset-rev": "^3.0.0",
-    "color-name-list": "^9.26.1",
+    "color-name-list": "^9.28.0",
     "crypto-browserify": "^3.12.0",
     "ember-animated": "^0.12.0",
     "ember-auto-import": "^2.5.0",

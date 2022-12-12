@@ -64,7 +64,7 @@
     "@types/ember__test-helpers": "^2.8.2",
     "@types/qunit": "^2.19.3",
     "@types/sinon": "^10.0.13",
-    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/eslint-plugin": "^5.46.0",
     "@typescript-eslint/parser": "^5.46.0",
     "aws4fetch": "^1.0.17",
     "babel-eslint": "^10.1.0",

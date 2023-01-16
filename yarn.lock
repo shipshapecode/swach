@@ -8385,10 +8385,10 @@ eslint-config-prettier@^8.6.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.6.0.tgz#dec1d29ab728f4fa63061774e1672ac4e363d207"
   integrity sha512-bAF0eLpLVqP5oEVUFKpMA+NnRFICwn9X8B5jrR9FcqnYBuPbqWEjTEspPWMj5ye6czoSLDweCzSo3Ko7gGrZaA==
 
-eslint-plugin-ember@^11.4.2:
-  version "11.4.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-11.4.2.tgz#bb753941b144bccd5d0a866c4bee10e4173a91ba"
-  integrity sha512-FasuzNEC7fXG6+hDMfh296JBTd+n4gqspAqdl+stz/S1SrbC3PYGV54rSGS7ajCSDZwuc6yMl1SYYIujFc2gng==
+eslint-plugin-ember@^11.4.3:
+  version "11.4.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-11.4.3.tgz#357f54b9ef76a24e37d1b47ad73ffe07b6fcac7b"
+  integrity sha512-hkHtaDu6KY5IpI+WgS9eGlahezJBxSmXgHZMINSwf4Njh9nJj+nwRxpPNtTNscFmWmud6OGAnKYvQN99L7tzPw==
   dependencies:
     "@ember-data/rfc395-data" "^0.0.4"
     "@glimmer/syntax" "^0.84.2"

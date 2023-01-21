@@ -19,13 +19,15 @@ import ColorModel, { rgbaToHex } from 'swach/data-models/color';
 import NearestColor from 'swach/services/nearest-color';
 import UndoManager from 'swach/services/undo-manager';
 
-interface ColorPickerArgs {
-  selectedColor: SelectedColorModel;
-  saveColor: (hex: string) => Promise<ColorModel | undefined>;
-  toggleIsShown: (color?: ColorModel) => void;
+interface ColorPickerSignature {
+  Args: {
+    selectedColor: SelectedColorModel;
+    saveColor: (hex: string) => Promise<ColorModel | undefined>;
+    toggleIsShown: (color?: ColorModel) => void;
+  };
 }
 
-export default class ColorPickerComponent extends Component<ColorPickerArgs> {
+export default class ColorPickerComponent extends Component<ColorPickerSignature> {
   @service nearestColor!: NearestColor;
   @service router!: Router;
   @service store!: Store;

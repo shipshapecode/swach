@@ -9,12 +9,15 @@ import { RecordOperationTerm } from '@orbit/records';
 import PaletteModel from 'swach/data-models/palette';
 import UndoManager from 'swach/services/undo-manager';
 
-interface PalettesListArgs {
-  palettes: LiveQuery;
-  showFavorites: boolean;
+interface PalettesListSignature {
+  Element: HTMLDivElement;
+  Args: {
+    palettes: LiveQuery;
+    showFavorites: boolean;
+  };
 }
 
-export default class PalettesListComponent extends Component<PalettesListArgs> {
+export default class PalettesListComponent extends Component<PalettesListSignature> {
   @service store!: Store;
   @service undoManager!: UndoManager;
 

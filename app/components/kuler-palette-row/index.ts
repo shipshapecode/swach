@@ -11,12 +11,14 @@ import PaletteModel from 'swach/data-models/palette';
 import ColorUtils from 'swach/services/color-utils';
 import UndoManager from 'swach/services/undo-manager';
 
-interface KulerPaletteRowArgs {
-  palette: PaletteModel;
-  setSelectedIroColor: (index: number) => void;
+interface KulerPaletteRowSignature {
+  Args: {
+    palette: PaletteModel;
+    setSelectedIroColor: (index: number) => void;
+  };
 }
 
-export default class KulerPaletteRowComponent extends Component<KulerPaletteRowArgs> {
+export default class KulerPaletteRowComponent extends Component<KulerPaletteRowSignature> {
   @service colorUtils!: ColorUtils;
   @service('-ea-motion') eaMotion!: any;
   @service router!: Router;

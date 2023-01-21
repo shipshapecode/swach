@@ -4,7 +4,11 @@ import { tracked } from '@glimmer/tracking';
 
 import { IpcRenderer } from 'electron';
 
-export default class SettingsMenu extends Component {
+interface AboutSignature {
+  Element: HTMLDivElement;
+}
+
+export default class AboutComponent extends Component<AboutSignature> {
   ipcRenderer!: IpcRenderer;
 
   copyrightYear = new Date().getFullYear();

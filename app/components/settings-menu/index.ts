@@ -7,13 +7,16 @@ import { storageFor } from 'ember-local-storage';
 import { IpcRenderer } from 'electron';
 
 import { SettingsStorage, themes } from 'swach/storages/settings';
-interface SettingsMenuArgs {
-  checkForUpdates: () => void;
-  enableDisableAutoStart: (e: InputEvent) => void;
-  toggleShowDockIcon: (e: InputEvent) => void;
+interface SettingsMenuSignature {
+  Element: HTMLDivElement;
+  Args: {
+    checkForUpdates: () => void;
+    enableDisableAutoStart: (e: InputEvent) => void;
+    toggleShowDockIcon: (e: InputEvent) => void;
+  };
 }
 
-export default class SettingsMenu extends Component<SettingsMenuArgs> {
+export default class SettingsMenu extends Component<SettingsMenuSignature> {
   @storageFor('settings') settings!: SettingsStorage;
 
   ipcRenderer!: IpcRenderer;
@@ -21,7 +24,7 @@ export default class SettingsMenu extends Component<SettingsMenuArgs> {
 
   @tracked platform?: string;
 
-  constructor(owner: unknown, args: SettingsMenuArgs) {
+  constructor(owner: unknown, args: SettingsMenuSignature['Args']) {
     super(owner, args);
 
     if (typeof requireNode !== 'undefined') {

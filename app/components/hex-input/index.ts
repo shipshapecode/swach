@@ -6,12 +6,14 @@ import { TinyColor } from '@ctrl/tinycolor';
 import { SelectedColorModel } from 'swach/components/rgb-input';
 import { rgbaToHex } from 'swach/data-models/color';
 
-interface HexInputArgs {
-  selectedColor: SelectedColorModel;
-  updateColor: () => void;
+interface HexInputSignature {
+  Args: {
+    selectedColor: SelectedColorModel;
+    updateColor: () => void;
+  };
 }
 
-export default class HexInputComponent extends Component<HexInputArgs> {
+export default class HexInputComponent extends Component<HexInputSignature> {
   hexRegex = /^#([A-Fa-f0-9]{8}|[A-Fa-f0-9]{6})$/;
 
   @action

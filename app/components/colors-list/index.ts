@@ -14,11 +14,13 @@ import ColorModel from 'swach/data-models/color';
 import PaletteModel from 'swach/data-models/palette';
 import UndoManager from 'swach/services/undo-manager';
 
-interface ColorsListArgs {
-  palette: PaletteModel;
+interface ColorsListSignature {
+  Args: {
+    palette: PaletteModel;
+  };
 }
 
-export default class ColorsList extends Component<ColorsListArgs> {
+export default class ColorsList extends Component<ColorsListSignature> {
   @service store!: Store;
   @service undoManager!: UndoManager;
 

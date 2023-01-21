@@ -24,13 +24,15 @@ export interface SelectedColorPOJO extends PrivateRGBAHex, PublicRGBAHex {
   name: string;
 }
 
-interface RgbaInputArgs {
-  selectedColor: ColorModel;
-  type: 'r' | 'g' | 'b' | 'a';
-  updateColor: () => void;
+interface RgbaInputSignature {
+  Args: {
+    selectedColor: ColorModel;
+    type: 'r' | 'g' | 'b' | 'a';
+    updateColor: () => void;
+  };
 }
 
-export default class RgbaInputComponent extends Component<RgbaInputArgs> {
+export default class RgbaInputComponent extends Component<RgbaInputSignature> {
   rgbRegex = /^\d{0,3}$/;
 
   @action

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES2022",
     "baseUrl": ".",
     "module": "es6",
     "allowJs": true,
@@ -26,8 +26,13 @@
       "swach/*": ["app/*"],
       "*": ["types/*"],
       "@ember/destroyable": ["node_modules/ember-destroyable-polyfill"],
-      "@glimmer/tracking/primitives/cache": ["node_modules/ember-cache-primitive-polyfill"],
+      "@glimmer/tracking/primitives/cache": [
+        "node_modules/ember-cache-primitive-polyfill"
+      ]
     }
+  },
+  "glint": {
+    "environment": "ember-loose"
   },
   "include": ["app/**/*", "tests/**/*", "types/**/*"]
 }

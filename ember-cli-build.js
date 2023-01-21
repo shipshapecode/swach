@@ -10,6 +10,9 @@ module.exports = function (defaults) {
     babel: {
       plugins: ['@babel/plugin-proposal-object-rest-spread']
     },
+    'ember-cli-babel': {
+      enableTypeScriptTransform: true
+    },
     'ember-simple-auth': {
       useSessionSetupMethod: true
     },

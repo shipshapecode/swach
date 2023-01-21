@@ -4,7 +4,9 @@ import fade from 'ember-animated/transitions/fade';
 
 import { transitionOptions, transitions } from 'swach/transitions';
 
-export default class AnimatedOutlet extends Component {
+interface AnimatedOutletSignature {}
+
+export default class AnimatedOutlet extends Component<AnimatedOutletSignature> {
   duration = transitionOptions.duration;
   easing = transitionOptions.easing;
 

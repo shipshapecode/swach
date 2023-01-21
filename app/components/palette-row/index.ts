@@ -15,23 +15,26 @@ import PaletteModel from 'swach/data-models/palette';
 import ColorUtils from 'swach/services/color-utils';
 import UndoManager from 'swach/services/undo-manager';
 
-interface PaletteRowArgs {
-  moveColorsBetweenPalettes: ({
-    sourceArgs,
-    sourceList,
-    sourceIndex,
-    targetArgs,
-    targetList,
-    targetIndex
-  }: {
-    sourceArgs: { isColorHistory: boolean; parent: PaletteModel };
-    sourceList: ColorModel[];
-    sourceIndex: number;
-    targetArgs: { isColorHistory: boolean; parent: PaletteModel };
-    targetList: ColorModel[];
-    targetIndex: number;
-  }) => void;
-  palette: PaletteModel;
+interface PaletteRowSignature {
+  Element: HTMLDivElement;
+  Args: {
+    moveColorsBetweenPalettes: ({
+      sourceArgs,
+      sourceList,
+      sourceIndex,
+      targetArgs,
+      targetList,
+      targetIndex
+    }: {
+      sourceArgs: { isColorHistory: boolean; parent: PaletteModel };
+      sourceList: ColorModel[];
+      sourceIndex: number;
+      targetArgs: { isColorHistory: boolean; parent: PaletteModel };
+      targetList: ColorModel[];
+      targetIndex: number;
+    }) => void;
+    palette: PaletteModel;
+  };
 }
 
 class MenuOption {
@@ -104,7 +107,7 @@ class LockOption {
   }
 }
 
-export default class PaletteRowComponent extends Component<PaletteRowArgs> {
+export default class PaletteRowComponent extends Component<PaletteRowSignature> {
   @service colorUtils!: ColorUtils;
   @service dataSchema!: RecordSchema;
   @service dragSort!: DragSortService;
@@ -117,7 +120,7 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
   nameInput!: HTMLElement;
   @tracked isEditing = false;
 
-  constructor(owner: unknown, args: PaletteRowArgs) {
+  constructor(owner: unknown, args: PaletteRowSignature['Args']) {
     super(owner, args);
 
     this.menuItems = [

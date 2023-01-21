@@ -12,12 +12,15 @@ import {
 import PaletteModel from 'swach/data-models/palette';
 import ColorUtils from 'swach/services/color-utils';
 
-interface EditSelectedColorArgs {
-  colorPicker: iro.ColorPicker;
-  palette: PaletteModel;
+interface EditSelectedColorSignature {
+  Element: HTMLDivElement;
+  Args: {
+    colorPicker: iro.ColorPicker;
+    palette: PaletteModel;
+  };
 }
 
-export default class EditSelectedColorComponent extends Component<EditSelectedColorArgs> {
+export default class EditSelectedColorComponent extends Component<EditSelectedColorSignature> {
   @service colorUtils!: ColorUtils;
 
   get selectedColor(): SelectedColorModel | Record<string, unknown> {

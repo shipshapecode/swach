@@ -8,14 +8,17 @@ import ColorModel from 'swach/data-models/color';
 import PaletteModel from 'swach/data-models/palette';
 import ColorUtils from 'swach/services/color-utils';
 
-interface ColorRowArgs {
-  color: ColorModel;
-  deleteColor: (color: ColorModel) => void;
-  palette: PaletteModel;
-  showActions: boolean;
+interface ColorRowSignature {
+  Element: HTMLDivElement;
+  Args: {
+    color: ColorModel;
+    deleteColor: (color: ColorModel) => void;
+    palette: PaletteModel;
+    showActions: boolean;
+  };
 }
 
-export default class ColorRow extends Component<ColorRowArgs> {
+export default class ColorRow extends Component<ColorRowSignature> {
   @service colorUtils!: ColorUtils;
   @service router!: Router;
 

@@ -4,12 +4,14 @@ import Component from '@glimmer/component';
 import { SelectedColorModel } from 'swach/components/rgb-input';
 import { rgbaToHex } from 'swach/data-models/color';
 
-interface AlphaInputArgs {
-  selectedColor: SelectedColorModel;
-  updateColor: () => void;
+interface AlphaInputSignature {
+  Args: {
+    selectedColor: SelectedColorModel;
+    updateColor: () => void;
+  };
 }
 
-export default class AlphaInputComponent extends Component<AlphaInputArgs> {
+export default class AlphaInputComponent extends Component<AlphaInputSignature> {
   alphaRegex = /^[1]$|^[0]$|^(0\.[0-9]{1,2})$/;
 
   @action

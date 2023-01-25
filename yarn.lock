@@ -2069,10 +2069,10 @@
     broccoli-funnel "^3.0.5"
     ember-cli-babel "^7.23.1"
 
-"@embroider/webpack@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@embroider/webpack/-/webpack-2.0.2.tgz#67f1c98beadf3d013d238ce9b332773bac4cf333"
-  integrity sha512-q3fBWZbqYtJ3p8nnN729ksYWCfMDTL8mgF6tNaLngDe6IEoz9XaCIB64K6K32h7p/eKgluuV2xRg1qQuq9LagQ==
+"@embroider/webpack@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@embroider/webpack/-/webpack-2.1.0.tgz#d9c48af72ba91a9b1b7fedf9dbbb835291c28fae"
+  integrity sha512-M+cSVCF5xnUjSj2UTFSKtkfGMiwYbiQtRZVNMaTzJcEVSPHjY4JPI//gkFvQZIDVsXryhC7le3peRqYZJ7r4dA==
   dependencies:
     "@babel/core" "^7.14.5"
     "@embroider/babel-loader-8" "2.0.0"

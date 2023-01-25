@@ -43,7 +43,7 @@
     "@ember/render-modifiers": "^2.0.5",
     "@ember/string": "^3.0.1",
     "@ember/test-helpers": "^2.9.1",
-    "@embroider/compat": "^2.0.2",
+    "@embroider/compat": "^2.1.0",
     "@embroider/core": "^2.0.2",
     "@embroider/webpack": "^2.0.2",
     "@glimmer/component": "^1.1.2",

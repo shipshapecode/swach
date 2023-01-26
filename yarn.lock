@@ -1936,10 +1936,10 @@
     "@babel/core" "^7.14.5"
     babel-loader "8"
 
-"@embroider/compat@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@embroider/compat/-/compat-2.0.2.tgz#b1eb1b0593007bb2e75786a989b11fc5a06b40a6"
-  integrity sha512-F/jqXlfiXT9Vl06lSVbwkv2ixTftgqnbE5A34LCcOEBwzUKn47yTYTlNofB+D0Gyhw1MOwUm6utbF9oKpdTyYg==
+"@embroider/compat@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@embroider/compat/-/compat-2.1.1.tgz#fda6baeede76051f3c57dc661ddf6058d6c7a64b"
+  integrity sha512-HNq5vv7NpQ1Jr+4slzmLBqsy5NDsIHilYeQiWboMrPAyHr5NHlKYWciIcmxdgPgz2kf/8D5nDiANgJznZedlyw==
   dependencies:
     "@babel/code-frame" "^7.14.5"
     "@babel/core" "^7.14.5"

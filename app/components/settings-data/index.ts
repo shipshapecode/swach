@@ -19,7 +19,7 @@ import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
 export default class SettingsDataComponent extends Component {
   @service dataCoordinator!: Coordinator;
   @service flashMessages!: FlashMessageService;
-  @service store!: Store;
+  @service declare store: Store;
 
   @storageFor('settings') settings!: SettingsStorage;
 
@@ -119,5 +119,11 @@ export default class SettingsDataComponent extends Component {
         }
       });
     }
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    SettingsData: typeof SettingsDataComponent;
   }
 }

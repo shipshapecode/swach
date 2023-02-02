@@ -8,7 +8,7 @@ import ApplicationController from 'swach/controllers/application';
 
 export default class SettingsController extends Controller {
   @controller application!: ApplicationController;
-  @service session!: Session;
+  @service declare session: Session;
 
   @action
   goBack(): void {

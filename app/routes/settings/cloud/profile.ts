@@ -5,8 +5,8 @@ import CognitoService from 'ember-cognito/services/cognito';
 import Session from 'ember-simple-auth/services/session';
 
 export default class SettingsAccountRoute extends Route {
-  @service cognito!: CognitoService;
-  @service session!: Session;
+  @service declare cognito: CognitoService;
+  @service declare session: Session;
 
   model(): CognitoService['user']['attributes'] {
     console.log(this.cognito);

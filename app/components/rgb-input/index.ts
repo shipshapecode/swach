@@ -25,6 +25,7 @@ export interface SelectedColorPOJO extends PrivateRGBAHex, PublicRGBAHex {
 }
 
 interface RgbaInputSignature {
+  Element: HTMLInputElement;
   Args: {
     selectedColor: ColorModel;
     type: 'r' | 'g' | 'b' | 'a';
@@ -87,5 +88,11 @@ export default class RgbaInputComponent extends Component<RgbaInputSignature> {
       `_${type}` as keyof PrivateRGBAHex,
       this.args.selectedColor[type]
     );
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    RgbInput: typeof RgbaInputComponent;
   }
 }

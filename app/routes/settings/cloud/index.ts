@@ -7,9 +7,9 @@ import CognitoService from 'ember-cognito/services/cognito';
 import Session from 'ember-simple-auth/services/session';
 
 export default class SettingsAccountRoute extends Route {
-  @service cognito!: CognitoService;
-  @service router!: Router;
-  @service session!: Session;
+  @service declare cognito: CognitoService;
+  @service declare router: Router;
+  @service declare session: Session;
 
   async beforeModel(transition: Transition): Promise<Transition> {
     if (!this.session.isAuthenticated) {

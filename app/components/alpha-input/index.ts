@@ -5,6 +5,7 @@ import { SelectedColorModel } from 'swach/components/rgb-input';
 import { rgbaToHex } from 'swach/data-models/color';
 
 interface AlphaInputSignature {
+  Element: HTMLInputElement;
   Args: {
     selectedColor: SelectedColorModel;
     updateColor: () => void;
@@ -56,5 +57,11 @@ export default class AlphaInputComponent extends Component<AlphaInputSignature> 
   @action
   onIncomplete(): void {
     set(this.args.selectedColor, `_a`, this.args.selectedColor.a);
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    AlphaInput: typeof AlphaInputComponent;
   }
 }

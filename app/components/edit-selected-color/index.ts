@@ -21,7 +21,7 @@ interface EditSelectedColorSignature {
 }
 
 export default class EditSelectedColorComponent extends Component<EditSelectedColorSignature> {
-  @service colorUtils!: ColorUtils;
+  @service declare colorUtils: ColorUtils;
 
   get selectedColor(): SelectedColorModel | Record<string, unknown> {
     const { palette } = this.args;
@@ -93,5 +93,11 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
   @action
   updateColorInputs(key: keyof PublicRGBAHex, value: number | string): void {
     set(this.selectedColor, `_${key}` as keyof PrivateRGBAHex, value);
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    EditSelectedColor: typeof EditSelectedColorComponent;
   }
 }

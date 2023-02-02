@@ -6,7 +6,7 @@ import { tracked } from '@glimmer/tracking';
 import Session from 'ember-simple-auth/services/session';
 
 export default class SettingsAccountController extends Controller {
-  @service session!: Session;
+  @service declare session: Session;
 
   @tracked loading = false;
 

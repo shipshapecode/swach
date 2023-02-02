@@ -29,7 +29,7 @@ export interface ColorPOJO {
 
 export default class ColorUtilsService extends Service {
   @service nearestColor!: NearestColor;
-  @service store!: Store;
+  @service declare store: Store;
 
   @storageFor('settings') settings!: SettingsStorage;
 

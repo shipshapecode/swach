@@ -19,11 +19,11 @@ interface KulerPaletteRowSignature {
 }
 
 export default class KulerPaletteRowComponent extends Component<KulerPaletteRowSignature> {
-  @service colorUtils!: ColorUtils;
+  @service declare colorUtils: ColorUtils;
   @service('-ea-motion') eaMotion!: any;
-  @service router!: Router;
-  @service store!: Store;
-  @service undoManager!: UndoManager;
+  @service declare router: Router;
+  @service declare store: Store;
+  @service declare undoManager: UndoManager;
 
   fade = fade;
   showMenu = false;
@@ -88,5 +88,11 @@ export default class KulerPaletteRowComponent extends Component<KulerPaletteRowS
     ]);
 
     this.undoManager.setupUndoRedo();
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    KulerPaletteRow: typeof KulerPaletteRowComponent;
   }
 }

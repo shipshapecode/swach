@@ -13,8 +13,8 @@ import Palette from 'swach/data-models/palette';
 
 export default class DataService extends Service {
   @service dataCoordinator!: Coordinator;
-  @service session!: Session;
-  @service store!: Store;
+  @service declare session: Session;
+  @service declare store: Store;
   @tracked colorHistory: Palette | undefined;
   isActivated = false;
 

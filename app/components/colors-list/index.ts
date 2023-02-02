@@ -20,9 +20,9 @@ interface ColorsListSignature {
   };
 }
 
-export default class ColorsList extends Component<ColorsListSignature> {
-  @service store!: Store;
-  @service undoManager!: UndoManager;
+export default class ColorsListComponent extends Component<ColorsListSignature> {
+  @service declare store: Store;
+  @service declare undoManager: UndoManager;
 
   get sortedColors(): (ColorModel | undefined)[] | undefined {
     const { palette } = this.args;
@@ -96,5 +96,11 @@ export default class ColorsList extends Component<ColorsListSignature> {
         this.undoManager.setupUndoRedo();
       }
     }
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    ColorsList: typeof ColorsListComponent;
   }
 }

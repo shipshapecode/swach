@@ -41,8 +41,8 @@ interface KulerSignature {
 }
 
 export default class KulerComponent extends Component<KulerSignature> {
-  @service colorUtils!: ColorUtils;
-  @service store!: Store;
+  @service declare colorUtils: ColorUtils;
+  @service declare store: Store;
 
   _debouncedColorChange!: any;
   colorPicker!: iro.ColorPicker;

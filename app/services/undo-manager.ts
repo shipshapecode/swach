@@ -8,7 +8,7 @@ import { IpcRenderer } from 'electron';
 import removeFromTo from 'swach/utils/remove-from-to';
 
 export default class UndoManager extends Service {
-  @service store!: Store;
+  @service declare store: Store;
 
   callback?: () => unknown;
   commands: {

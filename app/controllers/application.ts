@@ -19,14 +19,14 @@ import UndoManager from 'swach/services/undo-manager';
 import { SettingsStorage, themes } from 'swach/storages/settings';
 
 export default class ApplicationController extends Controller {
-  @service colorUtils!: ColorUtils;
+  @service declare colorUtils: ColorUtils;
   @service data!: DataService;
   @service dataSchema!: RecordSchema;
   @service flashMessages!: FlashMessageService;
-  @service router!: Router;
-  @service session!: Session;
-  @service store!: Store;
-  @service undoManager!: UndoManager;
+  @service declare router: Router;
+  @service declare session: Session;
+  @service declare store: Store;
+  @service declare undoManager: UndoManager;
 
   @storageFor('settings') settings!: SettingsStorage;
 

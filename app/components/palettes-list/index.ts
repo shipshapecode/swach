@@ -18,8 +18,8 @@ interface PalettesListSignature {
 }
 
 export default class PalettesListComponent extends Component<PalettesListSignature> {
-  @service store!: Store;
-  @service undoManager!: UndoManager;
+  @service declare store: Store;
+  @service declare undoManager: UndoManager;
 
   get palettes(): PaletteModel[] {
     const palettes = (this.args.palettes?.value ?? []) as PaletteModel[];

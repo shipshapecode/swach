@@ -16,8 +16,8 @@ export default class KulerRoute extends Route {
     }
   };
 
-  @service session!: Session;
-  @service store!: Store;
+  @service declare session: Session;
+  @service declare store: Store;
 
   @storageFor('settings') settings!: SettingsStorage;
 

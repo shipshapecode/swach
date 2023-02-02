@@ -10,8 +10,8 @@ import Data from 'swach/services/data';
 
 export default class ApplicationRoute extends Route {
   @service data!: Data;
-  @service router!: Router;
-  @service session!: Session;
+  @service declare router: Router;
+  @service declare session: Session;
 
   ipcRenderer!: IpcRenderer;
 

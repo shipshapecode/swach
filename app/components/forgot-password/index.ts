@@ -8,9 +8,9 @@ import CognitoService from 'ember-cognito/services/cognito';
 import Session from 'ember-simple-auth/services/session';
 
 export default class ForgotPasswordComponent extends Component {
-  @service cognito!: CognitoService;
-  @service router!: Router;
-  @service session!: Session;
+  @service declare cognito: CognitoService;
+  @service declare router: Router;
+  @service declare session: Session;
 
   @tracked code?: string;
   @tracked errorMessage?: string;
@@ -51,5 +51,11 @@ export default class ForgotPasswordComponent extends Component {
         this.loading = false;
       }
     }
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    ForgotPassword: typeof ForgotPasswordComponent;
   }
 }

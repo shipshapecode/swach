@@ -108,12 +108,12 @@ class LockOption {
 }
 
 export default class PaletteRowComponent extends Component<PaletteRowSignature> {
-  @service colorUtils!: ColorUtils;
+  @service declare colorUtils: ColorUtils;
   @service dataSchema!: RecordSchema;
   @service dragSort!: DragSortService;
-  @service router!: Router;
-  @service store!: Store;
-  @service undoManager!: UndoManager;
+  @service declare router: Router;
+  @service declare store: Store;
+  @service declare undoManager: UndoManager;
 
   menuItems: (MenuOption | FavoriteOption | LockOption)[] | null = null;
   fade = fade;

@@ -17,11 +17,11 @@ import UndoManager from 'swach/services/undo-manager';
 
 export default class PalettesController extends Controller {
   @controller application!: ApplicationController;
-  @service colorUtils!: ColorUtils;
+  @service declare colorUtils: ColorUtils;
   @service data!: DataService;
-  @service router!: Router;
-  @service store!: Store;
-  @service undoManager!: UndoManager;
+  @service declare router: Router;
+  @service declare store: Store;
+  @service declare undoManager: UndoManager;
 
   @tracked showFavorites = false;
 

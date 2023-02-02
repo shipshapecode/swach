@@ -18,9 +18,9 @@ interface ColorRowSignature {
   };
 }
 
-export default class ColorRow extends Component<ColorRowSignature> {
-  @service colorUtils!: ColorUtils;
-  @service router!: Router;
+export default class ColorRowComponent extends Component<ColorRowSignature> {
+  @service declare colorUtils: ColorUtils;
+  @service declare router: Router;
 
   get showActions(): boolean {
     if (isEmpty(this.args.showActions)) {
@@ -43,5 +43,11 @@ export default class ColorRow extends Component<ColorRowSignature> {
     this.router.transitionTo('kuler', {
       queryParams: { colorId: this.args.color.id }
     });
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    ColorRow: typeof ColorRowComponent;
   }
 }

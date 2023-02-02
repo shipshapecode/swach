@@ -28,10 +28,10 @@ interface ColorPickerSignature {
 }
 
 export default class ColorPickerComponent extends Component<ColorPickerSignature> {
-  @service nearestColor!: NearestColor;
-  @service router!: Router;
-  @service store!: Store;
-  @service undoManager!: UndoManager;
+  @service declare nearestColor: NearestColor;
+  @service declare router: Router;
+  @service declare store: Store;
+  @service declare undoManager: UndoManager;
 
   colorPicker?: iro.ColorPicker;
   onChange!: (color?: ColorModel) => void;

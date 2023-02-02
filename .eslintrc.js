@@ -65,7 +65,13 @@ module.exports = {
         // this can be removed once the following is fixed
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
         'no-console': 'off',
-        'n/no-unpublished-require': 'off'
+        'n/no-unpublished-require': 'off',
+        'n/no-extraneous-require': [
+          'error',
+          {
+            allowModules: ['ember-electron', 'electron']
+          }
+        ],
       }
     },
     // Typescript files

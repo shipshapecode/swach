@@ -1,7 +1,7 @@
 import Service from '@ember/service';
 import { service } from '@ember/service';
 
-import { Store } from 'ember-orbit/addon/index';
+import { Store } from 'ember-orbit';
 
 import { IpcRenderer } from 'electron';
 

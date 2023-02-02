@@ -3,7 +3,7 @@ import Service from '@ember/service';
 import { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
-import { Store } from 'ember-orbit/addon/index';
+import { Store } from 'ember-orbit';
 
 import { ColorInput, TinyColor } from '@ctrl/tinycolor';
 import { IpcRenderer } from 'electron';

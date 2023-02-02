@@ -29,7 +29,6 @@
     "electron-is-dev": "^2.0.0",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.1.0",
-    "ember-electron": "^4.2.0",
     "indexeddb-export-import": "^2.1.5",
     "menubar": "^9.2.3",
     "throttle-debounce": "^5.0.0"

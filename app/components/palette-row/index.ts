@@ -305,3 +305,9 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
     );
   }
 }
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    PaletteRow: typeof PaletteRowComponent;
+  }
+}

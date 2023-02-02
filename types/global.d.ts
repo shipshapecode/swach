@@ -6,6 +6,8 @@ import AnimatedValue from '@gavant/glint-template-types/types/ember-animated/ani
 
 import OnClickOutsideModifier from 'ember-click-outside/modifiers/on-click-outside';
 
+import SubHelper from 'ember-math-helpers/helpers/sub';
+
 import DidInsertModifier from 'ember-render-modifiers/modifiers/did-insert';
 import DidUpdateModifier from 'ember-render-modifiers/modifiers/did-update';
 import WillDestroyModifier from 'ember-render-modifiers/modifiers/will-destroy';
@@ -60,6 +62,18 @@ declare module '@glint/environment-ember-loose/registry' {
     'prevent-default': HelperLike<{
       Args: {
         Positional: [eventHandler: (event: Event) => void];
+      };
+      Return: (event: Event) => void;
+    }>;
+    set: HelperLike<{
+      Args: {
+        Positional: [target: object, path: string, maybeValue: any];
+      };
+      Return: any;
+    }>;
+    'stop-propagation': HelperLike<{
+      Args: {
+        Positional: [eventHandler: (event: Event) => any];
       };
       Return: (event: Event) => void;
     }>;

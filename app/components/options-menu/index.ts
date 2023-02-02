@@ -1,36 +1,30 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-interface OptionsMenuArgs {
-  position: 'left' | 'right';
-  showBackground: boolean;
+interface OptionsMenuSignature {
+  Element: HTMLDivElement;
+  Args: {
+    optionsClasses?: string;
+    position?: 'left' | 'right';
+    showBackground?: boolean;
+    triggerClasses?: string;
+  };
+  Blocks: { content: []; trigger: [] };
 }
 
-export default class OptionsMenu extends Component<OptionsMenuArgs> {
+export default class OptionsMenu extends Component<OptionsMenuSignature> {
   @tracked position: 'left' | 'right' = 'right';
   @tracked isShown = false;
 
-  constructor(owner: unknown, args: OptionsMenuArgs) {
+  constructor(owner: unknown, args: OptionsMenuSignature['Args']) {
     super(owner, args);
 
     this.position = this.args.position ?? 'right';
   }
+}
 
-  async cancel() {
-    if (this.options.confirmCancel) {
-      const confirmCancelIsFunction =
-        typeof this.options.confirmCancel === 'function';
-      const cancelMessage =
-        this.options.confirmCancelMessage ||
-        'Are you sure you want to stop the tour?';
-      const stopTour = confirmCancelIsFunction
-        ? await this.options.confirmCancel()
-        : window.confirm(cancelMessage);
-      if (stopTour) {
-        this._done('cancel');
-      }
-    } else {
-      this._done('cancel');
-    }
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    OptionsMenu: typeof OptionsMenu;
   }
 }

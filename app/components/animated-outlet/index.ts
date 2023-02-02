@@ -45,3 +45,9 @@ export default class AnimatedOutlet extends Component<AnimatedOutletSignature> {
     }
   }
 }
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    AnimatedOutlet: typeof AnimatedOutlet;
+  }
+}

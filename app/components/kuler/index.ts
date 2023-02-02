@@ -33,11 +33,14 @@ class Palette {
   }
 }
 
-interface KulerArgs {
-  baseColor: any;
+interface KulerSignature {
+  Element: HTMLDivElement;
+  Args: {
+    baseColor: any;
+  };
 }
 
-export default class KulerComponent extends Component<KulerArgs> {
+export default class KulerComponent extends Component<KulerSignature> {
   @service colorUtils!: ColorUtils;
   @service store!: Store;
 
@@ -263,5 +266,11 @@ export default class KulerComponent extends Component<KulerArgs> {
 
       this.ipcRenderer.send('setTouchbar', itemsToShow);
     }
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    Kuler: typeof KulerComponent;
   }
 }

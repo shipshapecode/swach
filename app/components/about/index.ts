@@ -36,3 +36,9 @@ export default class AboutComponent extends Component<AboutSignature> {
     }
   }
 }
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    About: typeof AboutComponent;
+  }
+}

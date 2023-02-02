@@ -1,27 +1,29 @@
 import { action } from '@ember/object';
-import Router from '@ember/routing/router-service';
+import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 
 import fade from 'ember-animated/transitions/fade';
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 
-import ColorModel from 'swach/data-models/color';
-import PaletteModel from 'swach/data-models/palette';
-import ColorUtils from 'swach/services/color-utils';
-import UndoManager from 'swach/services/undo-manager';
+import type ColorModel from 'swach/data-models/color';
+import type PaletteModel from 'swach/data-models/palette';
+import type ColorUtils from 'swach/services/color-utils';
+import type UndoManager from 'swach/services/undo-manager';
 
-interface KulerPaletteRowArgs {
-  palette: PaletteModel;
-  setSelectedIroColor: (index: number) => void;
+interface KulerPaletteRowSignature {
+  Args: {
+    palette: PaletteModel;
+    setSelectedIroColor: (index: number) => void;
+  };
 }
 
-export default class KulerPaletteRowComponent extends Component<KulerPaletteRowArgs> {
-  @service colorUtils!: ColorUtils;
+export default class KulerPaletteRowComponent extends Component<KulerPaletteRowSignature> {
+  @service declare colorUtils: ColorUtils;
   @service('-ea-motion') eaMotion!: any;
-  @service router!: Router;
-  @service store!: Store;
-  @service undoManager!: UndoManager;
+  @service declare router: Router;
+  @service declare store: Store;
+  @service declare undoManager: UndoManager;
 
   fade = fade;
   showMenu = false;
@@ -86,5 +88,11 @@ export default class KulerPaletteRowComponent extends Component<KulerPaletteRowA
     ]);
 
     this.undoManager.setupUndoRedo();
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    KulerPaletteRow: typeof KulerPaletteRowComponent;
   }
 }

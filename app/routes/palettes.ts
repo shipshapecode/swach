@@ -9,8 +9,8 @@ import Session from 'ember-simple-auth/services/session';
 import { SettingsStorage } from 'swach/storages/settings';
 
 export default class PalettesRoute extends Route {
-  @service session!: Session;
-  @service store!: Store;
+  @service declare session: Session;
+  @service declare store: Store;
 
   @storageFor('settings') settings!: SettingsStorage;
 

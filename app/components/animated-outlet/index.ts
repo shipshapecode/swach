@@ -4,7 +4,10 @@ import fade from 'ember-animated/transitions/fade';
 
 import { transitionOptions, transitions } from 'swach/transitions';
 
-export default class AnimatedOutlet extends Component {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface AnimatedOutletSignature {}
+
+export default class AnimatedOutlet extends Component<AnimatedOutletSignature> {
   duration = transitionOptions.duration;
   easing = transitionOptions.easing;
 
@@ -41,5 +44,11 @@ export default class AnimatedOutlet extends Component {
     if (oldRouteName !== newRouteName) {
       return fade;
     }
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    AnimatedOutlet: typeof AnimatedOutlet;
   }
 }

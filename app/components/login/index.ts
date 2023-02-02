@@ -1,5 +1,5 @@
 import { action } from '@ember/object';
-import Router from '@ember/routing/router-service';
+import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
@@ -10,9 +10,9 @@ import Session from 'ember-simple-auth/services/session';
 import config from 'swach/config/environment';
 import { SettingsStorage } from 'swach/storages/settings';
 
-export default class Login extends Component {
-  @service router!: Router;
-  @service session!: Session;
+export default class LoginComponent extends Component {
+  @service declare router: Router;
+  @service declare session: Session;
 
   @storageFor('settings') settings!: SettingsStorage;
 
@@ -40,5 +40,11 @@ export default class Login extends Component {
     } finally {
       this.loading = false;
     }
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    Login: typeof LoginComponent;
   }
 }

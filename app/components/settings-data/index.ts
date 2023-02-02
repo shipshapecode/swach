@@ -5,7 +5,7 @@ import { tracked } from '@glimmer/tracking';
 
 import FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 
 import { Coordinator } from '@orbit/coordinator';
 import IndexedDBSource from '@orbit/indexeddb';
@@ -19,7 +19,7 @@ import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
 export default class SettingsDataComponent extends Component {
   @service dataCoordinator!: Coordinator;
   @service flashMessages!: FlashMessageService;
-  @service store!: Store;
+  @service declare store: Store;
 
   @storageFor('settings') settings!: SettingsStorage;
 
@@ -119,5 +119,11 @@ export default class SettingsDataComponent extends Component {
         }
       });
     }
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    SettingsData: typeof SettingsDataComponent;
   }
 }

@@ -24,13 +24,16 @@ export interface SelectedColorPOJO extends PrivateRGBAHex, PublicRGBAHex {
   name: string;
 }
 
-interface RgbaInputArgs {
-  selectedColor: ColorModel;
-  type: 'r' | 'g' | 'b' | 'a';
-  updateColor: () => void;
+interface RgbaInputSignature {
+  Element: HTMLInputElement;
+  Args: {
+    selectedColor: ColorModel;
+    type: 'r' | 'g' | 'b' | 'a';
+    updateColor: () => void;
+  };
 }
 
-export default class RgbaInputComponent extends Component<RgbaInputArgs> {
+export default class RgbaInputComponent extends Component<RgbaInputSignature> {
   rgbRegex = /^\d{0,3}$/;
 
   @action
@@ -85,5 +88,11 @@ export default class RgbaInputComponent extends Component<RgbaInputArgs> {
       `_${type}` as keyof PrivateRGBAHex,
       this.args.selectedColor[type]
     );
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    RgbInput: typeof RgbaInputComponent;
   }
 }

@@ -1,6 +1,6 @@
 import { action, set } from '@ember/object';
 
-import Sprite from 'ember-animated/-private/sprite';
+import type Sprite from 'ember-animated/-private/sprite';
 import { easeOut } from 'ember-animated/easings/cosine';
 import move from 'ember-animated/motions/move';
 import { fadeOut } from 'ember-animated/motions/opacity';
@@ -48,5 +48,11 @@ export default class AnimatedDragSortList extends DragSortList {
     for (const sprite of removedSprites) {
       fadeOut(sprite, { easing: easeOut });
     }
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    AnimatedDragSortList: typeof AnimatedDragSortList;
   }
 }

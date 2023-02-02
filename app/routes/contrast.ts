@@ -8,7 +8,7 @@ import Session from 'ember-simple-auth/services/session';
 import { SettingsStorage } from 'swach/storages/settings';
 
 export default class ContrastRoute extends Route {
-  @service session!: Session;
+  @service declare session: Session;
 
   @storageFor('settings') settings!: SettingsStorage;
 

@@ -1,7 +1,7 @@
 import { setupTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 
 import { Coordinator } from '@orbit/coordinator';
 import IndexedDBSource from '@orbit/indexeddb';
@@ -20,10 +20,12 @@ module('Unit | Service | data', function (hooks) {
   let store: Store;
 
   hooks.beforeEach(function () {
-    dataService = this.owner.lookup('service:data');
-    dataCoordinator = this.owner.lookup('service:dataCoordinator');
+    dataService = this.owner.lookup('service:data') as DataService;
+    dataCoordinator = this.owner.lookup(
+      'service:dataCoordinator'
+    ) as Coordinator;
     backup = dataCoordinator.getSource<IndexedDBSource>('backup');
-    store = this.owner.lookup('service:store');
+    store = this.owner.lookup('service:store') as Store;
   });
 
   module('activate', function (hooks) {

@@ -4,12 +4,15 @@ import Component from '@glimmer/component';
 import { SelectedColorModel } from 'swach/components/rgb-input';
 import { rgbaToHex } from 'swach/data-models/color';
 
-interface AlphaInputArgs {
-  selectedColor: SelectedColorModel;
-  updateColor: () => void;
+interface AlphaInputSignature {
+  Element: HTMLInputElement;
+  Args: {
+    selectedColor: SelectedColorModel;
+    updateColor: () => void;
+  };
 }
 
-export default class AlphaInputComponent extends Component<AlphaInputArgs> {
+export default class AlphaInputComponent extends Component<AlphaInputSignature> {
   alphaRegex = /^[1]$|^[0]$|^(0\.[0-9]{1,2})$/;
 
   @action
@@ -54,5 +57,11 @@ export default class AlphaInputComponent extends Component<AlphaInputArgs> {
   @action
   onIncomplete(): void {
     set(this.args.selectedColor, `_a`, this.args.selectedColor.a);
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    AlphaInput: typeof AlphaInputComponent;
   }
 }

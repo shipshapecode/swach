@@ -1,10 +1,10 @@
 import { action, set } from '@ember/object';
-import Router from '@ember/routing/router-service';
+import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
@@ -16,20 +16,22 @@ import {
   SelectedColorPOJO
 } from 'swach/components/rgb-input';
 import ColorModel, { rgbaToHex } from 'swach/data-models/color';
-import NearestColor from 'swach/services/nearest-color';
-import UndoManager from 'swach/services/undo-manager';
+import type NearestColor from 'swach/services/nearest-color';
+import type UndoManager from 'swach/services/undo-manager';
 
-interface ColorPickerArgs {
-  selectedColor: SelectedColorModel;
-  saveColor: (hex: string) => Promise<ColorModel | undefined>;
-  toggleIsShown: (color?: ColorModel) => void;
+interface ColorPickerSignature {
+  Args: {
+    selectedColor: SelectedColorModel;
+    saveColor: (hex: string) => Promise<ColorModel | undefined>;
+    toggleIsShown: (color?: ColorModel) => void;
+  };
 }
 
-export default class ColorPickerComponent extends Component<ColorPickerArgs> {
-  @service nearestColor!: NearestColor;
-  @service router!: Router;
-  @service store!: Store;
-  @service undoManager!: UndoManager;
+export default class ColorPickerComponent extends Component<ColorPickerSignature> {
+  @service declare nearestColor: NearestColor;
+  @service declare router: Router;
+  @service declare store: Store;
+  @service declare undoManager: UndoManager;
 
   colorPicker?: iro.ColorPicker;
   onChange!: (color?: ColorModel) => void;
@@ -175,5 +177,11 @@ export default class ColorPickerComponent extends Component<ColorPickerArgs> {
     });
 
     this.colorPicker?.on('color:change', this.onChange);
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    ColorPicker: typeof ColorPickerComponent;
   }
 }

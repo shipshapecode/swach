@@ -9,16 +9,19 @@ import {
   PublicRGBAHex,
   SelectedColorModel
 } from 'swach/components/rgb-input';
-import PaletteModel from 'swach/data-models/palette';
-import ColorUtils from 'swach/services/color-utils';
+import type PaletteModel from 'swach/data-models/palette';
+import type ColorUtils from 'swach/services/color-utils';
 
-interface EditSelectedColorArgs {
-  colorPicker: iro.ColorPicker;
-  palette: PaletteModel;
+interface EditSelectedColorSignature {
+  Element: HTMLDivElement;
+  Args: {
+    colorPicker: iro.ColorPicker;
+    palette: PaletteModel;
+  };
 }
 
-export default class EditSelectedColorComponent extends Component<EditSelectedColorArgs> {
-  @service colorUtils!: ColorUtils;
+export default class EditSelectedColorComponent extends Component<EditSelectedColorSignature> {
+  @service declare colorUtils: ColorUtils;
 
   get selectedColor(): SelectedColorModel | Record<string, unknown> {
     const { palette } = this.args;
@@ -90,5 +93,11 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
   @action
   updateColorInputs(key: keyof PublicRGBAHex, value: number | string): void {
     set(this.selectedColor, `_${key}` as keyof PrivateRGBAHex, value);
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    EditSelectedColor: typeof EditSelectedColorComponent;
   }
 }

@@ -4,7 +4,11 @@ import { tracked } from '@glimmer/tracking';
 
 import { IpcRenderer } from 'electron';
 
-export default class SettingsMenu extends Component {
+interface AboutSignature {
+  Element: HTMLDivElement;
+}
+
+export default class AboutComponent extends Component<AboutSignature> {
   ipcRenderer!: IpcRenderer;
 
   copyrightYear = new Date().getFullYear();
@@ -30,5 +34,11 @@ export default class SettingsMenu extends Component {
     if (typeof requireNode !== 'undefined') {
       requireNode('electron').shell.openExternal('https://swach.io/');
     }
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    About: typeof AboutComponent;
   }
 }

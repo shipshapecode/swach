@@ -4,19 +4,22 @@ import Component from '@glimmer/component';
 
 import { LiveQuery, Store } from 'ember-orbit';
 
-import { RecordOperationTerm } from '@orbit/records';
+import type { RecordOperationTerm } from '@orbit/records';
 
-import PaletteModel from 'swach/data-models/palette';
-import UndoManager from 'swach/services/undo-manager';
+import type PaletteModel from 'swach/data-models/palette';
+import type UndoManager from 'swach/services/undo-manager';
 
-interface PalettesListArgs {
-  palettes: LiveQuery;
-  showFavorites: boolean;
+interface PalettesListSignature {
+  Element: HTMLDivElement;
+  Args: {
+    palettes: LiveQuery;
+    showFavorites: boolean;
+  };
 }
 
-export default class PalettesListComponent extends Component<PalettesListArgs> {
-  @service store!: Store;
-  @service undoManager!: UndoManager;
+export default class PalettesListComponent extends Component<PalettesListSignature> {
+  @service declare store: Store;
+  @service declare undoManager: UndoManager;
 
   get palettes(): PaletteModel[] {
     const palettes = (this.args.palettes?.value ?? []) as PaletteModel[];
@@ -64,5 +67,11 @@ export default class PalettesListComponent extends Component<PalettesListArgs> {
     });
 
     this.undoManager.setupUndoRedo();
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    PalettesList: typeof PalettesListComponent;
   }
 }

@@ -1,7 +1,7 @@
 import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 import Session from 'ember-simple-auth/services/session';
 
 import { Coordinator } from '@orbit/coordinator';
@@ -13,8 +13,8 @@ import Palette from 'swach/data-models/palette';
 
 export default class DataService extends Service {
   @service dataCoordinator!: Coordinator;
-  @service session!: Session;
-  @service store!: Store;
+  @service declare session: Session;
+  @service declare store: Store;
   @tracked colorHistory: Palette | undefined;
   isActivated = false;
 

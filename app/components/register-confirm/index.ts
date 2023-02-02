@@ -1,14 +1,14 @@
 import { action } from '@ember/object';
-import Router from '@ember/routing/router-service';
+import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
 import CognitoService from 'ember-cognito/services/cognito';
 
-export default class RegisterConfirm extends Component {
-  @service cognito!: CognitoService;
-  @service router!: Router;
+export default class RegisterConfirmComponent extends Component {
+  @service declare cognito: CognitoService;
+  @service declare router: Router;
 
   @tracked errorMessage = null;
   @tracked code?: string;
@@ -27,5 +27,11 @@ export default class RegisterConfirm extends Component {
         this.errorMessage = err?.message;
       }
     }
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    RegisterConfirm: typeof RegisterConfirmComponent;
   }
 }

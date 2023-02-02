@@ -1,32 +1,32 @@
 import Controller from '@ember/controller';
 import { action, get } from '@ember/object';
-import Router from '@ember/routing/router-service';
+import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
 import FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 import Session from 'ember-simple-auth/services/session';
 
 import { RecordSchema } from '@orbit/records';
 import { IpcRenderer } from 'electron';
 
-import ColorModel from 'swach/data-models/color';
-import ColorUtils from 'swach/services/color-utils';
+import type ColorModel from 'swach/data-models/color';
+import type ColorUtils from 'swach/services/color-utils';
 import DataService from 'swach/services/data';
-import UndoManager from 'swach/services/undo-manager';
+import type UndoManager from 'swach/services/undo-manager';
 import { SettingsStorage, themes } from 'swach/storages/settings';
 
 export default class ApplicationController extends Controller {
-  @service colorUtils!: ColorUtils;
-  @service data!: DataService;
+  @service declare colorUtils: ColorUtils;
+  @service declare data: DataService;
   @service dataSchema!: RecordSchema;
   @service flashMessages!: FlashMessageService;
-  @service router!: Router;
-  @service session!: Session;
-  @service store!: Store;
-  @service undoManager!: UndoManager;
+  @service declare router: Router;
+  @service declare session: Session;
+  @service declare store: Store;
+  @service declare undoManager: UndoManager;
 
   @storageFor('settings') settings!: SettingsStorage;
 

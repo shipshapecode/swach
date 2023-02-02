@@ -1,37 +1,40 @@
 import { action } from '@ember/object';
-import Router from '@ember/routing/router-service';
+import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
 import fade from 'ember-animated/transitions/fade';
 import DragSortService from 'ember-drag-sort/services/drag-sort';
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 
 import { RecordSchema } from '@orbit/records';
 
-import ColorModel from 'swach/data-models/color';
-import PaletteModel from 'swach/data-models/palette';
-import ColorUtils from 'swach/services/color-utils';
-import UndoManager from 'swach/services/undo-manager';
+import type ColorModel from 'swach/data-models/color';
+import type PaletteModel from 'swach/data-models/palette';
+import type ColorUtils from 'swach/services/color-utils';
+import type UndoManager from 'swach/services/undo-manager';
 
-interface PaletteRowArgs {
-  moveColorsBetweenPalettes: ({
-    sourceArgs,
-    sourceList,
-    sourceIndex,
-    targetArgs,
-    targetList,
-    targetIndex
-  }: {
-    sourceArgs: { isColorHistory: boolean; parent: PaletteModel };
-    sourceList: ColorModel[];
-    sourceIndex: number;
-    targetArgs: { isColorHistory: boolean; parent: PaletteModel };
-    targetList: ColorModel[];
-    targetIndex: number;
-  }) => void;
-  palette: PaletteModel;
+interface PaletteRowSignature {
+  Element: HTMLDivElement;
+  Args: {
+    moveColorsBetweenPalettes: ({
+      sourceArgs,
+      sourceList,
+      sourceIndex,
+      targetArgs,
+      targetList,
+      targetIndex
+    }: {
+      sourceArgs: { isColorHistory: boolean; parent: PaletteModel };
+      sourceList: ColorModel[];
+      sourceIndex: number;
+      targetArgs: { isColorHistory: boolean; parent: PaletteModel };
+      targetList: ColorModel[];
+      targetIndex: number;
+    }) => void;
+    palette: PaletteModel;
+  };
 }
 
 class MenuOption {
@@ -104,20 +107,20 @@ class LockOption {
   }
 }
 
-export default class PaletteRowComponent extends Component<PaletteRowArgs> {
-  @service colorUtils!: ColorUtils;
+export default class PaletteRowComponent extends Component<PaletteRowSignature> {
+  @service declare colorUtils: ColorUtils;
   @service dataSchema!: RecordSchema;
   @service dragSort!: DragSortService;
-  @service router!: Router;
-  @service store!: Store;
-  @service undoManager!: UndoManager;
+  @service declare router: Router;
+  @service declare store: Store;
+  @service declare undoManager: UndoManager;
 
   menuItems: (MenuOption | FavoriteOption | LockOption)[] | null = null;
   fade = fade;
   nameInput!: HTMLElement;
   @tracked isEditing = false;
 
-  constructor(owner: unknown, args: PaletteRowArgs) {
+  constructor(owner: unknown, args: PaletteRowSignature['Args']) {
     super(owner, args);
 
     this.menuItems = [
@@ -300,5 +303,11 @@ export default class PaletteRowComponent extends Component<PaletteRowArgs> {
         (<HTMLInputElement>e.target).value
       )
     );
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    PaletteRow: typeof PaletteRowComponent;
   }
 }

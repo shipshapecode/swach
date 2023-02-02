@@ -3,12 +3,12 @@ import Service from '@ember/service';
 import { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
-import { Store } from 'ember-orbit/addon/index';
+import type { Store } from 'ember-orbit';
 
 import { ColorInput, TinyColor } from '@ctrl/tinycolor';
 import { IpcRenderer } from 'electron';
 
-import ColorModel from 'swach/data-models/color';
+import type ColorModel from 'swach/data-models/color';
 import { rgbaToHex } from 'swach/data-models/color';
 import NearestColor from 'swach/services/nearest-color';
 import { SettingsStorage } from 'swach/storages/settings';
@@ -29,7 +29,7 @@ export interface ColorPOJO {
 
 export default class ColorUtilsService extends Service {
   @service nearestColor!: NearestColor;
-  @service store!: Store;
+  @service declare store: Store;
 
   @storageFor('settings') settings!: SettingsStorage;
 

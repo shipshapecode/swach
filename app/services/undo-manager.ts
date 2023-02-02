@@ -1,14 +1,14 @@
 import Service from '@ember/service';
 import { service } from '@ember/service';
 
-import { Store } from 'ember-orbit/addon/index';
+import type { Store } from 'ember-orbit';
 
 import { IpcRenderer } from 'electron';
 
 import removeFromTo from 'swach/utils/remove-from-to';
 
 export default class UndoManager extends Service {
-  @service store!: Store;
+  @service declare store: Store;
 
   callback?: () => unknown;
   commands: {

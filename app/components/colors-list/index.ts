@@ -6,21 +6,23 @@ import Sprite from 'ember-animated/-private/sprite';
 import { easeOut } from 'ember-animated/easings/cosine';
 import move from 'ember-animated/motions/move';
 import { fadeOut } from 'ember-animated/motions/opacity';
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 
-import { RecordOperationTerm } from '@orbit/records';
+import type { RecordOperationTerm } from '@orbit/records';
 
-import ColorModel from 'swach/data-models/color';
-import PaletteModel from 'swach/data-models/palette';
-import UndoManager from 'swach/services/undo-manager';
+import type ColorModel from 'swach/data-models/color';
+import type PaletteModel from 'swach/data-models/palette';
+import type UndoManager from 'swach/services/undo-manager';
 
-interface ColorsListArgs {
-  palette: PaletteModel;
+interface ColorsListSignature {
+  Args: {
+    palette: PaletteModel;
+  };
 }
 
-export default class ColorsList extends Component<ColorsListArgs> {
-  @service store!: Store;
-  @service undoManager!: UndoManager;
+export default class ColorsListComponent extends Component<ColorsListSignature> {
+  @service declare store: Store;
+  @service declare undoManager: UndoManager;
 
   get sortedColors(): (ColorModel | undefined)[] | undefined {
     const { palette } = this.args;
@@ -94,5 +96,11 @@ export default class ColorsList extends Component<ColorsListArgs> {
         this.undoManager.setupUndoRedo();
       }
     }
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    ColorsList: typeof ColorsListComponent;
   }
 }

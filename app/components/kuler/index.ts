@@ -4,7 +4,7 @@ import { capitalize } from '@ember/string';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
@@ -33,13 +33,16 @@ class Palette {
   }
 }
 
-interface KulerArgs {
-  baseColor: any;
+interface KulerSignature {
+  Element: HTMLDivElement;
+  Args: {
+    baseColor: any;
+  };
 }
 
-export default class KulerComponent extends Component<KulerArgs> {
-  @service colorUtils!: ColorUtils;
-  @service store!: Store;
+export default class KulerComponent extends Component<KulerSignature> {
+  @service declare colorUtils: ColorUtils;
+  @service declare store: Store;
 
   _debouncedColorChange!: any;
   colorPicker!: iro.ColorPicker;
@@ -263,5 +266,11 @@ export default class KulerComponent extends Component<KulerArgs> {
 
       this.ipcRenderer.send('setTouchbar', itemsToShow);
     }
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    Kuler: typeof KulerComponent;
   }
 }

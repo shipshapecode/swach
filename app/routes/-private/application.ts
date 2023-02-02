@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import Router from '@ember/routing/router-service';
+import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 
 import Session from 'ember-simple-auth/services/session';

@@ -3,10 +3,10 @@ import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 import Session from 'ember-simple-auth/services/session';
 
-import ColorModel from 'swach/data-models/color';
+import type ColorModel from 'swach/data-models/color';
 import { SettingsStorage } from 'swach/storages/settings';
 
 export default class KulerRoute extends Route {

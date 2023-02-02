@@ -9,8 +9,8 @@ import {
   PublicRGBAHex,
   SelectedColorModel
 } from 'swach/components/rgb-input';
-import PaletteModel from 'swach/data-models/palette';
-import ColorUtils from 'swach/services/color-utils';
+import type PaletteModel from 'swach/data-models/palette';
+import type ColorUtils from 'swach/services/color-utils';
 
 interface EditSelectedColorSignature {
   Element: HTMLDivElement;

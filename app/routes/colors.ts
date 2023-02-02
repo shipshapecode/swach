@@ -3,10 +3,10 @@ import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 import Session from 'ember-simple-auth/services/session';
 
-import PaletteModel from 'swach/data-models/palette';
+import type PaletteModel from 'swach/data-models/palette';
 import { SettingsStorage } from 'swach/storages/settings';
 
 export default class ColorsRoute extends Route {

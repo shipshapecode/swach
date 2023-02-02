@@ -1,10 +1,10 @@
 import { action, set } from '@ember/object';
-import Router from '@ember/routing/router-service';
+import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
@@ -16,8 +16,8 @@ import {
   SelectedColorPOJO
 } from 'swach/components/rgb-input';
 import ColorModel, { rgbaToHex } from 'swach/data-models/color';
-import NearestColor from 'swach/services/nearest-color';
-import UndoManager from 'swach/services/undo-manager';
+import type NearestColor from 'swach/services/nearest-color';
+import type UndoManager from 'swach/services/undo-manager';
 
 interface ColorPickerSignature {
   Args: {

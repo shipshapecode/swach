@@ -1,7 +1,7 @@
 import { setupTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 
 import { Coordinator } from '@orbit/coordinator';
 import IndexedDBSource from '@orbit/indexeddb';

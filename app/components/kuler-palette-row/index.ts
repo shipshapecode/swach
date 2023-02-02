@@ -1,15 +1,15 @@
 import { action } from '@ember/object';
-import Router from '@ember/routing/router-service';
+import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 
 import fade from 'ember-animated/transitions/fade';
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 
-import ColorModel from 'swach/data-models/color';
-import PaletteModel from 'swach/data-models/palette';
-import ColorUtils from 'swach/services/color-utils';
-import UndoManager from 'swach/services/undo-manager';
+import type ColorModel from 'swach/data-models/color';
+import type PaletteModel from 'swach/data-models/palette';
+import type ColorUtils from 'swach/services/color-utils';
+import type UndoManager from 'swach/services/undo-manager';
 
 interface KulerPaletteRowSignature {
   Args: {

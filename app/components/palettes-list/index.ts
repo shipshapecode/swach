@@ -4,10 +4,10 @@ import Component from '@glimmer/component';
 
 import { LiveQuery, Store } from 'ember-orbit';
 
-import { RecordOperationTerm } from '@orbit/records';
+import type { RecordOperationTerm } from '@orbit/records';
 
-import PaletteModel from 'swach/data-models/palette';
-import UndoManager from 'swach/services/undo-manager';
+import type PaletteModel from 'swach/data-models/palette';
+import type UndoManager from 'swach/services/undo-manager';
 
 interface PalettesListSignature {
   Element: HTMLDivElement;

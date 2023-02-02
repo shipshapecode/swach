@@ -1,7 +1,7 @@
 import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 import Session from 'ember-simple-auth/services/session';
 
 import { Coordinator } from '@orbit/coordinator';

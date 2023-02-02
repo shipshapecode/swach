@@ -1,24 +1,24 @@
 import Controller, { inject as controller } from '@ember/controller';
 import { action } from '@ember/object';
-import Router from '@ember/routing/router-service';
+import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 
-import { RecordOperationTerm } from '@orbit/records';
+import type { RecordOperationTerm } from '@orbit/records';
 
-import ApplicationController from 'swach/controllers/application';
-import ColorModel from 'swach/data-models/color';
-import PaletteModel from 'swach/data-models/palette';
-import ColorUtils from 'swach/services/color-utils';
-import DataService from 'swach/services/data';
-import UndoManager from 'swach/services/undo-manager';
+import type ApplicationController from 'swach/controllers/application';
+import type ColorModel from 'swach/data-models/color';
+import type PaletteModel from 'swach/data-models/palette';
+import type ColorUtils from 'swach/services/color-utils';
+import type DataService from 'swach/services/data';
+import type UndoManager from 'swach/services/undo-manager';
 
 export default class PalettesController extends Controller {
   @controller application!: ApplicationController;
   @service declare colorUtils: ColorUtils;
-  @service data!: DataService;
+  @service declare data: DataService;
   @service declare router: Router;
   @service declare store: Store;
   @service declare undoManager: UndoManager;

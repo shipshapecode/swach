@@ -4,7 +4,7 @@ import { Model, attr, hasOne } from 'ember-orbit';
 
 import { TinyColor } from '@ctrl/tinycolor';
 
-import PaletteModel from 'swach/data-models/palette';
+import type PaletteModel from 'swach/data-models/palette';
 
 export default class ColorModel extends Model {
   @attr('datetime') createdAt!: string;

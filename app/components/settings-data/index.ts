@@ -5,7 +5,7 @@ import { tracked } from '@glimmer/tracking';
 
 import FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
-import { Store } from 'ember-orbit';
+import type { Store } from 'ember-orbit';
 
 import { Coordinator } from '@orbit/coordinator';
 import IndexedDBSource from '@orbit/indexeddb';

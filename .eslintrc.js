@@ -59,24 +59,17 @@ module.exports = {
       globals: {
         document: false
       },
-      plugins: ['node'],
-      extends: ['plugin:node/recommended'],
+      extends: ['plugin:n/recommended'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
         // this can be removed once the following is fixed
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
         'no-console': 'off',
-        'node/no-unpublished-require': 'off',
-        'node/no-extraneous-require': [
+        'n/no-unpublished-require': 'off',
+        'n/no-extraneous-require': [
           'error',
           {
             allowModules: ['ember-electron', 'electron']
-          }
-        ],
-        'node/no-missing-require': [
-          'error',
-          {
-            allowModules: ['electron', 'ember-electron', 'menubar']
           }
         ]
       }

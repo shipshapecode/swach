@@ -10,7 +10,7 @@ module('Integration | Component | contrast-checker', function (hooks) {
   setupRenderingTest(hooks);
 
   test('WCAG - Score and string calculated', async function (assert) {
-    await render(hbs`<ContrastChecker/>`);
+    await render(hbs`<ContrastChecker />`);
 
     await waitForAll();
 

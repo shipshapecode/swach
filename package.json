@@ -17,8 +17,8 @@
   "scripts": {
     "build": "ember build --environment=production",
     "install-deps": "cd electron-app && yarn install && cd ../ && yarn install",
-    "lint": "npm-run-all --aggregate-output --continue-on-error --parallel \"lint:!(fix)\"",
-    "lint:fix": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*:fix",
+    "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
+    "lint:fix": "concurrently \"npm:lint:*:fix\" --names \"fix:\"",
     "lint:hbs": "ember-template-lint .",
     "lint:hbs:fix": "ember-template-lint . --fix",
     "lint:js": "eslint . --cache",
@@ -26,7 +26,7 @@
     "make:snapcraft": "ember electron:build",
     "lint:js:fix": "eslint . --fix",
     "start": "ember serve",
-    "test": "npm-run-all lint test:*",
+    "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
     "test:electron": "ember electron:test",
     "test:ember": "ember test"
   },
@@ -42,7 +42,7 @@
     "@ember/optional-features": "^2.0.0",
     "@ember/render-modifiers": "^2.0.5",
     "@ember/string": "^3.0.1",
-    "@ember/test-helpers": "^2.9.1",
+    "@ember/test-helpers": "^2.9.3",
     "@embroider/compat": "^2.1.1",
     "@embroider/core": "^2.1.1",
     "@embroider/webpack": "^2.1.1",
@@ -72,11 +72,12 @@
     "babel-preset-env": "^1.7.0",
     "broccoli-asset-rev": "^3.0.0",
     "color-name-list": "^10.2.0",
+    "concurrently": "^7.6.0",
     "crypto-browserify": "^3.12.0",
     "ember-animated": "^0.12.0",
     "ember-auto-import": "^2.6.0",
     "ember-cache-primitive-polyfill": "^1.0.1",
-    "ember-cli": "~4.7.0",
+    "ember-cli": "~4.10.0",
     "ember-cli-app-version": "^5.0.0",
     "ember-cli-babel": "^7.26.11",
     "ember-cli-content-security-policy": "^2.0.3",
@@ -111,9 +112,9 @@
     "ember-set-helper": "^2.0.1",
     "ember-simple-auth": "^4.2.2",
     "ember-sinon-qunit": "^6.0.0",
-    "ember-source": "^4.9.3",
+    "ember-source": "^4.10.0",
     "ember-svg-jar": "^2.4.2",
-    "ember-template-lint": "^4.18.2",
+    "ember-template-lint": "^5.3.1",
     "ember-template-lint-plugin-prettier": "^4.1.0",
     "ember-test-selectors": "^6.0.0",
     "ember-tooltips": "^3.6.0",
@@ -121,13 +122,12 @@
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-ember": "^11.4.6",
-    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-n": "^15.6.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-qunit": "^7.3.4",
     "indexeddb-export-import": "^2.1.5",
     "loader.js": "^4.7.0",
     "nearest-color": "^0.4.4",
-    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.21",
     "postcss-scss": "^4.0.6",
     "prettier": "^2.8.3",
@@ -138,6 +138,7 @@
     "stream-browserify": "^3.0.0",
     "tailwindcss": "^3.2.4",
     "throttle-debounce": "^5.0.0",
+    "tracked-built-ins": "^3.1.0",
     "typescript": "^4.9.5",
     "wcag-contrast": "^3.0.0",
     "webpack": "^5.75.0"
@@ -149,7 +150,7 @@
     "ember-animated/ember-element-helper": "^0.6.1"
   },
   "engines": {
-    "node": ">= 16"
+    "node": "14.* || 16.* || >= 18"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"

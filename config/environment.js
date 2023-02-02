@@ -9,7 +9,8 @@ module.exports = function (environment) {
     rootURL: process.env.EMBER_CLI_ELECTRON ? '' : '/',
     locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'history',
     EmberENV: {
-      EXTEND_PROTOTYPES: false,
+      // TODO: we should set this to false and fix things
+      // EXTEND_PROTOTYPES: false,
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. EMBER_NATIVE_DECORATOR_SUPPORT: true

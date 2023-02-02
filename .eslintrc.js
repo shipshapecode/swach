@@ -71,7 +71,7 @@ module.exports = {
           {
             allowModules: ['ember-electron', 'electron']
           }
-        ],
+        ]
       }
     },
     // Typescript files

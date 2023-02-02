@@ -64,7 +64,8 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'off',
         // this can be removed once the following is fixed
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
-        'no-console': 'off'
+        'no-console': 'off',
+        'n/no-unpublished-require': 'off'
       }
     },
     // Typescript files

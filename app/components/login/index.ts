@@ -16,7 +16,7 @@ export default class LoginComponent extends Component {
 
   @storageFor('settings') settings!: SettingsStorage;
 
-  @tracked errorMessage = null;
+  @tracked errorMessage?: string;
   @tracked loading = false;
   @tracked password?: string;
   @tracked username?: string;

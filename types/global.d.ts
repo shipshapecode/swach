@@ -53,10 +53,52 @@ declare module '@glint/environment-ember-loose/registry' {
     }>;
     'did-insert': typeof DidInsertModifier;
     'did-update': typeof DidUpdateModifier;
+    EmberPopover: ComponentLike<{
+      Element: HTMLDivElement;
+      Args: {
+        Named: {
+          arrowClass: string;
+          event: string;
+          innerClass: string;
+          isShown: boolean;
+          side: string;
+          spacing: number;
+          tooltipClass: string;
+        };
+      };
+    }>;
     eq: typeof EqHelper;
+    'html-safe': HelperLike<{
+      Args: {
+        Positional: [string: string];
+      };
+      Return: string;
+    }>;
     'liquid-outlet': ComponentLike;
     not: typeof NotHelper;
     'not-eq': typeof NotEqHelper;
+    OneWayInputMask: ComponentLike<{
+      Element: HTMLInputElement;
+      Args: {
+        Named: {
+          mask: string;
+          options: {
+            greedy?: boolean;
+            isComplete: (buffer: Buffer, opts: { regex: string; }) => boolean;
+            max?: number;
+            min?: number;
+            oncomplete: (event: InputEvent) => void;
+            onincomplete: (event: InputEvent) => void;
+            regex: RegExp;
+            showMaskOnFocus: boolean;
+            showMaskOnHover: boolean;
+            unmaskAsNumber?: boolean;
+          };
+          update: (value: string | number) => void;
+          value?: string;
+        };
+      };
+    }>;
     'on-click-outside': typeof OnClickOutsideModifier;
     or: typeof OrHelper;
     'prevent-default': HelperLike<{

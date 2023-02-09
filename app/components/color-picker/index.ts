@@ -20,7 +20,9 @@ import type NearestColor from 'swach/services/nearest-color';
 import type UndoManager from 'swach/services/undo-manager';
 
 interface ColorPickerSignature {
+  Element: HTMLDivElement;
   Args: {
+    isShown: boolean;
     selectedColor: SelectedColorModel;
     saveColor: (hex: string) => Promise<ColorModel | undefined>;
     toggleIsShown: (color?: ColorModel) => void;

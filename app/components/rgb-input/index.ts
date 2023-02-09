@@ -29,7 +29,9 @@ interface RgbaInputSignature {
   Args: {
     selectedColor: ColorModel;
     type: 'r' | 'g' | 'b' | 'a';
+    update: (value: string | number) => void;
     updateColor: () => void;
+    value?: string;
   };
 }
 

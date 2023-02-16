@@ -39,7 +39,7 @@
     "@babel/preset-env": "^7.20.2",
     "@clark/eslint-config-ember-order-imports": "^2.2.0",
     "@csstools/postcss-sass": "^5.0.1",
-    "@ctrl/tinycolor": "^3.5.1",
+    "@ctrl/tinycolor": "^3.6.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/render-modifiers": "^2.0.5",
     "@ember/string": "^3.0.1",

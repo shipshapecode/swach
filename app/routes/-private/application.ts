@@ -4,16 +4,16 @@ import { service } from '@ember/service';
 
 import Session from 'ember-simple-auth/services/session';
 
-import { IpcRenderer } from 'electron';
+import type { IpcRenderer } from 'electron';
 
-import Data from 'swach/services/data';
+import type DataService from 'swach/services/data';
 
 export default class ApplicationRoute extends Route {
-  @service data!: Data;
+  @service declare data: DataService;
   @service declare router: Router;
   @service declare session: Session;
 
-  ipcRenderer!: IpcRenderer;
+  declare ipcRenderer: IpcRenderer;
 
   constructor() {
     super(...arguments);

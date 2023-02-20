@@ -8,7 +8,7 @@ import fade from 'ember-animated/transitions/fade';
 import DragSortService from 'ember-drag-sort/services/drag-sort';
 import type { Store } from 'ember-orbit';
 
-import { RecordSchema } from '@orbit/records';
+import type { RecordSchema } from '@orbit/records';
 
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
@@ -109,7 +109,7 @@ class LockOption {
 
 export default class PaletteRowComponent extends Component<PaletteRowSignature> {
   @service declare colorUtils: ColorUtils;
-  @service dataSchema!: RecordSchema;
+  @service declare dataSchema: RecordSchema;
   @service dragSort!: DragSortService;
   @service declare router: Router;
   @service declare store: Store;

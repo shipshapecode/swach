@@ -3,7 +3,7 @@ import { service } from '@ember/service';
 
 import type { Store } from 'ember-orbit';
 
-import { IpcRenderer } from 'electron';
+import type { IpcRenderer } from 'electron';
 
 import removeFromTo from 'swach/utils/remove-from-to';
 
@@ -16,7 +16,7 @@ export default class UndoManager extends Service {
     redo: () => Promise<void>;
   }[] = [];
   index = -1;
-  ipcRenderer!: IpcRenderer;
+  declare ipcRenderer: IpcRenderer;
   isExecuting = false;
   limit = 0;
   undoListener?: (e: KeyboardEvent) => unknown;

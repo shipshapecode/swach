@@ -113,6 +113,12 @@ declare module '@glint/environment-ember-loose/registry' {
       };
       Return: any;
     }>;
+    'set-body-class': HelperLike<{
+      Args: {
+        Positional: [className: string];
+      };
+      Return: any;
+    }>;
     'stop-propagation': HelperLike<{
       Args: {
         Positional: [eventHandler: (event: Event) => any];

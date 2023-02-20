@@ -20,7 +20,7 @@ interface KulerPaletteRowSignature {
 
 export default class KulerPaletteRowComponent extends Component<KulerPaletteRowSignature> {
   @service declare colorUtils: ColorUtils;
-  @service('-ea-motion') eaMotion!: any;
+  @service('-ea-motion') declare eaMotion: any;
   @service declare router: Router;
   @service declare store: Store;
   @service declare undoManager: UndoManager;

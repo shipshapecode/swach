@@ -17,6 +17,7 @@ import type UndoManager from 'swach/services/undo-manager';
 interface ColorsListSignature {
   Args: {
     palette: PaletteModel;
+    toggleColorPickerIsShown: (color?: ColorModel) => void;
   };
 }
 

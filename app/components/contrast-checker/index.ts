@@ -3,10 +3,18 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
 import iro from '@jaames/iro';
+import type { IpcRenderer } from 'electron';
 import { hex, score } from 'wcag-contrast';
-export default class ContrastChecker extends Component {
+
+interface ContrastCheckerSignature {
+  Element: HTMLDivElement;
+}
+
+export default class ContrastChecker extends Component<ContrastCheckerSignature> {
   @tracked backgroundColor = '#ffffff';
   @tracked foregroundColor = '#000000';
+
+  declare ipcRenderer: IpcRenderer;
 
   get wcagScore() {
     return hex(this.backgroundColor, this.foregroundColor).toFixed(2);
@@ -16,11 +24,11 @@ export default class ContrastChecker extends Component {
     return score(this.wcagScore);
   }
 
-  constructor() {
-    super(...arguments);
+  constructor(owner: unknown, args: object) {
+    super(owner, args);
 
     if (typeof requireNode !== 'undefined') {
-      let { ipcRenderer } = requireNode('electron');
+      const { ipcRenderer } = requireNode('electron');
       this.ipcRenderer = ipcRenderer;
 
       this.ipcRenderer.on('pickContrastBgColor', async (event, color) => {
@@ -146,5 +154,11 @@ export default class ContrastChecker extends Component {
     } catch (err) {
       // TODO: maybe mention the color is invalid here?
     }
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    ContrastChecker: typeof ContrastChecker;
   }
 }

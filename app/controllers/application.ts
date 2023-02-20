@@ -9,19 +9,19 @@ import { storageFor } from 'ember-local-storage';
 import type { Store } from 'ember-orbit';
 import Session from 'ember-simple-auth/services/session';
 
-import { RecordSchema } from '@orbit/records';
-import { IpcRenderer } from 'electron';
+import type { RecordSchema } from '@orbit/records';
+import type { IpcRenderer } from 'electron';
 
 import type ColorModel from 'swach/data-models/color';
 import type ColorUtils from 'swach/services/color-utils';
-import DataService from 'swach/services/data';
+import type DataService from 'swach/services/data';
 import type UndoManager from 'swach/services/undo-manager';
 import { SettingsStorage, themes } from 'swach/storages/settings';
 
 export default class ApplicationController extends Controller {
   @service declare colorUtils: ColorUtils;
   @service declare data: DataService;
-  @service dataSchema!: RecordSchema;
+  @service declare dataSchema: RecordSchema;
   @service flashMessages!: FlashMessageService;
   @service declare router: Router;
   @service declare session: Session;
@@ -30,7 +30,7 @@ export default class ApplicationController extends Controller {
 
   @storageFor('settings') settings!: SettingsStorage;
 
-  ipcRenderer!: IpcRenderer;
+  declare ipcRenderer: IpcRenderer;
 
   @tracked colorPickerColor?: ColorModel;
   @tracked colorPickerIsShown = false;

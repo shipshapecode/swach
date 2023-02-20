@@ -10,7 +10,7 @@ import type { Store } from 'ember-orbit';
 import { Coordinator } from '@orbit/coordinator';
 import IndexedDBSource from '@orbit/indexeddb';
 import { InitializedRecord } from '@orbit/records';
-import { IpcRenderer } from 'electron';
+import type { IpcRenderer } from 'electron';
 import IDBExportImport from 'indexeddb-export-import';
 
 import { SettingsStorage } from 'swach/storages/settings';
@@ -23,7 +23,7 @@ export default class SettingsDataComponent extends Component {
 
   @storageFor('settings') settings!: SettingsStorage;
 
-  ipcRenderer!: IpcRenderer;
+  declare ipcRenderer: IpcRenderer;
 
   colorFormats = ['hex', 'hsl', 'rgba'];
   @tracked isExporting = false;

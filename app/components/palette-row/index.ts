@@ -5,7 +5,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
 import fade from 'ember-animated/transitions/fade';
-import DragSortService from 'ember-drag-sort/services/drag-sort';
+import type DragSortService from 'ember-drag-sort/services/drag-sort';
 import type { Store } from 'ember-orbit';
 
 import type { RecordSchema } from '@orbit/records';
@@ -110,7 +110,7 @@ class LockOption {
 export default class PaletteRowComponent extends Component<PaletteRowSignature> {
   @service declare colorUtils: ColorUtils;
   @service declare dataSchema: RecordSchema;
-  @service dragSort!: DragSortService;
+  @service declare dragSort: DragSortService;
   @service declare router: Router;
   @service declare store: Store;
   @service declare undoManager: UndoManager;

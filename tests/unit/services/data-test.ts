@@ -23,9 +23,9 @@ module('Unit | Service | data', function (hooks) {
     dataService = this.owner.lookup('service:data') as DataService;
     dataCoordinator = this.owner.lookup(
       'service:dataCoordinator'
-    ) as Coordinator;
+    ) as unknown as Coordinator;
     backup = dataCoordinator.getSource<IndexedDBSource>('backup');
-    store = this.owner.lookup('service:store') as Store;
+    store = this.owner.lookup('service:store') as unknown as Store;
   });
 
   module('activate', function (hooks) {

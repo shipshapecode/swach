@@ -3,8 +3,8 @@ import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
-import { LiveQuery, Store } from 'ember-orbit';
-import Session from 'ember-simple-auth/services/session';
+import type { LiveQuery, Store } from 'ember-orbit';
+import type Session from 'ember-simple-auth/services/session';
 
 import { SettingsStorage } from 'swach/storages/settings';
 

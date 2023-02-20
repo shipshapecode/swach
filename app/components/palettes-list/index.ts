@@ -6,6 +6,7 @@ import { LiveQuery, Store } from 'ember-orbit';
 
 import type { RecordOperationTerm } from '@orbit/records';
 
+import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type UndoManager from 'swach/services/undo-manager';
 
@@ -13,6 +14,21 @@ interface PalettesListSignature {
   Element: HTMLDivElement;
   Args: {
     palettes: LiveQuery;
+    moveColorsBetweenPalettes: ({
+      sourceArgs,
+      sourceList,
+      sourceIndex,
+      targetArgs,
+      targetList,
+      targetIndex
+    }: {
+      sourceArgs: { isColorHistory: boolean; parent: PaletteModel };
+      sourceList: ColorModel[];
+      sourceIndex: number;
+      targetArgs: { isColorHistory: boolean; parent: PaletteModel };
+      targetList: ColorModel[];
+      targetIndex: number;
+    }) => Promise<void>;
     showFavorites: boolean;
   };
 }

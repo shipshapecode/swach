@@ -15,6 +15,7 @@ interface ColorRowSignature {
     deleteColor: (color: ColorModel) => void;
     palette: PaletteModel;
     showActions: boolean;
+    toggleColorPickerIsShown: (color?: ColorModel) => void;
   };
 }
 

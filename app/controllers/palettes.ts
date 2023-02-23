@@ -4,7 +4,7 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-import type { Store } from 'ember-orbit';
+import type { LiveQuery, Store } from 'ember-orbit';
 
 import type { RecordOperationTerm } from '@orbit/records';
 
@@ -22,6 +22,8 @@ export default class PalettesController extends Controller {
   @service declare router: Router;
   @service declare store: Store;
   @service declare undoManager: UndoManager;
+
+  declare model: LiveQuery;
 
   @tracked showFavorites = false;
 

@@ -7,10 +7,10 @@
 </LinkTo>
 
 <div class="font-bold py-2 text-main-text text-xl">
-  {{if this.model.isColorHistory "Color History" this.model.name}}
+  {{if @model.isColorHistory "Color History" @model.name}}
 </div>
 
 <ColorsList
-  @palette={{this.model}}
+  @palette={{@model}}
   @toggleColorPickerIsShown={{this.application.toggleColorPickerIsShown}}
 />

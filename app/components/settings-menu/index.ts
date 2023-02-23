@@ -4,7 +4,7 @@ import { tracked } from '@glimmer/tracking';
 
 import { storageFor } from 'ember-local-storage';
 
-import { IpcRenderer } from 'electron';
+import type { IpcRenderer } from 'electron';
 
 import { SettingsStorage, themes } from 'swach/storages/settings';
 interface SettingsMenuSignature {
@@ -19,7 +19,7 @@ interface SettingsMenuSignature {
 export default class SettingsMenu extends Component<SettingsMenuSignature> {
   @storageFor('settings') settings!: SettingsStorage;
 
-  ipcRenderer!: IpcRenderer;
+  declare ipcRenderer: IpcRenderer;
   themes = ['light', 'dark', 'dynamic'];
 
   @tracked platform?: string;
@@ -48,5 +48,11 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
   @action
   changeTheme(theme: themes): void {
     this.settings.set('userTheme', theme);
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    SettingsMenu: typeof SettingsMenu;
   }
 }

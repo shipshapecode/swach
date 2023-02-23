@@ -7,23 +7,23 @@ import FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
 import type { Store } from 'ember-orbit';
 
-import { Coordinator } from '@orbit/coordinator';
-import IndexedDBSource from '@orbit/indexeddb';
-import { InitializedRecord } from '@orbit/records';
-import { IpcRenderer } from 'electron';
+import type { Coordinator } from '@orbit/coordinator';
+import type IndexedDBSource from '@orbit/indexeddb';
+import type { InitializedRecord } from '@orbit/records';
+import type { IpcRenderer } from 'electron';
 import IDBExportImport from 'indexeddb-export-import';
 
 import { SettingsStorage } from 'swach/storages/settings';
 import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
 
 export default class SettingsDataComponent extends Component {
-  @service dataCoordinator!: Coordinator;
+  @service declare dataCoordinator: Coordinator;
   @service flashMessages!: FlashMessageService;
   @service declare store: Store;
 
   @storageFor('settings') settings!: SettingsStorage;
 
-  ipcRenderer!: IpcRenderer;
+  declare ipcRenderer: IpcRenderer;
 
   colorFormats = ['hex', 'hsl', 'rgba'];
   @tracked isExporting = false;

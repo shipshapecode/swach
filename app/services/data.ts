@@ -4,10 +4,10 @@ import { tracked } from '@glimmer/tracking';
 import type { Store } from 'ember-orbit';
 import Session from 'ember-simple-auth/services/session';
 
-import { Coordinator } from '@orbit/coordinator';
-import IndexedDBSource from '@orbit/indexeddb';
-import JSONAPISource from '@orbit/jsonapi';
-import { InitializedRecord, RecordIdentity } from '@orbit/records';
+import type { Coordinator } from '@orbit/coordinator';
+import type IndexedDBSource from '@orbit/indexeddb';
+import type JSONAPISource from '@orbit/jsonapi';
+import type { InitializedRecord, RecordIdentity } from '@orbit/records';
 
 import Palette from 'swach/data-models/palette';
 

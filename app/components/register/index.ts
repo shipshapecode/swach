@@ -10,7 +10,7 @@ export default class RegisterComponent extends Component {
   @service declare cognito: CognitoService;
   @service declare router: Router;
 
-  @tracked errorMessage = null;
+  @tracked errorMessage?: string;
   @tracked password?: string;
   @tracked username?: string;
 

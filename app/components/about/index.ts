@@ -2,14 +2,14 @@ import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-import { IpcRenderer } from 'electron';
+import type { IpcRenderer } from 'electron';
 
 interface AboutSignature {
   Element: HTMLDivElement;
 }
 
 export default class AboutComponent extends Component<AboutSignature> {
-  ipcRenderer!: IpcRenderer;
+  declare ipcRenderer: IpcRenderer;
 
   copyrightYear = new Date().getFullYear();
   @tracked version = 'Version not available';

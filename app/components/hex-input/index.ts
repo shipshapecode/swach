@@ -10,7 +10,9 @@ interface HexInputSignature {
   Element: HTMLInputElement;
   Args: {
     selectedColor: SelectedColorModel;
+    update: (value: string | number) => void;
     updateColor: () => void;
+    value?: string;
   };
 }
 

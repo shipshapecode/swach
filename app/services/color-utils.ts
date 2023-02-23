@@ -6,7 +6,7 @@ import { storageFor } from 'ember-local-storage';
 import type { Store } from 'ember-orbit';
 
 import { ColorInput, TinyColor } from '@ctrl/tinycolor';
-import { IpcRenderer } from 'electron';
+import type { IpcRenderer } from 'electron';
 
 import type ColorModel from 'swach/data-models/color';
 import { rgbaToHex } from 'swach/data-models/color';
@@ -33,7 +33,7 @@ export default class ColorUtilsService extends Service {
 
   @storageFor('settings') settings!: SettingsStorage;
 
-  ipcRenderer!: IpcRenderer;
+  declare ipcRenderer: IpcRenderer;
 
   constructor() {
     super(...arguments);

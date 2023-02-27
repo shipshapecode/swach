@@ -109,7 +109,7 @@
     "ember-local-storage": "^2.0.4",
     "ember-math-helpers": "^3.0.0",
     "ember-orbit": "^0.17.3",
-    "ember-qunit": "^6.1.1",
+    "ember-qunit": "^6.2.0",
     "ember-resolver": "^10.0.0",
     "ember-set-body-class": "^1.0.2",
     "ember-set-helper": "^2.0.1",

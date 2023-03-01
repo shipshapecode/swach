@@ -1872,7 +1872,7 @@
     ember-cli-version-checker "^5.1.2"
     semver "^7.3.5"
 
-"@embroider/addon-shim@^1.8.3", "@embroider/addon-shim@^1.8.4":
+"@embroider/addon-shim@^1.0.0", "@embroider/addon-shim@^1.8.3", "@embroider/addon-shim@^1.8.4":
   version "1.8.4"
   resolved "https://registry.yarnpkg.com/@embroider/addon-shim/-/addon-shim-1.8.4.tgz#0e7f32c5506bf0f3eb0840506e31c36c7053763c"
   integrity sha512-sFhfWC0vI18KxVenmswQ/ShIvBg4juL8ubI+Q3NTSdkCTeaPQ/DIOUF6oR5DCQ8eO/TkIaw+kdG3FkTY6yNJqA==
@@ -7530,13 +7530,12 @@ ember-cli@~4.10.0:
     workerpool "^6.2.1"
     yam "^1.0.0"
 
-ember-click-outside@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/ember-click-outside/-/ember-click-outside-5.0.1.tgz#e7df866cf03d940c73741effa0766e175213c7e3"
-  integrity sha512-RilHTCQvD/5d9pZf6H7MbmBWlVl68nhvn1BPLtfpt9iCNyhtnh5SgwIWGHkJRuTz+DooN6hqTe4Wmq8Zk6kYDw==
+ember-click-outside@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/ember-click-outside/-/ember-click-outside-6.0.0.tgz#1bad7a02ac6d153c3e425d797f32de38ef0cd3e0"
+  integrity sha512-YR5rdSuiJ1XI0pI+WfBN/kRxs3cGvn+O2/iVf3d2Q0vgH2xEJTULc7mwR1ODrXb+W5GcZH1xJoPg+tSyr/TGIw==
   dependencies:
-    ember-cli-babel "^7.26.6"
-    ember-cli-htmlbars "^5.7.1"
+    "@embroider/addon-shim" "^1.0.0"
     ember-modifier "^3.2.0"
 
 ember-cognito@^1.0.0:

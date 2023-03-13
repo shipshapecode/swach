@@ -7363,7 +7363,7 @@ ember-cli-typescript@^4.1.0, ember-cli-typescript@^4.2.1:
     stagehand "^1.0.0"
     walk-sync "^2.2.0"
 
-ember-cli-typescript@^5.1.0, ember-cli-typescript@^5.1.1:
+ember-cli-typescript@^5.1.0, ember-cli-typescript@^5.1.1, ember-cli-typescript@^5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/ember-cli-typescript/-/ember-cli-typescript-5.2.1.tgz#553030f1ce3e8958b8e4fc34909acd1218cb35f2"
   integrity sha512-qqp5TAIuPHxHiGXJKL+78Euyhy0zSKQMovPh8sJpN/ZBYx0H90pONufHR3anaMcp1snVfx4B+mb9+7ijOik8ZA==
@@ -7842,14 +7842,16 @@ ember-simple-auth@^4.2.2:
     ember-cookies "^0.5.0"
     silent-error "^1.0.0"
 
-ember-sinon-qunit@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/ember-sinon-qunit/-/ember-sinon-qunit-7.0.0.tgz#39ff5ff86e734897761a4f80f15e57014268b148"
-  integrity sha512-w4PnPxpp7WzddAswtACUlHdKxQKBvRDC8+Vzw91P3It4QaKthceIsv7QiNQCkC3BqtTrCV8QNsuPik1zOXa+fw==
+ember-sinon-qunit@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/ember-sinon-qunit/-/ember-sinon-qunit-7.1.1.tgz#433318f1686c862e76bacb02b36266be5864ed46"
+  integrity sha512-e3jvPDWkL5/fBSgKetsG2t/03txsbweGGZkzQnKgPwxtm1aUV57AOkMM+RrxcdsKDzoV0PGsV79X8q9Ia0xM6Q==
   dependencies:
+    "@types/sinon" "^10.0.13"
     broccoli-funnel "^3.0.8"
-    ember-auto-import "^2.5.0"
+    ember-auto-import "^2.6.1"
     ember-cli-babel "^7.26.11"
+    ember-cli-typescript "^5.2.1"
 
 ember-source-channel-url@^3.0.0:
   version "3.0.0"

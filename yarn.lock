@@ -7861,10 +7861,10 @@ ember-simple-auth@^4.2.2:
     ember-cookies "^0.5.0"
     silent-error "^1.0.0"
 
-ember-sinon-qunit@^7.1.1:
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/ember-sinon-qunit/-/ember-sinon-qunit-7.1.1.tgz#433318f1686c862e76bacb02b36266be5864ed46"
-  integrity sha512-e3jvPDWkL5/fBSgKetsG2t/03txsbweGGZkzQnKgPwxtm1aUV57AOkMM+RrxcdsKDzoV0PGsV79X8q9Ia0xM6Q==
+ember-sinon-qunit@^7.1.3:
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/ember-sinon-qunit/-/ember-sinon-qunit-7.1.3.tgz#0a956ff44975dd2cc1b717d9c1b66a100ba85500"
+  integrity sha512-COp44a3KYWq3GaDGZPnyXg0LDurBPlvCQiLV9v3wX+E1UV0FJ5CyIcdlxe11kLPNG5K4jrC5XUuhhTJ+EefZig==
   dependencies:
     "@types/sinon" "^10.0.13"
     broccoli-funnel "^3.0.8"

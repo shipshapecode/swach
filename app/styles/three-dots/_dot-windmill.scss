@@ -1,4 +1,5 @@
-@use 'sass:math';
+@use "sass:math";
+
 /**
  * ==============================================
  * Dot Windmill
@@ -20,7 +21,7 @@ $origin-y: 5px + $r;
 
   &::before,
   &::after {
-    content: '';
+    content: "";
     display: inline-block;
     position: absolute;
   }

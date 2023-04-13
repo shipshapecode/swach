@@ -9,7 +9,7 @@ body.light {
   --btn-bg-primary-hover: #383069;
   --btn-bg-secondary: #cfd3df;
   --btn-bg-secondary-hover: #e4e8f2;
-  --btn-text-primary: #ffffff;
+  --btn-text-primary: #fff;
   --btn-text-secondary: #505768;
   --checkbox: #1f1b3b;
   --disabled-color: #a4acc6;
@@ -18,7 +18,7 @@ body.light {
   --input-bg: #f1f2f5;
   --input-border: #e7e7ed;
   --main-color: #e7e7ed;
-  --menu-color: #ffffff;
+  --menu-color: #fff;
   --menu-text-color: #697088;
   --menu-text-hover-color: #363a48;
   --main-text: #363a48;
@@ -28,7 +28,7 @@ body.light {
 body.dark {
   --alt-color: #7a7ca5;
   --alt-hover-color: #a4a7d9;
-  --btn-bg-primary: #ffffff;
+  --btn-bg-primary: #fff;
   --btn-bg-primary-hover: #f2f4fb;
   --btn-bg-secondary: #383a55;
   --btn-bg-secondary-hover: #4b4d72;
@@ -36,14 +36,14 @@ body.dark {
   --btn-text-secondary: #d8dff4;
   --checkbox: #383a55;
   --disabled-color: #5e6078;
-  --drop-icon: #ffffff;
+  --drop-icon: #fff;
   --heading-color: #a9acd3;
   --input-bg: #0e0f1f;
-  --input-border: #000000;
+  --input-border: #000;
   --main-color: #0e0f1f;
   --menu-color: #222336;
   --menu-text-color: #a9acd3;
-  --menu-text-hover-color: #ffffff;
-  --main-text: #ffffff;
+  --menu-text-hover-color: #fff;
+  --main-text: #fff;
   --sub-text: #9ca2b1;
 }

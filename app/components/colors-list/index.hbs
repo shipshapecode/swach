@@ -1,8 +1,6 @@
 <AnimatedContainer class="colors-list">
   {{#animated-each
-    this.sortedColors
-    duration=400
-    use=this.transition
+    this.sortedColors duration=400 use=this.transition
     as |color|
   }}
     {{! TODO: remove this disconnected check when caching is fixed in ember-orbit }}

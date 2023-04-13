@@ -1,4 +1,5 @@
-@use 'sass:math';
+@use "sass:math";
+
 /**
  * ==============================================
  * Dot Fire
@@ -19,11 +20,11 @@ $y3: 1.5 * $dot-spacing;
 
   box-shadow: $x1 $y3 0 -5px $dot-color;
   animation: dot-fire 1.5s infinite linear;
-  animation-delay: -.85s;
+  animation-delay: -0.85s;
 
   &::before,
   &::after {
-    content: '';
+    content: "";
     display: inline-block;
     position: absolute;
     top: 0;

@@ -9,9 +9,9 @@ module.exports = {
     requireConfigFile: false,
     babelOptions: {
       plugins: [
-        ['@babel/plugin-proposal-decorators', { decoratorsBeforeExport: true }],
-      ],
-    },
+        ['@babel/plugin-proposal-decorators', { decoratorsBeforeExport: true }]
+      ]
+    }
   },
   plugins: ['ember'],
   extends: [
@@ -74,6 +74,12 @@ module.exports = {
           'error',
           {
             allowModules: ['ember-electron', 'electron']
+          }
+        ],
+        'n/no-missing-require': [
+          'error',
+          {
+            allowModules: ['electron']
           }
         ]
       }

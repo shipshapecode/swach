@@ -1,7 +1,10 @@
+/* stylelint-disable no-descending-specificity */
+
 svg {
   &.drop-icon {
     path {
       fill: var(--drop-icon) !important;
+
       @apply transition-colors;
     }
   }
@@ -10,6 +13,7 @@ svg {
     g,
     path {
       fill: var(--alt-color) !important;
+
       @apply transition-colors;
     }
 
@@ -24,6 +28,7 @@ svg {
   &.stroke-icon {
     path {
       stroke: var(--alt-color) !important;
+
       @apply transition-colors;
     }
 
@@ -37,6 +42,7 @@ svg {
   &.menu-icon {
     path {
       fill: var(--menu-text-color) !important;
+
       @apply transition-colors;
     }
   }
@@ -44,6 +50,7 @@ svg {
   &.stroke-menu-icon {
     path {
       stroke: var(--menu-text-color) !important;
+
       @apply transition-colors;
     }
 
@@ -61,6 +68,7 @@ button {
     &.filled {
       path {
         fill: var(--alt-color) !important;
+
         @apply transition-colors;
       }
     }
@@ -75,6 +83,7 @@ button {
       &.filled {
         path {
           fill: var(--alt-hover-color) !important;
+
           @apply transition-colors;
         }
       }
@@ -88,6 +97,7 @@ button {
       &.filled {
         path {
           fill: var(--menu-text-hover-color) !important;
+
           @apply transition-colors;
         }
       }
@@ -112,6 +122,7 @@ button {
       &.filled {
         path {
           fill: var(--disabled-color) !important;
+
           @apply transition-colors;
         }
       }

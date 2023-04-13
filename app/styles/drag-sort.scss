@@ -1,20 +1,22 @@
-.dragSortList.-isExpanded.-isDraggingOver:before,
-.dragSortItem.-placeholderBefore:before,
-.dragSortItem.-placeholderAfter:before {
-  content: '';
+/* stylelint-disable selector-class-pattern */
+.dragSortList.-isExpanded.-isDraggingOver::before,
+.dragSortItem.-placeholderBefore::before,
+.dragSortItem.-placeholderAfter::before {
+  content: "";
   display: inline-block;
   height: 100%;
   width: 5px;
 }
 
-.dragSortItem.-placeholderBefore:before {
+.dragSortItem.-placeholderBefore::before {
   border-left: 5px solid var(--dragged-swatch-color);
 }
 
-.dragSortItem.-placeholderAfter:before {
+.dragSortItem.-placeholderAfter::before {
   border-right: 5px solid var(--dragged-swatch-color);
 }
 
+/* stylelint-disable no-descending-specificity */
 .dragSortList.-horizontal .dragSortItem.-placeholderBefore,
 .dragSortList.-horizontal.-rtl .dragSortItem.-placeholderAfter {
   padding: 0 0 0 5px;
@@ -24,6 +26,7 @@
 .dragSortList.-horizontal.-rtl .dragSortItem.-placeholderBefore {
   padding: 0 5px 0 0;
 }
+/* stylelint-enable no-descending-specificity */
 
 .color-history-list {
   &.dragSortList {
@@ -35,8 +38,8 @@
     padding-top: 0;
   }
 
-  .dragSortItem.-placeholderBefore:before,
-  .dragSortItem.-placeholderAfter:before {
+  .dragSortItem.-placeholderBefore::before,
+  .dragSortItem.-placeholderAfter::before {
     display: none;
     padding-top: 0;
   }

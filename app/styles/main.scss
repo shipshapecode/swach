@@ -1,17 +1,15 @@
 html,
 body {
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   height: 100%;
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, sans-serif;
   width: 100%;
 }
 
 * {
   -ms-overflow-style: none;
-  
   user-select: none;
 
   &::-webkit-scrollbar {
@@ -47,9 +45,10 @@ button {
 }
 
 .color-picker-popover.ember-popover {
-  transform: translate3d(0px, 34px, 0px) !important;
+  transform: translate3d(0, 34px, 0) !important;
 }
 
+/* stylelint-disable selector-class-pattern */
 .dragSortItem {
   @apply leading-none;
 }
@@ -62,10 +61,11 @@ button {
     }
   }
 }
+/* stylelint-enable selector-class-pattern */
 
 .selected-color {
-  &:after {
-    content: ''; /* Required to display content */
+  &::after {
+    content: ""; /* Required to display content */
     position: absolute; /* Sets the position absolute to the top div */
     bottom: 0;
     left: 50%;
@@ -80,16 +80,18 @@ button {
 }
 
 .kuler-color-picker-container {
+  /* stylelint-disable selector-class-pattern */
   .IroWheel .IroHandle--isActive circle,
   .IroBox .IroHandle--isActive circle {
     transform: scale(1.75);
   }
+  /* stylelint-enable selector-class-pattern */
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
 }
 
 button:disabled * {

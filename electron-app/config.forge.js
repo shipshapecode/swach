@@ -4,11 +4,10 @@ module.exports = {
     darwinDarkModeSupport: 'true',
     icon: 'electron-app/resources/icon',
     name: 'Swach',
-    packageManager: 'yarn',
+    packageManager: 'pnpm',
     ignore: [
       '/.gitignore',
       '/electron-forge-config.js',
-      '/yarn.lock',
       '/ember-test(/|$)',
       '/tests(/|$)',
       '\\.map$',

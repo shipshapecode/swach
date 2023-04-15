@@ -44,7 +44,7 @@ export default {
        * Ensure that remote transforms are sync'd with the store before
        * remote requests resolve.
        */
-      blocking: true
+      blocking: true,
     });
-  }
+  },
 };

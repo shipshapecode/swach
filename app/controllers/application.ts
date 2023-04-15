@@ -174,8 +174,8 @@ export default class ApplicationController extends Controller {
         t.addRecord(colorPOJO),
         t.addToRelatedRecords(colorHistory, 'colors', {
           type: 'color',
-          id: String(colorPOJO.id)
-        })
+          id: String(colorPOJO.id),
+        }),
       ]);
 
       this.undoManager.setupUndoRedo();
@@ -220,8 +220,8 @@ export default class ApplicationController extends Controller {
         index: 0,
         isColorHistory: false,
         isFavorite: false,
-        isLocked: false
-      })
+        isLocked: false,
+      }),
     ]);
 
     this.undoManager.setupUndoRedo();

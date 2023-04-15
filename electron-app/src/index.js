@@ -14,7 +14,7 @@ const { setupEventHandlers } = require('./ipc-events');
 const {
   registerKeyboardShortcuts,
   setupContextMenu,
-  setupMenu
+  setupMenu,
 } = require('./shortcuts');
 
 const emberAppDir = resolve(__dirname, '..', 'ember-dist');
@@ -27,14 +27,14 @@ if (isDev) {
 Sentry.init({
   appName: 'swach',
   dsn: 'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140',
-  release: `v${require('../package').version}`
+  release: `v${require('../package').version}`,
 });
 
 const store = new Store({
   defaults: {
     firstRunV1: true,
-    showDockIcon: false
-  }
+    showDockIcon: false,
+  },
 });
 
 let emberAppURL = pathToFileURL(join(emberAppDir, 'index.html')).toString();
@@ -71,13 +71,13 @@ const mb = menubar({
       contextIsolation: false,
       devTools: isDev,
       preload: join(__dirname, 'preload.js'),
-      nodeIntegration: true
-    }
+      nodeIntegration: true,
+    },
   },
   icon: join(__dirname || resolve(dirname('')), '..', menubarIcon),
   preloadWindow: true,
   showDockIcon: store.get('showDockIcon'),
-  showOnAllWorkspaces: false
+  showOnAllWorkspaces: false,
 });
 
 mb.app.allowRendererProcessReuse = true;
@@ -107,7 +107,7 @@ if (isDev && process.platform === 'win32') {
   // These two additional parameters are only available on windows.
   // Setting this is required to get this working in dev mode.
   mb.app.setAsDefaultProtocolClient('swach', process.execPath, [
-    resolve(process.argv[1])
+    resolve(process.argv[1]),
   ]);
 } else {
   mb.app.setAsDefaultProtocolClient('swach');
@@ -221,7 +221,7 @@ mb.on('ready', async () => {
     if (!isDev) {
       if (process.platform === 'darwin') {
         mb.app.setLoginItemSettings({
-          openAtLogin
+          openAtLogin,
         });
       }
 
@@ -237,8 +237,8 @@ mb.on('ready', async () => {
             '--processStart',
             `"${exeName}"`,
             '--process-start-args',
-            `"--hidden"`
-          ]
+            `"--hidden"`,
+          ],
         });
       }
     }

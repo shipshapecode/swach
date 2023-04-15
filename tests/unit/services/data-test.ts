@@ -116,7 +116,7 @@ module('Unit | Service | data', function (hooks) {
           isColorHistory: true,
           isFavorite: false,
           isLocked: false,
-          selectedColorIndex: 0
+          selectedColorIndex: 0,
         });
       };
 

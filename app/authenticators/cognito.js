@@ -10,7 +10,7 @@ export default class CognitoAuthenticatorExtended extends CognitoAuthenticator {
       poolId: user.pool.getUserPoolId(),
       clientId: user.pool.getClientId(),
       sessionCredentials: credentials,
-      access_token: session.getIdToken().getJwtToken()
+      access_token: session.getIdToken().getJwtToken(),
     };
   }
 

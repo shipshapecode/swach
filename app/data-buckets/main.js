@@ -5,5 +5,5 @@ export default {
     injections.name = 'main';
     injections.namespace = 'swach-main';
     return new BucketClass(injections);
-  }
+  },
 };

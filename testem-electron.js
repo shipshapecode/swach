@@ -2,7 +2,7 @@ module.exports = {
   test_page: 'tests/index.html?hidepassed',
   disable_watching: true,
   launchers: {
-    Electron: require('ember-electron/lib/test-runner')
+    Electron: require('ember-electron/lib/test-runner'),
   },
   launch_in_ci: ['Electron'],
   launch_in_dev: ['Electron'],
@@ -19,8 +19,8 @@ module.exports = {
         '--disable-software-rasterizer',
         '--mute-audio',
         '--remote-debugging-port=0',
-        '--window-size=1440,900'
-      ].filter(Boolean)
-    }
-  }
+        '--window-size=1440,900',
+      ].filter(Boolean),
+    },
+  },
 };

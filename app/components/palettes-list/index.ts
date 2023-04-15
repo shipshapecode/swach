@@ -20,7 +20,7 @@ interface PalettesListSignature {
       sourceIndex,
       targetArgs,
       targetList,
-      targetIndex
+      targetIndex,
     }: {
       sourceArgs: { isColorHistory: boolean; parent: PaletteModel };
       sourceList: ColorModel[];
@@ -52,7 +52,7 @@ export default class PalettesListComponent extends Component<PalettesListSignatu
     sourceList,
     sourceIndex,
     targetList,
-    targetIndex
+    targetIndex,
   }: {
     sourceList: PaletteModel[];
     sourceIndex: number;

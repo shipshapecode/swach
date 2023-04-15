@@ -2,7 +2,7 @@ import {
   currentURL,
   fillIn,
   triggerKeyEvent,
-  visit
+  visit,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 

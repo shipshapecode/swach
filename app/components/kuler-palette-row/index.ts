@@ -59,7 +59,7 @@ export default class KulerPaletteRowComponent extends Component<KulerPaletteRowS
         r,
         g,
         b,
-        a
+        a,
       };
     });
 
@@ -77,14 +77,14 @@ export default class KulerPaletteRowComponent extends Component<KulerPaletteRowS
       index: 0,
       isColorHistory: false,
       isFavorite: false,
-      isLocked: false
+      isLocked: false,
     };
 
     await this.eaMotion.waitUntilIdle.perform();
 
     await this.store.update((t) => [
       ...newColors.map((c) => t.addRecord(c)),
-      t.addRecord(newPalette)
+      t.addRecord(newPalette),
     ]);
 
     this.undoManager.setupUndoRedo();

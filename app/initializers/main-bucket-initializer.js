@@ -9,5 +9,5 @@ export function initialize(application) {
 export default {
   name: 'main-bucket-initializer',
   after: 'ember-orbit-config',
-  initialize
+  initialize,
 };

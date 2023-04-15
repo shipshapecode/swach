@@ -183,7 +183,7 @@ export default class KulerComponent extends Component<KulerSignature> {
     );
 
     this.selectedPalette.colors.replace(selectedColorIndex, 1, [
-      newColor.attributes
+      newColor.attributes,
     ]);
 
     if (selectedColorIndex === 0) {
@@ -222,8 +222,8 @@ export default class KulerComponent extends Component<KulerSignature> {
               borderWidth: 0,
               sliderSize: 10,
               sliderType: 'alpha',
-              width: 250
-            }
+              width: 250,
+            },
           },
           {
             component: iro.ui.Slider,
@@ -233,8 +233,8 @@ export default class KulerComponent extends Component<KulerSignature> {
               margin: 25,
               sliderSize: 10,
               sliderType: 'value',
-              width: 250
-            }
+              width: 250,
+            },
           },
           {
             component: iro.ui.Wheel,
@@ -242,11 +242,11 @@ export default class KulerComponent extends Component<KulerSignature> {
               borderColor: 'transparent',
               borderWidth: 0,
               margin: 30,
-              width: 225
-            }
-          }
+              width: 225,
+            },
+          },
         ],
-        width: 207
+        width: 207,
       }
     );
 
@@ -260,8 +260,8 @@ export default class KulerComponent extends Component<KulerSignature> {
       const itemsToShow = {
         colorPicker: true,
         kulerColors: {
-          colors: this.selectedPalette.colors
-        }
+          colors: this.selectedPalette.colors,
+        },
       };
 
       this.ipcRenderer.send('setTouchbar', itemsToShow);

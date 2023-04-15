@@ -61,7 +61,7 @@ export default class PalettesController extends Controller {
       isColorHistory: false,
       isFavorite: false,
       isLocked: false,
-      index: 0
+      index: 0,
     });
 
     this.undoManager.setupUndoRedo();
@@ -70,7 +70,7 @@ export default class PalettesController extends Controller {
   @action
   disableMovingColors({
     draggedItem,
-    items
+    items,
   }: {
     draggedItem: ColorModel;
     items: ColorModel[];
@@ -85,7 +85,7 @@ export default class PalettesController extends Controller {
     sourceIndex,
     targetArgs,
     targetList,
-    targetIndex
+    targetIndex,
   }: {
     sourceArgs: { isColorHistory: boolean; parent: PaletteModel };
     sourceList: ColorModel[];
@@ -161,7 +161,7 @@ export default class PalettesController extends Controller {
         type: 'color',
         id: this.store.schema.generateId('color'),
         ...attributes,
-        createdAt: new Date()
+        createdAt: new Date(),
       };
       const colorsList = targetList.map((c) => c.$identity);
 
@@ -175,7 +175,7 @@ export default class PalettesController extends Controller {
 
       colorsList.insertAt(targetIndex, {
         type: 'color',
-        id: colorCopy.id
+        id: colorCopy.id,
       });
 
       await this.store.update((t) => [
@@ -189,7 +189,7 @@ export default class PalettesController extends Controller {
           { type: 'palette', id: targetParent.id },
           'colors',
           colorsList
-        )
+        ),
       ]);
     }
   }
@@ -236,7 +236,7 @@ export default class PalettesController extends Controller {
       await this.store.update((t) => {
         const operations: RecordOperationTerm[] = [
           t.removeFromRelatedRecords(sourcePalette, 'colors', sourceColor),
-          t.replaceAttribute(sourcePalette, 'colorOrder', sourceColorOrder)
+          t.replaceAttribute(sourcePalette, 'colorOrder', sourceColorOrder),
         ];
 
         if (!targetPalette.isColorHistory) {
@@ -288,7 +288,7 @@ export default class PalettesController extends Controller {
 
     if (colorHistory && colorHistory.colors.length > 0) {
       this.router.transitionTo('colors', {
-        queryParams: { paletteId: colorHistory.id }
+        queryParams: { paletteId: colorHistory.id },
       });
     }
   }

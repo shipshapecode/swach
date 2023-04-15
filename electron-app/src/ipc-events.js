@@ -46,7 +46,7 @@ function setupEventHandlers(mb, store) {
 
   ipcMain.handle('importData', async () => {
     const { canceled, filePaths } = await dialog.showOpenDialog({
-      properties: ['openFile']
+      properties: ['openFile'],
     });
 
     if (!canceled && filePaths.length) {
@@ -77,5 +77,5 @@ function setupEventHandlers(mb, store) {
 }
 
 module.exports = {
-  setupEventHandlers
+  setupEventHandlers,
 };

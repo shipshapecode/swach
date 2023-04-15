@@ -5,7 +5,7 @@ function noUpdatesAvailableDialog() {
     type: 'info',
     title: 'Already up to date',
     message: 'Already up to date',
-    detail: `Swach ${app.getVersion()} is the latest version available.`
+    detail: `Swach ${app.getVersion()} is the latest version available.`,
   };
 
   return dialog.showMessageBox(dialogOpts);
@@ -18,7 +18,7 @@ function restartDialog() {
     title: 'Restart Required',
     message: 'Restart now?',
     detail: 'A restart is required to apply this setting. Restart now?',
-    defaultId: 0
+    defaultId: 0,
   };
 
   return dialog.showMessageBox(dialogOpts).then((returnValue) => {
@@ -31,5 +31,5 @@ function restartDialog() {
 
 module.exports = {
   noUpdatesAvailableDialog,
-  restartDialog
+  restartDialog,
 };

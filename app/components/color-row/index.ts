@@ -42,7 +42,7 @@ export default class ColorRowComponent extends Component<ColorRowSignature> {
   transitionToKuler(event: Event): void {
     event.stopPropagation();
     this.router.transitionTo('kuler', {
-      queryParams: { colorId: this.args.color.id }
+      queryParams: { colorId: this.args.color.id },
     });
   }
 }

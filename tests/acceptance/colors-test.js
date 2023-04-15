@@ -3,7 +3,7 @@ import {
   currentURL,
   fillIn,
   triggerEvent,
-  visit
+  visit,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 
@@ -144,7 +144,7 @@ module('Acceptance | colors', function (hooks) {
       // undo
       await triggerEvent(document.body, 'keydown', {
         keyCode: 90,
-        ctrlKey: true
+        ctrlKey: true,
       });
 
       await waitForAll();
@@ -155,7 +155,7 @@ module('Acceptance | colors', function (hooks) {
       await triggerEvent(document.body, 'keydown', {
         keyCode: 90,
         ctrlKey: true,
-        shiftKey: true
+        shiftKey: true,
       });
 
       await waitForAll();

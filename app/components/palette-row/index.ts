@@ -24,7 +24,7 @@ interface PaletteRowSignature {
       sourceIndex,
       targetArgs,
       targetList,
-      targetIndex
+      targetIndex,
     }: {
       sourceArgs: { isColorHistory: boolean; parent: PaletteModel };
       sourceList: ColorModel[];
@@ -149,7 +149,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
         'trash',
         'Delete Palette',
         this.args.palette
-      )
+      ),
     ];
 
     this.dragSort.on(
@@ -193,7 +193,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
         type: 'color',
         id: this.dataSchema.generateId('color'),
         ...attributes,
-        createdAt: new Date()
+        createdAt: new Date(),
       };
       // Find the color by id and replace it with colorCopy.id
       colorOrder = colorOrder.map((c) =>
@@ -210,12 +210,12 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       ...attributes,
       colors: colorOrder,
       colorOrder,
-      createdAt: new Date()
+      createdAt: new Date(),
     };
 
     await this.store.update((t) => [
       ...newColors.map((c) => t.addRecord(c)),
-      t.addRecord(newPalette)
+      t.addRecord(newPalette),
     ]);
 
     this.undoManager.setupUndoRedo();
@@ -285,7 +285,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
   transitionToColors(event: Event): void {
     event.stopPropagation();
     this.router.transitionTo('colors', {
-      queryParams: { paletteId: this.args.palette.id }
+      queryParams: { paletteId: this.args.palette.id },
     });
   }
 

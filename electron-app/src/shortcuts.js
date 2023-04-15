@@ -20,21 +20,21 @@ function setupContextMenu(mb, launchPicker, openContrastChecker) {
       label: 'Color Picker',
       click() {
         launchPicker(mb);
-      }
+      },
     },
     {
       label: 'Contrast Checker',
       click() {
         openContrastChecker(mb);
-      }
+      },
     },
     { type: 'separator' },
     {
       label: 'Quit',
       click() {
         mb.app.quit();
-      }
-    }
+      },
+    },
   ]);
 
   mb.tray.on('right-click', () => {
@@ -54,9 +54,9 @@ function setupMenu(mb, launchPicker, openContrastChecker) {
             submenu: [
               { label: 'About Swach', role: 'about' },
               { type: 'separator' },
-              { label: 'Quit Swach', role: 'quit' }
-            ]
-          }
+              { label: 'Quit Swach', role: 'quit' },
+            ],
+          },
         ]
       : []),
     // { role: 'fileMenu' }
@@ -67,17 +67,17 @@ function setupMenu(mb, launchPicker, openContrastChecker) {
           label: 'Color Picker',
           click() {
             launchPicker(mb);
-          }
+          },
         },
         {
           label: 'Contrast Checker',
           click() {
             openContrastChecker(mb);
-          }
+          },
         },
         { type: 'separator' },
-        isMac ? { role: 'close' } : { role: 'quit' }
-      ]
+        isMac ? { role: 'close' } : { role: 'quit' },
+      ],
     },
     // { role: 'editMenu' }
     {
@@ -88,14 +88,14 @@ function setupMenu(mb, launchPicker, openContrastChecker) {
           accelerator: 'CmdOrCtrl+Z',
           async click() {
             await mb.window.webContents.send('undoRedo', 'undo');
-          }
+          },
         },
         {
           label: 'Redo',
           accelerator: 'Shift+CmdOrCtrl+Z',
           async click() {
             await mb.window.webContents.send('undoRedo', 'redo');
-          }
+          },
         },
         { type: 'separator' },
         { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
@@ -104,17 +104,17 @@ function setupMenu(mb, launchPicker, openContrastChecker) {
         {
           label: 'Select All',
           accelerator: 'CmdOrCtrl+A',
-          selector: 'selectAll:'
-        }
-      ]
+          selector: 'selectAll:',
+        },
+      ],
     },
     {
       label: 'View',
       submenu: [
         { role: 'reload' },
         { role: 'forcereload' },
-        { role: 'toggledevtools' }
-      ]
+        { role: 'toggledevtools' },
+      ],
     },
     {
       role: 'help',
@@ -123,10 +123,10 @@ function setupMenu(mb, launchPicker, openContrastChecker) {
           label: 'View Documentation',
           click: async () => {
             await shell.openExternal('https://swach.io/docs/');
-          }
-        }
-      ]
-    }
+          },
+        },
+      ],
+    },
   ];
 
   const menu = Menu.buildFromTemplate(template);
@@ -136,5 +136,5 @@ function setupMenu(mb, launchPicker, openContrastChecker) {
 module.exports = {
   registerKeyboardShortcuts,
   setupContextMenu,
-  setupMenu
+  setupMenu,
 };

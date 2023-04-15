@@ -17,7 +17,7 @@ export default {
         } else {
           // TODO: Consider logging additional errors with sentry or equivalent.
         }
-      }
+      },
     });
-  }
+  },
 };

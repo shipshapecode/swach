@@ -9,30 +9,30 @@ module.exports = {
     requireConfigFile: false,
     babelOptions: {
       plugins: [
-        ['@babel/plugin-proposal-decorators', { decoratorsBeforeExport: true }]
-      ]
-    }
+        ['@babel/plugin-proposal-decorators', { decoratorsBeforeExport: true }],
+      ],
+    },
   },
   plugins: ['ember'],
   extends: [
     'eslint:recommended',
     'plugin:ember/recommended',
     'plugin:prettier/recommended',
-    '@clark/ember-order-imports'
+    '@clark/ember-order-imports',
   ],
   env: {
-    browser: true
+    browser: true,
   },
   globals: {
-    requireNode: false
+    requireNode: false,
   },
   rules: {
     'require-yield': 'off',
     'sort-imports': [
       'error',
-      { allowSeparatedGroups: true, ignoreDeclarationSort: true }
+      { allowSeparatedGroups: true, ignoreDeclarationSort: true },
     ],
-    'ember/no-array-prototype-extensions': 'off'
+    'ember/no-array-prototype-extensions': 'off',
   },
   overrides: [
     // node files
@@ -42,7 +42,6 @@ module.exports = {
         './.prettierrc.js',
         './.stylelintrc.js',
         './.template-lintrc.js',
-        './babel.config.js',
         './ember-cli-build.js',
         './tailwind.config.js',
         './testem.js',
@@ -51,17 +50,17 @@ module.exports = {
         './config/**/*.js',
         './electron-app/**/*.js',
         './lib/*/index.js',
-        './server/**/*.js'
+        './server/**/*.js',
       ],
       parserOptions: {
-        sourceType: 'script'
+        sourceType: 'script',
       },
       env: {
         browser: false,
-        node: true
+        node: true,
       },
       globals: {
-        document: false
+        document: false,
       },
       extends: ['plugin:n/recommended'],
       rules: {
@@ -73,16 +72,16 @@ module.exports = {
         'n/no-extraneous-require': [
           'error',
           {
-            allowModules: ['ember-electron', 'electron']
-          }
+            allowModules: ['ember-electron', 'electron'],
+          },
         ],
         'n/no-missing-require': [
           'error',
           {
-            allowModules: ['electron']
-          }
-        ]
-      }
+            allowModules: ['electron'],
+          },
+        ],
+      },
     },
     // Typescript files
     {
@@ -91,13 +90,13 @@ module.exports = {
       plugins: ['@typescript-eslint'],
       extends: ['plugin:@typescript-eslint/recommended'],
       rules: {
-        'prefer-rest-params': 'off'
-      }
+        'prefer-rest-params': 'off',
+      },
     },
     {
       // test files
       files: ['tests/**/*-test.{js,ts}'],
-      extends: ['plugin:qunit/recommended']
-    }
-  ]
+      extends: ['plugin:qunit/recommended'],
+    },
+  ],
 };

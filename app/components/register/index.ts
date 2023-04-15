@@ -19,7 +19,7 @@ export default class RegisterComponent extends Component {
     const { username, password } = this;
     if (username && password) {
       const attributes = {
-        email: username
+        email: username,
       };
 
       try {

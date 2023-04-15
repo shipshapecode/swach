@@ -33,7 +33,7 @@ export default async function seedOrbit(source, scenario = 'basic') {
               ids.map((id) => {
                 return {
                   type: 'color',
-                  id
+                  id,
                 };
               })
             )
@@ -48,7 +48,7 @@ export default async function seedOrbit(source, scenario = 'basic') {
           const colorsList = ids.map((id) => {
             return {
               type: 'color',
-              id
+              id,
             };
           });
 
@@ -77,7 +77,7 @@ export default async function seedOrbit(source, scenario = 'basic') {
           const colorsList = ids.map((id) => {
             return {
               type: 'color',
-              id
+              id,
             };
           });
           operations.push(
@@ -105,7 +105,7 @@ export default async function seedOrbit(source, scenario = 'basic') {
           const colorsList = ids.map((id) => {
             return {
               type: 'color',
-              id
+              id,
             };
           });
           operations.push(

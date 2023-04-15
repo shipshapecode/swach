@@ -26,9 +26,9 @@ Storage.reopenClass({
       showDockIcon: false,
       sounds: true,
       userHasLoggedInBefore: false,
-      userTheme: 'dynamic'
+      userTheme: 'dynamic',
     };
-  }
+  },
 });
 
 export default Storage;

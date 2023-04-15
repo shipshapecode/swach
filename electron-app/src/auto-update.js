@@ -20,7 +20,7 @@ const setupUpdateServer = (app) => {
       title: 'Application Update',
       message: process.platform === 'win32' ? releaseNotes : releaseName,
       detail:
-        'A new version has been downloaded. Restart the application to apply the updates.'
+        'A new version has been downloaded. Restart the application to apply the updates.',
     };
 
     dialog.showMessageBox(dialogOpts).then((returnValue) => {
@@ -38,5 +38,5 @@ const setupUpdateServer = (app) => {
 };
 
 module.exports = {
-  setupUpdateServer
+  setupUpdateServer,
 };

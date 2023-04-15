@@ -17,12 +17,12 @@ module.exports = function (environment) {
         'https://n3tygwauml.execute-api.us-east-2.amazonaws.com/prod/',
         'https://sentry.io/',
         'http://localhost:3000',
-        "'self'"
+        "'self'",
       ],
       'img-src': ['data:', "'self'"],
       'style-src': ["'self'", "'unsafe-inline'"],
-      'media-src': ["'self'"]
+      'media-src': ["'self'"],
     },
-    reportOnly: true
+    reportOnly: true,
   };
 };

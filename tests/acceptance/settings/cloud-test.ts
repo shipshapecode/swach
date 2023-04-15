@@ -5,7 +5,7 @@ import {
   MockAuth,
   MockUser,
   mockAuth,
-  mockCognitoUser
+  mockCognitoUser,
 } from 'ember-cognito/test-support';
 
 import sinon from 'sinon';
@@ -35,8 +35,8 @@ module('Acceptance | settings/cloud', function (hooks) {
             attributes: {
               sub: 'aaaabbbb-cccc-dddd-eeee-ffffgggghhhh',
               email: 'testuser@gmail.com',
-              email_verified: 'false'
-            }
+              email_verified: 'false',
+            },
           });
         },
         async confirmSignUp(username: string, confirmationCode: string) {
@@ -51,7 +51,7 @@ module('Acceptance | settings/cloud', function (hooks) {
             'confirmationCode is correct'
           );
           return;
-        }
+        },
       })
     );
 
@@ -87,8 +87,8 @@ module('Acceptance | settings/cloud', function (hooks) {
       attributes: {
         sub: 'aaaabbbb-cccc-dddd-eeee-ffffgggghhhh',
         email: 'testuser@gmail.com',
-        email_verified: 'false'
-      }
+        email_verified: 'false',
+      },
     });
     const authenticator = this.owner.lookup('authenticator:cognito');
     const authenticateStub = sinon

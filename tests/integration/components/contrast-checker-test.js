@@ -36,7 +36,7 @@ module('Integration | Component | contrast-checker', function (hooks) {
     assert.dom('[data-test-wcag-string]').hasText('AA Large');
     assert.dom('[data-test-contrast-preview]').hasStyle({
       backgroundColor: 'rgb(0, 71, 71)',
-      color: 'rgb(0, 162, 75)'
+      color: 'rgb(0, 162, 75)',
     });
 
     await fillIn('[data-test-fg-input]', '#00CE60');
@@ -48,7 +48,7 @@ module('Integration | Component | contrast-checker', function (hooks) {
     assert.dom('[data-test-wcag-string]').hasText('AA');
     assert.dom('[data-test-contrast-preview]').hasStyle({
       backgroundColor: 'rgb(0, 71, 71)',
-      color: 'rgb(0, 206, 96)'
+      color: 'rgb(0, 206, 96)',
     });
 
     await fillIn('[data-test-fg-input]', '#FFFFFF');
@@ -60,7 +60,7 @@ module('Integration | Component | contrast-checker', function (hooks) {
     assert.dom('[data-test-wcag-string]').hasText('AAA');
     assert.dom('[data-test-contrast-preview]').hasStyle({
       backgroundColor: 'rgb(0, 71, 71)',
-      color: 'rgb(255, 255, 255)'
+      color: 'rgb(255, 255, 255)',
     });
   });
 });

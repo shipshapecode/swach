@@ -5,16 +5,16 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = function (defaults) {
   const app = new EmberApp(defaults, {
     autoImport: {
-      forbidEval: true
+      forbidEval: true,
     },
     babel: {
-      plugins: ['@babel/plugin-proposal-object-rest-spread']
+      plugins: ['@babel/plugin-proposal-object-rest-spread'],
     },
     'ember-cli-babel': {
-      enableTypeScriptTransform: true
+      enableTypeScriptTransform: true,
     },
     'ember-simple-auth': {
-      useSessionSetupMethod: true
+      useSessionSetupMethod: true,
     },
     postcssOptions: {
       compile: {
@@ -26,16 +26,16 @@ module.exports = function (defaults) {
           {
             module: require('@csstools/postcss-sass'),
             options: {
-              includePaths: ['node_modules/three-dots/sass']
-            }
+              includePaths: ['node_modules/three-dots/sass'],
+            },
           },
-          require('tailwindcss')('./tailwind.config.js')
-        ]
-      }
+          require('tailwindcss')('./tailwind.config.js'),
+        ],
+      },
     },
     sourcemaps: {
-      enabled: true
-    }
+      enabled: true,
+    },
   });
 
   if (process.platform !== 'win32') {
@@ -52,11 +52,11 @@ module.exports = function (defaults) {
           resolve: {
             fallback: {
               crypto: require.resolve('crypto-browserify'),
-              stream: require.resolve('stream-browserify')
-            }
-          }
-        }
-      }
+              stream: require.resolve('stream-browserify'),
+            },
+          },
+        },
+      },
     });
   } else {
     return app.toTree();

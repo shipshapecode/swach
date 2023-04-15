@@ -14,7 +14,7 @@ module.exports = function (environment) {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. EMBER_NATIVE_DECORATOR_SUPPORT: true
-      }
+      },
     },
 
     // The indexedDB schema version. We can increment this to run migrations.
@@ -26,26 +26,26 @@ module.exports = function (environment) {
     },
 
     api: {
-      host: 'https://n3tygwauml.execute-api.us-east-2.amazonaws.com/prod'
+      host: 'https://n3tygwauml.execute-api.us-east-2.amazonaws.com/prod',
     },
     cognito: {
       poolId: 'us-east-2_QwzHPTSIB',
       clientId: '3qt66sk0l4k4bnm3ndge7inp80',
       identityPoolId: 'us-east-2:b38b2ff6-f0e2-4ddb-8c51-294480a7fdb4',
-      region: 'us-east-2'
+      region: 'us-east-2',
     },
     flashMessageDefaults: {
-      injectionFactories: []
+      injectionFactories: [],
     },
     orbit: {
-      skipValidatorService: true
-    }
+      skipValidatorService: true,
+    },
   };
 
   ENV['@sentry/ember'] = {
     sentry: {
-      environment
-    }
+      environment,
+    },
   };
 
   if (environment === 'development') {
@@ -85,7 +85,7 @@ module.exports = function (environment) {
       poolId: 'us-east-2_QwzHPTSIB',
       clientId: '3qt66sk0l4k4bnm3ndge7inp80',
       identityPoolId: 'us-east-2:b38b2ff6-f0e2-4ddb-8c51-294480a7fdb4',
-      region: 'us-east-2'
+      region: 'us-east-2',
     };
 
     ENV['@sentry/ember'].sentry.dsn =

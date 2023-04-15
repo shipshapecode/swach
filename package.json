@@ -16,7 +16,6 @@
   },
   "scripts": {
     "build": "ember build --environment=production",
-    "install-deps": "cd electron-app && yarn install && cd ../ && yarn install",
     "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
     "lint:css": "stylelint \"**/*.scss\"",
     "lint:css:fix": "concurrently \"npm:lint:css -- --fix\"",
@@ -83,7 +82,7 @@
     "ember-animated": "^0.12.0",
     "ember-auto-import": "^2.6.3",
     "ember-cache-primitive-polyfill": "^1.0.1",
-    "ember-cli": "~4.12.0",
+    "ember-cli": "5.0.0-beta.0",
     "ember-cli-app-version": "^6.0.0",
     "ember-cli-babel": "^7.26.11",
     "ember-cli-content-security-policy": "^2.0.3",
@@ -153,14 +152,15 @@
     "wcag-contrast": "^3.0.0",
     "webpack": "^5.79.0"
   },
-  "resolutions": {
-    "**/ember-auto-import": "^2.5.0",
-    "@sentry/ember/@embroider/macros": "^1.10.0",
-    "ember-animated/@ember/test-helpers": "^2.9.3",
-    "ember-animated/ember-element-helper": "^0.6.1"
+  "pnpm": {
+    "overrides": {
+      "ember-animated>@ember/test-helpers": "^2.9.3",
+      "ember-animated>ember-element-helper": "^0.6.1"
+    }
   },
   "engines": {
-    "node": "14.* || 16.* || >= 18"
+    "node": "16.* || >= 18",
+    "pnpm": "^8.2.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -189,9 +189,5 @@
       "tokenRef": "GITHUB_AUTH"
     },
     "npm": false
-  },
-  "volta": {
-    "node": "16.13.1",
-    "yarn": "1.22.17"
   }
 }

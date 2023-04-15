@@ -38,5 +38,5 @@ async function launchPicker(mb, type = 'global') {
 }
 
 module.exports = {
-  launchPicker
+  launchPicker,
 };

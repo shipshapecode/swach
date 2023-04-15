@@ -77,7 +77,7 @@ export default {
        * Don't block fulfillment of requests to the store with associated remote
        * requests. Allows for optimistic UX.
        */
-      blocking: false
+      blocking: false,
     });
-  }
+  },
 };

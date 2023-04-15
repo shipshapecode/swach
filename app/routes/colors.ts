@@ -12,8 +12,8 @@ import { SettingsStorage } from 'swach/storages/settings';
 export default class ColorsRoute extends Route {
   queryParams = {
     paletteId: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   };
 
   @service declare session: Session;
@@ -28,7 +28,7 @@ export default class ColorsRoute extends Route {
   }
 
   async model({
-    paletteId
+    paletteId,
   }: {
     paletteId: string;
   }): Promise<PaletteModel | undefined> {

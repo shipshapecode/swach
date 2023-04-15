@@ -11,7 +11,7 @@ export default {
         // the queue for later retries (unlike updates).
         // TODO: Consider logging errors in sentry or equivalent.
         this.source.requestQueue.skip();
-      }
+      },
     });
-  }
+  },
 };

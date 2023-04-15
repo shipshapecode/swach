@@ -52,7 +52,7 @@ export default class HexInputComponent extends Component<HexInputSignature> {
       r,
       g,
       b,
-      a: alpha
+      a: alpha,
     });
     this.args.updateColor();
   }

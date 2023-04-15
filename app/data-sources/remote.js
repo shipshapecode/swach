@@ -6,7 +6,7 @@ import { applyStandardSourceInjections } from 'ember-orbit';
 import {
   JSONAPIRequestProcessor,
   JSONAPISerializers,
-  JSONAPISource
+  JSONAPISource,
 } from '@orbit/jsonapi';
 import { buildSerializerSettingsFor } from '@orbit/serializers';
 import { AwsClient } from 'aws4fetch';
@@ -44,12 +44,12 @@ export default {
           secretAccessKey: settings.sessionCredentials.secretAccessKey, // required, akin to AWS_SECRET_ACCESS_KEY
           sessionToken: settings.sessionCredentials.sessionToken, // akin to AWS_SESSION_TOKEN if using temp credentials
           service: 'execute-api', // AWS service, by default parsed at fetch time
-          region: 'us-east-2' // AWS region, by default parsed at fetch time
+          region: 'us-east-2', // AWS region, by default parsed at fetch time
         });
         const method = customSettings.method ?? 'GET';
         const request = await aws.sign(fullUrl, {
           method,
-          body: settings.body
+          body: settings.body,
         });
 
         let fetchFn = fetch;
@@ -104,19 +104,19 @@ export default {
       sharedSettings: {
         inflectors: {
           pluralize,
-          singularize
-        }
+          singularize,
+        },
       },
       settingsByType: {
         [JSONAPISerializers.ResourceType]: {
-          deserializationOptions: { inflectors: ['singularize'] }
+          deserializationOptions: { inflectors: ['singularize'] },
         },
         [JSONAPISerializers.ResourceDocument]: {
-          deserializationOptions: { inflectors: ['singularize'] }
-        }
-      }
+          deserializationOptions: { inflectors: ['singularize'] },
+        },
+      },
     });
 
     return new JSONAPISource(injections);
-  }
+  },
 };

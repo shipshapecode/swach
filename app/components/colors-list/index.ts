@@ -41,7 +41,7 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
   *transition({
     keptSprites,
     insertedSprites,
-    removedSprites
+    removedSprites,
   }: {
     keptSprites: Array<Sprite>;
     insertedSprites: Array<Sprite>;
@@ -88,7 +88,7 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
               'colorOrder',
               colorsList
             ),
-            t.removeRecord(colorToRemove)
+            t.removeRecord(colorToRemove),
           ];
 
           return operations;

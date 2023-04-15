@@ -61,8 +61,8 @@ export default class ColorUtilsService extends Service {
         r,
         g,
         b,
-        a
-      }
+        a,
+      },
     };
   }
 
@@ -85,7 +85,7 @@ export default class ColorUtilsService extends Service {
         if (this.settings.get('notifications')) {
           new window.Notification(`${color.name} - ${color[colorFormat]}`, {
             body: `${color[colorFormat]} copied to clipboard!`,
-            silent: true
+            silent: true,
           });
         }
       }

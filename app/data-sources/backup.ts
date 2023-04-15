@@ -4,7 +4,7 @@ import { IndexedDBSource } from '@orbit/indexeddb';
 import {
   InitializedRecord,
   RecordIdentity,
-  RecordSchema
+  RecordSchema,
 } from '@orbit/records';
 import { clone } from '@orbit/utils';
 
@@ -21,7 +21,7 @@ export default {
     const backup = new IndexedDBSource({
       name: 'backup',
       defaultTransformOptions: { useBuffer: true },
-      ...injections
+      ...injections,
     });
 
     backup.cache.migrateDB = async (
@@ -111,7 +111,7 @@ export default {
 
         // Add missing `relatedIdentity` index. This is required.
         objectStore.createIndex('relatedIdentity', 'relatedIdentity', {
-          unique: false
+          unique: false,
         });
       }
     };
@@ -120,7 +120,7 @@ export default {
     schema.upgrade({ version: SCHEMA_VERSION });
 
     return backup;
-  }
+  },
 };
 
 // Note: These IDB utility function could be simplified using a promisified lib

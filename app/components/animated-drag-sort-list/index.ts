@@ -28,7 +28,7 @@ export default class AnimatedDragSortList extends DragSortList {
   *transition({
     keptSprites,
     insertedSprites,
-    removedSprites
+    removedSprites,
   }: {
     keptSprites: Array<Sprite>;
     insertedSprites: Array<Sprite>;

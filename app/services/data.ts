@@ -68,7 +68,7 @@ export default class DataService extends Service {
         isColorHistory: true,
         isFavorite: false,
         isLocked: false,
-        selectedColorIndex: 0
+        selectedColorIndex: 0,
       });
     } else if (colorHistoryPalettes.length > 1) {
       const remoteColorHistoryPalette = remotePaletteRecords.find(
@@ -160,7 +160,7 @@ export default class DataService extends Service {
           if (relationships?.colors?.data) {
             paletteColors.push({
               palette: p,
-              colors: relationships.colors.data as RecordIdentity[]
+              colors: relationships.colors.data as RecordIdentity[],
             });
           }
           return { id, type, attributes };

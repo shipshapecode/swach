@@ -11,7 +11,7 @@ function setTouchbar(mb, itemsToShow) {
         const colorPicker = new TouchBarColorPicker({
           change: debounce(250, (color) => {
             mb.window.webContents.send('updateKulerColor', color);
-          })
+          }),
         });
 
         items.push(colorPicker);
@@ -28,18 +28,18 @@ function setTouchbar(mb, itemsToShow) {
                 'selectKulerColor',
                 itemsToShow.kulerColors.colors.indexOf(color)
               );
-            }
+            },
           });
         });
         const kulerColors = new TouchBarGroup({
-          items: new TouchBar({ items: colorButtons })
+          items: new TouchBar({ items: colorButtons }),
         });
 
         items.push(kulerColors);
       }
 
       const touchBar = new TouchBar({
-        items
+        items,
       });
 
       mb.window.setTouchBar(touchBar);
@@ -50,5 +50,5 @@ function setTouchbar(mb, itemsToShow) {
 }
 
 module.exports = {
-  setTouchbar
+  setTouchbar,
 };

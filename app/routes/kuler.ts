@@ -12,8 +12,8 @@ import { SettingsStorage } from 'swach/storages/settings';
 export default class KulerRoute extends Route {
   queryParams = {
     colorId: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   };
 
   @service declare session: Session;
@@ -28,7 +28,7 @@ export default class KulerRoute extends Route {
   }
 
   async model({
-    colorId
+    colorId,
   }: {
     colorId: string;
   }): Promise<ColorModel | undefined> {

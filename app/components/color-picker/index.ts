@@ -13,7 +13,7 @@ import {
   PrivateRGBAHex,
   PublicRGBAHex,
   SelectedColorModel,
-  SelectedColorPOJO
+  SelectedColorPOJO,
 } from 'swach/components/rgb-input';
 import ColorModel, { rgbaToHex } from 'swach/data-models/color';
 import type NearestColor from 'swach/services/nearest-color';
@@ -117,7 +117,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
       r,
       g,
       b,
-      a
+      a,
     };
   }
 
@@ -150,8 +150,8 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
           options: {
             borderColor: 'transparent',
             borderWidth: 0,
-            width: 190
-          }
+            width: 190,
+          },
         },
         {
           component: iro.ui.Slider,
@@ -161,8 +161,8 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
             margin: 20,
             sliderSize: 10,
             sliderType: 'hue',
-            width: 300
-          }
+            width: 300,
+          },
         },
         {
           component: iro.ui.Slider,
@@ -171,11 +171,11 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
             borderWidth: 0,
             sliderSize: 10,
             sliderType: 'alpha',
-            width: 300
-          }
-        }
+            width: 300,
+          },
+        },
       ],
-      width: 207
+      width: 207,
     });
 
     this.colorPicker?.on('color:change', this.onChange);

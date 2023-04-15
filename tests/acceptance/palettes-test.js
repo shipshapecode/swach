@@ -6,7 +6,7 @@ import {
   find,
   findAll,
   triggerEvent,
-  visit
+  visit,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 
@@ -450,7 +450,7 @@ module('Acceptance | palettes', function (hooks) {
 
       await triggerEvent(document.body, 'keydown', {
         keyCode: 90,
-        ctrlKey: true
+        ctrlKey: true,
       });
       await waitForAll();
 
@@ -459,7 +459,7 @@ module('Acceptance | palettes', function (hooks) {
       await triggerEvent(document.body, 'keydown', {
         keyCode: 90,
         ctrlKey: true,
-        shiftKey: true
+        shiftKey: true,
       });
       await waitForAll();
 
@@ -529,7 +529,7 @@ module('Acceptance | palettes', function (hooks) {
 
       await triggerEvent(document.body, 'keydown', {
         keyCode: 90,
-        ctrlKey: true
+        ctrlKey: true,
       });
       await waitForAll();
 
@@ -563,7 +563,7 @@ module('Acceptance | palettes', function (hooks) {
 
       await triggerEvent(document.body, 'keydown', {
         keyCode: 90,
-        ctrlKey: true
+        ctrlKey: true,
       });
 
       await waitForAll();
@@ -577,7 +577,7 @@ module('Acceptance | palettes', function (hooks) {
       await triggerEvent(document.body, 'keydown', {
         keyCode: 90,
         ctrlKey: true,
-        shiftKey: true
+        shiftKey: true,
       });
 
       await waitForAll();

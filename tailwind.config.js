@@ -3,7 +3,7 @@ module.exports = {
   content: [
     './app/index.html',
     './app/components/**/*.hbs',
-    './app/templates/**/*.hbs'
+    './app/templates/**/*.hbs',
   ],
   theme: {
     extend: {
@@ -25,30 +25,30 @@ module.exports = {
         'menu-text': 'var(--menu-text-color)',
         'menu-text-hover': 'var(--menu-text-hover-color)',
         'main-text': 'var(--main-text)',
-        'sub-text': 'var(--sub-text)'
+        'sub-text': 'var(--sub-text)',
       },
       fontSize: {
         smallest: '0.5rem',
-        xxs: '0.65rem'
+        xxs: '0.65rem',
       },
       width: {
-        36: '9rem'
-      }
+        36: '9rem',
+      },
     },
     fill: (theme) => ({
       alt: theme('colors.alt'),
       'alt-hover': theme('colors.alt-hover'),
-      main: theme('colors.main')
+      main: theme('colors.main'),
     }),
     stroke: (theme) => ({
       alt: theme('colors.alt'),
       'alt-hover': theme('colors.alt-hover'),
-      main: theme('colors.main')
-    })
+      main: theme('colors.main'),
+    }),
   },
   plugins: [
     require('@tailwindcss/forms')({
-      strategy: 'class'
-    })
-  ]
+      strategy: 'class',
+    }),
+  ],
 };

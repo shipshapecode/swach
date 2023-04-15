@@ -56,7 +56,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
       layout: [
         {
           component: iro.ui.Box,
-          options: {}
+          options: {},
         },
         {
           component: iro.ui.Slider,
@@ -64,11 +64,11 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
             borderColor: 'transparent',
             borderWidth: 0,
             sliderSize: 10,
-            sliderType: 'hue'
-          }
-        }
+            sliderType: 'hue',
+          },
+        },
       ],
-      width: 140
+      width: 140,
     });
 
     this.onBgChange = (color) => {
@@ -87,7 +87,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
       layout: [
         {
           component: iro.ui.Box,
-          options: {}
+          options: {},
         },
         {
           component: iro.ui.Slider,
@@ -95,11 +95,11 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
             borderColor: 'transparent',
             borderWidth: 0,
             sliderSize: 10,
-            sliderType: 'hue'
-          }
-        }
+            sliderType: 'hue',
+          },
+        },
       ],
-      width: 140
+      width: 140,
     });
 
     this.onFgChange = (color) => {

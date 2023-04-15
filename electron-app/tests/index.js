@@ -1,6 +1,6 @@
 const {
   setupTestem,
-  openTestWindow
+  openTestWindow,
 } = require('ember-electron/lib/test-support');
 
 const { app, ipcMain, nativeTheme } = require('electron');
@@ -11,8 +11,8 @@ const store = new Store({
   defaults: {
     firstRunV1: true,
     needsMigration: true,
-    showDockIcon: false
-  }
+    showDockIcon: false,
+  },
 });
 
 const handleFileUrls = require('../src/handle-file-urls');

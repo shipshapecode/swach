@@ -34,8 +34,8 @@ module.exports = (dirname, route, title) => {
       title,
       webPreferences: {
         contextIsolation: false,
-        nodeIntegration: true
-      }
+        nodeIntegration: true,
+      },
     };
 
     win = new BrowserWindow(options);
@@ -55,6 +55,6 @@ module.exports = (dirname, route, title) => {
 
   return {
     init: init,
-    getWindow: getWindow
+    getWindow: getWindow,
   };
 };

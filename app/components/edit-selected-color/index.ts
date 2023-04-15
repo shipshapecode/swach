@@ -7,7 +7,7 @@ import iro from '@jaames/iro';
 import {
   PrivateRGBAHex,
   PublicRGBAHex,
-  SelectedColorModel
+  SelectedColorModel,
 } from 'swach/components/rgb-input';
 import type PaletteModel from 'swach/data-models/palette';
 import type ColorUtils from 'swach/services/color-utils';
@@ -36,7 +36,7 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
         _r: r,
         _b: b,
         _g: g,
-        _a: a
+        _a: a,
       });
       return selectedColor;
     }

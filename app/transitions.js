@@ -8,12 +8,12 @@ export const transitions = [
     from: 'welcome.index',
     to: 'welcome.auto-start',
     use: toLeft,
-    reverse: toRight
+    reverse: toRight,
   },
   {
     from: 'welcome.auto-start',
     to: 'welcome.dock-icon',
     use: toLeft,
-    reverse: toRight
-  }
+    reverse: toRight,
+  },
 ];

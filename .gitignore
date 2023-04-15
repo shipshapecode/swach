@@ -2,10 +2,8 @@
 
 # compiled output
 /dist/
-/tmp/
 
 # dependencies
-/bower_components/
 /node_modules/
 
 # misc
@@ -22,7 +20,6 @@
 
 # ember-try
 /.node_modules.ember-try/
-/bower.json.ember-try
 /npm-shrinkwrap.json.ember-try
 /package.json.ember-try
 /package-lock.json.ember-try

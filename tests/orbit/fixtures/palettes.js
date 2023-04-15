@@ -7,8 +7,8 @@ export default [
       colorOrder: [],
       isColorHistory: true,
       isFavorite: false,
-      isLocked: false
-    }
+      isLocked: false,
+    },
   },
   {
     type: 'palette',
@@ -19,8 +19,8 @@ export default [
       index: 0,
       isColorHistory: false,
       isFavorite: false,
-      isLocked: false
-    }
+      isLocked: false,
+    },
   },
   {
     type: 'palette',
@@ -31,8 +31,8 @@ export default [
       index: 1,
       isColorHistory: false,
       isFavorite: false,
-      isLocked: false
-    }
+      isLocked: false,
+    },
   },
   {
     type: 'palette',
@@ -43,7 +43,7 @@ export default [
       index: 2,
       isColorHistory: false,
       isFavorite: false,
-      isLocked: true
-    }
-  }
+      isLocked: true,
+    },
+  },
 ];

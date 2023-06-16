@@ -66,8 +66,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2
       '@glint/core':
-        specifier: ^0.9.7
-        version: 0.9.7(typescript@4.9.5)
+        specifier: ^1.0.2
+        version: 1.0.2(typescript@4.9.5)
       '@glint/environment-ember-loose':
         specifier: ^0.9.7
         version: 0.9.7(@glimmer/component@1.1.2)(ember-cli-htmlbars@6.2.0)(ember-modifier@4.1.0)
@@ -3320,21 +3320,22 @@ packages:
       - supports-color
     dev: true
 
-  /@glint/core@0.9.7(typescript@4.9.5):
-    resolution: {integrity: sha512-1YLHNRnuYI1dDUKWq/ue4JqiBt6TVR8e7VQJWy37CKB0tiBhWw/FPvr7/S7XbUxCt6KHO0Kl0x/eqLunu3WiQw==}
+  /@glint/core@1.0.2(typescript@4.9.5):
+    resolution: {integrity: sha512-0bVt/lT/NurpD8nBG9RTPKYlcpg51UDGCKgLoBEFOiTXv3aCSxAVKPud1IYaitGBKE0C+s5pl2PHkgptotVS+w==}
     hasBin: true
     peerDependencies:
-      typescript: ^4.7.0
+      typescript: '>=4.8.0'
     dependencies:
-      '@glint/config': 0.9.7
-      '@glint/transform': 0.9.7
-      resolve: 1.22.3
+      '@glimmer/syntax': 0.84.3
+      escape-string-regexp: 4.0.0
+      semver: 7.4.0
+      silent-error: 1.1.1
       typescript: 4.9.5
       uuid: 8.3.2
       vscode-languageserver: 8.1.0
       vscode-languageserver-textdocument: 1.0.8
       vscode-uri: 3.0.7
-      yargs: 17.7.1
+      yargs: 17.7.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3366,15 +3367,6 @@ packages:
       '@glimmer/component': ^1.1.2
     dependencies:
       '@glimmer/component': 1.1.2(@babel/core@7.21.4)
-    dev: true
-
-  /@glint/transform@0.9.7:
-    resolution: {integrity: sha512-vd0th+Zo4cirYepASpC0fE0ZCqAcI9Y6qHYE0xi4+MY05bFRxBr7Q9ggDoWk+slynTyUrVgzCCeazAYOlZsYcg==}
-    dependencies:
-      '@glimmer/syntax': 0.84.3
-      '@glint/config': 0.9.7
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /@handlebars/parser@2.0.0:

@@ -111,7 +111,7 @@
     "ember-modifier": "^4.1.0",
     "ember-orbit": "^0.17.3",
     "ember-qunit": "^6.2.0",
-    "ember-resolver": "^10.0.0",
+    "ember-resolver": "^10.1.1",
     "ember-set-body-class": "^1.0.2",
     "ember-set-helper": "^2.0.1",
     "ember-simple-auth": "^4.2.2",

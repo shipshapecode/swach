@@ -171,8 +171,8 @@ importers:
         specifier: ^2.0.3
         version: 2.0.3
       ember-cli-dependency-checker:
-        specifier: ^3.3.1
-        version: 3.3.1(ember-cli@5.0.0-beta.0)
+        specifier: ^3.3.2
+        version: 3.3.2(ember-cli@5.0.0-beta.0)
       ember-cli-deprecation-workflow:
         specifier: ^2.1.0
         version: 2.1.0
@@ -214,7 +214,7 @@ importers:
         version: 3.0.1
       ember-electron:
         specifier: ^4.2.1
-        version: 4.2.1(ember-cli-dependency-checker@3.3.1)(ember-cli@5.0.0-beta.0)(ember-source@4.12.0)
+        version: 4.2.1(ember-cli-dependency-checker@3.3.2)(ember-cli@5.0.0-beta.0)(ember-source@4.12.0)
       ember-event-helpers:
         specifier: ^0.1.1
         version: 0.1.1
@@ -10305,11 +10305,11 @@ packages:
       - supports-color
     dev: true
 
-  /ember-cli-dependency-checker@3.3.1(ember-cli@5.0.0-beta.0):
-    resolution: {integrity: sha512-Tg6OeijjXNKWkDm6057Tr0N9j9Vlz/ITewXWpn1A/+Wbt3EowBx5ZKfvoupqz05EznKgL1B/ecG0t+JN7Qm6MA==}
+  /ember-cli-dependency-checker@3.3.2(ember-cli@5.0.0-beta.0):
+    resolution: {integrity: sha512-PwkrW5oYsdPWwt+0Tojufmv/hxVETTjkrEdK7ANQB2VSnqpA5UcYubwpQM9ONuR2J8wyNDMwEHlqIrk/FYtBsQ==}
     engines: {node: '>= 6'}
     peerDependencies:
-      ember-cli: ^3.2.0 || ^4.0.0
+      ember-cli: ^3.2.0 || >=4.0.0
     dependencies:
       chalk: 2.4.2
       ember-cli: 5.0.0-beta.0(react@18.2.0)
@@ -10898,7 +10898,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-electron@4.2.1(ember-cli-dependency-checker@3.3.1)(ember-cli@5.0.0-beta.0)(ember-source@4.12.0):
+  /ember-electron@4.2.1(ember-cli-dependency-checker@3.3.2)(ember-cli@5.0.0-beta.0)(ember-source@4.12.0):
     resolution: {integrity: sha512-8UJbdKRXQTtUPtuUPPwp0w42LChvrwZElW7GRwpR1n230/WnXaiDtGSUlpgOZ5kZWOgGPzfL7huIf0rAhS9jzQ==}
     engines: {node: 14.* || 16.* || >= 18}
     peerDependencies:
@@ -10911,7 +10911,7 @@ packages:
       debug: 4.3.4(supports-color@8.1.1)
       ember-cli: 5.0.0-beta.0(react@18.2.0)
       ember-cli-babel: 7.26.11
-      ember-cli-dependency-checker: 3.3.1(ember-cli@5.0.0-beta.0)
+      ember-cli-dependency-checker: 3.3.2(ember-cli@5.0.0-beta.0)
       ember-source: 4.12.0(@babel/core@7.21.4)(@glimmer/component@1.1.2)(webpack@5.79.0)
       execa: 5.1.1
       find-yarn-workspace-root: 2.0.0

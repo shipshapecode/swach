@@ -100,7 +100,7 @@
     "ember-css-transitions": "^4.3.2",
     "ember-decorators": "^6.1.1",
     "ember-drag-sort": "^3.0.1",
-    "ember-electron": "^4.2.1",
+    "ember-electron": "^4.2.2",
     "ember-event-helpers": "^0.1.1",
     "ember-fetch": "^8.1.2",
     "ember-inflector": "^4.0.2",

@@ -217,8 +217,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       ember-electron:
-        specifier: ^4.2.2
-        version: 4.2.2(ember-cli-dependency-checker@3.3.2)(ember-cli@5.0.0-beta.0)(ember-source@4.12.3)
+        specifier: ^5.0.0
+        version: 5.0.0(ember-cli-dependency-checker@3.3.2)(ember-cli@5.0.0-beta.0)(ember-source@4.12.3)
       ember-event-helpers:
         specifier: ^0.1.1
         version: 0.1.1
@@ -11245,13 +11245,13 @@ packages:
       - supports-color
     dev: true
 
-  /ember-electron@4.2.2(ember-cli-dependency-checker@3.3.2)(ember-cli@5.0.0-beta.0)(ember-source@4.12.3):
-    resolution: {integrity: sha512-I1zlirhK7S3ZlERVseulhUjPATaPtilsrI5FH+tR8Ick8/RZPvunQARj1OzMxbSPQDV8Y2ChscTxONt8E+oRbQ==}
-    engines: {node: 14.* || 16.* || >= 18}
+  /ember-electron@5.0.0(ember-cli-dependency-checker@3.3.2)(ember-cli@5.0.0-beta.0)(ember-source@4.12.3):
+    resolution: {integrity: sha512-QoaBG2aETkbEXpk5BPyfiGyKvJ0gSJk7MtL7VPL/FZjtKSXaW5gfhrLjBXaaeVTt5g4q3CJM21PQvFJxz38ngw==}
+    engines: {node: 16.* || >= 18}
     peerDependencies:
       ember-cli: '>= 3.4.0'
       ember-cli-dependency-checker: '>= 3.1.0'
-      ember-source: ^3.28.0 || ^4.0.0
+      ember-source: '>= 4.0.0'
     dependencies:
       '@electron-forge/core': 6.1.1
       chalk: 4.1.2

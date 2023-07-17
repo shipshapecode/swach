@@ -61,8 +61,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1(@embroider/core@2.1.1)(webpack@5.88.1)
       '@gavant/glint-template-types':
-        specifier: ^0.3.3
-        version: 0.3.3
+        specifier: ^0.3.4
+        version: 0.3.4
       '@glimmer/component':
         specifier: ^1.1.2
         version: 1.1.2(@babel/core@7.21.4)
@@ -3605,8 +3605,8 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
     dev: true
 
-  /@gavant/glint-template-types@0.3.3:
-    resolution: {integrity: sha512-MPRvYBeL0L5PVxSWl3JnEYtzHUjKHdZ5CmfdHEUvhO8ZNI5A+H5UHN1RxIEgTAqkrCU5XL3JjKOfjfDiHxhMpg==}
+  /@gavant/glint-template-types@0.3.4:
+    resolution: {integrity: sha512-PlHcqp9QbFa8/fszVHeSssS6W4VgYZmynjdLGoNy5pjw/COLSOVhGQJu4YuEcY7bGfJrPactzk3JMAuEcVd90g==}
     dev: true
 
   /@glimmer/component@1.1.2(@babel/core@7.21.4):

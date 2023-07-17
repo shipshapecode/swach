@@ -48,7 +48,7 @@
     "@embroider/compat": "^2.1.1",
     "@embroider/core": "^2.1.1",
     "@embroider/webpack": "^2.1.1",
-    "@gavant/glint-template-types": "^0.3.3",
+    "@gavant/glint-template-types": "^0.3.4",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
     "@glint/core": "^1.0.2",

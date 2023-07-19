@@ -124,8 +124,8 @@ importers:
         specifier: ^2.9.1
         version: 2.9.1(@babel/core@7.22.9)(@glint/template@0.9.7)(ember-source@4.12.3)
       '@types/qunit':
-        specifier: ^2.19.4
-        version: 2.19.4
+        specifier: ^2.19.6
+        version: 2.19.6
       '@types/sinon':
         specifier: ^10.0.13
         version: 10.0.13
@@ -5178,8 +5178,8 @@ packages:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
     dev: true
 
-  /@types/qunit@2.19.4:
-    resolution: {integrity: sha512-EocRiD2JRWrOaA0dnyyLX083DIo1p3OSBBiGODcHaMzOFhteXtvRRp0kKsiYYqynnBSMqnqRI92iE32axdoXZw==}
+  /@types/qunit@2.19.6:
+    resolution: {integrity: sha512-bz9STa6EHurtpSfn5cNiScBladlw43bM+7luQA985Kd9YlF4dZaLmKt3c5/oSyN1AWAl50YBpqTq0BxCP64nGg==}
     dev: true
 
   /@types/range-parser@1.2.4:

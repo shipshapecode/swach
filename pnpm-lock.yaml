@@ -235,8 +235,8 @@ importers:
         specifier: ^2.1.2
         version: 2.1.2(@babel/core@7.22.9)
       ember-local-storage:
-        specifier: ^2.0.4
-        version: 2.0.4
+        specifier: ^2.0.5
+        version: 2.0.5
       ember-math-helpers:
         specifier: ^3.0.0
         version: 3.0.0
@@ -11349,8 +11349,8 @@ packages:
       - supports-color
     dev: true
 
-  /ember-local-storage@2.0.4:
-    resolution: {integrity: sha512-sVGh6J2meHZkzQhIp0NPwT1l4Qo2gNNqi+2FBZCi7Y55UFnBSNJi8o1Fk2agZzkQlvdAEwKdPUAuhgSm1DHi8Q==}
+  /ember-local-storage@2.0.5:
+    resolution: {integrity: sha512-38RjnJgKvXX6ley3QYegthvqSdpVY0BEFbPCMM/2Y8AbykROluV6u0cu+Up710MPaXV8yNuNFWAeMELEaimgtg==}
     engines: {node: 12.* || 14.* || >= 16}
     dependencies:
       blob-polyfill: 7.0.20220408

@@ -43,7 +43,7 @@
     "@ctrl/tinycolor": "^3.6.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/render-modifiers": "^2.0.5",
-    "@ember/string": "^3.0.1",
+    "@ember/string": "^3.1.1",
     "@ember/test-helpers": "^2.9.4",
     "@embroider/compat": "^2.1.1",
     "@embroider/core": "^2.1.1",

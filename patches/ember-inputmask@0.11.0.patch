@@ -1,0 +1,92 @@
+diff --git a/addon/components/one-way-credit-card-mask.js b/addon/components/one-way-credit-card-mask.js
+index 2fe41df0e0df27230d3f1b4ce9a27069644fecde..0989f18b91c9538f73bd31cc52ceaf4714c0208b 100644
+--- a/addon/components/one-way-credit-card-mask.js
++++ b/addon/components/one-way-credit-card-mask.js
+@@ -4,7 +4,6 @@ import OneWayInputMask, {
+ import { computed, set } from '@ember/object';
+ import { isBlank } from '@ember/utils';
+ import { scheduleOnce } from '@ember/runloop';
+-import { assign } from '@ember/polyfills';
+ 
+ 
+ /**
+@@ -18,7 +17,7 @@ export default OneWayInputMask.extend({
+ 
+     let options = this._options;
+ 
+-    set(this, '_options', assign({}, {
++    set(this, '_options', Object.assign({}, {
+       // We need to make sure we catch paste events so that we change the mask before the text
+       // hits the input. This is a callback provided by Inputmask.js
+       onBeforePaste: value => {
+diff --git a/addon/components/one-way-date-mask.js b/addon/components/one-way-date-mask.js
+index 50d0922925c322b4674ff480201a0774d670576f..08c301ccdcef7c8f5bf088bb35ec9b6bb99de558 100644
+--- a/addon/components/one-way-date-mask.js
++++ b/addon/components/one-way-date-mask.js
+@@ -1,6 +1,5 @@
+ import OneWayInputMask from 'ember-inputmask/components/one-way-input-mask';
+ import { set } from '@ember/object';
+-import { assign } from '@ember/polyfills';
+ 
+ const DEFAULT_OPTIONS = {
+   inputFormat: 'dd/mm/yyyy',
+@@ -20,6 +19,6 @@ export default OneWayInputMask.extend({
+   init() {
+     this._super(...arguments);
+ 
+-    set(this, '_options', assign({}, this._options, DEFAULT_OPTIONS));
++    set(this, '_options', Object.assign({}, this._options, DEFAULT_OPTIONS));
+   },
+ });
+diff --git a/addon/components/one-way-input-mask.js b/addon/components/one-way-input-mask.js
+index a9e97578578eeb5cf3bd65a59d02bb356b758bec..ccb8083346bec5a89cb904851575717e1683c3c1 100644
+--- a/addon/components/one-way-input-mask.js
++++ b/addon/components/one-way-input-mask.js
+@@ -3,7 +3,7 @@ import Inputmask from 'inputmask';
+ import { computed, get, set } from '@ember/object';
+ import { schedule } from '@ember/runloop';
+ import { areDifferent } from 'ember-inputmask/utils/compare-objects';
+-import { assign } from '@ember/polyfills';
++
+ 
+ const DEFAULT_OPTIONS = {
+   rightAlign: false,
+@@ -99,7 +99,7 @@ const OneWayInputMask = Component.extend({
+ 
+     // Give the mask some default options that can be overridden
+     let options = this.options;
+-    set(this, '_options', assign({}, DEFAULT_OPTIONS, options));
++    set(this, '_options', Object.assign({}, DEFAULT_OPTIONS, options));
+ 
+     // We want any attribute that is not explicitally blacklisted to be bound that way we don't
+     // have to whitelist every single html attribute that an `input` can have. Borrowed from
+@@ -134,7 +134,7 @@ const OneWayInputMask = Component.extend({
+ 
+     if (didOptionsChange) {
+       // Override external options on top of internal options
+-      set(this, '_options', assign({}, this._options, options));
++      set(this, '_options', Object.assign({}, this._options, options));
+     }
+ 
+     // We want to reapply the mask if it has changed
+diff --git a/addon/components/one-way-number-mask.js b/addon/components/one-way-number-mask.js
+index 4790169a04df0d0b8797687846fc77495df79c35..e70b4471e745a2467c4427bffcc4f3cbabce32ea 100644
+--- a/addon/components/one-way-number-mask.js
++++ b/addon/components/one-way-number-mask.js
+@@ -3,7 +3,6 @@ import OneWayInputMask, {
+ } from 'ember-inputmask/components/one-way-input-mask';
+ import { set } from '@ember/object';
+ import { isBlank } from '@ember/utils';
+-import { assign } from '@ember/polyfills';
+ 
+ const DEFAULT_OPTIONS = {
+   groupSeparator: ',',
+@@ -35,7 +34,7 @@ export default OneWayInputMask.extend({
+   init() {
+     this._super(...arguments);
+ 
+-    set(this, '_options', assign({}, this._options, DEFAULT_OPTIONS));
++    set(this, '_options', Object.assign({}, this._options, DEFAULT_OPTIONS));
+ 
+     if (this.decimal) {
+       set(this, 'mask', 'decimal');

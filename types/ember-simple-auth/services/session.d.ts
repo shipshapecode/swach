@@ -1,6 +1,5 @@
 import Transition from '@ember/routing/-private/transition';
 import Service from '@ember/service';
-import Evented from '@ember/object/evented';
 
 interface Data {
   authenticated: {
@@ -8,7 +7,7 @@ interface Data {
   };
 }
 declare module 'ember-simple-auth/services/session' {
-  export default class session extends Service.extend(Evented) {
+  export default class session extends Service {
     /**
      * Triggered whenever the session is successfully authenticated. This happens
      * when the session gets authenticated via
@@ -49,6 +48,8 @@ declare module 'ember-simple-auth/services/session' {
     setup(): Promise<void>;
     authenticate(...args: any[]): RSVP.Promise;
     authorize(...args: any[]): RSVP.Promise;
+    handleAuthentication(...args: any): RSVP.Promise;
+    handleInvalidation(...args: any): RSVP.Promise;
     invalidate(...args: any): RSVP.Promise;
     requireAuthentication(
       transition: Transition,

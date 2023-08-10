@@ -33,8 +33,5 @@ export default class ApplicationRoute extends Route {
 
     await this.data.activate();
     await this.data.synchronize();
-
-    this.session.on('authenticationSucceeded', () => this.data.synchronize());
-    this.session.on('invalidationSucceeded', () => this.data.reset());
   }
 }

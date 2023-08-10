@@ -34,7 +34,7 @@
     "throttle-debounce": "^5.0.0"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^6.2.1",
+    "@electron-forge/cli": "^6.3.0",
     "@electron-forge/core": "^6.2.1",
     "@electron-forge/maker-deb": "^6.2.1",
     "@electron-forge/maker-dmg": "^6.2.1",

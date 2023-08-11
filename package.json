@@ -37,7 +37,7 @@
     "@babel/plugin-proposal-decorators": "^7.22.7",
     "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
     "@babel/plugin-transform-typescript": "^7.22.9",
-    "@babel/preset-env": "^7.22.9",
+    "@babel/preset-env": "^7.22.10",
     "@clark/eslint-config-ember-order-imports": "^2.2.0",
     "@csstools/postcss-sass": "^5.0.1",
     "@ctrl/tinycolor": "^3.6.0",

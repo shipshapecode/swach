@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 overrides:
   ember-animated>@ember/test-helpers: ^2.9.3
   ember-animated>ember-element-helper: ^0.6.1
@@ -417,8 +421,8 @@ importers:
         specifier: ^6.2.1
         version: 6.2.1
       '@sentry/cli':
-        specifier: ^2.20.4
-        version: 2.20.4
+        specifier: ^2.20.5
+        version: 2.20.5
       electron:
         specifier: ^21.1.0
         version: 21.1.0
@@ -4791,8 +4795,8 @@ packages:
       tslib: 2.5.0
     dev: true
 
-  /@sentry/cli@2.20.4:
-    resolution: {integrity: sha512-mycBCKQmLdaJpSKpXc3IXrQwb5HLxrdjgJgLGbb8saFHIkXl/1ePH171j+REq4dIP1uetu0bdDgEYj6AQjkleQ==}
+  /@sentry/cli@2.20.5:
+    resolution: {integrity: sha512-ZvWb86eF0QXH9C5Mbi87aUmr8SH848yEpXJmlM2AoBowpE9kKDnewCAKvyXUihojUFwCSEEjoJhrRMMgmCZqXA==}
     engines: {node: '>= 10'}
     hasBin: true
     requiresBuild: true
@@ -23006,7 +23010,3 @@ packages:
   /zen-observable@0.8.15:
     resolution: {integrity: sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==}
     dev: true
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

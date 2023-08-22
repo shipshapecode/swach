@@ -255,8 +255,8 @@ importers:
         specifier: ^6.2.0
         version: 6.2.0(@ember/test-helpers@2.9.4)(ember-source@5.2.0)(qunit@2.19.4)(webpack@5.88.2)
       ember-resolver:
-        specifier: ^10.1.1
-        version: 10.1.1(@ember/string@3.1.1)(ember-source@5.2.0)
+        specifier: ^11.0.1
+        version: 11.0.1(ember-source@5.2.0)
       ember-set-body-class:
         specifier: ^1.0.2
         version: 1.0.2
@@ -11790,6 +11790,21 @@ packages:
         optional: true
     dependencies:
       '@ember/string': 3.1.1
+      ember-cli-babel: 7.26.11
+      ember-source: 5.2.0(@babel/core@7.22.9)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.88.2)
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /ember-resolver@11.0.1(ember-source@5.2.0):
+    resolution: {integrity: sha512-ucBk3oM+PR+AfYoSUXeQh8cDQS1sSiEKp4Pcgbew5cFMSqPxJfqd1zyZsfQKNTuyubeGmWxBOyMVSTvX2LeCyg==}
+    engines: {node: 14.* || 16.* || >= 18}
+    peerDependencies:
+      ember-source: ^4.8.3 || >= 5.0.0
+    peerDependenciesMeta:
+      ember-source:
+        optional: true
+    dependencies:
       ember-cli-babel: 7.26.11
       ember-source: 5.2.0(@babel/core@7.22.9)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.88.2)
     transitivePeerDependencies:

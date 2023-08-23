@@ -264,8 +264,8 @@ importers:
         specifier: ^2.0.1
         version: 2.0.1
       ember-simple-auth:
-        specifier: ^6.0.0-rc.1
-        version: 6.0.0-rc.1(ember-fetch@8.1.2)(webpack@5.88.2)
+        specifier: ^6.0.0
+        version: 6.0.0(@ember/test-helpers@2.9.4)(@glint/template@1.1.0)
       ember-sinon-qunit:
         specifier: ^7.1.4
         version: 7.1.4(ember-source@5.2.0)(qunit@2.19.4)(sinon@15.2.0)(webpack@5.88.2)
@@ -3400,7 +3400,7 @@ packages:
     resolution: {integrity: sha512-sFhfWC0vI18KxVenmswQ/ShIvBg4juL8ubI+Q3NTSdkCTeaPQ/DIOUF6oR5DCQ8eO/TkIaw+kdG3FkTY6yNJqA==}
     engines: {node: 12.* || 14.* || >= 16}
     dependencies:
-      '@embroider/shared-internals': 2.2.3
+      '@embroider/shared-internals': 2.3.0(supports-color@8.1.1)
       broccoli-funnel: 3.0.8
       semver: 7.5.3
     transitivePeerDependencies:
@@ -3654,7 +3654,7 @@ packages:
       '@glint/template':
         optional: true
     dependencies:
-      '@embroider/macros': 1.12.3(@glint/template@1.1.0)
+      '@embroider/macros': 1.13.0(@glint/template@1.1.0)
       '@glint/template': 1.1.0
       broccoli-funnel: 3.0.8
       ember-cli-babel: 7.26.11
@@ -11844,21 +11844,24 @@ packages:
       - supports-color
     dev: true
 
-  /ember-simple-auth@6.0.0-rc.1(ember-fetch@8.1.2)(webpack@5.88.2):
-    resolution: {integrity: sha512-s5ts3Fl4fmsWXBQCcw8R58iwhWMejQo1Hk7Dxp9eN2V2dwtkXKUoFCtPwzgaaX+esjAouQ/q8LS5eWjpiIX4OA==}
-    engines: {node: '>= 16'}
+  /ember-simple-auth@6.0.0(@ember/test-helpers@2.9.4)(@glint/template@1.1.0):
+    resolution: {integrity: sha512-9SzSFApxZ74CD4UxIeTV+poIPeXcRLXWM60cMvC1SwTYjoc/p9DeQF0pVm6m1XV6uA3kPUzEsEn4/GeHc2YX1w==}
     peerDependencies:
-      ember-fetch: ^8.0.1
+      '@ember/test-helpers': '>= 3 || > 2.7'
+    peerDependenciesMeta:
+      '@ember/test-helpers':
+        optional: true
     dependencies:
-      ember-auto-import: 2.6.3(webpack@5.88.2)
-      ember-cli-babel: 7.26.11
+      '@ember/test-helpers': 2.9.4(@babel/core@7.22.9)(@glint/template@1.1.0)(ember-source@5.2.0)
+      '@ember/test-waiters': 3.0.2
+      '@embroider/addon-shim': 1.8.4
+      '@embroider/macros': 1.13.0(@glint/template@1.1.0)
       ember-cli-is-package-missing: 1.0.0
       ember-cookies: 1.0.0
-      ember-fetch: 8.1.2
       silent-error: 1.1.1
     transitivePeerDependencies:
+      - '@glint/template'
       - supports-color
-      - webpack
     dev: true
 
   /ember-sinon-qunit@7.1.4(ember-source@5.2.0)(qunit@2.19.4)(sinon@15.2.0)(webpack@5.88.2):

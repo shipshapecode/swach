@@ -75,8 +75,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2
       '@glint/core':
-        specifier: ^1.0.2
-        version: 1.0.2(typescript@5.1.6)
+        specifier: ^1.1.0
+        version: 1.1.0(typescript@5.1.6)
       '@glint/environment-ember-loose':
         specifier: ^0.9.7
         version: 0.9.7(@glimmer/component@1.1.2)(ember-cli-htmlbars@6.2.0)(ember-modifier@4.1.0)
@@ -4069,15 +4069,15 @@ packages:
       - supports-color
     dev: true
 
-  /@glint/core@1.0.2(typescript@5.1.6):
-    resolution: {integrity: sha512-0bVt/lT/NurpD8nBG9RTPKYlcpg51UDGCKgLoBEFOiTXv3aCSxAVKPud1IYaitGBKE0C+s5pl2PHkgptotVS+w==}
+  /@glint/core@1.1.0(typescript@5.1.6):
+    resolution: {integrity: sha512-SeAdKrQF65NRDzzmkwUC0VRZjBDysQXeIKXhyCUtXaatFDeyC0zdESJRcUykMdQoI5R6MKcts2X3gthLRuEGKA==}
     hasBin: true
     peerDependencies:
       typescript: '>=4.8.0'
     dependencies:
       '@glimmer/syntax': 0.84.3
       escape-string-regexp: 4.0.0
-      semver: 7.4.0
+      semver: 7.5.3
       silent-error: 1.1.1
       typescript: 5.1.6
       uuid: 8.3.2

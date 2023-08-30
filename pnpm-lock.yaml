@@ -78,8 +78,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(typescript@5.1.6)
       '@glint/environment-ember-loose':
-        specifier: ^0.9.7
-        version: 0.9.7(@glimmer/component@1.1.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.1.0)
+        specifier: ^1.1.0
+        version: 1.1.0(@glimmer/component@1.1.2)(@glint/template@1.1.0)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.1.0)
       '@glint/template':
         specifier: ^1.1.0
         version: 1.1.0
@@ -4089,17 +4089,6 @@ packages:
       '@glimmer/util': 0.84.2
     dev: true
 
-  /@glint/config@0.9.7:
-    resolution: {integrity: sha512-XkWIZ3fuOlcofUJUaJmRS57mVVNi+Af2HtrZkBXEOCh4+BNz2wclxv2WKvkhmtvLhEUOhHb5eU3gwI58SuwgXQ==}
-    dependencies:
-      escape-string-regexp: 4.0.0
-      minimatch: 3.1.2
-      resolve: 1.22.3
-      silent-error: 1.1.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /@glint/core@1.1.0(typescript@5.1.6):
     resolution: {integrity: sha512-SeAdKrQF65NRDzzmkwUC0VRZjBDysQXeIKXhyCUtXaatFDeyC0zdESJRcUykMdQoI5R6MKcts2X3gthLRuEGKA==}
     hasBin: true
@@ -4120,33 +4109,38 @@ packages:
       - supports-color
     dev: true
 
-  /@glint/environment-ember-loose@0.9.7(@glimmer/component@1.1.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.1.0):
-    resolution: {integrity: sha512-MlCGZtB1Clp4vQWIm2APSnCm7nL8wVhFMOhVy2qzpV0nfLyg3pcN9CQHNpfdJvCydBB72cA4/ahPj7VEFL6xsg==}
+  /@glint/environment-ember-loose@1.1.0(@glimmer/component@1.1.2)(@glint/template@1.1.0)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.1.0):
+    resolution: {integrity: sha512-Qwr3OAptRZ8zqxaPvpVBdbSiiImYMRNu+0IPQGaDutqOV80GzWYeiMuEyPC0Nwy4mQ3991YxE24Q+a5/FTfTNw==}
     peerDependencies:
       '@glimmer/component': ^1.1.2
+      '@glint/template': ^1.1.0
+      '@types/ember__array': ^4.0.2
+      '@types/ember__component': ^4.0.10
+      '@types/ember__controller': ^4.0.2
+      '@types/ember__object': ^4.0.4
+      '@types/ember__routing': ^4.0.11
       ember-cli-htmlbars: ^6.0.1
-      ember-modifier: ^3.2.7
+      ember-modifier: ^3.2.7 || ^4.0.0
     peerDependenciesMeta:
+      '@types/ember__array':
+        optional: true
+      '@types/ember__component':
+        optional: true
+      '@types/ember__controller':
+        optional: true
+      '@types/ember__object':
+        optional: true
+      '@types/ember__routing':
+        optional: true
       ember-cli-htmlbars:
         optional: true
       ember-modifier:
         optional: true
     dependencies:
       '@glimmer/component': 1.1.2(@babel/core@7.22.9)
-      '@glint/config': 0.9.7
-      '@glint/template': 0.9.7(@glimmer/component@1.1.2)
+      '@glint/template': 1.1.0
       ember-cli-htmlbars: 6.3.0
       ember-modifier: 4.1.0(ember-source@5.2.0)
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /@glint/template@0.9.7(@glimmer/component@1.1.2):
-    resolution: {integrity: sha512-MCp8GxQDIbH8ZzfNxHhVqCSKlydBgQfBEwJLDpN81lgFRCldSDPueIbk8sz3EhpGiZJVdNQbpGeYIDsUXe1ocg==}
-    peerDependencies:
-      '@glimmer/component': ^1.1.2
-    dependencies:
-      '@glimmer/component': 1.1.2(@babel/core@7.22.9)
     dev: true
 
   /@glint/template@1.1.0:

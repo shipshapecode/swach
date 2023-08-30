@@ -30,8 +30,8 @@ importers:
         specifier: ^7.20.7
         version: 7.20.7(@babel/core@7.22.9)
       '@babel/plugin-transform-typescript':
-        specifier: ^7.22.9
-        version: 7.22.9(@babel/core@7.22.9)
+        specifier: ^7.22.11
+        version: 7.22.11(@babel/core@7.22.9)
       '@babel/preset-env':
         specifier: ^7.22.10
         version: 7.22.10(@babel/core@7.22.9)
@@ -1091,6 +1091,24 @@ packages:
       '@babel/helper-validator-option': 7.22.5
       browserslist: 4.21.9
       lru-cache: 5.1.1
+      semver: 6.3.1
+    dev: true
+
+  /@babel/helper-create-class-features-plugin@7.22.11(@babel/core@7.22.9):
+    resolution: {integrity: sha512-y1grdYL4WzmUDBRGK0pDbIoFd7UZKoDurDzWEoNMYoj1EL+foGRQNyPWDcC+YyegN5y1DUsFFmzjGijB3nSVAQ==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0
+    dependencies:
+      '@babel/core': 7.22.9(supports-color@8.1.1)
+      '@babel/helper-annotate-as-pure': 7.22.5
+      '@babel/helper-environment-visitor': 7.22.5
+      '@babel/helper-function-name': 7.22.5
+      '@babel/helper-member-expression-to-functions': 7.22.5
+      '@babel/helper-optimise-call-expression': 7.22.5
+      '@babel/helper-replace-supers': 7.22.9(@babel/core@7.22.9)
+      '@babel/helper-skip-transparent-expression-wrappers': 7.22.5
+      '@babel/helper-split-export-declaration': 7.22.6
       semver: 6.3.1
     dev: true
 
@@ -2331,6 +2349,19 @@ packages:
     dependencies:
       '@babel/core': 7.22.9(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.22.5
+    dev: true
+
+  /@babel/plugin-transform-typescript@7.22.11(@babel/core@7.22.9):
+    resolution: {integrity: sha512-0E4/L+7gfvHub7wsbTv03oRtD69X31LByy44fGmFzbZScpupFByMcgCJ0VbBTkzyjSJKuRoGN8tcijOWKTmqOA==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.22.9(supports-color@8.1.1)
+      '@babel/helper-annotate-as-pure': 7.22.5
+      '@babel/helper-create-class-features-plugin': 7.22.11(@babel/core@7.22.9)
+      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/plugin-syntax-typescript': 7.22.5(@babel/core@7.22.9)
     dev: true
 
   /@babel/plugin-transform-typescript@7.22.9(@babel/core@7.22.9):
@@ -10955,7 +10986,7 @@ packages:
       '@babel/plugin-proposal-private-property-in-object': 7.21.0(@babel/core@7.22.9)
       '@babel/plugin-transform-modules-amd': 7.20.11(@babel/core@7.22.9)
       '@babel/plugin-transform-runtime': 7.21.4(@babel/core@7.22.9)
-      '@babel/plugin-transform-typescript': 7.22.9(@babel/core@7.22.9)
+      '@babel/plugin-transform-typescript': 7.22.11(@babel/core@7.22.9)
       '@babel/polyfill': 7.12.1
       '@babel/preset-env': 7.22.10(@babel/core@7.22.9)
       '@babel/runtime': 7.12.18
@@ -19661,7 +19692,7 @@ packages:
     dependencies:
       '@babel/core': 7.22.9(supports-color@8.1.1)
       '@babel/plugin-syntax-decorators': 7.22.5(@babel/core@7.22.9)
-      '@babel/plugin-transform-typescript': 7.22.9(@babel/core@7.22.9)
+      '@babel/plugin-transform-typescript': 7.22.11(@babel/core@7.22.9)
       prettier: 2.8.7
     transitivePeerDependencies:
       - supports-color

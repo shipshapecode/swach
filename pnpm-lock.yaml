@@ -409,8 +409,8 @@ importers:
         specifier: ^6.2.1
         version: 6.2.1
       '@electron-forge/maker-deb':
-        specifier: ^6.3.0
-        version: 6.3.0
+        specifier: ^6.4.1
+        version: 6.4.1
       '@electron-forge/maker-dmg':
         specifier: ^6.2.1
         version: 6.2.1
@@ -2877,19 +2877,6 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-base@6.3.0:
-    resolution: {integrity: sha512-zAU2G7yh9gLyFbw08RfU4j8z/QAt5Sm4uaub3dE+GdRuXOc0NeqIfUiwP2xIl6Ja6mt5dU4gvdxQT/+hnqXqoQ==}
-    engines: {node: '>= 14.17.5'}
-    dependencies:
-      '@electron-forge/shared-types': 6.3.0
-      fs-extra: 10.1.0
-      which: 2.0.2
-    transitivePeerDependencies:
-      - bluebird
-      - enquirer
-      - supports-color
-    dev: true
-
   /@electron-forge/maker-base@6.4.1:
     resolution: {integrity: sha512-c4Vdy6beT4wtWbsDK7pBM1iEX9RT2PKGn1NT2Ygyosnzuzgp3Bh4bZyfpJRdKqUOsdJ3gWLpGDN3VcxghldfxA==}
     engines: {node: '>= 14.17.5'}
@@ -2903,14 +2890,14 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-deb@6.3.0:
-    resolution: {integrity: sha512-ttNhPTMAI55tJh5Jcs0/4kW+dPrjfTdKIuxtyCKZI/MZXLy39Lq6fneUUg1G7ZqTEE1DHL947uxlYw5NumahEw==}
+  /@electron-forge/maker-deb@6.4.1:
+    resolution: {integrity: sha512-B1tNu9jKQygsV4nK0F8+ZHz1XPmB8h6zYhogiGDCH7R4nlCkokq5skhN4JhonKUbQx4UNC1a0Yf+VaRfjWSGKg==}
     engines: {node: '>= 14.17.5'}
     dependencies:
-      '@electron-forge/maker-base': 6.3.0
-      '@electron-forge/shared-types': 6.3.0
+      '@electron-forge/maker-base': 6.4.1
+      '@electron-forge/shared-types': 6.4.1
     optionalDependencies:
-      electron-installer-debian: 3.1.0
+      electron-installer-debian: 3.2.0
     transitivePeerDependencies:
       - bluebird
       - enquirer
@@ -3008,19 +2995,6 @@ packages:
 
   /@electron-forge/shared-types@6.2.1:
     resolution: {integrity: sha512-kLazG5XUAqb3Duyhq7XyGluINRwCQRaIiuvHwlvnZYYu6NZQTz9xUm6tQ9v05EtFblUx2iRjY67DJRZSt3dzTQ==}
-    engines: {node: '>= 14.17.5'}
-    dependencies:
-      '@electron/rebuild': 3.2.12
-      electron-packager: 17.1.2
-      listr2: 5.0.8
-    transitivePeerDependencies:
-      - bluebird
-      - enquirer
-      - supports-color
-    dev: true
-
-  /@electron-forge/shared-types@6.3.0:
-    resolution: {integrity: sha512-6L4XIC4ErueM3mbWjVJLNtRZPxjdw3aa64e58m8gBwXnrreKVuKL+DFDKMvI2FO7IZXeLsIn/CEka+wQRwW87w==}
     engines: {node: '>= 14.17.5'}
     dependencies:
       '@electron/rebuild': 3.2.12
@@ -9116,6 +9090,7 @@ packages:
 
   /cliui@7.0.4:
     resolution: {integrity: sha512-OcRE68cOsVMXp1Yvonl/fzkQOyjLSu/8bhPDfQt0e0/Eb283TKP20Fs2MqoPsr9SwA595rRCA+QMzYc9nBP+JQ==}
+    requiresBuild: true
     dependencies:
       string-width: 4.2.3
       strip-ansi: 6.0.1
@@ -10592,8 +10567,8 @@ packages:
     dev: true
     optional: true
 
-  /electron-installer-debian@3.1.0:
-    resolution: {integrity: sha512-k6KChvx0Fw8XTlCqwwbBfh19yGQaKjGdbugokmr1IpzINOm4QFyACKMTHAYFHW5LCBUZQShZD96hwxUZ+8Kx+w==}
+  /electron-installer-debian@3.2.0:
+    resolution: {integrity: sha512-58ZrlJ1HQY80VucsEIG9tQ//HrTlG6sfofA3nRGr6TmkX661uJyu4cMPPh6kXW+aHdq/7+q25KyQhDrXvRL7jw==}
     engines: {node: '>= 10.0.0'}
     os: [darwin, linux]
     hasBin: true
@@ -10606,7 +10581,7 @@ packages:
       get-folder-size: 2.0.1
       lodash: 4.17.21
       word-wrap: 1.2.3
-      yargs: 15.4.1
+      yargs: 16.2.0
     transitivePeerDependencies:
       - supports-color
     dev: true

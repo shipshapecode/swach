@@ -106,7 +106,7 @@
     "ember-inflector": "^4.0.2",
     "ember-inputmask": "^0.11.0",
     "ember-load-initializers": "^2.1.2",
-    "ember-local-storage": "^2.0.5",
+    "ember-local-storage": "^2.0.6",
     "ember-math-helpers": "^3.0.0",
     "ember-modifier": "^4.1.0",
     "ember-orbit": "^0.17.3",

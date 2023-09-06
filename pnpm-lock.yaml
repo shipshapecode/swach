@@ -213,8 +213,8 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0
       ember-css-transitions:
-        specifier: ^4.3.2
-        version: 4.3.2(ember-source@5.2.0)
+        specifier: ^4.4.0
+        version: 4.4.0(ember-source@5.2.0)
       ember-decorators:
         specifier: ^6.1.1
         version: 6.1.1
@@ -11495,9 +11495,8 @@ packages:
       - supports-color
     dev: true
 
-  /ember-css-transitions@4.3.2(ember-source@5.2.0):
-    resolution: {integrity: sha512-2VsGZEM00rhko3VYaHaFs82kvCkBMDF7rv4Z4Wplef/O0PSe0ezPFbD9cveR+9R+7PXw5BI25sbNqyrinkhw4A==}
-    engines: {node: 12.* || 14.* || 16.* || >= 18}
+  /ember-css-transitions@4.4.0(ember-source@5.2.0):
+    resolution: {integrity: sha512-Ztnj7+TDpe8F4//VIB2fQJS4ZlPZPmbJXJMPENrZ3Kr262+wMXFM1NlCHfIfheyg1gTI/04AcdAhnK58JkAmQg==}
     dependencies:
       '@ember/test-waiters': 3.0.2
       '@embroider/addon-shim': 1.8.4

@@ -97,7 +97,7 @@
     "ember-click-outside": "^6.0.1",
     "ember-cognito": "^1.0.0",
     "ember-composable-helpers": "^5.0.0",
-    "ember-css-transitions": "^4.3.2",
+    "ember-css-transitions": "^4.4.0",
     "ember-decorators": "^6.1.1",
     "ember-drag-sort": "^3.0.1",
     "ember-electron": "^5.0.0",

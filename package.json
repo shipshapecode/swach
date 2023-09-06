@@ -148,7 +148,7 @@
     "tailwindcss": "^3.3.3",
     "throttle-debounce": "^5.0.0",
     "tracked-built-ins": "^3.1.1",
-    "typescript": "^5.1.6",
+    "typescript": "^5.2.2",
     "wcag-contrast": "^3.0.0",
     "webpack": "^5.88.2"
   },

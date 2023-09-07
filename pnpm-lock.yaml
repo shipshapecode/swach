@@ -57,8 +57,8 @@ importers:
         specifier: ^2.9.4
         version: 2.9.4(@babel/core@7.22.9)(@glint/template@1.1.0)(ember-source@5.2.0)
       '@embroider/compat':
-        specifier: ^3.2.0
-        version: 3.2.0(@embroider/core@3.2.1)(@glint/template@1.1.0)
+        specifier: ^3.2.1
+        version: 3.2.1(@embroider/core@3.2.1)(@glint/template@1.1.0)
       '@embroider/core':
         specifier: ^3.2.1
         version: 3.2.1(@glint/template@1.1.0)
@@ -3436,12 +3436,12 @@ packages:
       - webpack
     dev: true
 
-  /@embroider/compat@3.2.0(@embroider/core@3.2.1)(@glint/template@1.1.0):
-    resolution: {integrity: sha512-hHlF0vOcmUHZFJKj07QEetbQSbY44nsDFS9nShlPeUOLlKdl02Wik3vR0AcBKGXMZyu9m5kbhmTM6T8aSquIww==}
+  /@embroider/compat@3.2.1(@embroider/core@3.2.1)(@glint/template@1.1.0):
+    resolution: {integrity: sha512-nni6oQTPkSuZZKjXTFTZchO7chFBGKEN0O/xMGn9SxifM7EDl7+y6JlPQFchQcmLGi2DxglsystV0E/jTyc11Q==}
     engines: {node: 12.* || 14.* || >= 16}
     hasBin: true
     peerDependencies:
-      '@embroider/core': ^3.2.0
+      '@embroider/core': ^3.2.1
     dependencies:
       '@babel/code-frame': 7.22.5
       '@babel/core': 7.22.9(supports-color@8.1.1)
@@ -3451,7 +3451,7 @@ packages:
       '@babel/runtime': 7.21.0
       '@babel/traverse': 7.22.8(supports-color@8.1.1)
       '@embroider/core': 3.2.1(@glint/template@1.1.0)
-      '@embroider/macros': 1.13.0(@glint/template@1.1.0)
+      '@embroider/macros': 1.13.1(@glint/template@1.1.0)
       '@types/babel__code-frame': 7.0.3
       '@types/yargs': 17.0.24
       assert-never: 1.2.1

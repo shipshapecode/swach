@@ -412,8 +412,8 @@ importers:
         specifier: ^6.4.1
         version: 6.4.1
       '@electron-forge/maker-dmg':
-        specifier: ^6.4.1
-        version: 6.4.1
+        specifier: ^6.4.2
+        version: 6.4.2
       '@electron-forge/maker-squirrel':
         specifier: ^6.4.1
         version: 6.4.1
@@ -2863,6 +2863,19 @@ packages:
       - supports-color
     dev: true
 
+  /@electron-forge/maker-base@6.4.2:
+    resolution: {integrity: sha512-zW3GH+LqDK9nxQmQEFkJPR8RqiX0lVk6a4mXll3ngujN1fPevO4ivUAWmaEVeC1dH/hXbN7s9m0S6a37MigftQ==}
+    engines: {node: '>= 14.17.5'}
+    dependencies:
+      '@electron-forge/shared-types': 6.4.2
+      fs-extra: 10.1.0
+      which: 2.0.2
+    transitivePeerDependencies:
+      - bluebird
+      - enquirer
+      - supports-color
+    dev: true
+
   /@electron-forge/maker-deb@6.4.1:
     resolution: {integrity: sha512-B1tNu9jKQygsV4nK0F8+ZHz1XPmB8h6zYhogiGDCH7R4nlCkokq5skhN4JhonKUbQx4UNC1a0Yf+VaRfjWSGKg==}
     engines: {node: '>= 14.17.5'}
@@ -2877,12 +2890,12 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-dmg@6.4.1:
-    resolution: {integrity: sha512-cxbnpxRZF5RPvP0ITJZpQr5l77wNhCft0NAnTJZmBLl1sLMSE6L+5i6xvkb0uAdRwPcNGseAlrcx6dalmoFubw==}
+  /@electron-forge/maker-dmg@6.4.2:
+    resolution: {integrity: sha512-PG3qzDKQhogZe7rPOlWYR72k85mvwYdn4tzAMKTXTJyPy7RNuRq8NhANZHqFyFi95d4fawTcsbyFKM4kY+qQRQ==}
     engines: {node: '>= 14.17.5'}
     dependencies:
-      '@electron-forge/maker-base': 6.4.1
-      '@electron-forge/shared-types': 6.4.1
+      '@electron-forge/maker-base': 6.4.2
+      '@electron-forge/shared-types': 6.4.2
       fs-extra: 10.1.0
     optionalDependencies:
       electron-installer-dmg: 4.0.0
@@ -2981,6 +2994,19 @@ packages:
 
   /@electron-forge/shared-types@6.4.1:
     resolution: {integrity: sha512-Nr4ZLBzXX7ycqkNYJ+wQ2lCttQfkTN1OPOuY1jEGESNjCqcJ/apZszaLurVb5UwKucpk3/CzRGtg9DH4GIEEkw==}
+    engines: {node: '>= 14.17.5'}
+    dependencies:
+      '@electron/rebuild': 3.2.12
+      electron-packager: 17.1.2
+      listr2: 5.0.8
+    transitivePeerDependencies:
+      - bluebird
+      - enquirer
+      - supports-color
+    dev: true
+
+  /@electron-forge/shared-types@6.4.2:
+    resolution: {integrity: sha512-DKOUMsdTXZIq8XiqY0Hi3C+dam/JKUnvfBjwcUeyZqPdgEE1qry8xZmmjorXuLrRf1Jq8rhxYGQInSK4af0QYw==}
     engines: {node: '>= 14.17.5'}
     dependencies:
       '@electron/rebuild': 3.2.12

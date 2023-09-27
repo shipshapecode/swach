@@ -297,8 +297,8 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0(eslint@8.45.0)
       eslint-plugin-ember:
-        specifier: ^11.5.1
-        version: 11.5.1(eslint@8.45.0)
+        specifier: ^11.11.1
+        version: 11.11.1(eslint@8.45.0)
       eslint-plugin-n:
         specifier: ^16.1.0
         version: 16.1.0(eslint@8.45.0)
@@ -2900,7 +2900,7 @@ packages:
       chalk: 4.1.2
       debug: 4.3.4(supports-color@8.1.1)
       electron-packager: 17.1.2
-      fast-glob: 3.3.0
+      fast-glob: 3.3.1
       filenamify: 4.3.0
       find-up: 5.0.0
       fs-extra: 10.1.0
@@ -12503,8 +12503,8 @@ packages:
     resolution: {integrity: sha512-Uk/TVLt6Nf6Xoz7C1iYuZjOSdJxe5aaauGRke8JhKeJwD66Y61/pY2FjtLP04Ooq9PwV34bzrkKkU2UZ5FtDRA==}
     dev: true
 
-  /eslint-plugin-ember@11.5.1(eslint@8.45.0):
-    resolution: {integrity: sha512-dFNULVIoGSTwphswKG+XGZuEs2sNx8zlxsmrDp435VJW0B40teIy72w000zaSM2TCARprflNmrmU6lVkwvF1TQ==}
+  /eslint-plugin-ember@11.11.1(eslint@8.45.0):
+    resolution: {integrity: sha512-dvsDa4LkDkGqCE2bzBIguRMi1g40JVwRWMSHmn8S7toRDxSOU3M7yromgi5eSAJX2O2vEvJZ9QnR15YDbvNfVQ==}
     engines: {node: 14.* || 16.* || >= 18}
     peerDependencies:
       eslint: '>= 7'
@@ -12514,6 +12514,7 @@ packages:
       css-tree: 2.3.1
       ember-rfc176-data: 0.3.18
       ember-template-imports: 3.4.2
+      ember-template-recast: 6.1.4
       eslint: 8.45.0
       eslint-utils: 3.0.0(eslint@8.45.0)
       estraverse: 5.3.0
@@ -14091,7 +14092,7 @@ packages:
       '@types/glob': 7.2.0
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.3.0
+      fast-glob: 3.3.1
       glob: 7.2.3
       ignore: 5.2.4
       merge2: 1.4.1
@@ -14115,7 +14116,7 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
       dir-glob: 3.0.1
-      fast-glob: 3.3.0
+      fast-glob: 3.3.1
       ignore: 5.2.4
       merge2: 1.4.1
       slash: 4.0.0
@@ -14126,7 +14127,7 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
       dir-glob: 3.0.1
-      fast-glob: 3.3.0
+      fast-glob: 3.3.1
       ignore: 5.2.4
       merge2: 1.4.1
       slash: 4.0.0

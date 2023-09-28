@@ -77,7 +77,7 @@
     "babel-preset-env": "^1.7.0",
     "broccoli-asset-rev": "^3.0.0",
     "color-name-list": "^10.12.0",
-    "concurrently": "^8.2.0",
+    "concurrently": "^8.2.1",
     "crypto-browserify": "^3.12.0",
     "ember-animated": "^0.12.0",
     "ember-auto-import": "^2.6.3",

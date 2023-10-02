@@ -409,8 +409,8 @@ importers:
         specifier: ^6.2.1
         version: 6.2.1
       '@electron-forge/maker-deb':
-        specifier: ^6.4.1
-        version: 6.4.1
+        specifier: ^6.4.2
+        version: 6.4.2
       '@electron-forge/maker-dmg':
         specifier: ^6.4.2
         version: 6.4.2
@@ -2949,12 +2949,12 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-deb@6.4.1:
-    resolution: {integrity: sha512-B1tNu9jKQygsV4nK0F8+ZHz1XPmB8h6zYhogiGDCH7R4nlCkokq5skhN4JhonKUbQx4UNC1a0Yf+VaRfjWSGKg==}
+  /@electron-forge/maker-deb@6.4.2:
+    resolution: {integrity: sha512-tlV8ffivgBP94vtYXgAeXgzeKCaRyLuWH9LT8PQW1QrYbAFpCMmuwk/zFaJkyMklImCWmDFTPYMEqdEJGd7Npg==}
     engines: {node: '>= 14.17.5'}
     dependencies:
-      '@electron-forge/maker-base': 6.4.1
-      '@electron-forge/shared-types': 6.4.1
+      '@electron-forge/maker-base': 6.4.2
+      '@electron-forge/shared-types': 6.4.2
     optionalDependencies:
       electron-installer-debian: 3.2.0
     transitivePeerDependencies:

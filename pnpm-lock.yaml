@@ -321,8 +321,8 @@ importers:
         specifier: ^8.4.31
         version: 8.4.31
       postcss-scss:
-        specifier: ^4.0.8
-        version: 4.0.8(postcss@8.4.31)
+        specifier: ^4.0.9
+        version: 4.0.9(postcss@8.4.31)
       prettier:
         specifier: ^2.8.7
         version: 2.8.7
@@ -18614,8 +18614,8 @@ packages:
       postcss: 8.4.31
     dev: true
 
-  /postcss-scss@4.0.8(postcss@8.4.31):
-    resolution: {integrity: sha512-Cr0X8Eu7xMhE96PJck6ses/uVVXDtE5ghUTKNUYgm8ozgP2TkgV3LWs3WgLV1xaSSLq8ZFiXaUrj0LVgG1fGEA==}
+  /postcss-scss@4.0.9(postcss@8.4.31):
+    resolution: {integrity: sha512-AjKOeiwAitL/MXxQW2DliT28EKukvvbEWx3LBmJIRN8KfBGZbRTxNYW0kSqi1COiTZ57nZ9NW06S6ux//N1c9A==}
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.4.29
@@ -21019,7 +21019,7 @@ packages:
         optional: true
     dependencies:
       postcss: 8.4.31
-      postcss-scss: 4.0.8(postcss@8.4.31)
+      postcss-scss: 4.0.9(postcss@8.4.31)
       stylelint: 15.10.3
       stylelint-config-recommended: 13.0.0(stylelint@15.10.3)
       stylelint-scss: 5.1.0(stylelint@15.10.3)

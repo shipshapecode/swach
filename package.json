@@ -53,7 +53,7 @@
     "@glimmer/tracking": "^1.1.2",
     "@glint/core": "^1.1.0",
     "@glint/environment-ember-loose": "^1.1.0",
-    "@glint/template": "^1.1.0",
+    "@glint/template": "^1.2.0",
     "@jaames/iro": "^5.5.2",
     "@orbit/coordinator": "^0.17.0",
     "@orbit/indexeddb": "^0.17.2",

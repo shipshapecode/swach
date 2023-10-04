@@ -378,8 +378,8 @@ importers:
   electron-app:
     dependencies:
       '@sentry/electron':
-        specifier: ^4.11.0
-        version: 4.11.0
+        specifier: ^4.12.0
+        version: 4.12.0
       electron-dl:
         specifier: ^3.5.0
         version: 3.5.0
@@ -4844,8 +4844,8 @@ packages:
       tslib: 2.5.0
     dev: true
 
-  /@sentry/electron@4.11.0:
-    resolution: {integrity: sha512-NTySgrqXYf9KNPpKutYlrG9NDob3/I8kyd7AHEAxY2d0gcz4EL4O2kmpNAR/DwxeqmqPAnu+UxIva7t9ATa6Bg==}
+  /@sentry/electron@4.12.0:
+    resolution: {integrity: sha512-CIF4xhTg/bJUAvSkW6J5wpcKU56v0eeAdo7daNc06ZuY6942pmXTjIZtLkmvZ0qb20LHNXtfaCGCaAYOBrD9tQ==}
     dependencies:
       '@sentry/browser': 7.68.0
       '@sentry/core': 7.68.0

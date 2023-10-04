@@ -117,8 +117,8 @@ importers:
         specifier: ^0.5.6
         version: 0.5.6(tailwindcss@3.3.3)
       '@types/ember':
-        specifier: ^4.0.5
-        version: 4.0.5(@babel/core@7.23.0)
+        specifier: ^4.0.6
+        version: 4.0.6(@babel/core@7.23.0)
       '@types/ember-qunit':
         specifier: ^6.1.1
         version: 6.1.1(@ember/test-helpers@2.9.4)(ember-source@5.3.0)(qunit@2.19.4)(webpack@5.88.2)
@@ -5138,8 +5138,8 @@ packages:
       - supports-color
     dev: true
 
-  /@types/ember@4.0.5(@babel/core@7.23.0):
-    resolution: {integrity: sha512-cTv/nW203GEPGsIJEL3bG6+5/Lmnkb0rNoITnHfkK1y7SPY1yg6K00VmE11LHkhQIt9BaMTFw7mqO53iexp7Hg==}
+  /@types/ember@4.0.6(@babel/core@7.23.0):
+    resolution: {integrity: sha512-5CAqPP20l1CWXT1E0NoiBnQUKqwuPSBq0JJVadEIX65CUzVz3zUIFvNoSl1erePwOeCIiQn9pHa568XwZnD6Mw==}
     dependencies:
       '@types/ember__application': 4.0.5(@babel/core@7.23.0)
       '@types/ember__array': 4.0.3(@babel/core@7.23.0)
@@ -5167,7 +5167,7 @@ packages:
     resolution: {integrity: sha512-qnU1RFZ3oIfw7ncLSjYqe1p236SU5OMQQVPaXISpNcVr4IEAl6yZ6Txm8pxI7DKo7isHV8sHssPBara9oqccVA==}
     dependencies:
       '@glimmer/component': 1.1.2(@babel/core@7.23.0)
-      '@types/ember': 4.0.5(@babel/core@7.23.0)
+      '@types/ember': 4.0.6(@babel/core@7.23.0)
       '@types/ember__engine': 4.0.4(@babel/core@7.23.0)
       '@types/ember__object': 4.0.5(@babel/core@7.23.0)
       '@types/ember__owner': 4.0.3
@@ -5180,7 +5180,7 @@ packages:
   /@types/ember__array@4.0.3(@babel/core@7.23.0):
     resolution: {integrity: sha512-G6kbLaS3ke4QspHkgLlGY0t1v0G22hGavyphezZucj7LLk1N+r11w913CYkBg3cJsJD+TG2Wo4eVbgRcotvuvQ==}
     dependencies:
-      '@types/ember': 4.0.5(@babel/core@7.23.0)
+      '@types/ember': 4.0.6(@babel/core@7.23.0)
       '@types/ember__object': 4.0.5(@babel/core@7.23.0)
     transitivePeerDependencies:
       - '@babel/core'
@@ -5190,7 +5190,7 @@ packages:
   /@types/ember__component@4.0.13(@babel/core@7.23.0):
     resolution: {integrity: sha512-mxPme8PexMrv/GPUOE9uPzxjVhHhrznGG4HRUsZNvrHwBbvVwJ/ClgDxz1NZeaYrKhAstQ6QjorssoEXaoer+A==}
     dependencies:
-      '@types/ember': 4.0.5(@babel/core@7.23.0)
+      '@types/ember': 4.0.6(@babel/core@7.23.0)
       '@types/ember__object': 4.0.5(@babel/core@7.23.0)
     transitivePeerDependencies:
       - '@babel/core'
@@ -5233,7 +5233,7 @@ packages:
   /@types/ember__object@4.0.5(@babel/core@7.23.0):
     resolution: {integrity: sha512-gXrywWBwoW7J9y9yJqoZ0m1qtiyMdrEi29cJdF1xI2qOnMqaZeuSCMYaPQMsyq52/YnVIG2EnGzo6eUD57J4Nw==}
     dependencies:
-      '@types/ember': 4.0.5(@babel/core@7.23.0)
+      '@types/ember': 4.0.6(@babel/core@7.23.0)
       '@types/rsvp': 4.0.4
     transitivePeerDependencies:
       - '@babel/core'
@@ -5251,7 +5251,7 @@ packages:
   /@types/ember__routing@4.0.12(@babel/core@7.23.0):
     resolution: {integrity: sha512-zxPS43JP8/dEmNrSucN5KzTvOm+JUrbFGWsJ1m5a395FwxYbpgs7JujV0JWl+eVhnCh/PmsNcCdJT16+jouktQ==}
     dependencies:
-      '@types/ember': 4.0.5(@babel/core@7.23.0)
+      '@types/ember': 4.0.6(@babel/core@7.23.0)
       '@types/ember__controller': 4.0.4(@babel/core@7.23.0)
       '@types/ember__object': 4.0.5(@babel/core@7.23.0)
       '@types/ember__service': 4.0.2(@babel/core@7.23.0)
@@ -5263,7 +5263,7 @@ packages:
   /@types/ember__runloop@4.0.2(@babel/core@7.23.0):
     resolution: {integrity: sha512-E0/n/O/JnPQpMrabsDKtVOXX4tbCrOA116HjmD+eorgsPFLm8tAUwl3wQGroeJt8BSE7uHjsQdDA7JUkbsT3IQ==}
     dependencies:
-      '@types/ember': 4.0.5(@babel/core@7.23.0)
+      '@types/ember': 4.0.6(@babel/core@7.23.0)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -5310,7 +5310,7 @@ packages:
   /@types/ember__utils@4.0.2(@babel/core@7.23.0):
     resolution: {integrity: sha512-LWkLgf09/GqyrUuoKtAB6qP7n36yAzc2yOh1L5fVpZGCBv5KQiGWUQv5uBoo4c1mllD+IBOMxei3bR4cx6SwZA==}
     dependencies:
-      '@types/ember': 4.0.5(@babel/core@7.23.0)
+      '@types/ember': 4.0.6(@babel/core@7.23.0)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color

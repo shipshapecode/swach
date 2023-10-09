@@ -421,8 +421,8 @@ importers:
         specifier: ^6.4.2
         version: 6.4.2
       '@sentry/cli':
-        specifier: ^2.20.5
-        version: 2.20.5
+        specifier: ^2.21.2
+        version: 2.21.2
       electron:
         specifier: ^21.1.0
         version: 21.1.0
@@ -4776,8 +4776,8 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /@sentry/cli@2.20.5:
-    resolution: {integrity: sha512-ZvWb86eF0QXH9C5Mbi87aUmr8SH848yEpXJmlM2AoBowpE9kKDnewCAKvyXUihojUFwCSEEjoJhrRMMgmCZqXA==}
+  /@sentry/cli@2.21.2:
+    resolution: {integrity: sha512-X1nye89zl+QV3FSuQDGItfM51tW9PQ7ce0TtV/12DgGgTVEgnVp5uvO3wX5XauHvulQzRPzwUL3ZK+yS5bAwCw==}
     engines: {node: '>= 10'}
     hasBin: true
     requiresBuild: true

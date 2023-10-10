@@ -415,8 +415,8 @@ importers:
         specifier: ^6.4.2
         version: 6.4.2
       '@electron-forge/maker-squirrel':
-        specifier: ^6.4.1
-        version: 6.4.1
+        specifier: ^6.4.2
+        version: 6.4.2
       '@electron-forge/maker-zip':
         specifier: ^6.4.2
         version: 6.4.2
@@ -2838,19 +2838,6 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-base@6.4.1:
-    resolution: {integrity: sha512-c4Vdy6beT4wtWbsDK7pBM1iEX9RT2PKGn1NT2Ygyosnzuzgp3Bh4bZyfpJRdKqUOsdJ3gWLpGDN3VcxghldfxA==}
-    engines: {node: '>= 14.17.5'}
-    dependencies:
-      '@electron-forge/shared-types': 6.4.1
-      fs-extra: 10.1.0
-      which: 2.0.2
-    transitivePeerDependencies:
-      - bluebird
-      - enquirer
-      - supports-color
-    dev: true
-
   /@electron-forge/maker-base@6.4.2:
     resolution: {integrity: sha512-zW3GH+LqDK9nxQmQEFkJPR8RqiX0lVk6a4mXll3ngujN1fPevO4ivUAWmaEVeC1dH/hXbN7s9m0S6a37MigftQ==}
     engines: {node: '>= 14.17.5'}
@@ -2893,12 +2880,12 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-squirrel@6.4.1:
-    resolution: {integrity: sha512-si2gMiX4pm6IHs3dACMAxLYf5XfhDA7ZabKM6hrvhHsSKHYUysZuJ6KYbBnBE9OI98Q43xoivlzZfPuEL71Z3w==}
+  /@electron-forge/maker-squirrel@6.4.2:
+    resolution: {integrity: sha512-ukK3RcFaBrQXUzR52PsHxfwDq5XKSnj6A1kkXiyHWqgj+HIU97prBScBb5JRtasPvYN+nDdQO2vlInsLaqcx9Q==}
     engines: {node: '>= 14.17.5'}
     dependencies:
-      '@electron-forge/maker-base': 6.4.1
-      '@electron-forge/shared-types': 6.4.1
+      '@electron-forge/maker-base': 6.4.2
+      '@electron-forge/shared-types': 6.4.2
       fs-extra: 10.1.0
     optionalDependencies:
       electron-winstaller: 5.1.0
@@ -2939,19 +2926,6 @@ packages:
     engines: {node: '>= 14.17.5'}
     dependencies:
       '@electron-forge/shared-types': 6.4.2
-    transitivePeerDependencies:
-      - bluebird
-      - enquirer
-      - supports-color
-    dev: true
-
-  /@electron-forge/shared-types@6.4.1:
-    resolution: {integrity: sha512-Nr4ZLBzXX7ycqkNYJ+wQ2lCttQfkTN1OPOuY1jEGESNjCqcJ/apZszaLurVb5UwKucpk3/CzRGtg9DH4GIEEkw==}
-    engines: {node: '>= 14.17.5'}
-    dependencies:
-      '@electron/rebuild': 3.2.12
-      electron-packager: 17.1.2
-      listr2: 5.0.8
     transitivePeerDependencies:
       - bluebird
       - enquirer

@@ -132,8 +132,8 @@ importers:
         specifier: ^2.19.6
         version: 2.19.6
       '@types/sinon':
-        specifier: ^10.0.18
-        version: 10.0.18
+        specifier: ^10.0.19
+        version: 10.0.19
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.62.0
         version: 5.62.0(@typescript-eslint/parser@5.62.0)(eslint@8.50.0)(typescript@5.2.2)
@@ -5411,8 +5411,8 @@ packages:
       '@types/node': 18.15.11
     dev: true
 
-  /@types/sinon@10.0.18:
-    resolution: {integrity: sha512-OpQC9ug8BcnNxue2WF5aTruMaDRFn6NyfaE4DmAKOlQMn54b7CnCvDFV3wj5fk/HbSSTYmOYs2bTb5ShANjyQg==}
+  /@types/sinon@10.0.19:
+    resolution: {integrity: sha512-MWZNGPSchIdDfb5FL+VFi4zHsHbNOTQEgjqFQk7HazXSXwUU9PAX3z9XBqb3AJGYr9YwrtCtaSMsT3brYsN/jQ==}
     dependencies:
       '@types/sinonjs__fake-timers': 8.1.2
     dev: true
@@ -11789,7 +11789,7 @@ packages:
       qunit: ^2.0.0
       sinon: ^15.0.2
     dependencies:
-      '@types/sinon': 10.0.18
+      '@types/sinon': 10.0.19
       broccoli-funnel: 3.0.8
       ember-auto-import: 2.6.3(webpack@5.88.2)
       ember-cli-babel: 7.26.11

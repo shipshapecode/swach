@@ -42,8 +42,8 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1(postcss@8.4.31)
       '@ctrl/tinycolor':
-        specifier: ^3.6.0
-        version: 3.6.0
+        specifier: ^4.0.2
+        version: 4.0.2
       '@ember/optional-features':
         specifier: ^2.0.0
         version: 2.0.0
@@ -2739,9 +2739,9 @@ packages:
       postcss-selector-parser: 6.0.13
     dev: true
 
-  /@ctrl/tinycolor@3.6.0:
-    resolution: {integrity: sha512-/Z3l6pXthq0JvMYdUFyX9j0MaCltlIn6mfh9jLyQwg5aPKxkyNa0PTHtU1AlFXLNk55ZuAeJRcpvq+tmLfKmaQ==}
-    engines: {node: '>=10'}
+  /@ctrl/tinycolor@4.0.2:
+    resolution: {integrity: sha512-fKQinXE9pJ83J1n+C3rDl2xNLJwfoYNvXLRy5cYZA9hBJJw2q+sbb/AOSNKmLxnTWyNTmy4994dueSwP4opi5g==}
+    engines: {node: '>=14'}
     dev: true
 
   /@develar/schema-utils@2.6.5:

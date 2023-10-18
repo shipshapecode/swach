@@ -378,8 +378,8 @@ importers:
   electron-app:
     dependencies:
       '@sentry/electron':
-        specifier: ^4.13.0
-        version: 4.13.0
+        specifier: ^4.14.0
+        version: 4.14.0
       electron-dl:
         specifier: ^3.5.1
         version: 3.5.1
@@ -1431,7 +1431,7 @@ packages:
       '@babel/core': 7.23.0(supports-color@8.1.1)
       '@babel/helper-environment-visitor': 7.22.20
       '@babel/helper-plugin-utils': 7.22.5
-      '@babel/helper-remap-async-to-generator': 7.22.9(@babel/core@7.23.0)
+      '@babel/helper-remap-async-to-generator': 7.22.20(@babel/core@7.23.0)
       '@babel/plugin-syntax-async-generators': 7.8.4(@babel/core@7.23.0)
     dev: true
 
@@ -1894,16 +1894,6 @@ packages:
       '@babel/template': 7.22.15
     dev: true
 
-  /@babel/plugin-transform-destructuring@7.22.15(@babel/core@7.23.0):
-    resolution: {integrity: sha512-HzG8sFl1ZVGTme74Nw+X01XsUTqERVQ6/RLHo3XjGRzm7XD6QTtfS3NJotVgCGy8BzkDqRjRBD8dAyJn5TuvSQ==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.23.0(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.22.5
-    dev: true
-
   /@babel/plugin-transform-destructuring@7.23.0(@babel/core@7.23.0):
     resolution: {integrity: sha512-vaMdgNXFkYrB+8lbgniSYWHsgqK5gjaMNcc84bMIOMRLH0L9AqYq3hwMdvnyqj1OPqea8UtjPEuS/DCenah1wg==}
     engines: {node: '>=6.9.0'}
@@ -2063,18 +2053,6 @@ packages:
       '@babel/core': 7.23.0(supports-color@8.1.1)
       '@babel/helper-module-transforms': 7.23.0(@babel/core@7.23.0)
       '@babel/helper-plugin-utils': 7.22.5
-    dev: true
-
-  /@babel/plugin-transform-modules-commonjs@7.22.15(@babel/core@7.23.0):
-    resolution: {integrity: sha512-jWL4eh90w0HQOTKP2MoXXUpVxilxsB2Vl4ji69rSjS3EcZ/v4sBmn+A3NpepuJzBhOaEBbR7udonlHHn5DWidg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.23.0(supports-color@8.1.1)
-      '@babel/helper-module-transforms': 7.23.0(@babel/core@7.23.0)
-      '@babel/helper-plugin-utils': 7.22.5
-      '@babel/helper-simple-access': 7.22.5
     dev: true
 
   /@babel/plugin-transform-modules-commonjs@7.23.0(@babel/core@7.23.0):
@@ -2600,7 +2578,7 @@ packages:
       '@babel/helper-plugin-utils': 7.22.5
       '@babel/helper-validator-option': 7.22.15
       '@babel/plugin-syntax-jsx': 7.21.4(@babel/core@7.23.0)
-      '@babel/plugin-transform-modules-commonjs': 7.22.15(@babel/core@7.23.0)
+      '@babel/plugin-transform-modules-commonjs': 7.23.0(@babel/core@7.23.0)
       '@babel/plugin-transform-typescript': 7.22.15(@babel/core@7.23.0)
     dev: true
 
@@ -4786,6 +4764,17 @@ packages:
       '@sentry/types': 7.73.0
       '@sentry/utils': 7.73.0
       tslib: 2.5.0
+    dev: true
+
+  /@sentry-internal/tracing@7.74.0:
+    resolution: {integrity: sha512-JK6IRGgdtZjswGfaGIHNWIThffhOHzVIIaGmglui+VFIzOsOqePjoxaDV0MEvzafxXZD7eWqGE5RGuZ0n6HFVg==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/core': 7.74.0
+      '@sentry/types': 7.74.0
+      '@sentry/utils': 7.74.0
+      tslib: 2.5.0
+    dev: false
 
   /@sentry/browser@7.73.0:
     resolution: {integrity: sha512-e301hUixcJ5+HNKCJwajFF5smF4opXEFSclyWsJuFNufv5J/1C1SDhbwG2JjBt5zzdSoKWJKT1ewR6vpICyoDw==}
@@ -4797,6 +4786,19 @@ packages:
       '@sentry/types': 7.73.0
       '@sentry/utils': 7.73.0
       tslib: 2.5.0
+    dev: true
+
+  /@sentry/browser@7.74.0:
+    resolution: {integrity: sha512-Njr8216Z1dFUcl6NqBOk20dssK9SjoVddY74Xq+Q4p3NfXBG3lkMcACXor7SFoJRZXq8CZWGS13Cc5KwViRw4g==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry-internal/tracing': 7.74.0
+      '@sentry/core': 7.74.0
+      '@sentry/replay': 7.74.0
+      '@sentry/types': 7.74.0
+      '@sentry/utils': 7.74.0
+      tslib: 2.5.0
+    dev: false
 
   /@sentry/cli@2.21.2:
     resolution: {integrity: sha512-X1nye89zl+QV3FSuQDGItfM51tW9PQ7ce0TtV/12DgGgTVEgnVp5uvO3wX5XauHvulQzRPzwUL3ZK+yS5bAwCw==}
@@ -4821,15 +4823,25 @@ packages:
       '@sentry/types': 7.73.0
       '@sentry/utils': 7.73.0
       tslib: 2.5.0
+    dev: true
 
-  /@sentry/electron@4.13.0:
-    resolution: {integrity: sha512-rVBMGX8WHc/DOeqlWZnl/EFxBFJgI1Y6nJi7u1HWRcAadTFKB1fmbVLbhVreIsQVP0Mc2HjP3Vyy6UXZ9+Mq5A==}
+  /@sentry/core@7.74.0:
+    resolution: {integrity: sha512-83NRuqn7nDZkSVBN5yJQqcpXDG4yMYiB7TkYUKrGTzBpRy6KUOrkCdybuKk0oraTIGiGSe5WEwCFySiNgR9FzA==}
+    engines: {node: '>=8'}
     dependencies:
-      '@sentry/browser': 7.73.0
-      '@sentry/core': 7.73.0
-      '@sentry/node': 7.73.0
-      '@sentry/types': 7.73.0
-      '@sentry/utils': 7.73.0
+      '@sentry/types': 7.74.0
+      '@sentry/utils': 7.74.0
+      tslib: 2.5.0
+    dev: false
+
+  /@sentry/electron@4.14.0:
+    resolution: {integrity: sha512-5laPImINGd86osNUu9UyGWB9dfK9O6hmydSTFWsHWHgFsd/2YKtOgjdXgMu+znyU+sy+lU9z+wwEq/h4yivPZQ==}
+    dependencies:
+      '@sentry/browser': 7.74.0
+      '@sentry/core': 7.74.0
+      '@sentry/node': 7.74.0
+      '@sentry/types': 7.74.0
+      '@sentry/utils': 7.74.0
       deepmerge: 4.3.0
       lru_map: 0.3.3
       tslib: 2.5.0
@@ -4855,14 +4867,14 @@ packages:
       - webpack
     dev: true
 
-  /@sentry/node@7.73.0:
-    resolution: {integrity: sha512-i50bRfmgkRRx0XXUbg9jGD/RuznDJxJXc4rBILhoJuhl+BjRIaoXA3ayplfJn8JLZxsNh75uJaCq4IUK70SORw==}
+  /@sentry/node@7.74.0:
+    resolution: {integrity: sha512-uBmW2/z0cz/WFIG74ZF7lSipO0XNzMf9yrdqnZXnGDYsUZE4I4QiqDN0hNi6fkTgf9MYRC8uFem2OkAvyPJ74Q==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry-internal/tracing': 7.73.0
-      '@sentry/core': 7.73.0
-      '@sentry/types': 7.73.0
-      '@sentry/utils': 7.73.0
+      '@sentry-internal/tracing': 7.74.0
+      '@sentry/core': 7.74.0
+      '@sentry/types': 7.74.0
+      '@sentry/utils': 7.74.0
       cookie: 0.5.0
       https-proxy-agent: 5.0.1(supports-color@8.1.1)
       lru_map: 0.3.3
@@ -4878,10 +4890,26 @@ packages:
       '@sentry/core': 7.73.0
       '@sentry/types': 7.73.0
       '@sentry/utils': 7.73.0
+    dev: true
+
+  /@sentry/replay@7.74.0:
+    resolution: {integrity: sha512-GoYa3cHTTFVI/J1cnZ0i4X128mf/JljaswO3PWNTe2k3lSHq/LM5aV0keClRvwM0W8hlix8oOTT06nnenOUmmw==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@sentry/core': 7.74.0
+      '@sentry/types': 7.74.0
+      '@sentry/utils': 7.74.0
+    dev: false
 
   /@sentry/types@7.73.0:
     resolution: {integrity: sha512-/v8++bly8jW7r4cP2wswYiiVpn7eLLcqwnfPUMeCQze4zj3F3nTRIKc9BGHzU0V+fhHa3RwRC2ksqTGq1oJMDg==}
     engines: {node: '>=8'}
+    dev: true
+
+  /@sentry/types@7.74.0:
+    resolution: {integrity: sha512-rI5eIRbUycWjn6s6o3yAjjWtIvYSxZDdnKv5je2EZINfLKcMPj1dkl6wQd2F4y7gLfD/N6Y0wZYIXC3DUdJQQg==}
+    engines: {node: '>=8'}
+    dev: false
 
   /@sentry/utils@7.73.0:
     resolution: {integrity: sha512-h3ZK/qpf4k76FhJV9uiSbvMz3V/0Ovy94C+5/9UgPMVCJXFmVsdw8n/dwANJ7LupVPfYP23xFGgebDMFlK1/2w==}
@@ -4889,6 +4917,15 @@ packages:
     dependencies:
       '@sentry/types': 7.73.0
       tslib: 2.5.0
+    dev: true
+
+  /@sentry/utils@7.74.0:
+    resolution: {integrity: sha512-k3np8nuTPtx5KDODPtULfFln4UXdE56MZCcF19Jv6Ljxf+YN/Ady1+0Oi3e0XoSvFpWNyWnglauT7M65qCE6kg==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.74.0
+      tslib: 2.5.0
+    dev: false
 
   /@sideway/address@4.1.4:
     resolution: {integrity: sha512-7vwq+rOHVWjyXxVlR76Agnvhy8I9rpzjosTESvmhNeXOXdZZB15Fl+TI9x1SiHZH5Jv2wTGduSxFDIaq0m3DUw==}
@@ -7302,16 +7339,16 @@ packages:
       '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.23.0)
       '@babel/plugin-transform-arrow-functions': 7.22.5(@babel/core@7.23.0)
       '@babel/plugin-transform-block-scoped-functions': 7.22.5(@babel/core@7.23.0)
-      '@babel/plugin-transform-block-scoping': 7.22.15(@babel/core@7.23.0)
+      '@babel/plugin-transform-block-scoping': 7.23.0(@babel/core@7.23.0)
       '@babel/plugin-transform-classes': 7.22.15(@babel/core@7.23.0)
       '@babel/plugin-transform-computed-properties': 7.22.5(@babel/core@7.23.0)
-      '@babel/plugin-transform-destructuring': 7.22.15(@babel/core@7.23.0)
+      '@babel/plugin-transform-destructuring': 7.23.0(@babel/core@7.23.0)
       '@babel/plugin-transform-flow-strip-types': 7.21.0(@babel/core@7.23.0)
       '@babel/plugin-transform-for-of': 7.22.15(@babel/core@7.23.0)
       '@babel/plugin-transform-function-name': 7.22.5(@babel/core@7.23.0)
       '@babel/plugin-transform-literals': 7.22.5(@babel/core@7.23.0)
       '@babel/plugin-transform-member-expression-literals': 7.22.5(@babel/core@7.23.0)
-      '@babel/plugin-transform-modules-commonjs': 7.22.15(@babel/core@7.23.0)
+      '@babel/plugin-transform-modules-commonjs': 7.23.0(@babel/core@7.23.0)
       '@babel/plugin-transform-object-super': 7.22.5(@babel/core@7.23.0)
       '@babel/plugin-transform-parameters': 7.22.15(@babel/core@7.23.0)
       '@babel/plugin-transform-property-literals': 7.22.5(@babel/core@7.23.0)
@@ -15523,7 +15560,7 @@ packages:
       '@babel/plugin-proposal-class-properties': 7.18.6(@babel/core@7.23.0)
       '@babel/plugin-proposal-nullish-coalescing-operator': 7.18.6(@babel/core@7.23.0)
       '@babel/plugin-proposal-optional-chaining': 7.21.0(@babel/core@7.23.0)
-      '@babel/plugin-transform-modules-commonjs': 7.22.15(@babel/core@7.23.0)
+      '@babel/plugin-transform-modules-commonjs': 7.23.0(@babel/core@7.23.0)
       '@babel/preset-env': 7.23.2(@babel/core@7.23.0)
       '@babel/preset-flow': 7.21.4(@babel/core@7.23.0)
       '@babel/preset-typescript': 7.21.4(@babel/core@7.23.0)
@@ -16713,14 +16750,14 @@ packages:
       '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.23.0)
       '@babel/plugin-transform-arrow-functions': 7.22.5(@babel/core@7.23.0)
       '@babel/plugin-transform-async-to-generator': 7.22.5(@babel/core@7.23.0)
-      '@babel/plugin-transform-block-scoping': 7.22.15(@babel/core@7.23.0)
+      '@babel/plugin-transform-block-scoping': 7.23.0(@babel/core@7.23.0)
       '@babel/plugin-transform-classes': 7.22.15(@babel/core@7.23.0)
       '@babel/plugin-transform-computed-properties': 7.22.5(@babel/core@7.23.0)
-      '@babel/plugin-transform-destructuring': 7.22.15(@babel/core@7.23.0)
+      '@babel/plugin-transform-destructuring': 7.23.0(@babel/core@7.23.0)
       '@babel/plugin-transform-flow-strip-types': 7.21.0(@babel/core@7.23.0)
       '@babel/plugin-transform-function-name': 7.22.5(@babel/core@7.23.0)
       '@babel/plugin-transform-literals': 7.22.5(@babel/core@7.23.0)
-      '@babel/plugin-transform-modules-commonjs': 7.22.15(@babel/core@7.23.0)
+      '@babel/plugin-transform-modules-commonjs': 7.23.0(@babel/core@7.23.0)
       '@babel/plugin-transform-named-capturing-groups-regex': 7.22.5(@babel/core@7.23.0)
       '@babel/plugin-transform-parameters': 7.22.15(@babel/core@7.23.0)
       '@babel/plugin-transform-react-display-name': 7.18.6(@babel/core@7.23.0)

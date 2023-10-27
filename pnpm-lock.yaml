@@ -267,8 +267,8 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0(@ember/test-helpers@2.9.4)(@glint/template@1.2.1)
       ember-sinon-qunit:
-        specifier: ^7.1.4
-        version: 7.1.4(ember-source@5.3.0)(qunit@2.20.0)(sinon@16.1.0)(webpack@5.89.0)
+        specifier: ^7.2.0
+        version: 7.2.0(ember-source@5.3.0)(qunit@2.20.0)(sinon@16.1.0)(webpack@5.89.0)
       ember-source:
         specifier: ^5.3.0
         version: 5.3.0(@babel/core@7.23.2)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.89.0)
@@ -6965,7 +6965,7 @@ packages:
     dependencies:
       '@babel/core': 7.23.2(supports-color@8.1.1)
       '@babel/helper-define-polyfill-provider': 0.3.3(@babel/core@7.23.2)
-      core-js-compat: 3.31.0
+      core-js-compat: 3.33.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -11827,13 +11827,13 @@ packages:
       - supports-color
     dev: true
 
-  /ember-sinon-qunit@7.1.4(ember-source@5.3.0)(qunit@2.20.0)(sinon@16.1.0)(webpack@5.89.0):
-    resolution: {integrity: sha512-aV9jOaLR5W4sFsx0hVqHVVdPt/TxY537YeuwMNyeOgxWYmLLFek7Jo4KMs/m442OsFlP0uCT52r7YOeBXBuEiA==}
+  /ember-sinon-qunit@7.2.0(ember-source@5.3.0)(qunit@2.20.0)(sinon@16.1.0)(webpack@5.89.0):
+    resolution: {integrity: sha512-yOwNLAMkYAnmwC/hPrnEg99N0y0LrOATEjcU5btAWlAkrifE0eHGvM/zymCYAfuwXOYxpmPf4gQcVw3vjb0E2w==}
     engines: {node: 14.* || 16.* || >= 18}
     peerDependencies:
-      ember-source: ^3.28.0 || ^4.0.0
+      ember-source: '>=3.28.0'
       qunit: ^2.0.0
-      sinon: ^15.0.2
+      sinon: ^15.0.3 || ^16.0.0
     dependencies:
       '@types/sinon': 10.0.19
       broccoli-funnel: 3.0.8

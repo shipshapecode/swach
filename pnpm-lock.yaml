@@ -268,7 +268,7 @@ importers:
         version: 6.0.0(@ember/test-helpers@2.9.4)(@glint/template@1.2.1)
       ember-sinon-qunit:
         specifier: ^7.2.0
-        version: 7.2.0(ember-source@5.3.0)(qunit@2.20.0)(sinon@16.1.0)(webpack@5.89.0)
+        version: 7.2.0(ember-source@5.3.0)(qunit@2.20.0)(sinon@16.1.3)(webpack@5.89.0)
       ember-source:
         specifier: ^5.3.0
         version: 5.3.0(@babel/core@7.23.2)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.89.0)
@@ -339,8 +339,8 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0(release-it@15.11.0)
       sinon:
-        specifier: ^16.1.0
-        version: 16.1.0
+        specifier: ^16.1.3
+        version: 16.1.3
       stream-browserify:
         specifier: ^3.0.0
         version: 3.0.0
@@ -11831,7 +11831,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-sinon-qunit@7.2.0(ember-source@5.3.0)(qunit@2.20.0)(sinon@16.1.0)(webpack@5.89.0):
+  /ember-sinon-qunit@7.2.0(ember-source@5.3.0)(qunit@2.20.0)(sinon@16.1.3)(webpack@5.89.0):
     resolution: {integrity: sha512-yOwNLAMkYAnmwC/hPrnEg99N0y0LrOATEjcU5btAWlAkrifE0eHGvM/zymCYAfuwXOYxpmPf4gQcVw3vjb0E2w==}
     engines: {node: 14.* || 16.* || >= 18}
     peerDependencies:
@@ -11846,7 +11846,7 @@ packages:
       ember-cli-typescript: 5.2.1
       ember-source: 5.3.0(@babel/core@7.23.2)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.89.0)
       qunit: 2.20.0
-      sinon: 16.1.0
+      sinon: 16.1.3
     transitivePeerDependencies:
       - supports-color
       - webpack
@@ -20337,8 +20337,8 @@ packages:
       string-width: 1.0.2
     dev: true
 
-  /sinon@16.1.0:
-    resolution: {integrity: sha512-ZSgzF0vwmoa8pq0GEynqfdnpEDyP1PkYmEChnkjW0Vyh8IDlyFEJ+fkMhCP0il6d5cJjPl2PUsnUSAuP5sttOQ==}
+  /sinon@16.1.3:
+    resolution: {integrity: sha512-mjnWWeyxcAf9nC0bXcPmiDut+oE8HYridTNzBbF98AYVLmWwGRp2ISEpyhYflG1ifILT+eNn3BmKUJPxjXUPlA==}
     dependencies:
       '@sinonjs/commons': 3.0.0
       '@sinonjs/fake-timers': 10.3.0

@@ -243,8 +243,8 @@ importers:
         specifier: ^2.0.6
         version: 2.0.6
       ember-math-helpers:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^4.0.0
+        version: 4.0.0(ember-source@5.4.0)
       ember-modifier:
         specifier: ^4.1.0
         version: 4.1.0(ember-source@5.4.0)
@@ -11551,13 +11551,14 @@ packages:
       - supports-color
     dev: true
 
-  /ember-math-helpers@3.0.0:
-    resolution: {integrity: sha512-sVbrU4glI89LL7/h0SOQxdthzs4a0FmvxZ0lXYwi43bNkcSw5YfEtXpIEvgABR0CJxjRZ7GjPy10Jcvv47RIaA==}
+  /ember-math-helpers@4.0.0(ember-source@5.4.0):
+    resolution: {integrity: sha512-f83fUNp9/DbnPK6WWiYDLdxSePMC2YVxt7aZZPsDy3Zlwp75mhzUknbqd6wSCeKwJYJm+1xh0l/SygxzLvKgnw==}
     engines: {node: 14.* || 16.* || >= 18}
+    peerDependencies:
+      ember-source: ^4.0.0 || ^5.0.0
     dependencies:
-      broccoli-funnel: 3.0.8
-      ember-cli-babel: 7.26.11
-      ember-cli-htmlbars: 6.3.0
+      '@embroider/addon-shim': 1.8.6
+      ember-source: 5.4.0(@babel/core@7.23.2)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.89.0)
     transitivePeerDependencies:
       - supports-color
     dev: true

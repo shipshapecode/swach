@@ -132,8 +132,8 @@ importers:
         specifier: ^2.19.7
         version: 2.19.7
       '@types/sinon':
-        specifier: ^10.0.19
-        version: 10.0.19
+        specifier: ^17.0.0
+        version: 17.0.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.62.0
         version: 5.62.0(@typescript-eslint/parser@5.62.0)(eslint@8.52.0)(typescript@5.2.2)
@@ -5359,6 +5359,12 @@ packages:
 
   /@types/sinon@10.0.19:
     resolution: {integrity: sha512-MWZNGPSchIdDfb5FL+VFi4zHsHbNOTQEgjqFQk7HazXSXwUU9PAX3z9XBqb3AJGYr9YwrtCtaSMsT3brYsN/jQ==}
+    dependencies:
+      '@types/sinonjs__fake-timers': 8.1.2
+    dev: true
+
+  /@types/sinon@17.0.0:
+    resolution: {integrity: sha512-oN4AeDMFCeNZrAffCjhLcwwVymRZL2c9mljUmhPnd0eiM06d4ELDg0Q0TSvnZXrCIFlSA859qIdcfu1HapswPQ==}
     dependencies:
       '@types/sinonjs__fake-timers': 8.1.2
     dev: true

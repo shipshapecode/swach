@@ -421,8 +421,8 @@ importers:
         specifier: ^6.4.2
         version: 6.4.2
       '@sentry/cli':
-        specifier: ^2.21.2
-        version: 2.21.2
+        specifier: ^2.21.5
+        version: 2.21.5
       electron:
         specifier: ^21.1.0
         version: 21.1.0
@@ -4743,8 +4743,8 @@ packages:
       '@sentry/utils': 7.77.0
     dev: true
 
-  /@sentry/cli@2.21.2:
-    resolution: {integrity: sha512-X1nye89zl+QV3FSuQDGItfM51tW9PQ7ce0TtV/12DgGgTVEgnVp5uvO3wX5XauHvulQzRPzwUL3ZK+yS5bAwCw==}
+  /@sentry/cli@2.21.5:
+    resolution: {integrity: sha512-RqKBqE10pb7zh0G/YiYVdX/MqenDYIgLGcaCqbszTAfW2SSLyp9EczsnmHtRgO1fO1OQq76+gaK7UdC1TEIGqQ==}
     engines: {node: '>= 10'}
     hasBin: true
     requiresBuild: true

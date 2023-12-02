@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 overrides:
   ember-animated>@ember/test-helpers: ^2.9.3
   ember-animated>ember-element-helper: ^0.6.1
@@ -405,8 +409,8 @@ importers:
         specifier: ^7.2.0
         version: 7.2.0
       '@electron-forge/maker-deb':
-        specifier: ^6.4.2
-        version: 6.4.2
+        specifier: ^7.2.0
+        version: 7.2.0
       '@electron-forge/maker-dmg':
         specifier: ^6.4.2
         version: 6.4.2
@@ -2968,12 +2972,12 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-deb@6.4.2:
-    resolution: {integrity: sha512-tlV8ffivgBP94vtYXgAeXgzeKCaRyLuWH9LT8PQW1QrYbAFpCMmuwk/zFaJkyMklImCWmDFTPYMEqdEJGd7Npg==}
-    engines: {node: '>= 14.17.5'}
+  /@electron-forge/maker-deb@7.2.0:
+    resolution: {integrity: sha512-UYulMZpof+PIcapUFxQ5pVoSqa2FsS8crY8WGbVm1ALuknJUn4C2I37S8AujQH0l7oJRGnH95Y7Bcryyhe08yw==}
+    engines: {node: '>= 16.4.0'}
     dependencies:
-      '@electron-forge/maker-base': 6.4.2
-      '@electron-forge/shared-types': 6.4.2
+      '@electron-forge/maker-base': 7.2.0
+      '@electron-forge/shared-types': 7.2.0
     optionalDependencies:
       electron-installer-debian: 3.2.0
     transitivePeerDependencies:
@@ -23460,7 +23464,3 @@ packages:
   /zen-observable@0.8.15:
     resolution: {integrity: sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==}
     dev: true
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

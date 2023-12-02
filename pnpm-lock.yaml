@@ -415,8 +415,8 @@ importers:
         specifier: ^6.4.2
         version: 6.4.2
       '@electron-forge/maker-squirrel':
-        specifier: ^6.4.2
-        version: 6.4.2
+        specifier: ^7.2.0
+        version: 7.2.0
       '@electron-forge/maker-zip':
         specifier: ^6.4.2
         version: 6.4.2
@@ -3001,12 +3001,12 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-squirrel@6.4.2:
-    resolution: {integrity: sha512-ukK3RcFaBrQXUzR52PsHxfwDq5XKSnj6A1kkXiyHWqgj+HIU97prBScBb5JRtasPvYN+nDdQO2vlInsLaqcx9Q==}
-    engines: {node: '>= 14.17.5'}
+  /@electron-forge/maker-squirrel@7.2.0:
+    resolution: {integrity: sha512-SyPeFgJoMUcOPDM8+1AUPuseOqnl5YqnnjgKX9+YUIrsGKIsSz1cTtSOEu5R/l2yWNWFTmLnOlcuqIe7NayHBg==}
+    engines: {node: '>= 16.4.0'}
     dependencies:
-      '@electron-forge/maker-base': 6.4.2
-      '@electron-forge/shared-types': 6.4.2
+      '@electron-forge/maker-base': 7.2.0
+      '@electron-forge/shared-types': 7.2.0
       fs-extra: 10.1.0
     optionalDependencies:
       electron-winstaller: 5.1.0
@@ -3242,18 +3242,6 @@ packages:
     dependencies:
       chrome-trace-event: 1.0.3
     dev: true
-
-  /@electron/asar@3.2.4:
-    resolution: {integrity: sha512-lykfY3TJRRWFeTxccEKdf1I6BLl2Plw81H0bbp4Fc5iEc67foDCa5pjJQULVgo0wF+Dli75f3xVcdb/67FFZ/g==}
-    engines: {node: '>=10.12.0'}
-    hasBin: true
-    dependencies:
-      chromium-pickle-js: 0.2.0
-      commander: 5.1.0
-      glob: 7.2.3
-      minimatch: 3.1.2
-    dev: true
-    optional: true
 
   /@electron/asar@3.2.8:
     resolution: {integrity: sha512-cmskk5M06ewHMZAplSiF4AlME3IrnnZhKnWbtwKVLRkdJkKyUVjMLhDIiPIx/+6zQWVlKX/LtmK9xDme7540Sg==}
@@ -10934,7 +10922,7 @@ packages:
     engines: {node: '>=8.0.0'}
     requiresBuild: true
     dependencies:
-      '@electron/asar': 3.2.4
+      '@electron/asar': 3.2.8
       debug: 4.3.4(supports-color@8.1.1)
       fs-extra: 7.0.1
       lodash.template: 4.5.0

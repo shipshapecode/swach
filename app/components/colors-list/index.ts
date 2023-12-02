@@ -81,12 +81,12 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
             t.removeFromRelatedRecords(
               { type: 'palette', id: palette.id },
               'colors',
-              { type: 'color', id: colorToRemove.id }
+              { type: 'color', id: colorToRemove.id },
             ),
             t.replaceAttribute(
               { type: 'palette', id: palette.id },
               'colorOrder',
-              colorsList
+              colorsList,
             ),
             t.removeRecord(colorToRemove),
           ];

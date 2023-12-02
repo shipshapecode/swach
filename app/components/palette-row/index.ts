@@ -48,7 +48,7 @@ class MenuOption {
     action: () => void,
     icon: string,
     label: string,
-    palette: PaletteModel
+    palette: PaletteModel,
   ) {
     this.action = action;
     this.icon = icon;
@@ -128,13 +128,13 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
         this.toggleIsEditing,
         'rename',
         'Rename Palette',
-        this.args.palette
+        this.args.palette,
       ),
       new MenuOption(
         this.duplicatePalette,
         'duplicate',
         'Duplicate Palette',
-        this.args.palette
+        this.args.palette,
       ),
       new LockOption(this.lockPalette, this.args.palette),
       new FavoriteOption(this.favoritePalette, this.args.palette),
@@ -142,13 +142,13 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
         this.sharePalette,
         'share',
         'Share Palette',
-        this.args.palette
+        this.args.palette,
       ),
       new MenuOption(
         this.deletePalette,
         'trash',
         'Delete Palette',
-        this.args.palette
+        this.args.palette,
       ),
     ];
 
@@ -157,9 +157,9 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       (event: { draggedItem: { hex: string | null } }) => {
         document.documentElement.style.setProperty(
           '--dragged-swatch-color',
-          event.draggedItem.hex
+          event.draggedItem.hex,
         );
-      }
+      },
     );
   }
 
@@ -171,7 +171,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
     return this.args?.palette?.colorOrder?.map(
       (color: { type: string; id: string }) => {
         return this.args.palette.colors.findBy('id', color.id);
-      }
+      },
     );
   }
 
@@ -197,7 +197,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       };
       // Find the color by id and replace it with colorCopy.id
       colorOrder = colorOrder.map((c) =>
-        c.id === color.id ? { type: 'color', id: colorCopy.id } : c
+        c.id === color.id ? { type: 'color', id: colorCopy.id } : c,
       );
       return colorCopy;
     });
@@ -235,8 +235,8 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
         t.replaceAttribute(
           this.args.palette,
           'isFavorite',
-          !this.args.palette.isFavorite
-        )
+          !this.args.palette.isFavorite,
+        ),
       );
     }
   }
@@ -253,8 +253,8 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       t.replaceAttribute(
         this.args.palette,
         'isLocked',
-        !this.args.palette.isLocked
-      )
+        !this.args.palette.isLocked,
+      ),
     );
   }
 
@@ -267,7 +267,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       });
 
       const url = `https://swach.io/palette?data=${encodeURIComponent(
-        JSON.stringify({ name, colors: urlColors })
+        JSON.stringify({ name, colors: urlColors }),
       )}`;
 
       if (typeof requireNode !== 'undefined') {
@@ -300,8 +300,8 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       t.replaceAttribute(
         this.args.palette,
         'name',
-        (<HTMLInputElement>e.target).value
-      )
+        (<HTMLInputElement>e.target).value,
+      ),
     );
   }
 }

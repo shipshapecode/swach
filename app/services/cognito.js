@@ -8,7 +8,7 @@ const cognitoEnv = Object.assign(
   {
     autoRefreshSession: false,
   },
-  ENV.cognito
+  ENV.cognito,
 );
 
 export default class CognitoServiceExtended extends CognitoService {
@@ -34,7 +34,7 @@ export default class CognitoServiceExtended extends CognitoService {
         userPoolId: poolId,
         userPoolWebClientId: clientId,
       },
-      awsconfig
+      awsconfig,
     );
 
     this.auth.configure(params);

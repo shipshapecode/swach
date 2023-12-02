@@ -74,8 +74,8 @@ export default class PalettesListComponent extends Component<PalettesListSignatu
           t.replaceAttribute(
             { type: 'palette', id: palette.id },
             'index',
-            index
-          )
+            index,
+          ),
         );
       });
 

@@ -33,30 +33,30 @@ module('Acceptance | palettes', function (hooks) {
 
       assert
         .dom(
-          '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content]'
+          '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content]',
         )
         .isNotVisible();
 
       await click(
-        '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-trigger]'
+        '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-trigger]',
       );
       await waitForAll();
 
       assert
         .dom(
-          '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content]'
+          '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content]',
         )
         .isVisible();
 
       assert
         .dom(
-          '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Delete Palette"]'
+          '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Delete Palette"]',
         )
         .hasNoAttribute('disabled');
 
       assert
         .dom(
-          '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Duplicate Palette"]'
+          '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Duplicate Palette"]',
         )
         .hasNoAttribute('disabled');
     });
@@ -66,30 +66,30 @@ module('Acceptance | palettes', function (hooks) {
 
       assert
         .dom(
-          '[data-test-palette-row="Locked Palette"] [data-test-palette-row-menu] [data-test-options-content]'
+          '[data-test-palette-row="Locked Palette"] [data-test-palette-row-menu] [data-test-options-content]',
         )
         .isNotVisible();
 
       await click(
-        '[data-test-palette-row="Locked Palette"] [data-test-palette-row-menu] [data-test-options-trigger]'
+        '[data-test-palette-row="Locked Palette"] [data-test-palette-row-menu] [data-test-options-trigger]',
       );
       await waitForAll();
 
       assert
         .dom(
-          '[data-test-palette-row="Locked Palette"] [data-test-palette-row-menu] [data-test-options-content]'
+          '[data-test-palette-row="Locked Palette"] [data-test-palette-row-menu] [data-test-options-content]',
         )
         .isVisible();
 
       assert
         .dom(
-          '[data-test-palette-row="Locked Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Delete Palette"]'
+          '[data-test-palette-row="Locked Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Delete Palette"]',
         )
         .hasAttribute('disabled');
 
       assert
         .dom(
-          '[data-test-palette-row="Locked Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Duplicate Palette"]'
+          '[data-test-palette-row="Locked Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Duplicate Palette"]',
         )
         .hasAttribute('disabled');
     });
@@ -98,31 +98,31 @@ module('Acceptance | palettes', function (hooks) {
       await visit('/palettes');
 
       await click(
-        '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-trigger]'
+        '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-trigger]',
       );
 
       await waitForAll();
 
       await click(
-        '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Rename Palette"]'
+        '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Rename Palette"]',
       );
 
       await fillIn(
         '[data-test-palette-row="First Palette"] [data-test-palette-name-input]',
-        'First Palette 123'
+        'First Palette 123',
       );
 
       await waitForAll();
 
       await blur(
-        '[data-test-palette-row="First Palette 123"] [data-test-palette-name-input]'
+        '[data-test-palette-row="First Palette 123"] [data-test-palette-name-input]',
       );
 
       await waitForAll();
 
       assert
         .dom(
-          '[data-test-palette-row="First Palette 123"] [data-test-palette-name]'
+          '[data-test-palette-row="First Palette 123"] [data-test-palette-name]',
         )
         .hasText('First Palette 123');
     });
@@ -133,10 +133,10 @@ module('Acceptance | palettes', function (hooks) {
       await visit('/palettes');
 
       let sourceList = find(
-        '[data-test-palette-row="Second Palette"]'
+        '[data-test-palette-row="Second Palette"]',
       ).querySelector('.palette-color-squares');
       let firstColor = sourceList.querySelector(
-        '[data-test-palette-color-square]'
+        '[data-test-palette-color-square]',
       );
       assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
 
@@ -145,7 +145,7 @@ module('Acceptance | palettes', function (hooks) {
       await waitForAll();
 
       sourceList = find(
-        '[data-test-palette-row="Second Palette"]'
+        '[data-test-palette-row="Second Palette"]',
       ).querySelector('.palette-color-squares');
       firstColor = sourceList.querySelector('[data-test-palette-color-square]');
       assert
@@ -157,10 +157,10 @@ module('Acceptance | palettes', function (hooks) {
       await visit('/palettes');
 
       let sourceList = find(
-        '[data-test-palette-row="Locked Palette"]'
+        '[data-test-palette-row="Locked Palette"]',
       ).querySelector('.palette-color-squares');
       let firstColor = sourceList.querySelector(
-        '[data-test-palette-color-square]'
+        '[data-test-palette-color-square]',
       );
       assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
 
@@ -169,7 +169,7 @@ module('Acceptance | palettes', function (hooks) {
       await waitForAll();
 
       sourceList = find(
-        '[data-test-palette-row="Locked Palette"]'
+        '[data-test-palette-row="Locked Palette"]',
       ).querySelector('.palette-color-squares');
       firstColor = sourceList.querySelector('[data-test-palette-color-square]');
       assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
@@ -179,13 +179,13 @@ module('Acceptance | palettes', function (hooks) {
       await visit('/palettes');
 
       let targetList = find(
-        '[data-test-palette-row="Second Palette"]'
+        '[data-test-palette-row="Second Palette"]',
       ).querySelector('.palette-color-squares');
       let sourceList = find(
-        '[data-test-palette-row="First Palette"]'
+        '[data-test-palette-row="First Palette"]',
       ).querySelector('.palette-color-squares');
       let sourceListThirdColor = sourceList.querySelectorAll(
-        '[data-test-palette-color-square]'
+        '[data-test-palette-color-square]',
       )[2];
       assert
         .dom('[data-test-palette-color-square]', sourceList)
@@ -202,13 +202,13 @@ module('Acceptance | palettes', function (hooks) {
       await waitForAll();
 
       targetList = find(
-        '[data-test-palette-row="Second Palette"]'
+        '[data-test-palette-row="Second Palette"]',
       ).querySelector('.palette-color-squares');
       sourceList = find(
-        '[data-test-palette-row="First Palette"]'
+        '[data-test-palette-row="First Palette"]',
       ).querySelector('.palette-color-squares');
       let targetListThirdColor = targetList.querySelectorAll(
-        '[data-test-palette-color-square]'
+        '[data-test-palette-color-square]',
       )[2];
       assert
         .dom('[data-test-palette-color-square]', sourceList)
@@ -226,14 +226,14 @@ module('Acceptance | palettes', function (hooks) {
 
       let sourceList = find('[data-test-color-history]');
       let sourceListThirdColor = sourceList.querySelectorAll(
-        '[data-test-color-history-square]'
+        '[data-test-color-history-square]',
       )[2];
       assert
         .dom('[data-test-color-history-square]', sourceList)
         .exists({ count: 4 });
 
       let targetList = find(
-        '[data-test-palette-row="Second Palette"]'
+        '[data-test-palette-row="Second Palette"]',
       ).querySelector('.palette-color-squares');
       assert
         .dom('[data-test-palette-color-square]', targetList)
@@ -247,11 +247,11 @@ module('Acceptance | palettes', function (hooks) {
       await waitForAll();
 
       targetList = find(
-        '[data-test-palette-row="Second Palette"]'
+        '[data-test-palette-row="Second Palette"]',
       ).querySelector('.palette-color-squares');
       sourceList = find('[data-test-color-history]');
       let targetListThirdColor = targetList.querySelectorAll(
-        '[data-test-palette-color-square]'
+        '[data-test-palette-color-square]',
       )[2];
       // Count in colors list does not change when a color is copied out
       assert
@@ -270,7 +270,7 @@ module('Acceptance | palettes', function (hooks) {
       assert.dom('[data-test-color-picker]').doesNotExist();
 
       await click(
-        '[data-test-color="Pale Magenta"] [data-test-color-row-menu] [data-test-options-trigger]'
+        '[data-test-color="Pale Magenta"] [data-test-color-row-menu] [data-test-options-trigger]',
       );
 
       await animationsSettled();
@@ -308,17 +308,17 @@ module('Acceptance | palettes', function (hooks) {
       // Pale Magenta should remain in color history and should be replaced with Red in Second Palette
       assert
         .dom(
-          '[data-test-color-history] [data-test-color-history-square="Pale Magenta"]'
+          '[data-test-color-history] [data-test-color-history-square="Pale Magenta"]',
         )
         .exists();
       assert
         .dom(
-          '[data-test-palette-row="Second Palette"] [data-test-palette-color-square="Red"]'
+          '[data-test-palette-row="Second Palette"] [data-test-palette-color-square="Red"]',
         )
         .exists();
       assert
         .dom(
-          '[data-test-palette-row="Second Palette"] [data-test-palette-color-square="Pale Magenta"]'
+          '[data-test-palette-row="Second Palette"] [data-test-palette-color-square="Pale Magenta"]',
         )
         .doesNotExist();
     });
@@ -327,13 +327,13 @@ module('Acceptance | palettes', function (hooks) {
       await visit('/palettes');
 
       let targetList = find(
-        '[data-test-palette-row="Locked Palette"]'
+        '[data-test-palette-row="Locked Palette"]',
       ).querySelector('.palette-color-squares');
       let sourceList = find(
-        '[data-test-palette-row="First Palette"]'
+        '[data-test-palette-row="First Palette"]',
       ).querySelector('.palette-color-squares');
       let sourceListThirdColor = sourceList.querySelectorAll(
-        '[data-test-palette-color-square]'
+        '[data-test-palette-color-square]',
       )[2];
       assert
         .dom('[data-test-palette-color-square]', sourceList)
@@ -350,13 +350,13 @@ module('Acceptance | palettes', function (hooks) {
       await waitForAll();
 
       targetList = find(
-        '[data-test-palette-row="Locked Palette"]'
+        '[data-test-palette-row="Locked Palette"]',
       ).querySelector('.palette-color-squares');
       sourceList = find(
-        '[data-test-palette-row="First Palette"]'
+        '[data-test-palette-row="First Palette"]',
       ).querySelector('.palette-color-squares');
       let targetListThirdColor = targetList.querySelectorAll(
-        '[data-test-palette-color-square]'
+        '[data-test-palette-color-square]',
       )[2];
       assert
         .dom('[data-test-palette-color-square]', sourceList)
@@ -373,13 +373,13 @@ module('Acceptance | palettes', function (hooks) {
       await visit('/palettes');
 
       let targetList = find(
-        '[data-test-palette-row="First Palette"]'
+        '[data-test-palette-row="First Palette"]',
       ).querySelector('.palette-color-squares');
       let sourceList = find(
-        '[data-test-palette-row="Locked Palette"]'
+        '[data-test-palette-row="Locked Palette"]',
       ).querySelector('.palette-color-squares');
       let sourceListThirdColor = sourceList.querySelectorAll(
-        '[data-test-palette-color-square]'
+        '[data-test-palette-color-square]',
       )[2];
       assert
         .dom('[data-test-palette-color-square]', sourceList)
@@ -396,13 +396,13 @@ module('Acceptance | palettes', function (hooks) {
       await waitForAll();
 
       targetList = find(
-        '[data-test-palette-row="First Palette"]'
+        '[data-test-palette-row="First Palette"]',
       ).querySelector('.palette-color-squares');
       sourceList = find(
-        '[data-test-palette-row="Locked Palette"]'
+        '[data-test-palette-row="Locked Palette"]',
       ).querySelector('.palette-color-squares');
       let targetListThirdColor = targetList.querySelectorAll(
-        '[data-test-palette-color-square]'
+        '[data-test-palette-color-square]',
       )[2];
       assert
         .dom('[data-test-palette-color-square]', sourceList)
@@ -426,7 +426,7 @@ module('Acceptance | palettes', function (hooks) {
     await click('[data-test-color-history-menu] [data-test-options-trigger]');
     await waitForAll();
     await click(
-      '[data-test-color-history-menu] [data-test-options-content] [data-test-clear-color-history]'
+      '[data-test-color-history-menu] [data-test-options-content] [data-test-clear-color-history]',
     );
     await waitForAll();
 
@@ -470,12 +470,12 @@ module('Acceptance | palettes', function (hooks) {
       await visit('/palettes');
 
       await click(
-        '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-trigger]'
+        '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-trigger]',
       );
       await waitForAll();
 
       await click(
-        '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Duplicate Palette"]'
+        '[data-test-palette-row="First Palette"] [data-test-palette-row-menu] [data-test-options-content] [data-test-menu-item="Duplicate Palette"]',
       );
 
       await waitForAll();
@@ -485,13 +485,13 @@ module('Acceptance | palettes', function (hooks) {
         .exists({ count: 2 });
 
       const duplicatedPalettes = await findAll(
-        '[data-test-palette-row="First Palette"]'
+        '[data-test-palette-row="First Palette"]',
       );
       const firstPaletteColors = duplicatedPalettes[0].querySelectorAll(
-        '[data-test-palette-color-square]'
+        '[data-test-palette-color-square]',
       );
       const duplicatedPaletteColors = duplicatedPalettes[1].querySelectorAll(
-        '[data-test-palette-color-square]'
+        '[data-test-palette-color-square]',
       );
 
       assert
@@ -542,10 +542,10 @@ module('Acceptance | palettes', function (hooks) {
       await visit('/palettes');
 
       let sourceList = find(
-        '[data-test-palette-row="Second Palette"]'
+        '[data-test-palette-row="Second Palette"]',
       ).querySelector('.palette-color-squares');
       let firstColor = sourceList.querySelector(
-        '[data-test-palette-color-square]'
+        '[data-test-palette-color-square]',
       );
       assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
 
@@ -554,7 +554,7 @@ module('Acceptance | palettes', function (hooks) {
       await waitForAll();
 
       sourceList = find(
-        '[data-test-palette-row="Second Palette"]'
+        '[data-test-palette-row="Second Palette"]',
       ).querySelector('.palette-color-squares');
       firstColor = sourceList.querySelector('[data-test-palette-color-square]');
       assert
@@ -569,7 +569,7 @@ module('Acceptance | palettes', function (hooks) {
       await waitForAll();
 
       sourceList = find(
-        '[data-test-palette-row="Second Palette"]'
+        '[data-test-palette-row="Second Palette"]',
       ).querySelector('.palette-color-squares');
       firstColor = sourceList.querySelector('[data-test-palette-color-square]');
       assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
@@ -583,7 +583,7 @@ module('Acceptance | palettes', function (hooks) {
       await waitForAll();
 
       sourceList = find(
-        '[data-test-palette-row="Second Palette"]'
+        '[data-test-palette-row="Second Palette"]',
       ).querySelector('.palette-color-squares');
       firstColor = sourceList.querySelector('[data-test-palette-color-square]');
       assert

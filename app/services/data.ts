@@ -32,7 +32,7 @@ export default class DataService extends Service {
           }
 
           return t.addRecord(r);
-        })
+        }),
       );
     }
 
@@ -44,7 +44,7 @@ export default class DataService extends Service {
   async synchronize(): Promise<void> {
     if (!this.isActivated) {
       throw new Error(
-        'Data service: synchronize cannot be called prior to activate'
+        'Data service: synchronize cannot be called prior to activate',
       );
     }
 
@@ -52,7 +52,7 @@ export default class DataService extends Service {
     const colorHistoryPalettes = this.store.cache.query<Palette[]>((q) =>
       q
         .findRecords('palette')
-        .filter({ attribute: 'isColorHistory', value: true })
+        .filter({ attribute: 'isColorHistory', value: true }),
     );
 
     // Ensure that there is one, and only one, palette marked as isColorHistory.
@@ -72,7 +72,7 @@ export default class DataService extends Service {
       });
     } else if (colorHistoryPalettes.length > 1) {
       const remoteColorHistoryPalette = remotePaletteRecords.find(
-        (p) => p.attributes?.isColorHistory
+        (p) => p.attributes?.isColorHistory,
       );
 
       const preferredColorHistoryPaletteId =
@@ -89,7 +89,7 @@ export default class DataService extends Service {
       }
 
       await this.store.update((t) =>
-        duplicateColorHistoryPalettes.map((p) => t.removeRecord(p))
+        duplicateColorHistoryPalettes.map((p) => t.removeRecord(p)),
       );
     }
   }
@@ -102,7 +102,7 @@ export default class DataService extends Service {
 
   private async getRecordsFromBackup(): Promise<InitializedRecord[]> {
     const records = await this.backup.query<InitializedRecord[]>((q) =>
-      q.findRecords()
+      q.findRecords(),
     );
 
     if (records?.length > 0) {
@@ -128,7 +128,7 @@ export default class DataService extends Service {
     if (this.session.isAuthenticated) {
       const remotePaletteRecords = await this.remote.query<InitializedRecord[]>(
         (q) => q.findRecords('palette'),
-        { include: ['colors'] }
+        { include: ['colors'] },
       );
 
       if (remotePaletteRecords?.length > 0) {
@@ -138,10 +138,10 @@ export default class DataService extends Service {
         // should be a one-time operation that will happen on initial login
         // after signing up.
         let colors = this.store.source.cache.query<InitializedRecord[]>((q) =>
-          q.findRecords('color')
+          q.findRecords('color'),
         );
         let palettes = this.store.source.cache.query<InitializedRecord[]>((q) =>
-          q.findRecords('palette')
+          q.findRecords('palette'),
         );
 
         // Add colors first, then palettes, then relationships between them
@@ -169,29 +169,29 @@ export default class DataService extends Service {
         if (colors.length > 0) {
           await this.remote.update<InitializedRecord[]>(
             (t) => colors.map((r) => t.addRecord(r)),
-            { parallelRequests: true }
+            { parallelRequests: true },
           );
         }
         if (palettes.length > 0) {
           await this.remote.update<InitializedRecord[]>(
             (t) => palettes.map((r) => t.addRecord(r)),
-            { parallelRequests: true }
+            { parallelRequests: true },
           );
         }
         if (paletteColors.length > 0) {
           await this.remote.update<InitializedRecord[]>(
             (t) =>
               paletteColors.map((p) =>
-                t.replaceRelatedRecords(p.palette, 'colors', p.colors)
+                t.replaceRelatedRecords(p.palette, 'colors', p.colors),
               ),
-            { parallelRequests: true }
+            { parallelRequests: true },
           );
         }
 
         // Re-fetch palettes and colors from remote
         return this.remote.query<InitializedRecord[]>(
           (q) => q.findRecords('palette'),
-          { include: ['colors'] }
+          { include: ['colors'] },
         );
       }
     } else {

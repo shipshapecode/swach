@@ -15,7 +15,7 @@ module('Acceptance | color-picker', function (hooks) {
       await visit('/colors?paletteId=color-history-123');
 
       await click(
-        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]',
       );
 
       await animationsSettled();
@@ -50,7 +50,7 @@ module('Acceptance | color-picker', function (hooks) {
       await visit('/colors?paletteId=color-history-123');
 
       await click(
-        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]',
       );
 
       await animationsSettled();
@@ -74,7 +74,7 @@ module('Acceptance | color-picker', function (hooks) {
       await visit('/colors?paletteId=color-history-123');
 
       await click(
-        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]',
       );
 
       await animationsSettled();
@@ -99,7 +99,7 @@ module('Acceptance | color-picker', function (hooks) {
       await visit('/colors?paletteId=color-history-123');
 
       await click(
-        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]',
       );
 
       await animationsSettled();
@@ -123,7 +123,7 @@ module('Acceptance | color-picker', function (hooks) {
       await visit('/colors?paletteId=color-history-123');
 
       await click(
-        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]',
       );
 
       await animationsSettled();
@@ -148,7 +148,7 @@ module('Acceptance | color-picker', function (hooks) {
       await visit('/colors?paletteId=color-history-123');
 
       await click(
-        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]',
       );
 
       await animationsSettled();
@@ -172,7 +172,7 @@ module('Acceptance | color-picker', function (hooks) {
       await visit('/colors?paletteId=color-history-123');
 
       await click(
-        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]',
       );
 
       await animationsSettled();
@@ -197,7 +197,7 @@ module('Acceptance | color-picker', function (hooks) {
       await visit('/colors?paletteId=color-history-123');
 
       await click(
-        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]',
       );
 
       await animationsSettled();
@@ -221,7 +221,7 @@ module('Acceptance | color-picker', function (hooks) {
       await visit('/colors?paletteId=color-history-123');
 
       await click(
-        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]',
       );
 
       await animationsSettled();

@@ -35,8 +35,8 @@ export default async function seedOrbit(source, scenario = 'basic') {
                   type: 'color',
                   id,
                 };
-              })
-            )
+              }),
+            ),
           );
         } else if (id === 'first-palette') {
           const ids = [];
@@ -56,16 +56,16 @@ export default async function seedOrbit(source, scenario = 'basic') {
             t.replaceRelatedRecords(
               { type: 'palette', id: 'first-palette' },
               'colors',
-              colorsList
-            )
+              colorsList,
+            ),
           );
 
           operations.push(
             t.replaceAttribute(
               { type: 'palette', id: 'first-palette' },
               'colorOrder',
-              colorsList
-            )
+              colorsList,
+            ),
           );
         } else if (id === 'second-palette') {
           const ids = [];
@@ -84,16 +84,16 @@ export default async function seedOrbit(source, scenario = 'basic') {
             t.replaceRelatedRecords(
               { type: 'palette', id: 'second-palette' },
               'colors',
-              colorsList
-            )
+              colorsList,
+            ),
           );
 
           operations.push(
             t.replaceAttribute(
               { type: 'palette', id: 'second-palette' },
               'colorOrder',
-              colorsList
-            )
+              colorsList,
+            ),
           );
         } else if (id === 'locked-palette') {
           const ids = [];
@@ -112,16 +112,16 @@ export default async function seedOrbit(source, scenario = 'basic') {
             t.replaceRelatedRecords(
               { type: 'palette', id: 'locked-palette' },
               'colors',
-              colorsList
-            )
+              colorsList,
+            ),
           );
 
           operations.push(
             t.replaceAttribute(
               { type: 'palette', id: 'locked-palette' },
               'colorOrder',
-              colorsList
-            )
+              colorsList,
+            ),
           );
         }
       });

@@ -88,7 +88,7 @@ export default class RgbaInputComponent extends Component<RgbaInputSignature> {
     set(
       selectedColor,
       `_${type}` as keyof PrivateRGBAHex,
-      this.args.selectedColor[type]
+      this.args.selectedColor[type],
     );
   }
 }

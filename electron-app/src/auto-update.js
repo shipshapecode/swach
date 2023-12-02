@@ -7,9 +7,12 @@ const setupUpdateServer = (app) => {
   autoUpdater.setFeedURL(feed);
 
   // Checks for updates every 30 minutes
-  const checkForUpdatesInterval = setInterval(() => {
-    autoUpdater.checkForUpdates();
-  }, 30 * 60 * 1000);
+  const checkForUpdatesInterval = setInterval(
+    () => {
+      autoUpdater.checkForUpdates();
+    },
+    30 * 60 * 1000,
+  );
 
   autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
     clearInterval(checkForUpdatesInterval);

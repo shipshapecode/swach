@@ -26,7 +26,7 @@ function setTouchbar(mb, itemsToShow) {
             click() {
               mb.window.webContents.send(
                 'selectKulerColor',
-                itemsToShow.kulerColors.colors.indexOf(color)
+                itemsToShow.kulerColors.colors.indexOf(color),
               );
             },
           });

@@ -109,7 +109,7 @@ export default class ApplicationController extends Controller {
           if (addedColor) {
             this.colorUtils.copyColorToClipboard(addedColor);
           }
-        }
+        },
       );
 
       this.ipcRenderer.on('openContrastChecker', () => {
@@ -123,7 +123,7 @@ export default class ApplicationController extends Controller {
           const colors = data?.colors ?? [];
           const name = data?.name ?? 'Palette';
           await this.createPalette(name, colors);
-        }
+        },
       );
 
       this.ipcRenderer.on('setTheme', (_event: unknown, theme: string) => {
@@ -165,7 +165,7 @@ export default class ApplicationController extends Controller {
     if (colorHistory) {
       const colorPOJO = this.colorUtils.createColorPOJO(
         color,
-        this.dataSchema.generateId('color')
+        this.dataSchema.generateId('color'),
       );
 
       delete colorPOJO.attributes.hex;
@@ -192,14 +192,14 @@ export default class ApplicationController extends Controller {
   @action
   async createPalette(
     paletteName: string,
-    colors: { name: string; hex: string }[]
+    colors: { name: string; hex: string }[],
   ): Promise<void> {
     this.router.transitionTo('palettes');
 
     const colorPOJOs = colors.map((c) => {
       const colorPOJO = this.colorUtils.createColorPOJO(
         c.hex,
-        this.dataSchema.generateId('color')
+        this.dataSchema.generateId('color'),
       );
 
       delete colorPOJO.attributes.hex;
@@ -231,7 +231,7 @@ export default class ApplicationController extends Controller {
   enableDisableAutoStart(e: InputEvent): void {
     this.ipcRenderer.send(
       'enableDisableAutoStart',
-      (<HTMLInputElement>e.target).checked
+      (<HTMLInputElement>e.target).checked,
     );
   }
 

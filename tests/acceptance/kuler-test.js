@@ -28,13 +28,13 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Analogous"] [data-test-kuler-palette-name]'
+        '[data-test-kuler-palette="Analogous"] [data-test-kuler-palette-name]',
       )
       .hasText('Analogous');
 
     assert
       .dom(
-        '[data-test-kuler-palette="Analogous"] [data-test-kuler-palette-color]'
+        '[data-test-kuler-palette="Analogous"] [data-test-kuler-palette-color]',
       )
       .exists({ count: 5 });
   });
@@ -44,19 +44,19 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-name]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-name]',
       )
       .hasText('Monochromatic');
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color]',
       )
       .exists({ count: 5 });
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="0"]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="0"]',
       )
       .hasStyle({
         backgroundColor: 'rgb(247, 138, 224)',
@@ -64,7 +64,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]',
       )
       .hasStyle({
         backgroundColor: 'rgb(43, 24, 39)',
@@ -72,7 +72,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="2"]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="2"]',
       )
       .hasStyle({
         backgroundColor: 'rgb(94, 53, 85)',
@@ -80,7 +80,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="3"]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="3"]',
       )
       .hasStyle({
         backgroundColor: 'rgb(145, 81, 131)',
@@ -88,7 +88,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="4"]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="4"]',
       )
       .hasStyle({
         backgroundColor: 'rgb(196, 110, 178)',
@@ -120,13 +120,13 @@ module('Acceptance | kuler', function (hooks) {
 
     await triggerEvent(
       '[data-test-kuler-palette="Triad"] [data-test-kuler-palette-menu]',
-      'mouseenter'
+      'mouseenter',
     );
 
     await waitForAll();
 
     await click(
-      '[data-test-kuler-palette="Triad"] [data-test-save-kuler-palette]'
+      '[data-test-kuler-palette="Triad"] [data-test-save-kuler-palette]',
     );
 
     await waitForAll();
@@ -136,7 +136,7 @@ module('Acceptance | kuler', function (hooks) {
     await waitForAll();
 
     const colorsList = document.querySelector(
-      '[data-test-palette-row="Triad"] .palette-color-squares'
+      '[data-test-palette-row="Triad"] .palette-color-squares',
     );
 
     assert
@@ -144,7 +144,7 @@ module('Acceptance | kuler', function (hooks) {
       .exists({ count: 3 });
 
     const thirdColor = colorsList.querySelectorAll(
-      '[data-test-palette-color-square]'
+      '[data-test-palette-color-square]',
     )[2];
 
     assert.dom(thirdColor).hasStyle({ backgroundColor: 'rgb(138, 224, 247)' });
@@ -155,19 +155,19 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-name]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-name]',
       )
       .hasText('Monochromatic');
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color]',
       )
       .exists({ count: 5 });
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="0"]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="0"]',
       )
       .hasStyle({
         backgroundColor: 'rgb(247, 138, 224)',
@@ -175,7 +175,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]',
       )
       .hasStyle({
         backgroundColor: 'rgb(43, 24, 39)',
@@ -183,7 +183,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="2"]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="2"]',
       )
       .hasStyle({
         backgroundColor: 'rgb(94, 53, 85)',
@@ -191,7 +191,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="3"]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="3"]',
       )
       .hasStyle({
         backgroundColor: 'rgb(145, 81, 131)',
@@ -199,32 +199,32 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="4"]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="4"]',
       )
       .hasStyle({
         backgroundColor: 'rgb(196, 110, 178)',
       });
 
     await click(
-      '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]'
+      '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]',
     );
     await click('[data-test-set-base-color]');
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-name]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-name]',
       )
       .hasText('Monochromatic');
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color]',
       )
       .exists({ count: 5 });
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="0"]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="0"]',
       )
       .hasStyle({
         backgroundColor: 'rgb(43, 24, 39)',
@@ -232,7 +232,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]',
       )
       .hasStyle({
         backgroundColor: 'rgb(94, 52, 85)',
@@ -240,7 +240,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="2"]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="2"]',
       )
       .hasStyle({
         backgroundColor: 'rgb(145, 81, 132)',
@@ -248,7 +248,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="3"]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="3"]',
       )
       .hasStyle({
         backgroundColor: 'rgb(196, 109, 178)',
@@ -256,7 +256,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="4"]'
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="4"]',
       )
       .hasStyle({
         backgroundColor: 'rgb(247, 138, 224)',

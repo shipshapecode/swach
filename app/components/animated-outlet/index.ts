@@ -26,7 +26,7 @@ export default class AnimatedOutlet extends Component<AnimatedOutletSignature> {
     }
 
     let transition = transitions.find(
-      (t) => t.from === oldRouteName && t.to === newRouteName
+      (t) => t.from === oldRouteName && t.to === newRouteName,
     );
 
     if (transition) {
@@ -34,7 +34,7 @@ export default class AnimatedOutlet extends Component<AnimatedOutletSignature> {
     }
 
     transition = transitions.find(
-      (t) => t.to === oldRouteName && t.from === newRouteName
+      (t) => t.to === oldRouteName && t.from === newRouteName,
     );
 
     if (transition) {

@@ -25,7 +25,7 @@ export default class PalettesRoute extends Route {
       qb
         .findRecords('palette')
         .filter({ attribute: 'isColorHistory', value: false })
-        .sort('index')
+        .sort('index'),
     );
   }
 }

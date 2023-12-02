@@ -55,12 +55,12 @@ export default class SettingsDataComponent extends Component {
             } else {
               this.ipcRenderer.send('exportData', jsonString);
               this.flashMessages.success(
-                'Export saved to downloads directory.'
+                'Export saved to downloads directory.',
               );
             }
             idbDatabase.close();
             this.isExporting = false;
-          }
+          },
         );
       };
     }
@@ -87,12 +87,12 @@ export default class SettingsDataComponent extends Component {
                       // TODO is pulling from the backup with orbit the best "refresh" here?
                       const backup =
                         this.dataCoordinator.getSource<IndexedDBSource>(
-                          'backup'
+                          'backup',
                         );
 
                       if (backup) {
                         const records = await backup.query<InitializedRecord[]>(
-                          (q) => q.findRecords()
+                          (q) => q.findRecords(),
                         );
                         await this.store.sync((t) =>
                           records.map((r) => {
@@ -100,16 +100,16 @@ export default class SettingsDataComponent extends Component {
                               delete r.attributes.hex;
                             }
                             return t.addRecord(r);
-                          })
+                          }),
                         );
                         this.flashMessages.success(
-                          'Data successfully replaced.'
+                          'Data successfully replaced.',
                         );
                       }
                     }
 
                     this.isImporting = false;
-                  }
+                  },
                 );
               }
             });

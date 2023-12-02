@@ -15,44 +15,60 @@ $x3: -$left-pos + $dot-spacing;
 
   @include dot;
 
-  box-shadow: $x1 0 0 0 $dot-before-color, $x2 0 0 0 $dot-color,
+  box-shadow:
+    $x1 0 0 0 $dot-before-color,
+    $x2 0 0 0 $dot-color,
     $x3 0 0 0 $dot-after-color;
   animation: dot-typing 1.5s infinite linear;
 }
 
 @keyframes dot-typing {
   0% {
-    box-shadow: $x1 0 0 0 $dot-before-color, $x2 0 0 0 $dot-color,
+    box-shadow:
+      $x1 0 0 0 $dot-before-color,
+      $x2 0 0 0 $dot-color,
       $x3 0 0 0 $dot-after-color;
   }
 
   16.667% {
-    box-shadow: $x1 -10px 0 0 $dot-before-color, $x2 0 0 0 $dot-color,
+    box-shadow:
+      $x1 -10px 0 0 $dot-before-color,
+      $x2 0 0 0 $dot-color,
       $x3 0 0 0 $dot-after-color;
   }
 
   33.333% {
-    box-shadow: $x1 0 0 0 $dot-before-color, $x2 0 0 0 $dot-color,
+    box-shadow:
+      $x1 0 0 0 $dot-before-color,
+      $x2 0 0 0 $dot-color,
       $x3 0 0 0 $dot-after-color;
   }
 
   50% {
-    box-shadow: $x1 0 0 0 $dot-before-color, $x2 -10px 0 0 $dot-color,
+    box-shadow:
+      $x1 0 0 0 $dot-before-color,
+      $x2 -10px 0 0 $dot-color,
       $x3 0 0 0 $dot-after-color;
   }
 
   66.667% {
-    box-shadow: $x1 0 0 0 $dot-before-color, $x2 0 0 0 $dot-color,
+    box-shadow:
+      $x1 0 0 0 $dot-before-color,
+      $x2 0 0 0 $dot-color,
       $x3 0 0 0 $dot-after-color;
   }
 
   83.333% {
-    box-shadow: $x1 0 0 0 $dot-before-color, $x2 0 0 0 $dot-color,
+    box-shadow:
+      $x1 0 0 0 $dot-before-color,
+      $x2 0 0 0 $dot-color,
       $x3 -10px 0 0 $dot-after-color;
   }
 
   100% {
-    box-shadow: $x1 0 0 0 $dot-before-color, $x2 0 0 0 $dot-color,
+    box-shadow:
+      $x1 0 0 0 $dot-before-color,
+      $x2 0 0 0 $dot-color,
       $x3 0 0 0 $dot-after-color;
   }
 }

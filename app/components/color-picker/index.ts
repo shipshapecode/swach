@@ -81,9 +81,9 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
             { type: 'color', id: colorToEdit.id },
             attr,
             //@ts-expect-error TODO fix this error later
-            this._selectedColor[attr]
-          )
-        )
+            this._selectedColor[attr],
+          ),
+        ),
       );
 
       this.undoManager.setupUndoRedo();

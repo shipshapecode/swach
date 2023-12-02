@@ -15,9 +15,9 @@ export default class NearestColorService extends Service {
     const namedColors = colorNameList.reduce(
       (
         o: { [key: string]: string },
-        { name, hex }: { name: string; hex: string }
+        { name, hex }: { name: string; hex: string },
       ) => Object.assign(o, { [name]: hex }),
-      {}
+      {},
     );
 
     this.nearest = nearestColor.from(namedColors);

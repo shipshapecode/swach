@@ -74,7 +74,7 @@ export default class KulerComponent extends Component<KulerSignature> {
           'selectKulerColor',
           async (_event: unknown, colorIndex: number) => {
             this.setSelectedIroColor(colorIndex);
-          }
+          },
         );
 
         this.ipcRenderer.on(
@@ -83,9 +83,9 @@ export default class KulerComponent extends Component<KulerSignature> {
             await this._onColorChange(color);
             this.colorPicker.setColors(
               this.selectedPalette.colors.mapBy('hex'),
-              this.selectedPalette.selectedColorIndex
+              this.selectedPalette.selectedColorIndex,
             );
-          }
+          },
         );
       }
     });
@@ -133,11 +133,11 @@ export default class KulerComponent extends Component<KulerSignature> {
     this.baseColor =
       this.selectedPalette.colors[this.selectedPalette.selectedColorIndex];
     return this.baseColorChanged(
-      this.palettes.indexOf(this.selectedPalette)
+      this.palettes.indexOf(this.selectedPalette),
     ).then(() => {
       this.colorPicker.setColors(
         this.selectedPalette.colors.mapBy('hex'),
-        this.selectedPalette.selectedColorIndex
+        this.selectedPalette.selectedColorIndex,
       );
     });
   }
@@ -162,7 +162,7 @@ export default class KulerComponent extends Component<KulerSignature> {
       this.selectedPalette = palette;
       this.colorPicker.setColors(
         this.selectedPalette.colors.mapBy('hex'),
-        palette.selectedColorIndex
+        palette.selectedColorIndex,
       );
 
       this._updateTouchbar();
@@ -179,7 +179,7 @@ export default class KulerComponent extends Component<KulerSignature> {
     const { selectedColorIndex } = this.selectedPalette;
     // if changing the selected baseColor, we should update all the colors
     const newColor = this.colorUtils.createColorPOJO(
-      color instanceof iro.Color ? color.rgba : color
+      color instanceof iro.Color ? color.rgba : color,
     );
 
     this.selectedPalette.colors.replace(selectedColorIndex, 1, [
@@ -194,7 +194,7 @@ export default class KulerComponent extends Component<KulerSignature> {
 
     this.colorPicker.setColors(
       this.selectedPalette.colors.mapBy('hex'),
-      this.selectedPalette.selectedColorIndex
+      this.selectedPalette.selectedColorIndex,
     );
 
     this._updateTouchbar();
@@ -247,7 +247,7 @@ export default class KulerComponent extends Component<KulerSignature> {
           },
         ],
         width: 207,
-      }
+      },
     );
 
     this.colorPicker.on('color:change', this._debouncedColorChange);

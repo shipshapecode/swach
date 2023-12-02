@@ -402,8 +402,8 @@ importers:
         specifier: ^7.2.0
         version: 7.2.0
       '@electron-forge/core':
-        specifier: ^6.4.2
-        version: 6.4.2
+        specifier: ^7.2.0
+        version: 7.2.0
       '@electron-forge/maker-deb':
         specifier: ^6.4.2
         version: 6.4.2

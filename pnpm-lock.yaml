@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 overrides:
   ember-animated>@ember/test-helpers: ^2.9.3
   ember-animated>ember-element-helper: ^0.6.1
@@ -263,8 +267,8 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0(@ember/test-helpers@2.9.4)(@glint/template@1.2.1)
       ember-sinon-qunit:
-        specifier: ^7.3.0
-        version: 7.3.0(@babel/core@7.23.3)(ember-source@5.4.0)(qunit@2.20.0)(sinon@17.0.1)(webpack@5.89.0)
+        specifier: ^7.4.0
+        version: 7.4.0(ember-source@5.4.0)(qunit@2.20.0)(sinon@17.0.1)
       ember-source:
         specifier: ^5.4.0
         version: 5.4.0(@babel/core@7.23.3)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.89.0)
@@ -12062,26 +12066,20 @@ packages:
       - supports-color
     dev: true
 
-  /ember-sinon-qunit@7.3.0(@babel/core@7.23.3)(ember-source@5.4.0)(qunit@2.20.0)(sinon@17.0.1)(webpack@5.89.0):
-    resolution: {integrity: sha512-dzDPzqpg6hLUHUmTyb3C+7JGWXeJE4dqlSEflLWx5I2kgipquJKTLVZ64XyNTPSgSIgy51fsNlI6aBqy5utjrw==}
-    engines: {node: 14.* || 16.* || >= 18}
+  /ember-sinon-qunit@7.4.0(ember-source@5.4.0)(qunit@2.20.0)(sinon@17.0.1):
+    resolution: {integrity: sha512-BcH2scgJ4Vpq5Fnjeq5Z2ESnHLsmcfFRaq/gOujy3my+8w7WTtrHyaUgWzmd5mLw+tfCYssAUEalQhk1ZNpV+g==}
     peerDependencies:
       ember-source: '>=3.28.0'
       qunit: ^2.0.0
       sinon: ^15.0.3 || ^16.0.0 || ^17.0.0
     dependencies:
+      '@embroider/addon-shim': 1.8.6
       '@types/sinon': 10.0.19
-      broccoli-funnel: 3.0.8
-      ember-auto-import: 2.6.3(webpack@5.89.0)
-      ember-cli-babel: 8.2.0(@babel/core@7.23.3)
-      ember-cli-typescript: 5.2.1
       ember-source: 5.4.0(@babel/core@7.23.3)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.89.0)
       qunit: 2.20.0
       sinon: 17.0.1
     transitivePeerDependencies:
-      - '@babel/core'
       - supports-color
-      - webpack
     dev: true
 
   /ember-source@5.4.0(@babel/core@7.23.3)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.89.0):
@@ -13950,6 +13948,7 @@ packages:
   /get-stream@4.1.0:
     resolution: {integrity: sha512-GMat4EJ5161kIy2HevLlr4luNjBgvmj413KaQA7jt4V8B4RDsfpHk7WQ9GVqfYyyx8OS/L66Kox+rJRNklLK7w==}
     engines: {node: '>=6'}
+    requiresBuild: true
     dependencies:
       pump: 3.0.0
     dev: true
@@ -23304,7 +23303,3 @@ packages:
   /zen-observable@0.8.15:
     resolution: {integrity: sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==}
     dev: true
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

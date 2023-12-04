@@ -115,7 +115,7 @@
     "ember-set-body-class": "^1.0.2",
     "ember-set-helper": "^2.0.1",
     "ember-simple-auth": "^6.0.0",
-    "ember-sinon-qunit": "^7.3.0",
+    "ember-sinon-qunit": "^7.4.0",
     "ember-source": "^5.4.0",
     "ember-svg-jar": "^2.4.7",
     "ember-template-lint": "^5.12.0",

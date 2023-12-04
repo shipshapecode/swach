@@ -79,7 +79,7 @@
     "color-name-list": "^10.16.0",
     "concurrently": "^8.2.2",
     "crypto-browserify": "^3.12.0",
-    "ember-animated": "^0.12.0",
+    "ember-animated": "^1.1.1",
     "ember-auto-import": "^2.6.3",
     "ember-cache-primitive-polyfill": "^1.0.1",
     "ember-cli": "5.0.0-beta.0",

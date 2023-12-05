@@ -69,7 +69,7 @@
     "@types/ember-qunit": "^6.1.1",
     "@types/ember-resolver": "^9.0.0",
     "@types/ember__test-helpers": "^2.9.1",
-    "@types/qunit": "^2.19.8",
+    "@types/qunit": "^2.19.9",
     "@types/sinon": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",

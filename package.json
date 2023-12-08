@@ -65,7 +65,7 @@
     "@release-it/bumper": "^4.0.2",
     "@sentry/ember": "^7.85.0",
     "@tailwindcss/forms": "^0.5.7",
-    "@types/ember": "^4.0.8",
+    "@types/ember": "^4.0.10",
     "@types/ember-qunit": "^6.1.1",
     "@types/ember-resolver": "^9.0.0",
     "@types/ember__test-helpers": "^2.9.1",

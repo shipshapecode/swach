@@ -418,8 +418,8 @@ importers:
         specifier: ^7.2.0
         version: 7.2.0
       '@electron-forge/maker-zip':
-        specifier: ^6.4.2
-        version: 6.4.2
+        specifier: ^7.2.0
+        version: 7.2.0
       '@sentry/cli':
         specifier: ^2.22.3
         version: 2.22.3
@@ -3036,12 +3036,12 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-zip@6.4.2:
-    resolution: {integrity: sha512-k2nfhhnxcYbUS7rCKCisuqEalxtH9l73+lrtfL0aQZiE/BLbDXyNckDIDOPvX0tBEg62nVzUdJonZwOhZVvAMw==}
-    engines: {node: '>= 14.17.5'}
+  /@electron-forge/maker-zip@7.2.0:
+    resolution: {integrity: sha512-U6FSSMcHogHDv+7SmF037lJ9m0stwwqyerw7Q6mD3jKQHX9GBxFApEzA5HSURGPAEBhPgPppYOSMGRB6LV5F2g==}
+    engines: {node: '>= 16.4.0'}
     dependencies:
-      '@electron-forge/maker-base': 6.4.2
-      '@electron-forge/shared-types': 6.4.2
+      '@electron-forge/maker-base': 7.2.0
+      '@electron-forge/shared-types': 7.2.0
       cross-zip: 4.0.0
       fs-extra: 10.1.0
       got: 11.8.6

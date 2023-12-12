@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { fileURLToPath } = require('url');
+const { fileURLToPath, pathToFileURL } = require('url');
 const { promisify } = require('util');
 
 const access = promisify(fs.access);
@@ -32,11 +32,22 @@ async function getAssetPath(emberAppDir, url) {
 }
 
 module.exports = function handleFileURLs(emberAppDir) {
-  const { protocol } = require('electron');
+  const { protocol, net } = require('electron');
 
-  protocol.interceptFileProtocol('file', async ({ url }, callback) => {
-    callback(await getAssetPath(emberAppDir, url));
-  });
+  if (protocol.handle) {
+    // Electron >= 25
+    protocol.handle('file', async ({ url }) => {
+      let path = await getAssetPath(emberAppDir, url);
+      return net.fetch(pathToFileURL(path), {
+        bypassCustomProtocolHandlers: true,
+      });
+    });
+  } else {
+    // Electron < 25
+    protocol.interceptFileProtocol('file', async ({ url }, callback) => {
+      callback(await getAssetPath(emberAppDir, url));
+    });
+  }
 };
 
 module.exports.getAssetPath = getAssetPath;

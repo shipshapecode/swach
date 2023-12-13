@@ -141,6 +141,8 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
 
   @action
   _setupColorPicker(element: HTMLElement, hex: string): void {
+    // TODO: correctly type this instead of using `any`
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.colorPicker = new (iro.ColorPicker as any)(element, {
       colors: [hex],
       layoutDirection: 'vertical',

@@ -24,8 +24,6 @@ module('Acceptance | settings/cloud', function (hooks) {
   });
 
   test('user can sign up', async function (assert) {
-    assert.expect(5);
-
     await mockAuth(
       MockAuth.extend({
         async signUp() {

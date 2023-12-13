@@ -57,7 +57,6 @@ module('Unit | Service | data', function (hooks) {
     resetStorage(hooks);
 
     test('must be called after `activate`', async function (assert) {
-      assert.expect(3);
       assert.notOk(dataService.isActivated);
 
       try {

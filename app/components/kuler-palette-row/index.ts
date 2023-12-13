@@ -20,6 +20,8 @@ interface KulerPaletteRowSignature {
 
 export default class KulerPaletteRowComponent extends Component<KulerPaletteRowSignature> {
   @service declare colorUtils: ColorUtils;
+  // TODO: correctly type this instead of using `any`
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @service('-ea-motion') declare eaMotion: any;
   @service declare router: Router;
   @service declare store: Store;

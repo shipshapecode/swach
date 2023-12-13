@@ -136,6 +136,8 @@ function getRecordsFromIDB(
     const request = objectStore.openCursor();
     const records: InitializedRecord[] = [];
 
+    // TODO: correctly type this instead of using `any`
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     request.onsuccess = (event: any) => {
       const cursor = event.target.result;
       if (cursor) {
@@ -172,6 +174,8 @@ function setRecordsInIDB(
     let i = 0;
     const objectStore = transaction.objectStore(type);
 
+    // TODO: correctly type this instead of using `any`
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const putNext = (): any => {
       if (i < records.length) {
         const record = records[i++];

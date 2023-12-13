@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-  browsers: ['electron >= 24.0.0'],
+  browsers: ['electron >= 27.0.0'],
 };

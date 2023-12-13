@@ -11,6 +11,8 @@ export default class AnimatedOutlet extends Component<AnimatedOutletSignature> {
   duration = transitionOptions.duration;
   easing = transitionOptions.easing;
 
+  // TODO: correctly type this instead of using `any`
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rules({ newItems, oldItems }: { newItems: any[]; oldItems: any[] }): unknown {
     const oldRoute = oldItems[oldItems.length - 1];
     const newRoute = newItems[newItems.length - 1];

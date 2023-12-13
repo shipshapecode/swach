@@ -14,7 +14,11 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
   @tracked backgroundColor = '#ffffff';
   @tracked foregroundColor = '#000000';
 
+  declare bgPickr: iro.ColorPicker;
+  declare fgPickr: iro.ColorPicker;
   declare ipcRenderer: IpcRenderer;
+  declare onBgChange: (color?: iro.Color) => void;
+  declare onFgChange: (color?: iro.Color) => void;
 
   get wcagScore() {
     return hex(this.backgroundColor, this.foregroundColor).toFixed(2);
@@ -31,11 +35,11 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
       const { ipcRenderer } = requireNode('electron');
       this.ipcRenderer = ipcRenderer;
 
-      this.ipcRenderer.on('pickContrastBgColor', async (event, color) => {
+      this.ipcRenderer.on('pickContrastBgColor', async (_event, color) => {
         this.setBgColor(color);
       });
 
-      this.ipcRenderer.on('pickContrastFgColor', async (event, color) => {
+      this.ipcRenderer.on('pickContrastFgColor', async (_event, color) => {
         this.setFgColor(color);
       });
     }
@@ -50,7 +54,8 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
   }
 
   @action
-  initBackgroundColorPicker(element) {
+  initBackgroundColorPicker(element: HTMLElement) {
+    // @ts-expect-error TS doesn't like the `new` but we need it
     this.bgPickr = new iro.ColorPicker(element, {
       colors: [this.backgroundColor],
       layout: [
@@ -71,7 +76,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
       width: 140,
     });
 
-    this.onBgChange = (color) => {
+    this.onBgChange = (color?: iro.Color) => {
       if (color) {
         this.backgroundColor = color.hexString;
       }
@@ -81,7 +86,8 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
   }
 
   @action
-  initForegroundColorPicker(element) {
+  initForegroundColorPicker(element: HTMLElement) {
+    // @ts-expect-error TS doesn't like the `new` but we need it
     this.fgPickr = new iro.ColorPicker(element, {
       colors: [this.foregroundColor],
       layout: [
@@ -102,7 +108,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
       width: 140,
     });
 
-    this.onFgChange = (color) => {
+    this.onFgChange = (color?: iro.Color) => {
       if (color) {
         this.foregroundColor = color.hexString;
       }
@@ -112,9 +118,9 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
   }
 
   @action
-  enterPress(event) {
+  enterPress(event: KeyboardEvent) {
     if (event.keyCode === 13) {
-      event.target.blur();
+      (event.target as HTMLInputElement).blur();
     }
   }
 
@@ -129,11 +135,13 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
   }
 
   @action
-  onBlurBg(ev) {
-    this.setBgColor(ev.target.value);
+  onBlurBg(ev: Event) {
+    this.setBgColor((ev.target as HTMLInputElement).value);
   }
 
-  setBgColor(color) {
+  // TODO: correctly type this instead of using `any`
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setBgColor(color: any) {
     try {
       this.bgPickr.setColors([color]);
       this.backgroundColor = this.bgPickr.color.hexString;
@@ -143,11 +151,13 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
   }
 
   @action
-  onBlurFg(ev) {
-    this.setFgColor(ev.target.value);
+  onBlurFg(ev: Event) {
+    this.setFgColor((ev.target as HTMLInputElement).value);
   }
 
-  setFgColor(color) {
+  // TODO: correctly type this instead of using `any`
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setFgColor(color: any) {
     try {
       this.fgPickr.setColors([color]);
       this.foregroundColor = this.fgPickr.color.hexString;

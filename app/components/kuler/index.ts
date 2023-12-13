@@ -11,6 +11,7 @@ import iro from '@jaames/iro';
 import type { IpcRenderer } from 'electron';
 import { debounce } from 'throttle-debounce';
 
+import 'swach/components/kuler-palette-row';
 import ColorUtils, { ColorPOJO } from 'swach/services/color-utils';
 
 type harmonyTypes = 'analogous' | 'monochromatic' | 'tetrad' | 'triad';
@@ -36,6 +37,8 @@ class Palette {
 interface KulerSignature {
   Element: HTMLDivElement;
   Args: {
+    // TODO: correctly type this instead of using `any`
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     baseColor: any;
   };
 }
@@ -44,6 +47,8 @@ export default class KulerComponent extends Component<KulerSignature> {
   @service declare colorUtils: ColorUtils;
   @service declare store: Store;
 
+  // TODO: correctly type this instead of using `any`
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _debouncedColorChange!: any;
   colorPicker!: iro.ColorPicker;
   harmonies = ['analogous', 'monochromatic', 'tetrad', 'triad'];
@@ -54,7 +59,7 @@ export default class KulerComponent extends Component<KulerSignature> {
   @tracked palettes: Palette[] = [];
   @tracked selectedPalette!: Palette;
 
-  constructor(owner: unknown, args: KulerArgs) {
+  constructor(owner: unknown, args: KulerSignature['Args']) {
     super(owner, args);
 
     this._debouncedColorChange = debounce(10, this._onColorChange);
@@ -209,6 +214,8 @@ export default class KulerComponent extends Component<KulerSignature> {
 
   @action
   _setupColorWheel(): void {
+    // TODO: correctly type this instead of using `any`
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.colorPicker = (iro.ColorPicker as any)(
       '#kuler-color-picker-container',
       {

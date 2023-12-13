@@ -4,6 +4,7 @@ import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
+import 'swach/components/loading-button';
 import CognitoService from 'ember-cognito/services/cognito';
 import Session from 'ember-simple-auth/services/session';
 

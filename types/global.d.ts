@@ -6,19 +6,14 @@ import AnimatedValue from '@gavant/glint-template-types/types/ember-animated/ani
 
 import OnClickOutsideModifier from 'ember-click-outside/modifiers/on-click-outside';
 
-import SubHelper from 'ember-math-helpers/helpers/sub';
-
 import DidInsertModifier from 'ember-render-modifiers/modifiers/did-insert';
 import DidUpdateModifier from 'ember-render-modifiers/modifiers/did-update';
 import WillDestroyModifier from 'ember-render-modifiers/modifiers/will-destroy';
 
 import SvgJarHelper from 'ember-svg-jar/helpers/svg-jar';
 
-import AndHelper from 'ember-truth-helpers/helpers/and';
-import EqHelper from 'ember-truth-helpers/helpers/eq';
-import NotHelper from 'ember-truth-helpers/helpers/not';
-import NotEqHelper from 'ember-truth-helpers/helpers/not-eq';
-import OrHelper from 'ember-truth-helpers/helpers/or';
+import type EmberMathRegistry from 'ember-math-helpers/template-registry';
+import type EmberTruthRegistry from 'ember-truth-helpers/template-registry';
 
 // Types for compiled templates
 declare module 'swach/templates/*' {
@@ -28,11 +23,12 @@ declare module 'swach/templates/*' {
 }
 
 declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
+  export default interface Registry
+    extends EmberMathRegistry,
+      EmberTruthRegistry {
     AnimatedContainer: typeof AnimatedContainer;
     'animated-each': typeof AnimatedEach;
     AnimatedValue: typeof AnimatedValue;
-    and: typeof AndHelper;
     capitalize: HelperLike<{
       Args: {
         Positional: [input: string];
@@ -67,7 +63,6 @@ declare module '@glint/environment-ember-loose/registry' {
         };
       };
     }>;
-    eq: typeof EqHelper;
     'html-safe': HelperLike<{
       Args: {
         Positional: [string: string];
@@ -75,8 +70,6 @@ declare module '@glint/environment-ember-loose/registry' {
       Return: string;
     }>;
     'liquid-outlet': ComponentLike;
-    not: typeof NotHelper;
-    'not-eq': typeof NotEqHelper;
     OneWayInputMask: ComponentLike<{
       Element: HTMLInputElement;
       Args: {
@@ -84,7 +77,7 @@ declare module '@glint/environment-ember-loose/registry' {
           mask: string;
           options: {
             greedy?: boolean;
-            isComplete: (buffer: Buffer, opts: { regex: string; }) => boolean;
+            isComplete: (buffer: Buffer, opts: { regex: string }) => boolean;
             max?: number;
             min?: number;
             oncomplete: (event: InputEvent) => void;

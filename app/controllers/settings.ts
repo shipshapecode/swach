@@ -3,7 +3,6 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 
 import type Session from 'ember-simple-auth/services/session';
-
 import type ApplicationController from 'swach/controllers/application';
 
 export default class SettingsController extends Controller {

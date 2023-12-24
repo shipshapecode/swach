@@ -1,13 +1,11 @@
+import { tracked } from '@glimmer/tracking';
 import Controller, { inject as controller } from '@ember/controller';
 import { action } from '@ember/object';
-import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
-import { tracked } from '@glimmer/tracking';
 
-import type { LiveQuery, Store } from 'ember-orbit';
-
+import type Router from '@ember/routing/router-service';
 import type { RecordOperationTerm } from '@orbit/records';
-
+import type { LiveQuery, Store } from 'ember-orbit';
 import type ApplicationController from 'swach/controllers/application';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
@@ -29,6 +27,7 @@ export default class PalettesController extends Controller {
 
   get last16Colors(): ColorModel[] {
     const { colorHistory } = this.data;
+
     if (colorHistory) {
       return colorHistory.colors
         .slice()
@@ -43,11 +42,13 @@ export default class PalettesController extends Controller {
   @action
   async clearColorHistory(): Promise<void> {
     const { colorHistory } = this.data;
+
     if (colorHistory) {
       await this.store.update((t) =>
         t.replaceRelatedRecords(colorHistory, 'colors', []),
       );
     }
+
     this.undoManager.setupUndoRedo();
   }
 
@@ -166,8 +167,10 @@ export default class PalettesController extends Controller {
       const colorsList = targetList.map((c) => c.$identity);
 
       const existingColor = targetList.findBy('hex', sourceColor.hex);
+
       if (existingColor) {
         const colorToRemove = colorsList.findBy('id', existingColor.id);
+
         if (colorToRemove) {
           colorsList.removeObject(colorToRemove);
         }
@@ -253,11 +256,13 @@ export default class PalettesController extends Controller {
             if (colorToRemove) {
               const existingColorIndex =
                 targetColorOrder.indexOf(colorToRemove);
+
               // If this color already exists in the palette at a lower index, we need to decrease the index,
               // so we are not inserting out of bounds
               if (existingColorIndex < targetIndex) {
                 insertIndex--;
               }
+
               targetColorOrder.removeObject(colorToRemove);
             }
 

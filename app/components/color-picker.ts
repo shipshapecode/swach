@@ -1,22 +1,23 @@
-import { action, set } from '@ember/object';
-import type Router from '@ember/routing/router-service';
-import { service } from '@ember/service';
+import 'swach/components/color-row';
+
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-
-import type { Store } from 'ember-orbit';
+import { action, set } from '@ember/object';
+import { service } from '@ember/service';
 
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
+import { rgbaToHex } from 'swach/data-models/color';
 
-import {
+import type Router from '@ember/routing/router-service';
+import type { Store } from 'ember-orbit';
+import type {
   PrivateRGBAHex,
   PublicRGBAHex,
   SelectedColorModel,
   SelectedColorPOJO,
 } from 'swach/components/rgb-input';
-import 'swach/components/color-row';
-import ColorModel, { rgbaToHex } from 'swach/data-models/color';
+import type ColorModel from 'swach/data-models/color';
 import type NearestColor from 'swach/services/nearest-color';
 import type UndoManager from 'swach/services/undo-manager';
 
@@ -48,6 +49,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
 
     if (this._selectedColor?.hex) {
       const tinyColor = new TinyColor(this._selectedColor.hex);
+
       hsl = tinyColor.toHslString();
       hsv = tinyColor.toHsvString();
       rgb = tinyColor.toRgbString();
@@ -65,6 +67,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
     };
 
     const { selectedColor } = this.args;
+
     this.setSelectedColor(selectedColor ? selectedColor.hex : '#42445a');
     this._setupColorPicker(element, this._selectedColor.hex);
   }
@@ -72,6 +75,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
   @action
   async saveColorAndClose(): Promise<void> {
     const colorToEdit = this.args.selectedColor;
+
     // If we passed a color to edit, save it, otherwise create a new global color
     if (colorToEdit) {
       // TODO: Consider refactoring to use a single `updateRecord` operation
@@ -126,6 +130,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
   updateColor(): void {
     const { r, g, b } = this._selectedColor;
     const namedColor = this.nearestColor.nearest({ r, g, b });
+
     set(this._selectedColor, 'name', namedColor.name);
 
     this.colorPicker?.setColors([this._selectedColor].mapBy('hex'));

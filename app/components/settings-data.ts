@@ -1,20 +1,19 @@
-import { action } from '@ember/object';
-import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
+import { service } from '@ember/service';
 
-import FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
-import type { Store } from 'ember-orbit';
+import IDBExportImport from 'indexeddb-export-import';
+import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
 
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type { InitializedRecord } from '@orbit/records';
 import type { IpcRenderer } from 'electron';
-import IDBExportImport from 'indexeddb-export-import';
-
-import { SettingsStorage } from 'swach/storages/settings';
-import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
+import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
+import type { Store } from 'ember-orbit';
+import type { SettingsStorage } from 'swach/storages/settings';
 
 export default class SettingsData extends Component {
   @service declare dataCoordinator: Coordinator;
@@ -34,6 +33,7 @@ export default class SettingsData extends Component {
 
     if (typeof requireNode !== 'undefined') {
       const { ipcRenderer } = requireNode('electron');
+
       this.ipcRenderer = ipcRenderer;
     }
   }
@@ -42,7 +42,9 @@ export default class SettingsData extends Component {
   exportIndexedDB(): void {
     if (this.ipcRenderer) {
       this.isExporting = true;
+
       const DBOpenRequest = getDBOpenRequest();
+
       DBOpenRequest.onsuccess = () => {
         const idbDatabase = DBOpenRequest.result;
 
@@ -58,6 +60,7 @@ export default class SettingsData extends Component {
                 'Export saved to downloads directory.',
               );
             }
+
             idbDatabase.close();
             this.isExporting = false;
           },
@@ -73,8 +76,10 @@ export default class SettingsData extends Component {
       this.ipcRenderer.invoke('importData').then((jsonString: string) => {
         if (jsonString) {
           const DBOpenRequest = getDBOpenRequest();
+
           DBOpenRequest.onsuccess = () => {
             const idbDatabase = DBOpenRequest.result;
+
             IDBExportImport.clearDatabase(idbDatabase, (err: Event) => {
               if (!err) {
                 // cleared data successfully
@@ -84,6 +89,7 @@ export default class SettingsData extends Component {
                   async (err: Event) => {
                     if (!err) {
                       idbDatabase.close();
+
                       // TODO is pulling from the backup with orbit the best "refresh" here?
                       const backup =
                         this.dataCoordinator.getSource<IndexedDBSource>(
@@ -94,11 +100,13 @@ export default class SettingsData extends Component {
                         const records = await backup.query<InitializedRecord[]>(
                           (q) => q.findRecords(),
                         );
+
                         await this.store.sync((t) =>
                           records.map((r) => {
                             if (r?.attributes?.hex) {
                               delete r.attributes.hex;
                             }
+
                             return t.addRecord(r);
                           }),
                         );

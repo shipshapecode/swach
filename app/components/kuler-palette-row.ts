@@ -1,11 +1,11 @@
-import { action } from '@ember/object';
-import type Router from '@ember/routing/router-service';
-import { service } from '@ember/service';
 import Component from '@glimmer/component';
+import { action } from '@ember/object';
+import { service } from '@ember/service';
 
 import fade from 'ember-animated/transitions/fade';
-import type { Store } from 'ember-orbit';
 
+import type Router from '@ember/routing/router-service';
+import type { Store } from 'ember-orbit';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type ColorUtils from 'swach/services/color-utils';
@@ -38,6 +38,7 @@ export default class KulerPaletteRowComponent extends Component<KulerPaletteRowS
   @action
   setSelectedColor(color: ColorModel): void {
     const selectedColorIndex = this.args.palette.colors.indexOf(color);
+
     this.args.setSelectedIroColor(selectedColorIndex);
     this.args.palette.selectedColorIndex = selectedColorIndex;
   }

@@ -1,5 +1,4 @@
 import { EventLoggingStrategy } from '@orbit/coordinator';
-
 import config from 'swach/config/environment';
 
 const factory = {

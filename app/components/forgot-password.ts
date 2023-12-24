@@ -1,12 +1,13 @@
-import { action } from '@ember/object';
-import type Router from '@ember/routing/router-service';
-import { service } from '@ember/service';
+import 'swach/components/loading-button';
+
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
+import { service } from '@ember/service';
 
-import 'swach/components/loading-button';
-import CognitoService from 'ember-cognito/services/cognito';
-import Session from 'ember-simple-auth/services/session';
+import type Router from '@ember/routing/router-service';
+import type CognitoService from 'ember-cognito/services/cognito';
+import type Session from 'ember-simple-auth/services/session';
 
 export default class ForgotPasswordComponent extends Component {
   @service declare cognito: CognitoService;
@@ -24,6 +25,7 @@ export default class ForgotPasswordComponent extends Component {
   async forgotPassword(): Promise<void> {
     if (this.username) {
       this.loading = true;
+
       try {
         await this.cognito.forgotPassword(this.username);
 
@@ -42,6 +44,7 @@ export default class ForgotPasswordComponent extends Component {
 
     if (username && code && password) {
       this.loading = true;
+
       try {
         await this.cognito.forgotPasswordSubmit(username, code, password);
 

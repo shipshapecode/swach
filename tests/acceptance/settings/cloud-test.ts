@@ -1,17 +1,16 @@
 import { click, currentURL, fillIn, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 
-import {
-  MockAuth,
-  MockUser,
-  mockAuth,
-  mockCognitoUser,
-} from 'ember-cognito/test-support';
-
 import sinon from 'sinon';
-
 import { resetStorage, waitForAll } from 'swach/tests/helpers';
 import { setupApplicationTest } from 'swach/tests/helpers/index';
+
+import {
+  MockAuth,
+  mockAuth,
+  mockCognitoUser,
+  MockUser,
+} from 'ember-cognito/test-support';
 
 module('Acceptance | settings/cloud', function (hooks) {
   setupApplicationTest(hooks);
@@ -28,6 +27,7 @@ module('Acceptance | settings/cloud', function (hooks) {
       MockAuth.extend({
         async signUp() {
           assert.ok(true, 'signUp has been called');
+
           return MockUser.create({
             username: 'testuser@gmail.com',
             attributes: {
@@ -48,6 +48,7 @@ module('Acceptance | settings/cloud', function (hooks) {
             '1234',
             'confirmationCode is correct',
           );
+
           return;
         },
       }),
@@ -88,6 +89,7 @@ module('Acceptance | settings/cloud', function (hooks) {
         email_verified: 'false',
       },
     });
+
     const authenticator = this.owner.lookup('authenticator:cognito');
     const authenticateStub = sinon
       .stub(authenticator, 'authenticate')

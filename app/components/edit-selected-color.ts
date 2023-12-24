@@ -1,10 +1,9 @@
+import Component from '@glimmer/component';
 import { action, set, setProperties } from '@ember/object';
 import { service } from '@ember/service';
-import Component from '@glimmer/component';
 
-import iro from '@jaames/iro';
-
-import {
+import type iro from '@jaames/iro';
+import type {
   PrivateRGBAHex,
   PublicRGBAHex,
   SelectedColorModel,
@@ -25,12 +24,14 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
 
   get selectedColor(): SelectedColorModel | Record<string, unknown> {
     const { palette } = this.args;
+
     if (palette) {
       const { colors } = palette;
       const selectedColor = colors[
         palette.selectedColorIndex
       ] as SelectedColorModel;
       const { hex, r, g, b, a } = selectedColor;
+
       setProperties(selectedColor, {
         _hex: hex,
         _r: r,
@@ -38,6 +39,7 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
         _g: g,
         _a: a,
       });
+
       return selectedColor;
     }
 

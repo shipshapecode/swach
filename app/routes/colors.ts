@@ -1,13 +1,13 @@
-import Transition from '@ember/routing/-private/transition';
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
-import type { Store } from 'ember-orbit';
-import Session from 'ember-simple-auth/services/session';
 
+import type Transition from '@ember/routing/-private/transition';
+import type { Store } from 'ember-orbit';
+import type Session from 'ember-simple-auth/services/session';
 import type PaletteModel from 'swach/data-models/palette';
-import { SettingsStorage } from 'swach/storages/settings';
+import type { SettingsStorage } from 'swach/storages/settings';
 
 export default class ColorsRoute extends Route {
   queryParams = {
@@ -34,6 +34,7 @@ export default class ColorsRoute extends Route {
   }): Promise<PaletteModel | undefined> {
     if (paletteId) {
       const palette = await this.store.findRecord('palette', paletteId);
+
       return <PaletteModel>palette;
     }
   }

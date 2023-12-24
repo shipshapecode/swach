@@ -1,15 +1,14 @@
-import { setupTest } from 'ember-qunit';
 import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-import type { Store } from 'ember-orbit';
-
-import { Coordinator } from '@orbit/coordinator';
-import IndexedDBSource from '@orbit/indexeddb';
-
-import Palette from 'swach/data-models/palette';
-import DataService from 'swach/services/data';
 import { resetStorage } from 'swach/tests/helpers';
 import seedOrbit from 'swach/tests/orbit/seed';
+
+import type { Coordinator } from '@orbit/coordinator';
+import type IndexedDBSource from '@orbit/indexeddb';
+import type { Store } from 'ember-orbit';
+import type Palette from 'swach/data-models/palette';
+import type DataService from 'swach/services/data';
 
 module('Unit | Service | data', function (hooks) {
   setupTest(hooks);

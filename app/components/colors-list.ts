@@ -1,16 +1,16 @@
+import 'swach/components/color-row';
+
+import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
-import Component from '@glimmer/component';
 
-import Sprite from 'ember-animated/-private/sprite';
 import { easeOut } from 'ember-animated/easings/cosine';
 import move from 'ember-animated/motions/move';
 import { fadeOut } from 'ember-animated/motions/opacity';
-import type { Store } from 'ember-orbit';
 
 import type { RecordOperationTerm } from '@orbit/records';
-
-import 'swach/components/color-row';
+import type Sprite from 'ember-animated/-private/sprite';
+import type { Store } from 'ember-orbit';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type UndoManager from 'swach/services/undo-manager';
@@ -28,6 +28,7 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
 
   get sortedColors(): (ColorModel | undefined)[] | undefined {
     const { palette } = this.args;
+
     if (!palette.$isDisconnected) {
       if (palette.isColorHistory) {
         return palette.colors.sortBy('createdAt').reverse();
@@ -52,6 +53,7 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
       if (sprite.finalBounds?.height) {
         sprite.startTranslatedBy(0, -sprite.finalBounds.height / 2);
       }
+
       move(sprite, { easing: easeOut });
     }
 
@@ -67,6 +69,7 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
   @action
   async deleteColor(color: ColorModel): Promise<void> {
     const { palette } = this.args;
+
     if (color && palette && !palette.isLocked) {
       const colorsList = palette.colors.map((color) => {
         return { type: 'color', id: color.id };

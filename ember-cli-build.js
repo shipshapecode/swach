@@ -40,6 +40,7 @@ module.exports = function (defaults) {
 
   if (process.platform !== 'win32') {
     const { Webpack } = require('@embroider/webpack');
+
     //const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
     return require('@embroider/compat').compatBuild(app, Webpack, {
       staticAddonTestSupportTrees: true,

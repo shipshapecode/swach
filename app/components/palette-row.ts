@@ -1,15 +1,14 @@
-import { action } from '@ember/object';
-import type Router from '@ember/routing/router-service';
-import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
+import { service } from '@ember/service';
 
 import fade from 'ember-animated/transitions/fade';
+
+import type Router from '@ember/routing/router-service';
+import type { RecordSchema } from '@orbit/records';
 import type DragSortService from 'ember-drag-sort/services/drag-sort';
 import type { Store } from 'ember-orbit';
-
-import type { RecordSchema } from '@orbit/records';
-
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type ColorUtils from 'swach/services/color-utils';
@@ -77,11 +76,13 @@ class FavoriteOption {
 
   get icon() {
     const isFavorite = this.palette.isFavorite;
+
     return isFavorite ? 'slash-heart' : 'filled-heart';
   }
 
   get label() {
     const isFavorite = this.palette.isFavorite;
+
     return isFavorite ? 'Unfavorite' : 'Favorite';
   }
 }
@@ -98,11 +99,13 @@ class LockOption {
 
   get icon() {
     const isLocked = this.palette.isLocked;
+
     return isLocked ? 'unlock' : 'lock';
   }
 
   get label() {
     const isLocked = this.palette.isLocked;
+
     return isLocked ? 'Unlock Palette' : 'Lock Palette';
   }
 }
@@ -195,10 +198,12 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
         ...attributes,
         createdAt: new Date(),
       };
+
       // Find the color by id and replace it with colorCopy.id
       colorOrder = colorOrder.map((c) =>
         c.id === color.id ? { type: 'color', id: colorCopy.id } : c,
       );
+
       return colorCopy;
     });
 
@@ -261,6 +266,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
   @action
   sharePalette(): void {
     const { colors, name } = this.args.palette;
+
     if (colors.length) {
       const urlColors = colors.map((color) => {
         return { hex: color.hex, name: color.name };

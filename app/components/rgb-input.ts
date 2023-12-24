@@ -1,7 +1,9 @@
-import { action, set } from '@ember/object';
 import Component from '@glimmer/component';
+import { action, set } from '@ember/object';
 
-import ColorModel, { rgbaToHex } from 'swach/data-models/color';
+import { rgbaToHex } from 'swach/data-models/color';
+
+import type ColorModel from 'swach/data-models/color';
 
 export interface PrivateRGBAHex {
   _r: number;
@@ -48,6 +50,7 @@ export default class RgbaInputComponent extends Component<RgbaInputSignature> {
   @action
   isComplete(buffer: Buffer, opts: { regex: string }): boolean {
     const value = buffer.join('');
+
     return Boolean(value.length) && new RegExp(opts.regex).test(value);
   }
 
@@ -71,6 +74,7 @@ export default class RgbaInputComponent extends Component<RgbaInputSignature> {
 
     const { r, g, b, a } = selectedColor;
     const hex = rgbaToHex(r, g, b, a);
+
     set(selectedColor, '_hex', hex);
     set(selectedColor, 'hex', hex);
     this.args.updateColor();

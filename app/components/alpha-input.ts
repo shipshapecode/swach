@@ -1,8 +1,9 @@
-import { action, set } from '@ember/object';
 import Component from '@glimmer/component';
+import { action, set } from '@ember/object';
 
-import { SelectedColorModel } from 'swach/components/rgb-input';
 import { rgbaToHex } from 'swach/data-models/color';
+
+import type { SelectedColorModel } from 'swach/components/rgb-input';
 
 interface AlphaInputSignature {
   Element: HTMLInputElement;
@@ -27,6 +28,7 @@ export default class AlphaInputComponent extends Component<AlphaInputSignature> 
   @action
   isComplete(buffer: Buffer, opts: { regex: string }): boolean {
     const value = buffer.join('');
+
     return Boolean(value.length) && new RegExp(opts.regex).test(value);
   }
 
@@ -48,6 +50,7 @@ export default class AlphaInputComponent extends Component<AlphaInputSignature> 
 
     const { r, g, b, a } = selectedColor;
     const hex = rgbaToHex(r, g, b, a);
+
     set(selectedColor, '_hex', hex);
     set(selectedColor, 'hex', hex);
     this.args.updateColor();

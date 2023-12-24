@@ -1,10 +1,11 @@
-import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 import iro from '@jaames/iro';
-import type { IpcRenderer } from 'electron';
 import { hex, score } from 'wcag-contrast';
+
+import type { IpcRenderer } from 'electron';
 
 interface ContrastCheckerSignature {
   Element: HTMLDivElement;
@@ -33,6 +34,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
 
     if (typeof requireNode !== 'undefined') {
       const { ipcRenderer } = requireNode('electron');
+
       this.ipcRenderer = ipcRenderer;
 
       this.ipcRenderer.on('pickContrastBgColor', async (_event, color) => {
@@ -47,6 +49,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
 
   willDestroy() {
     super.willDestroy();
+
     if (this.ipcRenderer) {
       this.ipcRenderer.removeAllListeners('pickContrastBgColor');
       this.ipcRenderer.removeAllListeners('pickContrastFgColor');

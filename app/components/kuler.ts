@@ -1,18 +1,19 @@
+import 'swach/components/kuler-palette-row';
+
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { capitalize } from '@ember/string';
-import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
-
-import type { Store } from 'ember-orbit';
 
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
-import type { IpcRenderer } from 'electron';
 import { debounce } from 'throttle-debounce';
 
-import 'swach/components/kuler-palette-row';
-import ColorUtils, { ColorPOJO } from 'swach/services/color-utils';
+import type { IpcRenderer } from 'electron';
+import type { Store } from 'ember-orbit';
+import type { ColorPOJO } from 'swach/services/color-utils';
+import type ColorUtils from 'swach/services/color-utils';
 
 type harmonyTypes = 'analogous' | 'monochromatic' | 'tetrad' | 'triad';
 
@@ -114,11 +115,13 @@ export default class KulerComponent extends Component<KulerSignature> {
     this._destroyLeftoverPalettes();
 
     const palettes: Palette[] = [];
+
     for (const harmony of this.harmonies) {
       const palette = new Palette(harmony as harmonyTypes);
 
       //@ts-expect-error TODO fix this error later
       let colors = new TinyColor(this.baseColor.hex)[harmony](5);
+
       colors = colors.map((color: TinyColor) => {
         return this.colorUtils.createColorPOJO(color.toHexString());
       });
@@ -137,6 +140,7 @@ export default class KulerComponent extends Component<KulerSignature> {
   setColorAsBase(): Promise<void> {
     this.baseColor =
       this.selectedPalette.colors[this.selectedPalette.selectedColorIndex];
+
     return this.baseColorChanged(
       this.palettes.indexOf(this.selectedPalette),
     ).then(() => {
@@ -163,6 +167,7 @@ export default class KulerComponent extends Component<KulerSignature> {
   setSelectedPalette(event: InputEvent): void {
     const paletteName = (<HTMLInputElement>event.target).value;
     const palette = this.palettes.findBy('name', paletteName);
+
     if (palette) {
       this.selectedPalette = palette;
       this.colorPicker.setColors(

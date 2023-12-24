@@ -1,11 +1,9 @@
 import Route from '@ember/routing/route';
-import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 
-import Session from 'ember-simple-auth/services/session';
-
+import type Router from '@ember/routing/router-service';
 import type { IpcRenderer } from 'electron';
-
+import type Session from 'ember-simple-auth/services/session';
 import type DataService from 'swach/services/data';
 
 export default class ApplicationRoute extends Route {
@@ -20,6 +18,7 @@ export default class ApplicationRoute extends Route {
 
     if (typeof requireNode !== 'undefined') {
       const { ipcRenderer } = requireNode('electron');
+
       this.ipcRenderer = ipcRenderer;
 
       this.router.on('routeDidChange', () => {

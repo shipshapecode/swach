@@ -30,9 +30,11 @@ export function resetStorage(hooks, options = {}) {
 
   hooks.afterEach(async function () {
     const backup = this.owner.lookup('data-source:backup');
+
     await backup.cache.deleteDB();
 
     const bucket = this.owner.lookup('data-bucket:main');
+
     await bucket?.clear();
 
     self.localStorage.removeItem('storage:settings');

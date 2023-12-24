@@ -3,7 +3,6 @@ import { module, test } from 'qunit';
 
 import IDBExportImport from 'indexeddb-export-import';
 import sinon from 'sinon';
-
 import { resetStorage, waitForAll } from 'swach/tests/helpers';
 import { setupApplicationTest } from 'swach/tests/helpers/index';
 

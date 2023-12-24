@@ -1,4 +1,4 @@
-import { Model, attr, hasMany } from 'ember-orbit';
+import { attr, hasMany, Model } from 'ember-orbit';
 
 import type ColorModel from 'swach/data-models/color';
 

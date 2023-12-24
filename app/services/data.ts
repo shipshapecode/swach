@@ -1,15 +1,13 @@
-import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-
-import type { Store } from 'ember-orbit';
-import Session from 'ember-simple-auth/services/session';
+import Service, { inject as service } from '@ember/service';
 
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type JSONAPISource from '@orbit/jsonapi';
 import type { InitializedRecord, RecordIdentity } from '@orbit/records';
-
-import Palette from 'swach/data-models/palette';
+import type { Store } from 'ember-orbit';
+import type Session from 'ember-simple-auth/services/session';
+import type Palette from 'swach/data-models/palette';
 
 export default class DataService extends Service {
   @service dataCoordinator!: Coordinator;
@@ -118,6 +116,7 @@ export default class DataService extends Service {
         this.backup.recreateInverseRelationshipsOnLoad = false;
         await this.backup.sync((t) => records.map((r) => t.addRecord(r)));
       }
+
       return records;
     } else {
       return [];
@@ -153,16 +152,19 @@ export default class DataService extends Service {
 
         colors = colors.map((c) => {
           const { id, type, attributes } = c;
+
           return { id, type, attributes };
         });
         palettes = palettes.map((p) => {
           const { id, type, attributes, relationships } = p;
+
           if (relationships?.colors?.data) {
             paletteColors.push({
               palette: p,
               colors: relationships.colors.data as RecordIdentity[],
             });
           }
+
           return { id, type, attributes };
         });
 
@@ -172,12 +174,14 @@ export default class DataService extends Service {
             { parallelRequests: true },
           );
         }
+
         if (palettes.length > 0) {
           await this.remote.update<InitializedRecord[]>(
             (t) => palettes.map((r) => t.addRecord(r)),
             { parallelRequests: true },
           );
         }
+
         if (paletteColors.length > 0) {
           await this.remote.update<InitializedRecord[]>(
             (t) =>

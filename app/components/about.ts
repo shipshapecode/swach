@@ -1,6 +1,6 @@
-import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 import type { IpcRenderer } from 'electron';
 
@@ -19,6 +19,7 @@ export default class AboutComponent extends Component<AboutSignature> {
 
     if (typeof requireNode !== 'undefined') {
       const { ipcRenderer } = requireNode('electron');
+
       this.ipcRenderer = ipcRenderer;
 
       this.ipcRenderer.invoke('getAppVersion').then((version: string) => {

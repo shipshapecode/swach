@@ -2,16 +2,16 @@ import { action } from '@ember/object';
 import Service from '@ember/service';
 import { service } from '@ember/service';
 
+import { TinyColor } from '@ctrl/tinycolor';
 import { storageFor } from 'ember-local-storage';
-import type { Store } from 'ember-orbit';
-
-import { ColorInput, TinyColor } from '@ctrl/tinycolor';
-import type { IpcRenderer } from 'electron';
-
-import type ColorModel from 'swach/data-models/color';
 import { rgbaToHex } from 'swach/data-models/color';
-import NearestColor from 'swach/services/nearest-color';
-import { SettingsStorage } from 'swach/storages/settings';
+
+import type { ColorInput } from '@ctrl/tinycolor';
+import type { IpcRenderer } from 'electron';
+import type { Store } from 'ember-orbit';
+import type ColorModel from 'swach/data-models/color';
+import type NearestColor from 'swach/services/nearest-color';
+import type { SettingsStorage } from 'swach/storages/settings';
 
 export interface ColorPOJO {
   type: 'color';
@@ -40,6 +40,7 @@ export default class ColorUtilsService extends Service {
 
     if (typeof requireNode !== 'undefined') {
       const { ipcRenderer } = requireNode('electron');
+
       this.ipcRenderer = ipcRenderer;
     }
   }
@@ -79,6 +80,7 @@ export default class ColorUtilsService extends Service {
 
         if (this.settings.get('sounds')) {
           const audio = new Audio('assets/sounds/pluck_short.wav');
+
           await audio.play();
         }
 

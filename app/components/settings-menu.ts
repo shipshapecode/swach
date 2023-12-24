@@ -1,12 +1,11 @@
-import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 import { storageFor } from 'ember-local-storage';
 
 import type { IpcRenderer } from 'electron';
-
-import { SettingsStorage, themes } from 'swach/storages/settings';
+import type { SettingsStorage, themes } from 'swach/storages/settings';
 interface SettingsMenuSignature {
   Element: HTMLDivElement;
   Args: {
@@ -29,6 +28,7 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
 
     if (typeof requireNode !== 'undefined') {
       const { ipcRenderer } = requireNode('electron');
+
       this.ipcRenderer = ipcRenderer;
 
       this.ipcRenderer.invoke('getPlatform').then((platform: string) => {

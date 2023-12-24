@@ -1,11 +1,9 @@
+import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
-import Component from '@glimmer/component';
-
-import { LiveQuery, Store } from 'ember-orbit';
 
 import type { RecordOperationTerm } from '@orbit/records';
-
+import type { LiveQuery, Store } from 'ember-orbit';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type UndoManager from 'swach/services/undo-manager';

@@ -1,10 +1,10 @@
-import { action } from '@ember/object';
-import type Router from '@ember/routing/router-service';
-import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
+import { service } from '@ember/service';
 
-import CognitoService from 'ember-cognito/services/cognito';
+import type Router from '@ember/routing/router-service';
+import type CognitoService from 'ember-cognito/services/cognito';
 
 export default class RegisterComponent extends Component {
   @service declare cognito: CognitoService;
@@ -17,6 +17,7 @@ export default class RegisterComponent extends Component {
   @action
   async register(): Promise<void> {
     const { username, password } = this;
+
     if (username && password) {
       const attributes = {
         email: username,

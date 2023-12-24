@@ -1,10 +1,10 @@
-import { action, set, setProperties } from '@ember/object';
 import Component from '@glimmer/component';
+import { action, set, setProperties } from '@ember/object';
 
 import { TinyColor } from '@ctrl/tinycolor';
-
-import { SelectedColorModel } from 'swach/components/rgb-input';
 import { rgbaToHex } from 'swach/data-models/color';
+
+import type { SelectedColorModel } from 'swach/components/rgb-input';
 
 interface HexInputSignature {
   Element: HTMLInputElement;

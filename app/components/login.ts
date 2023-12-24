@@ -1,14 +1,14 @@
-import { action } from '@ember/object';
-import type Router from '@ember/routing/router-service';
-import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
+import { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
-import Session from 'ember-simple-auth/services/session';
-
 import config from 'swach/config/environment';
-import { SettingsStorage } from 'swach/storages/settings';
+
+import type Router from '@ember/routing/router-service';
+import type Session from 'ember-simple-auth/services/session';
+import type { SettingsStorage } from 'swach/storages/settings';
 
 export default class LoginComponent extends Component {
   @service declare router: Router;
@@ -24,8 +24,10 @@ export default class LoginComponent extends Component {
   @action
   async authenticate(): Promise<void> {
     this.loading = true;
+
     const { username, password } = this;
     const credentials = { username, password };
+
     try {
       await this.session.authenticate('authenticator:cognito', credentials);
 

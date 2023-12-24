@@ -12,7 +12,7 @@ interface ColorRowSignature {
   Element: HTMLDivElement;
   Args: {
     color: ColorModel;
-    deleteColor: (color: ColorModel) => void;
+    deleteColor?: (color: ColorModel) => void;
     palette: PaletteModel;
     showActions: boolean;
     toggleColorPickerIsShown: (color?: ColorModel) => void;
@@ -34,7 +34,7 @@ export default class ColorRowComponent extends Component<ColorRowSignature> {
   @action
   deleteColor(color: ColorModel): void {
     if (!this.args.palette.isLocked) {
-      this.args.deleteColor(color);
+      this.args.deleteColor?.(color);
     }
   }
 

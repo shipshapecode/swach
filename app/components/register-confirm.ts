@@ -6,7 +6,7 @@ import { tracked } from '@glimmer/tracking';
 
 import CognitoService from 'ember-cognito/services/cognito';
 
-export default class RegisterConfirmComponent extends Component {
+export default class RegisterConfirm extends Component {
   @service declare cognito: CognitoService;
   @service declare router: Router;
 
@@ -32,6 +32,6 @@ export default class RegisterConfirmComponent extends Component {
 
 declare module '@glint/environment-ember-loose/registry' {
   export default interface Registry {
-    RegisterConfirm: typeof RegisterConfirmComponent;
+    RegisterConfirm: typeof RegisterConfirm;
   }
 }

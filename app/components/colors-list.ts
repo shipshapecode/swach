@@ -10,6 +10,7 @@ import type { Store } from 'ember-orbit';
 
 import type { RecordOperationTerm } from '@orbit/records';
 
+import 'swach/components/color-row';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type UndoManager from 'swach/services/undo-manager';

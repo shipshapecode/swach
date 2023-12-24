@@ -15,6 +15,7 @@ import {
   SelectedColorModel,
   SelectedColorPOJO,
 } from 'swach/components/rgb-input';
+import 'swach/components/color-row';
 import ColorModel, { rgbaToHex } from 'swach/data-models/color';
 import type NearestColor from 'swach/services/nearest-color';
 import type UndoManager from 'swach/services/undo-manager';

@@ -1,4 +1,5 @@
 {{#if @isShown}}
+  {{!@glint-expect-error ember-tooltips does not ship types}}
   <EmberPopover
     @arrowClass="color-picker-arrow custom-arrow"
     @event="none"
@@ -8,11 +9,7 @@
     @spacing={{10}}
     @tooltipClass="color-picker-popover bg-main border-menu fixed h-full m-0 pb-4 pl-3 pr-3 pt-5 text-alt w-screen"
   >
-    <div
-      class="h-full relative w-full"
-      data-test-color-picker
-      {{did-update this.setScrollPosition}}
-    >
+    <div class="h-full relative w-full" data-test-color-picker>
       <ColorRow @color={{this._selectedColor}} @showActions={{false}} />
 
       <div class="bg-menu flex p-4 relative rounded">

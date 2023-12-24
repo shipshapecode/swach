@@ -4,7 +4,7 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-import FlashMessageService from 'ember-cli-flash/services/flash-messages';
+import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
 import type { Store } from 'ember-orbit';
 import Session from 'ember-simple-auth/services/session';

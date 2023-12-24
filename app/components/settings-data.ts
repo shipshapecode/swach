@@ -16,7 +16,7 @@ import IDBExportImport from 'indexeddb-export-import';
 import { SettingsStorage } from 'swach/storages/settings';
 import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
 
-export default class SettingsDataComponent extends Component {
+export default class SettingsData extends Component {
   @service declare dataCoordinator: Coordinator;
   @service flashMessages!: FlashMessageService;
   @service declare store: Store;
@@ -124,6 +124,6 @@ export default class SettingsDataComponent extends Component {
 
 declare module '@glint/environment-ember-loose/registry' {
   export default interface Registry {
-    SettingsData: typeof SettingsDataComponent;
+    SettingsData: typeof SettingsData;
   }
 }

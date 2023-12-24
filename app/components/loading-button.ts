@@ -1,4 +1,4 @@
-import templateOnlyComponent from '@ember/component/template-only';
+import Component from '@glimmer/component';
 
 interface LoadingButtonSignature {
   Element: HTMLButtonElement;
@@ -8,9 +8,7 @@ interface LoadingButtonSignature {
   };
 }
 
-const LoadingButton = templateOnlyComponent<LoadingButtonSignature>();
-
-export default LoadingButton;
+export default class LoadingButton extends Component<LoadingButtonSignature> {}
 
 declare module '@glint/environment-ember-loose/registry' {
   export default interface Registry {

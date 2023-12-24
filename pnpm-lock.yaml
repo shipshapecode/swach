@@ -246,8 +246,8 @@ importers:
         specifier: ^0.17.3
         version: 0.17.3(ember-source@5.4.0)(webpack@5.89.0)
       ember-qunit:
-        specifier: ^8.0.1
-        version: 8.0.1(@ember/test-helpers@2.9.4)(@glint/template@1.2.1)(ember-source@5.4.0)(qunit@2.20.0)
+        specifier: ^6.2.0
+        version: 6.2.0(@ember/test-helpers@2.9.4)(ember-source@5.4.0)(qunit@2.20.0)(webpack@5.89.0)
       ember-resolver:
         specifier: ^11.0.1
         version: 11.0.1(ember-source@5.4.0)
@@ -12074,22 +12074,29 @@ packages:
       - webpack
     dev: true
 
-  /ember-qunit@8.0.1(@ember/test-helpers@2.9.4)(@glint/template@1.2.1)(ember-source@5.4.0)(qunit@2.20.0):
-    resolution: {integrity: sha512-13PtywHNPTQKkDW4o8QRkJvcdsZr8hRyvh6xh/YLAX8+HaRLd3nPL8mBF4O/Kur/DAj3QWLvjzktZ2uRNGSh3A==}
+  /ember-qunit@6.2.0(@ember/test-helpers@2.9.4)(ember-source@5.4.0)(qunit@2.20.0)(webpack@5.89.0):
+    resolution: {integrity: sha512-mC+0bp8DwWzJLn8SW3GS8KDZIkl4yLsNYwMi5Dw6+aFllq7FM2crd/dfY4MuOIHK7GKdjtmWJTMGnjSpeSayaw==}
+    engines: {node: 14.* || 16.* || >= 18}
     peerDependencies:
-      '@ember/test-helpers': '>=3.0.3'
-      ember-source: '>=4.0.0'
+      '@ember/test-helpers': ^2.9.3
+      ember-source: '>=3.28'
       qunit: ^2.13.0
     dependencies:
       '@ember/test-helpers': 2.9.4(@babel/core@7.23.6)(@glint/template@1.2.1)(ember-source@5.4.0)
-      '@embroider/addon-shim': 1.8.6
-      '@embroider/macros': 1.13.1(@glint/template@1.2.1)
+      broccoli-funnel: 3.0.8
+      broccoli-merge-trees: 3.0.2
+      common-tags: 1.8.2
+      ember-auto-import: 2.6.3(webpack@5.89.0)
+      ember-cli-babel: 7.26.11
       ember-cli-test-loader: 3.1.0
       ember-source: 5.4.0(@babel/core@7.23.6)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.89.0)
       qunit: 2.20.0
+      resolve-package-path: 4.0.3
+      silent-error: 1.1.1
+      validate-peer-dependencies: 2.2.0
     transitivePeerDependencies:
-      - '@glint/template'
       - supports-color
+      - webpack
     dev: true
 
   /ember-resolver@11.0.1(ember-source@5.4.0):
@@ -22567,7 +22574,7 @@ packages:
     engines: {node: '>= 12'}
     dependencies:
       resolve-package-path: 4.0.3
-      semver: 7.5.3
+      semver: 7.5.4
     dev: true
 
   /vary@1.1.2:

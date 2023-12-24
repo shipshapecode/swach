@@ -23,15 +23,24 @@ const emberCore = [
 
 const emberAddons = ['^@?ember-', '^@[^\\/]+\\/ember($|\\/|-)'].join('|');
 
-const art19Packages = ['^@art19/(.*)$', '^art19/(.*)$', '^[./]'].join('|');
+const swachInternals = ['^swach/(.*)$', '^[./]'].join('|');
 
-const importOrder = [testing, emberCore, emberAddons, '<THIRD_PARTY_MODULES>', art19Packages];
+const importOrder = [
+  testing,
+  emberCore,
+  emberAddons,
+  '<THIRD_PARTY_MODULES>',
+  swachInternals,
+];
 const importOrderParserPlugins = ['typescript', 'decorators-legacy'];
 const importOrderSeparation = true;
 const importOrderSortSpecifiers = true;
 
 module.exports = {
-  plugins: ['prettier-plugin-ember-template-tag', require('@trivago/prettier-plugin-sort-imports')],
+  plugins: [
+    'prettier-plugin-ember-template-tag',
+    require('@trivago/prettier-plugin-sort-imports'),
+  ],
   importOrder,
   importOrderParserPlugins,
   importOrderSeparation,

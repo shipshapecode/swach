@@ -1,9 +1,9 @@
+import { action } from '@ember/object';
+import type Router from '@ember/routing/router-service';
+import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
-import { service } from '@ember/service';
 
-import type Router from '@ember/routing/router-service';
 import type CognitoService from 'ember-cognito/services/cognito';
 
 export default class RegisterComponent extends Component {

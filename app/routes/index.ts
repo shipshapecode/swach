@@ -1,7 +1,6 @@
 import Route from '@ember/routing/route';
-import { service } from '@ember/service';
-
 import type Router from '@ember/routing/router-service';
+import { service } from '@ember/service';
 
 export default class IndexRoute extends Route {
   @service declare router: Router;

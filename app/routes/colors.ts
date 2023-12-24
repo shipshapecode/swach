@@ -1,11 +1,11 @@
+import type Transition from '@ember/routing/-private/transition';
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
-
-import type Transition from '@ember/routing/-private/transition';
 import type { Store } from 'ember-orbit';
 import type Session from 'ember-simple-auth/services/session';
+
 import type PaletteModel from 'swach/data-models/palette';
 import type { SettingsStorage } from 'swach/storages/settings';
 

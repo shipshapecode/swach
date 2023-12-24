@@ -1,11 +1,13 @@
+import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
 
 import { storageFor } from 'ember-local-storage';
 
 import type { IpcRenderer } from 'electron';
+
 import type { SettingsStorage, themes } from 'swach/storages/settings';
+
 interface SettingsMenuSignature {
   Element: HTMLDivElement;
   Args: {

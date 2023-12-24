@@ -1,11 +1,10 @@
+import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
 
 import iro from '@jaames/iro';
-import { hex, score } from 'wcag-contrast';
-
 import type { IpcRenderer } from 'electron';
+import { hex, score } from 'wcag-contrast';
 
 interface ContrastCheckerSignature {
   Element: HTMLDivElement;

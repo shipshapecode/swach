@@ -1,16 +1,15 @@
 import { click, currentURL, fillIn, visit } from '@ember/test-helpers';
-import { module, test } from 'qunit';
-
-import sinon from 'sinon';
-import { resetStorage, waitForAll } from 'swach/tests/helpers';
-import { setupApplicationTest } from 'swach/tests/helpers/index';
-
 import {
   MockAuth,
+  MockUser,
   mockAuth,
   mockCognitoUser,
-  MockUser,
 } from 'ember-cognito/test-support';
+import { module, test } from 'qunit';
+import sinon from 'sinon';
+
+import { resetStorage, waitForAll } from 'swach/tests/helpers';
+import { setupApplicationTest } from 'swach/tests/helpers/index';
 
 module('Acceptance | settings/cloud', function (hooks) {
   setupApplicationTest(hooks);

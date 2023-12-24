@@ -1,11 +1,13 @@
-import { tracked } from '@glimmer/tracking';
 import Controller, { inject as controller } from '@ember/controller';
 import { action } from '@ember/object';
-import { service } from '@ember/service';
-
 import type Router from '@ember/routing/router-service';
-import type { RecordOperationTerm } from '@orbit/records';
+import { service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
+
 import type { LiveQuery, Store } from 'ember-orbit';
+
+import type { RecordOperationTerm } from '@orbit/records';
+
 import type ApplicationController from 'swach/controllers/application';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';

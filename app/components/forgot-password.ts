@@ -1,13 +1,13 @@
-import 'swach/components/loading-button';
-
+import { action } from '@ember/object';
+import type Router from '@ember/routing/router-service';
+import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
-import { service } from '@ember/service';
 
-import type Router from '@ember/routing/router-service';
 import type CognitoService from 'ember-cognito/services/cognito';
 import type Session from 'ember-simple-auth/services/session';
+
+import 'swach/components/loading-button';
 
 export default class ForgotPasswordComponent extends Component {
   @service declare cognito: CognitoService;

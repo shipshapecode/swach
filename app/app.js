@@ -3,6 +3,7 @@ import Application from '@ember/application';
 import { InitSentryForEmber } from '@sentry/ember';
 import loadInitializers from 'ember-load-initializers';
 import Resolver from 'ember-resolver';
+
 import config from 'swach/config/environment';
 
 InitSentryForEmber();

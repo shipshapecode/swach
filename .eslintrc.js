@@ -6,18 +6,18 @@ const config = configs.ember();
 
 module.exports = {
   ...config,
-  rules: {
-    ...config.rules,
-    'prefer-rest-params': 'off',
-    'require-yield': 'off',
-    'sort-imports': [
-      'error',
-      { allowSeparatedGroups: true, ignoreDeclarationSort: true },
-    ],
-    'ember/no-array-prototype-extensions': 'off',
-  },
   overrides: [
     ...config.overrides,
+    {
+      extends: ['plugin:prettier/recommended'],
+      files: ['**/*.{js,gts,ts}'],
+      rules: {
+        'simple-import-sort/imports': 'off',
+        'prefer-rest-params': 'off',
+        'require-yield': 'off',
+        'ember/no-array-prototype-extensions': 'off',
+      },
+    },
     // Electron files
     {
       files: ['./electron-app/**/*.js'],

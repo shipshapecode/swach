@@ -9,6 +9,7 @@ export default class SettingsAccountRoute extends Route {
   @service declare session: Session;
 
   model(): CognitoService['user']['attributes'] {
+    // eslint-disable-next-line no-console
     console.log(this.cognito);
 
     return this.cognito.user?.attributes;

@@ -1,9 +1,8 @@
-import Component from '@glimmer/component';
 import { action, set } from '@ember/object';
-
-import { rgbaToHex } from 'swach/data-models/color';
+import Component from '@glimmer/component';
 
 import type { SelectedColorModel } from 'swach/components/rgb-input';
+import { rgbaToHex } from 'swach/data-models/color';
 
 interface AlphaInputSignature {
   Element: HTMLInputElement;

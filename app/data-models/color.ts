@@ -1,7 +1,8 @@
 import { isEmpty } from '@ember/utils';
 
+import { Model, attr, hasOne } from 'ember-orbit';
+
 import { TinyColor } from '@ctrl/tinycolor';
-import { attr, hasOne, Model } from 'ember-orbit';
 
 import type PaletteModel from 'swach/data-models/palette';
 

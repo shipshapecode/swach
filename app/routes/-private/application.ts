@@ -1,9 +1,11 @@
 import Route from '@ember/routing/route';
+import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 
-import type Router from '@ember/routing/router-service';
-import type { IpcRenderer } from 'electron';
 import type Session from 'ember-simple-auth/services/session';
+
+import type { IpcRenderer } from 'electron';
+
 import type DataService from 'swach/services/data';
 
 export default class ApplicationRoute extends Route {

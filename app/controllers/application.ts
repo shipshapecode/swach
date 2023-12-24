@@ -1,16 +1,17 @@
-import { tracked } from '@glimmer/tracking';
 import Controller from '@ember/controller';
 import { action, get } from '@ember/object';
-import { service } from '@ember/service';
-
-import { storageFor } from 'ember-local-storage';
-
 import type Router from '@ember/routing/router-service';
-import type { RecordSchema } from '@orbit/records';
-import type { IpcRenderer } from 'electron';
+import { service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
+
 import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
+import { storageFor } from 'ember-local-storage';
 import type { Store } from 'ember-orbit';
 import type Session from 'ember-simple-auth/services/session';
+
+import type { RecordSchema } from '@orbit/records';
+import type { IpcRenderer } from 'electron';
+
 import type ColorModel from 'swach/data-models/color';
 import type ColorUtils from 'swach/services/color-utils';
 import type DataService from 'swach/services/data';

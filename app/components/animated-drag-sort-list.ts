@@ -1,11 +1,10 @@
 import { action, set } from '@ember/object';
 
+import type Sprite from 'ember-animated/-private/sprite';
 import { easeOut } from 'ember-animated/easings/cosine';
 import move from 'ember-animated/motions/move';
 import { fadeOut } from 'ember-animated/motions/opacity';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
-
-import type Sprite from 'ember-animated/-private/sprite';
 
 export default class AnimatedDragSortList extends DragSortList {
   didDrag = false;

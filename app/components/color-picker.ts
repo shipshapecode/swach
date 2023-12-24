@@ -1,22 +1,22 @@
-import 'swach/components/color-row';
-
+import { action, set } from '@ember/object';
+import type Router from '@ember/routing/router-service';
+import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action, set } from '@ember/object';
-import { service } from '@ember/service';
+
+import type { Store } from 'ember-orbit';
 
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
-import { rgbaToHex } from 'swach/data-models/color';
 
-import type Router from '@ember/routing/router-service';
-import type { Store } from 'ember-orbit';
+import 'swach/components/color-row';
 import type {
   PrivateRGBAHex,
   PublicRGBAHex,
   SelectedColorModel,
   SelectedColorPOJO,
 } from 'swach/components/rgb-input';
+import { rgbaToHex } from 'swach/data-models/color';
 import type ColorModel from 'swach/data-models/color';
 import type NearestColor from 'swach/services/nearest-color';
 import type UndoManager from 'swach/services/undo-manager';

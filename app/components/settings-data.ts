@@ -1,19 +1,20 @@
-import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 
+import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
-import IDBExportImport from 'indexeddb-export-import';
-import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
+import type { Store } from 'ember-orbit';
 
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type { InitializedRecord } from '@orbit/records';
 import type { IpcRenderer } from 'electron';
-import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
-import type { Store } from 'ember-orbit';
+import IDBExportImport from 'indexeddb-export-import';
+
 import type { SettingsStorage } from 'swach/storages/settings';
+import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
 
 export default class SettingsData extends Component {
   @service declare dataCoordinator: Coordinator;
@@ -53,6 +54,7 @@ export default class SettingsData extends Component {
           (err: Event, jsonString: string) => {
             if (err) {
               this.flashMessages.danger('An error occurred.');
+              // eslint-disable-next-line no-console
               console.error(err);
             } else {
               this.ipcRenderer.send('exportData', jsonString);

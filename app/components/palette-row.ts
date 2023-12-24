@@ -1,14 +1,15 @@
+import { action } from '@ember/object';
+import type Router from '@ember/routing/router-service';
+import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
-import { service } from '@ember/service';
 
 import fade from 'ember-animated/transitions/fade';
-
-import type Router from '@ember/routing/router-service';
-import type { RecordSchema } from '@orbit/records';
 import type DragSortService from 'ember-drag-sort/services/drag-sort';
 import type { Store } from 'ember-orbit';
+
+import type { RecordSchema } from '@orbit/records';
+
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type ColorUtils from 'swach/services/color-utils';

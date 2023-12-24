@@ -1,12 +1,14 @@
-import { tracked } from '@glimmer/tracking';
 import Service, { inject as service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
+
+import type { Store } from 'ember-orbit';
+import type Session from 'ember-simple-auth/services/session';
 
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type JSONAPISource from '@orbit/jsonapi';
 import type { InitializedRecord, RecordIdentity } from '@orbit/records';
-import type { Store } from 'ember-orbit';
-import type Session from 'ember-simple-auth/services/session';
+
 import type Palette from 'swach/data-models/palette';
 
 export default class DataService extends Service {

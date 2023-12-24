@@ -1,17 +1,17 @@
-import 'swach/components/kuler-palette-row';
-
-import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { capitalize } from '@ember/string';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+
+import type { Store } from 'ember-orbit';
 
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
+import type { IpcRenderer } from 'electron';
 import { debounce } from 'throttle-debounce';
 
-import type { IpcRenderer } from 'electron';
-import type { Store } from 'ember-orbit';
+import 'swach/components/kuler-palette-row';
 import type { ColorPOJO } from 'swach/services/color-utils';
 import type ColorUtils from 'swach/services/color-utils';
 

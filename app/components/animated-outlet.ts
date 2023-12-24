@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 
 import fade from 'ember-animated/transitions/fade';
+
 import { transitionOptions, transitions } from 'swach/transitions';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

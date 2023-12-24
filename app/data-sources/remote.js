@@ -1,5 +1,8 @@
 import { getOwner } from '@ember/application';
 
+import { pluralize, singularize } from 'ember-inflector';
+import { applyStandardSourceInjections } from 'ember-orbit';
+
 import {
   JSONAPIRequestProcessor,
   JSONAPISerializers,
@@ -7,8 +10,7 @@ import {
 } from '@orbit/jsonapi';
 import { buildSerializerSettingsFor } from '@orbit/serializers';
 import { AwsClient } from 'aws4fetch';
-import { pluralize, singularize } from 'ember-inflector';
-import { applyStandardSourceInjections } from 'ember-orbit';
+
 import ENV from 'swach/config/environment';
 
 export default {

@@ -52,6 +52,7 @@ export default {
       },
 
       catch(e, transform) {
+        // eslint-disable-next-line no-console
         console.log('Error performing remote.update()', transform, e);
         this.source.requestQueue.skip(e);
         this.target.requestQueue.skip(e);

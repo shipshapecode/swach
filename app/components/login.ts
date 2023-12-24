@@ -1,13 +1,13 @@
+import { action } from '@ember/object';
+import type Router from '@ember/routing/router-service';
+import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
-import { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
-import config from 'swach/config/environment';
-
-import type Router from '@ember/routing/router-service';
 import type Session from 'ember-simple-auth/services/session';
+
+import config from 'swach/config/environment';
 import type { SettingsStorage } from 'swach/storages/settings';
 
 export default class LoginComponent extends Component {

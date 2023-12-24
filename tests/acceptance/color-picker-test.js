@@ -1,10 +1,9 @@
 import { blur, click, fillIn, triggerEvent, visit } from '@ember/test-helpers';
+import { animationsSettled } from 'ember-animated/test-support';
 import { module, test } from 'qunit';
 
 import { resetStorage, waitForAll } from 'swach/tests/helpers';
 import { setupApplicationTest } from 'swach/tests/helpers/index';
-
-import { animationsSettled } from 'ember-animated/test-support';
 
 module('Acceptance | color-picker', function (hooks) {
   setupApplicationTest(hooks);

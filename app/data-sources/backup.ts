@@ -1,13 +1,14 @@
-import { IndexedDBSource } from '@orbit/indexeddb';
-import { clone } from '@orbit/utils';
 import { applyStandardSourceInjections } from 'ember-orbit';
-import ENV from 'swach/config/environment';
 
+import { IndexedDBSource } from '@orbit/indexeddb';
 import type {
   InitializedRecord,
   RecordIdentity,
   RecordSchema,
 } from '@orbit/records';
+import { clone } from '@orbit/utils';
+
+import ENV from 'swach/config/environment';
 import type { ColorPOJO } from 'swach/services/color-utils';
 
 const { SCHEMA_VERSION } = ENV;
@@ -31,6 +32,7 @@ export default {
       const request = currentTarget as IDBRequest;
       const transaction = request.transaction as IDBTransaction;
 
+      // eslint-disable-next-line no-console
       console.log(
         `migrating indexeddb from version ${oldVersion} to ${newVersion}`,
       );

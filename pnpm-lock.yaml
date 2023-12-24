@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  ember-animated>@ember/test-helpers: ^2.9.3
+  ember-animated>@ember/test-helpers: ^2.9.4
   ember-animated>ember-element-helper: ^0.6.1
 
 patchedDependencies:
@@ -54,8 +54,8 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1
       '@ember/test-helpers':
-        specifier: ^3.2.0
-        version: 3.2.0(@glint/template@1.2.1)(ember-source@5.4.0)(webpack@5.89.0)
+        specifier: ^2.9.4
+        version: 2.9.4(@babel/core@7.23.6)(@glint/template@1.2.1)(ember-source@5.4.0)
       '@embroider/compat':
         specifier: ^3.2.1
         version: 3.2.1(@embroider/core@3.2.1)(@glint/template@1.2.1)
@@ -247,7 +247,7 @@ importers:
         version: 0.17.3(ember-source@5.4.0)(webpack@5.89.0)
       ember-qunit:
         specifier: ^8.0.1
-        version: 8.0.1(@ember/test-helpers@3.2.0)(@glint/template@1.2.1)(ember-source@5.4.0)(qunit@2.20.0)
+        version: 8.0.1(@ember/test-helpers@2.9.4)(@glint/template@1.2.1)(ember-source@5.4.0)(qunit@2.20.0)
       ember-resolver:
         specifier: ^11.0.1
         version: 11.0.1(ember-source@5.4.0)
@@ -259,7 +259,7 @@ importers:
         version: 2.0.1
       ember-simple-auth:
         specifier: ^6.0.0
-        version: 6.0.0(@ember/test-helpers@3.2.0)(@glint/template@1.2.1)
+        version: 6.0.0(@ember/test-helpers@2.9.4)(@glint/template@1.2.1)
       ember-sinon-qunit:
         specifier: ^7.4.0
         version: 7.4.0(ember-source@5.4.0)(qunit@2.20.0)(sinon@17.0.1)
@@ -3583,27 +3583,6 @@ packages:
       - '@babel/core'
       - '@glint/template'
       - supports-color
-    dev: true
-
-  /@ember/test-helpers@3.2.0(@glint/template@1.2.1)(ember-source@5.4.0)(webpack@5.89.0):
-    resolution: {integrity: sha512-3yWpPsK5O77tUdCwW3HayrAcdlRitIRYMvLIG69Pkal1JMIGdNYVTvJ2R1lenhQh2syd/WFmGM07vQuDAtotQw==}
-    engines: {node: 16.* || >= 18}
-    peerDependencies:
-      ember-source: ^4.0.0 || ^5.0.0
-    dependencies:
-      '@ember/test-waiters': 3.0.2
-      '@embroider/macros': 1.13.1(@glint/template@1.2.1)
-      '@simple-dom/interface': 1.4.0
-      broccoli-debug: 0.6.5
-      broccoli-funnel: 3.0.8
-      ember-auto-import: 2.6.3(webpack@5.89.0)
-      ember-cli-babel: 7.26.11
-      ember-cli-htmlbars: 6.3.0
-      ember-source: 5.4.0(@babel/core@7.23.6)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.89.0)
-    transitivePeerDependencies:
-      - '@glint/template'
-      - supports-color
-      - webpack
     dev: true
 
   /@ember/test-waiters@3.0.2:
@@ -12095,14 +12074,14 @@ packages:
       - webpack
     dev: true
 
-  /ember-qunit@8.0.1(@ember/test-helpers@3.2.0)(@glint/template@1.2.1)(ember-source@5.4.0)(qunit@2.20.0):
+  /ember-qunit@8.0.1(@ember/test-helpers@2.9.4)(@glint/template@1.2.1)(ember-source@5.4.0)(qunit@2.20.0):
     resolution: {integrity: sha512-13PtywHNPTQKkDW4o8QRkJvcdsZr8hRyvh6xh/YLAX8+HaRLd3nPL8mBF4O/Kur/DAj3QWLvjzktZ2uRNGSh3A==}
     peerDependencies:
       '@ember/test-helpers': '>=3.0.3'
       ember-source: '>=4.0.0'
       qunit: ^2.13.0
     dependencies:
-      '@ember/test-helpers': 3.2.0(@glint/template@1.2.1)(ember-source@5.4.0)(webpack@5.89.0)
+      '@ember/test-helpers': 2.9.4(@babel/core@7.23.6)(@glint/template@1.2.1)(ember-source@5.4.0)
       '@embroider/addon-shim': 1.8.6
       '@embroider/macros': 1.13.1(@glint/template@1.2.1)
       ember-cli-test-loader: 3.1.0
@@ -12161,7 +12140,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-simple-auth@6.0.0(@ember/test-helpers@3.2.0)(@glint/template@1.2.1):
+  /ember-simple-auth@6.0.0(@ember/test-helpers@2.9.4)(@glint/template@1.2.1):
     resolution: {integrity: sha512-9SzSFApxZ74CD4UxIeTV+poIPeXcRLXWM60cMvC1SwTYjoc/p9DeQF0pVm6m1XV6uA3kPUzEsEn4/GeHc2YX1w==}
     peerDependencies:
       '@ember/test-helpers': '>= 3 || > 2.7'
@@ -12169,7 +12148,7 @@ packages:
       '@ember/test-helpers':
         optional: true
     dependencies:
-      '@ember/test-helpers': 3.2.0(@glint/template@1.2.1)(ember-source@5.4.0)(webpack@5.89.0)
+      '@ember/test-helpers': 2.9.4(@babel/core@7.23.6)(@glint/template@1.2.1)(ember-source@5.4.0)
       '@ember/test-waiters': 3.0.2
       '@embroider/addon-shim': 1.8.4
       '@embroider/macros': 1.13.0(@glint/template@1.2.1)

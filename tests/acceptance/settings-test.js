@@ -26,6 +26,7 @@ module('Acceptance | settings', function (hooks) {
 
   test('theme setting updates when selected', async function (assert) {
     await click('[data-test-settings-select-theme="light"]');
+
     const theme = JSON.parse(
       localStorage.getItem('storage:settings'),
     ).userTheme;

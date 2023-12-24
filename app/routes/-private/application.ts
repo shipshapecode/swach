@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 
-import Session from 'ember-simple-auth/services/session';
+import type Session from 'ember-simple-auth/services/session';
 
 import type { IpcRenderer } from 'electron';
 
@@ -20,6 +20,7 @@ export default class ApplicationRoute extends Route {
 
     if (typeof requireNode !== 'undefined') {
       const { ipcRenderer } = requireNode('electron');
+
       this.ipcRenderer = ipcRenderer;
 
       this.router.on('routeDidChange', () => {

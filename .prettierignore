@@ -11,3 +11,15 @@
 
 # ember-try
 /.node_modules.ember-try/
+
+# ember-electron
+/electron-app/node_modules/
+/electron-app/out/
+/electron-app/ember-dist/
+/electron-app/ember-test/
+
+# Sentry
+/electron-app/sentry-symbols.js
+
+# Types
+/types/

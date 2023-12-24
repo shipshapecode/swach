@@ -13,5 +13,6 @@ export default function removeFromTo(
         // @ts-expect-error: We need to refactor this function
         (!((to < 0) ^ (from >= 0)) && (to < 0 || -1) * array.length),
   );
+
   return array.length;
 }

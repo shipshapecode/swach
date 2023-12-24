@@ -18,16 +18,19 @@ export default class ColorModel extends Model {
 
   get hex(): string {
     const { r, g, b, a } = this;
+
     return rgbaToHex(r, g, b, a);
   }
 
   get hsl(): string {
     const { r, g, b, a } = this;
+
     return new TinyColor({ r, g, b, a }).toHslString();
   }
 
   get rgba(): string {
     const { r, g, b, a } = this;
+
     return new TinyColor({ r, g, b, a }).toRgbString();
   }
 }

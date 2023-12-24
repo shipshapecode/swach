@@ -16,6 +16,7 @@ export default class CognitoAuthenticatorExtended extends CognitoAuthenticator {
 
   async _resolveAuth(user) {
     const { cognito } = this;
+
     cognito._setUser(user);
 
     // Now pull out the (promisified) user
@@ -23,6 +24,7 @@ export default class CognitoAuthenticatorExtended extends CognitoAuthenticator {
     const credentials = await this.auth.currentCredentials();
 
     cognito.startRefreshTask(session);
+
     return this._makeAuthData(user, session, credentials);
   }
 
@@ -31,8 +33,10 @@ export default class CognitoAuthenticatorExtended extends CognitoAuthenticator {
     const { auth, user } = cognito;
     // Get the session, which will refresh it if necessary
     const session = await user.getSession();
+
     if (session.isValid()) {
       cognito.startRefreshTask(session);
+
       const awsUser = await auth.currentAuthenticatedUser();
       const credentials = await this.auth.currentCredentials();
 

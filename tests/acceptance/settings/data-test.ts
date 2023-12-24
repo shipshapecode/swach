@@ -1,8 +1,8 @@
 import { click, currentURL, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
+import sinon from 'sinon';
 
 import IDBExportImport from 'indexeddb-export-import';
-import sinon from 'sinon';
 
 import { resetStorage, waitForAll } from 'swach/tests/helpers';
 import { setupApplicationTest } from 'swach/tests/helpers/index';

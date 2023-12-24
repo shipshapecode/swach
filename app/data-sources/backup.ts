@@ -1,7 +1,7 @@
 import { applyStandardSourceInjections } from 'ember-orbit';
 
 import { IndexedDBSource } from '@orbit/indexeddb';
-import {
+import type {
   InitializedRecord,
   RecordIdentity,
   RecordSchema,
@@ -9,7 +9,7 @@ import {
 import { clone } from '@orbit/utils';
 
 import ENV from 'swach/config/environment';
-import { ColorPOJO } from 'swach/services/color-utils';
+import type { ColorPOJO } from 'swach/services/color-utils';
 
 const { SCHEMA_VERSION } = ENV;
 
@@ -32,6 +32,7 @@ export default {
       const request = currentTarget as IDBRequest;
       const transaction = request.transaction as IDBTransaction;
 
+      // eslint-disable-next-line no-console
       console.log(
         `migrating indexeddb from version ${oldVersion} to ${newVersion}`,
       );
@@ -57,6 +58,7 @@ export default {
               for (let i = 1; i < paletteIdentities.length; i++) {
                 const paletteIdentity = paletteIdentities[i];
                 const colorCopy = clone(color);
+
                 colorCopy.id = schema.generateId('color');
                 colorCopy.relationships.palette.data = paletteIdentity;
                 newColors.push(colorCopy);
@@ -71,6 +73,7 @@ export default {
                       ? c
                       : { type: 'color', id: colorCopy.id };
                   };
+
                   if (palette.relationships?.colors.data) {
                     // Replace color in palette with color copy
                     palette.relationships.colors.data =
@@ -140,8 +143,10 @@ function getRecordsFromIDB(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     request.onsuccess = (event: any) => {
       const cursor = event.target.result;
+
       if (cursor) {
         const record = cursor.value as InitializedRecord;
+
         records.push(record);
         cursor.continue();
       } else {
@@ -180,6 +185,7 @@ function setRecordsInIDB(
       if (i < records.length) {
         const record = records[i++];
         const request = objectStore.put(record);
+
         request.onsuccess = putNext();
       } else {
         resolve();

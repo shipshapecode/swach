@@ -1,14 +1,12 @@
 import { setApplication } from '@ember/test-helpers';
 import { start } from 'ember-qunit';
+import setupSinon from 'ember-sinon-qunit';
 import * as QUnit from 'qunit';
 import { setup } from 'qunit-dom';
 
-import setupSinon from 'ember-sinon-qunit';
-
+import './helpers/flash-message';
 import Application from 'swach/app';
 import config from 'swach/config/environment';
-
-import './helpers/flash-message';
 
 setup(QUnit.assert);
 

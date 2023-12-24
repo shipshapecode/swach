@@ -27,6 +27,7 @@ export default class UndoManager extends Service {
     // If we have Electron running, use the application undo/redo, else use document
     if (typeof requireNode !== 'undefined') {
       const { ipcRenderer } = requireNode('electron');
+
       this.ipcRenderer = ipcRenderer;
 
       this.ipcRenderer.on('undoRedo', async (_event: unknown, type: string) => {
@@ -90,11 +91,13 @@ export default class UndoManager extends Service {
     if (!command || typeof command[action] !== 'function') {
       return this;
     }
+
     this.isExecuting = true;
 
     const executed = await command[action]();
 
     this.isExecuting = false;
+
     return executed;
   }
 
@@ -108,6 +111,7 @@ export default class UndoManager extends Service {
     if (this.isExecuting) {
       return this;
     }
+
     // if we are here after having called undo,
     // invalidate items higher on the stack
     this.commands.splice(this.index + 1, this.commands.length - this.index);
@@ -121,9 +125,11 @@ export default class UndoManager extends Service {
 
     // set the current index to the end
     this.index = this.commands.length - 1;
+
     if (this.callback) {
       await this.callback();
     }
+
     return this;
   }
 
@@ -139,14 +145,19 @@ export default class UndoManager extends Service {
    */
   async undo(): Promise<UndoManager | unknown> {
     const command = this.commands[this.index];
+
     if (!command) {
       return this;
     }
+
     const executed = await this.execute(command, 'undo');
+
     this.index -= 1;
+
     if (this.callback) {
       this.callback();
     }
+
     return executed;
   }
 
@@ -155,14 +166,19 @@ export default class UndoManager extends Service {
    */
   async redo(): Promise<UndoManager | unknown> {
     const command = this.commands[this.index + 1];
+
     if (!command) {
       return this;
     }
+
     const executed = await this.execute(command, 'redo');
+
     this.index += 1;
+
     if (this.callback) {
       this.callback();
     }
+
     return executed;
   }
 

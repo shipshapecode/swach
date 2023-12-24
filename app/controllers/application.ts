@@ -4,10 +4,10 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-import FlashMessageService from 'ember-cli-flash/services/flash-messages';
+import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
 import type { Store } from 'ember-orbit';
-import Session from 'ember-simple-auth/services/session';
+import type Session from 'ember-simple-auth/services/session';
 
 import type { RecordSchema } from '@orbit/records';
 import type { IpcRenderer } from 'electron';
@@ -16,7 +16,7 @@ import type ColorModel from 'swach/data-models/color';
 import type ColorUtils from 'swach/services/color-utils';
 import type DataService from 'swach/services/data';
 import type UndoManager from 'swach/services/undo-manager';
-import { SettingsStorage, themes } from 'swach/storages/settings';
+import type { SettingsStorage, themes } from 'swach/storages/settings';
 
 export default class ApplicationController extends Controller {
   @service declare colorUtils: ColorUtils;
@@ -106,6 +106,7 @@ export default class ApplicationController extends Controller {
         'changeColor',
         async (_event: unknown, color: string) => {
           const addedColor = await this.addColor(color);
+
           if (addedColor) {
             this.colorUtils.copyColorToClipboard(addedColor);
           }
@@ -122,6 +123,7 @@ export default class ApplicationController extends Controller {
           const data = JSON.parse(decodeURIComponent(query));
           const colors = data?.colors ?? [];
           const name = data?.name ?? 'Palette';
+
           await this.createPalette(name, colors);
         },
       );
@@ -132,6 +134,7 @@ export default class ApplicationController extends Controller {
 
       // We have to initially set this, in case somehow the checkbox gets out of sync
       const shouldEnableAutoStart = this.settings.get('openOnStartup');
+
       this.ipcRenderer.send('enableDisableAutoStart', shouldEnableAutoStart);
 
       this.ipcRenderer
@@ -250,12 +253,14 @@ export default class ApplicationController extends Controller {
     if (color?.hex) {
       this.colorPickerColor = color;
     }
+
     this.colorPickerIsShown = !this.colorPickerIsShown;
   }
 
   @action
   toggleShowDockIcon(e: InputEvent): void {
     const showDockIcon = (<HTMLInputElement>e.target).checked;
+
     this.settings.set('showDockIcon', showDockIcon);
     this.ipcRenderer.send('setShowDockIcon', showDockIcon);
   }

@@ -18,7 +18,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:ember/recommended',
     'plugin:prettier/recommended',
-    '@clark/ember-order-imports',
   ],
   env: {
     browser: true,
@@ -86,7 +85,7 @@ module.exports = {
     // Typescript files
     {
       parser: '@typescript-eslint/parser',
-      files: ['app/**/*.ts', 'tests/**/*.ts'],
+      files: ['app/**/*.{gts,ts}', 'tests/**/*.ts'],
       plugins: ['@typescript-eslint'],
       extends: ['plugin:@typescript-eslint/recommended'],
       rules: {

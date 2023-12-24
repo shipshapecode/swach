@@ -1,13 +1,13 @@
-import Transition from '@ember/routing/-private/transition';
+import type Transition from '@ember/routing/-private/transition';
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
 import type { Store } from 'ember-orbit';
-import Session from 'ember-simple-auth/services/session';
+import type Session from 'ember-simple-auth/services/session';
 
 import type ColorModel from 'swach/data-models/color';
-import { SettingsStorage } from 'swach/storages/settings';
+import type { SettingsStorage } from 'swach/storages/settings';
 
 export default class KulerRoute extends Route {
   queryParams = {
@@ -34,6 +34,7 @@ export default class KulerRoute extends Route {
   }): Promise<ColorModel | undefined> {
     if (colorId) {
       const color = await this.store.findRecord('color', colorId);
+
       return <ColorModel>color;
     }
   }

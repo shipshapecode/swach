@@ -27,6 +27,7 @@ export default {
         }
 
         const settings = super.initFetchSettings(customSettings);
+
         settings.sessionCredentials =
           session.data.authenticated.sessionCredentials;
 
@@ -35,10 +36,12 @@ export default {
       async fetch(url, customSettings) {
         let settings = this.initFetchSettings(customSettings);
         let fullUrl = url;
+
         if (settings.params) {
           fullUrl = this.urlBuilder.appendQueryParams(fullUrl, settings.params);
           delete settings.params;
         }
+
         const aws = new AwsClient({
           accessKeyId: settings.sessionCredentials.accessKeyId, // required, akin to AWS_ACCESS_KEY_ID
           secretAccessKey: settings.sessionCredentials.secretAccessKey, // required, akin to AWS_SECRET_ACCESS_KEY
@@ -56,6 +59,7 @@ export default {
 
         if (settings.timeout !== undefined && settings.timeout > 0) {
           let timeout = settings.timeout;
+
           delete settings.timeout;
 
           return new Promise((resolve, reject) => {

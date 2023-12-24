@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const Sentry = require('@sentry/electron');
 const { ipcMain, nativeTheme } = require('electron');
 const isDev = require('electron-is-dev');

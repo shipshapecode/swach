@@ -1,7 +1,6 @@
 import { fillIn, render, triggerKeyEvent } from '@ember/test-helpers';
-import { module, test } from 'qunit';
-
 import { hbs } from 'ember-cli-htmlbars';
+import { module, test } from 'qunit';
 
 import { waitForAll } from 'swach/tests/helpers';
 import { setupRenderingTest } from 'swach/tests/helpers/index';

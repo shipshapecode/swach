@@ -38,6 +38,8 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
         });
       }
     }
+
+    return undefined;
   }
 
   *transition({

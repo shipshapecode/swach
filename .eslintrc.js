@@ -1,26 +1,56 @@
 'use strict';
 
-const { configs } = require('@nullvoxpopuli/eslint-configs');
-
-const config = configs.ember();
-
 module.exports = {
-  ...config,
-  overrides: [
-    ...config.overrides,
-    {
-      extends: ['plugin:prettier/recommended'],
-      files: ['**/*.{js,gts,ts}'],
-      rules: {
-        'simple-import-sort/imports': 'off',
-        'prefer-rest-params': 'off',
-        'require-yield': 'off',
-        'ember/no-array-prototype-extensions': 'off',
-      },
+  root: true,
+  parser: '@babel/eslint-parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    requireConfigFile: false,
+    babelOptions: {
+      plugins: [
+        ['@babel/plugin-proposal-decorators', { decoratorsBeforeExport: true }],
+      ],
     },
-    // Electron files
+  },
+  plugins: ['ember'],
+  extends: [
+    'eslint:recommended',
+    'plugin:ember/recommended',
+    'plugin:prettier/recommended',
+  ],
+  env: {
+    browser: true,
+  },
+  globals: {
+    requireNode: false,
+  },
+  rules: {
+    'require-yield': 'off',
+    'sort-imports': [
+      'error',
+      { allowSeparatedGroups: true, ignoreDeclarationSort: true },
+    ],
+    'ember/no-array-prototype-extensions': 'off',
+  },
+  overrides: [
+    // node files
     {
-      files: ['./electron-app/**/*.js'],
+      files: [
+        './.eslintrc.js',
+        './.prettierrc.js',
+        './.stylelintrc.js',
+        './.template-lintrc.js',
+        './ember-cli-build.js',
+        './tailwind.config.js',
+        './testem.js',
+        './testem-electron.js',
+        './blueprints/*/index.js',
+        './config/**/*.js',
+        './electron-app/**/*.js',
+        './lib/*/index.js',
+        './server/**/*.js',
+      ],
       parserOptions: {
         sourceType: 'script',
       },
@@ -51,6 +81,21 @@ module.exports = {
           },
         ],
       },
+    },
+    // Typescript files
+    {
+      parser: '@typescript-eslint/parser',
+      files: ['app/**/*.{gts,ts}', 'tests/**/*.ts'],
+      plugins: ['@typescript-eslint'],
+      extends: ['plugin:@typescript-eslint/recommended'],
+      rules: {
+        'prefer-rest-params': 'off',
+      },
+    },
+    {
+      // test files
+      files: ['tests/**/*-test.{js,ts}'],
+      extends: ['plugin:qunit/recommended'],
     },
   ],
 };

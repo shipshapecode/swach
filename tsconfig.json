@@ -32,7 +32,7 @@
     }
   },
   "glint": {
-    "environment": "ember-loose"
+    "environment": ["ember-loose", "ember-template-imports"]
   },
   "include": ["app/**/*", "tests/**/*", "types/**/*"]
 }

@@ -52,6 +52,7 @@
     "@glimmer/tracking": "^1.1.2",
     "@glint/core": "^1.2.1",
     "@glint/environment-ember-loose": "^1.2.1",
+    "@glint/environment-ember-template-imports": "^1.2.1",
     "@glint/template": "^1.2.1",
     "@jaames/iro": "^5.5.2",
     "@nullvoxpopuli/eslint-configs": "^3.2.0",

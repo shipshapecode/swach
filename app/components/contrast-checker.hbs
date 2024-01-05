@@ -4,7 +4,6 @@
     class="rounded w-full"
     style={{html-safe
       (concat
-        "-webkit-app-region: drag; "
         "background-color: "
         this.backgroundColor
         "; "
@@ -13,7 +12,7 @@
       )
     }}
   >
-    <div class="flex justify-center p-4 pb-2 w-full">
+    <div class="flex justify-center p-4 pb-2 w-full" style={{html-safe "-webkit-app-region: no-drag"}}>
       <div class="flex items-center w-full">
         <h1 class="font-black text-4xl" data-test-wcag-string>
           {{this.wcagString}}
@@ -63,6 +62,7 @@
 
   <div
     class="bg-menu color-pickers-container flex justify-between mt-4 p-4 rounded w-full"
+    style={{html-safe "-webkit-app-region: no-drag"}}
   >
     <div class="background-color-picker-container mr-2 w-full">
       <div

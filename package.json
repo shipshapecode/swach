@@ -77,9 +77,9 @@
     "color-name-list": "^10.18.0",
     "concurrently": "^8.2.2",
     "crypto-browserify": "^3.12.0",
-    "ember-animated": "^0.12.0",
+    "ember-animated": "^2.0.0",
+    "ember-animated-tools": "^2.0.0",
     "ember-auto-import": "^2.7.2",
-    "ember-cache-primitive-polyfill": "^1.0.1",
     "ember-cli": "5.2.0",
     "ember-cli-app-version": "^6.0.1",
     "ember-cli-babel": "^8.2.0",
@@ -99,7 +99,8 @@
     "ember-css-transitions": "^4.4.0",
     "ember-decorators": "^6.1.1",
     "ember-drag-sort": "^3.0.1",
-    "ember-electron": "^5.0.0",
+    "ember-electron": "^6.0.0",
+    "ember-element-helper": "^0.8.5",
     "ember-event-helpers": "^0.1.1",
     "ember-fetch": "^8.1.2",
     "ember-inflector": "^4.0.2",
@@ -152,10 +153,6 @@
     "webpack": "^5.89.0"
   },
   "pnpm": {
-    "overrides": {
-      "ember-animated>@ember/test-helpers": "^2.9.4",
-      "ember-animated>ember-element-helper": "^0.6.1"
-    },
     "patchedDependencies": {
       "ember-inputmask@0.11.0": "patches/ember-inputmask@0.11.0.patch"
     }

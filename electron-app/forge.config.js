@@ -65,8 +65,8 @@ module.exports = {
       name: '@electron-forge/maker-snap',
       platforms: ['linux'],
       config: {
+        base: 'core20',
         icon: 'electron-app/resources/icon.png',
-        category: 'Development',
         confinement: 'strict',
         description: 'A robust color management tool for the modern age.',
         summary: 'A robust color management tool for the modern age.',
@@ -89,6 +89,7 @@ module.exports = {
           'libxfixes3',
           'scrot',
         ],
+        type: 'app',
       },
     },
     {

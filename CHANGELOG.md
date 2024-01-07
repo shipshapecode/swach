@@ -1,3 +1,29 @@
+
+## v1.2.0 (2024-01-07)
+
+#### :bug: Bug Fix
+* [#1948](https://github.com/shipshapecode/swach/pull/1948) Update ember-animated, fix menu not working on contrast checker screen ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### :house: Internal
+* [#1949](https://github.com/shipshapecode/swach/pull/1949) Update release-it ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#1946](https://github.com/shipshapecode/swach/pull/1946) Add gts support ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#1918](https://github.com/shipshapecode/swach/pull/1918) ember-cli 5.2.0 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#1945](https://github.com/shipshapecode/swach/pull/1945) Update linting deps, fix lint ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#1944](https://github.com/shipshapecode/swach/pull/1944) Node 18 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#1732](https://github.com/shipshapecode/swach/pull/1732) Ember 5 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#1646](https://github.com/shipshapecode/swach/pull/1646) ember-cli 5 beta, switch from yarn to pnpm ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#1644](https://github.com/shipshapecode/swach/pull/1644) Ember 4.12 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#1634](https://github.com/shipshapecode/swach/pull/1634) Run on ubuntu-latest ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#1540](https://github.com/shipshapecode/swach/pull/1540) More glint updates ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#1536](https://github.com/shipshapecode/swach/pull/1536) ember-cli 4.10 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#1504](https://github.com/shipshapecode/swach/pull/1504) Update electron deps ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#1405](https://github.com/shipshapecode/swach/pull/1405) Embroider 2.x ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#1360](https://github.com/shipshapecode/swach/pull/1360) Pin embroider to 1.8.3 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#1329](https://github.com/shipshapecode/swach/pull/1329) Electron 21 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v1.1.13 (2022-08-02)
 
 #### :house: Internal

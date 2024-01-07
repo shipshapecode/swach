@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 const Sentry = require('@sentry/electron');
 const { ipcMain, nativeTheme } = require('electron');
 const isDev = require('electron-is-dev');
@@ -125,7 +124,6 @@ const gotTheLock = mb.app.requestSingleInstanceLock();
 
 if (!gotTheLock) {
   mb.app.quit();
-  return;
 } else {
   mb.app.on('second-instance', (e, argv) => {
     if (mb.window) {

@@ -18,5 +18,6 @@ jobs:
         with:
           node-version: 18
           cache: 'pnpm'
+      - run: pnpm install  
       - name: Ember Test
         run: pnpm test:ember

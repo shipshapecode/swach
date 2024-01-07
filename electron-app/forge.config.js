@@ -63,6 +63,7 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-snap',
+      platforms: ['linux'],
       config: {
         icon: 'electron-app/resources/icon.png',
         category: 'Development',
@@ -101,6 +102,15 @@ module.exports = {
     {
       name: '@electron-forge/maker-zip',
       platforms: ['darwin'],
+    },
+  ],
+  publishers: [
+    {
+      name: '@electron-forge/publisher-snapcraft',
+      platforms: ['linux'],
+      config: {
+        release: '[latest/stable]',
+      },
     },
   ],
 };

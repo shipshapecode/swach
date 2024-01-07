@@ -60,12 +60,12 @@ jobs:
           encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
       - name: Install Snapcraft
         if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
-        uses: samuelmeuli/action-snapcraft@v1
-        with:
-          snapcraft_token: ${{ secrets.snapcraft_token }}    
+        uses: samuelmeuli/action-snapcraft@v2
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.snapcraft_token }}
       - name: Make
         if: startsWith(github.ref, 'refs/tags/')
-        run: pnpm make
+        run: pnpm make --publish
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}

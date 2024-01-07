@@ -410,10 +410,16 @@ importers:
       '@electron-forge/maker-dmg':
         specifier: ^7.2.0
         version: 7.2.0
+      '@electron-forge/maker-snap':
+        specifier: ^7.2.0
+        version: 7.2.0
       '@electron-forge/maker-squirrel':
         specifier: ^7.2.0
         version: 7.2.0
       '@electron-forge/maker-zip':
+        specifier: ^7.2.0
+        version: 7.2.0
+      '@electron-forge/publisher-snapcraft':
         specifier: ^7.2.0
         version: 7.2.0
       '@sentry/cli':
@@ -2727,6 +2733,20 @@ packages:
       - supports-color
     dev: true
 
+  /@electron-forge/maker-snap@7.2.0:
+    resolution: {integrity: sha512-qOq/iUJcsE+8SmaBpnhF7SPMhUsRVoRPvmz16+OG2RDvt5XIwS6S/yHiZjGlFUyz5XDp2OM3Yb85vNF+27O5zg==}
+    engines: {node: '>= 16.4.0'}
+    dependencies:
+      '@electron-forge/maker-base': 7.2.0
+      '@electron-forge/shared-types': 7.2.0
+    optionalDependencies:
+      electron-installer-snap: 5.2.0
+    transitivePeerDependencies:
+      - bluebird
+      - enquirer
+      - supports-color
+    dev: true
+
   /@electron-forge/maker-squirrel@7.2.0:
     resolution: {integrity: sha512-SyPeFgJoMUcOPDM8+1AUPuseOqnl5YqnnjgKX9+YUIrsGKIsSz1cTtSOEu5R/l2yWNWFTmLnOlcuqIe7NayHBg==}
     engines: {node: '>= 16.4.0'}
@@ -2773,6 +2793,20 @@ packages:
     engines: {node: '>= 16.4.0'}
     dependencies:
       '@electron-forge/shared-types': 7.2.0
+    transitivePeerDependencies:
+      - bluebird
+      - enquirer
+      - supports-color
+    dev: true
+
+  /@electron-forge/publisher-snapcraft@7.2.0:
+    resolution: {integrity: sha512-wNOQPYrL7nfteXG8hxpFf5xMwz90Kkr4BdVZv0QOuMzY+iSTZMblRaoAO5/3CBh4oZBJSuON4XzQuSruobohdg==}
+    engines: {node: '>= 16.4.0'}
+    dependencies:
+      '@electron-forge/publisher-base': 7.2.0
+      fs-extra: 10.1.0
+    optionalDependencies:
+      electron-installer-snap: 5.2.0
     transitivePeerDependencies:
       - bluebird
       - enquirer
@@ -10321,6 +10355,27 @@ packages:
       minimist: 1.2.8
     optionalDependencies:
       appdmg: 0.6.6
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+    optional: true
+
+  /electron-installer-snap@5.2.0:
+    resolution: {integrity: sha512-SRm7pCpNHMXV545JjScV8fLC9NhFli5r8L8Ju4EHdXwRh76+mwrJoUEDLItixBudZ5Mcgz1SJcDPJfWpEQWX7Q==}
+    engines: {node: '>= 10.0'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@malept/cross-spawn-promise': 1.1.1
+      debug: 4.3.4(supports-color@8.1.1)
+      electron-installer-common: 0.10.3
+      fs-extra: 9.1.0
+      js-yaml: 3.14.1
+      lodash: 4.17.21
+      semver: 7.5.4
+      tmp-promise: 3.0.3
+      which: 2.0.2
+      yargs: 16.2.0
     transitivePeerDependencies:
       - supports-color
     dev: true

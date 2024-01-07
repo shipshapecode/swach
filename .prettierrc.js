@@ -39,7 +39,7 @@ const importOrderSortSpecifiers = true;
 module.exports = {
   plugins: [
     'prettier-plugin-ember-template-tag',
-    require('@trivago/prettier-plugin-sort-imports'),
+    '@trivago/prettier-plugin-sort-imports',
   ],
   importOrder,
   importOrderParserPlugins,
@@ -66,8 +66,3 @@ module.exports = {
     },
   ],
 };
-
-exports.importOrder = importOrder;
-exports.importOrderParserPlugins = importOrderParserPlugins;
-exports.importOrderSeparation = importOrderSeparation;
-exports.importOrderSortSpecifiers = importOrderSortSpecifiers;

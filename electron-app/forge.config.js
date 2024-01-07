@@ -76,6 +76,9 @@ module.exports = {
             bind: '$SNAP/usr/lib/x86_64-linux-gnu/imlib2',
           },
         },
+        appConfig: {
+          extensions: ['gnome'],
+        },
         parts: {
           setup: {
             plugin: 'nil',

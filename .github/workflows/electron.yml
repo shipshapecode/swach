@@ -13,11 +13,11 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'pnpm'
-      - uses: pnpm/action-setup@v2
       - name: Get xvfb
         run: sudo apt-get install xvfb
       - name: Electron Test

@@ -12,11 +12,11 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'pnpm'
-      - uses: pnpm/action-setup@v2
       - name: Lint JS
         run: pnpm lint:js
       - name: Lint HBS
@@ -38,11 +38,11 @@ jobs:
         os: [macos-latest, ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'pnpm'
-      - uses: pnpm/action-setup@v2
       - name: Add macOS certs
         if: startsWith(matrix.os, 'macos') && startsWith(github.ref, 'refs/tags/')
         run: chmod +x add-osx-cert.sh && ./add-osx-cert.sh
@@ -101,11 +101,11 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'pnpm'
-      - uses: pnpm/action-setup@v2
       - name: Install Snapcraft
         uses: samuelmeuli/action-snapcraft@v1
         with:

@@ -25,7 +25,6 @@
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
     "make": "ember electron:make",
-    "make:snapcraft": "ember electron:build",
     "start": "ember serve",
     "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
     "test:electron": "ember electron:test",

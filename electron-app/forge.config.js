@@ -62,6 +62,35 @@ module.exports = {
       },
     },
     {
+      name: '@electron-forge/maker-snap',
+      config: {
+        icon: 'electron-app/resources/icon.png',
+        category: 'Development',
+        confinement: 'strict',
+        description: 'A robust color management tool for the modern age.',
+        summary: 'A robust color management tool for the modern age.',
+        grade: 'stable',
+        layout: {
+          '/usr/lib/x86_64-linux-gnu/imlib2': {
+            bind: '$SNAP/usr/lib/x86_64-linux-gnu/imlib2',
+          },
+        },
+        publish: {
+          provider: 'snapStore',
+          channels: 'stable',
+        },
+        'stage-packages': [
+          'default',
+          'giblib1',
+          'libimlib2',
+          'libx11-6',
+          'libxcursor1',
+          'libxfixes3',
+          'scrot',
+        ],
+      },
+    },
+    {
       name: '@electron-forge/maker-squirrel',
       config: {
         name: 'Swach',

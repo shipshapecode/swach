@@ -5,11 +5,9 @@
   "description": "A robust color management tool for the modern age.",
   "main": "src/index.js",
   "scripts": {
-    "build": "electron-builder --publish always",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "postinstall": "electron-builder install-app-deps",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
   },
@@ -42,7 +40,6 @@
     "@electron-forge/maker-zip": "^7.2.0",
     "@sentry/cli": "^2.22.3",
     "electron": "27.2.1",
-    "electron-builder": "^24.9.1",
     "electron-debug": "^3.2.0",
     "electron-download": "^4.1.1"
   },
@@ -54,34 +51,13 @@
   "build": {
     "productName": "Swach",
     "linux": {
-      "icon": "./resources/icon.png",
-      "category": "Development",
-      "description": "A robust color management tool for the modern age.",
-      "synopsis": "A robust color management tool for the modern age.",
+      
       "target": [
         "snap"
       ]
     },
     "snap": {
-      "grade": "stable",
-      "layout": {
-        "/usr/lib/x86_64-linux-gnu/imlib2": {
-          "bind": "$SNAP/usr/lib/x86_64-linux-gnu/imlib2"
-        }
-      },
-      "publish": {
-        "provider": "snapStore",
-        "channels": "stable"
-      },
-      "stagePackages": [
-        "default",
-        "giblib1",
-        "libimlib2",
-        "libx11-6",
-        "libxcursor1",
-        "libxfixes3",
-        "scrot"
-      ]
+
     }
   }
 }

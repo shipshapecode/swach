@@ -58,6 +58,11 @@ jobs:
         with:
           fileName: 'win-certificate.pfx'
           encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
+      - name: Install Snapcraft
+        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/')
+        uses: samuelmeuli/action-snapcraft@v1
+        with:
+          snapcraft_token: ${{ secrets.snapcraft_token }}    
       - name: Make
         if: startsWith(github.ref, 'refs/tags/')
         run: pnpm make
@@ -94,32 +99,4 @@ jobs:
         with:
           tagName: ${{ github.ref }}
           environment: production
-          sourceMapOptions: '{"include": ["electron-app/ember-dist/assets"], "urlPrefix": "~/ember-dist/assets"}'  
-  snapcraft:
-    name: Snapcraft Build and Publish
-    needs: test
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    if: startsWith(github.ref, 'refs/tags/')
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: 'pnpm'
-      - run: pnpm install  
-      - name: Install Snapcraft
-        uses: samuelmeuli/action-snapcraft@v1
-        with:
-          snapcraft_token: ${{ secrets.snapcraft_token }}
-      - name: Electron Builder Snapcraft
-        run: |
-          sudo apt update
-          pnpm make:snapcraft
-          cd electron-app
-          set +e
-          pnpm build
-          set -e
-        env:
-          SNAPCRAFT_BUILD_ENVIRONMENT: host
+          sourceMapOptions: '{"include": ["electron-app/ember-dist/assets"], "urlPrefix": "~/ember-dist/assets"}'

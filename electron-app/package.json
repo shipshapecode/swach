@@ -1,7 +1,7 @@
 {
   "name": "swach",
   "productName": "swach",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A robust color management tool for the modern age.",
   "main": "src/index.js",
   "scripts": {
@@ -51,13 +51,10 @@
   "build": {
     "productName": "Swach",
     "linux": {
-      
       "target": [
         "snap"
       ]
     },
-    "snap": {
-
-    }
+    "snap": {}
   }
 }

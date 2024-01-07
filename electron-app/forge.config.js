@@ -65,7 +65,7 @@ module.exports = {
       name: '@electron-forge/maker-snap',
       platforms: ['linux'],
       config: {
-        base: 'core20',
+        base: 'core22',
         icon: 'electron-app/resources/icon.png',
         confinement: 'strict',
         description: 'A robust color management tool for the modern age.',

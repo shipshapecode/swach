@@ -78,6 +78,7 @@ module.exports = {
         },
         parts: {
           setup: {
+            plugin: 'nil',
             'stage-packages': [
               'default',
               'giblib1',

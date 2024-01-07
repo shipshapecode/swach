@@ -152,6 +152,7 @@
     "wcag-contrast": "^3.0.0",
     "webpack": "^5.89.0"
   },
+  "packageManager": "pnpm@8.14.0",
   "pnpm": {
     "patchedDependencies": {
       "ember-inputmask@0.11.0": "patches/ember-inputmask@0.11.0.patch"

@@ -76,19 +76,19 @@ module.exports = {
             bind: '$SNAP/usr/lib/x86_64-linux-gnu/imlib2',
           },
         },
-        publish: {
-          provider: 'snapStore',
-          channels: 'stable',
+        parts: {
+          setup: {
+            'stage-packages': [
+              'default',
+              'giblib1',
+              'libimlib2',
+              'libx11-6',
+              'libxcursor1',
+              'libxfixes3',
+              'scrot',
+            ],
+          },
         },
-        'stage-packages': [
-          'default',
-          'giblib1',
-          'libimlib2',
-          'libx11-6',
-          'libxcursor1',
-          'libxfixes3',
-          'scrot',
-        ],
         type: 'app',
       },
     },

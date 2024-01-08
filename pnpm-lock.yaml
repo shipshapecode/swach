@@ -32,8 +32,8 @@ importers:
         specifier: ^7.23.6
         version: 7.23.6(@babel/core@7.23.7)
       '@csstools/postcss-sass':
-        specifier: ^5.0.1
-        version: 5.0.1(postcss@8.4.32)
+        specifier: ^5.1.1
+        version: 5.1.1(postcss@8.4.32)
       '@ctrl/tinycolor':
         specifier: ^4.0.2
         version: 4.0.2
@@ -2631,8 +2631,8 @@ packages:
       '@csstools/css-tokenizer': 2.2.2
     dev: true
 
-  /@csstools/postcss-sass@5.0.1(postcss@8.4.32):
-    resolution: {integrity: sha512-GgQAOe6KfABEIHGh9KFqn/7sX2Dmx554PElvyhRFNADo2QV2N/CzlS+QHrrJmVJzaBn829f4JFcOd67mmYb5Eg==}
+  /@csstools/postcss-sass@5.1.1(postcss@8.4.32):
+    resolution: {integrity: sha512-La7bgTcM6YwPBLqlaXg7lMLry82iLv1a+S1RmgvHq2mH2Zd57L2anjZvJC8ACUHWc4M9fXws93dq6gaK0kZyAw==}
     engines: {node: ^12 || ^14 || >=16}
     peerDependencies:
       postcss: ^8.4.6

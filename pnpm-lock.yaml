@@ -68,8 +68,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2
       '@glint/core':
-        specifier: ^1.2.1
-        version: 1.2.1(typescript@5.3.3)
+        specifier: ^1.2.2
+        version: 1.2.2(typescript@5.3.3)
       '@glint/environment-ember-loose':
         specifier: ^1.2.1
         version: 1.2.1(@glimmer/component@1.1.2)(@glint/template@1.2.1)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.1.0)
@@ -3984,8 +3984,8 @@ packages:
       '@glimmer/util': 0.84.3
     dev: true
 
-  /@glint/core@1.2.1(typescript@5.3.3):
-    resolution: {integrity: sha512-25Zn65aLSN1M7s0D950sTNElZYRqa6HFA0xcT03iI/vQd1F6c3luMAXbFrsTSHlktZx2dqJ38c2dUnZJQBQgMw==}
+  /@glint/core@1.2.2(typescript@5.3.3):
+    resolution: {integrity: sha512-H2o8cx1xOuyEAri1C+8cEfdCw2Liv75LQu8dFtgxCnbfv7AVSaQwZ9XwCAkDLkhB3QhgturHBp6BiKIKNEl1LQ==}
     hasBin: true
     peerDependencies:
       typescript: '>=4.8.0'

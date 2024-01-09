@@ -104,7 +104,7 @@
     "ember-event-helpers": "^0.1.1",
     "ember-fetch": "^8.1.2",
     "ember-inflector": "^4.0.2",
-    "ember-inputmask": "^0.11.0",
+    "ember-inputmask": "RobbieTheWagner/ember-inputmask#964e98fbfc929cf1c9e6b5a7ae1993f739d3d3d5",
     "ember-load-initializers": "^2.1.2",
     "ember-local-storage": "^2.0.6",
     "ember-math-helpers": "^4.0.0",
@@ -152,11 +152,6 @@
     "webpack": "^5.89.0"
   },
   "packageManager": "pnpm@8.14.0",
-  "pnpm": {
-    "patchedDependencies": {
-      "ember-inputmask@0.11.0": "patches/ember-inputmask@0.11.0.patch"
-    }
-  },
   "engines": {
     "node": ">= 18",
     "pnpm": "^8.14.0"

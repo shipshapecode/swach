@@ -4,11 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-patchedDependencies:
-  ember-inputmask@0.11.0:
-    hash: dl3nffdxfluvkxdazyeer6wyei
-    path: patches/ember-inputmask@0.11.0.patch
-
 importers:
 
   .:
@@ -233,8 +228,8 @@ importers:
         specifier: ^4.0.2
         version: 4.0.2
       ember-inputmask:
-        specifier: ^0.11.0
-        version: 0.11.0(patch_hash=dl3nffdxfluvkxdazyeer6wyei)
+        specifier: RobbieTheWagner/ember-inputmask#964e98fbfc929cf1c9e6b5a7ae1993f739d3d3d5
+        version: github.com/RobbieTheWagner/ember-inputmask/964e98fbfc929cf1c9e6b5a7ae1993f739d3d3d5(@glint/template@1.2.1)(webpack@5.89.0)
       ember-load-initializers:
         specifier: ^2.1.2
         version: 2.1.2(@babel/core@7.23.7)
@@ -393,7 +388,7 @@ importers:
         version: 2.1.5
       menubar:
         specifier: ^9.4.0
-        version: 9.4.0(electron@27.2.1)
+        version: 9.4.0(electron@28.1.2)
       throttle-debounce:
         specifier: ^5.0.0
         version: 5.0.0
@@ -426,8 +421,8 @@ importers:
         specifier: ^2.24.1
         version: 2.24.1
       electron:
-        specifier: 27.2.1
-        version: 27.2.1
+        specifier: ^28.1.2
+        version: 28.1.2
       electron-debug:
         specifier: ^3.2.0
         version: 3.2.0
@@ -6980,11 +6975,6 @@ packages:
       lodash: 4.17.21
     dev: true
 
-  /babel-plugin-htmlbars-inline-precompile@3.2.0:
-    resolution: {integrity: sha512-IUeZmgs9tMUGXYu1vfke5I18yYJFldFGdNFQOWslXTnDWXzpwPih7QFduUqvT+awDpDuNtXpdt5JAf43Q1Hhzg==}
-    engines: {node: 8.* || 10.* || >= 12.*}
-    dev: true
-
   /babel-plugin-htmlbars-inline-precompile@5.3.1:
     resolution: {integrity: sha512-QWjjFgSKtSRIcsBhJmEwS2laIdrA6na8HAlc/pEAhjHgQsah/gMiBFRZvbQTy//hWxR4BMwV7/Mya7q5H8uHeA==}
     engines: {node: 10.* || >= 12.*}
@@ -8006,14 +7996,6 @@ packages:
     engines: {node: 8.* || >= 10.*}
     dev: true
 
-  /broccoli-output-wrapper@2.0.0:
-    resolution: {integrity: sha512-V/ozejo+snzNf75i/a6iTmp71k+rlvqjE3+jYfimuMwR1tjNNRdtfno+NGNQB2An9bIAeqZnKhMDurAznHAdtA==}
-    dependencies:
-      heimdalljs-logger: 0.1.10
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /broccoli-output-wrapper@3.2.5:
     resolution: {integrity: sha512-bQAtwjSrF4Nu0CK0JOy5OZqw9t5U0zzv2555EA/cF8/a8SLDTIetk9UgrtMVw7qKLKdSpOZ2liZNeZZDaKgayw==}
     engines: {node: 10.* || >= 12.*}
@@ -8112,21 +8094,6 @@ packages:
       quick-temp: 0.1.8
       rimraf: 2.7.1
       symlink-or-copy: 1.3.1
-    dev: true
-
-  /broccoli-plugin@3.1.0:
-    resolution: {integrity: sha512-7w7FP8WJYjLvb0eaw27LO678TGGaom++49O1VYIuzjhXjK5kn2+AMlDm7CaUFw4F7CLGoVQeZ84d8gICMJa4lA==}
-    engines: {node: 8.* || 10.* || >= 12.*}
-    dependencies:
-      broccoli-node-api: 1.7.0
-      broccoli-output-wrapper: 2.0.0
-      fs-merger: 3.2.1
-      promise-map-series: 0.2.3
-      quick-temp: 0.1.8
-      rimraf: 2.7.1
-      symlink-or-copy: 1.3.1
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /broccoli-plugin@4.0.7:
@@ -10502,8 +10469,8 @@ packages:
     dev: true
     optional: true
 
-  /electron@27.2.1:
-    resolution: {integrity: sha512-bYUzyptYrUIFtPnyF2x6DnhF1E9FCthctjbNSKMqg7dG4NqSwyuZzEku3Wts55u8R+ddNFbLoLwRHHLvYTCQlA==}
+  /electron@28.1.2:
+    resolution: {integrity: sha512-rbRuIj5pRn6K16Hx3XYlI2C4jp6s0ZJ4QptQ+wGw0blO5563cXCtZxK/wifVGfuwVfa3n/UqMuUwn3IshjZ8dw==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
     requiresBuild: true
@@ -10812,28 +10779,6 @@ packages:
 
   /ember-cli-get-component-path-option@1.0.0:
     resolution: {integrity: sha512-k47TDwcJ2zPideBCZE8sCiShSxQSpebY2BHcX2DdipMmBox5gsfyVrbKJWIHeSTTKyEUgmBIvQkqTOozEziCZA==}
-    dev: true
-
-  /ember-cli-htmlbars@4.5.0:
-    resolution: {integrity: sha512-bYJpK1pqFu9AadDAGTw05g2LMNzY8xTCIqQm7dMJmKEoUpLRFbPf4SfHXrktzDh7Q5iggl6Skzf1M0bPlIxARw==}
-    engines: {node: 8.* || 10.* || >= 12.*}
-    dependencies:
-      '@ember/edition-utils': 1.2.0
-      babel-plugin-htmlbars-inline-precompile: 3.2.0
-      broccoli-debug: 0.6.5
-      broccoli-persistent-filter: 2.3.1
-      broccoli-plugin: 3.1.0
-      common-tags: 1.8.2
-      ember-cli-babel-plugin-helpers: 1.1.1
-      fs-tree-diff: 2.0.1
-      hash-for-dep: 1.5.1
-      heimdalljs-logger: 0.1.10
-      json-stable-stringify: 1.1.0
-      semver: 6.3.1
-      strip-bom: 4.0.0
-      walk-sync: 2.2.0
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /ember-cli-htmlbars@5.7.2:
@@ -11471,21 +11416,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /ember-inputmask@0.11.0(patch_hash=dl3nffdxfluvkxdazyeer6wyei):
-    resolution: {integrity: sha512-g+AH/WxPUemeGeDfmtPDonjIzTMQvTlkCXtwM+M1OocKFSpYmHpIOFkIKnh3Uh3wiQKeb2RGNTZEVshxsshNCw==}
-    engines: {node: 10.* || >= 12}
-    dependencies:
-      ember-auto-import: 1.12.2
-      ember-cli-babel: 7.26.11
-      ember-cli-htmlbars: 4.5.0
-      inputmask: 5.0.1
-    transitivePeerDependencies:
-      - supports-color
-      - webpack-cli
-      - webpack-command
-    dev: true
-    patched: true
 
   /ember-load-initializers@2.1.2(@babel/core@7.23.7):
     resolution: {integrity: sha512-CYR+U/wRxLbrfYN3dh+0Tb6mFaxJKfdyz+wNql6cqTrA0BBi9k6J3AaKXj273TqvEpyyXegQFFkZEiuZdYtgJw==}
@@ -14468,8 +14398,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /inputmask@5.0.1:
-    resolution: {integrity: sha512-Q/xo98j2gKycYSpYAjbxr4KEtLGZeBgxefc1u+qvrQKvB5MwP21EXEfjDKb+rMQdhNgjzHuKw7PCkOKyQ9FaRQ==}
+  /inputmask@5.0.8:
+    resolution: {integrity: sha512-1WcbyudPTXP1B28ozWWyFa6QRIUG4KiLoyR6LFHlpT4OfTzRqFfWgHFadNvRuMN1S9XNVz9CdNvCGjJi+uAMqQ==}
     dev: true
 
   /inquirer@6.5.2:
@@ -16299,12 +16229,12 @@ packages:
       readable-stream: 1.0.34
     dev: true
 
-  /menubar@9.4.0(electron@27.2.1):
+  /menubar@9.4.0(electron@28.1.2):
     resolution: {integrity: sha512-Zn2si5UXiWbdBZwFSsCyQ8xfaBKkeFYceNvjWATyMUreqv6gDMUvDkvZY/ZFf89DCfo9F0SrvygDOdpZuwoWgw==}
     peerDependencies:
       electron: ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0 || ^22.0.0 ||  ^23.0.0 || ^24.0.0 || ^25.0.0 || ^26.0.0 || ^27.0.0
     dependencies:
-      electron: 27.2.1
+      electron: 28.1.2
       electron-positioner: 4.1.0
     dev: false
 
@@ -22750,4 +22680,21 @@ packages:
 
   /zen-observable@0.8.15:
     resolution: {integrity: sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==}
+    dev: true
+
+  github.com/RobbieTheWagner/ember-inputmask/964e98fbfc929cf1c9e6b5a7ae1993f739d3d3d5(@glint/template@1.2.1)(webpack@5.89.0):
+    resolution: {tarball: https://codeload.github.com/RobbieTheWagner/ember-inputmask/tar.gz/964e98fbfc929cf1c9e6b5a7ae1993f739d3d3d5}
+    id: github.com/RobbieTheWagner/ember-inputmask/964e98fbfc929cf1c9e6b5a7ae1993f739d3d3d5
+    name: ember-inputmask
+    version: 0.11.0
+    engines: {node: 14.* || 16.* || >= 18}
+    dependencies:
+      ember-auto-import: 2.7.2(@glint/template@1.2.1)(webpack@5.89.0)
+      ember-cli-babel: 7.26.11
+      ember-cli-htmlbars: 6.3.0
+      inputmask: 5.0.8
+    transitivePeerDependencies:
+      - '@glint/template'
+      - supports-color
+      - webpack
     dev: true

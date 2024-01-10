@@ -13,7 +13,7 @@ module.exports = {
       '\\.map$',
     ],
     osxSign: {
-      optionsForFile: (filePath) => {
+      optionsForFile: () => {
         return {
           entitlements: 'electron-app/src/entitlements.plist',
           hardenedRuntime: true,

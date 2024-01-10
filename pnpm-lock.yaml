@@ -228,8 +228,8 @@ importers:
         specifier: ^4.0.2
         version: 4.0.2
       ember-inputmask:
-        specifier: RobbieTheWagner/ember-inputmask#964e98fbfc929cf1c9e6b5a7ae1993f739d3d3d5
-        version: github.com/RobbieTheWagner/ember-inputmask/964e98fbfc929cf1c9e6b5a7ae1993f739d3d3d5(@glint/template@1.2.2)(webpack@5.89.0)
+        specifier: ^2.0.0
+        version: 2.0.0(@glint/template@1.2.2)(ember-source@5.5.0)(webpack@5.89.0)
       ember-load-initializers:
         specifier: ^2.1.2
         version: 2.1.2(@babel/core@7.23.7)
@@ -11373,6 +11373,23 @@ packages:
       - supports-color
     dev: true
 
+  /ember-inputmask@2.0.0(@glint/template@1.2.2)(ember-source@5.5.0)(webpack@5.89.0):
+    resolution: {integrity: sha512-xkzf0Syazj0ZNztFiuCpU6cR+erIhJv/QPhedLdOxX0eBEhoqdMdjs5QPuxJmOaXC/d0UCnSdWSlMkirTl0qdQ==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      ember-source: ^4.0.0 || ^5.0.0
+    dependencies:
+      ember-auto-import: 2.7.2(@glint/template@1.2.2)(webpack@5.89.0)
+      ember-cli-babel: 7.26.11
+      ember-cli-htmlbars: 6.3.0
+      ember-source: 5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2)(@glint/template@1.2.2)(rsvp@4.8.5)(webpack@5.89.0)
+      inputmask: 5.0.8
+    transitivePeerDependencies:
+      - '@glint/template'
+      - supports-color
+      - webpack
+    dev: true
+
   /ember-load-initializers@2.1.2(@babel/core@7.23.7):
     resolution: {integrity: sha512-CYR+U/wRxLbrfYN3dh+0Tb6mFaxJKfdyz+wNql6cqTrA0BBi9k6J3AaKXj273TqvEpyyXegQFFkZEiuZdYtgJw==}
     engines: {node: 6.* || 8.* || >= 10.*}
@@ -21586,6 +21603,7 @@ packages:
 
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+    requiresBuild: true
 
   /unfetch@4.2.0:
     resolution: {integrity: sha512-F9p7yYCn6cIW9El1zi0HI6vqpeIvBsr3dSuRO6Xuppb1u5rXpCPmMvLSyECLhybr9isec8Ohl0hPekMVrEinDA==}
@@ -22590,21 +22608,4 @@ packages:
 
   /zen-observable@0.8.15:
     resolution: {integrity: sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==}
-    dev: true
-
-  github.com/RobbieTheWagner/ember-inputmask/964e98fbfc929cf1c9e6b5a7ae1993f739d3d3d5(@glint/template@1.2.2)(webpack@5.89.0):
-    resolution: {tarball: https://codeload.github.com/RobbieTheWagner/ember-inputmask/tar.gz/964e98fbfc929cf1c9e6b5a7ae1993f739d3d3d5}
-    id: github.com/RobbieTheWagner/ember-inputmask/964e98fbfc929cf1c9e6b5a7ae1993f739d3d3d5
-    name: ember-inputmask
-    version: 0.11.0
-    engines: {node: 14.* || 16.* || >= 18}
-    dependencies:
-      ember-auto-import: 2.7.2(@glint/template@1.2.2)(webpack@5.89.0)
-      ember-cli-babel: 7.26.11
-      ember-cli-htmlbars: 6.3.0
-      inputmask: 5.0.8
-    transitivePeerDependencies:
-      - '@glint/template'
-      - supports-color
-      - webpack
     dev: true

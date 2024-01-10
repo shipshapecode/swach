@@ -61,41 +61,41 @@ module.exports = {
         };
       },
     },
-    {
-      name: '@electron-forge/maker-snap',
-      platforms: ['linux'],
-      config: {
-        base: 'core22',
-        icon: 'electron-app/resources/icon.png',
-        confinement: 'strict',
-        description: 'A robust color management tool for the modern age.',
-        summary: 'A robust color management tool for the modern age.',
-        grade: 'stable',
-        layout: {
-          '/usr/lib/x86_64-linux-gnu/imlib2': {
-            bind: '$SNAP/usr/lib/x86_64-linux-gnu/imlib2',
-          },
-        },
-        appConfig: {
-          extensions: ['gnome'],
-        },
-        parts: {
-          setup: {
-            plugin: 'nil',
-            'stage-packages': [
-              'default',
-              'giblib1',
-              'libimlib2',
-              'libx11-6',
-              'libxcursor1',
-              'libxfixes3',
-              'scrot',
-            ],
-          },
-        },
-        type: 'app',
-      },
-    },
+    // {
+    //   name: '@electron-forge/maker-snap',
+    //   platforms: ['linux'],
+    //   config: {
+    //     base: 'core22',
+    //     icon: 'electron-app/resources/icon.png',
+    //     confinement: 'strict',
+    //     description: 'A robust color management tool for the modern age.',
+    //     summary: 'A robust color management tool for the modern age.',
+    //     grade: 'stable',
+    //     layout: {
+    //       '/usr/lib/x86_64-linux-gnu/imlib2': {
+    //         bind: '$SNAP/usr/lib/x86_64-linux-gnu/imlib2',
+    //       },
+    //     },
+    //     appConfig: {
+    //       extensions: ['gnome'],
+    //     },
+    //     parts: {
+    //       setup: {
+    //         plugin: 'nil',
+    //         'stage-packages': [
+    //           'default',
+    //           'giblib1',
+    //           'libimlib2',
+    //           'libx11-6',
+    //           'libxcursor1',
+    //           'libxfixes3',
+    //           'scrot',
+    //         ],
+    //       },
+    //     },
+    //     type: 'app',
+    //   },
+    // },
     {
       name: '@electron-forge/maker-squirrel',
       config: {
@@ -109,13 +109,13 @@ module.exports = {
       platforms: ['darwin'],
     },
   ],
-  publishers: [
-    {
-      name: '@electron-forge/publisher-snapcraft',
-      platforms: ['linux'],
-      config: {
-        release: '[latest/stable]',
-      },
-    },
-  ],
+  // publishers: [
+  //   {
+  //     name: '@electron-forge/publisher-snapcraft',
+  //     platforms: ['linux'],
+  //     config: {
+  //       release: '[latest/stable]',
+  //     },
+  //   },
+  // ],
 };

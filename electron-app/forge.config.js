@@ -13,17 +13,20 @@ module.exports = {
       '\\.map$',
     ],
     osxSign: {
-      entitlements: 'electron-app/src/entitlements.plist',
-      'entitlements-inherit': 'electron-app/src/entitlements.plist',
-      'gatekeeper-assess': false,
-      hardenedRuntime: true,
-      identity:
-        'Developer ID Application: Ship Shape Consulting LLC (779MXKT6B5)',
+      optionsForFile: (filePath) => {
+        return {
+          entitlements: 'electron-app/src/entitlements.plist',
+          hardenedRuntime: true,
+          identity:
+            'Developer ID Application: Ship Shape Consulting LLC (779MXKT6B5)',
+        };
+      },
     },
     osxNotarize: {
+      tool: 'notarytool',
       appleId: process.env['APPLE_ID'],
       appleIdPassword: process.env['APPLE_ID_PASSWORD'],
-      ascProvider: '779MXKT6B5',
+      teamId: '779MXKT6B5',
     },
     protocols: [
       {

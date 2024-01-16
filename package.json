@@ -61,7 +61,7 @@
     "@orbit/records": "^0.17.0",
     "@orbit/serializers": "^0.17.0",
     "@orbit/utils": "^0.17.0",
-    "@release-it-plugins/lerna-changelog": "^6.0.0",
+    "@release-it-plugins/lerna-changelog": "^6.1.0",
     "@release-it-plugins/workspaces": "^4.0.0",
     "@sentry/ember": "^7.93.0",
     "@tailwindcss/forms": "^0.5.7",

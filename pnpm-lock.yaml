@@ -388,7 +388,7 @@ importers:
         version: 2.1.5
       menubar:
         specifier: ^9.4.0
-        version: 9.4.0(electron@28.1.4)
+        version: 9.4.0(electron@28.2.0)
       throttle-debounce:
         specifier: ^5.0.0
         version: 5.0.0
@@ -421,8 +421,8 @@ importers:
         specifier: ^2.26.0
         version: 2.26.0
       electron:
-        specifier: ^28.1.4
-        version: 28.1.4
+        specifier: ^28.2.0
+        version: 28.2.0
       electron-debug:
         specifier: ^3.2.0
         version: 3.2.0
@@ -10557,8 +10557,8 @@ packages:
     dev: true
     optional: true
 
-  /electron@28.1.4:
-    resolution: {integrity: sha512-WE6go611KOhtH6efRPMnVC7FE7DCKnQ3ZyHFeI1DbaCy8OU4UjZ8/CZGcuZmZgRdxSBEHoHdgaJkWRHZzF0FOg==}
+  /electron@28.2.0:
+    resolution: {integrity: sha512-22SylXQQ9IHtwLw4D+Z4Si7OUpeDtpHfJVTjy3yv53iLg5zJKKPOCWT4ZwgYGHQZ0eldyBrYBHF/P9FPd2CcVQ==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
     requiresBuild: true
@@ -16310,12 +16310,12 @@ packages:
       readable-stream: 1.0.34
     dev: true
 
-  /menubar@9.4.0(electron@28.1.4):
+  /menubar@9.4.0(electron@28.2.0):
     resolution: {integrity: sha512-Zn2si5UXiWbdBZwFSsCyQ8xfaBKkeFYceNvjWATyMUreqv6gDMUvDkvZY/ZFf89DCfo9F0SrvygDOdpZuwoWgw==}
     peerDependencies:
       electron: ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0 || ^22.0.0 ||  ^23.0.0 || ^24.0.0 || ^25.0.0 || ^26.0.0 || ^27.0.0
     dependencies:
-      electron: 28.1.4
+      electron: 28.2.0
       electron-positioner: 4.1.0
     dev: false
 

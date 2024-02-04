@@ -36,7 +36,7 @@
     "@babel/plugin-proposal-decorators": "^7.23.7",
     "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
     "@babel/plugin-transform-typescript": "^7.23.6",
-    "@babel/preset-env": "^7.23.8",
+    "@babel/preset-env": "^7.23.9",
     "@csstools/postcss-sass": "^5.1.1",
     "@ctrl/tinycolor": "^4.0.3",
     "@ember/optional-features": "^2.0.0",

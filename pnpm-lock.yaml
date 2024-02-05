@@ -372,8 +372,8 @@ importers:
         specifier: ^4.17.0
         version: 4.17.0
       electron-dl:
-        specifier: ^3.5.1
-        version: 3.5.1
+        specifier: ^3.5.2
+        version: 3.5.2
       electron-is-dev:
         specifier: ^2.0.0
         version: 2.0.0
@@ -10520,8 +10520,8 @@ packages:
       - supports-color
     dev: true
 
-  /electron-dl@3.5.1:
-    resolution: {integrity: sha512-5Yb9s/iPVJ5mW5x3j6XkKxt7WEqREr/AhYxZmtEfW1ffQHs1+aGoiQ2fXCAU6UIXMnWog2MXK82vrxJsjA3nbQ==}
+  /electron-dl@3.5.2:
+    resolution: {integrity: sha512-i104cl+u8yJ0lhpRAtUWfeGuWuL1PL6TBiw2gLf0MMIBjfgE485Ags2mcySx4uWU9P9uj/vsD3jd7X+w1lzZxw==}
     engines: {node: '>=12'}
     dependencies:
       ext-name: 5.0.0

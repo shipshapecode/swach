@@ -375,8 +375,8 @@ importers:
         specifier: ^3.5.2
         version: 3.5.2
       electron-is-dev:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
       electron-squirrel-startup:
         specifier: ^1.0.0
         version: 1.0.0
@@ -10633,8 +10633,9 @@ packages:
     resolution: {integrity: sha512-R1oD5gMBPS7PVU8gJwH6CtT0e6VSoD0+SzSnYpNm+dBkcijgA+K7VAMHDfnRq/lkKPZArpzplTW6jfiMYosdzw==}
     dev: true
 
-  /electron-is-dev@2.0.0:
-    resolution: {integrity: sha512-3X99K852Yoqu9AcW50qz3ibYBWY79/pBhlMCab8ToEWS48R0T9tyxRiQhwylE7zQdXrMnx2JKqUJyMPmt5FBqA==}
+  /electron-is-dev@3.0.1:
+    resolution: {integrity: sha512-8TjjAh8Ec51hUi3o4TaU0mD3GMTOESi866oRNavj9A3IQJ7pmv+MJVmdZBFGw4GFT36X7bkqnuDNYvkQgvyI8Q==}
+    engines: {node: '>=18'}
     dev: false
 
   /electron-localshortcut@3.2.1:

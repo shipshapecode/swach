@@ -270,8 +270,8 @@ importers:
         specifier: ^2.4.7
         version: 2.4.7(@glint/template@1.3.0)
       ember-template-imports:
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^4.1.0
+        version: 4.1.0
       ember-template-lint:
         specifier: ^5.13.0
         version: 5.13.0
@@ -9680,8 +9680,8 @@ packages:
       safe-buffer: 5.2.1
     dev: true
 
-  /content-tag@1.2.2:
-    resolution: {integrity: sha512-9guqKIx2H+78N17otBpl8yLZbQGL5q1vBO/jDb3gF2JjixtcVpC62jDUNxjVMNoaZ09oxRX84ZOD6VX02qkVvg==}
+  /content-tag@2.0.1:
+    resolution: {integrity: sha512-jxsETSDs5NbNwyiDuIp672fUMhUyu8Qxc5MOBOJOcgW/fQESI6o5K1LBDrnEE7Bh810a685lWEZHTF4jQYGEEw==}
     dev: true
 
   /content-type@1.0.5:
@@ -11956,12 +11956,12 @@ packages:
       - supports-color
     dev: true
 
-  /ember-template-imports@4.0.0:
-    resolution: {integrity: sha512-Kw1FnFX3MrBesfsjJDFvVgOf1mANOvMprAH1ngDd5SvdlkltNWCF2UKI9WXKQV3lw5noQC1+n6S80L9Q03D3Hw==}
+  /ember-template-imports@4.1.0:
+    resolution: {integrity: sha512-FMC13/FWPZBL4zMkFtspgGqc9zYfrUXf8/MV83Eke3ZYVR4oKb9CuB65BRmgCvFwv8R5PGkpUhks0i5kjYeAHw==}
     engines: {node: 16.* || >= 18}
     dependencies:
       broccoli-stew: 3.0.0
-      content-tag: 1.2.2
+      content-tag: 2.0.1
       ember-cli-version-checker: 5.1.2
     transitivePeerDependencies:
       - supports-color

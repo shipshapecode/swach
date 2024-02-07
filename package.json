@@ -134,7 +134,7 @@
     "nearest-color": "^0.4.4",
     "postcss": "^8.4.33",
     "postcss-scss": "^4.0.9",
-    "prettier": "^3.2.4",
+    "prettier": "^3.2.5",
     "prettier-plugin-ember-template-tag": "^1.1.0",
     "qunit": "^2.20.0",
     "qunit-dom": "^3.0.0",

@@ -54,8 +54,8 @@ importers:
         specifier: ^3.2.1
         version: 3.2.1(@embroider/core@3.4.3)(webpack@5.90.2)
       '@gavant/glint-template-types':
-        specifier: ^0.3.6
-        version: 0.3.6(ember-animated@2.0.0)(ember-modifier@4.1.0)(ember-source@5.6.0)
+        specifier: ^0.4.0
+        version: 0.4.0(ember-animated@2.0.0)(ember-modifier@4.1.0)(ember-source@5.6.0)
       '@glimmer/component':
         specifier: ^1.1.2
         version: 1.1.2(@babel/core@7.23.9)
@@ -3613,8 +3613,8 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
     dev: true
 
-  /@gavant/glint-template-types@0.3.6(ember-animated@2.0.0)(ember-modifier@4.1.0)(ember-source@5.6.0):
-    resolution: {integrity: sha512-5eSY+bGmjsSvk3pceLXeQW0Vv13rk0ZxXg+SDoUUTFQ5Cjnk+lLLetsWnoFeufWP618T+XVCSXZjWelaZLsOzA==}
+  /@gavant/glint-template-types@0.4.0(ember-animated@2.0.0)(ember-modifier@4.1.0)(ember-source@5.6.0):
+    resolution: {integrity: sha512-XwZG608Rb4QDotdWeN9o9awQN9Ny8SoPMMS3RL3umRMSnRgOZBE8x50qIaCIzp8y0WFWUpJZ1/eUfbgT/UgLow==}
     peerDependencies:
       ember-animated: ^1.0.0
       ember-basic-dropdown: ^6.0.1

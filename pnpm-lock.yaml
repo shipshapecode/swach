@@ -381,8 +381,8 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
       electron-store:
-        specifier: ^8.1.0
-        version: 8.1.0
+        specifier: ^8.2.0
+        version: 8.2.0
       indexeddb-export-import:
         specifier: ^2.1.5
         version: 2.1.5
@@ -10832,8 +10832,8 @@ packages:
       - supports-color
     dev: false
 
-  /electron-store@8.1.0:
-    resolution: {integrity: sha512-2clHg/juMjOH0GT9cQ6qtmIvK183B39ZXR0bUoPwKwYHJsEF3quqyDzMFUAu+0OP8ijmN2CbPRAelhNbWUbzwA==}
+  /electron-store@8.2.0:
+    resolution: {integrity: sha512-ukLL5Bevdil6oieAOXz3CMy+OgaItMiVBg701MNlG6W5RaC0AHN7rvlqTCmeb6O7jP0Qa1KKYTE0xV0xbhF4Hw==}
     dependencies:
       conf: 10.2.0
       type-fest: 2.19.0

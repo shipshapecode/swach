@@ -403,8 +403,8 @@ importers:
         specifier: ^7.2.0
         version: 7.2.0
       '@electron-forge/maker-dmg':
-        specifier: ^7.2.0
-        version: 7.2.0
+        specifier: ^7.3.0
+        version: 7.3.0
       '@electron-forge/maker-snap':
         specifier: ^7.3.0
         version: 7.3.0
@@ -2940,12 +2940,12 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-dmg@7.2.0:
-    resolution: {integrity: sha512-hVCDWF2m2SOav0bHZygIwGy3aIWSgWgWiio+Ahoin4qQhtReXYwY2r+idBEBvTo4hnNuUVRHAS0IGVsIS/91AQ==}
+  /@electron-forge/maker-dmg@7.3.0:
+    resolution: {integrity: sha512-rSWBGANs1kXVQ9P8ZDPwXeF9WIwzXbWE9kjXvK4vMIxtAVF4bj/rjHa6fFAKqBuacXqSOY33r8tG09O38HAbMA==}
     engines: {node: '>= 16.4.0'}
     dependencies:
-      '@electron-forge/maker-base': 7.2.0
-      '@electron-forge/shared-types': 7.2.0
+      '@electron-forge/maker-base': 7.3.0
+      '@electron-forge/shared-types': 7.3.0
       fs-extra: 10.1.0
     optionalDependencies:
       electron-installer-dmg: 4.0.0

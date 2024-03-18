@@ -138,7 +138,7 @@
     "prettier-plugin-ember-template-tag": "^2.0.1",
     "qunit": "^2.20.1",
     "qunit-dom": "^3.0.0",
-    "release-it": "^16.3.0",
+    "release-it": "^17.1.1",
     "sinon": "^17.0.1",
     "stream-browserify": "^3.0.0",
     "stylelint": "^15.11.0",

@@ -177,8 +177,8 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0
       ember-cli-flash:
-        specifier: ^5.0.1
-        version: 5.0.1(@ember/string@3.1.1)(@embroider/macros@1.13.4)(ember-modifier@4.1.0)
+        specifier: ^5.1.0
+        version: 5.1.0(@ember/string@3.1.1)(@embroider/macros@1.13.4)(ember-modifier@4.1.0)
       ember-cli-htmlbars:
         specifier: ^6.3.0
         version: 6.3.0
@@ -11328,8 +11328,8 @@ packages:
       - supports-color
     dev: true
 
-  /ember-cli-flash@5.0.1(@ember/string@3.1.1)(@embroider/macros@1.13.4)(ember-modifier@4.1.0):
-    resolution: {integrity: sha512-19h5sO3ltW61XLn03baQ4uNgAa33AWUU8zCzAQbIH/x+ta/GhBvCwTCw7BuJ4FuoZL/WXNYzjBDguw5ff/QJbQ==}
+  /ember-cli-flash@5.1.0(@ember/string@3.1.1)(@embroider/macros@1.13.4)(ember-modifier@4.1.0):
+    resolution: {integrity: sha512-PvwPdXQ9mZdqgvNI/vh9Yij95ydedcOO8YYvWJcCqnk6ZoOO3a2mEVZmXltW1asztzp0AgFkGaOV0EPQDlDv1A==}
     peerDependencies:
       '@ember/string': '>= 3.0.0'
       '@embroider/macros': ^1.13.2

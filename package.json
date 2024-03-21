@@ -71,7 +71,7 @@
     "@types/sinon": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^6.21.0",
-    "aws4fetch": "^1.0.17",
+    "aws4fetch": "^1.0.18",
     "babel-preset-env": "^1.7.0",
     "broccoli-asset-rev": "^3.0.0",
     "color-name-list": "^10.20.2",

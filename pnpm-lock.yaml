@@ -63,8 +63,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2
       '@glint/core':
-        specifier: ^1.3.0
-        version: 1.3.0(typescript@5.4.2)
+        specifier: ^1.4.0
+        version: 1.4.0(typescript@5.4.2)
       '@glint/environment-ember-loose':
         specifier: ^1.3.0
         version: 1.3.0(@glimmer/component@1.1.2)(@glint/template@1.3.0)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.1.0)
@@ -2399,19 +2399,6 @@ packages:
       '@babel/helper-plugin-utils': 7.24.0
     dev: true
 
-  /@babel/plugin-transform-typescript@7.23.6(@babel/core@7.24.0):
-    resolution: {integrity: sha512-6cBG5mBvUu4VUD04OHKnYzbuHNP8huDsD3EDqqpIpsswTDoqHCjLoHb6+QgsV1WsT2nipRqCPgxD3LXnEO7XfA==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.24.0(supports-color@8.1.1)
-      '@babel/helper-annotate-as-pure': 7.22.5
-      '@babel/helper-create-class-features-plugin': 7.24.1(@babel/core@7.24.0)
-      '@babel/helper-plugin-utils': 7.24.0
-      '@babel/plugin-syntax-typescript': 7.23.3(@babel/core@7.24.0)
-    dev: true
-
   /@babel/plugin-transform-typescript@7.24.1(@babel/core@7.24.0):
     resolution: {integrity: sha512-liYSESjX2fZ7JyBFkYG78nfvHlMKE6IpNdTVnxmlYUR+j5ZLsitFbaAE+eJSK2zPPkNWNw4mXL51rQ8WrvdK0w==}
     engines: {node: '>=6.9.0'}
@@ -2622,7 +2609,7 @@ packages:
       '@babel/helper-validator-option': 7.23.5
       '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.24.0)
       '@babel/plugin-transform-modules-commonjs': 7.24.1(@babel/core@7.24.0)
-      '@babel/plugin-transform-typescript': 7.23.6(@babel/core@7.24.0)
+      '@babel/plugin-transform-typescript': 7.24.1(@babel/core@7.24.0)
     dev: true
 
   /@babel/register@7.22.15(@babel/core@7.24.0):
@@ -3983,8 +3970,8 @@ packages:
       '@glimmer/util': 0.87.1
     dev: true
 
-  /@glint/core@1.3.0(typescript@5.4.2):
-    resolution: {integrity: sha512-R5Y1QmkZs6lJHQ0LTRRcTKDI1EdeM32YuR2J67LG4qKT+WUNZhmetkqPiAMW9hQAOdrG/PqDZWV+J7Jf3xOlAg==}
+  /@glint/core@1.4.0(typescript@5.4.2):
+    resolution: {integrity: sha512-nq27a/1R6kc3lsuciz8z9IZO1NQCbNkEBxf5KJI7AUrnps6RzQzmq3pmwO24zQYmFcH4sqpod8fleNIpg8YEqg==}
     hasBin: true
     peerDependencies:
       typescript: '>=4.8.0'
@@ -4833,7 +4820,7 @@ packages:
       '@babel/plugin-transform-shorthand-properties': 7.24.1(@babel/core@7.24.0)
       '@babel/plugin-transform-spread': 7.24.1(@babel/core@7.24.0)
       '@babel/plugin-transform-sticky-regex': 7.24.1(@babel/core@7.24.0)
-      '@babel/plugin-transform-typescript': 7.23.6(@babel/core@7.24.0)
+      '@babel/plugin-transform-typescript': 7.24.1(@babel/core@7.24.0)
       '@babel/plugin-transform-unicode-regex': 7.24.1(@babel/core@7.24.0)
       '@babel/template': 7.24.0
       '@react-native/babel-plugin-codegen': 0.74.0(@babel/preset-env@7.24.1)

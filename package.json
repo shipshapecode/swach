@@ -149,7 +149,7 @@
     "tracked-built-ins": "^3.3.0",
     "typescript": "^5.4.2",
     "wcag-contrast": "^3.0.0",
-    "webpack": "^5.90.3"
+    "webpack": "^5.91.0"
   },
   "packageManager": "pnpm@8.14.1",
   "engines": {

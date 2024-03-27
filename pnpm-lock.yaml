@@ -418,8 +418,8 @@ importers:
         specifier: ^7.3.0
         version: 7.3.0
       '@sentry/cli':
-        specifier: ^2.28.6
-        version: 2.28.6
+        specifier: ^2.30.5
+        version: 2.30.5
       electron:
         specifier: ^28.2.2
         version: 28.2.2
@@ -2399,19 +2399,6 @@ packages:
       '@babel/helper-plugin-utils': 7.24.0
     dev: true
 
-  /@babel/plugin-transform-typescript@7.23.6(@babel/core@7.24.0):
-    resolution: {integrity: sha512-6cBG5mBvUu4VUD04OHKnYzbuHNP8huDsD3EDqqpIpsswTDoqHCjLoHb6+QgsV1WsT2nipRqCPgxD3LXnEO7XfA==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.24.0(supports-color@8.1.1)
-      '@babel/helper-annotate-as-pure': 7.22.5
-      '@babel/helper-create-class-features-plugin': 7.24.1(@babel/core@7.24.0)
-      '@babel/helper-plugin-utils': 7.24.0
-      '@babel/plugin-syntax-typescript': 7.23.3(@babel/core@7.24.0)
-    dev: true
-
   /@babel/plugin-transform-typescript@7.24.1(@babel/core@7.24.0):
     resolution: {integrity: sha512-liYSESjX2fZ7JyBFkYG78nfvHlMKE6IpNdTVnxmlYUR+j5ZLsitFbaAE+eJSK2zPPkNWNw4mXL51rQ8WrvdK0w==}
     engines: {node: '>=6.9.0'}
@@ -2622,7 +2609,7 @@ packages:
       '@babel/helper-validator-option': 7.23.5
       '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.24.0)
       '@babel/plugin-transform-modules-commonjs': 7.24.1(@babel/core@7.24.0)
-      '@babel/plugin-transform-typescript': 7.23.6(@babel/core@7.24.0)
+      '@babel/plugin-transform-typescript': 7.24.1(@babel/core@7.24.0)
     dev: true
 
   /@babel/register@7.22.15(@babel/core@7.24.0):
@@ -4833,7 +4820,7 @@ packages:
       '@babel/plugin-transform-shorthand-properties': 7.24.1(@babel/core@7.24.0)
       '@babel/plugin-transform-spread': 7.24.1(@babel/core@7.24.0)
       '@babel/plugin-transform-sticky-regex': 7.24.1(@babel/core@7.24.0)
-      '@babel/plugin-transform-typescript': 7.23.6(@babel/core@7.24.0)
+      '@babel/plugin-transform-typescript': 7.24.1(@babel/core@7.24.0)
       '@babel/plugin-transform-unicode-regex': 7.24.1(@babel/core@7.24.0)
       '@babel/template': 7.24.0
       '@react-native/babel-plugin-codegen': 0.74.0(@babel/preset-env@7.24.1)
@@ -5068,16 +5055,16 @@ packages:
       '@sentry/utils': 7.107.0
     dev: true
 
-  /@sentry/cli-darwin@2.28.6:
-    resolution: {integrity: sha512-KRf0VvTltHQ5gA7CdbUkaIp222LAk/f1+KqpDzO6nB/jC/tL4sfiy6YyM4uiH6IbVEudB8WpHCECiatmyAqMBA==}
+  /@sentry/cli-darwin@2.30.5:
+    resolution: {integrity: sha512-wr6Z4LlagaJuylngPWMN5+soMP+CjySFkDULYlo/pvX1KtZ669umGcFQXns58p5zdzDtT7bin9an84M95CoPDg==}
     engines: {node: '>=10'}
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /@sentry/cli-linux-arm64@2.28.6:
-    resolution: {integrity: sha512-caMDt37FI752n4/3pVltDjlrRlPFCOxK4PHvoZGQ3KFMsai0ZhE/0CLBUMQqfZf0M0r8KB2x7wqLm7xSELjefQ==}
+  /@sentry/cli-linux-arm64@2.30.5:
+    resolution: {integrity: sha512-HxS0+5QAmBmqFkNOONlXFayw+k17/I5l2ufQQxz8NqQHiS+Y7BsOCdFWpCH2O13Sqnuepb7DnqEvREOPRNpRwA==}
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [linux, freebsd]
@@ -5085,8 +5072,8 @@ packages:
     dev: true
     optional: true
 
-  /@sentry/cli-linux-arm@2.28.6:
-    resolution: {integrity: sha512-ANG7U47yEHD1g3JrfhpT4/MclEvmDZhctWgSP5gVw5X4AlcI87E6dTqccnLgvZjiIAQTaJJAZuSHVVF3Jk403w==}
+  /@sentry/cli-linux-arm@2.30.5:
+    resolution: {integrity: sha512-47bpvtAOal+/QqCCZcc6irsUpH6Bcq8PbpTnUZvIhB5EZJpr22gZ3JvgIypijW4MdAoBSLfZpWQFy0gvnhVkrA==}
     engines: {node: '>=10'}
     cpu: [arm]
     os: [linux, freebsd]
@@ -5094,8 +5081,8 @@ packages:
     dev: true
     optional: true
 
-  /@sentry/cli-linux-i686@2.28.6:
-    resolution: {integrity: sha512-Tj1+GMc6lFsDRquOqaGKXFpW9QbmNK4TSfynkWKiJxdTEn5jSMlXXfr0r9OQrxu3dCCqEHkhEyU63NYVpgxIPw==}
+  /@sentry/cli-linux-i686@2.30.5:
+    resolution: {integrity: sha512-r59EX0rOoVy6OURmozpU7wyj+ZIwNr3IQDWbFzoHsU8vENODpKQUXh954e9Oo1kCp+OWMY1z2mkUxOKnIaWzUQ==}
     engines: {node: '>=10'}
     cpu: [x86, ia32]
     os: [linux, freebsd]
@@ -5103,8 +5090,8 @@ packages:
     dev: true
     optional: true
 
-  /@sentry/cli-linux-x64@2.28.6:
-    resolution: {integrity: sha512-Dt/Xz784w/z3tEObfyJEMmRIzn0D5qoK53H9kZ6e0yNvJOSKNCSOq5cQk4n1/qeG0K/6SU9dirmvHwFUiVNyYg==}
+  /@sentry/cli-linux-x64@2.30.5:
+    resolution: {integrity: sha512-6o2TVkNNFuqjmG8a1i9ve5Oyjr6pLUB/Yui25iI+ud2N1mnT3euo9DwnnUJEBADVKBn5oFaC/XOktj1srbZw4w==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [linux, freebsd]
@@ -5112,8 +5099,8 @@ packages:
     dev: true
     optional: true
 
-  /@sentry/cli-win32-i686@2.28.6:
-    resolution: {integrity: sha512-zkpWtvY3kt+ogVaAbfFr2MEkgMMHJNJUnNMO8Ixce9gh38sybIkDkZNFnVPBXMClJV0APa4QH0EwumYBFZUMuQ==}
+  /@sentry/cli-win32-i686@2.30.5:
+    resolution: {integrity: sha512-VbNtNx3Lt2yyXIeWlMMK9yCzRysf4X24orh/HD4U5/TpQlqDhy20A17dU1/ClNL5CPYUnYJ7ig2u5g+YEpEs6g==}
     engines: {node: '>=10'}
     cpu: [x86, ia32]
     os: [win32]
@@ -5121,8 +5108,8 @@ packages:
     dev: true
     optional: true
 
-  /@sentry/cli-win32-x64@2.28.6:
-    resolution: {integrity: sha512-TG2YzZ9JMeNFzbicdr5fbtsusVGACbrEfHmPgzWGDeLUP90mZxiMTjkXsE1X/5jQEQjB2+fyfXloba/Ugo51hA==}
+  /@sentry/cli-win32-x64@2.30.5:
+    resolution: {integrity: sha512-IvYuRgxHpiZayr2su72Ul3/vC2dvUyDOdO7+h8en3JPauFHBm3/dY8RVoJZMdrF2/yJ3xxvFyVcGEc8+DparAQ==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [win32]
@@ -5130,8 +5117,8 @@ packages:
     dev: true
     optional: true
 
-  /@sentry/cli@2.28.6:
-    resolution: {integrity: sha512-o2Ngz7xXuhwHxMi+4BFgZ4qjkX0tdZeOSIZkFAGnTbRhQe5T8bxq6CcQRLdPhqMgqvDn7XuJ3YlFtD3ZjHvD7g==}
+  /@sentry/cli@2.30.5:
+    resolution: {integrity: sha512-gAVmp67yDkY2LKm1cLNl26ovr05IfAhDjjiDJqiKviKqHuPIktdePLGqiwsQi8zyxlOZf6eC7ClDPmvA7+jHMQ==}
     engines: {node: '>= 10'}
     hasBin: true
     requiresBuild: true
@@ -5142,13 +5129,13 @@ packages:
       proxy-from-env: 1.1.0
       which: 2.0.2
     optionalDependencies:
-      '@sentry/cli-darwin': 2.28.6
-      '@sentry/cli-linux-arm': 2.28.6
-      '@sentry/cli-linux-arm64': 2.28.6
-      '@sentry/cli-linux-i686': 2.28.6
-      '@sentry/cli-linux-x64': 2.28.6
-      '@sentry/cli-win32-i686': 2.28.6
-      '@sentry/cli-win32-x64': 2.28.6
+      '@sentry/cli-darwin': 2.30.5
+      '@sentry/cli-linux-arm': 2.30.5
+      '@sentry/cli-linux-arm64': 2.30.5
+      '@sentry/cli-linux-i686': 2.30.5
+      '@sentry/cli-linux-x64': 2.30.5
+      '@sentry/cli-win32-i686': 2.30.5
+      '@sentry/cli-win32-x64': 2.30.5
     transitivePeerDependencies:
       - encoding
       - supports-color

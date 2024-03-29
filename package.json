@@ -132,7 +132,7 @@
     "indexeddb-export-import": "^2.1.5",
     "loader.js": "^4.7.0",
     "nearest-color": "^0.4.4",
-    "postcss": "^8.4.35",
+    "postcss": "^8.4.38",
     "postcss-scss": "^4.0.9",
     "prettier": "^3.2.5",
     "prettier-plugin-ember-template-tag": "^2.0.1",

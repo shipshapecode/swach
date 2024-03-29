@@ -406,8 +406,8 @@ importers:
         specifier: ^7.3.0
         version: 7.3.0
       '@electron-forge/maker-snap':
-        specifier: ^7.3.0
-        version: 7.3.0
+        specifier: ^7.3.1
+        version: 7.3.1
       '@electron-forge/maker-squirrel':
         specifier: ^7.3.0
         version: 7.3.0
@@ -2989,12 +2989,12 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-snap@7.3.0:
-    resolution: {integrity: sha512-jymhjC2M5fCewmX+xK9BLF2eOy0rHrf9jDwfkhA7P4ReF5DNmE2oMq3rN3HnDfhnxPDGMxlyjVamHAf+j1m82g==}
+  /@electron-forge/maker-snap@7.3.1:
+    resolution: {integrity: sha512-yTqGXWpadBSGn0a3Hd8MWBnYBUDSdVdacbAjjxaXWWN5rPM/BYubFm32FEx2t17JTNRWqHJrY9fSerJtDml8SA==}
     engines: {node: '>= 16.4.0'}
     dependencies:
-      '@electron-forge/maker-base': 7.3.0
-      '@electron-forge/shared-types': 7.3.0
+      '@electron-forge/maker-base': 7.3.1
+      '@electron-forge/shared-types': 7.3.1
     optionalDependencies:
       electron-installer-snap: 5.2.0
     transitivePeerDependencies:

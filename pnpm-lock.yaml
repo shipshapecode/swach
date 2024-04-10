@@ -400,8 +400,8 @@ importers:
         specifier: ^7.3.1
         version: 7.3.1
       '@electron-forge/maker-deb':
-        specifier: ^7.3.0
-        version: 7.3.0
+        specifier: ^7.3.1
+        version: 7.3.1
       '@electron-forge/maker-dmg':
         specifier: ^7.3.1
         version: 7.3.1
@@ -2891,19 +2891,6 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-base@7.3.0:
-    resolution: {integrity: sha512-1o0YT1QBCf9oAfQNJmWQehn+DQp8mqaUbwaivNtIgTKRlzAVfD7UoAS7izuUqEW6M6NOvFXfCQjp7IgGckVVBg==}
-    engines: {node: '>= 16.4.0'}
-    dependencies:
-      '@electron-forge/shared-types': 7.3.0
-      fs-extra: 10.1.0
-      which: 2.0.2
-    transitivePeerDependencies:
-      - bluebird
-      - enquirer
-      - supports-color
-    dev: true
-
   /@electron-forge/maker-base@7.3.1:
     resolution: {integrity: sha512-FWQg2IIBodLh6ms6UvIRdQ4WiNUrUvlzUfIyKQ/DbMk9MUCxbzqY8YI76Uv5vna/rGdXf0lPOC48tpOgTREv/g==}
     engines: {node: '>= 16.4.0'}
@@ -2917,12 +2904,12 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-deb@7.3.0:
-    resolution: {integrity: sha512-rlTYjF18p1rVVzInr9kJPSwELvu2ycLp7qGi/Nrj91N2cS92D3z8l6UkQE6wvhsBMhhL0sOX+NyDhvzKoRsWNQ==}
+  /@electron-forge/maker-deb@7.3.1:
+    resolution: {integrity: sha512-A+UAxIcSsUoks9hiYoYHe3GIz02OkBBY7quVfiSUrYe2HXB7/++PsxOJ6pSwAFyJ9gzRBU+rSigocXOCFyvB8Q==}
     engines: {node: '>= 16.4.0'}
     dependencies:
-      '@electron-forge/maker-base': 7.3.0
-      '@electron-forge/shared-types': 7.3.0
+      '@electron-forge/maker-base': 7.3.1
+      '@electron-forge/shared-types': 7.3.1
     optionalDependencies:
       electron-installer-debian: 3.2.0
     transitivePeerDependencies:

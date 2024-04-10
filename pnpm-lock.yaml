@@ -388,7 +388,7 @@ importers:
         version: 2.1.5
       menubar:
         specifier: ^9.4.0
-        version: 9.4.0(electron@28.2.2)
+        version: 9.4.0(electron@29.2.0)
       throttle-debounce:
         specifier: ^5.0.0
         version: 5.0.0
@@ -421,8 +421,8 @@ importers:
         specifier: ^2.31.0
         version: 2.31.0
       electron:
-        specifier: ^28.2.2
-        version: 28.2.2
+        specifier: ^29.2.0
+        version: 29.2.0
       electron-debug:
         specifier: ^3.2.0
         version: 3.2.0
@@ -1870,16 +1870,6 @@ packages:
 
   /@babel/plugin-transform-block-scoped-functions@7.24.1(@babel/core@7.24.3):
     resolution: {integrity: sha512-TWWC18OShZutrv9C6mye1xwtam+uNi2bnTOCBUd5sZxyHOiWbU6ztSROofIMrK84uweEZC219POICK/sTYwfgg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.24.3(supports-color@8.1.1)
-      '@babel/helper-plugin-utils': 7.24.0
-    dev: true
-
-  /@babel/plugin-transform-block-scoping@7.24.1(@babel/core@7.24.3):
-    resolution: {integrity: sha512-h71T2QQvDgM2SmT29UYU6ozjMlAt7s7CSs5Hvy8f8cf/GM/Z4a2zMfN+fjVGaieeCrXR3EdQl6C4gQG+OgmbKw==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -4873,7 +4863,7 @@ packages:
       '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.3)
       '@babel/plugin-transform-arrow-functions': 7.24.1(@babel/core@7.24.3)
       '@babel/plugin-transform-async-to-generator': 7.24.1(@babel/core@7.24.3)
-      '@babel/plugin-transform-block-scoping': 7.24.1(@babel/core@7.24.3)
+      '@babel/plugin-transform-block-scoping': 7.24.4(@babel/core@7.24.3)
       '@babel/plugin-transform-classes': 7.24.1(@babel/core@7.24.3)
       '@babel/plugin-transform-computed-properties': 7.24.1(@babel/core@7.24.3)
       '@babel/plugin-transform-destructuring': 7.24.1(@babel/core@7.24.3)
@@ -5806,9 +5796,6 @@ packages:
   /@types/ms@0.7.34:
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
     dev: true
-
-  /@types/node@18.15.11:
-    resolution: {integrity: sha512-E5Kwq2n4SbMzQOn6wnmBjuK9ouqlURrcZDVfbo9ftDDTFt3nk7ZKK4GMOzoYgnpQJKcxwQw+lGaBvvlMo0qN/Q==}
 
   /@types/node@20.10.5:
     resolution: {integrity: sha512-nNPsNE65wjMxEKI93yOP+NPGGBJz/PoN3kZsVLee0XMiJolxSekEVD8wRwBUBqkwc7UWop0edW50yrCQW4CyRw==}
@@ -7699,7 +7686,7 @@ packages:
       '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.24.3)
       '@babel/plugin-transform-arrow-functions': 7.24.1(@babel/core@7.24.3)
       '@babel/plugin-transform-block-scoped-functions': 7.24.1(@babel/core@7.24.3)
-      '@babel/plugin-transform-block-scoping': 7.24.1(@babel/core@7.24.3)
+      '@babel/plugin-transform-block-scoping': 7.24.4(@babel/core@7.24.3)
       '@babel/plugin-transform-classes': 7.24.1(@babel/core@7.24.3)
       '@babel/plugin-transform-computed-properties': 7.24.1(@babel/core@7.24.3)
       '@babel/plugin-transform-destructuring': 7.24.1(@babel/core@7.24.3)
@@ -10842,14 +10829,14 @@ packages:
     dev: true
     optional: true
 
-  /electron@28.2.2:
-    resolution: {integrity: sha512-8UcvIGFcjplHdjPFNAHVFg5bS0atDyT3Zx21WwuE4iLfxcAMsyMEOgrQX3im5LibA8srwsUZs7Cx0JAUfcQRpw==}
+  /electron@29.2.0:
+    resolution: {integrity: sha512-ALKrCN52RG4g9prx4DriXSPnY5WoiyRUCNp7zEVQuoiNOpHTNqMMpRidQAHzntV4hajF1LMWHVoBkwqIs1jHhg==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
     requiresBuild: true
     dependencies:
       '@electron/get': 2.0.2
-      '@types/node': 18.15.11
+      '@types/node': 20.10.5
       extract-zip: 2.0.1
     transitivePeerDependencies:
       - supports-color
@@ -16595,12 +16582,12 @@ packages:
       readable-stream: 1.0.34
     dev: true
 
-  /menubar@9.4.0(electron@28.2.2):
+  /menubar@9.4.0(electron@29.2.0):
     resolution: {integrity: sha512-Zn2si5UXiWbdBZwFSsCyQ8xfaBKkeFYceNvjWATyMUreqv6gDMUvDkvZY/ZFf89DCfo9F0SrvygDOdpZuwoWgw==}
     peerDependencies:
       electron: ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0 || ^22.0.0 ||  ^23.0.0 || ^24.0.0 || ^25.0.0 || ^26.0.0 || ^27.0.0
     dependencies:
-      electron: 28.2.2
+      electron: 29.2.0
       electron-positioner: 4.1.0
     dev: false
 

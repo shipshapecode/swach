@@ -135,7 +135,7 @@
     "postcss": "^8.4.38",
     "postcss-scss": "^4.0.9",
     "prettier": "^3.2.5",
-    "prettier-plugin-ember-template-tag": "^2.0.1",
+    "prettier-plugin-ember-template-tag": "^2.0.2",
     "qunit": "^2.20.1",
     "qunit-dom": "^3.0.0",
     "release-it": "^16.3.0",

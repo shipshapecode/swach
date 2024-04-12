@@ -412,8 +412,8 @@ importers:
         specifier: ^7.3.1
         version: 7.3.1
       '@electron-forge/maker-zip':
-        specifier: ^7.3.1
-        version: 7.3.1
+        specifier: ^7.4.0
+        version: 7.4.0
       '@electron-forge/publisher-snapcraft':
         specifier: ^7.3.0
         version: 7.3.0
@@ -3003,18 +3003,17 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-zip@7.3.1:
-    resolution: {integrity: sha512-kH8M5gZnzO13rZIjzEPe+xLFZ0OrxLpJCrF64km2SksVCP8GKdWuD92z/vXZsyXfzQpa8mjHvqigzAB5R6mEiQ==}
+  /@electron-forge/maker-zip@7.4.0:
+    resolution: {integrity: sha512-UGbMdpuK/P29x1FFRWNOs3bNz+7QNFWVWyTM5hcWqib66cNuUmoaPifQyuwW2POIrIohrxlzLK87/i9Zc8g4dA==}
     engines: {node: '>= 16.4.0'}
     dependencies:
-      '@electron-forge/maker-base': 7.3.1
-      '@electron-forge/shared-types': 7.3.1
+      '@electron-forge/maker-base': 7.4.0
+      '@electron-forge/shared-types': 7.4.0
       cross-zip: 4.0.0
       fs-extra: 10.1.0
       got: 11.8.6
     transitivePeerDependencies:
       - bluebird
-      - enquirer
       - supports-color
     dev: true
 

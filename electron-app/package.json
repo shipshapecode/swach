@@ -38,7 +38,7 @@
     "@electron-forge/maker-dmg": "^7.3.1",
     "@electron-forge/maker-snap": "^7.3.1",
     "@electron-forge/maker-squirrel": "^7.3.1",
-    "@electron-forge/maker-zip": "^7.3.1",
+    "@electron-forge/maker-zip": "^7.4.0",
     "@electron-forge/publisher-snapcraft": "^7.3.0",
     "@sentry/cli": "^2.31.0",
     "electron": "^28.2.2",

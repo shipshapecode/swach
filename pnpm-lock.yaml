@@ -403,8 +403,8 @@ importers:
         specifier: ^7.3.1
         version: 7.3.1
       '@electron-forge/maker-dmg':
-        specifier: ^7.3.1
-        version: 7.3.1
+        specifier: ^7.4.0
+        version: 7.4.0
       '@electron-forge/maker-snap':
         specifier: ^7.4.0
         version: 7.4.0
@@ -2960,18 +2960,17 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-dmg@7.3.1:
-    resolution: {integrity: sha512-WtrYLWrImmb11AJbHFBvmp8ywJQBPhneuVrjQXAYGZAxjCe1WfLEv5e5xEcpCvtOZkmw78QdnauuWXDhR+xn6Q==}
+  /@electron-forge/maker-dmg@7.4.0:
+    resolution: {integrity: sha512-xRCMNtnpvQNwrDYvwbVFegnErnIMpHGZANrjwushlH9+Fsu60DFvf5s3AVkgsYdQTqlY7wYRG1mziYZmRlPAIw==}
     engines: {node: '>= 16.4.0'}
     dependencies:
-      '@electron-forge/maker-base': 7.3.1
-      '@electron-forge/shared-types': 7.3.1
+      '@electron-forge/maker-base': 7.4.0
+      '@electron-forge/shared-types': 7.4.0
       fs-extra: 10.1.0
     optionalDependencies:
       electron-installer-dmg: 4.0.0
     transitivePeerDependencies:
       - bluebird
-      - enquirer
       - supports-color
     dev: true
 
@@ -3083,7 +3082,7 @@ packages:
     engines: {node: '>= 16.4.0'}
     dependencies:
       '@electron-forge/tracer': 7.3.1
-      '@electron/packager': 18.1.3
+      '@electron/packager': 18.3.2
       '@electron/rebuild': 3.4.1
       listr2: 5.0.8
     transitivePeerDependencies:
@@ -3258,35 +3257,6 @@ packages:
       isbinaryfile: 4.0.10
       minimist: 1.2.8
       plist: 3.1.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /@electron/packager@18.1.3:
-    resolution: {integrity: sha512-21T5MxUf7DwV07IIes3jO/571mXCjOGVPdmYJFPCVDTimFiHQSW0Oy+OIGQaKBiNIXfnP29KylsCQbmds6O6Iw==}
-    engines: {node: '>= 16.13.0'}
-    hasBin: true
-    dependencies:
-      '@electron/asar': 3.2.8
-      '@electron/get': 3.0.0
-      '@electron/notarize': 2.2.0
-      '@electron/osx-sign': 1.0.5
-      '@electron/universal': 2.0.1
-      '@electron/windows-sign': 1.1.2
-      cross-spawn-windows-exe: 1.2.0
-      debug: 4.3.4(supports-color@8.1.1)
-      extract-zip: 2.0.1
-      filenamify: 4.3.0
-      fs-extra: 11.2.0
-      galactus: 1.0.0
-      get-package-info: 1.0.0
-      junk: 3.1.0
-      parse-author: 2.0.0
-      plist: 3.1.0
-      rcedit: 4.0.1
-      resolve: 1.22.8
-      semver: 7.5.4
-      yargs-parser: 21.1.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4360,9 +4330,11 @@ packages:
   /@malept/cross-spawn-promise@1.1.1:
     resolution: {integrity: sha512-RTBGWL5FWQcg9orDOCcp4LvItNzUPcyEU9bwaeJX0rJ1IQxzucC48Y0/sQLp/g6t99IQgAlGIaesJS+gTn7tVQ==}
     engines: {node: '>= 10'}
+    requiresBuild: true
     dependencies:
       cross-spawn: 7.0.3
     dev: true
+    optional: true
 
   /@malept/cross-spawn-promise@2.0.0:
     resolution: {integrity: sha512-1DpKU0Z5ThltBwjNySMC14g0CkbyhCaz9FkhxqNsZI6uAPJXFS8cMXlBKo26FJ8ZuW6S9GCMcR9IO5k2X5/9Fg==}
@@ -9504,10 +9476,6 @@ packages:
     resolution: {integrity: sha512-Y2oEozpomLn7Q3HFP7dpww7AtMJplbM9lGZP6RDfHqmbeRjiwRg4n6VM6j4KLmRke85uWEI7JqF17f3pqdRA0g==}
     dev: true
 
-  /colorette@2.0.19:
-    resolution: {integrity: sha512-3tlv/dIP7FWvj3BsbHrGLJ6l/oKh1O3TcgBqMn+yyCagOxc23fyzDS6HypQbgxWbkpDnf52p1LuR4eWDQ/K9WQ==}
-    dev: true
-
   /colorette@2.0.20:
     resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==}
     dev: true
@@ -10048,15 +10016,6 @@ packages:
   /cross-dirname@0.1.0:
     resolution: {integrity: sha512-+R08/oI0nl3vfPcqftZRpytksBXDzOUveBq/NBVx0sUp1axwzPQrKinNx5yd5sxPu8j1wIy8AfnVQ+5eFdha6Q==}
     requiresBuild: true
-    dev: true
-
-  /cross-spawn-windows-exe@1.2.0:
-    resolution: {integrity: sha512-mkLtJJcYbDCxEG7Js6eUnUNndWjyUZwJ3H7bErmmtOYU/Zb99DyUkpamuIZE0b3bhmJyZ7D90uS6f+CGxRRjOw==}
-    engines: {node: '>= 10'}
-    dependencies:
-      '@malept/cross-spawn-promise': 1.1.1
-      is-wsl: 2.2.0
-      which: 2.0.2
     dev: true
 
   /cross-spawn@6.0.5:
@@ -16016,7 +15975,7 @@ packages:
         optional: true
     dependencies:
       cli-truncate: 2.1.0
-      colorette: 2.0.19
+      colorette: 2.0.20
       log-update: 4.0.0
       p-map: 4.0.0
       rfdc: 1.3.0
@@ -19174,13 +19133,6 @@ packages:
       ini: 1.3.8
       minimist: 1.2.8
       strip-json-comments: 2.0.1
-    dev: true
-
-  /rcedit@4.0.1:
-    resolution: {integrity: sha512-bZdaQi34krFWhrDn+O53ccBDw0MkAT2Vhu75SqhtvhQu4OPyFM4RoVheyYiVQYdjhUi6EJMVWQ0tR6bCIYVkUg==}
-    engines: {node: '>= 14.0.0'}
-    dependencies:
-      cross-spawn-windows-exe: 1.2.0
     dev: true
 
   /react-devtools-core@4.28.5:

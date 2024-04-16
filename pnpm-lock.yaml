@@ -213,8 +213,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       ember-electron:
-        specifier: ^6.0.0
-        version: 6.0.0(@babel/core@7.24.3)(ember-cli-dependency-checker@3.3.2)(ember-cli@5.2.0)(ember-source@5.7.0)
+        specifier: ^7.0.0
+        version: 7.0.0(ember-cli-dependency-checker@3.3.2)(ember-cli@5.2.0)(ember-source@5.7.0)
       ember-element-helper:
         specifier: ^0.8.6
         version: 0.8.6(@glint/environment-ember-loose@1.4.0)(@glint/template@1.4.0)(ember-source@5.7.0)
@@ -11699,14 +11699,15 @@ packages:
       - supports-color
     dev: true
 
-  /ember-electron@6.0.0(@babel/core@7.24.3)(ember-cli-dependency-checker@3.3.2)(ember-cli@5.2.0)(ember-source@5.7.0):
-    resolution: {integrity: sha512-+vS5K+EYUo3XzClvPR83IECwwqda2rKymPfzCYnYbrzgqVPXFgtL/REh2PZNPrv1VB3UKLROfKeRtF/o/h6bXw==}
+  /ember-electron@7.0.0(ember-cli-dependency-checker@3.3.2)(ember-cli@5.2.0)(ember-source@5.7.0):
+    resolution: {integrity: sha512-GO8Kju74otgYERWsvlHQdVfeFrkReBWscx6TqngTB8o6XmYDkhv9oUpWJqExZ21/4q0wwg55CqOL9zPkFOzxqQ==}
     engines: {node: '>= 18'}
     peerDependencies:
       ember-cli: '>= 3.4.0'
       ember-cli-dependency-checker: '>= 3.1.0'
       ember-source: '>= 4.0.0'
     dependencies:
+      '@babel/core': 7.24.3(supports-color@8.1.1)
       '@electron-forge/core': 7.3.1
       chalk: 4.1.2
       debug: 4.3.4(supports-color@8.1.1)
@@ -11722,7 +11723,6 @@ packages:
       silent-error: 1.1.1
       tree-kill: 1.2.2
     transitivePeerDependencies:
-      - '@babel/core'
       - bluebird
       - encoding
       - enquirer

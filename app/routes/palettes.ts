@@ -7,6 +7,7 @@ import type { LiveQuery, Store } from 'ember-orbit';
 import type Session from 'ember-simple-auth/services/session';
 
 import type { SettingsStorage } from 'swach/storages/settings';
+import viewTransitions from 'swach/utils/view-transitions';
 
 export default class PalettesRoute extends Route {
   @service declare session: Session;
@@ -27,5 +28,9 @@ export default class PalettesRoute extends Route {
         .filter({ attribute: 'isColorHistory', value: false })
         .sort('index'),
     );
+  }
+
+  async afterModel() {
+    await viewTransitions();
   }
 }

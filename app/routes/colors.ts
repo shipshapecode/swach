@@ -8,6 +8,7 @@ import type Session from 'ember-simple-auth/services/session';
 
 import type PaletteModel from 'swach/data-models/palette';
 import type { SettingsStorage } from 'swach/storages/settings';
+import viewTransitions from 'swach/utils/view-transitions';
 
 export default class ColorsRoute extends Route {
   queryParams = {
@@ -37,5 +38,9 @@ export default class ColorsRoute extends Route {
 
       return <PaletteModel>palette;
     }
+  }
+
+  async afterModel() {
+    await viewTransitions();
   }
 }

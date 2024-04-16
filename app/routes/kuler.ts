@@ -8,6 +8,7 @@ import type Session from 'ember-simple-auth/services/session';
 
 import type ColorModel from 'swach/data-models/color';
 import type { SettingsStorage } from 'swach/storages/settings';
+import viewTransitions from 'swach/utils/view-transitions';
 
 export default class KulerRoute extends Route {
   queryParams = {
@@ -37,5 +38,9 @@ export default class KulerRoute extends Route {
 
       return <ColorModel>color;
     }
+  }
+
+  async afterModel() {
+    await viewTransitions();
   }
 }

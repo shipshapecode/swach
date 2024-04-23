@@ -400,8 +400,8 @@ importers:
         specifier: ^7.3.1
         version: 7.3.1
       '@electron-forge/maker-deb':
-        specifier: ^7.3.1
-        version: 7.3.1
+        specifier: ^7.4.0
+        version: 7.4.0
       '@electron-forge/maker-dmg':
         specifier: ^7.4.0
         version: 7.4.0
@@ -2946,17 +2946,16 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-deb@7.3.1:
-    resolution: {integrity: sha512-A+UAxIcSsUoks9hiYoYHe3GIz02OkBBY7quVfiSUrYe2HXB7/++PsxOJ6pSwAFyJ9gzRBU+rSigocXOCFyvB8Q==}
+  /@electron-forge/maker-deb@7.4.0:
+    resolution: {integrity: sha512-npWea3IpGeu96xNqJpsCOYX6V4E+HY6u/okeTUzUOMX96UteT14MecdUefMam158glRTX84k2ryh7WcBoOa4mg==}
     engines: {node: '>= 16.4.0'}
     dependencies:
-      '@electron-forge/maker-base': 7.3.1
-      '@electron-forge/shared-types': 7.3.1
+      '@electron-forge/maker-base': 7.4.0
+      '@electron-forge/shared-types': 7.4.0
     optionalDependencies:
       electron-installer-debian: 3.2.0
     transitivePeerDependencies:
       - bluebird
-      - enquirer
       - supports-color
     dev: true
 

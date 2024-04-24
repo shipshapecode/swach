@@ -74,7 +74,7 @@
     "aws4fetch": "^1.0.18",
     "babel-preset-env": "^1.7.0",
     "broccoli-asset-rev": "^3.0.0",
-    "color-name-list": "^10.20.2",
+    "color-name-list": "^10.22.0",
     "concurrently": "^8.2.2",
     "crypto-browserify": "^3.12.0",
     "ember-animated": "^2.0.1",

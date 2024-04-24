@@ -138,8 +138,8 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0
       color-name-list:
-        specifier: ^10.20.2
-        version: 10.20.2
+        specifier: ^10.22.0
+        version: 10.22.0
       concurrently:
         specifier: ^8.2.2
         version: 8.2.2
@@ -9423,8 +9423,8 @@ packages:
       color-name: 1.1.4
     dev: true
 
-  /color-name-list@10.20.2:
-    resolution: {integrity: sha512-XetNv2ZiMs9vBpOT29PNuRUWlu4bJlSmsjMImUGA9EZRzXgIr3yABHXyRPP0z15shb8Xg1oGlDl0EPLgF0BPZQ==}
+  /color-name-list@10.22.0:
+    resolution: {integrity: sha512-vE47W0SvgmCa39Ws8W4nb+CZ5Vqt5gfKIzehgsGBV1Ob/zan6z4SBm2aUq1ELdt4LWxWaVlJgOETno8GL8Wtyg==}
     engines: {node: '>=16', npm: '>=8.11.0'}
     dev: true
 

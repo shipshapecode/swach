@@ -409,8 +409,8 @@ importers:
         specifier: ^7.4.0
         version: 7.4.0
       '@electron-forge/maker-squirrel':
-        specifier: ^7.3.1
-        version: 7.3.1
+        specifier: ^7.4.0
+        version: 7.4.0
       '@electron-forge/maker-zip':
         specifier: ^7.4.0
         version: 7.4.0
@@ -3065,18 +3065,17 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-squirrel@7.3.1:
-    resolution: {integrity: sha512-eUOTdt5KTt/kWl1HIQHBOvlJbrhqVeXMiPwSXffVWWWJb+h+ckFdQmu1jtQySWKcgj7ZkbP1j+0uQFm82Nb5gQ==}
+  /@electron-forge/maker-squirrel@7.4.0:
+    resolution: {integrity: sha512-mCQyufnSNfjffiKho59ZqVg4W601zGOl6h01OyfDwjOU/G4iQtpnnDEOXGe26q7OVT5ORb1WDnfyGgBeJ6Ge7g==}
     engines: {node: '>= 16.4.0'}
     dependencies:
-      '@electron-forge/maker-base': 7.3.1
-      '@electron-forge/shared-types': 7.3.1
+      '@electron-forge/maker-base': 7.4.0
+      '@electron-forge/shared-types': 7.4.0
       fs-extra: 10.1.0
     optionalDependencies:
       electron-winstaller: 5.3.0
     transitivePeerDependencies:
       - bluebird
-      - enquirer
       - supports-color
     dev: true
 

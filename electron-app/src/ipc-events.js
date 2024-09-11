@@ -4,7 +4,6 @@ const fs = require('fs');
 
 const { launchPicker } = require('./color-picker');
 const { restartDialog } = require('./dialogs');
-const { setTouchbar } = require('./touchbar');
 
 function setupEventHandlers(mb, store) {
   ipcMain.on('copyColorToClipboard', (channel, color) => {
@@ -64,10 +63,6 @@ function setupEventHandlers(mb, store) {
 
   ipcMain.on('launchPicker', async () => {
     await launchPicker(mb);
-  });
-
-  ipcMain.on('setTouchbar', (event, itemsToShow) => {
-    setTouchbar(mb, itemsToShow);
   });
 
   ipcMain.on('setShowDockIcon', async (channel, showDockIcon) => {

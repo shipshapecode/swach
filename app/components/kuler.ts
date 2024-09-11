@@ -74,8 +74,6 @@ export default class KulerComponent extends Component<KulerSignature> {
 
         this.ipcRenderer = ipcRenderer;
 
-        this._updateTouchbar();
-
         this.ipcRenderer.on(
           'selectKulerColor',
           async (_event: unknown, colorIndex: number) => {
@@ -174,8 +172,6 @@ export default class KulerComponent extends Component<KulerSignature> {
         this.selectedPalette.colors.mapBy('hex'),
         palette.selectedColorIndex,
       );
-
-      this._updateTouchbar();
     }
   }
 
@@ -206,8 +202,6 @@ export default class KulerComponent extends Component<KulerSignature> {
       this.selectedPalette.colors.mapBy('hex'),
       this.selectedPalette.selectedColorIndex,
     );
-
-    this._updateTouchbar();
   }
 
   @action
@@ -264,20 +258,6 @@ export default class KulerComponent extends Component<KulerSignature> {
 
     this.colorPicker.on('color:change', this._debouncedColorChange);
     this.colorPicker.on('color:setActive', this._onColorSetActive);
-  }
-
-  @action
-  _updateTouchbar(): void {
-    if (this.ipcRenderer) {
-      const itemsToShow = {
-        colorPicker: true,
-        kulerColors: {
-          colors: this.selectedPalette.colors,
-        },
-      };
-
-      this.ipcRenderer.send('setTouchbar', itemsToShow);
-    }
   }
 }
 

@@ -234,8 +234,8 @@ importers:
         specifier: ^2.1.2
         version: 2.1.2(@babel/core@7.26.0)
       ember-local-storage:
-        specifier: ^2.0.7
-        version: 2.0.7(@babel/core@7.26.0)
+        specifier: 2.0.6
+        version: 2.0.6
       ember-math-helpers:
         specifier: ^4.0.0
         version: 4.0.0(ember-source@5.12.0)
@@ -11598,18 +11598,6 @@ packages:
       - supports-color
     dev: true
 
-  /ember-destroyable-polyfill@2.0.3(@babel/core@7.26.0):
-    resolution: {integrity: sha512-TovtNqCumzyAiW0/OisSkkVK93xnVF4NRU6+FN0ubpfwEOpRrmM2RqDwXI6YAChCgSHON1cz0DfQStpA1Gjuuw==}
-    engines: {node: 10.* || >= 12}
-    dependencies:
-      ember-cli-babel: 7.26.11
-      ember-cli-version-checker: 5.1.2
-      ember-compatibility-helpers: 1.2.7(@babel/core@7.26.0)
-    transitivePeerDependencies:
-      - '@babel/core'
-      - supports-color
-    dev: true
-
   /ember-drag-sort@3.0.1:
     resolution: {integrity: sha512-yVCS+OjRBQUv18kZ8Uq8fQXxCqtFYB+oC4Vlm3WBICgNztL9nxeup/UnQddm1RIoosCeuFruLvPXPAiSXW5KWw==}
     engines: {node: '>= 12.*'}
@@ -11762,8 +11750,8 @@ packages:
       - supports-color
     dev: true
 
-  /ember-local-storage@2.0.7(@babel/core@7.26.0):
-    resolution: {integrity: sha512-EPvxH/27mIzrX/EEgng+FG6HD0ri/God9OH/9mhmgPSXrgMNq/614Z3NMnooM4QKIEBAvr0p+p1UL2DgrTTMNg==}
+  /ember-local-storage@2.0.6:
+    resolution: {integrity: sha512-SrC147cA726m1ho00PVtYqEz7xib4+0JJQbN6A2E3Dvrv2JnmwBK7Oexslu3GkHLvTGwry2bzQ0ySFSz2RObBw==}
     engines: {node: 12.* || 14.* || >= 16}
     dependencies:
       blob-polyfill: 7.0.20220408
@@ -11774,9 +11762,7 @@ packages:
       ember-cli-string-utils: 1.1.0
       ember-cli-version-checker: 5.1.2
       ember-copy: 2.0.1
-      ember-destroyable-polyfill: 2.0.3(@babel/core@7.26.0)
     transitivePeerDependencies:
-      - '@babel/core'
       - supports-color
     dev: true
 
@@ -13664,6 +13650,7 @@ packages:
   /fs-xattr@0.3.1:
     resolution: {integrity: sha512-UVqkrEW0GfDabw4C3HOrFlxKfx0eeigfRne69FxSBdHIP8Qt5Sq6Pu3RM9KmMlkygtC4pPKkj5CiPO5USnj2GA==}
     engines: {node: '>=8.6.0'}
+    os: ['!win32']
     requiresBuild: true
     dev: true
     optional: true
@@ -16359,6 +16346,7 @@ packages:
 
   /macos-alias@0.2.11:
     resolution: {integrity: sha512-zIUs3+qpml+w3wiRuADutd7XIO8UABqksot10Utl/tji4UxZzLG4fWDC+yJZoO8/Ehg5RqsvSRE/6TS5AEOeWw==}
+    os: [darwin]
     requiresBuild: true
     dependencies:
       nan: 2.22.0

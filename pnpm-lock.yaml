@@ -387,8 +387,8 @@ importers:
         specifier: ^2.1.5
         version: 2.1.5
       menubar:
-        specifier: ^9.5.0
-        version: 9.5.0(electron@28.3.3)
+        specifier: ^9.5.1
+        version: 9.5.1(electron@33.2.1)
       throttle-debounce:
         specifier: ^5.0.2
         version: 5.0.2
@@ -403,11 +403,11 @@ importers:
         specifier: ^7.6.0
         version: 7.6.0
       '@electron-forge/maker-dmg':
-        specifier: ^7.5.0
-        version: 7.5.0
+        specifier: ^7.6.0
+        version: 7.6.0
       '@electron-forge/maker-snap':
-        specifier: ^7.4.0
-        version: 7.4.0
+        specifier: ^7.6.0
+        version: 7.6.0
       '@electron-forge/maker-squirrel':
         specifier: ^7.6.0
         version: 7.6.0
@@ -415,14 +415,14 @@ importers:
         specifier: ^7.6.0
         version: 7.6.0
       '@electron-forge/publisher-snapcraft':
-        specifier: ^7.4.0
-        version: 7.4.0
+        specifier: ^7.6.0
+        version: 7.6.0
       '@sentry/cli':
         specifier: ^2.39.1
         version: 2.39.1
       electron:
-        specifier: ^28.3.3
-        version: 28.3.3
+        specifier: ^33.2.1
+        version: 33.2.1
       electron-debug:
         specifier: ^3.2.0
         version: 3.2.0
@@ -2769,30 +2769,6 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-base@7.4.0:
-    resolution: {integrity: sha512-LwWS4VPdwjISl1KpLhmM1Qr1M3sRTTQ/RsX+GlFd7cQ1W/FsgxMjaTG4Od1d+a5CGVTh3s6X2g99TSUfxjOveg==}
-    engines: {node: '>= 16.4.0'}
-    dependencies:
-      '@electron-forge/shared-types': 7.4.0
-      fs-extra: 10.1.0
-      which: 2.0.2
-    transitivePeerDependencies:
-      - bluebird
-      - supports-color
-    dev: true
-
-  /@electron-forge/maker-base@7.5.0:
-    resolution: {integrity: sha512-+jluKW2UPxaI1+qQQ8fqaUVVbZohRjOSF0Iti7STRFbgJKJitzPB24Cjji9qJCKIx5klMeEiwp0YPAE/d9Xt8g==}
-    engines: {node: '>= 16.4.0'}
-    dependencies:
-      '@electron-forge/shared-types': 7.5.0
-      fs-extra: 10.1.0
-      which: 2.0.2
-    transitivePeerDependencies:
-      - bluebird
-      - supports-color
-    dev: true
-
   /@electron-forge/maker-base@7.6.0:
     resolution: {integrity: sha512-GrVYhiA/g0NXrI13LcXrT+JKLlq8kkYyO6w0jQORqDFeRSLRoLhrru5w0msg0wINGugBe+/NwyAyFZ2KaQ6o4g==}
     engines: {node: '>= 16.4.0'}
@@ -2818,12 +2794,12 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-dmg@7.5.0:
-    resolution: {integrity: sha512-OcySukBT6FQJRbb0CKXnre4e0JinJfDGteCOLypB8UsN5Wg/4lIDB0hMhBmWGPJkZXKUDGkB1lhkdcLKbzT50Q==}
+  /@electron-forge/maker-dmg@7.6.0:
+    resolution: {integrity: sha512-Wa4XG9r4RldF5uy7vef5/BR8o/P+BmltZIbZulnFwhOYEu4Quj+SDF1bet7y3tM2i1am/sEocFcBHXC7CRk8xg==}
     engines: {node: '>= 16.4.0'}
     dependencies:
-      '@electron-forge/maker-base': 7.5.0
-      '@electron-forge/shared-types': 7.5.0
+      '@electron-forge/maker-base': 7.6.0
+      '@electron-forge/shared-types': 7.6.0
       fs-extra: 10.1.0
     optionalDependencies:
       electron-installer-dmg: 5.0.1
@@ -2832,12 +2808,12 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/maker-snap@7.4.0:
-    resolution: {integrity: sha512-jw1592fm5/xJ0h+gFc2H6Q6IsARQ/hWRk7gbb3DtLf27C5u+zl1TQlaYb+zK9TRYINS2cWE5E6sj1imlIGWiqA==}
+  /@electron-forge/maker-snap@7.6.0:
+    resolution: {integrity: sha512-4GTHA9XkdKWauMkJ4bXrQOx+vUlbwn3Ao524nS/fOT40BPb1/QFdFPheNnAr0SsGKuGbKuQ0W/Y22+6s5EkSQw==}
     engines: {node: '>= 16.4.0'}
     dependencies:
-      '@electron-forge/maker-base': 7.4.0
-      '@electron-forge/shared-types': 7.4.0
+      '@electron-forge/maker-base': 7.6.0
+      '@electron-forge/shared-types': 7.6.0
     optionalDependencies:
       electron-installer-snap: 5.2.0
     transitivePeerDependencies:
@@ -2883,16 +2859,6 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/publisher-base@7.4.0:
-    resolution: {integrity: sha512-PiJk4RfaC55SnVnteLW2ZIQNM9DpGOi6YoUn5t8i9UcVp2rFIdya7bJY/b9u1hwubm4d5+TdypMVEuJjM44CJQ==}
-    engines: {node: '>= 16.4.0'}
-    dependencies:
-      '@electron-forge/shared-types': 7.4.0
-    transitivePeerDependencies:
-      - bluebird
-      - supports-color
-    dev: true
-
   /@electron-forge/publisher-base@7.6.0:
     resolution: {integrity: sha512-IL9bbIb/4J4I1bfW53RAmE/Al835XJsOwFXTLUnxnaGtbWg5jz7eiyw9Vl8XvvfHN1Dpoa9f94to8keU2MXgDg==}
     engines: {node: '>= 16.4.0'}
@@ -2903,40 +2869,14 @@ packages:
       - supports-color
     dev: true
 
-  /@electron-forge/publisher-snapcraft@7.4.0:
-    resolution: {integrity: sha512-/Vdqv5bFZ0gjLmuyNArFVFfXQpNWVTeX+fpN5687d1BgnjjdOc8sp2TZN0z27sGuqw2+I+e5lDWcWRyaET9Ahw==}
+  /@electron-forge/publisher-snapcraft@7.6.0:
+    resolution: {integrity: sha512-J7q26gu3jrA7APmWlHJKQAQw2mWqSRIX3V470u4ozTJZ95/uhdEuex1nztcYqfRF6Z1FuK4vdOCuw8Oo91+Yxg==}
     engines: {node: '>= 16.4.0'}
     dependencies:
-      '@electron-forge/publisher-base': 7.4.0
+      '@electron-forge/publisher-base': 7.6.0
       fs-extra: 10.1.0
     optionalDependencies:
       electron-installer-snap: 5.2.0
-    transitivePeerDependencies:
-      - bluebird
-      - supports-color
-    dev: true
-
-  /@electron-forge/shared-types@7.4.0:
-    resolution: {integrity: sha512-5Ehy6enUjBaU08odf9u9TOhmOVXlqobzMvKUixtkdAWgV1XZAUJmn+p21xhj0IkO92MQiXMGv66w9pDNjRT8uQ==}
-    engines: {node: '>= 16.4.0'}
-    dependencies:
-      '@electron-forge/tracer': 7.4.0
-      '@electron/packager': 18.3.6
-      '@electron/rebuild': 3.7.1
-      listr2: 7.0.2
-    transitivePeerDependencies:
-      - bluebird
-      - supports-color
-    dev: true
-
-  /@electron-forge/shared-types@7.5.0:
-    resolution: {integrity: sha512-VXuLVGYa3ZulBlmjA40ZEpk+iPH5ebN0v7t27wDt3rm23bph2aQrL7uSTLXhobenXYBVKggXnQt6rJ9A7FCDNQ==}
-    engines: {node: '>= 16.4.0'}
-    dependencies:
-      '@electron-forge/tracer': 7.5.0
-      '@electron/packager': 18.3.6
-      '@electron/rebuild': 3.7.1
-      listr2: 7.0.2
     transitivePeerDependencies:
       - bluebird
       - supports-color
@@ -3015,20 +2955,6 @@ packages:
     transitivePeerDependencies:
       - bluebird
       - supports-color
-    dev: true
-
-  /@electron-forge/tracer@7.4.0:
-    resolution: {integrity: sha512-F4jbnDn4yIZjmky1FZ6rgBKTM05AZQQfHkyJW2hdS4pDKJjdKAqWytoZKDi1/S6Cr6tN+DD0TFGD3V0i6HPHYQ==}
-    engines: {node: '>= 14.17.5'}
-    dependencies:
-      chrome-trace-event: 1.0.4
-    dev: true
-
-  /@electron-forge/tracer@7.5.0:
-    resolution: {integrity: sha512-1dE0wKCmv/K3BXCH70o2jp/y2kXgZQm73gIvzyadySXYwu2L4BWxhAO+Q+JsnbUk+nclHEup5ph4D0JoPIWLcQ==}
-    engines: {node: '>= 14.17.5'}
-    dependencies:
-      chrome-trace-event: 1.0.4
     dev: true
 
   /@electron-forge/tracer@7.6.0:
@@ -4507,6 +4433,8 @@ packages:
   /@parcel/watcher-android-arm64@2.5.0:
     resolution: {integrity: sha512-qlX4eS28bUcQCdribHkg/herLe+0A9RyYC+mm2PXpncit8z5b3nSqGVzMNR3CmtAOgRutiZ02eIJJgP/b1iEFQ==}
     engines: {node: '>= 10.0.0'}
+    cpu: [arm64]
+    os: [android]
     requiresBuild: true
     dev: true
     optional: true
@@ -4514,6 +4442,8 @@ packages:
   /@parcel/watcher-darwin-arm64@2.5.0:
     resolution: {integrity: sha512-hyZ3TANnzGfLpRA2s/4U1kbw2ZI4qGxaRJbBH2DCSREFfubMswheh8TeiC1sGZ3z2jUf3s37P0BBlrD3sjVTUw==}
     engines: {node: '>= 10.0.0'}
+    cpu: [arm64]
+    os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
@@ -4521,6 +4451,8 @@ packages:
   /@parcel/watcher-darwin-x64@2.5.0:
     resolution: {integrity: sha512-9rhlwd78saKf18fT869/poydQK8YqlU26TMiNg7AIu7eBp9adqbJZqmdFOsbZ5cnLp5XvRo9wcFmNHgHdWaGYA==}
     engines: {node: '>= 10.0.0'}
+    cpu: [x64]
+    os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
@@ -4528,6 +4460,8 @@ packages:
   /@parcel/watcher-freebsd-x64@2.5.0:
     resolution: {integrity: sha512-syvfhZzyM8kErg3VF0xpV8dixJ+RzbUaaGaeb7uDuz0D3FK97/mZ5AJQ3XNnDsXX7KkFNtyQyFrXZzQIcN49Tw==}
     engines: {node: '>= 10.0.0'}
+    cpu: [x64]
+    os: [freebsd]
     requiresBuild: true
     dev: true
     optional: true
@@ -4535,6 +4469,8 @@ packages:
   /@parcel/watcher-linux-arm-glibc@2.5.0:
     resolution: {integrity: sha512-0VQY1K35DQET3dVYWpOaPFecqOT9dbuCfzjxoQyif1Wc574t3kOSkKevULddcR9znz1TcklCE7Ht6NIxjvTqLA==}
     engines: {node: '>= 10.0.0'}
+    cpu: [arm]
+    os: [linux]
     requiresBuild: true
     dev: true
     optional: true
@@ -4542,6 +4478,8 @@ packages:
   /@parcel/watcher-linux-arm-musl@2.5.0:
     resolution: {integrity: sha512-6uHywSIzz8+vi2lAzFeltnYbdHsDm3iIB57d4g5oaB9vKwjb6N6dRIgZMujw4nm5r6v9/BQH0noq6DzHrqr2pA==}
     engines: {node: '>= 10.0.0'}
+    cpu: [arm]
+    os: [linux]
     requiresBuild: true
     dev: true
     optional: true
@@ -4549,6 +4487,8 @@ packages:
   /@parcel/watcher-linux-arm64-glibc@2.5.0:
     resolution: {integrity: sha512-BfNjXwZKxBy4WibDb/LDCriWSKLz+jJRL3cM/DllnHH5QUyoiUNEp3GmL80ZqxeumoADfCCP19+qiYiC8gUBjA==}
     engines: {node: '>= 10.0.0'}
+    cpu: [arm64]
+    os: [linux]
     requiresBuild: true
     dev: true
     optional: true
@@ -4556,6 +4496,8 @@ packages:
   /@parcel/watcher-linux-arm64-musl@2.5.0:
     resolution: {integrity: sha512-S1qARKOphxfiBEkwLUbHjCY9BWPdWnW9j7f7Hb2jPplu8UZ3nes7zpPOW9bkLbHRvWM0WDTsjdOTUgW0xLBN1Q==}
     engines: {node: '>= 10.0.0'}
+    cpu: [arm64]
+    os: [linux]
     requiresBuild: true
     dev: true
     optional: true
@@ -4563,6 +4505,8 @@ packages:
   /@parcel/watcher-linux-x64-glibc@2.5.0:
     resolution: {integrity: sha512-d9AOkusyXARkFD66S6zlGXyzx5RvY+chTP9Jp0ypSTC9d4lzyRs9ovGf/80VCxjKddcUvnsGwCHWuF2EoPgWjw==}
     engines: {node: '>= 10.0.0'}
+    cpu: [x64]
+    os: [linux]
     requiresBuild: true
     dev: true
     optional: true
@@ -4570,6 +4514,8 @@ packages:
   /@parcel/watcher-linux-x64-musl@2.5.0:
     resolution: {integrity: sha512-iqOC+GoTDoFyk/VYSFHwjHhYrk8bljW6zOhPuhi5t9ulqiYq1togGJB5e3PwYVFFfeVgc6pbz3JdQyDoBszVaA==}
     engines: {node: '>= 10.0.0'}
+    cpu: [x64]
+    os: [linux]
     requiresBuild: true
     dev: true
     optional: true
@@ -4577,6 +4523,8 @@ packages:
   /@parcel/watcher-win32-arm64@2.5.0:
     resolution: {integrity: sha512-twtft1d+JRNkM5YbmexfcH/N4znDtjgysFaV9zvZmmJezQsKpkfLYJ+JFV3uygugK6AtIM2oADPkB2AdhBrNig==}
     engines: {node: '>= 10.0.0'}
+    cpu: [arm64]
+    os: [win32]
     requiresBuild: true
     dev: true
     optional: true
@@ -4584,6 +4532,8 @@ packages:
   /@parcel/watcher-win32-ia32@2.5.0:
     resolution: {integrity: sha512-+rgpsNRKwo8A53elqbbHXdOMtY/tAtTzManTWShB5Kk54N8Q9mzNWV7tV+IbGueCbcj826MfWGU3mprWtuf1TA==}
     engines: {node: '>= 10.0.0'}
+    cpu: [ia32]
+    os: [win32]
     requiresBuild: true
     dev: true
     optional: true
@@ -4591,6 +4541,8 @@ packages:
   /@parcel/watcher-win32-x64@2.5.0:
     resolution: {integrity: sha512-lPrxve92zEHdgeff3aiu4gDOIt4u7sJYha6wbdEZDCDUhtjTsOMiaJzG5lMY4GkWH8p0fMmO2Ppq5G5XXG+DQw==}
     engines: {node: '>= 10.0.0'}
+    cpu: [x64]
+    os: [win32]
     requiresBuild: true
     dev: true
     optional: true
@@ -4987,6 +4939,7 @@ packages:
   /@sentry/cli-darwin@2.39.1:
     resolution: {integrity: sha512-kiNGNSAkg46LNGatfNH5tfsmI/kCAaPA62KQuFZloZiemTNzhy9/6NJP8HZ/GxGs8GDMxic6wNrV9CkVEgFLJQ==}
     engines: {node: '>=10'}
+    os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
@@ -4994,6 +4947,8 @@ packages:
   /@sentry/cli-linux-arm64@2.39.1:
     resolution: {integrity: sha512-5VbVJDatolDrWOgaffsEM7znjs0cR8bHt9Bq0mStM3tBolgAeSDHE89NgHggfZR+DJ2VWOy4vgCwkObrUD6NQw==}
     engines: {node: '>=10'}
+    cpu: [arm64]
+    os: [linux, freebsd]
     requiresBuild: true
     dev: true
     optional: true
@@ -5001,6 +4956,8 @@ packages:
   /@sentry/cli-linux-arm@2.39.1:
     resolution: {integrity: sha512-DkENbxyRxUrfLnJLXTA4s5UL/GoctU5Cm4ER1eB7XN7p9WsamFJd/yf2KpltkjEyiTuplv0yAbdjl1KX3vKmEQ==}
     engines: {node: '>=10'}
+    cpu: [arm]
+    os: [linux, freebsd]
     requiresBuild: true
     dev: true
     optional: true
@@ -5008,6 +4965,8 @@ packages:
   /@sentry/cli-linux-i686@2.39.1:
     resolution: {integrity: sha512-pXWVoKXCRrY7N8vc9H7mETiV9ZCz+zSnX65JQCzZxgYrayQPJTc+NPRnZTdYdk5RlAupXaFicBI2GwOCRqVRkg==}
     engines: {node: '>=10'}
+    cpu: [x86, ia32]
+    os: [linux, freebsd]
     requiresBuild: true
     dev: true
     optional: true
@@ -5015,6 +4974,8 @@ packages:
   /@sentry/cli-linux-x64@2.39.1:
     resolution: {integrity: sha512-IwayNZy+it7FWG4M9LayyUmG1a/8kT9+/IEm67sT5+7dkMIMcpmHDqL8rWcPojOXuTKaOBBjkVdNMBTXy0mXlA==}
     engines: {node: '>=10'}
+    cpu: [x64]
+    os: [linux, freebsd]
     requiresBuild: true
     dev: true
     optional: true
@@ -5022,6 +4983,8 @@ packages:
   /@sentry/cli-win32-i686@2.39.1:
     resolution: {integrity: sha512-NglnNoqHSmE+Dz/wHeIVRnV2bLMx7tIn3IQ8vXGO5HWA2f8zYJGktbkLq1Lg23PaQmeZLPGlja3gBQfZYSG10Q==}
     engines: {node: '>=10'}
+    cpu: [x86, ia32]
+    os: [win32]
     requiresBuild: true
     dev: true
     optional: true
@@ -5029,6 +4992,8 @@ packages:
   /@sentry/cli-win32-x64@2.39.1:
     resolution: {integrity: sha512-xv0R2CMf/X1Fte3cMWie1NXuHmUyQPDBfCyIt6k6RPFPxAYUgcqgMPznYwVMwWEA1W43PaOkSn3d8ZylsDaETw==}
     engines: {node: '>=10'}
+    cpu: [x64]
+    os: [win32]
     requiresBuild: true
     dev: true
     optional: true
@@ -5705,8 +5670,15 @@ packages:
 
   /@types/node@18.19.67:
     resolution: {integrity: sha512-wI8uHusga+0ZugNp0Ol/3BqQfEcCCNfojtO6Oou9iVNGPTL6QNSdnUdqq85fRgIorLhLMuPIKpsN98QE9Nh+KQ==}
+    requiresBuild: true
     dependencies:
       undici-types: 5.26.5
+    optional: true
+
+  /@types/node@20.17.10:
+    resolution: {integrity: sha512-/jrvh5h6NXhEauFFexRin69nA0uHJ5gwk4iDivp/DeoEua3uwCUto6PC86IpRITBOs4+6i2I56K5x5b6WYGXHA==}
+    dependencies:
+      undici-types: 6.19.8
 
   /@types/node@22.10.1:
     resolution: {integrity: sha512-qKgsUwfHZV2WCWLAnVP1JqnpE6Im6h3Y0+fYgMTasNQ7V++CBX5OT1as0g0f+OyubbFqhf6XVNIsmN4IIhEgGQ==}
@@ -6541,6 +6513,7 @@ packages:
   /appdmg@0.6.6:
     resolution: {integrity: sha512-GRmFKlCG+PWbcYF4LUNonTYmy0GjguDy6Jh9WP8mpd0T6j80XIJyXBiWlD0U+MLNhqV9Nhx49Gl9GpVToulpLg==}
     engines: {node: '>=8.5'}
+    os: [darwin]
     hasBin: true
     requiresBuild: true
     dependencies:
@@ -9859,17 +9832,6 @@ packages:
     requiresBuild: true
     dev: true
 
-  /cross-spawn@6.0.5:
-    resolution: {integrity: sha512-eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ==}
-    engines: {node: '>=4.8'}
-    dependencies:
-      nice-try: 1.0.5
-      path-key: 2.0.1
-      semver: 5.7.2
-      shebang-command: 1.2.0
-      which: 1.3.1
-    dev: true
-
   /cross-spawn@6.0.6:
     resolution: {integrity: sha512-VqCUuhcd1iB+dsv8gxPttb5iZh/D0iubSP21g36KXdEuf6I5JiioesUVjpCdHV9MZRUfVFlvwtIUyPfxo5trtw==}
     engines: {node: '>=4.8'}
@@ -10672,6 +10634,7 @@ packages:
   /electron-installer-debian@3.2.0:
     resolution: {integrity: sha512-58ZrlJ1HQY80VucsEIG9tQ//HrTlG6sfofA3nRGr6TmkX661uJyu4cMPPh6kXW+aHdq/7+q25KyQhDrXvRL7jw==}
     engines: {node: '>= 10.0.0'}
+    os: [darwin, linux]
     hasBin: true
     requiresBuild: true
     dependencies:
@@ -10788,14 +10751,14 @@ packages:
     dev: true
     optional: true
 
-  /electron@28.3.3:
-    resolution: {integrity: sha512-ObKMLSPNhomtCOBAxFS8P2DW/4umkh72ouZUlUKzXGtYuPzgr1SYhskhFWgzAsPtUzhL2CzyV2sfbHcEW4CXqw==}
+  /electron@33.2.1:
+    resolution: {integrity: sha512-SG/nmSsK9Qg1p6wAW+ZfqU+AV8cmXMTIklUL18NnOKfZLlum4ZsDoVdmmmlL39ZmeCaq27dr7CgslRPahfoVJg==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
     requiresBuild: true
     dependencies:
       '@electron/get': 2.0.3
-      '@types/node': 18.19.67
+      '@types/node': 20.17.10
       extract-zip: 2.0.1
     transitivePeerDependencies:
       - supports-color
@@ -12774,7 +12737,7 @@ packages:
     resolution: {integrity: sha512-adbxcyWV46qiHyvSp50TKt05tB4tK3HcmF7/nxfAdhnox83seTDbwnaqKO4sXRy7roHAIFqJP/Rw/AuEbX61LA==}
     engines: {node: '>=6'}
     dependencies:
-      cross-spawn: 6.0.5
+      cross-spawn: 6.0.6
       get-stream: 4.1.0
       is-stream: 1.1.0
       npm-run-path: 2.0.2
@@ -13662,7 +13625,8 @@ packages:
   /fsevents@1.2.13:
     resolution: {integrity: sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw==}
     engines: {node: '>= 4.0'}
-    deprecated: The v1 package contains DANGEROUS / INSECURE binaries. Upgrade to safe fsevents v2
+    os: [darwin]
+    deprecated: Upgrade to fsevents v2 to mitigate potential security issues
     requiresBuild: true
     dependencies:
       bindings: 1.5.0
@@ -13673,6 +13637,7 @@ packages:
   /fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
@@ -16630,12 +16595,12 @@ packages:
       readable-stream: 1.0.34
     dev: true
 
-  /menubar@9.5.0(electron@28.3.3):
-    resolution: {integrity: sha512-gAzkurX/8Hfvo6ehJ6yyb8HD1q4glZUXFV4VynVhAbnpob6m4rj6jk5OmONibxALNZ2FEBVqAgBBtBSTU5N7Jw==}
+  /menubar@9.5.1(electron@33.2.1):
+    resolution: {integrity: sha512-swfgKal+DTgJINay36X+LGBSqyFKS4d9FyJ2w0s/4MtO7/UGplEZqluLTnq4xgLNxNjMWhXycOELP+rRYpTagA==}
     peerDependencies:
-      electron: '>=9.0.0 <32.0.0'
+      electron: '>=9.0.0 <33.0.0'
     dependencies:
-      electron: 28.3.3
+      electron: 33.2.1
       electron-positioner: 4.1.0
     dev: false
 
@@ -18230,7 +18195,7 @@ packages:
       got: 12.6.1
       registry-auth-token: 5.0.3
       registry-url: 6.0.1
-      semver: 7.5.4
+      semver: 7.6.3
     dev: true
 
   /pako@1.0.11:
@@ -20137,7 +20102,7 @@ packages:
     resolution: {integrity: sha512-0Ju4+6A8iOnpL/Thra7dZsSlOHYAHIeMxfhWQRI1/VLcT3WDBZKKtQt/QkBOsiIN9ZpuvHE6cGZ0x4glCMmfiA==}
     engines: {node: '>=12'}
     dependencies:
-      semver: 7.5.4
+      semver: 7.6.3
     dev: true
 
   /semver@5.7.2:
@@ -22086,6 +22051,10 @@ packages:
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
     requiresBuild: true
+    optional: true
+
+  /undici-types@6.19.8:
+    resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
 
   /undici-types@6.20.0:
     resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
@@ -22278,7 +22247,7 @@ packages:
       is-yarn-global: 0.4.1
       latest-version: 7.0.0
       pupa: 3.1.0
-      semver: 7.5.4
+      semver: 7.6.3
       semver-diff: 4.0.0
       xdg-basedir: 5.1.0
     dev: true
@@ -23095,7 +23064,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       cliui: 7.0.4
-      escalade: 3.1.1
+      escalade: 3.2.0
       get-caller-file: 2.0.5
       require-directory: 2.1.1
       string-width: 4.2.3

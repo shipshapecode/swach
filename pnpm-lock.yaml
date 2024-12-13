@@ -291,8 +291,8 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0(eslint@8.57.1)
       eslint-plugin-ember:
-        specifier: ^11.12.0
-        version: 11.12.0(eslint@8.57.1)
+        specifier: ^12.3.3
+        version: 12.3.3(@babel/core@7.26.0)(@typescript-eslint/parser@6.21.0)(eslint@8.57.1)
       eslint-plugin-n:
         specifier: ^17.15.0
         version: 17.15.0(eslint@8.57.1)
@@ -3066,7 +3066,7 @@ packages:
     engines: {node: '>=12.13.0'}
     hasBin: true
     dependencies:
-      '@electron/node-gyp': github.com/electron/node-gyp/06b29aafb7708acef8b3669835c8a7857ebc92d2
+      '@electron/node-gyp': git/github.com+electron/node-gyp/06b29aafb7708acef8b3669835c8a7857ebc92d2
       '@malept/cross-spawn-promise': 2.0.0
       chalk: 4.1.2
       debug: 4.4.0(supports-color@8.1.1)
@@ -9970,6 +9970,14 @@ packages:
       source-map-js: 1.2.1
     dev: true
 
+  /css-tree@3.1.0:
+    resolution: {integrity: sha512-0eW44TGN5SQXU1mWSkKwFstI/22X2bG1nYzZTYMAWjylYURhse752YgbE4Cx46AC+bAvI+/dYTPRk1LqSUnu6w==}
+    engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0}
+    dependencies:
+      mdn-data: 2.12.2
+      source-map-js: 1.2.1
+    dev: true
+
   /css-what@3.4.2:
     resolution: {integrity: sha512-ACUm3L0/jiZTqfzRM3Hi9Q8eZqd6IK37mMWPLz9PJxkLWllYeRf+EHUSHYEtFop2Eqytaq1FizFVh7XfBnXCDQ==}
     engines: {node: '>= 6'}
@@ -11615,6 +11623,29 @@ packages:
       - supports-color
     dev: true
 
+  /ember-eslint-parser@0.5.7(@babel/core@7.26.0)(@typescript-eslint/parser@6.21.0)(eslint@8.57.1):
+    resolution: {integrity: sha512-d0nIQxC6TXsMebi7GcpH6meFDVhTUTYZpQ6Yg5n92+eZHqygAEKWZX55lLa49/wucBXS+Wadp2g6okPcN463aA==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      '@babel/core': ^7.23.6
+      '@typescript-eslint/parser': '*'
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
+    dependencies:
+      '@babel/core': 7.26.0
+      '@babel/eslint-parser': 7.25.9(@babel/core@7.26.0)(eslint@8.57.1)
+      '@glimmer/syntax': 0.92.3
+      '@typescript-eslint/parser': 6.21.0(eslint@8.57.1)(typescript@5.7.2)
+      content-tag: 2.0.3
+      eslint-scope: 7.2.2
+      html-tags: 3.3.1
+      mathml-tag-names: 2.1.3
+      svg-tags: 1.0.0
+    transitivePeerDependencies:
+      - eslint
+    dev: true
+
   /ember-event-helpers@0.1.1:
     resolution: {integrity: sha512-fWcbWd4W4nRv8bbato8JB6oGRpATkR+oGYxMIqnfgTgPWaCS0ww7CuUVNpwg1TulojKMCuTXi8Fem2b1NSF1ZQ==}
     engines: {node: 8.* || >= 10.*}
@@ -12461,28 +12492,30 @@ packages:
     resolution: {integrity: sha512-Uk/TVLt6Nf6Xoz7C1iYuZjOSdJxe5aaauGRke8JhKeJwD66Y61/pY2FjtLP04Ooq9PwV34bzrkKkU2UZ5FtDRA==}
     dev: true
 
-  /eslint-plugin-ember@11.12.0(eslint@8.57.1):
-    resolution: {integrity: sha512-7Ow1ky5JnRR0k3cxuvgYi4AWTe9DzGjlLgOJbU5VABLgr7Q0iq3ioC+YwAP79nV48cpw2HOgMgkZ1MynuIg59g==}
-    engines: {node: 14.* || 16.* || >= 18}
+  /eslint-plugin-ember@12.3.3(@babel/core@7.26.0)(@typescript-eslint/parser@6.21.0)(eslint@8.57.1):
+    resolution: {integrity: sha512-OXf3+XofsSMW/zGnp6B1cB2veC9zLzby8RGmHkxNwRHGLs/fYNVBbpwkmdZhzR8+IMN3wjtLR4iNLvkKOAT5bg==}
+    engines: {node: 18.* || 20.* || >= 21}
     peerDependencies:
-      eslint: '>= 7'
+      '@typescript-eslint/parser': '*'
+      eslint: '>= 8'
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
     dependencies:
       '@ember-data/rfc395-data': 0.0.4
-      '@glimmer/syntax': 0.84.3
-      css-tree: 2.3.1
+      '@typescript-eslint/parser': 6.21.0(eslint@8.57.1)(typescript@5.7.2)
+      css-tree: 3.1.0
+      ember-eslint-parser: 0.5.7(@babel/core@7.26.0)(@typescript-eslint/parser@6.21.0)(eslint@8.57.1)
       ember-rfc176-data: 0.3.18
-      ember-template-imports: 3.4.2
-      ember-template-recast: 6.1.5
       eslint: 8.57.1
       eslint-utils: 3.0.0(eslint@8.57.1)
       estraverse: 5.3.0
       lodash.camelcase: 4.3.0
       lodash.kebabcase: 4.1.1
-      magic-string: 0.30.15
       requireindex: 1.2.0
       snake-case: 3.0.4
     transitivePeerDependencies:
-      - supports-color
+      - '@babel/core'
     dev: true
 
   /eslint-plugin-es-x@7.8.0(eslint@8.57.1):
@@ -16335,12 +16368,6 @@ packages:
       sourcemap-codec: 1.4.8
     dev: true
 
-  /magic-string@0.30.15:
-    resolution: {integrity: sha512-zXeaYRgZ6ldS1RJJUrMrYgNJ4fdwnyI6tVqoiIhyCyv5IVTK9BU8Ic2l253GGETQHxI4HNUwhJ3fjDhKqEoaAw==}
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.0
-    dev: true
-
   /make-dir@2.1.0:
     resolution: {integrity: sha512-LS9X+dc8KLxXCb8dni79fLIIUA5VyZoyjSMCwTluaXA0o27cCK0bhXkpgw+sTXVpPy/lSO57ilRixqk0vDmtRA==}
     engines: {node: '>=6'}
@@ -16541,6 +16568,10 @@ packages:
 
   /mdn-data@2.0.4:
     resolution: {integrity: sha512-iV3XNKw06j5Q7mi6h+9vbx23Tv7JkjEVgKHW4pimwyDGWm0OIQntJJ+u1C6mg6mK1EaTv42XQ7w76yuzH7M2cA==}
+    dev: true
+
+  /mdn-data@2.12.2:
+    resolution: {integrity: sha512-IEn+pegP1aManZuckezWCO+XZQDplx1366JoVhTpMpBB1sPey/SbveZQUosKiKiGYjg1wH4pMlNgXbCiYgihQA==}
     dev: true
 
   /mdurl@1.0.1:
@@ -23126,8 +23157,8 @@ packages:
     resolution: {integrity: sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==}
     dev: true
 
-  github.com/electron/node-gyp/06b29aafb7708acef8b3669835c8a7857ebc92d2:
-    resolution: {tarball: https://codeload.github.com/electron/node-gyp/tar.gz/06b29aafb7708acef8b3669835c8a7857ebc92d2}
+  git/github.com+electron/node-gyp/06b29aafb7708acef8b3669835c8a7857ebc92d2:
+    resolution: {commit: 06b29aafb7708acef8b3669835c8a7857ebc92d2, repo: git@github.com:electron/node-gyp.git, type: git}
     name: '@electron/node-gyp'
     version: 10.2.0-electron.1
     engines: {node: '>=12.13.0'}

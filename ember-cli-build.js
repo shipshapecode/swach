@@ -13,9 +13,6 @@ module.exports = function (defaults) {
     'ember-cli-babel': {
       enableTypeScriptTransform: true,
     },
-    'ember-simple-auth': {
-      useSessionSetupMethod: true,
-    },
     postcssOptions: {
       compile: {
         extension: 'scss',

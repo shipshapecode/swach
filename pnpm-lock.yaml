@@ -199,7 +199,7 @@ importers:
         version: 6.1.0(@babel/core@7.26.0)(ember-source@5.12.0)
       ember-cognito:
         specifier: ^2.0.0
-        version: 2.0.0(@glint/template@1.5.0)(ember-simple-auth@6.1.0)(react-native@0.76.5)(webpack@5.97.1)
+        version: 2.0.0(@glint/template@1.5.0)(ember-simple-auth@7.1.0)(react-native@0.76.5)(webpack@5.97.1)
       ember-composable-helpers:
         specifier: ^5.0.0
         version: 5.0.0
@@ -258,8 +258,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1(@babel/core@7.26.0)
       ember-simple-auth:
-        specifier: ^6.1.0
-        version: 6.1.0(@babel/core@7.26.0)(@ember/test-helpers@3.3.1)(@glint/template@1.5.0)(eslint@8.57.1)
+        specifier: ^7.1.0
+        version: 7.1.0(@ember/test-helpers@3.3.1)(@glint/template@1.5.0)(ember-source@5.12.0)
       ember-sinon-qunit:
         specifier: ^7.5.0
         version: 7.5.0(@babel/core@7.26.0)(ember-source@5.12.0)(qunit@2.22.0)(sinon@17.0.1)
@@ -11471,7 +11471,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-cognito@2.0.0(@glint/template@1.5.0)(ember-simple-auth@6.1.0)(react-native@0.76.5)(webpack@5.97.1):
+  /ember-cognito@2.0.0(@glint/template@1.5.0)(ember-simple-auth@7.1.0)(react-native@0.76.5)(webpack@5.97.1):
     resolution: {integrity: sha512-sOnKjKfS+ihVwZX+ZPGbqci5SOmXLj6NEoUHeySw7zByGnZn7nanNViZud5a0hcJWbr9Nrz2Ur3Q6aYTgx6fJA==}
     engines: {node: 16.* || >= 18}
     peerDependencies:
@@ -11484,7 +11484,7 @@ packages:
       ember-auto-import: 2.10.0(@glint/template@1.5.0)(webpack@5.97.1)
       ember-cli-babel: 7.26.11
       ember-cli-htmlbars: 6.3.0
-      ember-simple-auth: 6.1.0(@babel/core@7.26.0)(@ember/test-helpers@3.3.1)(@glint/template@1.5.0)(eslint@8.57.1)
+      ember-simple-auth: 7.1.0(@ember/test-helpers@3.3.1)(@glint/template@1.5.0)(ember-source@5.12.0)
     transitivePeerDependencies:
       - '@glint/template'
       - encoding
@@ -11519,11 +11519,14 @@ packages:
       - supports-color
     dev: true
 
-  /ember-cookies@1.2.0:
-    resolution: {integrity: sha512-ZbJbXq7dhjqJfOG/BBVlqO1o4Y6SWENrhiEgI7vokwVeuqHrvfaaFWV1emZUrsvoCAbSq/TiEdncO1EdZcI7Fg==}
+  /ember-cookies@1.3.0(ember-source@5.12.0):
+    resolution: {integrity: sha512-nhVDm9lql4EVLpbjxyosyEITFvuNAmHr7cod8K2FmIyw2KcAFWSS0v88quIWc+GvcawBTz3KSMRXOJq/0InVpg==}
     engines: {node: '>= 16.*'}
+    peerDependencies:
+      ember-source: '>=4.0'
     dependencies:
       '@embroider/addon-shim': 1.9.0
+      ember-source: 5.12.0(@glimmer/component@1.1.2)(@glint/template@1.5.0)(rsvp@4.8.5)(webpack@5.97.1)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -11865,26 +11868,25 @@ packages:
       - supports-color
     dev: true
 
-  /ember-simple-auth@6.1.0(@babel/core@7.26.0)(@ember/test-helpers@3.3.1)(@glint/template@1.5.0)(eslint@8.57.1):
-    resolution: {integrity: sha512-LhOl7TrOKlqb+0a/5STOoTSncDNuPELuFZ9+1SLduVX7DtdQr8VOEAmB8UaOnG0clJ9Bj6E3SczhXGjqd718Lw==}
+  /ember-simple-auth@7.1.0(@ember/test-helpers@3.3.1)(@glint/template@1.5.0)(ember-source@5.12.0):
+    resolution: {integrity: sha512-hFcje2qSda3Axs5jxsSgaXqoxuwzyspMrganAKm35/rcnExvBD4vXbm/at7W5XvFbSF5UYoEpRUN2VvLpf3EUw==}
     peerDependencies:
       '@ember/test-helpers': '>= 3 || > 2.7'
+      ember-source: '>=4.0'
     peerDependenciesMeta:
       '@ember/test-helpers':
         optional: true
     dependencies:
-      '@babel/eslint-parser': 7.25.9(@babel/core@7.26.0)(eslint@8.57.1)
       '@ember/test-helpers': 3.3.1(@babel/core@7.26.0)(@glint/template@1.5.0)(ember-source@5.12.0)(webpack@5.97.1)
       '@ember/test-waiters': 3.1.0
       '@embroider/addon-shim': 1.9.0
       '@embroider/macros': 1.16.9(@glint/template@1.5.0)
       ember-cli-is-package-missing: 1.0.0
-      ember-cookies: 1.2.0
+      ember-cookies: 1.3.0(ember-source@5.12.0)
+      ember-source: 5.12.0(@glimmer/component@1.1.2)(@glint/template@1.5.0)(rsvp@4.8.5)(webpack@5.97.1)
       silent-error: 1.1.1
     transitivePeerDependencies:
-      - '@babel/core'
       - '@glint/template'
-      - eslint
       - supports-color
     dev: true
 

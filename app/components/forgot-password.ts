@@ -5,9 +5,9 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
 import type CognitoService from 'ember-cognito/services/cognito';
-import type Session from 'ember-simple-auth/services/session';
 
 import 'swach/components/loading-button';
+import type Session from 'swach/services/session';
 
 export default class ForgotPasswordComponent extends Component {
   @service declare cognito: CognitoService;

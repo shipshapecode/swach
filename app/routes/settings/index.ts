@@ -3,8 +3,8 @@ import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
-import type Session from 'ember-simple-auth/services/session';
 
+import type Session from 'swach/services/session';
 import type { SettingsStorage } from 'swach/storages/settings';
 import viewTransitions from 'swach/utils/view-transitions';
 

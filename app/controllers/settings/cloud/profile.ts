@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-import type Session from 'ember-simple-auth/services/session';
+import type Session from 'swach/services/session';
 
 export default class SettingsAccountController extends Controller {
   @service declare session: Session;

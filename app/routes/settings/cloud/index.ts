@@ -4,8 +4,8 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 
 import type CognitoService from 'ember-cognito/services/cognito';
-import type Session from 'ember-simple-auth/services/session';
 
+import type Session from 'swach/services/session';
 import viewTransitions from 'swach/utils/view-transitions';
 
 export default class SettingsAccountRoute extends Route {

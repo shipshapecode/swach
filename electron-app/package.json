@@ -22,7 +22,7 @@
     "forge": "forge.config.js"
   },
   "dependencies": {
-    "@sentry/electron": "^4.24.0",
+    "@sentry/electron": "^5.10.0",
     "electron-dl": "^3.5.2",
     "electron-is-dev": "^2.0.0",
     "electron-squirrel-startup": "^1.0.1",

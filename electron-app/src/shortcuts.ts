@@ -77,7 +77,7 @@ export function setupMenu(
               { label: 'About Swach', role: 'about' },
               { type: 'separator' },
               { label: 'Quit Swach', role: 'quit' },
-            ],
+            ] as MenuItemConstructorOptions[],
           },
         ]
       : []),
@@ -120,14 +120,10 @@ export function setupMenu(
           },
         },
         { type: 'separator' },
-        { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
-        { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
-        { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
-        {
-          label: 'Select All',
-          accelerator: 'CmdOrCtrl+A',
-          selector: 'selectAll:',
-        },
+        { label: 'Cut', role: 'cut', accelerator: 'CmdOrCtrl+X' },
+        { label: 'Copy', role: 'copy', accelerator: 'CmdOrCtrl+C' },
+        { label: 'Paste', role: 'paste', accelerator: 'CmdOrCtrl+V' },
+        { label: 'Select All', role: 'selectAll', accelerator: 'CmdOrCtrl+A' },
       ],
     },
     {

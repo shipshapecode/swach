@@ -1,6 +1,20 @@
-const { globalShortcut, shell, Menu } = require('electron');
+import {
+  Menu,
+  MenuItemConstructorOptions,
+  globalShortcut,
+  shell,
+} from 'electron';
+import { type Menubar } from 'menubar';
 
-function registerKeyboardShortcuts(mb, launchPicker, openContrastChecker) {
+import { type launchPicker as LaunchPickerFn } from './color-picker';
+
+type OpenContrastCheckerFn = (mb: Menubar) => void;
+
+export function registerKeyboardShortcuts(
+  mb: Menubar,
+  launchPicker: typeof LaunchPickerFn,
+  openContrastChecker: OpenContrastCheckerFn,
+): void {
   globalShortcut.register('Ctrl+Super+Alt+p', () => {
     launchPicker(mb);
   });
@@ -14,7 +28,11 @@ function registerKeyboardShortcuts(mb, launchPicker, openContrastChecker) {
   });
 }
 
-function setupContextMenu(mb, launchPicker, openContrastChecker) {
+export function setupContextMenu(
+  mb: Menubar,
+  launchPicker: typeof LaunchPickerFn,
+  openContrastChecker: OpenContrastCheckerFn,
+): void {
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Color Picker',
@@ -42,10 +60,14 @@ function setupContextMenu(mb, launchPicker, openContrastChecker) {
   });
 }
 
-function setupMenu(mb, launchPicker, openContrastChecker) {
+export function setupMenu(
+  mb: Menubar,
+  launchPicker: typeof LaunchPickerFn,
+  openContrastChecker: OpenContrastCheckerFn,
+): void {
   const isMac = process.platform === 'darwin';
 
-  const template = [
+  const template: MenuItemConstructorOptions[] = [
     // { role: 'appMenu' }
     ...(isMac
       ? [
@@ -87,14 +109,14 @@ function setupMenu(mb, launchPicker, openContrastChecker) {
           label: 'Undo',
           accelerator: 'CmdOrCtrl+Z',
           async click() {
-            await mb.window.webContents.send('undoRedo', 'undo');
+            await mb.window?.webContents.send('undoRedo', 'undo');
           },
         },
         {
           label: 'Redo',
           accelerator: 'Shift+CmdOrCtrl+Z',
           async click() {
-            await mb.window.webContents.send('undoRedo', 'redo');
+            await mb.window?.webContents.send('undoRedo', 'redo');
           },
         },
         { type: 'separator' },
@@ -112,8 +134,8 @@ function setupMenu(mb, launchPicker, openContrastChecker) {
       label: 'View',
       submenu: [
         { role: 'reload' },
-        { role: 'forcereload' },
-        { role: 'toggledevtools' },
+        { role: 'forceReload' },
+        { role: 'toggleDevTools' },
       ],
     },
     {
@@ -132,9 +154,3 @@ function setupMenu(mb, launchPicker, openContrastChecker) {
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 }
-
-module.exports = {
-  registerKeyboardShortcuts,
-  setupContextMenu,
-  setupMenu,
-};

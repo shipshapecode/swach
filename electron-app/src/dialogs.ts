@@ -1,7 +1,7 @@
-const { app, dialog } = require('electron');
+import { MessageBoxOptions, app, dialog } from 'electron';
 
-function noUpdatesAvailableDialog() {
-  const dialogOpts = {
+export function noUpdatesAvailableDialog() {
+  const dialogOpts: MessageBoxOptions = {
     type: 'info',
     title: 'Already up to date',
     message: 'Already up to date',
@@ -11,8 +11,8 @@ function noUpdatesAvailableDialog() {
   return dialog.showMessageBox(dialogOpts);
 }
 
-function restartDialog() {
-  const dialogOpts = {
+export function restartDialog() {
+  const dialogOpts: MessageBoxOptions = {
     type: 'question',
     buttons: ['Restart', 'Later'],
     title: 'Restart Required',
@@ -28,8 +28,3 @@ function restartDialog() {
     }
   });
 }
-
-module.exports = {
-  noUpdatesAvailableDialog,
-  restartDialog,
-};

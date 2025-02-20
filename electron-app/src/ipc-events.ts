@@ -1,21 +1,30 @@
-const { app, clipboard, dialog, ipcMain, nativeTheme } = require('electron');
-const { download } = require('electron-dl');
-const fs = require('fs');
+import {
+  BrowserWindow,
+  app,
+  clipboard,
+  dialog,
+  ipcMain,
+  nativeTheme,
+} from 'electron';
+import { download } from 'electron-dl';
+import type Store from 'electron-store';
+import * as fs from 'fs';
+import { type Menubar } from 'menubar';
 
-const { launchPicker } = require('./color-picker');
-const { restartDialog } = require('./dialogs');
+import { launchPicker } from './color-picker';
+import { restartDialog } from './dialogs';
 
-function setupEventHandlers(mb, store) {
-  ipcMain.on('copyColorToClipboard', (channel, color) => {
+export function setupEventHandlers(mb: Menubar, store: Store): void {
+  ipcMain.on('copyColorToClipboard', (_event, color: string) => {
     clipboard.writeText(color);
   });
 
   ipcMain.on('exitApp', () => mb.app.quit());
 
-  ipcMain.on('exportData', async (channel, jsonString) => {
+  ipcMain.on('exportData', async (_event, jsonString: string) => {
     const downloadPath = `${mb.app.getPath('temp')}/swach-data.json`;
     fs.writeFileSync(downloadPath, jsonString);
-    await download(mb.window, `file://${downloadPath}`);
+    await download(mb.window as BrowserWindow, `file://${downloadPath}`);
     fs.unlink(downloadPath, (err) => {
       if (err) throw err;
       console.log(`${downloadPath} was deleted`);
@@ -35,7 +44,7 @@ function setupEventHandlers(mb, store) {
     return process.platform;
   });
 
-  ipcMain.handle('getStoreValue', (event, key) => {
+  ipcMain.handle('getStoreValue', (_event, key: string) => {
     return store.get(key);
   });
 
@@ -51,6 +60,7 @@ function setupEventHandlers(mb, store) {
     if (!canceled && filePaths.length) {
       return fs.readFileSync(filePaths[0], { encoding: 'utf8' });
     }
+    return undefined;
   });
 
   ipcMain.on('launchContrastBgPicker', async () => {
@@ -65,12 +75,8 @@ function setupEventHandlers(mb, store) {
     await launchPicker(mb);
   });
 
-  ipcMain.on('setShowDockIcon', async (channel, showDockIcon) => {
+  ipcMain.on('setShowDockIcon', async (_event, showDockIcon: boolean) => {
     store.set('showDockIcon', showDockIcon);
     await restartDialog();
   });
 }
-
-module.exports = {
-  setupEventHandlers,
-};

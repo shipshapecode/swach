@@ -6,7 +6,7 @@ import {
 } from 'electron';
 import { type Menubar } from 'menubar';
 
-import { type launchPicker as LaunchPickerFn } from './color-picker';
+import { type launchPicker as LaunchPickerFn } from './color-picker.mjs';
 
 type OpenContrastCheckerFn = (mb: Menubar) => void;
 

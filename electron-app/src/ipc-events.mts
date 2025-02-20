@@ -7,12 +7,12 @@ import {
   nativeTheme,
 } from 'electron';
 import { download } from 'electron-dl';
-import type Store from 'electron-store';
+import Store from 'electron-store';
 import * as fs from 'fs';
 import { type Menubar } from 'menubar';
 
-import { launchPicker } from './color-picker';
-import { restartDialog } from './dialogs';
+import { launchPicker } from './color-picker.mjs';
+import { restartDialog } from './dialogs.mjs';
 
 export function setupEventHandlers(mb: Menubar, store: Store): void {
   ipcMain.on('copyColorToClipboard', (_event, color: string) => {

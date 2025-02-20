@@ -1,10 +1,10 @@
-import { type Menubar } from 'menubar';
+import { type Menubar } from "menubar";
 
-type PickerType = 'global' | 'contrastBg' | 'contrastFg';
+type PickerType = "global" | "contrastBg" | "contrastFg";
 
 export async function launchPicker(
   mb: Menubar,
-  type: PickerType = 'global',
+  type: PickerType = "global",
 ): Promise<void> {
   mb.hideWindow();
 
@@ -29,14 +29,14 @@ export async function launchPicker(
   );
 
   if (color) {
-    if (type === 'global') {
-      mb.window?.webContents.send('changeColor', color);
+    if (type === "global") {
+      mb.window?.webContents.send("changeColor", color);
     }
-    if (type === 'contrastBg') {
-      mb.window?.webContents.send('pickContrastBgColor', color);
+    if (type === "contrastBg") {
+      mb.window?.webContents.send("pickContrastBgColor", color);
     }
-    if (type === 'contrastFg') {
-      mb.window?.webContents.send('pickContrastFgColor', color);
+    if (type === "contrastFg") {
+      mb.window?.webContents.send("pickContrastFgColor", color);
     }
   }
 

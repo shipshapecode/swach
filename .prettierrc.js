@@ -53,7 +53,7 @@ module.exports = {
       },
     },
     {
-      files: '*.{js,ts,gjs,gts}',
+      files: '**/*.{cjs,cts,js,mjs,mts,ts,gjs,gts}',
       options: {
         singleQuote: true,
       },

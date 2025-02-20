@@ -47,7 +47,7 @@ module.exports = {
         './testem-electron.js',
         './blueprints/*/index.js',
         './config/**/*.js',
-        './electron-app/**/*.js',
+        './electron-app/**/*.{js,mts,ts}',
         './lib/*/index.js',
         './server/**/*.js',
       ],

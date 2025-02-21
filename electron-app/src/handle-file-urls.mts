@@ -15,7 +15,10 @@ const access = promisify(fs.access);
 // interpreted as being relative to the root of the Ember app. If so, we return
 // that path, and if not we leave them as-is, as their absolute path.
 //
-async function getAssetPath(emberAppDir: string, url: string): Promise<string> {
+export async function getAssetPath(
+  emberAppDir: string,
+  url: string,
+): Promise<string> {
   let urlPath = fileURLToPath(url);
   // Get the root of the path -- should be '/' on MacOS or something like
   // 'C:\' on Windows
@@ -32,7 +35,7 @@ async function getAssetPath(emberAppDir: string, url: string): Promise<string> {
   }
 }
 
-function handleFileURLs(emberAppDir: string): void {
+export function handleFileURLs(emberAppDir: string): void {
   if (protocol.handle) {
     // Electron >= 25
     protocol.handle("file", async ({ url }) => {
@@ -43,5 +46,3 @@ function handleFileURLs(emberAppDir: string): void {
     });
   }
 }
-
-export { handleFileURLs, getAssetPath };

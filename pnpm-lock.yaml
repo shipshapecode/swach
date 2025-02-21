@@ -423,6 +423,9 @@ importers:
       '@types/electron':
         specifier: ^1.6.12
         version: 1.6.12
+      '@types/electron-squirrel-startup':
+        specifier: ^1.0.2
+        version: 1.0.2
       '@types/node':
         specifier: ^22.13.4
         version: 22.13.4
@@ -5365,6 +5368,10 @@ packages:
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
     dependencies:
       '@types/ms': 0.7.34
+    dev: true
+
+  /@types/electron-squirrel-startup@1.0.2:
+    resolution: {integrity: sha512-AzxnvBzNh8K/0SmxMmZtpJf1/IWoGXLP+pQDuUaVkPyotI8ryvAtBSqgxR/qOSvxWHYWrxkeNsJ+Ca5xOuUxJQ==}
     dev: true
 
   /@types/electron@1.6.12:

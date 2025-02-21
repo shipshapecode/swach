@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowJs": true,
     "target": "ES2022",
     "module": "Node16",
     "moduleResolution": "node16",
@@ -15,9 +16,7 @@
     "sourceMap": true,
     "declaration": true,
     "resolveJsonModule": true,
-    "types": ["node"],
-    "allowJs": true,
-    "checkJs": true
+    "types": ["node"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

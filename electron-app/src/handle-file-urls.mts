@@ -1,8 +1,8 @@
-import { net, protocol } from "electron";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath, pathToFileURL } from "url";
-import { promisify } from "util";
+import { net, protocol } from 'electron';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath, pathToFileURL } from 'url';
+import { promisify } from 'util';
 
 const access = promisify(fs.access);
 
@@ -15,10 +15,7 @@ const access = promisify(fs.access);
 // interpreted as being relative to the root of the Ember app. If so, we return
 // that path, and if not we leave them as-is, as their absolute path.
 //
-export async function getAssetPath(
-  emberAppDir: string,
-  url: string,
-): Promise<string> {
+export async function getAssetPath(emberAppDir: string, url: string) {
   let urlPath = fileURLToPath(url);
   // Get the root of the path -- should be '/' on MacOS or something like
   // 'C:\' on Windows
@@ -35,10 +32,10 @@ export async function getAssetPath(
   }
 }
 
-export function handleFileURLs(emberAppDir: string): void {
+export function handleFileURLs(emberAppDir: string) {
   if (protocol.handle) {
     // Electron >= 25
-    protocol.handle("file", async ({ url }) => {
+    protocol.handle('file', async ({ url }) => {
       let path = await getAssetPath(emberAppDir, url);
       return net.fetch(pathToFileURL(path), {
         bypassCustomProtocolHandlers: true,

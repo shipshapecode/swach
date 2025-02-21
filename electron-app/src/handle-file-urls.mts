@@ -37,7 +37,7 @@ export function handleFileURLs(emberAppDir: string) {
     // Electron >= 25
     protocol.handle('file', async ({ url }) => {
       let path = await getAssetPath(emberAppDir, url);
-      return net.fetch(pathToFileURL(path), {
+      return net.fetch(pathToFileURL(path).toString(), {
         bypassCustomProtocolHandlers: true,
       });
     });

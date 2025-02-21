@@ -146,6 +146,7 @@ if (process.platform === 'win32') {
   if ((await import('electron-squirrel-startup')).default) mb.app.exit();
 }
 
+// @ts-expect-error TODO: figure out this type issue
 setupEventHandlers(mb, store);
 
 mb.app.on('window-all-closed', () => {

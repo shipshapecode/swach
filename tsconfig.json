@@ -1,38 +1,16 @@
 {
+  "extends": "@tsconfig/ember",
+  "glint": { "environment": ["ember-loose", "ember-template-imports"] },
   "compilerOptions": {
-    "target": "ES2022",
+    // The combination of `baseUrl` with `paths` allows Ember's classic package
+    // layout, which is not resolvable with the Node resolution algorithm, to
+    // work with TypeScript.
     "baseUrl": ".",
-    "module": "es6",
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "alwaysStrict": true,
-    "experimentalDecorators": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "moduleResolution": "node",
-    "noEmit": true,
-    "noEmitOnError": false,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": false,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "skipLibCheck": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true,
     "paths": {
       "swach/tests/*": ["tests/*"],
       "swach/*": ["app/*"],
-      "*": ["types/*"],
-      "@ember/destroyable": ["node_modules/ember-destroyable-polyfill"],
-      "@glimmer/tracking/primitives/cache": [
-        "node_modules/ember-cache-primitive-polyfill"
-      ]
-    }
-  },
-  "glint": {
-    "environment": ["ember-loose", "ember-template-imports"]
-  },
-  "include": ["app/**/*", "tests/**/*", "types/**/*"]
+      "*": ["types/*"]
+    },
+    "types": ["ember-source/types"]
+  }
 }

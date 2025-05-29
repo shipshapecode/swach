@@ -26,7 +26,7 @@ async function getAssetPath(emberAppDir, url) {
   try {
     await access(appPath);
     return appPath;
-  } catch (e) {
+  } catch {
     return urlPath;
   }
 }

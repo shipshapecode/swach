@@ -1,4 +1,4 @@
-import type Transition from '@ember/routing/-private/transition';
+import type Transition from '@ember/routing/transition';;
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 

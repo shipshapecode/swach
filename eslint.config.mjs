@@ -19,23 +19,33 @@ import ember from "eslint-plugin-ember/recommended";
 import n from "eslint-plugin-n";
 import qunit from "eslint-plugin-qunit";
 import globals from "globals";
+import ts from "typescript-eslint";
 
-const esmParserOptions = {
-  ecmaFeatures: { modules: true },
-  ecmaVersion: "latest",
-  requireConfigFile: false,
-  babelOptions: {
-    plugins: [
-      ["@babel/plugin-proposal-decorators", { decoratorsBeforeExport: true }],
-    ],
+const parserOptions = {
+  esm: {
+    js: {
+      ecmaFeatures: { modules: true },
+      ecmaVersion: "latest",
+      requireConfigFile: false,
+      babelOptions: {
+        plugins: [
+          [
+            "@babel/plugin-proposal-decorators",
+            { decoratorsBeforeExport: true },
+          ],
+        ],
+      },
+    },
+    ts: { projectService: true, tsconfigRootDir: import.meta.dirname },
   },
 };
 
-export default [
+export default ts.config(
   js.configs.recommended,
-  eslintConfigPrettier,
   ember.configs.base,
   ember.configs.gjs,
+  ember.configs.gts,
+  eslintConfigPrettier,
   /**
    * Ignores must be in their own object
    * https://eslint.org/docs/latest/use/configure/ignore
@@ -45,10 +55,10 @@ export default [
       "declarations/",
 
       // ember-electron
-      "/electron-app/node_modules/",
-      "/electron-app/out/",
-      "/electron-app/ember-dist/",
-      "/electron-app/ember-test/",
+      "electron-app/node_modules/",
+      "electron-app/out/",
+      "electron-app/ember-dist/",
+      "electron-app/ember-test/",
       "electron-out/",
 
       // Sentry
@@ -57,6 +67,7 @@ export default [
       "dist/",
       "node_modules/",
       "coverage/",
+      "types/",
       "!**/.*",
     ],
   },
@@ -68,11 +79,23 @@ export default [
   {
     files: ["**/*.{js,gjs}"],
     languageOptions: {
-      parserOptions: esmParserOptions,
+      parserOptions: parserOptions.esm.js,
       globals: { ...globals.browser },
     },
   },
-  { files: ["tests/**/*-test.{js,gjs}"], plugins: { qunit } },
+  {
+    files: ["**/*.{ts,gts}"],
+    languageOptions: {
+      parser: ember.parser,
+      parserOptions: parserOptions.esm.ts,
+    },
+    extends: [...ts.configs.recommendedTypeChecked, ember.configs.gts],
+    rules: {
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+    },
+  },
+  { files: ["tests/**/*-test.{js,gjs,ts,gts}"], plugins: { qunit } },
   /**
    * CJS node files
    */
@@ -87,9 +110,9 @@ export default [
       "index.js",
       ".prettierrc.js",
       ".stylelintrc.js",
-      ".tailwind.config.js",
       ".template-lintrc.js",
       "ember-cli-build.js",
+      "tailwind.config.js",
     ],
     plugins: { n },
 
@@ -109,8 +132,8 @@ export default [
     languageOptions: {
       sourceType: "module",
       ecmaVersion: "latest",
-      parserOptions: esmParserOptions,
+      parserOptions: parserOptions.esm.js,
       globals: { ...globals.node },
     },
   },
-];
+);

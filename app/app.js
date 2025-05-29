@@ -5,6 +5,11 @@ import loadInitializers from 'ember-load-initializers';
 import Resolver from 'ember-resolver';
 
 import config from 'swach/config/environment';
+import { importSync, isDevelopingApp, macroCondition } from '@embroider/macros';
+
+if (macroCondition(isDevelopingApp())) {
+  importSync('./deprecation-workflow');
+}
 
 InitSentryForEmber();
 

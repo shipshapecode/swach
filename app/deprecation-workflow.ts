@@ -10,15 +10,8 @@ setupDeprecationWorkflow({
   */
   throwOnUnhandled: false,
   workflow: [
-    /* ... handlers ... */
-    /* to generate this list, run your app for a while (or run the test suite),
-     * and then run in the browser console:
-     *
-     *    deprecationWorkflow.flushDeprecations()
-     *
-     * And copy the handlers here
-     */
-    /* example: */
-    /* { handler: 'silence', matchId: 'template-action' }, */
+    { handler: 'silence', matchId: 'ember-simple-auth.events.session-service' },
+    { handler: 'silence', matchId: 'ember-polyfills.deprecate-assign' },
+    { handler: 'silence', matchId: 'ember-string.htmlsafe-ishtmlsafe' },
   ],
 });

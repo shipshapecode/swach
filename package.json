@@ -151,10 +151,10 @@
     "wcag-contrast": "^3.0.0",
     "webpack": "^5.97.1"
   },
-  "packageManager": "pnpm@8.15.7",
+  "packageManager": "pnpm@10.11.0",
   "engines": {
-    "node": ">= 18",
-    "pnpm": "^8.15.7"
+    "node": ">= 20",
+    "pnpm": "^10.11.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"

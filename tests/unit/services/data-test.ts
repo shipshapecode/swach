@@ -95,7 +95,7 @@ module('Unit | Service | data', function (hooks) {
         'store has one palette after synchronize',
       );
 
-      assert.ok(palettes[0].isColorHistory, 'palette isColorHistory');
+      assert.ok(palettes[0]?.isColorHistory, 'palette isColorHistory');
 
       assert.strictEqual(
         dataService.colorHistory,
@@ -140,7 +140,7 @@ module('Unit | Service | data', function (hooks) {
         'store has one palette after synchronize',
       );
 
-      assert.ok(palettes[0].isColorHistory, 'palette isColorHistory');
+      assert.ok(palettes[0]?.isColorHistory, 'palette isColorHistory');
 
       assert.strictEqual(
         dataService.colorHistory,

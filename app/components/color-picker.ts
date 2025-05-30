@@ -133,7 +133,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
 
     set(this._selectedColor, 'name', namedColor.name);
 
-    this.colorPicker?.setColors([this._selectedColor].mapBy('hex'));
+    this.colorPicker?.setColors([this._selectedColor].map((c) => c.hex));
   }
 
   /**

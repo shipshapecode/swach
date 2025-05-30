@@ -35,7 +35,7 @@ export default class ApplicationController extends Controller {
   @tracked colorPickerColor?: ColorModel;
   @tracked colorPickerIsShown = false;
 
-  get hasLoggedInBeforeAndIsAuthenticated(): boolean {
+  get hasLoggedInBeforeAndIsAuthenticated() {
     // eslint-disable-next-line ember/no-get
     const userHasLoggedInBefore = get(this.settings, 'userHasLoggedInBefore');
 
@@ -45,27 +45,27 @@ export default class ApplicationController extends Controller {
     );
   }
 
-  get isContrastRoute(): boolean {
+  get isContrastRoute() {
     return this.router.currentRouteName === 'contrast';
   }
 
-  get isKulerRoute(): boolean {
+  get isKulerRoute() {
     return this.router.currentRouteName === 'kuler';
   }
 
-  get isPalettesRoute(): boolean {
+  get isPalettesRoute() {
     return this.router.currentRouteName === 'palettes';
   }
 
-  get isSettingsRoute(): boolean {
+  get isSettingsRoute() {
     return this.router.currentRouteName === 'settings';
   }
 
-  get isWelcomeRoute(): boolean {
-    return this.router.currentRouteName.includes('welcome');
+  get isWelcomeRoute() {
+    return this.router.currentRouteName?.includes('welcome');
   }
 
-  get showColorWheel(): boolean {
+  get showColorWheel() {
     return (
       this.hasLoggedInBeforeAndIsAuthenticated &&
       !this.isContrastRoute &&
@@ -74,7 +74,7 @@ export default class ApplicationController extends Controller {
     );
   }
 
-  get showEyedropperIcon(): boolean {
+  get showEyedropperIcon() {
     return (
       this.hasLoggedInBeforeAndIsAuthenticated &&
       !this.isContrastRoute &&

@@ -4,9 +4,25 @@ import { IndexedDBSource } from '@orbit/indexeddb';
 import type {
   InitializedRecord,
   RecordIdentity,
+  Record,
   RecordSchema,
 } from '@orbit/records';
 import { clone } from '@orbit/utils';
+
+import type ColorModel from 'swach/data-models/color';
+import type PaletteModel from 'swach/data-models/palette';
+
+type PalettePOJO = Omit<Record, 'type'> & {
+  type: 'palette';
+  relationships: {
+    colors: {
+      data: RecordIdentity[];
+    };
+  };
+  attributes: {
+    colorOrder: RecordIdentity[];
+  };
+};
 
 import ENV from 'swach/config/environment';
 import type { ColorPOJO } from 'swach/services/color-utils';
@@ -51,7 +67,7 @@ export default {
             delete color.relationships['palettes'];
 
             if (paletteIdentities?.length) {
-              color.relationships.palette = { data: paletteIdentities[0] };
+              color.relationships['palette'] = { data: paletteIdentities[0] };
               newColors.push(color);
 
               // We start at i = 1 because we can keep the original color in a single palette.
@@ -64,28 +80,29 @@ export default {
                 newColors.push(colorCopy);
 
                 const palette = palettes.find(
-                  (record) => record.id === paletteIdentity.id,
+                  (record): record is PalettePOJO =>
+                    record.id === paletteIdentity?.id && record.type === 'palette',
                 );
 
                 if (palette) {
-                  const replaceColorIdWithCopy = (c: ColorPOJO) => {
+                  const replaceColorIdWithCopy = (c: RecordIdentity) => {
                     return c.id !== color.id
                       ? c
                       : { type: 'color', id: colorCopy.id };
                   };
 
-                  if (palette.relationships?.['colors']?.data) {
+                  if (palette.relationships?.colors?.data) {
                     // Replace color in palette with color copy
-                    palette.relationships['colors'].data =
-                      palette.relationships['colors'].data.map(
-                        replaceColorIdWithCopy,
-                      );
+                    palette.relationships.colors.data = palette.relationships.colors.data.map(
+                      replaceColorIdWithCopy,
+                    );
                   }
 
                   if (palette.attributes?.['colorOrder']) {
                     // Replace color id in colorOrder
-                    palette.attributes['colorOrder'] =
-                      palette.attributes['colorOrder'].map(replaceColorIdWithCopy);
+                    palette.attributes['colorOrder'] = palette.attributes[
+                      'colorOrder'
+                    ].map(replaceColorIdWithCopy);
                   }
                 }
               }

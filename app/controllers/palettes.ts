@@ -168,10 +168,10 @@ export default class PalettesController extends Controller {
       };
       const colorsList = targetList.map((c) => c.$identity);
 
-      const existingColor = targetList.findBy('hex', sourceColor.hex);
+      const existingColor = targetList.find((c) => c.hex === sourceColor.hex);
 
       if (existingColor) {
-        const colorToRemove = colorsList.findBy('id', existingColor.id);
+        const colorToRemove = colorsList.find((c) => c.id === existingColor.id);
 
         if (colorToRemove) {
           colorsList.removeObject(colorToRemove);

@@ -28,6 +28,7 @@ module('Acceptance | settings/cloud', function (hooks) {
           assert.ok(true, 'signUp has been called');
 
           return MockUser.create({
+            // @ts-expect-error TODO: maybe fix this?
             username: 'testuser@gmail.com',
             attributes: {
               sub: 'aaaabbbb-cccc-dddd-eeee-ffffgggghhhh',

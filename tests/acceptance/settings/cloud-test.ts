@@ -8,6 +8,7 @@ import {
 import { module, test } from 'qunit';
 import sinon from 'sinon';
 
+import type DataService from 'swach/services/data';
 import { resetStorage, waitForAll } from 'swach/tests/helpers';
 import { setupApplicationTest } from 'swach/tests/helpers/index';
 
@@ -90,12 +91,14 @@ module('Acceptance | settings/cloud', function (hooks) {
       },
     });
 
-    const authenticator = this.owner.lookup('authenticator:cognito');
+    const authenticator = this.owner.lookup('authenticator:cognito') as any;
     const authenticateStub = sinon
       .stub(authenticator, 'authenticate')
       .resolves();
 
-    const dataService = this.owner.lookup('service:data');
+    const dataService = this.owner.lookup(
+      'service:data',
+    ) as unknown as DataService;
     const synchronizeStub = sinon.stub(dataService, 'synchronize').resolves();
     const resetStub = sinon.stub(dataService, 'reset').resolves();
 

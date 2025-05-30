@@ -1,4 +1,5 @@
 import { action } from '@ember/object';
+import type Owner from '@ember/owner';
 import { service } from '@ember/service';
 import { capitalize } from '@ember/string';
 import Component from '@glimmer/component';
@@ -60,7 +61,7 @@ export default class KulerComponent extends Component<KulerSignature> {
   @tracked palettes: Palette[] = [];
   @tracked selectedPalette!: Palette;
 
-  constructor(owner: unknown, args: KulerSignature['Args']) {
+  constructor(owner: Owner, args: KulerSignature['Args']) {
     super(owner, args);
 
     this._debouncedColorChange = debounce(10, this._onColorChange);

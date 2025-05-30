@@ -1,4 +1,5 @@
 import { action } from '@ember/object';
+import type Owner from '@ember/owner';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
@@ -14,7 +15,7 @@ export default class AboutComponent extends Component<AboutSignature> {
   copyrightYear = new Date().getFullYear();
   @tracked version = 'Version not available';
 
-  constructor(owner: unknown, args: Record<string, unknown>) {
+  constructor(owner: Owner, args: Record<string, unknown>) {
     super(owner, args);
 
     if (typeof requireNode !== 'undefined') {

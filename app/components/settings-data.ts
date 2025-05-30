@@ -1,4 +1,5 @@
 import { action } from '@ember/object';
+import type Owner from '@ember/owner';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
@@ -29,7 +30,7 @@ export default class SettingsData extends Component {
   @tracked isExporting = false;
   @tracked isImporting = false;
 
-  constructor(owner: unknown, args: Record<string, unknown>) {
+  constructor(owner: Owner, args: Record<string, unknown>) {
     super(owner, args);
 
     if (typeof requireNode !== 'undefined') {

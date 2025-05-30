@@ -1,4 +1,5 @@
 import { action } from '@ember/object';
+import type Owner from '@ember/owner';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
@@ -28,7 +29,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
     return score(this.wcagScore);
   }
 
-  constructor(owner: unknown, args: object) {
+  constructor(owner: Owner, args: object) {
     super(owner, args);
 
     if (typeof requireNode !== 'undefined') {

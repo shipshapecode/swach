@@ -1,4 +1,5 @@
 import { action } from '@ember/object';
+import type Owner from '@ember/owner';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
@@ -124,7 +125,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
   nameInput!: HTMLElement;
   @tracked isEditing = false;
 
-  constructor(owner: unknown, args: PaletteRowSignature['Args']) {
+  constructor(owner: Owner, args: PaletteRowSignature['Args']) {
     super(owner, args);
 
     this.menuItems = [

@@ -1,3 +1,4 @@
+import type Owner from '@ember/owner';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
@@ -16,7 +17,7 @@ export default class OptionsMenu extends Component<OptionsMenuSignature> {
   @tracked position: 'left' | 'right' = 'right';
   @tracked isShown = false;
 
-  constructor(owner: unknown, args: OptionsMenuSignature['Args']) {
+  constructor(owner: Owner, args: OptionsMenuSignature['Args']) {
     super(owner, args);
 
     this.position = this.args.position ?? 'right';

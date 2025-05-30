@@ -1,4 +1,5 @@
 import { action } from '@ember/object';
+import type Owner from '@ember/owner';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
@@ -25,7 +26,7 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
 
   @tracked platform?: string;
 
-  constructor(owner: unknown, args: SettingsMenuSignature['Args']) {
+  constructor(owner: Owner, args: SettingsMenuSignature['Args']) {
     super(owner, args);
 
     if (typeof requireNode !== 'undefined') {

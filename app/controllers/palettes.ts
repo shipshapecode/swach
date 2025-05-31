@@ -31,12 +31,11 @@ export default class PalettesController extends Controller {
     const { colorHistory } = this.data;
 
     if (colorHistory) {
-      return colorHistory.colors
+      return [...colorHistory.colors]
         .slice()
-        .sort(
-          (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-        )
+        .sort((a, b) => {
+          return b.createdAt?.localeCompare(a.createdAt);
+        })
         .slice(0, 16);
     } else {
       return [];

@@ -1,8 +1,8 @@
 import {
+  type SetupTestOptions,
   setupApplicationTest as upstreamSetupApplicationTest,
   setupRenderingTest as upstreamSetupRenderingTest,
   setupTest as upstreamSetupTest,
-  type SetupTestOptions,
 } from 'ember-qunit';
 
 // This file exists to provide wrappers around ember-qunit's

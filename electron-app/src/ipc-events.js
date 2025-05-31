@@ -1,4 +1,11 @@
-const { app, clipboard, dialog, ipcMain, nativeTheme, shell } = require('electron');
+const {
+  app,
+  clipboard,
+  dialog,
+  ipcMain,
+  nativeTheme,
+  shell,
+} = require('electron');
 const { download } = require('electron-dl');
 const fs = require('fs');
 

@@ -53,7 +53,7 @@ export default class SettingsData extends Component {
           (err: Event | null, jsonString: string) => {
             if (err) {
               this.flashMessages.danger('An error occurred.');
-               
+
               console.error(err);
             } else {
               this.ipcRenderer.send('exportData', jsonString);
@@ -68,7 +68,7 @@ export default class SettingsData extends Component {
         );
       };
     }
-  }
+  };
 
   importIndexedDB = async () => {
     if (this.ipcRenderer) {
@@ -128,7 +128,7 @@ export default class SettingsData extends Component {
         }
       });
     }
-  }
+  };
 }
 
 declare module '@glint/environment-ember-loose/registry' {

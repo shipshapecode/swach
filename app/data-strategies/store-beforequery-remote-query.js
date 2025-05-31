@@ -52,7 +52,6 @@ export default {
       },
 
       catch(e, transform) {
-         
         console.log('Error performing remote.update()', transform, e);
         this.source.requestQueue.skip(e);
         this.target.requestQueue.skip(e);

@@ -45,9 +45,7 @@ export function resetStorage(
   });
 
   hooks.afterEach(async function () {
-    const backup = this.owner.lookup(
-      'data-source:backup',
-    ) as IndexedDBSource;
+    const backup = this.owner.lookup('data-source:backup') as IndexedDBSource;
 
     await backup.cache.deleteDB();
 

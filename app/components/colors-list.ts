@@ -74,7 +74,7 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
   }
 
   @action
-  async deleteColor(color: ColorModel){
+  async deleteColor(color: ColorModel) {
     const { palette } = this.args;
 
     if (color && palette && !palette.isLocked) {

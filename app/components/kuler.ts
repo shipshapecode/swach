@@ -48,9 +48,7 @@ export default class KulerComponent extends Component<KulerSignature> {
   @service declare colorUtils: ColorUtils;
   @service declare store: Store;
 
-  // TODO: correctly type this instead of using `any`
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  _debouncedColorChange!: any;
+  _debouncedColorChange!: (color: iro.Color | string) => void;
   colorPicker!: iro.ColorPicker;
   harmonies = ['analogous', 'monochromatic', 'tetrad', 'triad'] as const;
   declare ipcRenderer: IpcRenderer;
@@ -66,33 +64,32 @@ export default class KulerComponent extends Component<KulerSignature> {
     this._debouncedColorChange = debounce(10, this._onColorChange);
 
     this.baseColor = this.args.baseColor;
-    this.baseColorChanged().then(() => {
-      this._setupColorWheel();
+    this.baseColorChanged();
+    this._setupColorWheel();
 
-      if (typeof requireNode !== 'undefined') {
-        const { ipcRenderer } = requireNode('electron');
+    if (typeof requireNode !== 'undefined') {
+      const { ipcRenderer } = requireNode('electron');
 
-        this.ipcRenderer = ipcRenderer;
+      this.ipcRenderer = ipcRenderer;
 
-        this.ipcRenderer.on(
-          'selectKulerColor',
-          async (_event: unknown, colorIndex: number) => {
-            this.setSelectedIroColor(colorIndex);
-          },
-        );
+      this.ipcRenderer.on(
+        'selectKulerColor',
+        (_event: unknown, colorIndex: number) => {
+          this.setSelectedIroColor(colorIndex);
+        },
+      );
 
-        this.ipcRenderer.on(
-          'updateKulerColor',
-          async (_event: unknown, color) => {
-            await this._onColorChange(color);
-            this.colorPicker.setColors(
-              this.selectedPalette.colors.map((color: ColorModel) => color.hex),
-              this.selectedPalette.selectedColorIndex,
-            );
-          },
-        );
-      }
-    });
+      this.ipcRenderer.on(
+        'updateKulerColor',
+        (_event: unknown, color: string | iro.Color) => {
+          this._onColorChange(color);
+          this.colorPicker.setColors(
+            this.selectedPalette.colors.map((color: ColorModel) => color.hex),
+            this.selectedPalette.selectedColorIndex,
+          );
+        },
+      );
+    }
   }
 
   willDestroy(): void {
@@ -108,8 +105,7 @@ export default class KulerComponent extends Component<KulerSignature> {
     }
   }
 
-  @action
-  async baseColorChanged(selectedPaletteTypeIndex = 0): Promise<void> {
+  baseColorChanged = (selectedPaletteTypeIndex = 0) => {
     this._destroyLeftoverPalettes();
 
     const palettes: Palette[] = [];
@@ -133,23 +129,20 @@ export default class KulerComponent extends Component<KulerSignature> {
     this.palettes = palettes;
 
     this.selectedPalette = this.palettes[selectedPaletteTypeIndex] as Palette;
-  }
+  };
 
-  @action
-  setColorAsBase(): Promise<void> {
+  setColorAsBase = () => {
     this.baseColor = this.selectedPalette.colors[
       this.selectedPalette.selectedColorIndex
     ] as ColorModel;
 
-    return this.baseColorChanged(
-      this.palettes.indexOf(this.selectedPalette),
-    ).then(() => {
-      this.colorPicker.setColors(
-        this.selectedPalette.colors.map((color: ColorModel) => color.hex),
-        this.selectedPalette.selectedColorIndex,
-      );
-    });
-  }
+    this.baseColorChanged(this.palettes.indexOf(this.selectedPalette));
+
+    this.colorPicker.setColors(
+      this.selectedPalette.colors.map((color: ColorModel) => color.hex),
+      this.selectedPalette.selectedColorIndex,
+    );
+  };
 
   /**
    * Sets the selected color in the iro.js color wheel
@@ -163,8 +156,7 @@ export default class KulerComponent extends Component<KulerSignature> {
   /**
    * Sets the selected palette and the colors for the color picker
    */
-  @action
-  setSelectedPalette(event: InputEvent): void {
+  setSelectedPalette = (event: InputEvent) => {
     const paletteName = (<HTMLInputElement>event.target).value;
     const palette = this.palettes.find((p: Palette) => p.name === paletteName);
 
@@ -175,15 +167,13 @@ export default class KulerComponent extends Component<KulerSignature> {
         palette.selectedColorIndex,
       );
     }
-  }
+  };
 
-  @action
-  _destroyLeftoverPalettes(): void {
+  _destroyLeftoverPalettes = () => {
     this.palettes = [];
-  }
+  };
 
-  @action
-  async _onColorChange(color: iro.Color | string): Promise<void> {
+  _onColorChange = (color: iro.Color | string) => {
     const { selectedColorIndex } = this.selectedPalette;
     // if changing the selected baseColor, we should update all the colors
     const newColor = this.colorUtils.createColorPOJO(
@@ -197,26 +187,25 @@ export default class KulerComponent extends Component<KulerSignature> {
     );
 
     if (selectedColorIndex === 0) {
-      this.baseColor =
-        this.selectedPalette.colors[this.selectedPalette.selectedColorIndex] as ColorModel;
-      await this.setColorAsBase();
+      this.baseColor = this.selectedPalette.colors[
+        this.selectedPalette.selectedColorIndex
+      ] as ColorModel;
+      this.setColorAsBase();
     }
 
     this.colorPicker.setColors(
       this.selectedPalette.colors.map((color: ColorModel) => color.hex),
       this.selectedPalette.selectedColorIndex,
     );
-  }
+  };
 
-  @action
-  _onColorSetActive(color: iro.Color): void {
+  _onColorSetActive = (color: iro.Color) => {
     if (color) {
       this.selectedPalette.selectedColorIndex = color.index;
     }
-  }
+  };
 
-  @action
-  _setupColorWheel(): void {
+  _setupColorWheel = () => {
     // TODO: correctly type this instead of using `any`
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.colorPicker = (iro.ColorPicker as any)(
@@ -264,7 +253,7 @@ export default class KulerComponent extends Component<KulerSignature> {
 
     this.colorPicker.on('color:change', this._debouncedColorChange);
     this.colorPicker.on('color:setActive', this._onColorSetActive);
-  }
+  };
 }
 
 declare module '@glint/environment-ember-loose/registry' {

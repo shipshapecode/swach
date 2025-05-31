@@ -1,4 +1,3 @@
-import { action } from '@ember/object';
 import type Owner from '@ember/owner';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
@@ -40,8 +39,7 @@ export default class SettingsData extends Component {
     }
   }
 
-  @action
-  exportIndexedDB(): void {
+  exportIndexedDB = () => {
     if (this.ipcRenderer) {
       this.isExporting = true;
 
@@ -72,11 +70,10 @@ export default class SettingsData extends Component {
     }
   }
 
-  @action
-  importIndexedDB(): void {
+  importIndexedDB = async () => {
     if (this.ipcRenderer) {
       this.isImporting = true;
-      this.ipcRenderer.invoke('importData').then((jsonString: string) => {
+      await this.ipcRenderer.invoke('importData').then((jsonString: string) => {
         if (jsonString) {
           const DBOpenRequest = getDBOpenRequest();
 
@@ -89,6 +86,7 @@ export default class SettingsData extends Component {
                 IDBExportImport.importFromJsonString(
                   idbDatabase,
                   jsonString,
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
                   async (err: Event | null) => {
                     if (!err) {
                       idbDatabase.close();

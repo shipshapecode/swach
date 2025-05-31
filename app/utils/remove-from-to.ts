@@ -5,6 +5,7 @@ export default function removeFromTo(
 ): number {
   array.splice(
     from,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     !to ||
       // @ts-expect-error: We need to refactor this function
       1 +

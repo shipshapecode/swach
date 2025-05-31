@@ -9,7 +9,6 @@ import { fadeOut } from 'ember-animated/motions/opacity';
 import type { Store } from 'ember-orbit';
 
 import type { RecordOperationTerm } from '@orbit/records';
-import { TrackedArray } from 'tracked-built-ins';
 
 import 'swach/components/color-row';
 import type ColorModel from 'swach/data-models/color';
@@ -78,11 +77,9 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
     const { palette } = this.args;
 
     if (color && palette && !palette.isLocked) {
-      const colorsList = new TrackedArray<{ type: string; id: string }>(
-        palette.colors.map((color) => {
-          return { type: 'color', id: color.id };
-        }),
-      );
+      const colorsList = palette.colors.map((color) => {
+        return { type: 'color', id: color.id };
+      });
 
       const colorToRemove = colorsList.find((c) => c.id === color.id);
 

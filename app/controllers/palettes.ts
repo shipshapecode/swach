@@ -7,7 +7,6 @@ import { tracked } from '@glimmer/tracking';
 import type { LiveQuery, Store } from 'ember-orbit';
 
 import type { RecordOperationTerm } from '@orbit/records';
-import { TrackedArray } from 'tracked-built-ins';
 
 import type ApplicationController from 'swach/controllers/application';
 import type ColorModel from 'swach/data-models/color';
@@ -169,7 +168,7 @@ export default class PalettesController extends Controller {
         ...attributes,
         createdAt: new Date(),
       };
-      const colorsList = new TrackedArray(targetList.map((c) => c.$identity));
+      const colorsList = targetList.map((c) => c.$identity);
 
       const existingColor = targetList.find((c) => c.hex === sourceColor.hex);
 
@@ -211,9 +210,7 @@ export default class PalettesController extends Controller {
     sourcePalette: PaletteModel,
     targetIndex: number,
   ): Promise<void> {
-    const sourceColorList = new TrackedArray(
-      sourceList.map((c) => c.$identity),
-    );
+    const sourceColorList = sourceList.map((c) => c.$identity);
     const colorToMove = sourceColorList.find((c) => c.id === sourceColor.id);
 
     if (colorToMove) {
@@ -237,9 +234,7 @@ export default class PalettesController extends Controller {
     targetIndex: number,
     targetPalette: PaletteModel,
   ): Promise<void> {
-    const sourceColorOrder = new TrackedArray(
-      sourceList.map((c) => c.$identity),
-    );
+    const sourceColorOrder = sourceList.map((c) => c.$identity);
     const colorToRemove = sourceColorOrder.find((c) => c.id === sourceColor.id);
 
     if (colorToRemove) {
@@ -253,9 +248,7 @@ export default class PalettesController extends Controller {
 
         if (!targetPalette.isColorHistory) {
           let insertIndex = targetIndex;
-          const targetColorOrder = new TrackedArray(
-            targetList.map((c) => c.$identity),
-          );
+          const targetColorOrder = targetList.map((c) => c.$identity);
           const existingColor = targetList.find(
             (c) => c.hex === sourceColor.hex,
           );

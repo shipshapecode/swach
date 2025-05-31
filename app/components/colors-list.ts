@@ -34,7 +34,7 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
         return palette.colors.sortBy('createdAt').reverse();
       } else {
         return palette.colorOrder.map((color: ColorModel) => {
-          return palette.colors.findBy('id', color.id);
+          return palette.colors.find((c) => c.id === color.id);
         });
       }
     }
@@ -77,7 +77,7 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
         return { type: 'color', id: color.id };
       });
 
-      const colorToRemove = colorsList.findBy('id', color.id);
+      const colorToRemove = colorsList.find((c) => c.id === color.id);
 
       if (colorToRemove) {
         colorsList.removeObject(colorToRemove);

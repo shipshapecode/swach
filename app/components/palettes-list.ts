@@ -61,7 +61,7 @@ export default class PalettesListComponent extends Component<PalettesListSignatu
   }): Promise<void> {
     if (sourceList === targetList && sourceIndex === targetIndex) return;
 
-    const movedItem = sourceList.objectAt(sourceIndex) as PaletteModel;
+    const movedItem = sourceList[sourceIndex] as PaletteModel;
 
     sourceList.removeAt(sourceIndex);
     targetList.insertAt(targetIndex, movedItem);

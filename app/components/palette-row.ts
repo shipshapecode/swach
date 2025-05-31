@@ -157,6 +157,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       ),
     ];
 
+    // @ts-expect-error dragSort.on does not seem to exist in TS
     this.dragSort.on(
       'start',
       (event: { draggedItem: { hex: string | null } }) => {
@@ -175,7 +176,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
   get sortedColors(): (ColorModel | undefined)[] {
     return this.args?.palette?.colorOrder?.map(
       (color: { type: string; id: string }) => {
-        return this.args.palette.colors.findBy('id', color.id);
+        return this.args.palette.colors.find((c) => c.id === color.id);
       },
     );
   }

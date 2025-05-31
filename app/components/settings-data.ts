@@ -52,7 +52,7 @@ export default class SettingsData extends Component {
 
         IDBExportImport.exportToJsonString(
           idbDatabase,
-          (err: Event, jsonString: string) => {
+          (err: Event | null, jsonString: string) => {
             if (err) {
               this.flashMessages.danger('An error occurred.');
               // eslint-disable-next-line no-console
@@ -83,13 +83,13 @@ export default class SettingsData extends Component {
           DBOpenRequest.onsuccess = () => {
             const idbDatabase = DBOpenRequest.result;
 
-            IDBExportImport.clearDatabase(idbDatabase, (err: Event) => {
+            IDBExportImport.clearDatabase(idbDatabase, (err: Event | null) => {
               if (!err) {
                 // cleared data successfully
                 IDBExportImport.importFromJsonString(
                   idbDatabase,
                   jsonString,
-                  async (err: Event) => {
+                  async (err: Event | null) => {
                     if (!err) {
                       idbDatabase.close();
 
@@ -106,8 +106,8 @@ export default class SettingsData extends Component {
 
                         await this.store.sync((t) =>
                           records.map((r) => {
-                            if (r?.attributes?.hex) {
-                              delete r.attributes.hex;
+                            if (r?.attributes?.['hex']) {
+                              delete r.attributes['hex'];
                             }
 
                             return t.addRecord(r);

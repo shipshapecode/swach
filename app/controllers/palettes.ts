@@ -107,7 +107,7 @@ export default class PalettesController extends Controller {
     // If the palette is locked, we should not allow dragging colors into or out of it
     if (sourcePalette?.isLocked || targetPalette?.isLocked) return;
 
-    const sourceColor = sourceList.objectAt(sourceIndex);
+    const sourceColor = sourceList[sourceIndex];
 
     if (sourceColor) {
       if (sourceArgs.isColorHistory) {

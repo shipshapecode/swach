@@ -1,8 +1,6 @@
 import 'ember-cli-flash';
+import '@glint/environment-ember-loose'
 import { ComponentLike, HelperLike, ModifierLike } from '@glint/template';
-import AnimatedContainer from '@gavant/glint-template-types/types/ember-animated/animated-container';
-import AnimatedEach from '@gavant/glint-template-types/types/ember-animated/animated-each';
-import AnimatedValue from '@gavant/glint-template-types/types/ember-animated/animated-value';
 
 import OnClickOutsideModifier from 'ember-click-outside/modifiers/on-click-outside';
 
@@ -12,6 +10,7 @@ import WillDestroyModifier from 'ember-render-modifiers/modifiers/will-destroy';
 
 import SvgJarHelper from 'ember-svg-jar/helpers/svg-jar';
 
+import type EmberAnimatedRegistry from 'ember-animated/template-registry';
 import type EmberMathRegistry from 'ember-math-helpers/template-registry';
 import type EmberTruthRegistry from 'ember-truth-helpers/template-registry';
 
@@ -24,11 +23,8 @@ declare module 'swach/templates/*' {
 
 declare module '@glint/environment-ember-loose/registry' {
   export default interface Registry
-    extends EmberMathRegistry,
+    extends EmberAnimatedRegistry, EmberMathRegistry,
       EmberTruthRegistry {
-    AnimatedContainer: typeof AnimatedContainer;
-    'animated-each': typeof AnimatedEach;
-    AnimatedValue: typeof AnimatedValue;
     capitalize: HelperLike<{
       Args: {
         Positional: [input: string];

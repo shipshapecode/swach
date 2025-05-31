@@ -83,7 +83,7 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
   @action
   updateColor(): void {
     this.args.colorPicker.setColors(
-      this.args.palette.colors.mapBy('hex'),
+      this.args.palette.colors.map((c) => c.hex),
       this.args.palette.selectedColorIndex,
     );
   }

@@ -7,6 +7,7 @@ import { tracked } from '@glimmer/tracking';
 import type { LiveQuery, Store } from 'ember-orbit';
 
 import type { RecordOperationTerm } from '@orbit/records';
+import { TrackedArray } from 'tracked-built-ins';
 
 import type ApplicationController from 'swach/controllers/application';
 import type ColorModel from 'swach/data-models/color';
@@ -166,7 +167,7 @@ export default class PalettesController extends Controller {
         ...attributes,
         createdAt: new Date(),
       };
-      const colorsList = targetList.map((c) => c.$identity);
+      const colorsList = new TrackedArray(targetList.map((c) => c.$identity));
 
       const existingColor = targetList.find((c) => c.hex === sourceColor.hex);
 
@@ -178,7 +179,7 @@ export default class PalettesController extends Controller {
         }
       }
 
-      colorsList.insertAt(targetIndex, {
+      colorsList.splice(targetIndex, 0, {
         type: 'color',
         id: colorCopy.id,
       });
@@ -208,12 +209,14 @@ export default class PalettesController extends Controller {
     sourcePalette: PaletteModel,
     targetIndex: number,
   ): Promise<void> {
-    const sourceColorList = sourceList.map((c) => c.$identity);
-    const colorToMove = sourceColorList.findBy('id', sourceColor.id);
+    const sourceColorList = new TrackedArray(
+      sourceList.map((c) => c.$identity),
+    );
+    const colorToMove = sourceColorList.find((c) => c.id === sourceColor.id);
 
     if (colorToMove) {
       sourceColorList.removeObject(colorToMove);
-      sourceColorList.insertAt(targetIndex, colorToMove);
+      sourceColorList.splice(targetIndex, 0, colorToMove);
 
       await this.store.update((t) =>
         t.replaceAttribute(sourcePalette, 'colorOrder', sourceColorList),
@@ -233,7 +236,7 @@ export default class PalettesController extends Controller {
     targetPalette: PaletteModel,
   ): Promise<void> {
     const sourceColorOrder = sourceList.map((c) => c.$identity);
-    const colorToRemove = sourceColorOrder.findBy('id', sourceColor.id);
+    const colorToRemove = sourceColorOrder.find((c) => c.id === sourceColor.id);
 
     if (colorToRemove) {
       sourceColorOrder.removeObject(colorToRemove);
@@ -246,13 +249,16 @@ export default class PalettesController extends Controller {
 
         if (!targetPalette.isColorHistory) {
           let insertIndex = targetIndex;
-          const targetColorOrder = targetList.map((c) => c.$identity);
-          const existingColor = targetList.findBy('hex', sourceColor.hex);
+          const targetColorOrder = new TrackedArray(
+            targetList.map((c) => c.$identity),
+          );
+          const existingColor = targetList.find(
+            (c) => c.hex === sourceColor.hex,
+          );
 
           if (existingColor) {
-            const colorToRemove = targetColorOrder.findBy(
-              'id',
-              existingColor.id,
+            const colorToRemove = targetColorOrder.find(
+              (c) => c.id === existingColor.id,
             );
 
             if (colorToRemove) {
@@ -270,8 +276,7 @@ export default class PalettesController extends Controller {
 
             t.removeFromRelatedRecords(targetPalette, 'colors', existingColor);
           }
-
-          targetColorOrder.insertAt(insertIndex, sourceColor.$identity);
+          targetColorOrder.splice(insertIndex, 0, sourceColor.$identity);
 
           operations.push(
             t.addToRelatedRecords(targetPalette, 'colors', sourceColor),

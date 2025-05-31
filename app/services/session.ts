@@ -13,15 +13,15 @@ interface Data {
 export default class SessionService extends BaseSessionService<Data> {
   @service('data') declare swachData: DataService;
 
-  async handleAuthentication(routeAfterAuthentication: string) {
+  handleAuthentication(routeAfterAuthentication: string) {
     super.handleAuthentication(routeAfterAuthentication);
 
-    await this.swachData.synchronize();
+    void this.swachData.synchronize();
   }
 
-  async handleInvalidation(routeAfterInvalidation: string) {
+  handleInvalidation(routeAfterInvalidation: string) {
     super.handleInvalidation(routeAfterInvalidation);
 
-    await this.swachData.reset();
+    void this.swachData.reset();
   }
 }

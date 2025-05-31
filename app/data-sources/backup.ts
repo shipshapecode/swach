@@ -9,9 +9,6 @@ import type {
 } from '@orbit/records';
 import { clone } from '@orbit/utils';
 
-import type ColorModel from 'swach/data-models/color';
-import type PaletteModel from 'swach/data-models/palette';
-
 type PalettePOJO = Omit<Record, 'type'> & {
   type: 'palette';
   relationships: {
@@ -25,7 +22,6 @@ type PalettePOJO = Omit<Record, 'type'> & {
 };
 
 import ENV from 'swach/config/environment';
-import type { ColorPOJO } from 'swach/services/color-utils';
 
 const { SCHEMA_VERSION } = ENV;
 
@@ -40,6 +36,7 @@ export default {
       ...injections,
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     backup.cache.migrateDB = async (
       _db: IDBDatabase,
       event: IDBVersionChangeEvent,
@@ -73,9 +70,10 @@ export default {
               // We start at i = 1 because we can keep the original color in a single palette.
               for (let i = 1; i < paletteIdentities.length; i++) {
                 const paletteIdentity = paletteIdentities[i];
-                const colorCopy = clone(color);
+                const colorCopy = clone(color) as InitializedRecord;
 
                 colorCopy.id = schema.generateId('color');
+                // @ts-expect-error relationships do actually exist
                 colorCopy.relationships.palette.data = paletteIdentity;
                 newColors.push(colorCopy);
 
@@ -137,7 +135,7 @@ export default {
     };
 
     // Upgrade the schema to the latest version, and thereby, migrate the IDB
-    schema.upgrade({ version: SCHEMA_VERSION });
+    void schema.upgrade({ version: SCHEMA_VERSION });
 
     return backup;
   },
@@ -156,10 +154,8 @@ function getRecordsFromIDB(
     const request = objectStore.openCursor();
     const records: InitializedRecord[] = [];
 
-    // TODO: correctly type this instead of using `any`
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    request.onsuccess = (event: any) => {
-      const cursor = event.target.result;
+    request.onsuccess = (event: Event) => {
+      const cursor = (event.target as IDBRequest<IDBCursorWithValue> | null)?.result;
 
       if (cursor) {
         const record = cursor.value as InitializedRecord;

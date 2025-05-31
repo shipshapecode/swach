@@ -148,7 +148,7 @@
     "sinon": "^17.0.1",
     "stream-browserify": "^3.0.0",
     "stylelint": "^16.19.1",
-    "stylelint-config-standard-scss": "^11.1.0",
+    "stylelint-config-standard-scss": "^15.0.1",
     "tailwindcss": "^3.4.16",
     "throttle-debounce": "^5.0.2",
     "tracked-built-ins": "^3.4.0",

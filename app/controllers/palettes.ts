@@ -34,8 +34,10 @@ export default class PalettesController extends Controller {
     if (colorHistory) {
       return colorHistory.colors
         .slice()
-        .sortBy('createdAt')
-        .reverse()
+        .sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        )
         .slice(0, 16);
     } else {
       return [];
@@ -175,7 +177,7 @@ export default class PalettesController extends Controller {
         const colorToRemove = colorsList.find((c) => c.id === existingColor.id);
 
         if (colorToRemove) {
-          colorsList.removeObject(colorToRemove);
+          colorsList.splice(colorsList.indexOf(colorToRemove), 1);
         }
       }
 
@@ -215,7 +217,7 @@ export default class PalettesController extends Controller {
     const colorToMove = sourceColorList.find((c) => c.id === sourceColor.id);
 
     if (colorToMove) {
-      sourceColorList.removeObject(colorToMove);
+      sourceColorList.splice(sourceColorList.indexOf(colorToMove), 1);
       sourceColorList.splice(targetIndex, 0, colorToMove);
 
       await this.store.update((t) =>
@@ -235,11 +237,13 @@ export default class PalettesController extends Controller {
     targetIndex: number,
     targetPalette: PaletteModel,
   ): Promise<void> {
-    const sourceColorOrder = sourceList.map((c) => c.$identity);
+    const sourceColorOrder = new TrackedArray(
+      sourceList.map((c) => c.$identity),
+    );
     const colorToRemove = sourceColorOrder.find((c) => c.id === sourceColor.id);
 
     if (colorToRemove) {
-      sourceColorOrder.removeObject(colorToRemove);
+      sourceColorOrder.splice(sourceColorOrder.indexOf(colorToRemove), 1);
 
       await this.store.update((t) => {
         const operations: RecordOperationTerm[] = [
@@ -271,7 +275,10 @@ export default class PalettesController extends Controller {
                 insertIndex--;
               }
 
-              targetColorOrder.removeObject(colorToRemove);
+              targetColorOrder.splice(
+                targetColorOrder.indexOf(colorToRemove),
+                1,
+              );
             }
 
             t.removeFromRelatedRecords(targetPalette, 'colors', existingColor);

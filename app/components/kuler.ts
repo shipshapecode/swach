@@ -86,7 +86,7 @@ export default class KulerComponent extends Component<KulerSignature> {
           async (_event: unknown, color) => {
             await this._onColorChange(color);
             this.colorPicker.setColors(
-              this.selectedPalette.colors.mapBy('hex'),
+              this.selectedPalette.colors.map((color: ColorModel) => color.hex),
               this.selectedPalette.selectedColorIndex,
             );
           },
@@ -137,8 +137,9 @@ export default class KulerComponent extends Component<KulerSignature> {
 
   @action
   setColorAsBase(): Promise<void> {
-    this.baseColor =
-      this.selectedPalette.colors[this.selectedPalette.selectedColorIndex];
+    this.baseColor = this.selectedPalette.colors[
+      this.selectedPalette.selectedColorIndex
+    ] as ColorModel;
 
     return this.baseColorChanged(
       this.palettes.indexOf(this.selectedPalette),
@@ -165,7 +166,7 @@ export default class KulerComponent extends Component<KulerSignature> {
   @action
   setSelectedPalette(event: InputEvent): void {
     const paletteName = (<HTMLInputElement>event.target).value;
-    const palette = this.palettes.findBy('name', paletteName);
+    const palette = this.palettes.find((p: Palette) => p.name === paletteName);
 
     if (palette) {
       this.selectedPalette = palette;
@@ -189,13 +190,15 @@ export default class KulerComponent extends Component<KulerSignature> {
       color instanceof iro.Color ? color.rgba : color,
     );
 
-    this.selectedPalette.colors.replace(selectedColorIndex, 1, [
-      newColor.attributes,
-    ]);
+    this.selectedPalette.colors.splice(
+      selectedColorIndex,
+      1,
+      ...[newColor.attributes as unknown as ColorModel],
+    );
 
     if (selectedColorIndex === 0) {
       this.baseColor =
-        this.selectedPalette.colors[this.selectedPalette.selectedColorIndex];
+        this.selectedPalette.colors[this.selectedPalette.selectedColorIndex] as ColorModel;
       await this.setColorAsBase();
     }
 
@@ -219,7 +222,9 @@ export default class KulerComponent extends Component<KulerSignature> {
     this.colorPicker = (iro.ColorPicker as any)(
       '#kuler-color-picker-container',
       {
-        colors: this.selectedPalette.colors.map((color: ColorModel) => color.hex),
+        colors: this.selectedPalette.colors.map(
+          (color: ColorModel) => color.hex,
+        ),
         layoutDirection: 'horizontal',
         layout: [
           {

@@ -9,6 +9,7 @@ import { fadeOut } from 'ember-animated/motions/opacity';
 import type { Store } from 'ember-orbit';
 
 import type { RecordOperationTerm } from '@orbit/records';
+import { TrackedArray } from 'tracked-built-ins';
 
 import 'swach/components/color-row';
 import type ColorModel from 'swach/data-models/color';
@@ -31,9 +32,12 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
 
     if (!palette.$isDisconnected) {
       if (palette.isColorHistory) {
-        return palette.colors.sortBy('createdAt').reverse();
+        return palette.colors.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        );
       } else {
-        return palette.colorOrder.map((color: ColorModel) => {
+        return palette.colorOrder.map((color: { type: string; id: string }) => {
           return palette.colors.find((c) => c.id === color.id);
         });
       }
@@ -73,14 +77,16 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
     const { palette } = this.args;
 
     if (color && palette && !palette.isLocked) {
-      const colorsList = palette.colors.map((color) => {
-        return { type: 'color', id: color.id };
-      });
+      const colorsList = new TrackedArray<{ type: string; id: string }>(
+        palette.colors.map((color) => {
+          return { type: 'color', id: color.id };
+        }),
+      );
 
       const colorToRemove = colorsList.find((c) => c.id === color.id);
 
       if (colorToRemove) {
-        colorsList.removeObject(colorToRemove);
+        colorsList.splice(colorsList.indexOf(colorToRemove), 1);
 
         await this.store.update((t) => {
           const operations: RecordOperationTerm[] = [

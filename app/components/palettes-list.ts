@@ -63,8 +63,8 @@ export default class PalettesListComponent extends Component<PalettesListSignatu
 
     const movedItem = sourceList[sourceIndex] as PaletteModel;
 
-    sourceList.removeAt(sourceIndex);
-    targetList.insertAt(targetIndex, movedItem);
+    sourceList.splice(sourceIndex, 1);
+    targetList.splice(targetIndex, 0, movedItem);
 
     await this.store.update((t) => {
       const operations: RecordOperationTerm[] = [];

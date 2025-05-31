@@ -1,4 +1,4 @@
-const { app, clipboard, dialog, ipcMain, nativeTheme } = require('electron');
+const { app, clipboard, dialog, ipcMain, nativeTheme, shell } = require('electron');
 const { download } = require('electron-dl');
 const fs = require('fs');
 
@@ -63,6 +63,10 @@ function setupEventHandlers(mb, store) {
 
   ipcMain.on('launchPicker', async () => {
     await launchPicker(mb);
+  });
+
+  ipcMain.handle('open-external', async (_event, url) => {
+    await shell.openExternal(url);
   });
 
   ipcMain.on('setShowDockIcon', async (channel, showDockIcon) => {

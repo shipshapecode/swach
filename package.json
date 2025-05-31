@@ -57,6 +57,7 @@
     "@glint/environment-ember-loose": "^1.5.2",
     "@glint/environment-ember-template-imports": "^1.5.2",
     "@glint/template": "^1.5.2",
+    "@irojs/iro-core": "^1.2.1",
     "@jaames/iro": "^5.5.2",
     "@orbit/coordinator": "^0.17.0",
     "@orbit/indexeddb": "^0.17.2",

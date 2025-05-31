@@ -23,7 +23,7 @@ export default class AboutComponent extends Component<AboutSignature> {
 
       this.ipcRenderer = ipcRenderer;
 
-      this.ipcRenderer.invoke('getAppVersion').then((version: string) => {
+      void this.ipcRenderer.invoke('getAppVersion').then((version: string) => {
         this.version = version;
       });
     }
@@ -34,7 +34,7 @@ export default class AboutComponent extends Component<AboutSignature> {
     event.preventDefault();
 
     if (typeof requireNode !== 'undefined') {
-      requireNode('electron').shell.openExternal('https://swach.io/');
+      void this.ipcRenderer.invoke('open-external', 'https://swach.io/');
     }
   }
 }

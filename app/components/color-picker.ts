@@ -93,7 +93,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
 
       this.undoManager.setupUndoRedo();
     } else {
-      this.args.saveColor(this._selectedColor?.hex);
+      await this.args.saveColor(this._selectedColor?.hex);
     }
 
     this.args.toggleIsShown();

@@ -77,6 +77,9 @@ importers:
       '@glint/template':
         specifier: ^1.5.2
         version: 1.5.2
+      '@irojs/iro-core':
+        specifier: ^1.2.1
+        version: 1.2.1
       '@jaames/iro':
         specifier: ^5.5.2
         version: 5.5.2
@@ -14140,14 +14143,14 @@ snapshots:
       '@types/ember__array': 4.0.10(@babel/core@7.27.3)
       '@types/ember__component': 4.0.22(@babel/core@7.27.3)
       '@types/ember__controller': 4.0.12(@babel/core@7.27.3)
-      '@types/ember__debug': 4.0.8(@babel/core@7.27.3)
-      '@types/ember__engine': 4.0.11(@babel/core@7.27.3)
+      '@types/ember__debug': 4.0.8
+      '@types/ember__engine': 4.0.11
       '@types/ember__error': 4.0.6
       '@types/ember__object': 4.0.12(@babel/core@7.27.3)
       '@types/ember__polyfills': 4.0.6
       '@types/ember__routing': 4.0.22(@babel/core@7.27.3)
       '@types/ember__runloop': 4.0.10
-      '@types/ember__service': 4.0.9(@babel/core@7.27.3)
+      '@types/ember__service': 4.0.9
       '@types/ember__string': 3.0.15
       '@types/ember__template': 4.0.7
       '@types/ember__test': 4.0.6(@babel/core@7.27.3)
@@ -14160,14 +14163,14 @@ snapshots:
       '@types/ember__array': 4.0.10(@babel/core@7.27.3)
       '@types/ember__component': 4.0.22(@babel/core@7.27.3)
       '@types/ember__controller': 4.0.12(@babel/core@7.27.3)
-      '@types/ember__debug': 4.0.8(@babel/core@7.27.3)
-      '@types/ember__engine': 4.0.11(@babel/core@7.27.3)
+      '@types/ember__debug': 4.0.8
+      '@types/ember__engine': 4.0.11
       '@types/ember__error': 4.0.6
       '@types/ember__object': 4.0.12(@babel/core@7.27.3)
       '@types/ember__polyfills': 4.0.6
       '@types/ember__routing': 4.0.22(@babel/core@7.27.3)
       '@types/ember__runloop': 4.0.10(@babel/core@7.27.3)
-      '@types/ember__service': 4.0.9(@babel/core@7.27.3)
+      '@types/ember__service': 4.0.9
       '@types/ember__string': 3.0.15
       '@types/ember__template': 4.0.7
       '@types/ember__test': 4.0.6(@babel/core@7.27.3)
@@ -14181,7 +14184,7 @@ snapshots:
     dependencies:
       '@glimmer/component': 1.1.2(@babel/core@7.27.3)
       '@types/ember': 4.0.11
-      '@types/ember__engine': 4.0.11(@babel/core@7.27.3)
+      '@types/ember__engine': 4.0.11
       '@types/ember__object': 4.0.12(@babel/core@7.27.3)
       '@types/ember__owner': 4.0.9
       '@types/ember__routing': 4.0.22(@babel/core@7.27.3)
@@ -14212,21 +14215,15 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  '@types/ember__debug@4.0.8(@babel/core@7.27.3)':
+  '@types/ember__debug@4.0.8':
     dependencies:
       '@types/ember__object': 4.0.12(@babel/core@7.27.3)
       '@types/ember__owner': 4.0.9
-    transitivePeerDependencies:
-      - '@babel/core'
-      - supports-color
 
-  '@types/ember__engine@4.0.11(@babel/core@7.27.3)':
+  '@types/ember__engine@4.0.11':
     dependencies:
       '@types/ember__object': 4.0.12(@babel/core@7.27.3)
       '@types/ember__owner': 4.0.9
-    transitivePeerDependencies:
-      - '@babel/core'
-      - supports-color
 
   '@types/ember__error@4.0.6': {}
 
@@ -14247,7 +14244,7 @@ snapshots:
       '@types/ember': 4.0.11(@babel/core@7.27.3)
       '@types/ember__controller': 4.0.12(@babel/core@7.27.3)
       '@types/ember__object': 4.0.12(@babel/core@7.27.3)
-      '@types/ember__service': 4.0.9(@babel/core@7.27.3)
+      '@types/ember__service': 4.0.9
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -14263,12 +14260,9 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  '@types/ember__service@4.0.9(@babel/core@7.27.3)':
+  '@types/ember__service@4.0.9':
     dependencies:
       '@types/ember__object': 4.0.12(@babel/core@7.27.3)
-    transitivePeerDependencies:
-      - '@babel/core'
-      - supports-color
 
   '@types/ember__string@3.0.15': {}
 

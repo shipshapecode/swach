@@ -109,7 +109,7 @@ export default class ApplicationController extends Controller {
           const addedColor = await this.addColor(color);
 
           if (addedColor) {
-            this.colorUtils.copyColorToClipboard(addedColor);
+            await this.colorUtils.copyColorToClipboard(addedColor);
           }
         },
       );
@@ -122,7 +122,10 @@ export default class ApplicationController extends Controller {
         'openSharedPalette',
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         async (_event: unknown, query: string) => {
-          const data = JSON.parse(decodeURIComponent(query));
+          const data = JSON.parse(decodeURIComponent(query)) as {
+            colors?: { name: string; hex: string }[];
+            name?: string;
+          };
           const colors = data?.colors ?? [];
           const name = data?.name ?? 'Palette';
 

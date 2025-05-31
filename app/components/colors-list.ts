@@ -46,6 +46,7 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
     return undefined;
   }
 
+  // eslint-disable-next-line require-yield
   *transition({
     keptSprites,
     insertedSprites,
@@ -73,7 +74,7 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
   }
 
   @action
-  async deleteColor(color: ColorModel): Promise<void> {
+  async deleteColor(color: ColorModel){
     const { palette } = this.args;
 
     if (color && palette && !palette.isLocked) {

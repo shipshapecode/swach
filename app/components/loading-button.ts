@@ -8,6 +8,7 @@ interface LoadingButtonSignature {
   };
 }
 
+// eslint-disable-next-line ember/no-empty-glimmer-component-classes
 export default class LoadingButton extends Component<LoadingButtonSignature> {}
 
 declare module '@glint/environment-ember-loose/registry' {

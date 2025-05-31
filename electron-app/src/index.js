@@ -2,6 +2,7 @@ const Sentry = require('@sentry/electron');
 const { ipcMain, nativeTheme } = require('electron');
 const isDev = require('electron-is-dev');
 const Store = require('electron-store');
+// eslint-disable-next-line no-redeclare
 const { menubar } = require('menubar');
 const { basename, dirname, join, resolve } = require('path');
 const { pathToFileURL } = require('url');

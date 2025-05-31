@@ -14,7 +14,11 @@ import seedOrbit from './orbit/seed';
 export async function waitForAll() {
   const { owner } = getContext() as { owner: Owner };
   // @ts-expect-error Not sure why it says this does not exist
-  const { services } = owner.resolveRegistration('ember-orbit:config');
+  const { services } = owner.resolveRegistration('ember-orbit:config') as {
+    services: {
+      coordinator: string;
+    };
+  };
   const coordinator = owner.lookup(
     `service:${services.coordinator}`,
   ) as unknown as Coordinator;

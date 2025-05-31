@@ -91,6 +91,7 @@ module('Acceptance | settings/cloud', function (hooks) {
       },
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const authenticator = this.owner.lookup('authenticator:cognito') as any;
     const authenticateStub = sinon
       .stub(authenticator, 'authenticate')

@@ -48,7 +48,7 @@ export default {
       const request = currentTarget as IDBRequest;
       const transaction = request.transaction as IDBTransaction;
 
-      // eslint-disable-next-line no-console
+       
       console.log(
         `migrating indexeddb from version ${oldVersion} to ${newVersion}`,
       );

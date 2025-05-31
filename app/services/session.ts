@@ -1,4 +1,4 @@
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 
 import BaseSessionService from 'ember-simple-auth/services/session';
 
@@ -16,12 +16,12 @@ export default class SessionService extends BaseSessionService<Data> {
   async handleAuthentication(routeAfterAuthentication: string) {
     super.handleAuthentication(routeAfterAuthentication);
 
-    this.swachData.synchronize();
+    await this.swachData.synchronize();
   }
 
   async handleInvalidation(routeAfterInvalidation: string) {
     super.handleInvalidation(routeAfterInvalidation);
 
-    this.swachData.reset();
+    await this.swachData.reset();
   }
 }

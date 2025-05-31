@@ -19,7 +19,7 @@ export async function waitForAll() {
     `service:${services.coordinator}`,
   ) as unknown as Coordinator;
 
-  for (let source of coordinator.sources) {
+  for (const source of coordinator.sources) {
     await waitForSource(source);
   }
 
@@ -43,11 +43,11 @@ export function resetStorage(
   hooks.afterEach(async function () {
     const backup = this.owner.lookup(
       'data-source:backup',
-    ) as unknown as IndexedDBSource;
+    ) as IndexedDBSource;
 
     await backup.cache.deleteDB();
 
-    const bucket = this.owner.lookup('data-bucket:main') as unknown as
+    const bucket = this.owner.lookup('data-bucket:main') as
       | BucketClass
       | undefined;
 

@@ -25,7 +25,7 @@ module('Acceptance | settings/cloud', function (hooks) {
   test('user can sign up', async function (assert) {
     await mockAuth(
       MockAuth.extend({
-        async signUp() {
+        signUp() {
           assert.ok(true, 'signUp has been called');
 
           return MockUser.create({
@@ -38,7 +38,7 @@ module('Acceptance | settings/cloud', function (hooks) {
             },
           });
         },
-        async confirmSignUp(username: string, confirmationCode: string) {
+        confirmSignUp(username: string, confirmationCode: string) {
           assert.strictEqual(
             username,
             'testuser@gmail.com',

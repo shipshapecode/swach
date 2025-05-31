@@ -55,7 +55,7 @@ export default class SettingsData extends Component {
           (err: Event | null, jsonString: string) => {
             if (err) {
               this.flashMessages.danger('An error occurred.');
-              // eslint-disable-next-line no-console
+               
               console.error(err);
             } else {
               this.ipcRenderer.send('exportData', jsonString);

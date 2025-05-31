@@ -104,6 +104,7 @@ export default class ApplicationController extends Controller {
 
       this.ipcRenderer.on(
         'changeColor',
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         async (_event: unknown, color: string) => {
           const addedColor = await this.addColor(color);
 
@@ -119,6 +120,7 @@ export default class ApplicationController extends Controller {
 
       this.ipcRenderer.on(
         'openSharedPalette',
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         async (_event: unknown, query: string) => {
           const data = JSON.parse(decodeURIComponent(query));
           const colors = data?.colors ?? [];
@@ -137,13 +139,13 @@ export default class ApplicationController extends Controller {
 
       this.ipcRenderer.send('enableDisableAutoStart', shouldEnableAutoStart);
 
-      this.ipcRenderer
+      void this.ipcRenderer
         .invoke('getStoreValue', 'showDockIcon')
         .then((showDockIcon: boolean) => {
           this.settings.set('showDockIcon', showDockIcon);
         });
 
-      this.ipcRenderer
+      void this.ipcRenderer
         .invoke('getShouldUseDarkColors')
         .then((theme: string) => {
           this.settings.set('osTheme', theme);

@@ -121,7 +121,7 @@
     "ember-set-helper": "^3.0.1",
     "ember-simple-auth": "^8.0.0",
     "ember-sinon-qunit": "^7.5.0",
-    "ember-source": "^6.4.0",
+    "ember-source": "^5.12.0",
     "ember-svg-jar": "^2.6.0",
     "ember-template-imports": "^4.3.0",
     "ember-template-lint": "^6.1.0",

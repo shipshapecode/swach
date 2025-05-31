@@ -133,7 +133,7 @@ export default class PalettesController extends Controller {
         }
       } else {
         // Move color between palettes
-        this._moveColorBetweenPalettes(
+        await this._moveColorBetweenPalettes(
           sourceColor,
           sourceList,
           sourcePalette,

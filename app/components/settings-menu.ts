@@ -34,17 +34,17 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
 
       this.ipcRenderer = ipcRenderer;
 
-      this.ipcRenderer.invoke('getPlatform').then((platform: string) => {
+      void this.ipcRenderer.invoke('getPlatform').then((platform: string) => {
         this.platform = platform;
       });
     }
   }
 
-  get isMacOS(): boolean {
+  get isMacOS() {
     return this.platform === 'darwin';
   }
 
-  get isMacOSOrWindows(): boolean {
+  get isMacOSOrWindows() {
     return this.platform === 'darwin' || this.platform === 'win32';
   }
 

@@ -247,7 +247,7 @@ module('Acceptance | palettes', function (hooks) {
         .exists({ count: 2 });
       assert
         .dom(sourceListThirdColor)
-        .hasStyle({ backgroundColor: 'rgb(247, 138, 224)' });
+        .hasStyle({ backgroundColor: 'rgb(74, 242, 161)' });
 
       await move(sourceList, 2, targetList, 1, false);
 
@@ -271,7 +271,7 @@ module('Acceptance | palettes', function (hooks) {
         .exists({ count: 3 });
       assert
         .dom(targetListThirdColor)
-        .hasStyle({ backgroundColor: 'rgb(247, 138, 224)' });
+        .hasStyle({ backgroundColor: 'rgb(74, 242, 161)' });
 
       // Go to the second palette colors list and edit the third color
       await visit('/colors?paletteId=second-palette');
@@ -279,12 +279,12 @@ module('Acceptance | palettes', function (hooks) {
       assert.dom('[data-test-color-picker]').doesNotExist();
 
       await click(
-        '[data-test-color="Pale Magenta"] [data-test-color-row-menu] [data-test-options-trigger]',
+        '[data-test-color="Shamrock"] [data-test-color-row-menu] [data-test-options-trigger]',
       );
 
       await animationsSettled();
 
-      await click('[data-test-color="Pale Magenta"] [data-test-edit-color]');
+      await click('[data-test-color="Shamrock"] [data-test-edit-color]');
 
       await waitForAll();
 
@@ -314,10 +314,10 @@ module('Acceptance | palettes', function (hooks) {
         .dom('[data-test-color-history] [data-test-color-history-square]')
         .exists({ count: 4 });
 
-      // Pale Magenta should remain in color history and should be replaced with Red in Second Palette
+      // Shamrock should remain in color history and should be replaced with Red in Second Palette
       assert
         .dom(
-          '[data-test-color-history] [data-test-color-history-square="Pale Magenta"]',
+          '[data-test-color-history] [data-test-color-history-square="Shamrock"]',
         )
         .exists();
       assert
@@ -327,7 +327,7 @@ module('Acceptance | palettes', function (hooks) {
         .exists();
       assert
         .dom(
-          '[data-test-palette-row="Second Palette"] [data-test-palette-color-square="Pale Magenta"]',
+          '[data-test-palette-row="Second Palette"] [data-test-palette-color-square="Shamrock"]',
         )
         .doesNotExist();
     });

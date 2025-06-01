@@ -34,7 +34,9 @@ export default class PalettesController extends Controller {
       return [...colorHistory.colors]
         .slice()
         .sort((a, b) => {
-          return b.createdAt?.localeCompare(a.createdAt);
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
         })
         .slice(0, 16);
     } else {

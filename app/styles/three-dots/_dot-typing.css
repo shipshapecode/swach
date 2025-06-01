@@ -1,0 +1,80 @@
+/**
+ * ==============================================
+ * Dot Typing
+ * ==============================================
+ */
+
+:root {
+  --left-pos: -9999px;
+  --x1: calc(var(--left-pos) - var(--dot-spacing));
+  --x2: var(--left-pos);
+  --x3: calc(var(--left-pos) + var(--dot-spacing));
+}
+
+.dot-typing {
+  position: relative;
+  left: var(--left-pos);
+
+  width: var(--dot-width);
+  height: var(--dot-height);
+  border-radius: var(--dot-radius);
+  background-color: var(--dot-bg-color);
+  color: var(--dot-color);
+
+  box-shadow:
+    var(--x1) 0 0 0 var(--dot-before-color),
+    var(--x2) 0 0 0 var(--dot-color),
+    var(--x3) 0 0 0 var(--dot-after-color);
+  animation: dot-typing 1.5s infinite linear;
+}
+
+@keyframes dot-typing {
+  0% {
+    box-shadow:
+      var(--x1) 0 0 0 var(--dot-before-color),
+      var(--x2) 0 0 0 var(--dot-color),
+      var(--x3) 0 0 0 var(--dot-after-color);
+  }
+
+  16.667% {
+    box-shadow:
+      var(--x1) -10px 0 0 var(--dot-before-color),
+      var(--x2) 0 0 0 var(--dot-color),
+      var(--x3) 0 0 0 var(--dot-after-color);
+  }
+
+  33.333% {
+    box-shadow:
+      var(--x1) 0 0 0 var(--dot-before-color),
+      var(--x2) 0 0 0 var(--dot-color),
+      var(--x3) 0 0 0 var(--dot-after-color);
+  }
+
+  50% {
+    box-shadow:
+      var(--x1) 0 0 0 var(--dot-before-color),
+      var(--x2) -10px 0 0 var(--dot-color),
+      var(--x3) 0 0 0 var(--dot-after-color);
+  }
+
+  66.667% {
+    box-shadow:
+      var(--x1) 0 0 0 var(--dot-before-color),
+      var(--x2) 0 0 0 var(--dot-color),
+      var(--x3) 0 0 0 var(--dot-after-color);
+  }
+
+  83.333% {
+    box-shadow:
+      var(--x1) 0 0 0 var(--dot-before-color),
+      var(--x2) 0 0 0 var(--dot-color),
+      var(--x3) -10px 0 0 var(--dot-after-color);
+  }
+
+  100% {
+    box-shadow:
+      var(--x1) 0 0 0 var(--dot-before-color),
+      var(--x2) 0 0 0 var(--dot-color),
+      var(--x3) 0 0 0 var(--dot-after-color);
+  }
+}

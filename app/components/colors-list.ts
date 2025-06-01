@@ -32,7 +32,9 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
     if (!palette.$isDisconnected) {
       if (palette.isColorHistory) {
         return [...palette.colors].sort((a, b) => {
-          return b.createdAt?.localeCompare(a.createdAt);
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
         });
       } else {
         return palette.colorOrder.map((color: { type: string; id: string }) => {

@@ -1,0 +1,10 @@
+:root {
+  --dot-width: 8px;
+  --dot-height: 8px;
+  --dot-radius: calc(var(--dot-width) / 2);
+  --dot-color: var(--btn-text-primary);
+  --dot-bg-color: var(--dot-color);
+  --dot-before-color: var(--dot-color);
+  --dot-after-color: var(--dot-color);
+  --dot-spacing: calc(var(--dot-width) + var(--dot-width) / 2);
+}

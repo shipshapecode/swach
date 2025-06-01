@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { action } from '@ember/object';
+import type Owner from '@ember/owner';
 import { service } from '@ember/service';
 import { capitalize } from '@ember/string';
 import Component from '@glimmer/component';
@@ -12,13 +14,14 @@ import type { IpcRenderer } from 'electron';
 import { debounce } from 'throttle-debounce';
 
 import 'swach/components/kuler-palette-row';
+import type ColorModel from 'swach/data-models/color';
 import type { ColorPOJO } from 'swach/services/color-utils';
 import type ColorUtils from 'swach/services/color-utils';
 
 type harmonyTypes = 'analogous' | 'monochromatic' | 'tetrad' | 'triad';
 
 class Palette {
-  @tracked colors = [];
+  @tracked colors: ColorModel[] = [];
   @tracked selectedColorIndex = 0;
 
   createdAt: Date;
@@ -38,9 +41,7 @@ class Palette {
 interface KulerSignature {
   Element: HTMLDivElement;
   Args: {
-    // TODO: correctly type this instead of using `any`
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    baseColor: any;
+    baseColor: ColorModel;
   };
 }
 
@@ -48,11 +49,9 @@ export default class KulerComponent extends Component<KulerSignature> {
   @service declare colorUtils: ColorUtils;
   @service declare store: Store;
 
-  // TODO: correctly type this instead of using `any`
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  _debouncedColorChange!: any;
+  _debouncedColorChange!: (color: iro.Color | string) => void;
   colorPicker!: iro.ColorPicker;
-  harmonies = ['analogous', 'monochromatic', 'tetrad', 'triad'];
+  harmonies = ['analogous', 'monochromatic', 'tetrad', 'triad'] as const;
   declare ipcRenderer: IpcRenderer;
 
   @tracked baseColor;
@@ -60,13 +59,13 @@ export default class KulerComponent extends Component<KulerSignature> {
   @tracked palettes: Palette[] = [];
   @tracked selectedPalette!: Palette;
 
-  constructor(owner: unknown, args: KulerSignature['Args']) {
+  constructor(owner: Owner, args: KulerSignature['Args']) {
     super(owner, args);
 
     this._debouncedColorChange = debounce(10, this._onColorChange);
 
     this.baseColor = this.args.baseColor;
-    this.baseColorChanged().then(() => {
+    void this.baseColorChanged().then(() => {
       this._setupColorWheel();
 
       if (typeof requireNode !== 'undefined') {
@@ -76,17 +75,18 @@ export default class KulerComponent extends Component<KulerSignature> {
 
         this.ipcRenderer.on(
           'selectKulerColor',
-          async (_event: unknown, colorIndex: number) => {
+          (_event: unknown, colorIndex: number) => {
             this.setSelectedIroColor(colorIndex);
           },
         );
 
         this.ipcRenderer.on(
           'updateKulerColor',
-          async (_event: unknown, color) => {
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          async (_event: unknown, color: string | iro.Color) => {
             await this._onColorChange(color);
             this.colorPicker.setColors(
-              this.selectedPalette.colors.mapBy('hex'),
+              this.selectedPalette.colors.map((c) => c.hex),
               this.selectedPalette.selectedColorIndex,
             );
           },
@@ -109,6 +109,7 @@ export default class KulerComponent extends Component<KulerSignature> {
   }
 
   @action
+  // eslint-disable-next-line @typescript-eslint/require-await
   async baseColorChanged(selectedPaletteTypeIndex = 0): Promise<void> {
     this._destroyLeftoverPalettes();
 
@@ -116,34 +117,34 @@ export default class KulerComponent extends Component<KulerSignature> {
 
     for (const harmony of this.harmonies) {
       const palette = new Palette(harmony as harmonyTypes);
-
-      //@ts-expect-error TODO fix this error later
-      let colors = new TinyColor(this.baseColor.hex)[harmony](5);
-
-      colors = colors.map((color: TinyColor) => {
+      const tinyColors = new TinyColor(this.baseColor.hex)[harmony](5);
+      const colorPOJOs = tinyColors.map((color: TinyColor) => {
         return this.colorUtils.createColorPOJO(color.toHexString());
       });
-      colors = colors.map((color: ColorPOJO) => color.attributes);
+      const colors = colorPOJOs.map(
+        (color: ColorPOJO) => color.attributes,
+      ) as unknown as ColorModel[];
 
       palette.colors = colors;
-      palettes.pushObject(palette);
+      palettes.push(palette);
     }
 
     this.palettes = palettes;
 
-    this.selectedPalette = this.palettes[selectedPaletteTypeIndex];
+    this.selectedPalette = this.palettes[selectedPaletteTypeIndex] as Palette;
   }
 
   @action
   setColorAsBase(): Promise<void> {
-    this.baseColor =
-      this.selectedPalette.colors[this.selectedPalette.selectedColorIndex];
+    this.baseColor = this.selectedPalette.colors[
+      this.selectedPalette.selectedColorIndex
+    ] as ColorModel;
 
     return this.baseColorChanged(
       this.palettes.indexOf(this.selectedPalette),
     ).then(() => {
       this.colorPicker.setColors(
-        this.selectedPalette.colors.mapBy('hex'),
+        this.selectedPalette.colors.map((c) => c.hex),
         this.selectedPalette.selectedColorIndex,
       );
     });
@@ -164,12 +165,12 @@ export default class KulerComponent extends Component<KulerSignature> {
   @action
   setSelectedPalette(event: InputEvent): void {
     const paletteName = (<HTMLInputElement>event.target).value;
-    const palette = this.palettes.findBy('name', paletteName);
+    const palette = this.palettes.find((p) => p.name === paletteName);
 
     if (palette) {
       this.selectedPalette = palette;
       this.colorPicker.setColors(
-        this.selectedPalette.colors.mapBy('hex'),
+        this.selectedPalette.colors.map((c) => c.hex),
         palette.selectedColorIndex,
       );
     }
@@ -188,18 +189,20 @@ export default class KulerComponent extends Component<KulerSignature> {
       color instanceof iro.Color ? color.rgba : color,
     );
 
+    // @ts-expect-error TODO: fix this to be able to not use prototype extensions
     this.selectedPalette.colors.replace(selectedColorIndex, 1, [
       newColor.attributes,
     ]);
 
     if (selectedColorIndex === 0) {
-      this.baseColor =
-        this.selectedPalette.colors[this.selectedPalette.selectedColorIndex];
+      this.baseColor = this.selectedPalette.colors[
+        this.selectedPalette.selectedColorIndex
+      ] as ColorModel;
       await this.setColorAsBase();
     }
 
     this.colorPicker.setColors(
-      this.selectedPalette.colors.mapBy('hex'),
+      this.selectedPalette.colors.map((c) => c.hex),
       this.selectedPalette.selectedColorIndex,
     );
   }
@@ -218,7 +221,7 @@ export default class KulerComponent extends Component<KulerSignature> {
     this.colorPicker = (iro.ColorPicker as any)(
       '#kuler-color-picker-container',
       {
-        colors: this.selectedPalette.colors.mapBy('hex'),
+        colors: this.selectedPalette.colors.map((c) => c.hex),
         layoutDirection: 'horizontal',
         layout: [
           {

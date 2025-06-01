@@ -17,6 +17,7 @@ export default class AnimatedDragSortList extends DragSortList {
   @action
   rules(): unknown {
     if (!this.didDrag) {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       return this.transition;
     }
 
@@ -25,6 +26,7 @@ export default class AnimatedDragSortList extends DragSortList {
     return null;
   }
 
+  // eslint-disable-next-line require-yield
   *transition({
     keptSprites,
     insertedSprites,

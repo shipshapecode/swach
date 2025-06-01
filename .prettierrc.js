@@ -47,22 +47,9 @@ module.exports = {
   importOrderSortSpecifiers,
   overrides: [
     {
-      files: ['**/*.hbs'],
-      options: {
-        singleQuote: false,
-      },
+      files: '*.{js,gjs,ts,gts,mjs,mts,cjs,cts}',
+      options: { singleQuote: true, templateSingleQuote: false },
     },
-    {
-      files: '*.{js,ts,gjs,gts}',
-      options: {
-        singleQuote: true,
-      },
-    },
-    {
-      files: '*.{yaml,yml}',
-      options: {
-        singleQuote: true,
-      },
-    },
+    { files: '*.{yaml,yml}', options: { singleQuote: true } },
   ],
 };

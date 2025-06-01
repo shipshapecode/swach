@@ -1,4 +1,4 @@
-import { action } from '@ember/object';
+import type Owner from '@ember/owner';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
@@ -9,6 +9,7 @@ import type DragSortService from 'ember-drag-sort/services/drag-sort';
 import type { Store } from 'ember-orbit';
 
 import type { RecordSchema } from '@orbit/records';
+import type { IpcRenderer } from 'electron';
 
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
@@ -119,13 +120,21 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
   @service declare store: Store;
   @service declare undoManager: UndoManager;
 
+  declare ipcRenderer: IpcRenderer;
+
   menuItems: (MenuOption | FavoriteOption | LockOption)[] | null = null;
   fade = fade;
   nameInput!: HTMLElement;
   @tracked isEditing = false;
 
-  constructor(owner: unknown, args: PaletteRowSignature['Args']) {
+  constructor(owner: Owner, args: PaletteRowSignature['Args']) {
     super(owner, args);
+
+    if (typeof requireNode !== 'undefined') {
+      const { ipcRenderer } = requireNode('electron');
+
+      this.ipcRenderer = ipcRenderer;
+    }
 
     this.menuItems = [
       new MenuOption(
@@ -135,6 +144,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
         this.args.palette,
       ),
       new MenuOption(
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         this.duplicatePalette,
         'duplicate',
         'Duplicate Palette',
@@ -149,6 +159,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
         this.args.palette,
       ),
       new MenuOption(
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         this.deletePalette,
         'trash',
         'Delete Palette',
@@ -156,6 +167,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       ),
     ];
 
+    // @ts-expect-error dragSort.on does not seem to exist in TS
     this.dragSort.on(
       'start',
       (event: { draggedItem: { hex: string | null } }) => {
@@ -167,28 +179,26 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
     );
   }
 
-  get isLocked(): boolean {
+  get isLocked() {
     return this.args.palette.isLocked;
   }
 
   get sortedColors(): (ColorModel | undefined)[] {
     return this.args?.palette?.colorOrder?.map(
       (color: { type: string; id: string }) => {
-        return this.args.palette.colors.findBy('id', color.id);
+        return this.args.palette.colors.find((c) => c.id === color.id);
       },
     );
   }
 
-  @action
-  async deletePalette(): Promise<void> {
+  deletePalette = async () => {
     if (!this.isLocked) {
       await this.store.update((t) => t.removeRecord(this.args.palette));
       this.undoManager.setupUndoRedo();
     }
-  }
+  };
 
-  @action
-  async duplicatePalette(): Promise<void> {
+  duplicatePalette = async () => {
     let colorOrder = this.args.palette.colorOrder;
     const newColors = this.args.palette.colors.map((color) => {
       const colorData = color.$getData();
@@ -225,19 +235,17 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
     ]);
 
     this.undoManager.setupUndoRedo();
-  }
+  };
 
-  @action
-  enterPress(event: KeyboardEvent): void {
+  enterPress = (event: KeyboardEvent) => {
     if (event.keyCode === 13) {
       this.nameInput.blur();
     }
-  }
+  };
 
-  @action
-  favoritePalette(): void {
+  favoritePalette = () => {
     if (!this.isLocked) {
-      this.store.update((t) =>
+      void this.store.update((t) =>
         t.replaceAttribute(
           this.args.palette,
           'isFavorite',
@@ -245,27 +253,24 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
         ),
       );
     }
-  }
+  };
 
-  @action
-  insertedNameInput(element: HTMLElement): void {
+  insertedNameInput = (element: HTMLElement): void => {
     this.nameInput = element;
     this.nameInput.focus();
-  }
+  };
 
-  @action
-  lockPalette(): void {
-    this.store.update((t) =>
+  lockPalette = () => {
+    void this.store.update((t) =>
       t.replaceAttribute(
         this.args.palette,
         'isLocked',
         !this.args.palette.isLocked,
       ),
     );
-  }
+  };
 
-  @action
-  sharePalette(): void {
+  sharePalette = () => {
     const { colors, name } = this.args.palette;
 
     if (colors.length) {
@@ -278,39 +283,35 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       )}`;
 
       if (typeof requireNode !== 'undefined') {
-        requireNode('electron').shell.openExternal(url);
+        void this.ipcRenderer.invoke('open-external', url);
       }
     }
-  }
+  };
 
-  @action
-  toggleIsEditing(): void {
+  toggleIsEditing = () => {
     this.isEditing = !this.isEditing;
-  }
+  };
 
-  @action
-  transitionToColors(event: Event): void {
+  transitionToColors = (event: Event) => {
     event.stopPropagation();
     this.router.transitionTo('colors', {
       queryParams: { paletteId: this.args.palette.id },
     });
-  }
+  };
 
-  @action
-  stopEditing(): void {
+  stopEditing = () => {
     this.isEditing = false;
-  }
+  };
 
-  @action
-  updatePaletteName(e: InputEvent): void {
-    this.store.update((t) =>
+  updatePaletteName = (e: InputEvent) => {
+    void this.store.update((t) =>
       t.replaceAttribute(
         this.args.palette,
         'name',
         (<HTMLInputElement>e.target).value,
       ),
     );
-  }
+  };
 }
 
 declare module '@glint/environment-ember-loose/registry' {

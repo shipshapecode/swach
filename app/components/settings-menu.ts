@@ -1,4 +1,5 @@
 import { action } from '@ember/object';
+import type Owner from '@ember/owner';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
@@ -25,7 +26,7 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
 
   @tracked platform?: string;
 
-  constructor(owner: unknown, args: SettingsMenuSignature['Args']) {
+  constructor(owner: Owner, args: SettingsMenuSignature['Args']) {
     super(owner, args);
 
     if (typeof requireNode !== 'undefined') {
@@ -33,17 +34,17 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
 
       this.ipcRenderer = ipcRenderer;
 
-      this.ipcRenderer.invoke('getPlatform').then((platform: string) => {
+      void this.ipcRenderer.invoke('getPlatform').then((platform: string) => {
         this.platform = platform;
       });
     }
   }
 
-  get isMacOS(): boolean {
+  get isMacOS() {
     return this.platform === 'darwin';
   }
 
-  get isMacOSOrWindows(): boolean {
+  get isMacOSOrWindows() {
     return this.platform === 'darwin' || this.platform === 'win32';
   }
 

@@ -10,6 +10,7 @@ module.exports = function (environment) {
     locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'history',
     EmberENV: {
       // TODO: we should set this to false and fix things
+      // We cannot remove prototype extensions until ember-drag-sort is updated
       // EXTEND_PROTOTYPES: false,
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

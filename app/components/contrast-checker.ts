@@ -1,7 +1,9 @@
 import { action } from '@ember/object';
+import type Owner from '@ember/owner';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
+import { type IroColorValue } from '@irojs/iro-core';
 import iro from '@jaames/iro';
 import type { IpcRenderer } from 'electron';
 import { hex, score } from 'wcag-contrast';
@@ -28,7 +30,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
     return score(this.wcagScore);
   }
 
-  constructor(owner: unknown, args: object) {
+  constructor(owner: Owner, args: object) {
     super(owner, args);
 
     if (typeof requireNode !== 'undefined') {
@@ -36,13 +38,19 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
 
       this.ipcRenderer = ipcRenderer;
 
-      this.ipcRenderer.on('pickContrastBgColor', async (_event, color) => {
-        this.setBgColor(color);
-      });
+      this.ipcRenderer.on(
+        'pickContrastBgColor',
+        (_event, color: IroColorValue) => {
+          this.setBgColor(color);
+        },
+      );
 
-      this.ipcRenderer.on('pickContrastFgColor', async (_event, color) => {
-        this.setFgColor(color);
-      });
+      this.ipcRenderer.on(
+        'pickContrastFgColor',
+        (_event, color: IroColorValue) => {
+          this.setFgColor(color);
+        },
+      );
     }
   }
 
@@ -138,16 +146,14 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
 
   @action
   onBlurBg(ev: Event) {
-    this.setBgColor((ev.target as HTMLInputElement).value);
+    this.setBgColor((ev.target as HTMLInputElement).value as IroColorValue);
   }
 
-  // TODO: correctly type this instead of using `any`
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setBgColor(color: any) {
+  setBgColor(color: IroColorValue) {
     try {
       this.bgPickr.setColors([color]);
       this.backgroundColor = this.bgPickr.color.hexString;
-    } catch (err) {
+    } catch {
       // TODO: maybe mention the color is invalid here?
     }
   }
@@ -157,13 +163,11 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
     this.setFgColor((ev.target as HTMLInputElement).value);
   }
 
-  // TODO: correctly type this instead of using `any`
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setFgColor(color: any) {
+  setFgColor(color: IroColorValue) {
     try {
       this.fgPickr.setColors([color]);
       this.foregroundColor = this.fgPickr.color.hexString;
-    } catch (err) {
+    } catch {
       // TODO: maybe mention the color is invalid here?
     }
   }

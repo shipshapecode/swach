@@ -23,7 +23,7 @@ export default class ColorRowComponent extends Component<ColorRowSignature> {
   @service declare colorUtils: ColorUtils;
   @service declare router: Router;
 
-  get showActions(): boolean {
+  get showActions() {
     if (isEmpty(this.args.showActions)) {
       return true;
     }

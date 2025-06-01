@@ -11,9 +11,9 @@ export default class SettingsAccountController extends Controller {
   @tracked loading = false;
 
   @action
-  async logOut(): Promise<void> {
+  logOut() {
     this.loading = true;
-    await this.session.invalidate();
+    this.session.invalidate();
     this.loading = false;
   }
 }

@@ -1,4 +1,5 @@
 import { action } from '@ember/object';
+import type Owner from '@ember/owner';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
@@ -14,7 +15,7 @@ export default class AboutComponent extends Component<AboutSignature> {
   copyrightYear = new Date().getFullYear();
   @tracked version = 'Version not available';
 
-  constructor(owner: unknown, args: Record<string, unknown>) {
+  constructor(owner: Owner, args: Record<string, unknown>) {
     super(owner, args);
 
     if (typeof requireNode !== 'undefined') {
@@ -22,7 +23,7 @@ export default class AboutComponent extends Component<AboutSignature> {
 
       this.ipcRenderer = ipcRenderer;
 
-      this.ipcRenderer.invoke('getAppVersion').then((version: string) => {
+      void this.ipcRenderer.invoke('getAppVersion').then((version: string) => {
         this.version = version;
       });
     }
@@ -33,7 +34,7 @@ export default class AboutComponent extends Component<AboutSignature> {
     event.preventDefault();
 
     if (typeof requireNode !== 'undefined') {
-      requireNode('electron').shell.openExternal('https://swach.io/');
+      void this.ipcRenderer.invoke('open-external', 'https://swach.io/');
     }
   }
 }

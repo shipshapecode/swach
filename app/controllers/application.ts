@@ -35,7 +35,7 @@ export default class ApplicationController extends Controller {
   @tracked colorPickerColor?: ColorModel;
   @tracked colorPickerIsShown = false;
 
-  get hasLoggedInBeforeAndIsAuthenticated(): boolean {
+  get hasLoggedInBeforeAndIsAuthenticated() {
     // eslint-disable-next-line ember/no-get
     const userHasLoggedInBefore = get(this.settings, 'userHasLoggedInBefore');
 
@@ -45,27 +45,27 @@ export default class ApplicationController extends Controller {
     );
   }
 
-  get isContrastRoute(): boolean {
+  get isContrastRoute() {
     return this.router.currentRouteName === 'contrast';
   }
 
-  get isKulerRoute(): boolean {
+  get isKulerRoute() {
     return this.router.currentRouteName === 'kuler';
   }
 
-  get isPalettesRoute(): boolean {
+  get isPalettesRoute() {
     return this.router.currentRouteName === 'palettes';
   }
 
-  get isSettingsRoute(): boolean {
+  get isSettingsRoute() {
     return this.router.currentRouteName === 'settings';
   }
 
-  get isWelcomeRoute(): boolean {
-    return this.router.currentRouteName.includes('welcome');
+  get isWelcomeRoute() {
+    return this.router.currentRouteName?.includes('welcome');
   }
 
-  get showColorWheel(): boolean {
+  get showColorWheel() {
     return (
       this.hasLoggedInBeforeAndIsAuthenticated &&
       !this.isContrastRoute &&
@@ -74,7 +74,7 @@ export default class ApplicationController extends Controller {
     );
   }
 
-  get showEyedropperIcon(): boolean {
+  get showEyedropperIcon() {
     return (
       this.hasLoggedInBeforeAndIsAuthenticated &&
       !this.isContrastRoute &&
@@ -104,11 +104,12 @@ export default class ApplicationController extends Controller {
 
       this.ipcRenderer.on(
         'changeColor',
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         async (_event: unknown, color: string) => {
           const addedColor = await this.addColor(color);
 
           if (addedColor) {
-            this.colorUtils.copyColorToClipboard(addedColor);
+            await this.colorUtils.copyColorToClipboard(addedColor);
           }
         },
       );
@@ -119,8 +120,12 @@ export default class ApplicationController extends Controller {
 
       this.ipcRenderer.on(
         'openSharedPalette',
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         async (_event: unknown, query: string) => {
-          const data = JSON.parse(decodeURIComponent(query));
+          const data = JSON.parse(decodeURIComponent(query)) as {
+            colors?: { name: string; hex: string }[];
+            name?: string;
+          };
           const colors = data?.colors ?? [];
           const name = data?.name ?? 'Palette';
 
@@ -137,13 +142,13 @@ export default class ApplicationController extends Controller {
 
       this.ipcRenderer.send('enableDisableAutoStart', shouldEnableAutoStart);
 
-      this.ipcRenderer
+      void this.ipcRenderer
         .invoke('getStoreValue', 'showDockIcon')
         .then((showDockIcon: boolean) => {
           this.settings.set('showDockIcon', showDockIcon);
         });
 
-      this.ipcRenderer
+      void this.ipcRenderer
         .invoke('getShouldUseDarkColors')
         .then((theme: string) => {
           this.settings.set('osTheme', theme);

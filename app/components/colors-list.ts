@@ -31,10 +31,12 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
 
     if (!palette.$isDisconnected) {
       if (palette.isColorHistory) {
-        return palette.colors.sortBy('createdAt').reverse();
+        return [...palette.colors].sort((a, b) => {
+          return b.createdAt?.localeCompare(a.createdAt);
+        });
       } else {
-        return palette.colorOrder.map((color: ColorModel) => {
-          return palette.colors.findBy('id', color.id);
+        return palette.colorOrder.map((color: { type: string; id: string }) => {
+          return palette.colors.find((c) => c.id === color.id);
         });
       }
     }
@@ -42,6 +44,7 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
     return undefined;
   }
 
+  // eslint-disable-next-line require-yield
   *transition({
     keptSprites,
     insertedSprites,
@@ -69,7 +72,7 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
   }
 
   @action
-  async deleteColor(color: ColorModel): Promise<void> {
+  async deleteColor(color: ColorModel) {
     const { palette } = this.args;
 
     if (color && palette && !palette.isLocked) {
@@ -77,10 +80,10 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
         return { type: 'color', id: color.id };
       });
 
-      const colorToRemove = colorsList.findBy('id', color.id);
+      const colorToRemove = colorsList.find((c) => c.id === color.id);
 
       if (colorToRemove) {
-        colorsList.removeObject(colorToRemove);
+        colorsList.splice(colorsList.indexOf(colorToRemove), 1);
 
         await this.store.update((t) => {
           const operations: RecordOperationTerm[] = [

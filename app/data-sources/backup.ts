@@ -3,13 +3,25 @@ import { applyStandardSourceInjections } from 'ember-orbit';
 import { IndexedDBSource } from '@orbit/indexeddb';
 import type {
   InitializedRecord,
+  Record,
   RecordIdentity,
   RecordSchema,
 } from '@orbit/records';
 import { clone } from '@orbit/utils';
 
 import ENV from 'swach/config/environment';
-import type { ColorPOJO } from 'swach/services/color-utils';
+
+type PalettePOJO = Omit<Record, 'type'> & {
+  type: 'palette';
+  relationships: {
+    colors: {
+      data: RecordIdentity[];
+    };
+  };
+  attributes: {
+    colorOrder: RecordIdentity[];
+  };
+};
 
 const { SCHEMA_VERSION } = ENV;
 
@@ -24,6 +36,7 @@ export default {
       ...injections,
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     backup.cache.migrateDB = async (
       _db: IDBDatabase,
       event: IDBVersionChangeEvent,
@@ -32,7 +45,6 @@ export default {
       const request = currentTarget as IDBRequest;
       const transaction = request.transaction as IDBTransaction;
 
-      // eslint-disable-next-line no-console
       console.log(
         `migrating indexeddb from version ${oldVersion} to ${newVersion}`,
       );
@@ -44,37 +56,40 @@ export default {
         const newColors: InitializedRecord[] = [];
 
         for (const color of oldColors) {
-          if (color.relationships?.palettes) {
-            const paletteIdentities = color.relationships.palettes
+          if (color.relationships?.['palettes']) {
+            const paletteIdentities = color.relationships['palettes']
               .data as RecordIdentity[];
 
-            delete color.relationships.palettes;
+            delete color.relationships['palettes'];
 
             if (paletteIdentities?.length) {
-              color.relationships.palette = { data: paletteIdentities[0] };
+              color.relationships['palette'] = { data: paletteIdentities[0] };
               newColors.push(color);
 
               // We start at i = 1 because we can keep the original color in a single palette.
               for (let i = 1; i < paletteIdentities.length; i++) {
                 const paletteIdentity = paletteIdentities[i];
-                const colorCopy = clone(color);
+                const colorCopy = clone(color) as InitializedRecord;
 
                 colorCopy.id = schema.generateId('color');
+                // @ts-expect-error relationships do actually exist
                 colorCopy.relationships.palette.data = paletteIdentity;
                 newColors.push(colorCopy);
 
                 const palette = palettes.find(
-                  (record) => record.id === paletteIdentity.id,
+                  (record): record is PalettePOJO =>
+                    record.id === paletteIdentity?.id &&
+                    record.type === 'palette',
                 );
 
                 if (palette) {
-                  const replaceColorIdWithCopy = (c: ColorPOJO) => {
+                  const replaceColorIdWithCopy = (c: RecordIdentity) => {
                     return c.id !== color.id
                       ? c
                       : { type: 'color', id: colorCopy.id };
                   };
 
-                  if (palette.relationships?.colors.data) {
+                  if (palette.relationships?.colors?.data) {
                     // Replace color in palette with color copy
                     palette.relationships.colors.data =
                       palette.relationships.colors.data.map(
@@ -82,10 +97,11 @@ export default {
                       );
                   }
 
-                  if (palette.attributes?.colorOrder) {
+                  if (palette.attributes?.['colorOrder']) {
                     // Replace color id in colorOrder
-                    palette.attributes.colorOrder =
-                      palette.attributes.colorOrder.map(replaceColorIdWithCopy);
+                    palette.attributes['colorOrder'] = palette.attributes[
+                      'colorOrder'
+                    ].map(replaceColorIdWithCopy);
                   }
                 }
               }
@@ -120,7 +136,7 @@ export default {
     };
 
     // Upgrade the schema to the latest version, and thereby, migrate the IDB
-    schema.upgrade({ version: SCHEMA_VERSION });
+    void schema.upgrade({ version: SCHEMA_VERSION });
 
     return backup;
   },
@@ -139,10 +155,9 @@ function getRecordsFromIDB(
     const request = objectStore.openCursor();
     const records: InitializedRecord[] = [];
 
-    // TODO: correctly type this instead of using `any`
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    request.onsuccess = (event: any) => {
-      const cursor = event.target.result;
+    request.onsuccess = (event: Event) => {
+      const cursor = (event.target as IDBRequest<IDBCursorWithValue> | null)
+        ?.result;
 
       if (cursor) {
         const record = cursor.value as InitializedRecord;

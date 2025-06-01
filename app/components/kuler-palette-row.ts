@@ -3,6 +3,7 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 
+import type MotionService from 'ember-animated/services/-ea-motion';
 import fade from 'ember-animated/transitions/fade';
 import type { Store } from 'ember-orbit';
 
@@ -20,9 +21,7 @@ interface KulerPaletteRowSignature {
 
 export default class KulerPaletteRowComponent extends Component<KulerPaletteRowSignature> {
   @service declare colorUtils: ColorUtils;
-  // TODO: correctly type this instead of using `any`
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @service('-ea-motion') declare eaMotion: any;
+  @service('-ea-motion') declare eaMotion: MotionService;
   @service declare router: Router;
   @service declare store: Store;
   @service declare undoManager: UndoManager;

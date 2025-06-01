@@ -1,4 +1,4 @@
-import { action } from '@ember/object';
+import type Owner from '@ember/owner';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
@@ -29,7 +29,7 @@ export default class SettingsData extends Component {
   @tracked isExporting = false;
   @tracked isImporting = false;
 
-  constructor(owner: unknown, args: Record<string, unknown>) {
+  constructor(owner: Owner, args: Record<string, unknown>) {
     super(owner, args);
 
     if (typeof requireNode !== 'undefined') {
@@ -39,8 +39,7 @@ export default class SettingsData extends Component {
     }
   }
 
-  @action
-  exportIndexedDB(): void {
+  exportIndexedDB = () => {
     if (this.ipcRenderer) {
       this.isExporting = true;
 
@@ -51,10 +50,10 @@ export default class SettingsData extends Component {
 
         IDBExportImport.exportToJsonString(
           idbDatabase,
-          (err: Event, jsonString: string) => {
+          (err: Event | null, jsonString: string) => {
             if (err) {
               this.flashMessages.danger('An error occurred.');
-              // eslint-disable-next-line no-console
+
               console.error(err);
             } else {
               this.ipcRenderer.send('exportData', jsonString);
@@ -69,26 +68,26 @@ export default class SettingsData extends Component {
         );
       };
     }
-  }
+  };
 
-  @action
-  importIndexedDB(): void {
+  importIndexedDB = async () => {
     if (this.ipcRenderer) {
       this.isImporting = true;
-      this.ipcRenderer.invoke('importData').then((jsonString: string) => {
+      await this.ipcRenderer.invoke('importData').then((jsonString: string) => {
         if (jsonString) {
           const DBOpenRequest = getDBOpenRequest();
 
           DBOpenRequest.onsuccess = () => {
             const idbDatabase = DBOpenRequest.result;
 
-            IDBExportImport.clearDatabase(idbDatabase, (err: Event) => {
+            IDBExportImport.clearDatabase(idbDatabase, (err: Event | null) => {
               if (!err) {
                 // cleared data successfully
                 IDBExportImport.importFromJsonString(
                   idbDatabase,
                   jsonString,
-                  async (err: Event) => {
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                  async (err: Event | null) => {
                     if (!err) {
                       idbDatabase.close();
 
@@ -105,8 +104,8 @@ export default class SettingsData extends Component {
 
                         await this.store.sync((t) =>
                           records.map((r) => {
-                            if (r?.attributes?.hex) {
-                              delete r.attributes.hex;
+                            if (r?.attributes?.['hex']) {
+                              delete r.attributes['hex'];
                             }
 
                             return t.addRecord(r);
@@ -129,7 +128,7 @@ export default class SettingsData extends Component {
         }
       });
     }
-  }
+  };
 }
 
 declare module '@glint/environment-ember-loose/registry' {

@@ -9,6 +9,7 @@ import type IndexedDBSource from '@orbit/indexeddb';
 import type Palette from 'swach/data-models/palette';
 import type DataService from 'swach/services/data';
 import { resetStorage } from 'swach/tests/helpers';
+// @ts-expect-error TODO: not yet typed
 import seedOrbit from 'swach/tests/orbit/seed';
 
 module('Unit | Service | data', function (hooks) {
@@ -61,9 +62,9 @@ module('Unit | Service | data', function (hooks) {
 
       try {
         await dataService.synchronize();
-      } catch (e) {
+      } catch (e: unknown) {
         assert.strictEqual(
-          e.message,
+          (e as Error).message,
           'Data service: synchronize cannot be called prior to activate',
         );
       }
@@ -95,7 +96,7 @@ module('Unit | Service | data', function (hooks) {
         'store has one palette after synchronize',
       );
 
-      assert.ok(palettes[0].isColorHistory, 'palette isColorHistory');
+      assert.ok(palettes[0]?.isColorHistory, 'palette isColorHistory');
 
       assert.strictEqual(
         dataService.colorHistory,
@@ -140,7 +141,7 @@ module('Unit | Service | data', function (hooks) {
         'store has one palette after synchronize',
       );
 
-      assert.ok(palettes[0].isColorHistory, 'palette isColorHistory');
+      assert.ok(palettes[0]?.isColorHistory, 'palette isColorHistory');
 
       assert.strictEqual(
         dataService.colorHistory,

@@ -1,13 +1,9 @@
 'use strict';
 
 module.exports = {
-  extends: ['stylelint-config-standard-scss', 'stylelint-prettier/recommended'],
+  extends: ['stylelint-config-standard-scss'],
   rules: {
-    'scss/at-rule-no-unknown': [
-      true,
-      {
-        ignoreAtRules: ['tailwind'],
-      },
-    ],
+    'at-rule-no-deprecated': [true, { ignoreAtRules: ['/^view/', 'apply'] }],
+    'scss/at-rule-no-unknown': [true, { ignoreAtRules: ['tailwind'] }],
   },
 };

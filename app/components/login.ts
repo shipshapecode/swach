@@ -37,8 +37,8 @@ export default class LoginComponent extends Component {
       }
 
       this.router.transitionTo('settings.cloud');
-    } catch (error) {
-      this.errorMessage = error.message || error;
+    } catch (error: unknown) {
+      this.errorMessage = (error as Error).message || (error as string);
     } finally {
       this.loading = false;
     }

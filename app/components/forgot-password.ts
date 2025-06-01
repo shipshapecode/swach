@@ -30,8 +30,8 @@ export default class ForgotPasswordComponent extends Component {
         await this.cognito.forgotPassword(this.username);
 
         this.isConfirming = true;
-      } catch (err) {
-        this.errorMessage = err.message;
+      } catch (err: unknown) {
+        this.errorMessage = (err as Error)?.message;
       } finally {
         this.loading = false;
       }
@@ -49,8 +49,8 @@ export default class ForgotPasswordComponent extends Component {
         await this.cognito.forgotPasswordSubmit(username, code, password);
 
         this.router.transitionTo('settings.cloud');
-      } catch (err) {
-        this.errorMessage = err.message;
+      } catch (err: unknown) {
+        this.errorMessage = (err as Error)?.message;
       } finally {
         this.loading = false;
       }

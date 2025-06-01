@@ -30,6 +30,7 @@ export default class UndoManager extends Service {
 
       this.ipcRenderer = ipcRenderer;
 
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       this.ipcRenderer.on('undoRedo', async (_event: unknown, type: string) => {
         const isRedo = type === 'redo';
         const isUndo = type === 'undo';
@@ -87,7 +88,7 @@ export default class UndoManager extends Service {
   async execute(
     command: { undo: () => Promise<void>; redo: () => Promise<void> },
     action: 'undo' | 'redo',
-  ): Promise<UndoManager | unknown> {
+  ) {
     if (!command || typeof command[action] !== 'function') {
       return this;
     }
@@ -143,7 +144,7 @@ export default class UndoManager extends Service {
   /**
    * Perform undo: call the undo function at the current index and decrease the index by 1.
    */
-  async undo(): Promise<UndoManager | unknown> {
+  async undo() {
     const command = this.commands[this.index];
 
     if (!command) {
@@ -164,7 +165,7 @@ export default class UndoManager extends Service {
   /**
    * Perform redo: call the redo function at the next index and increase the index by 1.
    */
-  async redo(): Promise<UndoManager | unknown> {
+  async redo() {
     const command = this.commands[this.index + 1];
 
     if (!command) {
@@ -185,7 +186,7 @@ export default class UndoManager extends Service {
   /**
    * Clears the memory, losing all stored states. Reset the index.
    */
-  clear(): void {
+  clear() {
     const prev_size = this.commands.length;
 
     this.commands = [];
@@ -196,11 +197,11 @@ export default class UndoManager extends Service {
     }
   }
 
-  hasUndo(): boolean {
+  hasUndo() {
     return this.index !== -1;
   }
 
-  hasRedo(): boolean {
+  hasRedo() {
     return this.index < this.commands.length - 1;
   }
 
@@ -208,15 +209,15 @@ export default class UndoManager extends Service {
     return this.commands;
   }
 
-  getIndex(): number {
+  getIndex() {
     return this.index;
   }
 
-  setLimit(l: number): void {
+  setLimit(l: number) {
     this.limit = l;
   }
 
-  setupUndoRedo(): void {
+  setupUndoRedo() {
     const transformId = this.store.transformLog.head;
     const redoTransform = this.store.getTransform(transformId).operations;
     const undoTransform = this.store.getInverseOperations(transformId);
@@ -229,6 +230,6 @@ export default class UndoManager extends Service {
       await this.store.update(redoTransform);
     };
 
-    this.add({ undo, redo });
+    void this.add({ undo, redo });
   }
 }

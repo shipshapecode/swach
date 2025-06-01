@@ -1,4 +1,4 @@
-import Service, { inject as service } from '@ember/service';
+import Service, { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
 import type { Store } from 'ember-orbit';
@@ -27,8 +27,8 @@ export default class DataService extends Service {
     if (records.length > 0) {
       await this.store.sync((t) =>
         records.map((r) => {
-          if (r?.attributes?.hex) {
-            delete r.attributes.hex;
+          if (r?.attributes?.['hex']) {
+            delete r.attributes['hex'];
           }
 
           return t.addRecord(r);
@@ -72,11 +72,11 @@ export default class DataService extends Service {
       });
     } else if (colorHistoryPalettes.length > 1) {
       const remoteColorHistoryPalette = remotePaletteRecords.find(
-        (p) => p.attributes?.isColorHistory,
+        (p) => p.attributes?.['isColorHistory'],
       );
 
       const preferredColorHistoryPaletteId =
-        remoteColorHistoryPalette?.id ?? colorHistoryPalettes[0].id;
+        remoteColorHistoryPalette?.id ?? colorHistoryPalettes[0]?.id;
 
       const duplicateColorHistoryPalettes: Palette[] = [];
 
@@ -160,10 +160,10 @@ export default class DataService extends Service {
         palettes = palettes.map((p) => {
           const { id, type, attributes, relationships } = p;
 
-          if (relationships?.colors?.data) {
+          if (relationships?.['colors']?.data) {
             paletteColors.push({
               palette: p,
-              colors: relationships.colors.data as RecordIdentity[],
+              colors: relationships['colors'].data as RecordIdentity[],
             });
           }
 

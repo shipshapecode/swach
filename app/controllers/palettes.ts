@@ -31,10 +31,11 @@ export default class PalettesController extends Controller {
     const { colorHistory } = this.data;
 
     if (colorHistory) {
-      return colorHistory.colors
+      return [...colorHistory.colors]
         .slice()
-        .sortBy('createdAt')
-        .reverse()
+        .sort((a, b) => {
+          return b.createdAt?.localeCompare(a.createdAt);
+        })
         .slice(0, 16);
     } else {
       return [];
@@ -106,7 +107,7 @@ export default class PalettesController extends Controller {
     // If the palette is locked, we should not allow dragging colors into or out of it
     if (sourcePalette?.isLocked || targetPalette?.isLocked) return;
 
-    const sourceColor = sourceList.objectAt(sourceIndex);
+    const sourceColor = sourceList[sourceIndex];
 
     if (sourceColor) {
       if (sourceArgs.isColorHistory) {
@@ -130,7 +131,7 @@ export default class PalettesController extends Controller {
         }
       } else {
         // Move color between palettes
-        this._moveColorBetweenPalettes(
+        await this._moveColorBetweenPalettes(
           sourceColor,
           sourceList,
           sourcePalette,
@@ -168,17 +169,17 @@ export default class PalettesController extends Controller {
       };
       const colorsList = targetList.map((c) => c.$identity);
 
-      const existingColor = targetList.findBy('hex', sourceColor.hex);
+      const existingColor = targetList.find((c) => c.hex === sourceColor.hex);
 
       if (existingColor) {
-        const colorToRemove = colorsList.findBy('id', existingColor.id);
+        const colorToRemove = colorsList.find((c) => c.id === existingColor.id);
 
         if (colorToRemove) {
-          colorsList.removeObject(colorToRemove);
+          colorsList.splice(colorsList.indexOf(colorToRemove), 1);
         }
       }
 
-      colorsList.insertAt(targetIndex, {
+      colorsList.splice(targetIndex, 0, {
         type: 'color',
         id: colorCopy.id,
       });
@@ -209,11 +210,11 @@ export default class PalettesController extends Controller {
     targetIndex: number,
   ): Promise<void> {
     const sourceColorList = sourceList.map((c) => c.$identity);
-    const colorToMove = sourceColorList.findBy('id', sourceColor.id);
+    const colorToMove = sourceColorList.find((c) => c.id === sourceColor.id);
 
     if (colorToMove) {
-      sourceColorList.removeObject(colorToMove);
-      sourceColorList.insertAt(targetIndex, colorToMove);
+      sourceColorList.splice(sourceColorList.indexOf(colorToMove), 1);
+      sourceColorList.splice(targetIndex, 0, colorToMove);
 
       await this.store.update((t) =>
         t.replaceAttribute(sourcePalette, 'colorOrder', sourceColorList),
@@ -233,10 +234,10 @@ export default class PalettesController extends Controller {
     targetPalette: PaletteModel,
   ): Promise<void> {
     const sourceColorOrder = sourceList.map((c) => c.$identity);
-    const colorToRemove = sourceColorOrder.findBy('id', sourceColor.id);
+    const colorToRemove = sourceColorOrder.find((c) => c.id === sourceColor.id);
 
     if (colorToRemove) {
-      sourceColorOrder.removeObject(colorToRemove);
+      sourceColorOrder.splice(sourceColorOrder.indexOf(colorToRemove), 1);
 
       await this.store.update((t) => {
         const operations: RecordOperationTerm[] = [
@@ -247,12 +248,13 @@ export default class PalettesController extends Controller {
         if (!targetPalette.isColorHistory) {
           let insertIndex = targetIndex;
           const targetColorOrder = targetList.map((c) => c.$identity);
-          const existingColor = targetList.findBy('hex', sourceColor.hex);
+          const existingColor = targetList.find(
+            (c) => c.hex === sourceColor.hex,
+          );
 
           if (existingColor) {
-            const colorToRemove = targetColorOrder.findBy(
-              'id',
-              existingColor.id,
+            const colorToRemove = targetColorOrder.find(
+              (c) => c.id === existingColor.id,
             );
 
             if (colorToRemove) {
@@ -265,13 +267,15 @@ export default class PalettesController extends Controller {
                 insertIndex--;
               }
 
-              targetColorOrder.removeObject(colorToRemove);
+              targetColorOrder.splice(
+                targetColorOrder.indexOf(colorToRemove),
+                1,
+              );
             }
 
             t.removeFromRelatedRecords(targetPalette, 'colors', existingColor);
           }
-
-          targetColorOrder.insertAt(insertIndex, sourceColor.$identity);
+          targetColorOrder.splice(insertIndex, 0, sourceColor.$identity);
 
           operations.push(
             t.addToRelatedRecords(targetPalette, 'colors', sourceColor),

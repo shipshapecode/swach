@@ -1,6 +1,6 @@
-import type Transition from '@ember/routing/-private/transition';
 import Route from '@ember/routing/route';
 import type Router from '@ember/routing/router-service';
+import type Transition from '@ember/routing/transition';
 import { service } from '@ember/service';
 
 import type CognitoService from 'ember-cognito/services/cognito';

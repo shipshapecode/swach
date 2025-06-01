@@ -1,5 +1,5 @@
-import type Transition from '@ember/routing/-private/transition';
 import Route from '@ember/routing/route';
+import type Transition from '@ember/routing/transition';
 import { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';

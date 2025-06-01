@@ -11,15 +11,15 @@ module('Acceptance | settings/data', function (hooks) {
   setupApplicationTest(hooks);
   resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
-  hooks.beforeEach(async function () {
-    await visit('/settings/data');
-  });
-
   test('visiting /settings/data', async function (assert) {
+    await visit('/settings/data');
+
     assert.strictEqual(currentURL(), '/settings/data');
   });
 
   test('changing formats', async function (assert) {
+    await visit('/settings/data');
+
     assert
       .dom('[data-test-settings-format-dropdown] [data-test-options-trigger]')
       .hasText('hex');
@@ -41,12 +41,16 @@ module('Acceptance | settings/data', function (hooks) {
   // Electron specific tests
   if (typeof requireNode !== 'undefined') {
     test('export triggers success message', async function (assert) {
+      await visit('/settings/data');
+
       sinon.stub(IDBExportImport, 'exportToJsonString').callsArg(1);
       await click('[data-test-export-swatches-button]');
       await waitForAll();
       assert.dom('.alert.alert-success').exists({ count: 1 });
     });
     test('export triggers error message', async function (assert) {
+      await visit('/settings/data');
+
       sinon
         .stub(IDBExportImport, 'exportToJsonString')
         .callsArgWith(1, 'error');

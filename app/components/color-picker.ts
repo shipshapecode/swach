@@ -93,7 +93,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
 
       this.undoManager.setupUndoRedo();
     } else {
-      this.args.saveColor(this._selectedColor?.hex);
+      await this.args.saveColor(this._selectedColor?.hex);
     }
 
     this.args.toggleIsShown();
@@ -133,7 +133,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
 
     set(this._selectedColor, 'name', namedColor.name);
 
-    this.colorPicker?.setColors([this._selectedColor].mapBy('hex'));
+    this.colorPicker?.setColors([this._selectedColor].map((c) => c.hex));
   }
 
   /**

@@ -1,10 +1,9 @@
 /** @type {import('tailwindcss').Config} */
+const path = require('node:path');
+const appEntry = path.join(__dirname, 'app');
+const relevantFilesGlob = '**/*.{html,js,ts,hbs,gjs,gts}';
 module.exports = {
-  content: [
-    './app/index.html',
-    './app/components/**/*.hbs',
-    './app/templates/**/*.hbs',
-  ],
+  content: [path.join(appEntry, relevantFilesGlob)],
   theme: {
     extend: {
       colors: {

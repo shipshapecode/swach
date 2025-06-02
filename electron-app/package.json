@@ -41,7 +41,7 @@
     "@electron-forge/maker-zip": "^7.8.1",
     "@electron-forge/publisher-snapcraft": "^7.8.1",
     "@sentry/cli": "^2.39.1",
-    "electron": "^33.2.1",
+    "electron": "^36.3.2",
     "electron-debug": "^3.2.0",
     "electron-download": "^4.1.1"
   },

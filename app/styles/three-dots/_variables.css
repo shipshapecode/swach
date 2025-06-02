@@ -2,9 +2,19 @@
   --dot-width: 8px;
   --dot-height: 8px;
   --dot-radius: calc(var(--dot-width) / 2);
-  --dot-color: var(--btn-text-primary);
-  --dot-bg-color: var(--dot-color);
-  --dot-before-color: var(--dot-color);
-  --dot-after-color: var(--dot-color);
   --dot-spacing: calc(var(--dot-width) + var(--dot-width) / 2);
+}
+
+body.light {
+  --dot-color: #fff;
+  --dot-bg-color: #fff;
+  --dot-before-color: #fff;
+  --dot-after-color: #fff;
+}
+
+body.dark {
+  --dot-color: #0e0f1f;
+  --dot-bg-color: #0e0f1f;
+  --dot-before-color: #0e0f1f;
+  --dot-after-color: #0e0f1f;
 }

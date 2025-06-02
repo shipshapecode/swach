@@ -6,9 +6,9 @@
 
 :root {
   --left-pos: -9999px;
-  --x1: calc(var(--left-pos) - var(--dot-spacing));
-  --x2: var(--left-pos);
-  --x3: calc(var(--left-pos) + var(--dot-spacing));
+  --x1: calc(var(--left-pos) * -1 - var(--dot-spacing));
+  --x2: calc(var(--left-pos) * -1);
+  --x3: calc(var(--left-pos) * -1 + var(--dot-spacing));
 }
 
 .dot-typing {

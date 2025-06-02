@@ -73,60 +73,64 @@ export default class SettingsData extends Component {
   importIndexedDB = async () => {
     if (this.ipcRenderer) {
       this.isImporting = true;
-      await this.ipcRenderer.invoke('importData').then((jsonString: string) => {
-        if (jsonString) {
-          const DBOpenRequest = getDBOpenRequest();
+      const jsonString = await this.ipcRenderer.invoke('importData') as string;
 
-          DBOpenRequest.onsuccess = () => {
-            const idbDatabase = DBOpenRequest.result;
+      if (jsonString) {
+        const DBOpenRequest = getDBOpenRequest();
 
-            IDBExportImport.clearDatabase(idbDatabase, (err: Event | null) => {
-              if (!err) {
-                // cleared data successfully
-                IDBExportImport.importFromJsonString(
-                  idbDatabase,
-                  jsonString,
-                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                  async (err: Event | null) => {
-                    if (!err) {
-                      idbDatabase.close();
+        DBOpenRequest.onsuccess = () => {
+          const idbDatabase = DBOpenRequest.result;
 
-                      // TODO is pulling from the backup with orbit the best "refresh" here?
-                      const backup =
-                        this.dataCoordinator.getSource<IndexedDBSource>(
-                          'backup',
-                        );
+          IDBExportImport.clearDatabase(idbDatabase, (err: Event | null) => {
+            if (!err) {
+              // cleared data successfully
+              IDBExportImport.importFromJsonString(
+                idbDatabase,
+                jsonString,
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                async (err: Event | null) => {
+                  if (!err) {
+                    idbDatabase.close();
 
-                      if (backup) {
-                        const records = await backup.query<InitializedRecord[]>(
-                          (q) => q.findRecords(),
-                        );
+                    // TODO is pulling from the backup with orbit the best "refresh" here?
+                    const backup =
+                      this.dataCoordinator.getSource<IndexedDBSource>('backup');
 
-                        await this.store.sync((t) =>
-                          records.map((r) => {
-                            if (r?.attributes?.['hex']) {
-                              delete r.attributes['hex'];
-                            }
+                    if (backup) {
+                      const records = await backup.query<InitializedRecord[]>(
+                        (q) => q.findRecords(),
+                      );
 
-                            return t.addRecord(r);
-                          }),
-                        );
-                        this.flashMessages.success(
-                          'Data successfully replaced.',
-                        );
-                      }
+                      await this.store.sync((t) =>
+                        records.map((r) => {
+                          if (r?.attributes?.['hex']) {
+                            delete r.attributes['hex'];
+                          }
+
+                          // We have to make sure these are all Date objects
+                          // otherwise orbit will throw a validation error
+                          if (r?.attributes?.['createdAt']) {
+                            r.attributes['createdAt'] = new Date(
+                              r.attributes['createdAt'] as string,
+                            );
+                          }
+
+                          return t.addRecord(r);
+                        }),
+                      );
+                      this.flashMessages.success('Data successfully replaced.');
                     }
+                  }
 
-                    this.isImporting = false;
-                  },
-                );
-              }
-            });
-          };
-        } else {
-          this.isImporting = false;
-        }
-      });
+                  this.isImporting = false;
+                },
+              );
+            }
+          });
+        };
+      } else {
+        this.isImporting = false;
+      }
     }
   };
 }

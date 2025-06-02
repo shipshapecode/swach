@@ -1,9 +1,8 @@
 'use strict';
 
 module.exports = {
-  extends: ['stylelint-config-standard-scss'],
+  extends: ['stylelint-config-standard'],
   rules: {
     'at-rule-no-deprecated': [true, { ignoreAtRules: ['/^view/', 'apply'] }],
-    'scss/at-rule-no-unknown': [true, { ignoreAtRules: ['tailwind'] }],
   },
 };

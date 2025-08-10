@@ -73,7 +73,9 @@ export default class SettingsData extends Component {
   importIndexedDB = async () => {
     if (this.ipcRenderer) {
       this.isImporting = true;
-      const jsonString = await this.ipcRenderer.invoke('importData') as string;
+      const jsonString = (await this.ipcRenderer.invoke(
+        'importData',
+      )) as string;
 
       if (jsonString) {
         const DBOpenRequest = getDBOpenRequest();

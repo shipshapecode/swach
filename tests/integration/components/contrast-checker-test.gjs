@@ -1,7 +1,7 @@
 import { fillIn, render, triggerKeyEvent } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 
-import ContrastChecker from '../../../app/components/contrast-checker.ts';
+import ContrastChecker from '../../../app/components/contrast-checker.js';
 import { waitForAll } from 'swach/tests/helpers';
 import { setupRenderingTest } from 'swach/tests/helpers/index';
 

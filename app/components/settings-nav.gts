@@ -15,4 +15,4 @@ export default <template>
       Data
     </LinkTo>
   </nav>
-</template> satisfies TemplateOnlyComponent<{ Args: {} }>;
+</template> satisfies TemplateOnlyComponent<{ Args: unknown }>;

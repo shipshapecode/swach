@@ -5,7 +5,7 @@ import set from 'ember-set-helper/helpers/set';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import not from 'ember-truth-helpers/helpers/not';
 
-import ToggleSwitch from '../../components/toggle-switch.gts';
+import ToggleSwitch from '../../components/toggle-switch.ts';
 
 export default RouteTemplate<{ Args: { model: unknown; controller: unknown } }>(
   <template>

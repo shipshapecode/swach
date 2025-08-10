@@ -10,7 +10,7 @@ import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 
 import htmlSafe from '../helpers/html-safe.ts';
-import OptionsMenu from './options-menu.gts';
+import OptionsMenu from './options-menu.ts';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type ColorUtils from 'swach/services/color-utils';

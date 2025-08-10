@@ -15,9 +15,9 @@ import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
 
 import AlphaInput from './alpha-input.ts';
-import ColorRow from './color-row.gts';
-import HexInput from './hex-input.gts';
-import RgbInput from './rgb-input.gts';
+import ColorRow from './color-row.ts';
+import HexInput from './hex-input.ts';
+import RgbInput from './rgb-input.ts';
 import type {
   PrivateRGBAHex,
   PublicRGBAHex,

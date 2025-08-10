@@ -6,8 +6,8 @@ import Component from '@glimmer/component';
 import type iro from '@jaames/iro';
 
 import AlphaInput from './alpha-input.ts';
-import HexInput from './hex-input.gts';
-import RgbInput from './rgb-input.gts';
+import HexInput from './hex-input.ts';
+import RgbInput from './rgb-input.ts';
 import type {
   PrivateRGBAHex,
   PublicRGBAHex,

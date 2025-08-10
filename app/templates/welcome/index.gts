@@ -1,7 +1,10 @@
-<div class="flex h-full items-center justify-center p-4 w-full">
+import RouteTemplate from 'ember-route-template'
+import svgJar from "ember-svg-jar/helpers/svg-jar";
+import { LinkTo } from "@ember/routing";
+export default RouteTemplate<{ Args: { model: unknown, controller: unknown } }>(<template><div class="flex h-full items-center justify-center p-4 w-full">
   <div class="flex flex-col h-full w-full">
     <div class="flex justify-center w-full">
-      {{svg-jar "swach" class="h-20 mb-8 w-20"}}
+      {{svgJar "swach" class="h-20 mb-8 w-20"}}
     </div>
 
     <h2 class="font-semibold mb-2 text-alt text-xl">
@@ -15,13 +18,9 @@
     </p>
 
     <div class="flex justify-end mt-8 w-full">
-      <LinkTo
-        data-test-link-auto-start
-        class="btn btn-primary p-2 text-center text-sm w-1/2"
-        @route="welcome.auto-start"
-      >
+      <LinkTo data-test-link-auto-start class="btn btn-primary p-2 text-center text-sm w-1/2" @route="welcome.auto-start">
         Next
       </LinkTo>
     </div>
   </div>
-</div>
+</div></template>)

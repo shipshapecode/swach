@@ -1,15 +1,14 @@
 import { fillIn, render, triggerKeyEvent } from '@ember/test-helpers';
-import { hbs } from 'ember-cli-htmlbars';
 import { module, test } from 'qunit';
-
 import { waitForAll } from 'swach/tests/helpers';
 import { setupRenderingTest } from 'swach/tests/helpers/index';
+import ContrastChecker from "../../../app/components/contrast-checker.gts";
 
 module('Integration | Component | contrast-checker', function (hooks) {
   setupRenderingTest(hooks);
 
   test('WCAG - Score and string calculated', async function (assert) {
-    await render(hbs`<ContrastChecker />`);
+    await render(<template><ContrastChecker /></template>);
 
     await waitForAll();
 

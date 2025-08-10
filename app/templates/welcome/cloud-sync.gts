@@ -1,7 +1,10 @@
-<div class="flex h-full items-center justify-center p-4 w-full">
+import RouteTemplate from 'ember-route-template'
+import svgJar from "ember-svg-jar/helpers/svg-jar";
+import { LinkTo } from "@ember/routing";
+export default RouteTemplate<{ Args: { model: unknown, controller: unknown } }>(<template><div class="flex h-full items-center justify-center p-4 w-full">
   <div class="flex flex-col h-full w-full">
     <div class="flex justify-center w-full">
-      {{svg-jar "cloud" class="h-36 mb-8 w-36"}}
+      {{svgJar "cloud" class="h-36 mb-8 w-36"}}
     </div>
 
     <h2 class="font-semibold mb-2 text-alt text-xl">
@@ -23,26 +26,17 @@
     </div>
 
     <div class="flex flex-col mt-8 w-full">
-      <LinkTo
-        class="btn btn-secondary flex-1 p-2 text-center text-sm"
-        @route="welcome.dock-icon"
-      >
+      <LinkTo class="btn btn-secondary flex-1 p-2 text-center text-sm" @route="welcome.dock-icon">
         Previous
       </LinkTo>
 
-      <LinkTo
-        class="btn btn-primary flex-1 mt-2 p-2 text-center text-sm"
-        @route="settings.cloud"
-      >
+      <LinkTo class="btn btn-primary flex-1 mt-2 p-2 text-center text-sm" @route="settings.cloud">
         Yes, please! (recommended)
       </LinkTo>
 
-      <LinkTo
-        class="btn btn-primary flex-1 mt-2 p-2 text-center text-sm"
-        @route="palettes"
-      >
+      <LinkTo class="btn btn-primary flex-1 mt-2 p-2 text-center text-sm" @route="palettes">
         No account for now, thanks.
       </LinkTo>
     </div>
   </div>
-</div>
+</div></template>)

@@ -1,7 +1,13 @@
-<div class="flex h-full items-center justify-center p-4 w-full">
+import RouteTemplate from 'ember-route-template'
+import svgJar from "ember-svg-jar/helpers/svg-jar";
+import ToggleSwitch from "../../components/toggle-switch.gts";
+import set from "ember-set-helper/helpers/set";
+import not from "ember-truth-helpers/helpers/not";
+import { LinkTo } from "@ember/routing";
+export default RouteTemplate<{ Args: { model: unknown, controller: unknown } }>(<template><div class="flex h-full items-center justify-center p-4 w-full">
   <div class="flex flex-col h-full w-full">
     <div class="flex justify-center w-full">
-      {{svg-jar "swach" class=" h-36 mb-8 w-36"}}
+      {{svgJar "swach" class=" h-36 mb-8 w-36"}}
     </div>
 
     <h2 class="font-semibold mb-2 text-alt text-xl">
@@ -14,33 +20,18 @@
       </p>
 
       <div class="flex h-full justify-center p-2 w-full">
-        <ToggleSwitch
-          data-test-auto-start-toggle
-          @checked={{this.settings.openOnStartup}}
-          @onClick={{set
-            this
-            "settings.openOnStartup"
-            (not this.settings.openOnStartup)
-          }}
-        />
+        <ToggleSwitch data-test-auto-start-toggle @checked={{@controller.settings.openOnStartup}} @onClick={{set @controller "settings.openOnStartup" (not @controller.settings.openOnStartup)}} />
       </div>
     </div>
 
     <div class="flex justify-between mt-8 w-full">
-      <LinkTo
-        class="btn btn-secondary flex-1 mr-1 p-2 text-center text-sm"
-        @route="welcome.index"
-      >
+      <LinkTo class="btn btn-secondary flex-1 mr-1 p-2 text-center text-sm" @route="welcome.index">
         Previous
       </LinkTo>
 
-      <LinkTo
-        data-test-link-dock-icon
-        class="btn btn-primary flex-1 ml-1 p-2 text-center text-sm"
-        @route="welcome.dock-icon"
-      >
+      <LinkTo data-test-link-dock-icon class="btn btn-primary flex-1 ml-1 p-2 text-center text-sm" @route="welcome.dock-icon">
         Next
       </LinkTo>
     </div>
   </div>
-</div>
+</div></template>)

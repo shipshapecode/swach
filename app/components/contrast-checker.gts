@@ -2,17 +2,84 @@ import { action } from '@ember/object';
 import type Owner from '@ember/owner';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-
 import { type IroColorValue } from '@irojs/iro-core';
 import iro from '@jaames/iro';
 import type { IpcRenderer } from 'electron';
 import { hex, score } from 'wcag-contrast';
+import htmlSafe from "../helpers/html-safe.ts";
+import { concat } from "@ember/helper";
+import didInsert from "@ember/render-modifiers/modifiers/did-insert";
+import { on } from "@ember/modifier";
+import svgJar from "ember-svg-jar/helpers/svg-jar";
 
 interface ContrastCheckerSignature {
   Element: HTMLDivElement;
 }
 
-export default class ContrastChecker extends Component<ContrastCheckerSignature> {
+export default class ContrastChecker extends Component<ContrastCheckerSignature> {<template><div class="w-full" ...attributes>
+  <div data-test-contrast-preview class="rounded w-full" style={{htmlSafe (concat "background-color: " this.backgroundColor "; " "color: " this.foregroundColor)}}>
+    <div class="flex justify-center p-4 pb-2 w-full" style={{htmlSafe "-webkit-app-region: no-drag"}}>
+      <div class="flex items-center w-full">
+        <h1 class="font-black text-4xl" data-test-wcag-string>
+          {{this.wcagString}}
+        </h1>
+        <div class="flex grow justify-end">
+          <div data-test-wcag-score class="h-8 leading-none p-2 rounded" style={{htmlSafe (concat "background-color: " this.foregroundColor "; " "color: " this.backgroundColor)}}>
+            {{this.wcagScore}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-center pl-4 pr-4 w-full">
+      <div class="flex max-w-lg w-full">
+        <h2 class="font-bold text-lg">
+          Check Contrast
+        </h2>
+      </div>
+    </div>
+
+    <div class="flex justify-center w-full">
+      <p class="p-4 text-sm">
+        Enter a
+        <span class="font-bold">
+          text color
+        </span>
+        and a
+        <span class="font-bold">
+          background color
+        </span>
+        in hexadecimal format or choose a color using the color picker.
+      </p>
+    </div>
+  </div>
+
+  <div class="bg-menu color-pickers-container flex justify-between mt-4 p-4 rounded w-full" style={{htmlSafe "-webkit-app-region: no-drag"}}>
+    <div class="background-color-picker-container mr-2 w-full">
+      <div class="background-color-picker" {{didInsert this.initBackgroundColorPicker}}></div>
+
+      <div class="relative w-36">
+        <input data-test-bg-input class="input rounded mt-3 w-36" type="text" value={{this.backgroundColor}} {{on "blur" this.onBlurBg}} {{on "keypress" this.enterPress}} />
+
+        <button class="absolute mr-2 mt-4 right-0 top-0" type="button" {{on "click" this.launchContrastBgPicker}}>
+          {{svgJar "drop" class="menu-icon" height="18" width="18"}}
+        </button>
+      </div>
+    </div>
+
+    <div class="foreground-color-picker-container ml-2 w-full">
+      <div class="foreground-color-picker ml-1" {{didInsert this.initForegroundColorPicker}}></div>
+
+      <div class="relative w-36">
+        <input data-test-fg-input class="input rounded mt-3 w-36" type="text" value={{this.foregroundColor}} {{on "blur" this.onBlurFg}} {{on "keypress" this.enterPress}} />
+
+        <button class="absolute mr-2 mt-4 right-0 top-0" type="button" {{on "click" this.launchContrastFgPicker}}>
+          {{svgJar "drop" class="menu-icon" height="18" width="18"}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div></template>
   @tracked backgroundColor = '#ffffff';
   @tracked foregroundColor = '#000000';
 
@@ -178,126 +245,3 @@ declare module '@glint/environment-ember-loose/registry' {
     ContrastChecker: typeof ContrastChecker;
   }
 }
-
-<div class="w-full" ...attributes>
-  <div
-    data-test-contrast-preview
-    class="rounded w-full"
-    style={{html-safe
-      (concat
-        "background-color: "
-        this.backgroundColor
-        "; "
-        "color: "
-        this.foregroundColor
-      )
-    }}
-  >
-    <div
-      class="flex justify-center p-4 pb-2 w-full"
-      style={{html-safe "-webkit-app-region: no-drag"}}
-    >
-      <div class="flex items-center w-full">
-        <h1 class="font-black text-4xl" data-test-wcag-string>
-          {{this.wcagString}}
-        </h1>
-        <div class="flex grow justify-end">
-          <div
-            data-test-wcag-score
-            class="h-8 leading-none p-2 rounded"
-            style={{html-safe
-              (concat
-                "background-color: "
-                this.foregroundColor
-                "; "
-                "color: "
-                this.backgroundColor
-              )
-            }}
-          >
-            {{this.wcagScore}}
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex justify-center pl-4 pr-4 w-full">
-      <div class="flex max-w-lg w-full">
-        <h2 class="font-bold text-lg">
-          Check Contrast
-        </h2>
-      </div>
-    </div>
-
-    <div class="flex justify-center w-full">
-      <p class="p-4 text-sm">
-        Enter a
-        <span class="font-bold">
-          text color
-        </span>
-        and a
-        <span class="font-bold">
-          background color
-        </span>
-        in hexadecimal format or choose a color using the color picker.
-      </p>
-    </div>
-  </div>
-
-  <div
-    class="bg-menu color-pickers-container flex justify-between mt-4 p-4 rounded w-full"
-    style={{html-safe "-webkit-app-region: no-drag"}}
-  >
-    <div class="background-color-picker-container mr-2 w-full">
-      <div
-        class="background-color-picker"
-        {{did-insert this.initBackgroundColorPicker}}
-      ></div>
-
-      <div class="relative w-36">
-        <input
-          data-test-bg-input
-          class="input rounded mt-3 w-36"
-          type="text"
-          value={{this.backgroundColor}}
-          {{on "blur" this.onBlurBg}}
-          {{on "keypress" this.enterPress}}
-        />
-
-        <button
-          class="absolute mr-2 mt-4 right-0 top-0"
-          type="button"
-          {{on "click" this.launchContrastBgPicker}}
-        >
-          {{svg-jar "drop" class="menu-icon" height="18" width="18"}}
-        </button>
-      </div>
-    </div>
-
-    <div class="foreground-color-picker-container ml-2 w-full">
-      <div
-        class="foreground-color-picker ml-1"
-        {{did-insert this.initForegroundColorPicker}}
-      ></div>
-
-      <div class="relative w-36">
-        <input
-          data-test-fg-input
-          class="input rounded mt-3 w-36"
-          type="text"
-          value={{this.foregroundColor}}
-          {{on "blur" this.onBlurFg}}
-          {{on "keypress" this.enterPress}}
-        />
-
-        <button
-          class="absolute mr-2 mt-4 right-0 top-0"
-          type="button"
-          {{on "click" this.launchContrastFgPicker}}
-        >
-          {{svg-jar "drop" class="menu-icon" height="18" width="18"}}
-        </button>
-      </div>
-    </div>
-  </div>
-</div>

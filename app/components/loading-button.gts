@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { on } from "@ember/modifier";
 
 interface LoadingButtonSignature {
   Element: HTMLButtonElement;
@@ -9,28 +10,18 @@ interface LoadingButtonSignature {
 }
 
 // eslint-disable-next-line ember/no-empty-glimmer-component-classes
-export default class LoadingButton extends Component<LoadingButtonSignature> {}
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    LoadingButton: typeof LoadingButton;
-  }
-}
-
-<button
-  class="btn btn-primary h-10 leading-5 pl-2 pr-2 w-full disabled:opacity-50"
-  disabled={{@loading}}
-  type="button"
-  {{on "click" @onClick}}
-  ...attributes
->
-  <div
-    class="flex h-full items-center justify-center overflow-hidden relative w-full"
-  >
+export default class LoadingButton extends Component<LoadingButtonSignature> {<template><button class="btn btn-primary h-10 leading-5 pl-2 pr-2 w-full disabled:opacity-50" disabled={{@loading}} type="button" {{on "click" @onClick}} ...attributes>
+  <div class="flex h-full items-center justify-center overflow-hidden relative w-full">
     {{#if @loading}}
       <div class="dot-typing"></div>
     {{else}}
       {{yield}}
     {{/if}}
   </div>
-</button>
+</button></template>}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    LoadingButton: typeof LoadingButton;
+  }
+}

@@ -3,18 +3,27 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-
 import fade from 'ember-animated/transitions/fade';
 import type DragSortService from 'ember-drag-sort/services/drag-sort';
 import type { Store } from 'ember-orbit';
-
 import type { RecordSchema } from '@orbit/records';
 import type { IpcRenderer } from 'electron';
-
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type ColorUtils from 'swach/services/color-utils';
 import type UndoManager from 'swach/services/undo-manager';
+import { on } from "@ember/modifier";
+import didInsert from "@ember/render-modifiers/modifiers/did-insert";
+import stopPropagation from "ember-event-helpers/helpers/stop-propagation";
+import noop from "ember-composable-helpers/helpers/noop";
+import svgJar from "ember-svg-jar/helpers/svg-jar";
+import OptionsMenu from "./options-menu.ts";
+import not from "ember-truth-helpers/helpers/not";
+import DragSortList from "ember-drag-sort/components/drag-sort-list";
+import { hash, concat, fn } from "@ember/helper";
+import eq from "ember-truth-helpers/helpers/eq";
+import sub_ from "ember-math-helpers/helpers/sub";
+import htmlSafe from "../helpers/html-safe.ts";
 
 interface PaletteRowSignature {
   Element: HTMLDivElement;
@@ -112,7 +121,60 @@ class LockOption {
   }
 }
 
-export default class PaletteRowComponent extends Component<PaletteRowSignature> {
+export default class PaletteRowComponent extends Component<PaletteRowSignature> {<template>{{!-- template-lint-disable no-nested-interactive --}}
+<div class="bg-menu cursor-default mb-2 overflow-visible p-3 rounded w-full" data-test-palette-row="{{@palette.name}}" role="button" {{on "click" this.transitionToColors}}>
+  <div class="flex items-center justify-between overflow-visible pb-2 w-full">
+    <h6 class="text-sm">
+      {{#if this.isEditing}}
+        <input data-test-palette-name-input class="input h-6" value={{@palette.name}} type="text" {{didInsert this.insertedNameInput}} {{on "click" (stopPropagation (noop))}} {{on "blur" this.stopEditing}} {{on "keypress" this.enterPress}} {{on "input" this.updatePaletteName}} />
+      {{else}}
+        <div data-test-palette-name class="flex grow h-6 items-center text-main-text w-full">
+          {{#if @palette.isLocked}}
+            {{svgJar "lock" class="icon mr-1" height="12" width="12"}}
+          {{/if}}
+          {{@palette.name}}
+        </div>
+      {{/if}}
+    </h6>
+
+    <OptionsMenu data-test-palette-row-menu class="text-sm" @showBackground={{true}}>
+      <:trigger>
+        {{svgJar "more-horizontal" class="icon" height="15" width="15"}}
+      </:trigger>
+      <:content>
+        {{#each this.menuItems as |item|}}
+          <button data-test-menu-item={{item.label}} class="flex items-center p-1 text-menu-text transition-colors whitespace-nowrap disabled:opacity-50
+              {{if (not item.disabled) "hover:text-menu-text-hover"}}" disabled={{item.disabled}} type="button" {{on "click" item.action}}>
+            {{svgJar item.icon class="icon mr-4" height="15" width="15"}}
+            {{item.label}}
+          </button>
+        {{/each}}
+      </:content>
+    </OptionsMenu>
+  </div>
+
+  <div class="palette flex grow h-8 relative w-full">
+    {{#unless @palette.colors.length}}
+      <div class="absolute bg-main border border-dashed border-gray-400 flex grow h-8 items-center justify-center rounded text-sm top-0 w-full">
+        Drag colors here
+      </div>
+    {{/unless}}
+
+    <DragSortList class="absolute palette-color-squares flex grow h-8 top-0 w-full
+        {{if this.isLocked "palette-locked"}}" @additionalArgs={{hash parent=@palette}} @childClass="flex grow" @group={{if @palette.isLocked @palette.id undefined}} @isHorizontal={{true}} @items={{this.sortedColors}} @sourceOnly={{@palette.isLocked}} @dragEndAction={{@moveColorsBetweenPalettes}} as |color index|>
+      <div class="flex grow relative
+          {{if (eq index 0) "rounded-l"}}
+          {{if (eq index (sub_ @palette.colors.length 1)) "rounded-r"}}">
+        <div data-test-palette-color-square={{color.name}} class="absolute h-full left-0 top-0 w-full z-10
+            {{if (eq index 0) "rounded-l"}}
+            {{if (eq index (sub_ @palette.colors.length 1)) "rounded-r"}}" style={{htmlSafe (concat "background-color: " color.hex)}} {{on "click" (stopPropagation (fn this.colorUtils.copyColorToClipboard color))}}></div>
+        <div class="opacity-checkerboard absolute h-full left-0 top-0 w-full z-0
+            {{if (eq index 0) "rounded-l"}}
+            {{if (eq index (sub_ @palette.colors.length 1)) "rounded-r"}}"></div>
+      </div>
+    </DragSortList>
+  </div>
+</div></template>
   @service declare colorUtils: ColorUtils;
   @service declare dataSchema: RecordSchema;
   @service declare dragSort: DragSortService;
@@ -319,110 +381,3 @@ declare module '@glint/environment-ember-loose/registry' {
     PaletteRow: typeof PaletteRowComponent;
   }
 }
-
-{{! template-lint-disable no-nested-interactive }}
-<div
-  class="bg-menu cursor-default mb-2 overflow-visible p-3 rounded w-full"
-  data-test-palette-row="{{@palette.name}}"
-  role="button"
-  {{on "click" this.transitionToColors}}
->
-  <div class="flex items-center justify-between overflow-visible pb-2 w-full">
-    <h6 class="text-sm">
-      {{#if this.isEditing}}
-        <input
-          data-test-palette-name-input
-          class="input h-6"
-          value={{@palette.name}}
-          type="text"
-          {{did-insert this.insertedNameInput}}
-          {{on "click" (stop-propagation (noop))}}
-          {{on "blur" this.stopEditing}}
-          {{on "keypress" this.enterPress}}
-          {{on "input" this.updatePaletteName}}
-        />
-      {{else}}
-        <div
-          data-test-palette-name
-          class="flex grow h-6 items-center text-main-text w-full"
-        >
-          {{#if @palette.isLocked}}
-            {{svg-jar "lock" class="icon mr-1" height="12" width="12"}}
-          {{/if}}
-          {{@palette.name}}
-        </div>
-      {{/if}}
-    </h6>
-
-    <OptionsMenu
-      data-test-palette-row-menu
-      class="text-sm"
-      @showBackground={{true}}
-    >
-      <:trigger>
-        {{svg-jar "more-horizontal" class="icon" height="15" width="15"}}
-      </:trigger>
-      <:content>
-        {{#each this.menuItems as |item|}}
-          <button
-            data-test-menu-item={{item.label}}
-            class="flex items-center p-1 text-menu-text transition-colors whitespace-nowrap disabled:opacity-50
-              {{if (not item.disabled) 'hover:text-menu-text-hover'}}"
-            disabled={{item.disabled}}
-            type="button"
-            {{on "click" item.action}}
-          >
-            {{svg-jar item.icon class="icon mr-4" height="15" width="15"}}
-            {{item.label}}
-          </button>
-        {{/each}}
-      </:content>
-    </OptionsMenu>
-  </div>
-
-  <div class="palette flex grow h-8 relative w-full">
-    {{#unless @palette.colors.length}}
-      <div
-        class="absolute bg-main border border-dashed border-gray-400 flex grow h-8 items-center justify-center rounded text-sm top-0 w-full"
-      >
-        Drag colors here
-      </div>
-    {{/unless}}
-
-    <DragSortList
-      class="absolute palette-color-squares flex grow h-8 top-0 w-full
-        {{if this.isLocked 'palette-locked'}}"
-      @additionalArgs={{hash parent=@palette}}
-      @childClass="flex grow"
-      @group={{if @palette.isLocked @palette.id undefined}}
-      @isHorizontal={{true}}
-      @items={{this.sortedColors}}
-      @sourceOnly={{@palette.isLocked}}
-      @dragEndAction={{@moveColorsBetweenPalettes}}
-      as |color index|
-    >
-      <div
-        class="flex grow relative
-          {{if (eq index 0) 'rounded-l'}}
-          {{if (eq index (sub @palette.colors.length 1)) 'rounded-r'}}"
-      >
-        <div
-          data-test-palette-color-square={{color.name}}
-          class="absolute h-full left-0 top-0 w-full z-10
-            {{if (eq index 0) 'rounded-l'}}
-            {{if (eq index (sub @palette.colors.length 1)) 'rounded-r'}}"
-          style={{html-safe (concat "background-color: " color.hex)}}
-          {{on
-            "click"
-            (stop-propagation (fn this.colorUtils.copyColorToClipboard color))
-          }}
-        ></div>
-        <div
-          class="opacity-checkerboard absolute h-full left-0 top-0 w-full z-0
-            {{if (eq index 0) 'rounded-l'}}
-            {{if (eq index (sub @palette.colors.length 1)) 'rounded-r'}}"
-        ></div>
-      </div>
-    </DragSortList>
-  </div>
-</div>

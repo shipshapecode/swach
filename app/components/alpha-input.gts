@@ -1,8 +1,10 @@
 import { action, set } from '@ember/object';
 import Component from '@glimmer/component';
-
 import type { SelectedColorModel } from 'swach/components/rgb-input';
 import { rgbaToHex } from 'swach/data-models/color';
+import OneWayInputMask from "ember-inputmask/_app_/components/one-way-input-mask.js";
+import { hash } from "@ember/helper";
+import { on } from "@ember/modifier";
 
 interface AlphaInputSignature {
   Element: HTMLInputElement;
@@ -14,7 +16,11 @@ interface AlphaInputSignature {
   };
 }
 
-export default class AlphaInputComponent extends Component<AlphaInputSignature> {
+export default class AlphaInputComponent extends Component<AlphaInputSignature> {<template><span class="input-prefix">
+  A:
+</span>
+
+<OneWayInputMask ...attributes maxlength={{4}} @mask="9[.9[9]]" @options={{hash greedy=false isComplete=this.isComplete min=0 max=1 oncomplete=this.onComplete onincomplete=this.onIncomplete regex=this.alphaRegex showMaskOnFocus=false showMaskOnHover=false unmaskAsNumber=false}} @update={{@update}} @value={{@value}} {{on "keypress" this.enterPress}} /></template>
   alphaRegex = /^[1]$|^[0]$|^(0\.[0-9]{1,2})$/;
 
   @action
@@ -69,28 +75,3 @@ declare module '@glint/environment-ember-loose/registry' {
     AlphaInput: typeof AlphaInputComponent;
   }
 }
-
-<span class="input-prefix">
-  A:
-</span>
-
-<OneWayInputMask
-  ...attributes
-  maxlength={{4}}
-  @mask="9[.9[9]]"
-  @options={{hash
-    greedy=false
-    isComplete=this.isComplete
-    min=0
-    max=1
-    oncomplete=this.onComplete
-    onincomplete=this.onIncomplete
-    regex=this.alphaRegex
-    showMaskOnFocus=false
-    showMaskOnHover=false
-    unmaskAsNumber=false
-  }}
-  @update={{@update}}
-  @value={{@value}}
-  {{on "keypress" this.enterPress}}
-/>

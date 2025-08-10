@@ -5,18 +5,23 @@ import { service } from '@ember/service';
 import { capitalize } from '@ember/string';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-
 import type { Store } from 'ember-orbit';
-
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
 import type { IpcRenderer } from 'electron';
 import { debounce } from 'throttle-debounce';
-
 import 'swach/components/kuler-palette-row';
 import type ColorModel from 'swach/data-models/color';
 import type { ColorPOJO } from 'swach/services/color-utils';
 import type ColorUtils from 'swach/services/color-utils';
+import { on } from "@ember/modifier";
+import capitalize0 from "../helpers/capitalize.ts";
+import eq from "ember-truth-helpers/helpers/eq";
+import not from "ember-truth-helpers/helpers/not";
+import isEmpty from "ember-truth-helpers/helpers/is-empty";
+import KulerPaletteRow from "./kuler-palette-row.ts";
+import EditSelectedColor from "./edit-selected-color.ts";
+import notEq from "ember-truth-helpers/helpers/not-eq";
 
 type harmonyTypes = 'analogous' | 'monochromatic' | 'tetrad' | 'triad';
 
@@ -45,7 +50,39 @@ interface KulerSignature {
   };
 }
 
-export default class KulerComponent extends Component<KulerSignature> {
+export default class KulerComponent extends Component<KulerSignature> {<template><div class="bg-menu p-4 pb-8 rounded">
+  <div class="mb-4">
+    <select data-test-kuler-select class="input" id="harmony" {{on "change" this.setSelectedPalette}}>
+      {{#each this.palettes as |palette|}}
+        <option data-test-kuler-select-harmony="{{capitalize0 palette.name}}" class="capitalize" value={{palette.name}} selected={{eq this.selectedPalette palette}}>
+          {{palette.name}}
+        </option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="flex justify-center pt-2 w-full">
+    <div class="kuler-color-picker-container w-auto" id="kuler-color-picker-container"></div>
+  </div>
+</div>
+
+<h2 class="mb-2 ml-1 mt-4 text-lg text-heading">
+  Palette
+</h2>
+
+{{#if (not (isEmpty this.selectedPalette.selectedColorIndex))}}
+  <div class="bg-menu p-4 rounded">
+    <KulerPaletteRow @palette={{this.selectedPalette}} @setSelectedIroColor={{this.setSelectedIroColor}} />
+
+    <EditSelectedColor @colorPicker={{this.colorPicker}} @palette={{this.selectedPalette}} />
+
+    {{#if (notEq this.selectedPalette.selectedColorIndex 0)}}
+      <button data-test-set-base-color class="btn btn-primary grow mt-5 p-2 text-sm w-full" type="button" {{on "click" this.setColorAsBase}}>
+        🏠 Set as base
+      </button>
+    {{/if}}
+  </div>
+{{/if}}</template>
   @service declare colorUtils: ColorUtils;
   @service declare store: Store;
 
@@ -269,61 +306,3 @@ declare module '@glint/environment-ember-loose/registry' {
     Kuler: typeof KulerComponent;
   }
 }
-
-<div class="bg-menu p-4 pb-8 rounded">
-  <div class="mb-4">
-    <select
-      data-test-kuler-select
-      class="input"
-      id="harmony"
-      {{on "change" this.setSelectedPalette}}
-    >
-      {{#each this.palettes as |palette|}}
-        <option
-          data-test-kuler-select-harmony="{{capitalize palette.name}}"
-          class="capitalize"
-          value={{palette.name}}
-          selected={{eq this.selectedPalette palette}}
-        >
-          {{palette.name}}
-        </option>
-      {{/each}}
-    </select>
-  </div>
-
-  <div class="flex justify-center pt-2 w-full">
-    <div
-      class="kuler-color-picker-container w-auto"
-      id="kuler-color-picker-container"
-    ></div>
-  </div>
-</div>
-
-<h2 class="mb-2 ml-1 mt-4 text-lg text-heading">
-  Palette
-</h2>
-
-{{#if (not (is-empty this.selectedPalette.selectedColorIndex))}}
-  <div class="bg-menu p-4 rounded">
-    <KulerPaletteRow
-      @palette={{this.selectedPalette}}
-      @setSelectedIroColor={{this.setSelectedIroColor}}
-    />
-
-    <EditSelectedColor
-      @colorPicker={{this.colorPicker}}
-      @palette={{this.selectedPalette}}
-    />
-
-    {{#if (not-eq this.selectedPalette.selectedColorIndex 0)}}
-      <button
-        data-test-set-base-color
-        class="btn btn-primary grow mt-5 p-2 text-sm w-full"
-        type="button"
-        {{on "click" this.setColorAsBase}}
-      >
-        🏠 Set as base
-      </button>
-    {{/if}}
-  </div>
-{{/if}}

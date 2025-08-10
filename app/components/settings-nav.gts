@@ -1,4 +1,6 @@
-<nav class="bg-btn-bg-secondary grid grid-cols-3 gap-2 mb-4 rounded-full">
+import { LinkTo } from "@ember/routing";
+import type { TemplateOnlyComponent } from '@ember/component/template-only';
+export default <template><nav class="bg-btn-bg-secondary grid grid-cols-3 gap-2 mb-4 rounded-full">
   <LinkTo class="tab" @replace={{true}} @route="settings.index">
     General
   </LinkTo>
@@ -10,4 +12,4 @@
   <LinkTo class="tab" @replace={{true}} @route="settings.data">
     Data
   </LinkTo>
-</nav>
+</nav></template> satisfies TemplateOnlyComponent<{ Args: {} }>

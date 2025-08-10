@@ -1,19 +1,19 @@
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
-
 import type Sprite from 'ember-animated/-private/sprite';
 import { easeOut } from 'ember-animated/easings/cosine';
 import move from 'ember-animated/motions/move';
 import { fadeOut } from 'ember-animated/motions/opacity';
 import type { Store } from 'ember-orbit';
-
 import type { RecordOperationTerm } from '@orbit/records';
-
 import 'swach/components/color-row';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type UndoManager from 'swach/services/undo-manager';
+import AnimatedContainer from "ember-animated/components/animated-container";
+import AnimatedEach from "ember-animated/components/animated-each";
+import ColorRow from "./color-row.ts";
 
 interface ColorsListSignature {
   Args: {
@@ -22,7 +22,14 @@ interface ColorsListSignature {
   };
 }
 
-export default class ColorsListComponent extends Component<ColorsListSignature> {
+export default class ColorsListComponent extends Component<ColorsListSignature> {<template><AnimatedContainer class="colors-list">
+  {{#AnimatedEach this.sortedColors duration=400 use=this.transition as |color|}}
+    {{!-- TODO: remove this disconnected check when caching is fixed in ember-orbit --}}
+    {{#unless color.$isDisconnected}}
+      <ColorRow @color={{color}} @deleteColor={{this.deleteColor}} @palette={{@palette}} @toggleColorPickerIsShown={{@toggleColorPickerIsShown}} />
+    {{/unless}}
+  {{/AnimatedEach}}
+</AnimatedContainer></template>
   @service declare store: Store;
   @service declare undoManager: UndoManager;
 
@@ -116,20 +123,3 @@ declare module '@glint/environment-ember-loose/registry' {
     ColorsList: typeof ColorsListComponent;
   }
 }
-
-<AnimatedContainer class="colors-list">
-  {{#animated-each
-    this.sortedColors duration=400 use=this.transition
-    as |color|
-  }}
-    {{! TODO: remove this disconnected check when caching is fixed in ember-orbit }}
-    {{#unless color.$isDisconnected}}
-      <ColorRow
-        @color={{color}}
-        @deleteColor={{this.deleteColor}}
-        @palette={{@palette}}
-        @toggleColorPickerIsShown={{@toggleColorPickerIsShown}}
-      />
-    {{/unless}}
-  {{/animated-each}}
-</AnimatedContainer>

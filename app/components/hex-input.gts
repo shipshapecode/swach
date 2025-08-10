@@ -1,10 +1,11 @@
 import { action, set, setProperties } from '@ember/object';
 import Component from '@glimmer/component';
-
 import { TinyColor } from '@ctrl/tinycolor';
-
 import type { SelectedColorModel } from 'swach/components/rgb-input';
 import { rgbaToHex } from 'swach/data-models/color';
+import OneWayInputMask from "ember-inputmask/_app_/components/one-way-input-mask.js";
+import { hash } from "@ember/helper";
+import { on } from "@ember/modifier";
 
 interface HexInputSignature {
   Element: HTMLInputElement;
@@ -16,7 +17,7 @@ interface HexInputSignature {
   };
 }
 
-export default class HexInputComponent extends Component<HexInputSignature> {
+export default class HexInputComponent extends Component<HexInputSignature> {<template><OneWayInputMask ...attributes @options={{hash isComplete=this.isComplete regex=this.hexRegex showMaskOnFocus=false showMaskOnHover=false onincomplete=this.onIncomplete oncomplete=this.onComplete}} @mask="\#*{6,8}" @update={{@update}} @value={{@value}} {{on "keypress" this.enterPress}} /></template>
   hexRegex = /^#([A-Fa-f0-9]{8}|[A-Fa-f0-9]{6})$/;
 
   @action
@@ -71,19 +72,3 @@ declare module '@glint/environment-ember-loose/registry' {
     HexInput: typeof HexInputComponent;
   }
 }
-
-<OneWayInputMask
-  ...attributes
-  @options={{hash
-    isComplete=this.isComplete
-    regex=this.hexRegex
-    showMaskOnFocus=false
-    showMaskOnHover=false
-    onincomplete=this.onIncomplete
-    oncomplete=this.onComplete
-  }}
-  @mask="\#*{6,8}"
-  @update={{@update}}
-  @value={{@value}}
-  {{on "keypress" this.enterPress}}
-/>

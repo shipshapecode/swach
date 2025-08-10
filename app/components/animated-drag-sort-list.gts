@@ -1,12 +1,20 @@
 import { action, set } from '@ember/object';
-
 import type Sprite from 'ember-animated/-private/sprite';
 import { easeOut } from 'ember-animated/easings/cosine';
 import move from 'ember-animated/motions/move';
 import { fadeOut } from 'ember-animated/motions/opacity';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
+import AnimatedContainer from "ember-animated/components/animated-container";
+import AnimatedEach from "ember-animated/components/animated-each";
+import DragSortItem from "ember-drag-sort/components/drag-sort-item";
 
-export default class AnimatedDragSortList extends DragSortList {
+export default class AnimatedDragSortList extends DragSortList {<template><AnimatedContainer ...attributes>
+  {{#AnimatedEach @items duration=400 rules=this.rules as |item index|}}
+    <DragSortItem @additionalArgs={{@additionalArgs}} @item={{item}} @index={{index}} @items={{@items}} @group={{@group}} @handle={{@handle}} @class={{@childClass}} @tagName={{@childTagName}} @isHorizontal={{@isHorizontal}} @isRtl={{@isRtl}} @draggingEnabled={{this.draggingEnabled}} @dragEndAction={{@dragEndAction}} @determineForeignPositionAction={{@determineForeignPositionAction}} @sourceOnly={{@sourceOnly}}>
+      {{yield item index}}
+    </DragSortItem>
+  {{/AnimatedEach}}
+</AnimatedContainer></template>
   didDrag = false;
 
   dragEnter(event: Event): void {
@@ -59,26 +67,3 @@ declare module '@glint/environment-ember-loose/registry' {
     AnimatedDragSortList: typeof AnimatedDragSortList;
   }
 }
-
-<AnimatedContainer ...attributes>
-  {{#animated-each @items duration=400 rules=this.rules as |item index|}}
-    <DragSortItem
-      @additionalArgs={{@additionalArgs}}
-      @item={{item}}
-      @index={{index}}
-      @items={{@items}}
-      @group={{@group}}
-      @handle={{@handle}}
-      @class={{@childClass}}
-      @tagName={{@childTagName}}
-      @isHorizontal={{@isHorizontal}}
-      @isRtl={{@isRtl}}
-      @draggingEnabled={{this.draggingEnabled}}
-      @dragEndAction={{@dragEndAction}}
-      @determineForeignPositionAction={{@determineForeignPositionAction}}
-      @sourceOnly={{@sourceOnly}}
-    >
-      {{yield item index}}
-    </DragSortItem>
-  {{/animated-each}}
-</AnimatedContainer>

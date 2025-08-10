@@ -12,8 +12,7 @@ import type { Store } from 'ember-orbit';
 
 import type { RecordOperationTerm } from '@orbit/records';
 
-import ColorRow from './color-row.ts';
-import 'swach/components/color-row';
+import ColorRow from './color-row.gts';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type UndoManager from 'swach/services/undo-manager';

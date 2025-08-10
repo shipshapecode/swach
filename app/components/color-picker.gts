@@ -18,7 +18,6 @@ import AlphaInput from './alpha-input.ts';
 import ColorRow from './color-row.gts';
 import HexInput from './hex-input.gts';
 import RgbInput from './rgb-input.gts';
-import 'swach/components/color-row';
 import type {
   PrivateRGBAHex,
   PublicRGBAHex,

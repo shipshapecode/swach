@@ -20,7 +20,6 @@ import { debounce } from 'throttle-debounce';
 import capitalize0 from '../helpers/capitalize.ts';
 import EditSelectedColor from './edit-selected-color.ts';
 import KulerPaletteRow from './kuler-palette-row.ts';
-import 'swach/components/kuler-palette-row';
 import type ColorModel from 'swach/data-models/color';
 import type { ColorPOJO } from 'swach/services/color-utils';
 import type ColorUtils from 'swach/services/color-utils';

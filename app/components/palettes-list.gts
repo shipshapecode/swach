@@ -1,14 +1,17 @@
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
+
 import type { LiveQuery, Store } from 'ember-orbit';
+import svgJar from 'ember-svg-jar/helpers/svg-jar';
+
 import type { RecordOperationTerm } from '@orbit/records';
+
+import AnimatedDragSortList from './animated-drag-sort-list.ts';
+import PaletteRow from './palette-row.ts';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type UndoManager from 'swach/services/undo-manager';
-import AnimatedDragSortList from "./animated-drag-sort-list.ts";
-import PaletteRow from "./palette-row.ts";
-import svgJar from "ember-svg-jar/helpers/svg-jar";
 
 interface PalettesListSignature {
   Element: HTMLDivElement;
@@ -33,34 +36,48 @@ interface PalettesListSignature {
   };
 }
 
-export default class PalettesListComponent extends Component<PalettesListSignature> {<template><div class="palettes-list mt-48 overflow-visible" ...attributes>
-  {{#if this.palettes.length}}
-    <AnimatedDragSortList class="overflow-visible" @group="palettes" @items={{this.palettes}} @dragEndAction={{this.reorderPalettes}} as |palette|>
-      {{!-- TODO: remove this disconnected check when caching is fixed in ember-orbit --}}
-      {{#unless palette.$isDisconnected}}
-        <PaletteRow @moveColorsBetweenPalettes={{@moveColorsBetweenPalettes}} @palette={{palette}} />
-      {{/unless}}
-    </AnimatedDragSortList>
-  {{else}}
-    {{#if @showFavorites}}
-      <div class="flex flex-col justify-center items-center mt-1 p-2 w-full">
-        <div class="mb-2">
-          {{svgJar "alert-circle" height="50" width="50"}}
-        </div>
+export default class PalettesListComponent extends Component<PalettesListSignature> {
+  <template>
+    <div class="palettes-list mt-48 overflow-visible" ...attributes>
+      {{#if this.palettes.length}}
+        <AnimatedDragSortList
+          class="overflow-visible"
+          @group="palettes"
+          @items={{this.palettes}}
+          @dragEndAction={{this.reorderPalettes}}
+          as |palette|
+        >
+          {{! TODO: remove this disconnected check when caching is fixed in ember-orbit }}
+          {{#unless palette.$isDisconnected}}
+            <PaletteRow
+              @moveColorsBetweenPalettes={{@moveColorsBetweenPalettes}}
+              @palette={{palette}}
+            />
+          {{/unless}}
+        </AnimatedDragSortList>
+      {{else}}
+        {{#if @showFavorites}}
+          <div
+            class="flex flex-col justify-center items-center mt-1 p-2 w-full"
+          >
+            <div class="mb-2">
+              {{svgJar "alert-circle" height="50" width="50"}}
+            </div>
 
-        <h3 class="font-bold m-1 text-xl">
-          No Favorites
-        </h3>
+            <h3 class="font-bold m-1 text-xl">
+              No Favorites
+            </h3>
 
-        <p class="font-light mt-1">
-          You can favorite a palette by clicking the
-          {{svgJar "filled-heart" class="inline" height="14" width="14"}}
-          icon in the palette's menu.
-        </p>
-      </div>
-    {{/if}}
-  {{/if}}
-</div></template>
+            <p class="font-light mt-1">
+              You can favorite a palette by clicking the
+              {{svgJar "filled-heart" class="inline" height="14" width="14"}}
+              icon in the palette's menu.
+            </p>
+          </div>
+        {{/if}}
+      {{/if}}
+    </div>
+  </template>
   @service declare store: Store;
   @service declare undoManager: UndoManager;
 

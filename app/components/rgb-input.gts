@@ -1,10 +1,12 @@
+import { hash } from '@ember/helper';
+import { on } from '@ember/modifier';
 import { action, set } from '@ember/object';
 import Component from '@glimmer/component';
+
+import OneWayInputMask from 'ember-inputmask/_app_/components/one-way-input-mask.js';
+
 import { rgbaToHex } from 'swach/data-models/color';
 import type ColorModel from 'swach/data-models/color';
-import OneWayInputMask from "ember-inputmask/_app_/components/one-way-input-mask.js";
-import { hash } from "@ember/helper";
-import { on } from "@ember/modifier";
 
 export interface PrivateRGBAHex {
   _r: number;
@@ -38,11 +40,32 @@ interface RgbaInputSignature {
   };
 }
 
-export default class RgbaInputComponent extends Component<RgbaInputSignature> {<template><span class="input-prefix capitalize">
-  {{@type}}:
-</span>
+export default class RgbaInputComponent extends Component<RgbaInputSignature> {
+  <template>
+    <span class="input-prefix capitalize">
+      {{@type}}:
+    </span>
 
-<OneWayInputMask ...attributes maxlength={{3}} @mask="9{1,3}" @options={{hash isComplete=this.isComplete min=0 max=255 oncomplete=this.onComplete onincomplete=this.onIncomplete regex=this.rgbRegex showMaskOnFocus=false showMaskOnHover=false unmaskAsNumber=false}} @update={{@update}} @value={{@value}} {{on "keypress" this.enterPress}} /></template>
+    <OneWayInputMask
+      ...attributes
+      maxlength={{3}}
+      @mask="9{1,3}"
+      @options={{hash
+        isComplete=this.isComplete
+        min=0
+        max=255
+        oncomplete=this.onComplete
+        onincomplete=this.onIncomplete
+        regex=this.rgbRegex
+        showMaskOnFocus=false
+        showMaskOnHover=false
+        unmaskAsNumber=false
+      }}
+      @update={{@update}}
+      @value={{@value}}
+      {{on "keypress" this.enterPress}}
+    />
+  </template>
   rgbRegex = /^\d{0,3}$/;
 
   @action

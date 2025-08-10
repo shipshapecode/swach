@@ -1,14 +1,20 @@
+import { fn } from '@ember/helper';
 import { action, set, setProperties } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
+
 import type iro from '@jaames/iro';
-import type { PrivateRGBAHex, PublicRGBAHex, SelectedColorModel } from 'swach/components/rgb-input';
+
+import AlphaInput from './alpha-input.ts';
+import HexInput from './hex-input.gts';
+import RgbInput from './rgb-input.gts';
+import type {
+  PrivateRGBAHex,
+  PublicRGBAHex,
+  SelectedColorModel,
+} from 'swach/components/rgb-input';
 import type PaletteModel from 'swach/data-models/palette';
 import type ColorUtils from 'swach/services/color-utils';
-import HexInput from "./hex-input.gts";
-import { fn } from "@ember/helper";
-import RgbInput from "./rgb-input.gts";
-import AlphaInput from "./alpha-input.ts";
 
 interface EditSelectedColorSignature {
   Element: HTMLDivElement;
@@ -18,24 +24,75 @@ interface EditSelectedColorSignature {
   };
 }
 
-export default class EditSelectedColorComponent extends Component<EditSelectedColorSignature> {<template><div class="inline-flex mt-2 w-full">
-  <div class="input inline-block mr-2 overflow-hidden rounded whitespace-nowrap">
-    <HexInput data-test-kuler-hex class="bg-input-bg text-xs w-16" @selectedColor={{this.selectedColor}} @update={{fn this.updateColorInputs "hex"}} @updateColor={{this.updateColor}} @value={{this.selectedColor._hex}} />
-  </div>
+export default class EditSelectedColorComponent extends Component<EditSelectedColorSignature> {
+  <template>
+    <div class="inline-flex mt-2 w-full">
+      <div
+        class="input inline-block mr-2 overflow-hidden rounded whitespace-nowrap"
+      >
+        <HexInput
+          data-test-kuler-hex
+          class="bg-input-bg text-xs w-16"
+          @selectedColor={{this.selectedColor}}
+          @update={{fn this.updateColorInputs "hex"}}
+          @updateColor={{this.updateColor}}
+          @value={{this.selectedColor._hex}}
+        />
+      </div>
 
-  <div class="input float-left overflow-hidden relative rounded-l whitespace-nowrap w-16">
-    <RgbInput data-test-kuler-r class="bg-input-bg text-right text-xs w-full" @selectedColor={{this.selectedColor}} @type="r" @update={{fn this.updateColorInputs "r"}} @updateColor={{this.updateColor}} @value={{this.selectedColor._r}} />
-  </div>
-  <div class="input float-left overflow-hidden relative whitespace-nowrap w-16">
-    <RgbInput data-test-kuler-g class="bg-input-bg text-right text-xs w-full" @selectedColor={{this.selectedColor}} @type="g" @update={{fn this.updateColorInputs "g"}} @updateColor={{this.updateColor}} @value={{this.selectedColor._g}} />
-  </div>
-  <div class="input float-left overflow-hidden relative whitespace-nowrap w-16">
-    <RgbInput data-test-kuler-b class="bg-input-bg text-right text-xs w-full" @selectedColor={{this.selectedColor}} @type="b" @update={{fn this.updateColorInputs "b"}} @updateColor={{this.updateColor}} @value={{this.selectedColor._b}} />
-  </div>
-  <div class="input float-left overflow-hidden relative rounded-r whitespace-nowrap w-16">
-    <AlphaInput data-test-kuler-a class="bg-input-bg text-right text-xs w-full" @selectedColor={{this.selectedColor}} @update={{fn this.updateColorInputs "a"}} @updateColor={{this.updateColor}} @value={{this.selectedColor._a}} />
-  </div>
-</div></template>
+      <div
+        class="input float-left overflow-hidden relative rounded-l whitespace-nowrap w-16"
+      >
+        <RgbInput
+          data-test-kuler-r
+          class="bg-input-bg text-right text-xs w-full"
+          @selectedColor={{this.selectedColor}}
+          @type="r"
+          @update={{fn this.updateColorInputs "r"}}
+          @updateColor={{this.updateColor}}
+          @value={{this.selectedColor._r}}
+        />
+      </div>
+      <div
+        class="input float-left overflow-hidden relative whitespace-nowrap w-16"
+      >
+        <RgbInput
+          data-test-kuler-g
+          class="bg-input-bg text-right text-xs w-full"
+          @selectedColor={{this.selectedColor}}
+          @type="g"
+          @update={{fn this.updateColorInputs "g"}}
+          @updateColor={{this.updateColor}}
+          @value={{this.selectedColor._g}}
+        />
+      </div>
+      <div
+        class="input float-left overflow-hidden relative whitespace-nowrap w-16"
+      >
+        <RgbInput
+          data-test-kuler-b
+          class="bg-input-bg text-right text-xs w-full"
+          @selectedColor={{this.selectedColor}}
+          @type="b"
+          @update={{fn this.updateColorInputs "b"}}
+          @updateColor={{this.updateColor}}
+          @value={{this.selectedColor._b}}
+        />
+      </div>
+      <div
+        class="input float-left overflow-hidden relative rounded-r whitespace-nowrap w-16"
+      >
+        <AlphaInput
+          data-test-kuler-a
+          class="bg-input-bg text-right text-xs w-full"
+          @selectedColor={{this.selectedColor}}
+          @update={{fn this.updateColorInputs "a"}}
+          @updateColor={{this.updateColor}}
+          @value={{this.selectedColor._a}}
+        />
+      </div>
+    </div>
+  </template>
   @service declare colorUtils: ColorUtils;
 
   get selectedColor(): SelectedColorModel | Record<string, unknown> {

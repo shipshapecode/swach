@@ -80,9 +80,11 @@ export default class ColorUtilsService extends Service {
         this.ipcRenderer.send('copyColorToClipboard', color[colorFormat]);
 
         if (this.settings.get('sounds')) {
-          const audio = new Audio('assets/sounds/pluck_short.wav');
+          const audio = new Audio('assets/sounds/pluck_short.mp3');
 
-          await audio.play();
+          try {
+            await audio.play();
+          } catch {}
         }
 
         if (this.settings.get('notifications')) {

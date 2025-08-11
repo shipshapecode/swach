@@ -7,13 +7,16 @@ import OneWayInputMask from 'ember-inputmask/_app_/components/one-way-input-mask
 
 import { TinyColor } from '@ctrl/tinycolor';
 
-import type { SelectedColorModel } from 'swach/components/rgb-input';
+import type {
+  SelectedColorModel,
+  SelectedColorPOJO,
+} from 'swach/components/rgb-input';
 import { rgbaToHex } from 'swach/data-models/color';
 
 interface HexInputSignature {
   Element: HTMLInputElement;
   Args: {
-    selectedColor: SelectedColorModel;
+    selectedColor: SelectedColorModel | SelectedColorPOJO;
     update: (value: string | number) => void;
     updateColor: () => void;
     value?: string;

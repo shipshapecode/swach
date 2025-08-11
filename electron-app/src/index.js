@@ -83,11 +83,11 @@ const mb = menubar({
 
 mb.app.allowRendererProcessReuse = true;
 
+mb.app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
 mb.app.commandLine.appendSwitch(
   'disable-backgrounding-occluded-windows',
   'true',
 );
-
 mb.app.commandLine.appendSwitch('ignore-certificate-errors', true);
 
 let sharedPaletteLink;

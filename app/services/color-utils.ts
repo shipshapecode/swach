@@ -84,7 +84,9 @@ export default class ColorUtilsService extends Service {
 
           try {
             await audio.play();
-          } catch {}
+          } catch {
+            // Do nothing
+          }
         }
 
         if (this.settings.get('notifications')) {

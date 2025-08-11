@@ -5,9 +5,10 @@ import svgJar from 'ember-svg-jar/helpers/svg-jar';
 
 import ColorsList from '../components/colors-list.ts';
 import type ColorsController from 'swach/controllers/colors';
+import type PaletteModel from 'swach/data-models/palette';
 
 export default RouteTemplate<{
-  Args: { model: unknown; controller: ColorsController };
+  Args: { model: PaletteModel; controller: ColorsController };
 }>(
   <template>
     <LinkTo

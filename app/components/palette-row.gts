@@ -7,8 +7,8 @@ import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
+import noop from '@nullvoxpopuli/ember-composable-helpers/helpers/noop';
 import fade from 'ember-animated/transitions/fade';
-import noop from 'ember-composable-helpers/helpers/noop';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 import type DragSortService from 'ember-drag-sort/services/drag-sort';
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
@@ -111,6 +111,10 @@ class LockOption {
     this.palette = palette;
   }
 
+  get disabled() {
+    return false;
+  }
+
   get icon() {
     const isLocked = this.palette.isLocked;
 
@@ -197,6 +201,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
           </div>
         {{/unless}}
 
+        {{!@glint-expect-error TODO: fix this}}
         <DragSortList
           class="absolute palette-color-squares flex grow h-8 top-0 w-full
             {{if this.isLocked 'palette-locked'}}"
@@ -427,12 +432,12 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
     this.isEditing = false;
   };
 
-  updatePaletteName = (e: InputEvent) => {
+  updatePaletteName = (event: Event) => {
     void this.store.update((t) =>
       t.replaceAttribute(
         this.args.palette,
         'name',
-        (<HTMLInputElement>e.target).value,
+        (<HTMLInputElement>event.target).value,
       ),
     );
   };

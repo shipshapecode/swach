@@ -137,7 +137,6 @@ export default RouteTemplate<{
         </div>
         <div class="bottom-0 h-auto fixed flex flex-col p-3 w-full">
           {{#each @controller.flashMessages.queue as |flash|}}
-            {{!@glint-expect-error FlashMessage component is not typed}}
             <FlashMessage @flash={{flash}} />
           {{/each}}
         </div>

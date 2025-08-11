@@ -5,7 +5,7 @@ import { tracked } from '@glimmer/tracking';
 
 import type Session from 'swach/services/session';
 
-export default class SettingsAccountController extends Controller {
+export default class SettingsCloudProfileController extends Controller {
   @service declare session: Session;
 
   @tracked loading = false;

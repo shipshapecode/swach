@@ -21,8 +21,8 @@ interface SettingsMenuSignature {
   Element: HTMLDivElement;
   Args: {
     checkForUpdates: () => void;
-    enableDisableAutoStart: (e: InputEvent) => void;
-    toggleShowDockIcon: (e: InputEvent) => void;
+    enableDisableAutoStart: (event: Event) => void;
+    toggleShowDockIcon: (event: Event) => void;
   };
 }
 

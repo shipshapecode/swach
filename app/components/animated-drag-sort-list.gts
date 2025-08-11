@@ -6,6 +6,7 @@ import AnimatedEach from 'ember-animated/components/animated-each';
 import { easeOut } from 'ember-animated/easings/cosine';
 import move from 'ember-animated/motions/move';
 import { fadeOut } from 'ember-animated/motions/opacity';
+// @ts-expect-error TODO: fix this
 import DragSortItem from 'ember-drag-sort/components/drag-sort-item';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 

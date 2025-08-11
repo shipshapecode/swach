@@ -5,6 +5,7 @@ import { tracked } from '@glimmer/tracking';
 
 import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
 import cssTransition from 'ember-css-transitions/modifiers/css-transition';
+// @ts-expect-error TODO: fix this
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import set from 'ember-set-helper/helpers/set';
 import and from 'ember-truth-helpers/helpers/and';

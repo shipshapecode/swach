@@ -236,10 +236,10 @@ export default class ApplicationController extends Controller {
   }
 
   @action
-  enableDisableAutoStart(e: InputEvent): void {
+  enableDisableAutoStart(event: Event): void {
     this.ipcRenderer.send(
       'enableDisableAutoStart',
-      (<HTMLInputElement>e.target).checked,
+      (<HTMLInputElement>event.target).checked,
     );
   }
 
@@ -263,8 +263,8 @@ export default class ApplicationController extends Controller {
   }
 
   @action
-  toggleShowDockIcon(e: InputEvent): void {
-    const showDockIcon = (<HTMLInputElement>e.target).checked;
+  toggleShowDockIcon(event: Event): void {
+    const showDockIcon = (<HTMLInputElement>event.target).checked;
 
     this.settings.set('showDockIcon', showDockIcon);
     this.ipcRenderer.send('setShowDockIcon', showDockIcon);

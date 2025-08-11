@@ -3,6 +3,7 @@ import { on } from '@ember/modifier';
 
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
+import type { LiveQuery } from 'ember-orbit';
 import RouteTemplate from 'ember-route-template';
 import set from 'ember-set-helper/helpers/set';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
@@ -14,7 +15,7 @@ import htmlSafe from '../helpers/html-safe.ts';
 import type PalettesController from 'swach/controllers/palettes';
 
 export default RouteTemplate<{
-  Args: { model: unknown; controller: PalettesController };
+  Args: { model: LiveQuery; controller: PalettesController };
 }>(
   <template>
     <div
@@ -55,6 +56,7 @@ export default RouteTemplate<{
         </div>
 
         {{#if @controller.last16Colors.length}}
+          {{!@glint-expect-error TODO: fix this}}
           <DragSortList
             data-test-color-history
             @additionalArgs={{hash isColorHistory=true}}

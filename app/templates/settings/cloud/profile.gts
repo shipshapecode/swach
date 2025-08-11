@@ -1,8 +1,14 @@
 import RouteTemplate from 'ember-route-template';
 
 import LoadingButton from '../../../components/loading-button.ts';
+import type SettingsCloudProfileController from 'swach/controllers/settings/cloud/profile';
 
-export default RouteTemplate<{ Args: { model: unknown; controller: unknown } }>(
+export default RouteTemplate<{
+  Args: {
+    model: { email?: string; email_verified: boolean };
+    controller: SettingsCloudProfileController;
+  };
+}>(
   <template>
     <div class="bg-menu p-4 rounded w-full">
       <div class="pt-4 w-full">

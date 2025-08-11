@@ -9,6 +9,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
 import type { Store } from 'ember-orbit';
+// @ts-expect-error TODO: fix this
 import EmberPopover from 'ember-tooltips/components/ember-popover';
 
 import { TinyColor } from '@ctrl/tinycolor';
@@ -33,7 +34,7 @@ interface ColorPickerSignature {
   Element: HTMLDivElement;
   Args: {
     isShown: boolean;
-    selectedColor: SelectedColorModel;
+    selectedColor?: SelectedColorModel;
     saveColor: (hex: string) => Promise<ColorModel | undefined>;
     toggleIsShown: (color?: ColorModel) => void;
   };
@@ -42,7 +43,6 @@ interface ColorPickerSignature {
 export default class ColorPickerComponent extends Component<ColorPickerSignature> {
   <template>
     {{#if @isShown}}
-      {{!@glint-expect-error ember-tooltips does not ship types}}
       <EmberPopover
         @arrowClass="color-picker-arrow custom-arrow"
         @event="none"
@@ -221,7 +221,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
   colorPicker?: iro.ColorPicker;
   onChange!: (color?: ColorModel) => void;
 
-  @tracked _selectedColor!: SelectedColorPOJO;
+  @tracked _selectedColor!: ColorModel | SelectedColorPOJO;
 
   get alternateColorFormats(): { hsl: string; hsv: string; rgb: string } {
     let hsl = '';

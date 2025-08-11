@@ -6,6 +6,7 @@ import { service } from '@ember/service';
 import { isEmpty } from '@ember/utils';
 import Component from '@glimmer/component';
 
+// @ts-expect-error TODO: fix this
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 

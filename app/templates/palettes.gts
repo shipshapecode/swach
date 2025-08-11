@@ -11,8 +11,11 @@ import not from 'ember-truth-helpers/helpers/not';
 import OptionsMenu from '../components/options-menu.ts';
 import PalettesList from '../components/palettes-list.ts';
 import htmlSafe from '../helpers/html-safe.ts';
+import type PalettesController from 'swach/controllers/palettes';
 
-export default RouteTemplate<{ Args: { model: unknown; controller: unknown } }>(
+export default RouteTemplate<{
+  Args: { model: unknown; controller: PalettesController };
+}>(
   <template>
     <div
       class="color-history-container bg-main fixed left-1/2 -translate-x-1/2 z-20"

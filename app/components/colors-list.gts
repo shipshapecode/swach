@@ -46,7 +46,7 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
   @service declare store: Store;
   @service declare undoManager: UndoManager;
 
-  get sortedColors(): (ColorModel | undefined)[] | undefined {
+  get sortedColors() {
     const { palette } = this.args;
 
     if (!palette.$isDisconnected) {
@@ -58,12 +58,12 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
         });
       } else {
         return palette.colorOrder.map((color: { type: string; id: string }) => {
-          return palette.colors.find((c) => c.id === color.id);
+          return palette.colors.find((c) => c.id === color.id) as ColorModel;
         });
       }
     }
 
-    return undefined;
+    return [];
   }
 
   // eslint-disable-next-line require-yield

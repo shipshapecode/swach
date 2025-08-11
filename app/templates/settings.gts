@@ -4,8 +4,11 @@ import RouteTemplate from 'ember-route-template';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 
 import SettingsNav from '../components/settings-nav.ts';
+import type SettingsController from 'swach/controllers/settings';
 
-export default RouteTemplate<{ Args: { model: unknown; controller: unknown } }>(
+export default RouteTemplate<{
+  Args: { model: unknown; controller: SettingsController };
+}>(
   <template>
     <button
       class="flex grow items-center mb-1 pb-2 pt-2 text-alt transition-colors w-full hover:text-alt-hover"

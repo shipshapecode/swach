@@ -1,5 +1,7 @@
 import RouteTemplate from 'ember-route-template';
 
-export default RouteTemplate<{ Args: { model: unknown; controller: unknown } }>(
-  <template>{{outlet}}</template>,
-);
+import type WelcomeController from 'swach/controllers/welcome';
+
+export default RouteTemplate<{
+  Args: { model: unknown; controller: WelcomeController };
+}>(<template>{{outlet}}</template>);

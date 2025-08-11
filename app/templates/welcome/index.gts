@@ -3,7 +3,11 @@ import { LinkTo } from '@ember/routing';
 import RouteTemplate from 'ember-route-template';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 
-export default RouteTemplate<{ Args: { model: unknown; controller: unknown } }>(
+import type WelcomeIndexController from 'swach/controllers/welcome/index';
+
+export default RouteTemplate<{
+  Args: { model: unknown; controller: WelcomeIndexController };
+}>(
   <template>
     <div class="flex h-full items-center justify-center p-4 w-full">
       <div class="flex flex-col h-full w-full">

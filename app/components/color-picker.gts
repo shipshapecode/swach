@@ -14,6 +14,10 @@ import EmberPopover from 'ember-tooltips/components/ember-popover';
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
 
+import { rgbaToHex } from '../data-models/color.ts';
+import type ColorModel from '../data-models/color.ts';
+import type NearestColor from '../services/nearest-color.ts';
+import type UndoManager from '../services/undo-manager.ts';
 import AlphaInput from './alpha-input.ts';
 import ColorRow from './color-row.ts';
 import HexInput from './hex-input.ts';
@@ -23,11 +27,7 @@ import type {
   PublicRGBAHex,
   SelectedColorModel,
   SelectedColorPOJO,
-} from 'swach/components/rgb-input';
-import { rgbaToHex } from 'swach/data-models/color';
-import type ColorModel from 'swach/data-models/color';
-import type NearestColor from 'swach/services/nearest-color';
-import type UndoManager from 'swach/services/undo-manager';
+} from './rgb-input.ts';
 
 interface ColorPickerSignature {
   Element: HTMLDivElement;

@@ -11,8 +11,11 @@ import not from 'ember-truth-helpers/helpers/not';
 
 import ColorPicker from '../components/color-picker.ts';
 import OptionsMenu from '../components/options-menu.ts';
+import type ApplicationController from 'swach/controllers/application';
 
-export default RouteTemplate<{ Args: { model: unknown; controller: unknown } }>(
+export default RouteTemplate<{
+  Args: { model: unknown; controller: ApplicationController };
+}>(
   <template>
     {{setBodyClass @controller.theme}}
 

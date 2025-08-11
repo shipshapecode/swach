@@ -4,8 +4,11 @@ import RouteTemplate from 'ember-route-template';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 
 import ContrastChecker from '../components/contrast-checker.ts';
+import type ContrastController from 'swach/controllers/contrast';
 
-export default RouteTemplate<{ Args: { model: unknown; controller: unknown } }>(
+export default RouteTemplate<{
+  Args: { model: unknown; controller: ContrastController };
+}>(
   <template>
     <button
       class="flex grow items-center mb-1 pb-2 pt-2 text-alt transition-colors w-full hover:text-alt-hover"

@@ -2,10 +2,8 @@ import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { action, set } from '@ember/object';
 import Component from '@glimmer/component';
-
 // @ts-expect-error TODO: fix this
 import OneWayInputMask from 'ember-inputmask/_app_/components/one-way-input-mask.js';
-
 import { rgbaToHex } from 'swach/data-models/color';
 import type ColorModel from 'swach/data-models/color';
 

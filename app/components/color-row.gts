@@ -5,11 +5,9 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { isEmpty } from '@ember/utils';
 import Component from '@glimmer/component';
-
 // @ts-expect-error TODO: fix this
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
-
 import htmlSafe from '../helpers/html-safe.ts';
 import OptionsMenu from './options-menu.ts';
 import type ColorModel from 'swach/data-models/color';

@@ -1,5 +1,4 @@
 import RouteTemplate from 'ember-route-template';
-
 import SettingsMenu from '../../components/settings-menu.ts';
 import type SettingsIndexController from 'swach/controllers/settings/index';
 

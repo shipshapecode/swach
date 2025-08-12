@@ -7,14 +7,11 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-
 import type { Store } from 'ember-orbit';
 // @ts-expect-error TODO: fix this
 import EmberPopover from 'ember-tooltips/components/ember-popover';
-
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
-
 import { rgbaToHex } from '../data-models/color.ts';
 import type ColorModel from '../data-models/color.ts';
 import type NearestColor from '../services/nearest-color.ts';
@@ -36,7 +33,7 @@ interface ColorPickerSignature {
     isShown: boolean;
     selectedColor?: SelectedColorModel;
     saveColor: (hex: string) => Promise<ColorModel | undefined>;
-    toggleIsShown: (color?: ColorModel) => void;
+    toggleIsShown: (color?: SelectedColorModel) => void;
   };
 }
 

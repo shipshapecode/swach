@@ -1,12 +1,9 @@
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
-
 import type { LiveQuery, Store } from 'ember-orbit';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
-
 import type { RecordOperationTerm } from '@orbit/records';
-
 import AnimatedDragSortList from './animated-drag-sort-list.ts';
 import PaletteRow from './palette-row.ts';
 import type ColorModel from 'swach/data-models/color';

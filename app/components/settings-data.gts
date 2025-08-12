@@ -3,19 +3,16 @@ import type Owner from '@ember/owner';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-
 import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
 import type { Store } from 'ember-orbit';
 import set from 'ember-set-helper/helpers/set';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
-
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type { InitializedRecord } from '@orbit/records';
 import type { IpcRenderer } from 'electron';
 import IDBExportImport from 'indexeddb-export-import';
-
 import LoadingButton from './loading-button.ts';
 import OptionsMenu from './options-menu.ts';
 import type { SettingsStorage } from 'swach/storages/settings';

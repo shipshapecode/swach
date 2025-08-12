@@ -2,9 +2,7 @@ import { fn } from '@ember/helper';
 import { action, set, setProperties } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
-
 import type iro from '@jaames/iro';
-
 import AlphaInput from './alpha-input.ts';
 import HexInput from './hex-input.ts';
 import RgbInput from './rgb-input.ts';

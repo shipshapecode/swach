@@ -3,7 +3,6 @@ import { action } from '@ember/object';
 import type Owner from '@ember/owner';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-
 import type { IpcRenderer } from 'electron';
 
 interface AboutSignature {

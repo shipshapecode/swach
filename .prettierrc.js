@@ -33,18 +33,14 @@ const importOrder = [
   swachInternals,
 ];
 const importOrderParserPlugins = ['typescript', 'decorators-legacy'];
-const importOrderSeparation = true;
-const importOrderSortSpecifiers = true;
 
 module.exports = {
   plugins: [
     'prettier-plugin-ember-template-tag',
-    '@trivago/prettier-plugin-sort-imports',
+    '@ianvs/prettier-plugin-sort-imports',
   ],
   importOrder,
   importOrderParserPlugins,
-  importOrderSeparation,
-  importOrderSortSpecifiers,
   overrides: [
     {
       files: '*.{js,gjs,ts,gts,mjs,mts,cjs,cts}',

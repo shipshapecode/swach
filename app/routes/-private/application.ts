@@ -1,7 +1,6 @@
 import Route from '@ember/routing/route';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
-
 import type DataService from 'swach/services/data';
 import type Session from 'swach/services/session';
 

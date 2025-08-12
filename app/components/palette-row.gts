@@ -6,7 +6,6 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-
 import noop from '@nullvoxpopuli/ember-composable-helpers/helpers/noop';
 import fade from 'ember-animated/transitions/fade';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
@@ -18,10 +17,8 @@ import type { Store } from 'ember-orbit';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
 import not from 'ember-truth-helpers/helpers/not';
-
 import type { RecordSchema } from '@orbit/records';
 import type { IpcRenderer } from 'electron';
-
 import htmlSafe from '../helpers/html-safe.ts';
 import OptionsMenu from './options-menu.ts';
 import type ColorModel from 'swach/data-models/color';

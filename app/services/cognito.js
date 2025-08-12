@@ -1,7 +1,5 @@
 import { service } from '@ember/service';
-
 import CognitoService from 'ember-cognito/services/cognito';
-
 import ENV from '../config/environment';
 
 const cognitoEnv = Object.assign(

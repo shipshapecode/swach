@@ -5,14 +5,11 @@ import type Owner from '@ember/owner';
 import didInsert from '@ember/render-modifiers/modifiers/did-insert';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
-
 import { type IroColorValue } from '@irojs/iro-core';
 import iro from '@jaames/iro';
 import type { IpcRenderer } from 'electron';
 import { hex, score } from 'wcag-contrast';
-
 import htmlSafe from '../helpers/html-safe.ts';
 
 interface ContrastCheckerSignature {

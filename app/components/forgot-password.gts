@@ -5,9 +5,7 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-
 import type CognitoService from 'ember-cognito/services/cognito';
-
 import LoadingButton from './loading-button.ts';
 import type Session from 'swach/services/session';
 

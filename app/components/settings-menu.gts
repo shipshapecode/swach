@@ -5,13 +5,10 @@ import { action } from '@ember/object';
 import type Owner from '@ember/owner';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-
 import { storageFor } from 'ember-local-storage';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
-
 import type { IpcRenderer } from 'electron';
-
 import capitalize from '../helpers/capitalize.ts';
 import About from './about.ts';
 import LoadingButton from './loading-button.ts';

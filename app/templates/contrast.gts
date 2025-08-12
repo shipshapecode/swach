@@ -1,8 +1,6 @@
 import { on } from '@ember/modifier';
-
 import RouteTemplate from 'ember-route-template';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
-
 import ContrastChecker from '../components/contrast-checker.ts';
 import type ContrastController from 'swach/controllers/contrast';
 

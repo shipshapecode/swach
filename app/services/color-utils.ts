@@ -1,14 +1,10 @@
 import { action } from '@ember/object';
-import Service from '@ember/service';
-import { service } from '@ember/service';
-
+import Service, { service } from '@ember/service';
 import { storageFor } from 'ember-local-storage';
 import type { Store } from 'ember-orbit';
-
 import { TinyColor } from '@ctrl/tinycolor';
 import type { ColorInput } from '@ctrl/tinycolor';
 import type { IpcRenderer } from 'electron';
-
 import { rgbaToHex } from 'swach/data-models/color';
 import type ColorModel from 'swach/data-models/color';
 import type NearestColor from 'swach/services/nearest-color';

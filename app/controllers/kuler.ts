@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
-
 import type ColorModel from 'swach/data-models/color';
 
 export default class KulerController extends Controller {

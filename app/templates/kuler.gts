@@ -1,8 +1,6 @@
 import { on } from '@ember/modifier';
-
 import RouteTemplate from 'ember-route-template';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
-
 import Kuler from '../components/kuler.ts';
 import type KulerController from 'swach/controllers/kuler';
 

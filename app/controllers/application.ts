@@ -3,14 +3,12 @@ import { action, get } from '@ember/object';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-
 import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
 import type { Store } from 'ember-orbit';
-
 import type { RecordSchema } from '@orbit/records';
 import type { IpcRenderer } from 'electron';
-
+import type { SelectedColorModel } from 'swach/components/rgb-input';
 import type ColorModel from 'swach/data-models/color';
 import type ColorUtils from 'swach/services/color-utils';
 import type DataService from 'swach/services/data';
@@ -32,7 +30,7 @@ export default class ApplicationController extends Controller {
 
   declare ipcRenderer: IpcRenderer;
 
-  @tracked colorPickerColor?: ColorModel;
+  @tracked colorPickerColor?: SelectedColorModel;
   @tracked colorPickerIsShown = false;
 
   get hasLoggedInBeforeAndIsAuthenticated() {
@@ -254,7 +252,7 @@ export default class ApplicationController extends Controller {
   }
 
   @action
-  toggleColorPickerIsShown(color?: ColorModel): void {
+  toggleColorPickerIsShown(color?: SelectedColorModel): void {
     if (color?.hex) {
       this.colorPickerColor = color;
     }

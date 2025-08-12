@@ -1,5 +1,4 @@
 import { action, set } from '@ember/object';
-
 import type Sprite from 'ember-animated/-private/sprite';
 import AnimatedContainer from 'ember-animated/components/animated-container';
 import AnimatedEach from 'ember-animated/components/animated-each';

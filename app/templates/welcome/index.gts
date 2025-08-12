@@ -1,8 +1,6 @@
 import { LinkTo } from '@ember/routing';
-
 import RouteTemplate from 'ember-route-template';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
-
 import type WelcomeIndexController from 'swach/controllers/welcome/index';
 
 export default RouteTemplate<{

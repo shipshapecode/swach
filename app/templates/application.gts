@@ -1,14 +1,15 @@
+import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { LinkTo } from '@ember/routing';
-
+// @ts-expect-error TODO: fix this
 import AnimatedTools from 'ember-animated-tools/components/animated-tools';
 import FlashMessage from 'ember-cli-flash/components/flash-message';
 import RouteTemplate from 'ember-route-template';
+// @ts-expect-error TODO: fix this
 import setBodyClass from 'ember-set-body-class/helpers/set-body-class';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import and from 'ember-truth-helpers/helpers/and';
 import not from 'ember-truth-helpers/helpers/not';
-
 import ColorPicker from '../components/color-picker.ts';
 import OptionsMenu from '../components/options-menu.ts';
 import type ApplicationController from 'swach/controllers/application';
@@ -123,7 +124,10 @@ export default RouteTemplate<{
                 <button
                   data-test-toggle-color-picker
                   type="button"
-                  {{on "click" @controller.toggleColorPickerIsShown}}
+                  {{on
+                    "click"
+                    (fn @controller.toggleColorPickerIsShown undefined)
+                  }}
                 >
                   {{svgJar "edit-color" height="20" width="20"}}
                 </button>

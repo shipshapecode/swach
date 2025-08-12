@@ -1,14 +1,13 @@
 import { concat, fn, hash } from '@ember/helper';
 import { on } from '@ember/modifier';
-
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
+// @ts-expect-error TODO: fix this
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import type { LiveQuery } from 'ember-orbit';
 import RouteTemplate from 'ember-route-template';
 import set from 'ember-set-helper/helpers/set';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import not from 'ember-truth-helpers/helpers/not';
-
 import OptionsMenu from '../components/options-menu.ts';
 import PalettesList from '../components/palettes-list.ts';
 import htmlSafe from '../helpers/html-safe.ts';

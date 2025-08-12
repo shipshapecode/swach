@@ -1,13 +1,10 @@
 import Service, { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-
 import type { Store } from 'ember-orbit';
-
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type JSONAPISource from '@orbit/jsonapi';
 import type { InitializedRecord, RecordIdentity } from '@orbit/records';
-
 import type Palette from 'swach/data-models/palette';
 import type Session from 'swach/services/session';
 

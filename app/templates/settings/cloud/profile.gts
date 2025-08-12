@@ -1,5 +1,4 @@
 import RouteTemplate from 'ember-route-template';
-
 import LoadingButton from '../../../components/loading-button.ts';
 import type SettingsCloudProfileController from 'swach/controllers/settings/cloud/profile';
 

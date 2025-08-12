@@ -5,9 +5,7 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-
 import { storageFor } from 'ember-local-storage';
-
 import LoadingButton from './loading-button.ts';
 import config from 'swach/config/environment';
 import type Session from 'swach/services/session';

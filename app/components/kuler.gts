@@ -5,18 +5,15 @@ import { service } from '@ember/service';
 import { capitalize } from '@ember/string';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-
 import type { Store } from 'ember-orbit';
 import eq from 'ember-truth-helpers/helpers/eq';
 import isEmpty from 'ember-truth-helpers/helpers/is-empty';
 import not from 'ember-truth-helpers/helpers/not';
 import notEq from 'ember-truth-helpers/helpers/not-eq';
-
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
 import type { IpcRenderer } from 'electron';
 import { debounce } from 'throttle-debounce';
-
 import capitalize0 from '../helpers/capitalize.ts';
 import EditSelectedColor from './edit-selected-color.ts';
 import KulerPaletteRow from './kuler-palette-row.ts';

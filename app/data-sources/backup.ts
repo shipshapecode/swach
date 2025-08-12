@@ -1,5 +1,4 @@
 import { applyStandardSourceInjections } from 'ember-orbit';
-
 import { IndexedDBSource } from '@orbit/indexeddb';
 import type {
   InitializedRecord,
@@ -8,7 +7,6 @@ import type {
   RecordSchema,
 } from '@orbit/records';
 import { clone } from '@orbit/utils';
-
 import ENV from 'swach/config/environment';
 
 type PalettePOJO = Omit<Record, 'type'> & {

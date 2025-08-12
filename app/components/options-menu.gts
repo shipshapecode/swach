@@ -2,7 +2,6 @@ import { on } from '@ember/modifier';
 import type Owner from '@ember/owner';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-
 import onClickOutside from 'ember-click-outside/modifiers/on-click-outside';
 import cssTransition from 'ember-css-transitions/modifiers/css-transition';
 // @ts-expect-error TODO: fix this

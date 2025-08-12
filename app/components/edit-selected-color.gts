@@ -95,7 +95,7 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
   </template>
   @service declare colorUtils: ColorUtils;
 
-  get selectedColor(): SelectedColorModel | Record<string, unknown> {
+  get selectedColor() {
     const { palette } = this.args;
 
     if (palette) {
@@ -116,7 +116,7 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
       return selectedColor;
     }
 
-    return {};
+    return {} as SelectedColorModel;
   }
 
   /**
@@ -168,11 +168,5 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
   @action
   updateColorInputs(key: keyof PublicRGBAHex, value: number | string): void {
     set(this.selectedColor, `_${key}` as keyof PrivateRGBAHex, value);
-  }
-}
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    EditSelectedColor: typeof EditSelectedColorComponent;
   }
 }

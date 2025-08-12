@@ -203,9 +203,3 @@ export default class SettingsData extends Component {
     }
   };
 }
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    SettingsData: typeof SettingsData;
-  }
-}

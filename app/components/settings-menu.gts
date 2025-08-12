@@ -164,9 +164,3 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
     this.settings.set('userTheme', theme);
   }
 }
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    SettingsMenu: typeof SettingsMenu;
-  }
-}

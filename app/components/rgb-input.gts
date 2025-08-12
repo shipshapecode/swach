@@ -37,7 +37,7 @@ interface RgbaInputSignature {
     type: 'r' | 'g' | 'b' | 'a';
     update: (value: string | number) => void;
     updateColor: () => void;
-    value?: string;
+    value?: number;
   };
 }
 
@@ -123,11 +123,5 @@ export default class RgbaInputComponent extends Component<RgbaInputSignature> {
       `_${type}` as keyof PrivateRGBAHex,
       this.args.selectedColor[type],
     );
-  }
-}
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    RgbInput: typeof RgbaInputComponent;
   }
 }

@@ -130,9 +130,3 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
     }
   }
 }
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    ColorsList: typeof ColorsListComponent;
-  }
-}

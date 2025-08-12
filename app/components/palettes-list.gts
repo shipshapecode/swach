@@ -129,9 +129,3 @@ export default class PalettesListComponent extends Component<PalettesListSignatu
     this.undoManager.setupUndoRedo();
   }
 }
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    PalettesList: typeof PalettesListComponent;
-  }
-}

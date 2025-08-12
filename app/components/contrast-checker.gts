@@ -303,9 +303,3 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
     }
   }
 }
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    ContrastChecker: typeof ContrastChecker;
-  }
-}

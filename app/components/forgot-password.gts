@@ -165,9 +165,3 @@ export default class ForgotPasswordComponent extends Component {
     }
   }
 }
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    ForgotPassword: typeof ForgotPasswordComponent;
-  }
-}

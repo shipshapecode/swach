@@ -11,8 +11,9 @@ import noop from '@nullvoxpopuli/ember-composable-helpers/helpers/noop';
 import fade from 'ember-animated/transitions/fade';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 import type DragSortService from 'ember-drag-sort/services/drag-sort';
+// @ts-expect-error TODO: fix this
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
-import sub_ from 'ember-math-helpers/helpers/sub';
+import sub from 'ember-math-helpers/helpers/sub';
 import type { Store } from 'ember-orbit';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
@@ -217,13 +218,13 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
           <div
             class="flex grow relative
               {{if (eq index 0) 'rounded-l'}}
-              {{if (eq index (sub_ @palette.colors.length 1)) 'rounded-r'}}"
+              {{if (eq index (sub @palette.colors.length 1)) 'rounded-r'}}"
           >
             <div
               data-test-palette-color-square={{color.name}}
               class="absolute h-full left-0 top-0 w-full z-10
                 {{if (eq index 0) 'rounded-l'}}
-                {{if (eq index (sub_ @palette.colors.length 1)) 'rounded-r'}}"
+                {{if (eq index (sub @palette.colors.length 1)) 'rounded-r'}}"
               style={{htmlSafe (concat "background-color: " color.hex)}}
               {{on
                 "click"
@@ -235,7 +236,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
             <div
               class="opacity-checkerboard absolute h-full left-0 top-0 w-full z-0
                 {{if (eq index 0) 'rounded-l'}}
-                {{if (eq index (sub_ @palette.colors.length 1)) 'rounded-r'}}"
+                {{if (eq index (sub @palette.colors.length 1)) 'rounded-r'}}"
             ></div>
           </div>
         </DragSortList>
@@ -441,10 +442,4 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       ),
     );
   };
-}
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    PaletteRow: typeof PaletteRowComponent;
-  }
 }

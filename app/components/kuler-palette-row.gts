@@ -10,7 +10,7 @@ import type MotionService from 'ember-animated/services/-ea-motion';
 import fade from 'ember-animated/transitions/fade';
 // @ts-expect-error TODO: fix this
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
-import sub_ from 'ember-math-helpers/helpers/sub';
+import sub from 'ember-math-helpers/helpers/sub';
 import type { Store } from 'ember-orbit';
 import set from 'ember-set-helper/helpers/set';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
@@ -71,13 +71,13 @@ export default class KulerPaletteRowComponent extends Component<KulerPaletteRowS
             <div
               class="flex grow relative
                 {{if (eq index 0) 'rounded-l'}}
-                {{if (eq index (sub_ @palette.colors.length 1)) 'rounded-r'}}"
+                {{if (eq index (sub @palette.colors.length 1)) 'rounded-r'}}"
             >
               <div
                 data-test-kuler-palette-color="{{index}}"
                 class="absolute h-full left-0 top-0 w-full z-10
                   {{if (eq index 0) 'rounded-l'}}
-                  {{if (eq index (sub_ @palette.colors.length 1)) 'rounded-r'}}
+                  {{if (eq index (sub @palette.colors.length 1)) 'rounded-r'}}
                   {{if
                     (eq index @palette.selectedColorIndex)
                     'selected-color'
@@ -91,7 +91,7 @@ export default class KulerPaletteRowComponent extends Component<KulerPaletteRowS
               <div
                 class="opacity-checkerboard absolute h-full left-0 top-0 w-full z-0
                   {{if (eq index 0) 'rounded-l'}}
-                  {{if (eq index (sub_ @palette.colors.length 1)) 'rounded-r'}}"
+                  {{if (eq index (sub @palette.colors.length 1)) 'rounded-r'}}"
               ></div>
             </div>
           {{/each}}
@@ -169,11 +169,5 @@ export default class KulerPaletteRowComponent extends Component<KulerPaletteRowS
     ]);
 
     this.undoManager.setupUndoRedo();
-  }
-}
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    KulerPaletteRow: typeof KulerPaletteRowComponent;
   }
 }

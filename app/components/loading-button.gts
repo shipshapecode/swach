@@ -31,9 +31,3 @@ export default class LoadingButton extends Component<LoadingButtonSignature> {
     </button>
   </template>
 }
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    LoadingButton: typeof LoadingButton;
-  }
-}

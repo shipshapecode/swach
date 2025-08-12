@@ -90,9 +90,3 @@ export default class HexInputComponent extends Component<HexInputSignature> {
     set(this.args.selectedColor, '_hex', this.args.selectedColor?.hex);
   }
 }
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    HexInput: typeof HexInputComponent;
-  }
-}

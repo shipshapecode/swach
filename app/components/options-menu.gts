@@ -71,9 +71,3 @@ export default class OptionsMenu extends Component<OptionsMenuSignature> {
     this.position = this.args.position ?? 'right';
   }
 }
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    OptionsMenu: typeof OptionsMenu;
-  }
-}

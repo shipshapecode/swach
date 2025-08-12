@@ -137,9 +137,3 @@ export default class ColorRowComponent extends Component<ColorRowSignature> {
     });
   }
 }
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    ColorRow: typeof ColorRowComponent;
-  }
-}

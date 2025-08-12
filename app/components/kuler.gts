@@ -330,9 +330,3 @@ export default class KulerComponent extends Component<KulerSignature> {
     this.colorPicker.on('color:setActive', this._onColorSetActive);
   }
 }
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    Kuler: typeof KulerComponent;
-  }
-}

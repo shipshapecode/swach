@@ -15,7 +15,7 @@ interface AlphaInputSignature {
     selectedColor: SelectedColorModel;
     update: (value: string | number) => void;
     updateColor: () => void;
-    value?: string;
+    value?: number;
   };
 }
 
@@ -92,11 +92,5 @@ export default class AlphaInputComponent extends Component<AlphaInputSignature> 
   @action
   onIncomplete(): void {
     set(this.args.selectedColor, `_a`, this.args.selectedColor.a);
-  }
-}
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    AlphaInput: typeof AlphaInputComponent;
   }
 }

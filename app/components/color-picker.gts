@@ -370,9 +370,3 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
     this.colorPicker?.on('color:change', this.onChange);
   }
 }
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    ColorPicker: typeof ColorPickerComponent;
-  }
-}

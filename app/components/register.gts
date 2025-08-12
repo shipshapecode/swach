@@ -111,9 +111,3 @@ export default class RegisterComponent extends Component {
     }
   }
 }
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    Register: typeof RegisterComponent;
-  }
-}

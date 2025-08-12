@@ -1,6 +1,7 @@
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
+
 import type Sprite from 'ember-animated/-private/sprite';
 import AnimatedContainer from 'ember-animated/components/animated-container';
 import AnimatedEach from 'ember-animated/components/animated-each';
@@ -8,8 +9,11 @@ import { easeOut } from 'ember-animated/easings/cosine';
 import move from 'ember-animated/motions/move';
 import { fadeOut } from 'ember-animated/motions/opacity';
 import type { Store } from 'ember-orbit';
+
 import type { RecordOperationTerm } from '@orbit/records';
+
 import ColorRow from './color-row.ts';
+import type { SelectedColorModel } from './rgb-input.ts';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type UndoManager from 'swach/services/undo-manager';
@@ -43,7 +47,7 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
   @service declare store: Store;
   @service declare undoManager: UndoManager;
 
-  get sortedColors() {
+  get sortedColors(): Array<SelectedColorModel> {
     const { palette } = this.args;
 
     if (!palette.$isDisconnected) {
@@ -52,11 +56,11 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
           return (
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           );
-        });
+        }) as Array<SelectedColorModel>;
       } else {
         return palette.colorOrder.map((color: { type: string; id: string }) => {
           return palette.colors.find((c) => c.id === color.id) as ColorModel;
-        });
+        }) as Array<SelectedColorModel>;
       }
     }
 

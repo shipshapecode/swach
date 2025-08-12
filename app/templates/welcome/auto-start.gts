@@ -30,8 +30,8 @@ export default RouteTemplate<{
               data-test-auto-start-toggle
               @checked={{@controller.settings.openOnStartup}}
               @onClick={{set
-                @controller
-                "settings.openOnStartup"
+                @controller.settings
+                "openOnStartup"
                 (not @controller.settings.openOnStartup)
               }}
             />

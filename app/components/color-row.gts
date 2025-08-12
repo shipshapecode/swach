@@ -5,7 +5,6 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { isEmpty } from '@ember/utils';
 import Component from '@glimmer/component';
-// @ts-expect-error TODO: fix this
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import htmlSafe from '../helpers/html-safe.ts';
@@ -13,15 +12,16 @@ import OptionsMenu from './options-menu.ts';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type ColorUtils from 'swach/services/color-utils';
+import type { SelectedColorModel } from './rgb-input.ts';
 
 interface ColorRowSignature {
   Element: HTMLDivElement;
   Args: {
-    color: ColorModel;
+    color: SelectedColorModel;
     deleteColor?: (color: ColorModel) => void;
-    palette: PaletteModel;
+    palette?: PaletteModel;
     showActions?: boolean;
-    toggleColorPickerIsShown: (color?: ColorModel) => void;
+    toggleColorPickerIsShown?: (color?: SelectedColorModel) => void;
   };
 }
 

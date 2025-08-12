@@ -7,7 +7,6 @@ import Component from '@glimmer/component';
 import AnimatedIf from 'ember-animated/components/animated-if';
 import type MotionService from 'ember-animated/services/-ea-motion';
 import fade from 'ember-animated/transitions/fade';
-// @ts-expect-error TODO: fix this
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import sub from 'ember-math-helpers/helpers/sub';
 import type { Store } from 'ember-orbit';

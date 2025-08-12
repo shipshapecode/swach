@@ -10,7 +10,6 @@ import noop from '@nullvoxpopuli/ember-composable-helpers/helpers/noop';
 import fade from 'ember-animated/transitions/fade';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 import type DragSortService from 'ember-drag-sort/services/drag-sort';
-// @ts-expect-error TODO: fix this
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import sub from 'ember-math-helpers/helpers/sub';
 import type { Store } from 'ember-orbit';

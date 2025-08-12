@@ -5,7 +5,6 @@ import { LinkTo } from '@ember/routing';
 import AnimatedTools from 'ember-animated-tools/components/animated-tools';
 import FlashMessage from 'ember-cli-flash/components/flash-message';
 import RouteTemplate from 'ember-route-template';
-// @ts-expect-error TODO: fix this
 import setBodyClass from 'ember-set-body-class/helpers/set-body-class';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import and from 'ember-truth-helpers/helpers/and';

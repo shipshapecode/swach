@@ -1,7 +1,6 @@
 import { concat, fn, hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
-// @ts-expect-error TODO: fix this
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import type { LiveQuery } from 'ember-orbit';
 import RouteTemplate from 'ember-route-template';

@@ -37,6 +37,7 @@ export default class PalettesListComponent extends Component<PalettesListSignatu
   <template>
     <div class="palettes-list mt-48 overflow-visible" ...attributes>
       {{#if this.palettes.length}}
+        {{! @glint-expect-error TODO: fix this}}
         <AnimatedDragSortList
           class="overflow-visible"
           @group="palettes"

@@ -49,7 +49,7 @@ export default class SettingsData extends Component {
               data-test-format-option={{format}}
               class="px-4 py-2 text-left text-sm transition-colors w-full hover:text-menu-text-hover"
               type="button"
-              {{on "click" (set this "settings.defaultColorFormat" format)}}
+              {{on "click" (set this.settings "defaultColorFormat" format)}}
             >
               {{format}}
             </button>
@@ -89,7 +89,7 @@ export default class SettingsData extends Component {
 
   declare ipcRenderer: IpcRenderer;
 
-  colorFormats = ['hex', 'hsl', 'rgba'];
+  colorFormats = ['hex', 'hsl', 'rgba'] as const;
   @tracked isExporting = false;
   @tracked isImporting = false;
 

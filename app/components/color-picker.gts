@@ -24,7 +24,6 @@ import type {
   PrivateRGBAHex,
   PublicRGBAHex,
   SelectedColorModel,
-  SelectedColorPOJO,
 } from './rgb-input.ts';
 
 interface ColorPickerSignature {
@@ -218,7 +217,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
   colorPicker?: iro.ColorPicker;
   onChange!: (color?: ColorModel) => void;
 
-  @tracked _selectedColor!: ColorModel | SelectedColorPOJO;
+  @tracked _selectedColor!: SelectedColorModel;
 
   get alternateColorFormats(): { hsl: string; hsv: string; rgb: string } {
     let hsl = '';
@@ -301,7 +300,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
       g,
       b,
       a,
-    };
+    } as SelectedColorModel;
   }
 
   @action

@@ -32,8 +32,8 @@ export default RouteTemplate<{
               data-test-show-dock-icon-toggle
               @checked={{@controller.settings.showDockIcon}}
               @onClick={{set
-                @controller
-                "settings.showDockIcon"
+                @controller.settings
+                "showDockIcon"
                 (not @controller.settings.showDockIcon)
               }}
             />

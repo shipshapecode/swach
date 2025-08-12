@@ -23,3 +23,5 @@ jobs:
         run: pnpm lint:js
       - name: Lint HBS
         run: pnpm lint:hbs
+      - name: Lint Prettier
+        run: pnpm lint:format

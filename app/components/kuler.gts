@@ -18,6 +18,7 @@ import capitalize0 from '../helpers/capitalize.ts';
 import EditSelectedColor from './edit-selected-color.ts';
 import KulerPaletteRow from './kuler-palette-row.ts';
 import type ColorModel from 'swach/data-models/color';
+import type PaletteModel from 'swach/data-models/palette';
 import type { ColorPOJO } from 'swach/services/color-utils';
 import type ColorUtils from 'swach/services/color-utils';
 
@@ -120,8 +121,8 @@ export default class KulerComponent extends Component<KulerSignature> {
 
   @tracked baseColor;
   @tracked colors = [];
-  @tracked palettes: Palette[] = [];
-  @tracked selectedPalette!: Palette;
+  @tracked palettes: PaletteModel[] = [];
+  @tracked selectedPalette!: PaletteModel;
 
   constructor(owner: Owner, args: KulerSignature['Args']) {
     super(owner, args);
@@ -177,7 +178,7 @@ export default class KulerComponent extends Component<KulerSignature> {
   async baseColorChanged(selectedPaletteTypeIndex = 0): Promise<void> {
     this._destroyLeftoverPalettes();
 
-    const palettes: Palette[] = [];
+    const palettes: PaletteModel[] = [];
 
     for (const harmony of this.harmonies) {
       const palette = new Palette(harmony as harmonyTypes);
@@ -190,12 +191,14 @@ export default class KulerComponent extends Component<KulerSignature> {
       ) as unknown as ColorModel[];
 
       palette.colors = colors;
-      palettes.push(palette);
+      palettes.push(palette as unknown as PaletteModel);
     }
 
     this.palettes = palettes;
 
-    this.selectedPalette = this.palettes[selectedPaletteTypeIndex] as Palette;
+    this.selectedPalette = this.palettes[
+      selectedPaletteTypeIndex
+    ] as PaletteModel;
   }
 
   @action
@@ -227,7 +230,7 @@ export default class KulerComponent extends Component<KulerSignature> {
    * Sets the selected palette and the colors for the color picker
    */
   @action
-  setSelectedPalette(event: InputEvent): void {
+  setSelectedPalette(event: Event): void {
     const paletteName = (<HTMLInputElement>event.target).value;
     const palette = this.palettes.find((p) => p.name === paletteName);
 

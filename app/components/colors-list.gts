@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
-import type Sprite from 'ember-animated/-private/sprite';
+import type TransitionContext from 'ember-animated/-private/transition-context';
 import AnimatedContainer from 'ember-animated/components/animated-container';
 import AnimatedEach from 'ember-animated/components/animated-each';
 import { easeOut } from 'ember-animated/easings/cosine';
@@ -18,7 +18,7 @@ import type UndoManager from 'swach/services/undo-manager';
 interface ColorsListSignature {
   Args: {
     palette: PaletteModel;
-    toggleColorPickerIsShown: (color?: ColorModel) => void;
+    toggleColorPickerIsShown: (color?: SelectedColorModel) => void;
   };
 }
 
@@ -69,11 +69,7 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
     keptSprites,
     insertedSprites,
     removedSprites,
-  }: {
-    keptSprites: Array<Sprite>;
-    insertedSprites: Array<Sprite>;
-    removedSprites: Array<Sprite>;
-  }): unknown {
+  }: TransitionContext) {
     for (const sprite of insertedSprites) {
       if (sprite.finalBounds?.height) {
         sprite.startTranslatedBy(0, -sprite.finalBounds.height / 2);

@@ -6,8 +6,6 @@ import OnClickOutsideModifier from 'ember-click-outside/modifiers/on-click-outsi
 
 import SvgJarHelper from 'ember-svg-jar/helpers/svg-jar';
 
-import type EmberAnimatedRegistry from 'ember-animated/template-registry';
-
 // Types for compiled templates
 declare module 'swach/templates/*' {
   import { TemplateFactory } from 'ember-cli-htmlbars';
@@ -16,8 +14,7 @@ declare module 'swach/templates/*' {
 }
 
 declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry
-    extends EmberAnimatedRegistry {
+  export default interface Registry {
     'css-transition': ModifierLike<{
       Args: {
         Named: {
@@ -74,19 +71,6 @@ declare module '@glint/environment-ember-loose/registry' {
       };
     }>;
     'on-click-outside': typeof OnClickOutsideModifier;
-    or: typeof OrHelper;
-    'prevent-default': HelperLike<{
-      Args: {
-        Positional: [eventHandler: (event: Event) => void];
-      };
-      Return: (event: Event) => void;
-    }>;
-    set: HelperLike<{
-      Args: {
-        Positional: [target: object, path: string, maybeValue: any];
-      };
-      Return: any;
-    }>;
     'svg-jar': typeof SvgJarHelper;
   }
 }

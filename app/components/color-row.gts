@@ -122,7 +122,7 @@ export default class ColorRowComponent extends Component<ColorRowSignature> {
 
   @action
   deleteColor(color: ColorModel): void {
-    if (!this.args.palette.isLocked) {
+    if (this.args.palette && !this.args.palette.isLocked) {
       this.args.deleteColor?.(color);
     }
   }

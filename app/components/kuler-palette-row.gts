@@ -4,6 +4,7 @@ import { action } from '@ember/object';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
+import type { Transition } from 'ember-animated/-private/transition';
 import AnimatedIf from 'ember-animated/components/animated-if';
 import type MotionService from 'ember-animated/services/-ea-motion';
 import fade from 'ember-animated/transitions/fade';
@@ -18,7 +19,6 @@ import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type ColorUtils from 'swach/services/color-utils';
 import type UndoManager from 'swach/services/undo-manager';
-import type { Transition } from 'ember-animated/-private/transition';
 
 interface KulerPaletteRowSignature {
   Args: {

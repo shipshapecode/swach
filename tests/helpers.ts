@@ -1,13 +1,10 @@
 import { getContext, settled } from '@ember/test-helpers';
 import { animationsSettled } from 'ember-animated/test-support';
 import { waitForSource } from 'ember-orbit/test-support';
-
 import type Owner from '@ember/owner';
-
 import type Coordinator from '@orbit/coordinator';
 import type { IndexedDBSource } from '@orbit/indexeddb';
 import type BucketClass from '@orbit/indexeddb-bucket';
-
 // @ts-expect-error TODO: not yet typed
 import seedOrbit from './orbit/seed';
 

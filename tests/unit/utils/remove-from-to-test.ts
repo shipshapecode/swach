@@ -1,5 +1,4 @@
 import { module, test } from 'qunit';
-
 import removeFromTo from 'swach/utils/remove-from-to';
 
 module('Unit | Utility | removeFromTo', function () {

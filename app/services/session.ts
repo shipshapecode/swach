@@ -1,7 +1,5 @@
 import { service } from '@ember/service';
-
 import BaseSessionService from 'ember-simple-auth/services/session';
-
 import DataService from './data';
 
 interface Data {

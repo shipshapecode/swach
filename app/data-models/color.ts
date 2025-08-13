@@ -1,9 +1,6 @@
 import { isEmpty } from '@ember/utils';
-
-import { Model, attr, hasOne } from 'ember-orbit';
-
+import { attr, hasOne, Model } from 'ember-orbit';
 import { TinyColor } from '@ctrl/tinycolor';
-
 import type PaletteModel from 'swach/data-models/palette';
 
 export default class ColorModel extends Model {

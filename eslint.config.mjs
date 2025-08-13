@@ -94,6 +94,7 @@ export default ts.config(
       'prefer-rest-params': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',
+      'ember/no-at-ember-render-modifiers': 'off',
     },
   },
   { files: ['tests/**/*-test.{js,gjs,ts,gts}'], plugins: { qunit } },

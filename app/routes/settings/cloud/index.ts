@@ -2,9 +2,7 @@ import Route from '@ember/routing/route';
 import type Router from '@ember/routing/router-service';
 import type Transition from '@ember/routing/transition';
 import { service } from '@ember/service';
-
 import type CognitoService from 'ember-cognito/services/cognito';
-
 import type Session from 'swach/services/session';
 import viewTransitions from 'swach/utils/view-transitions';
 

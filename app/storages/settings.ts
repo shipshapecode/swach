@@ -1,9 +1,10 @@
 import StorageObject from 'ember-local-storage/local/object';
 
+export type colorFormats = 'hex' | 'hsl' | 'rgba';
 export type themes = 'dynamic' | 'light' | 'dark';
 
 interface SettingsValues {
-  defaultColorFormat: 'hex' | 'hsl' | 'rgba';
+  defaultColorFormat: colorFormats;
   notifications: boolean;
   osTheme?: themes;
   openOnStartup: boolean;

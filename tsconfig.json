@@ -2,6 +2,7 @@
   "extends": "@tsconfig/ember",
   "glint": { "environment": ["ember-loose", "ember-template-imports"] },
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     // The combination of `baseUrl` with `paths` allows Ember's classic package
     // layout, which is not resolvable with the Node resolution algorithm, to
     // work with TypeScript.

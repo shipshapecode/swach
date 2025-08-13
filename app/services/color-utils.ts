@@ -1,14 +1,10 @@
 import { action } from '@ember/object';
-import Service from '@ember/service';
-import { service } from '@ember/service';
-
+import Service, { service } from '@ember/service';
 import { storageFor } from 'ember-local-storage';
 import type { Store } from 'ember-orbit';
-
 import { TinyColor } from '@ctrl/tinycolor';
 import type { ColorInput } from '@ctrl/tinycolor';
 import type { IpcRenderer } from 'electron';
-
 import { rgbaToHex } from 'swach/data-models/color';
 import type ColorModel from 'swach/data-models/color';
 import type NearestColor from 'swach/services/nearest-color';
@@ -80,9 +76,13 @@ export default class ColorUtilsService extends Service {
         this.ipcRenderer.send('copyColorToClipboard', color[colorFormat]);
 
         if (this.settings.get('sounds')) {
-          const audio = new Audio('assets/sounds/pluck_short.wav');
+          const audio = new Audio('assets/sounds/pluck_short.mp3');
 
-          await audio.play();
+          try {
+            await audio.play();
+          } catch {
+            // Do nothing
+          }
         }
 
         if (this.settings.get('notifications')) {

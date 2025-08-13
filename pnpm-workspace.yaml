@@ -9,3 +9,5 @@ onlyBuiltDependencies:
   - fs-xattr
   - fsevents
   - macos-alias
+patchedDependencies:
+  menubar: patches/menubar.patch

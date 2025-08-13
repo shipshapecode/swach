@@ -1,0 +1,22 @@
+diff --git a/package.json b/package.json
+index 28c2f56066681a0951d7509be741652424ad3040..2d2beb476a429c03188127b398943191abe2cdd4 100644
+--- a/package.json
++++ b/package.json
+@@ -48,7 +48,7 @@
+   "devDependencies": {
+     "@biomejs/biome": "^1.9.3",
+     "@types/jest": "^25.2.3",
+-    "electron": "^32.2.0",
++    "electron": "^37.2.6",
+     "jest": "^26.0.1",
+     "rimraf": "^3.0.2",
+     "standard-version": "^8.0.0",
+@@ -59,7 +59,7 @@
+     "typescript": "^4.6.2"
+   },
+   "peerDependencies": {
+-    "electron": ">=9.0.0 <33.0.0"
++    "electron": ">=9.0.0 <38.0.0"
+   },
+   "packageManager": "yarn@1.22.22"
+ }

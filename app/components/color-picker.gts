@@ -191,6 +191,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
               data-test-color-picker-cancel
               class="btn flex-1 mr-1 p-2"
               type="button"
+              {{!@glint-expect-error TODO: fix this}}
               {{on "click" @toggleIsShown}}
             >
               Cancel

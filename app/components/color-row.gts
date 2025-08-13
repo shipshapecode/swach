@@ -72,6 +72,7 @@ export default class ColorRowComponent extends Component<ColorRowSignature> {
                 data-test-edit-color
                 class="flex items-center p-1 text-menu-text transition-colors hover:text-menu-text-hover"
                 type="button"
+                {{!@glint-expect-error TODO: fix this}}
                 {{on "click" (fn @toggleColorPickerIsShown @color)}}
               >
                 {{svgJar "edit" class="icon mr-4" height="15" width="15"}}

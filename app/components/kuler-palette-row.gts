@@ -18,6 +18,7 @@ import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type ColorUtils from 'swach/services/color-utils';
 import type UndoManager from 'swach/services/undo-manager';
+import type { Transition } from 'ember-animated/-private/transition';
 
 interface KulerPaletteRowSignature {
   Args: {
@@ -102,7 +103,7 @@ export default class KulerPaletteRowComponent extends Component<KulerPaletteRowS
   @service declare store: Store;
   @service declare undoManager: UndoManager;
 
-  fade = fade;
+  fade = fade as Transition;
   showMenu = false;
 
   /**

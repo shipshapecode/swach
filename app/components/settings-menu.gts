@@ -130,7 +130,7 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
   @storageFor('settings') settings!: SettingsStorage;
 
   declare ipcRenderer: IpcRenderer;
-  themes = ['light', 'dark', 'dynamic'];
+  themes = ['light', 'dark', 'dynamic'] as const;
 
   @tracked platform?: string;
 
@@ -146,6 +146,10 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
         this.platform = platform;
       });
     }
+  }
+
+  get checkingForUpdates() {
+    return false;
   }
 
   get isMacOS() {

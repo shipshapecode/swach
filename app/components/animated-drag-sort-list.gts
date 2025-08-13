@@ -1,5 +1,5 @@
 import { action, set } from '@ember/object';
-import type Sprite from 'ember-animated/-private/sprite';
+import TransitionContext from 'ember-animated/-private/transition-context';
 import AnimatedContainer from 'ember-animated/components/animated-container';
 import AnimatedEach from 'ember-animated/components/animated-each';
 import { easeOut } from 'ember-animated/easings/cosine';
@@ -11,6 +11,7 @@ import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 
 export default class AnimatedDragSortList extends DragSortList {
   <template>
+    {{!@glint-nocheck}}
     <AnimatedContainer ...attributes>
       {{#AnimatedEach @items duration=400 rules=this.rules as |item index|}}
         <DragSortItem
@@ -58,11 +59,7 @@ export default class AnimatedDragSortList extends DragSortList {
     keptSprites,
     insertedSprites,
     removedSprites,
-  }: {
-    keptSprites: Array<Sprite>;
-    insertedSprites: Array<Sprite>;
-    removedSprites: Array<Sprite>;
-  }): unknown {
+  }: TransitionContext) {
     for (const sprite of insertedSprites) {
       if (sprite.finalBounds?.height) {
         sprite.startTranslatedBy(0, -sprite.finalBounds.height / 2);

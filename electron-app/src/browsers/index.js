@@ -1,5 +1,5 @@
-'use strict';
+import windowFactory from './window.js';
 
-module.exports = (dirname) => ({
-  settings: require('./window')(dirname, 'settings', 'Settings'),
+export default (dirname) => ({
+  settings: windowFactory(dirname, 'settings', 'Settings'),
 });

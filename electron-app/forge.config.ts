@@ -1,4 +1,5 @@
 import { MakerDeb } from '@electron-forge/maker-deb';
+import { MakerDMG } from '@electron-forge/maker-dmg';
 import { MakerSquirrel } from '@electron-forge/maker-squirrel';
 import { MakerZIP } from '@electron-forge/maker-zip';
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
@@ -45,10 +46,8 @@ const config: ForgeConfig = {
     ],
   },
   makers: [
-    {
-      name: '@electron-forge/maker-deb',
-      platforms: ['linux'],
-      config: {
+    new MakerDeb(
+      {
         options: {
           bin: 'Swach',
           name: 'swach',
@@ -60,18 +59,18 @@ const config: ForgeConfig = {
           icon: 'electron-app/resources/icon.png',
         },
       },
-    },
-    {
-      name: '@electron-forge/maker-dmg',
-      platforms: ['darwin'],
-      config(arch) {
+      ['linux'],
+    ),
+    new MakerDMG(
+      (arch) => {
         return {
           name: arch === 'arm64' ? 'Swach-arm64' : 'Swach',
           background: 'electron-app/resources/installBackground.png',
           icon: 'electron-app/resources/dmg.icns',
         };
       },
-    },
+      ['darwin'],
+    ),
     // {
     //   name: '@electron-forge/maker-snap',
     //   platforms: ['linux'],
@@ -107,18 +106,12 @@ const config: ForgeConfig = {
     //     type: 'app',
     //   },
     // },
-    {
-      name: '@electron-forge/maker-squirrel',
-      config: {
-        name: 'Swach',
-        certificateFile: process.env['WINDOWS_PFX_FILE'],
-        certificatePassword: process.env['WINDOWS_PFX_PASSWORD'],
-      },
-    },
-    {
-      name: '@electron-forge/maker-zip',
-      platforms: ['darwin'],
-    },
+    new MakerSquirrel({
+      name: 'Swach',
+      certificateFile: process.env['WINDOWS_PFX_FILE'],
+      certificatePassword: process.env['WINDOWS_PFX_PASSWORD'],
+    }),
+    new MakerZIP({}, ['darwin']),
   ],
   plugins: [
     new VitePlugin({

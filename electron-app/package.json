@@ -4,7 +4,6 @@
   "version": "1.2.15",
   "description": "A robust color management tool for the modern age.",
   "main": ".vite/build/main.js",
-  "type": "module",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",

@@ -1,30 +1,18 @@
-'use strict';
+// window.js (ESM)
+import { BrowserWindow } from 'electron';
 
-const { BrowserWindow } = require('electron');
-
-module.exports = (dirname, route, title) => {
+export default (dirname, route, title) => {
+  /** @type {import('electron').BrowserWindow | undefined} */
   let win;
 
-  /**
-   * [init]
-   * @param {boolean} force [force launching new window]
-   * @return {void} [new Colorpicker]
-   */
-  let init = () => {
-    if (win === null || win === undefined) createWindow();
+  const init = () => {
+    if (win == null) createWindow();
     else win.show();
-
-    // win.openDevTools();
+    // win.webContents.openDevTools();
   };
 
-  /**
-   * [createWindow - create new Window]
-   * @param  {int} width  [width of the window]
-   * @param  {int} height [height of the window]
-   * @return {void}
-   */
-  let createWindow = () => {
-    let options = {
+  const createWindow = () => {
+    const options = {
       width: 700,
       height: 500,
       minWidth: 460,
@@ -39,6 +27,7 @@ module.exports = (dirname, route, title) => {
     };
 
     win = new BrowserWindow(options);
+
     const windowRoute = `serve://dist#/${route}`;
     win.loadURL(windowRoute);
 
@@ -46,15 +35,12 @@ module.exports = (dirname, route, title) => {
       win = undefined;
     });
 
-    win.on('page-title-updated', function (e) {
+    win.on('page-title-updated', (e) => {
       e.preventDefault();
     });
   };
 
-  let getWindow = () => win;
+  const getWindow = () => win;
 
-  return {
-    init: init,
-    getWindow: getWindow,
-  };
+  return { init, getWindow };
 };

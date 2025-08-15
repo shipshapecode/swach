@@ -1,28 +1,27 @@
-const fs = require('fs');
-const path = require('path');
-const { fileURLToPath, pathToFileURL } = require('url');
-const { promisify } = require('util');
-
-const access = promisify(fs.access);
+import { access } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { net, protocol } from 'electron';
 
 //
 // Patch asset loading -- Ember apps use absolute paths to reference their
 // assets, e.g. `<img src="/images/foo.jpg">`. When the current URL is a `file:`
 // URL, that ends up resolving to the absolute filesystem path `/images/foo.jpg`
 // rather than being relative to the root of the Ember app. So, we intercept
-// `file:` URL request and look to see if they point to an asset when
+// `file:` URL requests and look to see if they point to an asset when
 // interpreted as being relative to the root of the Ember app. If so, we return
 // that path, and if not we leave them as-is, as their absolute path.
 //
-async function getAssetPath(emberAppDir, url) {
-  let urlPath = fileURLToPath(url);
+export async function getAssetPath(emberAppDir: string, url: string) {
+  const urlPath = fileURLToPath(url);
   // Get the root of the path -- should be '/' on MacOS or something like
-  // 'C:\' on Windows
-  let { root } = path.parse(urlPath);
+  // 'C:\\' on Windows
+  const { root } = path.parse(urlPath);
   // Get the relative path from the root to the full path
-  let relPath = path.relative(root, urlPath);
+  const relPath = path.relative(root, urlPath);
   // Join the relative path with the Ember app directory
-  let appPath = path.join(emberAppDir, relPath);
+  const appPath = path.join(emberAppDir, relPath);
+
   try {
     await access(appPath);
     return appPath;
@@ -31,14 +30,12 @@ async function getAssetPath(emberAppDir, url) {
   }
 }
 
-module.exports = function handleFileURLs(emberAppDir) {
-  const { protocol, net } = require('electron');
-
+export default function handleFileURLs(emberAppDir: string) {
   if (protocol.handle) {
     // Electron >= 25
     protocol.handle('file', async ({ url }) => {
-      let path = await getAssetPath(emberAppDir, url);
-      return net.fetch(pathToFileURL(path), {
+      const assetPath = await getAssetPath(emberAppDir, url);
+      return net.fetch(pathToFileURL(assetPath), {
         bypassCustomProtocolHandlers: true,
       });
     });
@@ -48,6 +45,4 @@ module.exports = function handleFileURLs(emberAppDir) {
       callback(await getAssetPath(emberAppDir, url));
     });
   }
-};
-
-module.exports.getAssetPath = getAssetPath;
+}

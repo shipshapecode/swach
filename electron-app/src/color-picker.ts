@@ -1,4 +1,4 @@
-async function launchPicker(mb, type = 'global') {
+export async function launchPicker(mb, type = 'global') {
   mb.hideWindow();
 
   const color = await mb.window.webContents.executeJavaScript(

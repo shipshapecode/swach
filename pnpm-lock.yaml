@@ -256,9 +256,6 @@ importers:
       ember-drag-sort:
         specifier: ^3.0.1
         version: 3.0.1
-      ember-electron:
-        specifier: ^7.0.0
-        version: 7.0.0(ember-cli-dependency-checker@3.3.3(ember-cli@6.5.0(babel-core@6.26.3)(handlebars@4.7.8)(react@19.1.0)(underscore@1.13.7)))(ember-cli@6.5.0(babel-core@6.26.3)(handlebars@4.7.8)(react@19.1.0)(underscore@1.13.7))(ember-source@5.12.0(@glimmer/component@2.0.0)(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.101.2))(encoding@0.1.13)
       ember-element-helper:
         specifier: ^0.8.8
         version: 0.8.8
@@ -5425,14 +5422,6 @@ packages:
     resolution: {integrity: sha512-yVCS+OjRBQUv18kZ8Uq8fQXxCqtFYB+oC4Vlm3WBICgNztL9nxeup/UnQddm1RIoosCeuFruLvPXPAiSXW5KWw==}
     engines: {node: '>= 12.*'}
 
-  ember-electron@7.0.0:
-    resolution: {integrity: sha512-GO8Kju74otgYERWsvlHQdVfeFrkReBWscx6TqngTB8o6XmYDkhv9oUpWJqExZ21/4q0wwg55CqOL9zPkFOzxqQ==}
-    engines: {node: '>= 18'}
-    peerDependencies:
-      ember-cli: '>= 3.4.0'
-      ember-cli-dependency-checker: '>= 3.1.0'
-      ember-source: '>= 4.0.0'
-
   ember-element-helper@0.8.8:
     resolution: {integrity: sha512-3slTltQV5ke53t3YVP2GYoswsQ6y+lhuVzKmt09tbEx91DapG8I/xa8W5OA0StvcQlavL3/vHrz/vCQEFs8bBA==}
     engines: {node: 14.* || 16.* || >= 18}
@@ -8090,10 +8079,6 @@ packages:
 
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
-
-  ncp@2.0.0:
-    resolution: {integrity: sha512-zIdGUrPRFTUELUvr3Gmc7KZ2Sw/h1PiVM0Af/oHB6zgnV1ikqSfRk+TOufi79aHYCW3NiOXmr1BP5nWbzojLaA==}
-    hasBin: true
 
   nearest-color@0.4.4:
     resolution: {integrity: sha512-orhcaIORC10tf41Ld2wwlcC+FaAavHG87JHWB3eHH5p7v2k9Tzym2XNEZzLAm5YJwGv6Q38WWc7SOb+Qfu/4NQ==}
@@ -17832,28 +17817,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  ember-electron@7.0.0(ember-cli-dependency-checker@3.3.3(ember-cli@6.5.0(babel-core@6.26.3)(handlebars@4.7.8)(react@19.1.0)(underscore@1.13.7)))(ember-cli@6.5.0(babel-core@6.26.3)(handlebars@4.7.8)(react@19.1.0)(underscore@1.13.7))(ember-source@5.12.0(@glimmer/component@2.0.0)(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.101.2))(encoding@0.1.13):
-    dependencies:
-      '@babel/core': 7.28.3
-      '@electron-forge/core': 7.8.3(encoding@0.1.13)
-      chalk: 4.1.2
-      debug: 4.4.1
-      ember-cli: 6.5.0(babel-core@6.26.3)(handlebars@4.7.8)(react@19.1.0)(underscore@1.13.7)
-      ember-cli-babel: 8.2.0(@babel/core@7.28.3)
-      ember-cli-dependency-checker: 3.3.3(ember-cli@6.5.0(babel-core@6.26.3)(handlebars@4.7.8)(react@19.1.0)(underscore@1.13.7))
-      ember-source: 5.12.0(@glimmer/component@2.0.0)(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.101.2)
-      execa: 5.1.1
-      find-yarn-workspace-root: 2.0.0
-      ncp: 2.0.0
-      portfinder: 1.0.37
-      rimraf: 3.0.2
-      silent-error: 1.1.1
-      tree-kill: 1.2.2
-    transitivePeerDependencies:
-      - bluebird
-      - encoding
-      - supports-color
-
   ember-element-helper@0.8.8:
     dependencies:
       '@embroider/addon-shim': 1.10.0
@@ -21410,8 +21373,6 @@ snapshots:
   natural-compare-lite@1.4.0: {}
 
   natural-compare@1.4.0: {}
-
-  ncp@2.0.0: {}
 
   nearest-color@0.4.4: {}
 

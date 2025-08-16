@@ -3,9 +3,9 @@ import type Owner from '@ember/owner';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import type { Store } from '@ef4/ember-orbit';
 import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
-import type { Store } from '@ef4/ember-orbit';
 import set from 'ember-set-helper/helpers/set';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import type { Coordinator } from '@orbit/coordinator';
@@ -122,13 +122,13 @@ export default class SettingsData extends Component {
             } else {
               this.ipcRenderer.send('exportData', jsonString);
               this.flashMessages.success(
-                'Export saved to downloads directory.',
+                'Export saved to downloads directory.'
               );
             }
 
             idbDatabase.close();
             this.isExporting = false;
-          },
+          }
         );
       };
     }
@@ -138,7 +138,7 @@ export default class SettingsData extends Component {
     if (this.ipcRenderer) {
       this.isImporting = true;
       const jsonString = (await this.ipcRenderer.invoke(
-        'importData',
+        'importData'
       )) as string;
 
       if (jsonString) {
@@ -153,7 +153,7 @@ export default class SettingsData extends Component {
               IDBExportImport.importFromJsonString(
                 idbDatabase,
                 jsonString,
-                 
+
                 async (err: Event | null) => {
                   if (!err) {
                     idbDatabase.close();
@@ -164,7 +164,7 @@ export default class SettingsData extends Component {
 
                     if (backup) {
                       const records = await backup.query<InitializedRecord[]>(
-                        (q) => q.findRecords(),
+                        (q) => q.findRecords()
                       );
 
                       await this.store.sync((t) =>
@@ -177,19 +177,19 @@ export default class SettingsData extends Component {
                           // otherwise orbit will throw a validation error
                           if (r?.attributes?.['createdAt']) {
                             r.attributes['createdAt'] = new Date(
-                              r.attributes['createdAt'] as string,
+                              r.attributes['createdAt'] as string
                             );
                           }
 
                           return t.addRecord(r);
-                        }),
+                        })
                       );
                       this.flashMessages.success('Data successfully replaced.');
                     }
                   }
 
                   this.isImporting = false;
-                },
+                }
               );
             }
           });

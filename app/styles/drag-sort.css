@@ -2,7 +2,7 @@
 .dragSortList.-isExpanded.-isDraggingOver::before,
 .dragSortItem.-placeholderBefore::before,
 .dragSortItem.-placeholderAfter::before {
-  content: "";
+  content: '';
   display: inline-block;
   height: 100%;
   width: 5px;

@@ -20,7 +20,7 @@ module('Unit | Service | data', function (hooks) {
   hooks.beforeEach(function () {
     dataService = this.owner.lookup('service:data') as DataService;
     dataCoordinator = this.owner.lookup(
-      'service:dataCoordinator',
+      'service:dataCoordinator'
     ) as unknown as Coordinator;
     backup = dataCoordinator.getSource<IndexedDBSource>('backup');
     store = this.owner.lookup('service:store') as unknown as Store;
@@ -31,14 +31,14 @@ module('Unit | Service | data', function (hooks) {
 
     test('loads records from backup and syncs them with the store', async function (assert) {
       const backupPalettes = await backup.query<Palette[]>((q) =>
-        q.findRecords('palette'),
+        q.findRecords('palette')
       );
 
       assert.strictEqual(backupPalettes.length, 4, 'backup source has data');
       assert.strictEqual(
         store.cache.findRecords('palette').length,
         0,
-        'store has no data',
+        'store has no data'
       );
 
       await dataService.activate();
@@ -46,7 +46,7 @@ module('Unit | Service | data', function (hooks) {
       assert.strictEqual(
         store.cache.findRecords('palette').length,
         4,
-        'store has data after activation',
+        'store has data after activation'
       );
     });
   });
@@ -62,7 +62,7 @@ module('Unit | Service | data', function (hooks) {
       } catch (e: unknown) {
         assert.strictEqual(
           (e as Error).message,
-          'Data service: synchronize cannot be called prior to activate',
+          'Data service: synchronize cannot be called prior to activate'
         );
       }
 
@@ -78,19 +78,19 @@ module('Unit | Service | data', function (hooks) {
       assert.strictEqual(
         store.cache.findRecords('palette').length,
         0,
-        'store has no palettes before synchronize',
+        'store has no palettes before synchronize'
       );
 
       await dataService.synchronize();
 
       const palettes = store.cache.query<Palette[]>((q) =>
-        q.findRecords('palette'),
+        q.findRecords('palette')
       );
 
       assert.strictEqual(
         palettes.length,
         1,
-        'store has one palette after synchronize',
+        'store has one palette after synchronize'
       );
 
       assert.ok(palettes[0]?.isColorHistory, 'palette isColorHistory');
@@ -98,7 +98,7 @@ module('Unit | Service | data', function (hooks) {
       assert.strictEqual(
         dataService.colorHistory,
         palettes[0],
-        'colorHistory has been assigned to dataService',
+        'colorHistory has been assigned to dataService'
       );
     });
 
@@ -123,19 +123,19 @@ module('Unit | Service | data', function (hooks) {
       assert.strictEqual(
         store.cache.findRecords('palette').length,
         2,
-        'store has two color history palettes before synchronize',
+        'store has two color history palettes before synchronize'
       );
 
       await dataService.synchronize();
 
       const palettes = store.cache.query<Palette[]>((q) =>
-        q.findRecords('palette'),
+        q.findRecords('palette')
       );
 
       assert.strictEqual(
         palettes.length,
         1,
-        'store has one palette after synchronize',
+        'store has one palette after synchronize'
       );
 
       assert.ok(palettes[0]?.isColorHistory, 'palette isColorHistory');
@@ -143,7 +143,7 @@ module('Unit | Service | data', function (hooks) {
       assert.strictEqual(
         dataService.colorHistory,
         palettes[0],
-        'colorHistory has been assigned to dataService',
+        'colorHistory has been assigned to dataService'
       );
     });
   });
@@ -158,7 +158,7 @@ module('Unit | Service | data', function (hooks) {
       assert.strictEqual(
         store.cache.findRecords('palette').length,
         4,
-        'store has data after activation',
+        'store has data after activation'
       );
       assert.ok(dataService.colorHistory, 'colorHistory has been defined');
 
@@ -167,7 +167,7 @@ module('Unit | Service | data', function (hooks) {
       assert.strictEqual(
         store.cache.findRecords('palette').length,
         0,
-        'store has no data',
+        'store has no data'
       );
       assert.notOk(dataService.colorHistory, 'colorHistory has been cleared');
     });

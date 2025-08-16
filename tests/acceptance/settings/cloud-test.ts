@@ -41,17 +41,17 @@ module('Acceptance | settings/cloud', function (hooks) {
           assert.strictEqual(
             username,
             'testuser@gmail.com',
-            'username is correct',
+            'username is correct'
           );
           assert.strictEqual(
             confirmationCode,
             '1234',
-            'confirmationCode is correct',
+            'confirmationCode is correct'
           );
 
           return;
         },
-      }),
+      })
     );
 
     await visit('/settings/cloud/register');
@@ -63,7 +63,7 @@ module('Acceptance | settings/cloud', function (hooks) {
     assert.strictEqual(
       currentURL(),
       '/settings/cloud/register/confirm',
-      'transitioned to register/confirm route',
+      'transitioned to register/confirm route'
     );
     await fillIn('[data-test-register-input-user]', 'testuser@gmail.com');
     await fillIn('[data-test-register-input-code]', '1234');
@@ -73,7 +73,7 @@ module('Acceptance | settings/cloud', function (hooks) {
     assert.strictEqual(
       currentURL(),
       '/settings/cloud/login',
-      'transitioned to login route',
+      'transitioned to login route'
     );
   });
 
@@ -97,7 +97,7 @@ module('Acceptance | settings/cloud', function (hooks) {
       .resolves();
 
     const dataService = this.owner.lookup(
-      'service:data',
+      'service:data'
     ) as unknown as DataService;
     const synchronizeStub = sinon.stub(dataService, 'synchronize').resolves();
     const resetStub = sinon.stub(dataService, 'reset').resolves();

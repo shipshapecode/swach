@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import Service, { service } from '@ember/service';
-import { storageFor } from 'ember-local-storage';
 import type { Store } from '@ef4/ember-orbit';
+import { storageFor } from 'ember-local-storage';
 import { TinyColor } from '@ctrl/tinycolor';
 import type { ColorInput } from '@ctrl/tinycolor';
 import type { IpcRenderer } from 'electron';

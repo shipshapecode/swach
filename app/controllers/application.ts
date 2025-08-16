@@ -3,9 +3,9 @@ import { action, get } from '@ember/object';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
+import type { Store } from '@ef4/ember-orbit';
 import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
-import type { Store } from '@ef4/ember-orbit';
 import type { RecordSchema } from '@orbit/records';
 import type { IpcRenderer } from 'electron';
 import type { SelectedColorModel } from 'swach/components/rgb-input';
@@ -109,7 +109,7 @@ export default class ApplicationController extends Controller {
           if (addedColor) {
             await this.colorUtils.copyColorToClipboard(addedColor);
           }
-        },
+        }
       );
 
       this.ipcRenderer.on('openContrastChecker', () => {
@@ -128,7 +128,7 @@ export default class ApplicationController extends Controller {
           const name = data?.name ?? 'Palette';
 
           await this.createPalette(name, colors);
-        },
+        }
       );
 
       this.ipcRenderer.on('setTheme', (_event: unknown, theme: string) => {
@@ -171,7 +171,7 @@ export default class ApplicationController extends Controller {
     if (colorHistory) {
       const colorPOJO = this.colorUtils.createColorPOJO(
         color,
-        this.dataSchema.generateId('color'),
+        this.dataSchema.generateId('color')
       );
 
       delete colorPOJO.attributes.hex;
@@ -198,14 +198,14 @@ export default class ApplicationController extends Controller {
   @action
   async createPalette(
     paletteName: string,
-    colors: { name: string; hex: string }[],
+    colors: { name: string; hex: string }[]
   ): Promise<void> {
     this.router.transitionTo('palettes');
 
     const colorPOJOs = colors.map((c) => {
       const colorPOJO = this.colorUtils.createColorPOJO(
         c.hex,
-        this.dataSchema.generateId('color'),
+        this.dataSchema.generateId('color')
       );
 
       delete colorPOJO.attributes.hex;
@@ -237,7 +237,7 @@ export default class ApplicationController extends Controller {
   enableDisableAutoStart(event: Event): void {
     this.ipcRenderer.send(
       'enableDisableAutoStart',
-      (<HTMLInputElement>event.target).checked,
+      (<HTMLInputElement>event.target).checked
     );
   }
 

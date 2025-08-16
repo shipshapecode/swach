@@ -56,5 +56,5 @@ export default RouteTemplate<{
         </div>
       </div>
     </div>
-  </template>,
+  </template>
 );

@@ -25,5 +25,5 @@ export default RouteTemplate<{
       @palette={{@model}}
       @toggleColorPickerIsShown={{@controller.application.toggleColorPickerIsShown}}
     />
-  </template>,
+  </template>
 );

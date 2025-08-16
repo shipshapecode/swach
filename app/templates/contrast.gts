@@ -20,5 +20,5 @@ export default RouteTemplate<{
     </button>
 
     <ContrastChecker />
-  </template>,
+  </template>
 );

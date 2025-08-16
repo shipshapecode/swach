@@ -19,7 +19,7 @@ export async function launchPicker(mb, type = 'global') {
   }
   
   openEyeDropper();`,
-    true,
+    true
   );
 
   if (color) {

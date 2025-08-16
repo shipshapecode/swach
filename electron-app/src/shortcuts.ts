@@ -1,7 +1,8 @@
 import { globalShortcut, Menu, shell } from 'electron';
+import { type Menubar } from 'menubar';
 
 export function registerKeyboardShortcuts(
-  mb,
+  mb: Menubar,
   launchPicker,
   openContrastChecker
 ) {
@@ -18,7 +19,7 @@ export function registerKeyboardShortcuts(
   });
 }
 
-export function setupContextMenu(mb, launchPicker, openContrastChecker) {
+export function setupContextMenu(mb: Menubar, launchPicker, openContrastChecker) {
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Color Picker',
@@ -46,7 +47,7 @@ export function setupContextMenu(mb, launchPicker, openContrastChecker) {
   });
 }
 
-export function setupMenu(mb, launchPicker, openContrastChecker) {
+export function setupMenu(mb: Menubar, launchPicker, openContrastChecker) {
   const isMac = process.platform === 'darwin';
 
   const template = [

@@ -17,5 +17,5 @@ export default RouteTemplate<{
     </button>
 
     <Kuler @baseColor={{@controller.model}} />
-  </template>,
+  </template>
 );

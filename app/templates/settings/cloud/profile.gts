@@ -36,5 +36,5 @@ export default RouteTemplate<{
         </LoadingButton>
       </div>
     </div>
-  </template>,
+  </template>
 );

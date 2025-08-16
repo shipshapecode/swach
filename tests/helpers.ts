@@ -1,6 +1,6 @@
+import { waitForSource } from '@ef4/ember-orbit/test-support';
 import { getContext, settled } from '@ember/test-helpers';
 import { animationsSettled } from 'ember-animated/test-support';
-import { waitForSource } from '@ef4/ember-orbit/test-support';
 import type Owner from '@ember/owner';
 import type Coordinator from '@orbit/coordinator';
 import type { IndexedDBSource } from '@orbit/indexeddb';
@@ -17,7 +17,7 @@ export async function waitForAll() {
     };
   };
   const coordinator = owner.lookup(
-    `service:${services.coordinator}`,
+    `service:${services.coordinator}`
   ) as unknown as Coordinator;
 
   for (const source of coordinator.sources) {
@@ -30,7 +30,7 @@ export async function waitForAll() {
 
 export function resetStorage(
   hooks: NestedHooks,
-  options: { seed?: { source?: string; scenario?: string } } = {},
+  options: { seed?: { source?: string; scenario?: string } } = {}
 ) {
   hooks.beforeEach(async function () {
     if (options.seed) {

@@ -59,7 +59,7 @@ const config: ForgeConfig = {
           icon: 'electron-app/resources/icon.png',
         },
       },
-      ['linux'],
+      ['linux']
     ),
     new MakerDMG(
       (arch) => {
@@ -69,7 +69,7 @@ const config: ForgeConfig = {
           icon: 'electron-app/resources/dmg.icns',
         };
       },
-      ['darwin'],
+      ['darwin']
     ),
     // {
     //   name: '@electron-forge/maker-snap',

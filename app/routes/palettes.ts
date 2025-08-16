@@ -1,8 +1,8 @@
 import Route from '@ember/routing/route';
 import type Transition from '@ember/routing/transition';
 import { service } from '@ember/service';
-import { storageFor } from 'ember-local-storage';
 import type { LiveQuery, Store } from '@ef4/ember-orbit';
+import { storageFor } from 'ember-local-storage';
 import type Session from 'swach/services/session';
 import type { SettingsStorage } from 'swach/storages/settings';
 import viewTransitions from 'swach/utils/view-transitions';
@@ -24,7 +24,7 @@ export default class PalettesRoute extends Route {
       qb
         .findRecords('palette')
         .filter({ attribute: 'isColorHistory', value: false })
-        .sort('index'),
+        .sort('index')
     );
   }
 

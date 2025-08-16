@@ -1,8 +1,8 @@
-@import "fonts";
-@import "tailwind";
-@import "variables";
-@import "main";
-@import "color-squares";
-@import "icons";
-@import "drag-sort";
+@import 'fonts';
+@import 'tailwind';
+@import 'variables';
+@import 'main';
+@import 'color-squares';
+@import 'icons';
+@import 'drag-sort';
 /* @import "three-dots/three-dots"; */

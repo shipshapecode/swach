@@ -1,6 +1,10 @@
-import { globalShortcut, shell, Menu } from 'electron';
+import { globalShortcut, Menu, shell } from 'electron';
 
-export function registerKeyboardShortcuts(mb, launchPicker, openContrastChecker) {
+export function registerKeyboardShortcuts(
+  mb,
+  launchPicker,
+  openContrastChecker
+) {
   globalShortcut.register('Ctrl+Super+Alt+p', () => {
     launchPicker(mb);
   });

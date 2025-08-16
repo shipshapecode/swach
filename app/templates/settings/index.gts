@@ -11,5 +11,5 @@ export default RouteTemplate<{
       @enableDisableAutoStart={{@controller.application.enableDisableAutoStart}}
       @toggleShowDockIcon={{@controller.application.toggleShowDockIcon}}
     />
-  </template>,
+  </template>
 );

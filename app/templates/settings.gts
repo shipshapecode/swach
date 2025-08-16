@@ -24,5 +24,5 @@ export default RouteTemplate<{
     <div class="text-main-text w-full">
       {{outlet}}
     </div>
-  </template>,
+  </template>
 );

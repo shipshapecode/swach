@@ -4,7 +4,6 @@ import { init } from '@sentry/electron';
 import { ipcMain, nativeTheme } from 'electron';
 import isDev from 'electron-is-dev';
 import Store from 'electron-store';
- 
 import { menubar } from 'menubar';
 import pkg from '../package.json' with { type: 'json' };
 import { setupUpdateServer } from './auto-update.js';
@@ -87,7 +86,7 @@ mb.app.allowRendererProcessReuse = true;
 mb.app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
 mb.app.commandLine.appendSwitch(
   'disable-backgrounding-occluded-windows',
-  'true',
+  'true'
 );
 mb.app.commandLine.appendSwitch('ignore-certificate-errors', true);
 
@@ -178,16 +177,16 @@ mb.on('after-create-window', async () => {
 
   mb.window.webContents.on('render-process-gone', () => {
     console.log(
-      'Your Ember app (or other code) in the main window has crashed.',
+      'Your Ember app (or other code) in the main window has crashed.'
     );
     console.log(
-      'This is a serious issue that needs to be handled and/or debugged.',
+      'This is a serious issue that needs to be handled and/or debugged.'
     );
   });
 
   mb.window.on('unresponsive', () => {
     console.log(
-      'Your Ember app (or other code) has made the window unresponsive.',
+      'Your Ember app (or other code) has made the window unresponsive.'
     );
   });
 
@@ -249,7 +248,7 @@ if (!isDev && (process.platform === 'darwin' || process.platform === 'win32')) {
 process.on('uncaughtException', (err) => {
   console.log('An exception in the main thread was not handled.');
   console.log(
-    'This is a serious issue that needs to be handled and/or debugged.',
+    'This is a serious issue that needs to be handled and/or debugged.'
   );
   console.log(`Exception: ${err}`);
 });

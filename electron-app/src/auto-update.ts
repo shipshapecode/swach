@@ -11,7 +11,7 @@ export const setupUpdateServer = (app) => {
     () => {
       autoUpdater.checkForUpdates();
     },
-    30 * 60 * 1000,
+    30 * 60 * 1000
   );
 
   autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {

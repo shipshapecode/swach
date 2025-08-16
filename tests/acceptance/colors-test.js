@@ -37,7 +37,7 @@ module('Acceptance | colors', function (hooks) {
     assert.dom('[data-test-color-picker]').doesNotExist();
 
     await click(
-      '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]',
+      '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
     );
 
     await animationsSettled();
@@ -72,7 +72,7 @@ module('Acceptance | colors', function (hooks) {
     assert.dom('[data-test-color-picker]').doesNotExist();
 
     await click(
-      '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]',
+      '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
     );
 
     await animationsSettled();
@@ -106,7 +106,7 @@ module('Acceptance | colors', function (hooks) {
     assert.dom('[data-test-color]').exists({ count: 4 });
 
     await click(
-      '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]',
+      '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
     );
 
     await animationsSettled();
@@ -126,13 +126,13 @@ module('Acceptance | colors', function (hooks) {
       assert.dom('[data-test-color]').exists({ count: 4 });
 
       await click(
-        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]',
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-trigger]'
       );
 
       await animationsSettled();
 
       await click(
-        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-content] [data-test-delete-color]',
+        '[data-test-color="Black"] [data-test-color-row-menu] [data-test-options-content] [data-test-delete-color]'
       );
 
       await waitForAll();

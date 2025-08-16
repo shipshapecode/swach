@@ -170,14 +170,14 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
         'pickContrastBgColor',
         (_event, color: IroColorValue) => {
           this.setBgColor(color);
-        },
+        }
       );
 
       this.ipcRenderer.on(
         'pickContrastFgColor',
         (_event, color: IroColorValue) => {
           this.setFgColor(color);
-        },
+        }
       );
     }
   }

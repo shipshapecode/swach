@@ -52,7 +52,7 @@
     "electron-debug": "^3.2.0",
     "electron-download": "^4.1.1",
     "typescript": "~4.5.4",
-    "vite": "^5.4.19"
+    "vite": "^6.3.5"
   },
   "packageManager": "pnpm@10.11.0",
   "engines": {

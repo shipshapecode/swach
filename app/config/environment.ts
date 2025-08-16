@@ -29,4 +29,5 @@ export default config as {
   locationType: string;
   rootURL: string;
   APP: Record<string, unknown>;
+  SCHEMA_VERSION: number;
 } & Record<string, unknown>;

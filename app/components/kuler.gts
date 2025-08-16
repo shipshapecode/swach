@@ -5,7 +5,7 @@ import { service } from '@ember/service';
 import { capitalize } from '@ember/string';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import type { Store } from 'ember-orbit';
+import type { Store } from '@ef4/ember-orbit';
 import eq from 'ember-truth-helpers/helpers/eq';
 import isEmpty from 'ember-truth-helpers/helpers/is-empty';
 import not from 'ember-truth-helpers/helpers/not';
@@ -15,8 +15,8 @@ import iro from '@jaames/iro';
 import type { IpcRenderer } from 'electron';
 import { debounce } from 'throttle-debounce';
 import capitalize0 from '../helpers/capitalize.ts';
-import EditSelectedColor from './edit-selected-color.ts';
-import KulerPaletteRow from './kuler-palette-row.ts';
+import EditSelectedColor from './edit-selected-color.gts';
+import KulerPaletteRow from './kuler-palette-row.gts';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type { ColorPOJO } from 'swach/services/color-utils';
@@ -142,7 +142,7 @@ export default class KulerComponent extends Component<KulerSignature> {
           'selectKulerColor',
           (_event: unknown, colorIndex: number) => {
             this.setSelectedIroColor(colorIndex);
-          },
+          }
         );
 
         this.ipcRenderer.on(
@@ -152,9 +152,9 @@ export default class KulerComponent extends Component<KulerSignature> {
             await this._onColorChange(color);
             this.colorPicker.setColors(
               this.selectedPalette.colors.map((c) => c.hex),
-              this.selectedPalette.selectedColorIndex,
+              this.selectedPalette.selectedColorIndex
             );
-          },
+          }
         );
       }
     });
@@ -187,7 +187,7 @@ export default class KulerComponent extends Component<KulerSignature> {
         return this.colorUtils.createColorPOJO(color.toHexString());
       });
       const colors = colorPOJOs.map(
-        (color: ColorPOJO) => color.attributes,
+        (color: ColorPOJO) => color.attributes
       ) as unknown as ColorModel[];
 
       palette.colors = colors;
@@ -196,23 +196,20 @@ export default class KulerComponent extends Component<KulerSignature> {
 
     this.palettes = palettes;
 
-    this.selectedPalette = this.palettes[
-      selectedPaletteTypeIndex
-    ] as PaletteModel;
+    this.selectedPalette = this.palettes[selectedPaletteTypeIndex] as PaletteModel;
   }
 
   @action
   setColorAsBase(): Promise<void> {
-    this.baseColor = this.selectedPalette.colors[
-      this.selectedPalette.selectedColorIndex
-    ] as ColorModel;
+    this.baseColor =
+      this.selectedPalette.colors[this.selectedPalette.selectedColorIndex] as ColorModel;
 
     return this.baseColorChanged(
-      this.palettes.indexOf(this.selectedPalette),
+      this.palettes.indexOf(this.selectedPalette)
     ).then(() => {
       this.colorPicker.setColors(
         this.selectedPalette.colors.map((c) => c.hex),
-        this.selectedPalette.selectedColorIndex,
+        this.selectedPalette.selectedColorIndex
       );
     });
   }
@@ -238,7 +235,7 @@ export default class KulerComponent extends Component<KulerSignature> {
       this.selectedPalette = palette;
       this.colorPicker.setColors(
         this.selectedPalette.colors.map((c) => c.hex),
-        palette.selectedColorIndex,
+        palette.selectedColorIndex
       );
     }
   }
@@ -253,7 +250,7 @@ export default class KulerComponent extends Component<KulerSignature> {
     const { selectedColorIndex } = this.selectedPalette;
     // if changing the selected baseColor, we should update all the colors
     const newColor = this.colorUtils.createColorPOJO(
-      color instanceof iro.Color ? color.rgba : color,
+      color instanceof iro.Color ? color.rgba : color
     );
 
     // @ts-expect-error TODO: fix this to be able to not use prototype extensions
@@ -262,15 +259,14 @@ export default class KulerComponent extends Component<KulerSignature> {
     ]);
 
     if (selectedColorIndex === 0) {
-      this.baseColor = this.selectedPalette.colors[
-        this.selectedPalette.selectedColorIndex
-      ] as ColorModel;
+      this.baseColor =
+        this.selectedPalette.colors[this.selectedPalette.selectedColorIndex] as ColorModel;
       await this.setColorAsBase();
     }
 
     this.colorPicker.setColors(
       this.selectedPalette.colors.map((c) => c.hex),
-      this.selectedPalette.selectedColorIndex,
+      this.selectedPalette.selectedColorIndex
     );
   }
 
@@ -323,7 +319,7 @@ export default class KulerComponent extends Component<KulerSignature> {
           },
         ],
         width: 207,
-      },
+      }
     );
 
     this.colorPicker.on('color:change', this._debouncedColorChange);

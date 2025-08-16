@@ -10,8 +10,8 @@ import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
 import type { IpcRenderer } from 'electron';
 import capitalize from '../helpers/capitalize.ts';
-import About from './about.ts';
-import LoadingButton from './loading-button.ts';
+import About from './about.gts';
+import LoadingButton from './loading-button.gts';
 import type { SettingsStorage, themes } from 'swach/storages/settings';
 
 interface SettingsMenuSignature {

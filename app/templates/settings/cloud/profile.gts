@@ -1,5 +1,5 @@
 import RouteTemplate from 'ember-route-template';
-import LoadingButton from '../../../components/loading-button.ts';
+import LoadingButton from '../../../components/loading-button.gts';
 import type SettingsCloudProfileController from 'swach/controllers/settings/cloud/profile';
 
 export default RouteTemplate<{
@@ -36,5 +36,5 @@ export default RouteTemplate<{
         </LoadingButton>
       </div>
     </div>
-  </template>,
+  </template>
 );

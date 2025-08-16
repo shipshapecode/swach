@@ -1,6 +1,11 @@
-const { globalShortcut, shell, Menu } = require('electron');
+import { globalShortcut, Menu, shell } from 'electron';
+import { type Menubar } from 'menubar';
 
-function registerKeyboardShortcuts(mb, launchPicker, openContrastChecker) {
+export function registerKeyboardShortcuts(
+  mb: Menubar,
+  launchPicker,
+  openContrastChecker
+) {
   globalShortcut.register('Ctrl+Super+Alt+p', () => {
     launchPicker(mb);
   });
@@ -14,7 +19,7 @@ function registerKeyboardShortcuts(mb, launchPicker, openContrastChecker) {
   });
 }
 
-function setupContextMenu(mb, launchPicker, openContrastChecker) {
+export function setupContextMenu(mb: Menubar, launchPicker, openContrastChecker) {
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Color Picker',
@@ -42,7 +47,7 @@ function setupContextMenu(mb, launchPicker, openContrastChecker) {
   });
 }
 
-function setupMenu(mb, launchPicker, openContrastChecker) {
+export function setupMenu(mb: Menubar, launchPicker, openContrastChecker) {
   const isMac = process.platform === 'darwin';
 
   const template = [
@@ -132,9 +137,3 @@ function setupMenu(mb, launchPicker, openContrastChecker) {
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 }
-
-module.exports = {
-  registerKeyboardShortcuts,
-  setupContextMenu,
-  setupMenu,
-};

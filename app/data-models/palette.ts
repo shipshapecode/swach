@@ -1,4 +1,4 @@
-import { attr, hasMany, Model } from 'ember-orbit';
+import { attr, hasMany, Model } from '@ef4/ember-orbit';
 import type ColorModel from 'swach/data-models/color';
 
 export default class PaletteModel extends Model {

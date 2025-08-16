@@ -1,6 +1,6 @@
-const { autoUpdater, dialog } = require('electron');
+import { autoUpdater, dialog } from 'electron';
 
-const setupUpdateServer = (app) => {
+export const setupUpdateServer = (app) => {
   const server = 'https://download.swach.io';
   const feed = `${server}/update/${process.platform}/${app.getVersion()}`;
 
@@ -11,7 +11,7 @@ const setupUpdateServer = (app) => {
     () => {
       autoUpdater.checkForUpdates();
     },
-    30 * 60 * 1000,
+    30 * 60 * 1000
   );
 
   autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
@@ -38,8 +38,4 @@ const setupUpdateServer = (app) => {
   });
 
   return autoUpdater;
-};
-
-module.exports = {
-  setupUpdateServer,
 };

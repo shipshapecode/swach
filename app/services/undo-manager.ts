@@ -1,5 +1,5 @@
 import Service, { service } from '@ember/service';
-import type { Store } from 'ember-orbit';
+import type { Store } from '@ef4/ember-orbit';
 import type { IpcRenderer } from 'electron';
 import removeFromTo from 'swach/utils/remove-from-to';
 
@@ -83,7 +83,7 @@ export default class UndoManager extends Service {
 
   async execute(
     command: { undo: () => Promise<void>; redo: () => Promise<void> },
-    action: 'undo' | 'redo',
+    action: 'undo' | 'redo'
   ) {
     if (!command || typeof command[action] !== 'function') {
       return this;

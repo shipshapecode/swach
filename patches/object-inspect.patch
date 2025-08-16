@@ -1,0 +1,25 @@
+diff --git a/index.js b/index.js
+index a4b2d4cd850adb5cda64eb9e5692457a73c0947e..66440138e369d878149c1f7dada8deb9e14c27c6 100644
+--- a/index.js
++++ b/index.js
+@@ -65,7 +65,7 @@ function addNumericSeparator(num, str) {
+     return $replace.call(str, sepRegex, '$&_');
+ }
+ 
+-var utilInspect = require('./util.inspect');
++var utilInspect = require('./util.inspect.js');
+ var inspectCustom = utilInspect.custom;
+ var inspectSymbol = isSymbol(inspectCustom) ? inspectCustom : null;
+ 
+diff --git a/test/inspect.js b/test/inspect.js
+index 1abf81b1f00b305519e52fe74477b2c5b71803c7..538b54e01376f43860763d0f34afd99d3c72e85d 100644
+--- a/test/inspect.js
++++ b/test/inspect.js
+@@ -1,6 +1,6 @@
+ var test = require('tape');
+ var hasSymbols = require('has-symbols/shams')();
+-var utilInspect = require('../util.inspect');
++var utilInspect = require('../util.inspect.js');
+ var repeat = require('string.prototype.repeat');
+ 
+ var inspect = require('..');

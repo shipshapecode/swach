@@ -26,17 +26,11 @@ const parserOptions = {
     js: {
       ecmaFeatures: { modules: true },
       ecmaVersion: 'latest',
-      requireConfigFile: false,
-      babelOptions: {
-        plugins: [
-          [
-            '@babel/plugin-proposal-decorators',
-            { decoratorsBeforeExport: true },
-          ],
-        ],
-      },
     },
-    ts: { projectService: true, tsconfigRootDir: import.meta.dirname },
+    ts: {
+      projectService: true,
+      tsconfigRootDir: import.meta.dirname,
+    },
   },
 };
 
@@ -74,13 +68,24 @@ export default ts.config(
   /**
    * https://eslint.org/docs/latest/use/configure/configuration-files#configuring-linter-options
    */
-  { linterOptions: { reportUnusedDisableDirectives: 'error' } },
-  { files: ['**/*.js'], languageOptions: { parser: babelParser } },
+  {
+    linterOptions: {
+      reportUnusedDisableDirectives: 'error',
+    },
+  },
+  {
+    files: ['**/*.js'],
+    languageOptions: {
+      parser: babelParser,
+    },
+  },
   {
     files: ['**/*.{js,gjs}'],
     languageOptions: {
       parserOptions: parserOptions.esm.js,
-      globals: { ...globals.browser },
+      globals: {
+        ...globals.browser,
+      },
     },
   },
   {
@@ -97,7 +102,12 @@ export default ts.config(
       'ember/no-at-ember-render-modifiers': 'off',
     },
   },
-  { files: ['tests/**/*-test.{js,gjs,ts,gts}'], plugins: { qunit } },
+  {
+    files: ['tests/**/*-test.{js,gjs,ts,gts}'],
+    plugins: {
+      qunit,
+    },
+  },
   /**
    * CJS node files
    */
@@ -106,7 +116,6 @@ export default ts.config(
       '**/*.cjs',
       'config/**/*.js',
       'electron-app/**/*.js',
-      'tests/dummy/config/**/*.js',
       'testem.js',
       'testem*.js',
       'index.js',
@@ -116,12 +125,16 @@ export default ts.config(
       'ember-cli-build.js',
       'tailwind.config.js',
     ],
-    plugins: { n },
+    plugins: {
+      n,
+    },
 
     languageOptions: {
       sourceType: 'script',
       ecmaVersion: 'latest',
-      globals: { ...globals.node },
+      globals: {
+        ...globals.node,
+      },
     },
   },
   /**
@@ -129,13 +142,17 @@ export default ts.config(
    */
   {
     files: ['**/*.mjs'],
-    plugins: { n },
+    plugins: {
+      n,
+    },
 
     languageOptions: {
       sourceType: 'module',
       ecmaVersion: 'latest',
       parserOptions: parserOptions.esm.js,
-      globals: { ...globals.node },
+      globals: {
+        ...globals.node,
+      },
     },
   },
 );

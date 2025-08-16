@@ -1,7 +1,16 @@
-module.exports = {
+import { MakerDeb } from '@electron-forge/maker-deb';
+import { MakerDMG } from '@electron-forge/maker-dmg';
+import { MakerSquirrel } from '@electron-forge/maker-squirrel';
+import { MakerZIP } from '@electron-forge/maker-zip';
+import { FusesPlugin } from '@electron-forge/plugin-fuses';
+import { VitePlugin } from '@electron-forge/plugin-vite';
+import type { ForgeConfig } from '@electron-forge/shared-types';
+import { FuseV1Options, FuseVersion } from '@electron/fuses';
+
+const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
-    darwinDarkModeSupport: 'true',
+    darwinDarkModeSupport: true,
     icon: 'electron-app/resources/icon',
     name: 'Swach',
     packageManager: 'pnpm',
@@ -37,10 +46,8 @@ module.exports = {
     ],
   },
   makers: [
-    {
-      name: '@electron-forge/maker-deb',
-      platforms: ['linux'],
-      config: {
+    new MakerDeb(
+      {
         options: {
           bin: 'Swach',
           name: 'swach',
@@ -52,18 +59,18 @@ module.exports = {
           icon: 'electron-app/resources/icon.png',
         },
       },
-    },
-    {
-      name: '@electron-forge/maker-dmg',
-      platforms: ['darwin'],
-      config(arch) {
+      ['linux']
+    ),
+    new MakerDMG(
+      (arch) => {
         return {
           name: arch === 'arm64' ? 'Swach-arm64' : 'Swach',
           background: 'electron-app/resources/installBackground.png',
           icon: 'electron-app/resources/dmg.icns',
         };
       },
-    },
+      ['darwin']
+    ),
     // {
     //   name: '@electron-forge/maker-snap',
     //   platforms: ['linux'],
@@ -99,18 +106,48 @@ module.exports = {
     //     type: 'app',
     //   },
     // },
-    {
-      name: '@electron-forge/maker-squirrel',
-      config: {
-        name: 'Swach',
-        certificateFile: process.env['WINDOWS_PFX_FILE'],
-        certificatePassword: process.env['WINDOWS_PFX_PASSWORD'],
-      },
-    },
-    {
-      name: '@electron-forge/maker-zip',
-      platforms: ['darwin'],
-    },
+    new MakerSquirrel({
+      name: 'Swach',
+      certificateFile: process.env['WINDOWS_PFX_FILE'],
+      certificatePassword: process.env['WINDOWS_PFX_PASSWORD'],
+    }),
+    new MakerZIP({}, ['darwin']),
+  ],
+  plugins: [
+    new VitePlugin({
+      // `build` can specify multiple entry builds, which can be Main process, Preload scripts, Worker process, etc.
+      // If you are familiar with Vite configuration, it will look really familiar.
+      build: [
+        {
+          // `entry` is just an alias for `build.lib.entry` in the corresponding file of `config`.
+          entry: 'electron-app/src/main.ts',
+          config: '../vite.main.config.ts',
+          target: 'main',
+        },
+        {
+          entry: 'electron-app/src/preload.ts',
+          config: '../vite.preload.config.ts',
+          target: 'preload',
+        },
+      ],
+      renderer: [
+        {
+          name: 'main_window',
+          config: '../vite.renderer.config.ts',
+        },
+      ],
+    }),
+    // Fuses are used to enable/disable various Electron functionality
+    // at package time, before code signing the application
+    new FusesPlugin({
+      version: FuseVersion.V1,
+      [FuseV1Options.RunAsNode]: false,
+      [FuseV1Options.EnableCookieEncryption]: true,
+      [FuseV1Options.EnableNodeOptionsEnvironmentVariable]: false,
+      [FuseV1Options.EnableNodeCliInspectArguments]: false,
+      [FuseV1Options.EnableEmbeddedAsarIntegrityValidation]: true,
+      [FuseV1Options.OnlyLoadAppFromAsar]: true,
+    }),
   ],
   // publishers: [
   //   {
@@ -122,3 +159,5 @@ module.exports = {
   //   },
   // ],
 };
+
+export default config;

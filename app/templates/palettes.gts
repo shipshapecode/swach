@@ -2,7 +2,7 @@ import { concat, fn, hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
-import type { LiveQuery } from 'ember-orbit';
+import type { LiveQuery } from '@ef4/ember-orbit';
 import RouteTemplate from 'ember-route-template';
 import set from 'ember-set-helper/helpers/set';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';

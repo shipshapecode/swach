@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import type { LiveQuery, Store } from 'ember-orbit';
+import type { LiveQuery, Store } from '@ef4/ember-orbit';
 import type { RecordOperationTerm } from '@orbit/records';
 import type ApplicationController from 'swach/controllers/application';
 import type ColorModel from 'swach/data-models/color';

@@ -7,7 +7,7 @@ import AnimatedEach from 'ember-animated/components/animated-each';
 import { easeOut } from 'ember-animated/easings/cosine';
 import move from 'ember-animated/motions/move';
 import { fadeOut } from 'ember-animated/motions/opacity';
-import type { Store } from 'ember-orbit';
+import type { Store } from '@ef4/ember-orbit';
 import type { RecordOperationTerm } from '@orbit/records';
 import ColorRow from './color-row.gts';
 import type { SelectedColorModel } from './rgb-input.gts';

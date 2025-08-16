@@ -1,6 +1,6 @@
 import { setupTest } from 'ember-qunit';
 import { module, test } from 'qunit';
-import type { Store } from 'ember-orbit';
+import type { Store } from '@ef4/ember-orbit';
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type Palette from 'swach/data-models/palette';

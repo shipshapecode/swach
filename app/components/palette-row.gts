@@ -12,7 +12,7 @@ import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 import type DragSortService from 'ember-drag-sort/services/drag-sort';
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import sub from 'ember-math-helpers/helpers/sub';
-import type { Store } from 'ember-orbit';
+import type { Store } from '@ef4/ember-orbit';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
 import not from 'ember-truth-helpers/helpers/not';

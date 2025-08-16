@@ -7,7 +7,7 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import type { Store } from 'ember-orbit';
+import type { Store } from '@ef4/ember-orbit';
 // @ts-expect-error TODO: fix this
 import EmberPopover from 'ember-tooltips/components/ember-popover';
 import { TinyColor } from '@ctrl/tinycolor';

@@ -5,7 +5,7 @@ import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
-import type { Store } from 'ember-orbit';
+import type { Store } from '@ef4/ember-orbit';
 import type { RecordSchema } from '@orbit/records';
 import type { IpcRenderer } from 'electron';
 import type { SelectedColorModel } from 'swach/components/rgb-input';

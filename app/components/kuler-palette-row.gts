@@ -10,7 +10,7 @@ import type MotionService from 'ember-animated/services/-ea-motion';
 import fade from 'ember-animated/transitions/fade';
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import sub from 'ember-math-helpers/helpers/sub';
-import type { Store } from 'ember-orbit';
+import type { Store } from '@ef4/ember-orbit';
 import set from 'ember-set-helper/helpers/set';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';

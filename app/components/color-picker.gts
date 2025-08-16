@@ -7,7 +7,7 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import type { Store } from 'ember-orbit';
+import type { Store } from '@ef4/ember-orbit';
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
 import { rgbaToHex } from '../data-models/color.ts';

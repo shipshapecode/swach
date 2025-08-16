@@ -1,6 +1,6 @@
 import Service, { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import type { Store } from 'ember-orbit';
+import type { Store } from '@ef4/ember-orbit';
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type JSONAPISource from '@orbit/jsonapi';

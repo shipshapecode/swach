@@ -1,7 +1,7 @@
 import { LinkTo } from '@ember/routing';
 import RouteTemplate from 'ember-route-template';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
-import ColorsList from '../components/colors-list.ts';
+import ColorsList from '../components/colors-list.gts';
 import type ColorsController from 'swach/controllers/colors';
 import type PaletteModel from 'swach/data-models/palette';
 

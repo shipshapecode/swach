@@ -4,7 +4,7 @@ import { init } from '@sentry/electron';
 import { ipcMain, nativeTheme } from 'electron';
 import isDev from 'electron-is-dev';
 import Store from 'electron-store';
-// eslint-disable-next-line no-redeclare
+ 
 import { menubar } from 'menubar';
 import pkg from '../package.json' with { type: 'json' };
 import { setupUpdateServer } from './auto-update.js';

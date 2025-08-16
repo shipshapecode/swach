@@ -9,8 +9,8 @@ import setBodyClass from 'ember-set-body-class/helpers/set-body-class';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import and from 'ember-truth-helpers/helpers/and';
 import not from 'ember-truth-helpers/helpers/not';
-import ColorPicker from '../components/color-picker.ts';
-import OptionsMenu from '../components/options-menu.ts';
+import ColorPicker from '../components/color-picker.gts';
+import OptionsMenu from '../components/options-menu.gts';
 import type ApplicationController from 'swach/controllers/application';
 
 export default RouteTemplate<{
@@ -145,5 +145,5 @@ export default RouteTemplate<{
         </div>
       </div>
     </main>
-  </template>,
+  </template>
 );

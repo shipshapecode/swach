@@ -15,8 +15,8 @@ import iro from '@jaames/iro';
 import type { IpcRenderer } from 'electron';
 import { debounce } from 'throttle-debounce';
 import capitalize0 from '../helpers/capitalize.ts';
-import EditSelectedColor from './edit-selected-color.ts';
-import KulerPaletteRow from './kuler-palette-row.ts';
+import EditSelectedColor from './edit-selected-color.gts';
+import KulerPaletteRow from './kuler-palette-row.gts';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type { ColorPOJO } from 'swach/services/color-utils';
@@ -198,14 +198,14 @@ export default class KulerComponent extends Component<KulerSignature> {
 
     this.selectedPalette = this.palettes[
       selectedPaletteTypeIndex
-    ] as PaletteModel;
+    ];
   }
 
   @action
   setColorAsBase(): Promise<void> {
     this.baseColor = this.selectedPalette.colors[
       this.selectedPalette.selectedColorIndex
-    ] as ColorModel;
+    ];
 
     return this.baseColorChanged(
       this.palettes.indexOf(this.selectedPalette),
@@ -264,7 +264,7 @@ export default class KulerComponent extends Component<KulerSignature> {
     if (selectedColorIndex === 0) {
       this.baseColor = this.selectedPalette.colors[
         this.selectedPalette.selectedColorIndex
-      ] as ColorModel;
+      ];
       await this.setColorAsBase();
     }
 

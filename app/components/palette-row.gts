@@ -19,7 +19,7 @@ import not from 'ember-truth-helpers/helpers/not';
 import type { RecordSchema } from '@orbit/records';
 import type { IpcRenderer } from 'electron';
 import htmlSafe from '../helpers/html-safe.ts';
-import OptionsMenu from './options-menu.ts';
+import OptionsMenu from './options-menu.gts';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type ColorUtils from 'swach/services/color-utils';

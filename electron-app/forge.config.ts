@@ -33,8 +33,8 @@ const config: ForgeConfig = {
     },
     osxNotarize: {
       tool: 'notarytool',
-      appleId: process.env['APPLE_ID'] as string,
-      appleIdPassword: process.env['APPLE_ID_PASSWORD'] as string,
+      appleId: process.env['APPLE_ID'],
+      appleIdPassword: process.env['APPLE_ID_PASSWORD'],
       teamId: '779MXKT6B5',
     },
     protocols: [

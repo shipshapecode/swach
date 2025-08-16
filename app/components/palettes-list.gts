@@ -4,8 +4,8 @@ import Component from '@glimmer/component';
 import type { LiveQuery, Store } from 'ember-orbit';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import type { RecordOperationTerm } from '@orbit/records';
-import AnimatedDragSortList from './animated-drag-sort-list.ts';
-import PaletteRow from './palette-row.ts';
+import AnimatedDragSortList from './animated-drag-sort-list.gts';
+import PaletteRow from './palette-row.gts';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type UndoManager from 'swach/services/undo-manager';
@@ -103,7 +103,7 @@ export default class PalettesListComponent extends Component<PalettesListSignatu
   }): Promise<void> {
     if (sourceList === targetList && sourceIndex === targetIndex) return;
 
-    const movedItem = sourceList[sourceIndex] as PaletteModel;
+    const movedItem = sourceList[sourceIndex];
 
     sourceList.splice(sourceIndex, 1);
     targetList.splice(targetIndex, 0, movedItem);

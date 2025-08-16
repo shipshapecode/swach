@@ -1,0 +1,29 @@
+diff --git a/addon/index.ts b/addon/index.ts
+index 62e82b640e89e6f7e567e8369ad85cbc4ee09dae..dfe3f6a154dd36739e931f72ed0eaeca202bacb8 100644
+--- a/addon/index.ts
++++ b/addon/index.ts
+@@ -9,8 +9,8 @@ export { default as hasOne } from './-private/fields/has-one';
+ export { default as key } from './-private/fields/key';
+ export { applyStandardSourceInjections } from './-private/utils/standard-injections';
+ export { default as Cache } from './-private/cache';
+-export { default as Model, ModelSettings } from './-private/model';
+-export { default as Store, StoreSettings } from './-private/store';
++export { default as Model, type ModelSettings } from './-private/model';
++export { default as Store, type StoreSettings } from './-private/store';
+ export { default as LiveQuery } from './-private/live-query';
+ // Provide `belongsTo` as an alias to `hasOne`
+ export { default as belongsTo } from './-private/fields/has-one';
+diff --git a/index.d.ts b/index.d.ts
+index 32b7341b0acd77369f902113c2e87a89a5e778a6..35fd8ff621688b1706cb57aa11a3bf30aaaae1a1 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -9,7 +9,7 @@ export { default as hasOne } from './-private/fields/has-one';
+ export { default as key } from './-private/fields/key';
+ export { applyStandardSourceInjections } from './-private/utils/standard-injections';
+ export { default as Cache } from './-private/cache';
+-export { default as Model, ModelSettings } from './-private/model';
+-export { default as Store, StoreSettings } from './-private/store';
++export { default as Model, type ModelSettings } from './-private/model';
++export { default as Store, type StoreSettings } from './-private/store';
+ export { default as LiveQuery } from './-private/live-query';
+ export { default as belongsTo } from './-private/fields/has-one';

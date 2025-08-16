@@ -13,8 +13,8 @@ import type IndexedDBSource from '@orbit/indexeddb';
 import type { InitializedRecord } from '@orbit/records';
 import type { IpcRenderer } from 'electron';
 import IDBExportImport from 'indexeddb-export-import';
-import LoadingButton from './loading-button.ts';
-import OptionsMenu from './options-menu.ts';
+import LoadingButton from './loading-button.gts';
+import OptionsMenu from './options-menu.gts';
 import type { SettingsStorage } from 'swach/storages/settings';
 import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
 
@@ -153,7 +153,7 @@ export default class SettingsData extends Component {
               IDBExportImport.importFromJsonString(
                 idbDatabase,
                 jsonString,
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                 
                 async (err: Event | null) => {
                   if (!err) {
                     idbDatabase.close();

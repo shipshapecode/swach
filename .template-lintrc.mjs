@@ -1,7 +1,5 @@
-'use strict';
-
-module.exports = {
-  extends: ['recommended'],
+export default {
+  extends: 'recommended',
   rules: {
     'no-at-ember-render-modifiers': false,
     'no-builtin-form-components': false,

@@ -3,7 +3,7 @@ import RouteTemplate from 'ember-route-template';
 import set from 'ember-set-helper/helpers/set';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import not from 'ember-truth-helpers/helpers/not';
-import ToggleSwitch from '../../components/toggle-switch.ts';
+import ToggleSwitch from '../../components/toggle-switch.gts';
 import type WelcomeAutoStartController from 'swach/controllers/welcome/auto-start';
 
 export default RouteTemplate<{

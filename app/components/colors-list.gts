@@ -10,7 +10,7 @@ import move from 'ember-animated/motions/move';
 import { fadeOut } from 'ember-animated/motions/opacity';
 import type { RecordOperationTerm } from '@orbit/records';
 import ColorRow from './color-row.gts';
-import type { SelectedColorModel } from './rgb-input.gts';
+import type { SelectedColorModel } from './rgb-input';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type UndoManager from 'swach/services/undo-manager';

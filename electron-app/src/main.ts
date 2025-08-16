@@ -5,7 +5,7 @@ import { ipcMain, nativeTheme } from 'electron';
 import isDev from 'electron-is-dev';
 import Store from 'electron-store';
 import { menubar } from 'menubar';
-import pkg from '../package.json' with { type: 'json' };
+import pkg from '../package.json';
 import { setupUpdateServer } from './auto-update.js';
 import { launchPicker } from './color-picker.js';
 import { noUpdatesAvailableDialog } from './dialogs.js';

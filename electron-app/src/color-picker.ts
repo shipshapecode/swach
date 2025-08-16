@@ -1,4 +1,6 @@
-export async function launchPicker(mb, type = 'global') {
+import { type Menubar } from 'menubar';
+
+export async function launchPicker(mb: Menubar, type = 'global') {
   mb.hideWindow();
 
   const color = await mb.window.webContents.executeJavaScript(

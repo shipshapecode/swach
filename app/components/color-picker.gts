@@ -17,12 +17,12 @@ import type UndoManager from '../services/undo-manager.ts';
 import AlphaInput from './alpha-input.gts';
 import ColorRow from './color-row.gts';
 import HexInput from './hex-input.gts';
-import RgbInput from './rgb-input.gts';
 import type {
   PrivateRGBAHex,
   PublicRGBAHex,
   SelectedColorModel,
-} from './rgb-input.gts';
+} from './rgb-input';
+import RgbInput from './rgb-input.gts';
 
 interface ColorPickerSignature {
   Element: HTMLDivElement;

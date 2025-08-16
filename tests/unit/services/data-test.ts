@@ -6,7 +6,6 @@ import type IndexedDBSource from '@orbit/indexeddb';
 import type Palette from 'swach/data-models/palette';
 import type DataService from 'swach/services/data';
 import { resetStorage } from 'swach/tests/helpers';
-// @ts-expect-error TODO: not yet typed
 import seedOrbit from 'swach/tests/orbit/seed';
 
 module('Unit | Service | data', function (hooks) {

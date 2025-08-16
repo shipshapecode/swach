@@ -84,7 +84,7 @@
     "@tsconfig/ember": "^3.0.11",
     "@types/ember": "^4.0.11",
     "@types/eslint__js": "^8.42.3",
-    "@types/node": "^22.17.1",
+    "@types/node": "^22.17.2",
     "@types/qunit": "^2.19.13",
     "@types/sinon": "^17.0.4",
     "autoprefixer": "^10.4.21",

@@ -41,11 +41,7 @@ button {
 }
 
 .color-history-container {
-  width: calc(100% - 1.5rem);
-}
-
-.color-picker-popover.ember-popover {
-  transform: translate3d(0, 34px, 0) !important;
+  width: calc(100% - 1rem);
 }
 
 /* stylelint-disable selector-class-pattern */

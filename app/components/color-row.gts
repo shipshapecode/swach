@@ -28,7 +28,7 @@ interface ColorRowSignature {
 export default class ColorRowComponent extends Component<ColorRowSignature> {
   <template>
     <div
-      class="bg-menu cursor-default flex mb-3 p-3 rounded w-full"
+      class="bg-menu cursor-default flex mb-2 p-3 rounded w-full"
       data-test-color={{@color.name}}
       {{on "click" (fn this.colorUtils.copyColorToClipboard @color)}}
     >

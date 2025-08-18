@@ -27,20 +27,6 @@ declare module '@glint/environment-ember-loose/registry' {
         };
       };
     }>;
-    EmberPopover: ComponentLike<{
-      Element: HTMLDivElement;
-      Args: {
-        Named: {
-          arrowClass: string;
-          event: string;
-          innerClass: string;
-          isShown: boolean;
-          side: string;
-          spacing: number;
-          tooltipClass: string;
-        };
-      };
-    }>;
     'html-safe': HelperLike<{
       Args: {
         Positional: [string: string];

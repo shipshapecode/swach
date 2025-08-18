@@ -29,7 +29,7 @@ export default RouteTemplate<{
           class="bg-menu flex justify-between items-center p-4 w-full z-50
             {{if @controller.isWelcomeRoute 'hidden'}}"
         >
-          <div class="grow">
+          <div class="flex grow">
             {{#if (not @controller.colorPickerIsShown)}}
               <OptionsMenu @position="left">
                 <:trigger>
@@ -135,7 +135,7 @@ export default RouteTemplate<{
           </div>
         </nav>
 
-        <div class="flex-1 overflow-auto p-3">
+        <div class="flex-1 overflow-auto px-2 py-4">
           {{outlet}}
         </div>
         <div class="bottom-0 h-auto fixed flex flex-col p-3 w-full">

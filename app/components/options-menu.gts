@@ -22,7 +22,7 @@ interface OptionsMenuSignature {
 
 export default class OptionsMenu extends Component<OptionsMenuSignature> {
   <template>
-    <div class="relative inline-block text-left" ...attributes>
+    <div class="relative inline-flex text-left" ...attributes>
       <button
         data-test-options-trigger
         class="px-1 rounded transition-colors
@@ -42,7 +42,7 @@ export default class OptionsMenu extends Component<OptionsMenuSignature> {
       {{#if this.isShown}}
         <div
           data-test-options-content
-          class="options-menu absolute bg-menu mt-2 p-3 origin-top-{{this.position}}
+          class="options-menu absolute bg-menu mt-6 p-3 origin-top-{{this.position}}
             {{this.position}}-0 ring-1 ring-main rounded-md shadow-lg text-menu-text w-44 z-50
             {{@optionsClasses}}"
           {{cssTransition

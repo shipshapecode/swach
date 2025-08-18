@@ -8,8 +8,6 @@ import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import type { Store } from 'ember-orbit';
-// @ts-expect-error TODO: fix this
-import EmberPopover from 'ember-tooltips/components/ember-popover';
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
 import { rgbaToHex } from '../data-models/color.ts';
@@ -39,16 +37,14 @@ interface ColorPickerSignature {
 export default class ColorPickerComponent extends Component<ColorPickerSignature> {
   <template>
     {{#if @isShown}}
-      <EmberPopover
-        @arrowClass="color-picker-arrow custom-arrow"
-        @event="none"
-        @innerClass="h-full w-full"
-        @isShown={{@isShown}}
-        @side="top-end"
-        @spacing={{10}}
-        @tooltipClass="color-picker-popover bg-main border-menu fixed h-full m-0 pb-4 pl-3 pr-3 pt-5 text-alt w-screen"
+      <div
+        class="color-picker-popover bg-main border-menu fixed left-0 !top-[49px] h-full m-0 pb-4 px-2 pt-4 text-alt w-screen"
       >
-        <div class="h-full relative w-full" data-test-color-picker>
+        <div
+          class="h-full relative w-full"
+          id="color-picker"
+          data-test-color-picker
+        >
           <ColorRow @color={{this._selectedColor}} @showActions={{false}} />
 
           <div class="bg-menu flex p-4 relative rounded">
@@ -207,7 +203,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
             </button>
           </div>
         </div>
-      </EmberPopover>
+      </div>
     {{/if}}
   </template>
   @service declare nearestColor: NearestColor;

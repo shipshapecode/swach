@@ -196,13 +196,16 @@ export default class KulerComponent extends Component<KulerSignature> {
 
     this.palettes = palettes;
 
-    this.selectedPalette = this.palettes[selectedPaletteTypeIndex] as PaletteModel;
+    this.selectedPalette = this.palettes[
+      selectedPaletteTypeIndex
+    ] as PaletteModel;
   }
 
   @action
   setColorAsBase(): Promise<void> {
-    this.baseColor =
-      this.selectedPalette.colors[this.selectedPalette.selectedColorIndex] as ColorModel;
+    this.baseColor = this.selectedPalette.colors[
+      this.selectedPalette.selectedColorIndex
+    ] as ColorModel;
 
     return this.baseColorChanged(
       this.palettes.indexOf(this.selectedPalette)
@@ -259,8 +262,9 @@ export default class KulerComponent extends Component<KulerSignature> {
     ]);
 
     if (selectedColorIndex === 0) {
-      this.baseColor =
-        this.selectedPalette.colors[this.selectedPalette.selectedColorIndex] as ColorModel;
+      this.baseColor = this.selectedPalette.colors[
+        this.selectedPalette.selectedColorIndex
+      ] as ColorModel;
       await this.setColorAsBase();
     }
 

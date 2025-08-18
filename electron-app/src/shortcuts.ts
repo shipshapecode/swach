@@ -19,7 +19,11 @@ export function registerKeyboardShortcuts(
   });
 }
 
-export function setupContextMenu(mb: Menubar, launchPicker, openContrastChecker) {
+export function setupContextMenu(
+  mb: Menubar,
+  launchPicker,
+  openContrastChecker
+) {
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Color Picker',

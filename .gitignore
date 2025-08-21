@@ -33,3 +33,9 @@
 
 electron-out/
 .idea/
+
+# Vite
+.vite/
+
+# Electron-Forge
+out/

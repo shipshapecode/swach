@@ -1,5 +1,5 @@
 import { init } from '@sentry/electron';
-import pkg from '../package.json';
+import pkg from '../../package.json';
 
 init({
   appName: 'swach',

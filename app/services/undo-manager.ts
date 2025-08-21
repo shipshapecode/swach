@@ -83,7 +83,7 @@ export default class UndoManager extends Service {
 
   async execute(
     command: { undo: () => Promise<void>; redo: () => Promise<void> },
-    action: 'undo' | 'redo',
+    action: 'undo' | 'redo'
   ) {
     if (!command || typeof command[action] !== 'function') {
       return this;

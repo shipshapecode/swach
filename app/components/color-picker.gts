@@ -14,15 +14,15 @@ import { rgbaToHex } from '../data-models/color.ts';
 import type ColorModel from '../data-models/color.ts';
 import type NearestColor from '../services/nearest-color.ts';
 import type UndoManager from '../services/undo-manager.ts';
-import AlphaInput from './alpha-input.ts';
-import ColorRow from './color-row.ts';
-import HexInput from './hex-input.ts';
-import RgbInput from './rgb-input.ts';
+import AlphaInput from './alpha-input.gts';
+import ColorRow from './color-row.gts';
+import HexInput from './hex-input.gts';
 import type {
   PrivateRGBAHex,
   PublicRGBAHex,
   SelectedColorModel,
-} from './rgb-input.ts';
+} from './rgb-input';
+import RgbInput from './rgb-input.gts';
 
 interface ColorPickerSignature {
   Element: HTMLDivElement;
@@ -260,9 +260,9 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
             { type: 'color', id: colorToEdit.id },
             attr,
             //@ts-expect-error TODO fix this error later
-            this._selectedColor[attr],
-          ),
-        ),
+            this._selectedColor[attr]
+          )
+        )
       );
 
       this.undoManager.setupUndoRedo();

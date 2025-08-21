@@ -61,7 +61,7 @@ button {
 
 .selected-color {
   &::after {
-    content: ""; /* Required to display content */
+    content: ''; /* Required to display content */
     position: absolute; /* Sets the position absolute to the top div */
     bottom: 0;
     left: 50%;
@@ -84,8 +84,8 @@ button {
   /* stylelint-enable selector-class-pattern */
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   appearance: none;
   margin: 0;
 }

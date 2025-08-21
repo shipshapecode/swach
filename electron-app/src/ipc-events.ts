@@ -1,18 +1,11 @@
-const {
-  app,
-  clipboard,
-  dialog,
-  ipcMain,
-  nativeTheme,
-  shell,
-} = require('electron');
-const { download } = require('electron-dl');
-const fs = require('fs');
+import fs from 'fs';
+import { app, clipboard, dialog, ipcMain, nativeTheme, shell } from 'electron';
+import { download } from 'electron-dl';
+import { type Menubar } from 'menubar';
+import { launchPicker } from './color-picker';
+import { restartDialog } from './dialogs';
 
-const { launchPicker } = require('./color-picker');
-const { restartDialog } = require('./dialogs');
-
-function setupEventHandlers(mb, store) {
+export function setupEventHandlers(mb: Menubar, store) {
   ipcMain.on('copyColorToClipboard', (channel, color) => {
     clipboard.writeText(color);
   });

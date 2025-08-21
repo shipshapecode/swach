@@ -89,6 +89,7 @@ typings/
 dist/
 
 # Electron-Forge
+.vite/
 out/
 
 # Ember build

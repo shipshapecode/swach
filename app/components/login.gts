@@ -6,7 +6,7 @@ import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { storageFor } from 'ember-local-storage';
-import LoadingButton from './loading-button.ts';
+import LoadingButton from './loading-button.gts';
 import config from 'swach/config/environment';
 import type Session from 'swach/services/session';
 import type { SettingsStorage } from 'swach/storages/settings';

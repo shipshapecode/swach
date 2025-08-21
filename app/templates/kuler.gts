@@ -1,7 +1,7 @@
 import { on } from '@ember/modifier';
 import RouteTemplate from 'ember-route-template';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
-import Kuler from '../components/kuler.ts';
+import Kuler from '../components/kuler.gts';
 import type KulerController from 'swach/controllers/kuler';
 
 export default RouteTemplate<{
@@ -17,5 +17,5 @@ export default RouteTemplate<{
     </button>
 
     <Kuler @baseColor={{@controller.model}} />
-  </template>,
+  </template>
 );

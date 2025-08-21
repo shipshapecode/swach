@@ -37,14 +37,14 @@ export default {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     backup.cache.migrateDB = async (
       _db: IDBDatabase,
-      event: IDBVersionChangeEvent,
+      event: IDBVersionChangeEvent
     ) => {
       const { newVersion, oldVersion, currentTarget } = event;
       const request = currentTarget as IDBRequest;
       const transaction = request.transaction as IDBTransaction;
 
       console.log(
-        `migrating indexeddb from version ${oldVersion} to ${newVersion}`,
+        `migrating indexeddb from version ${oldVersion} to ${newVersion}`
       );
 
       if (oldVersion === 1) {
@@ -77,7 +77,7 @@ export default {
                 const palette = palettes.find(
                   (record): record is PalettePOJO =>
                     record.id === paletteIdentity?.id &&
-                    record.type === 'palette',
+                    record.type === 'palette'
                 );
 
                 if (palette) {
@@ -91,7 +91,7 @@ export default {
                     // Replace color in palette with color copy
                     palette.relationships.colors.data =
                       palette.relationships.colors.data.map(
-                        replaceColorIdWithCopy,
+                        replaceColorIdWithCopy
                       );
                   }
 
@@ -146,7 +146,7 @@ export default {
 // migrations.
 function getRecordsFromIDB(
   transaction: IDBTransaction,
-  type: string,
+  type: string
 ): Promise<InitializedRecord[]> {
   return new Promise((resolve) => {
     const objectStore = transaction.objectStore(type);
@@ -171,7 +171,7 @@ function getRecordsFromIDB(
 
 function clearRecordsFromIDB(
   transaction: IDBTransaction,
-  type: string,
+  type: string
 ): Promise<void> {
   return new Promise((resolve) => {
     const objectStore = transaction.objectStore(type);
@@ -186,7 +186,7 @@ function clearRecordsFromIDB(
 function setRecordsInIDB(
   transaction: IDBTransaction,
   type: string,
-  records: InitializedRecord[],
+  records: InitializedRecord[]
 ): Promise<void> {
   return new Promise((resolve) => {
     let i = 0;

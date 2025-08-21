@@ -1,5 +1,3 @@
-'use strict';
-
 const testing = [
   '^ember-cli-htmlbars($|\\/)',
   '^qunit',
@@ -34,18 +32,45 @@ const importOrder = [
 ];
 const importOrderParserPlugins = ['typescript', 'decorators-legacy'];
 
-module.exports = {
+export default {
   plugins: [
     'prettier-plugin-ember-template-tag',
     '@ianvs/prettier-plugin-sort-imports',
   ],
   importOrder,
   importOrderParserPlugins,
+  singleQuote: true,
   overrides: [
     {
-      files: '*.{js,gjs,ts,gts,mjs,mts,cjs,cts}',
-      options: { singleQuote: true, templateSingleQuote: false },
+      files: ['*.js', '*.ts', '*.cjs', '.mjs', '.cts', '.mts', '.cts'],
+      options: {
+        trailingComma: 'es5',
+      },
     },
-    { files: '*.{yaml,yml}', options: { singleQuote: true } },
+    {
+      files: ['*.html'],
+      options: {
+        singleQuote: false,
+      },
+    },
+    {
+      files: ['*.json'],
+      options: {
+        singleQuote: false,
+      },
+    },
+    {
+      files: ['*.hbs'],
+      options: {
+        singleQuote: false,
+      },
+    },
+    {
+      files: ['*.gjs', '*.gts'],
+      options: {
+        templateSingleQuote: false,
+        trailingComma: 'es5',
+      },
+    },
   ],
 };

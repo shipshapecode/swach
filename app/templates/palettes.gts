@@ -1,14 +1,14 @@
 import { concat, fn, hash } from '@ember/helper';
 import { on } from '@ember/modifier';
+import type { LiveQuery } from 'ember-orbit';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
-import type { LiveQuery } from 'ember-orbit';
 import RouteTemplate from 'ember-route-template';
 import set from 'ember-set-helper/helpers/set';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import not from 'ember-truth-helpers/helpers/not';
-import OptionsMenu from '../components/options-menu.ts';
-import PalettesList from '../components/palettes-list.ts';
+import OptionsMenu from '../components/options-menu.gts';
+import PalettesList from '../components/palettes-list.gts';
 import htmlSafe from '../helpers/html-safe.ts';
 import type PalettesController from 'swach/controllers/palettes';
 
@@ -142,5 +142,5 @@ export default RouteTemplate<{
       @palettes={{@model}}
       @showFavorites={{@controller.showFavorites}}
     />
-  </template>,
+  </template>
 );

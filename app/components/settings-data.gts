@@ -3,7 +3,7 @@ import type Owner from '@ember/owner';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import type { Store } from '@ef4/ember-orbit';
+import type { Store } from 'ember-orbit';
 import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
 import set from 'ember-set-helper/helpers/set';

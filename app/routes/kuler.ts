@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import type Transition from '@ember/routing/transition';
 import { service } from '@ember/service';
-import type { Store } from '@ef4/ember-orbit';
+import type { Store } from 'ember-orbit';
 import { storageFor } from 'ember-local-storage';
 import type ColorModel from 'swach/data-models/color';
 import type Session from 'swach/services/session';

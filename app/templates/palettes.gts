@@ -1,6 +1,6 @@
 import { concat, fn, hash } from '@ember/helper';
 import { on } from '@ember/modifier';
-import type { LiveQuery } from '@ef4/ember-orbit';
+import type { LiveQuery } from 'ember-orbit';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import RouteTemplate from 'ember-route-template';

@@ -4,7 +4,7 @@ import { action } from '@ember/object';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
-import type { Store } from '@ef4/ember-orbit';
+import type { Store } from 'ember-orbit';
 import type { Transition } from 'ember-animated/-private/transition';
 import AnimatedIf from 'ember-animated/components/animated-if';
 import type MotionService from 'ember-animated/services/-ea-motion';

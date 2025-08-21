@@ -1,4 +1,4 @@
-import { applyStandardSourceInjections } from '@ef4/ember-orbit';
+import { applyStandardSourceInjections } from 'ember-orbit';
 import { IndexedDBSource } from '@orbit/indexeddb';
 import type {
   InitializedRecord,

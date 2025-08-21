@@ -1,54 +1,27 @@
-diff --git a/index.js b/index.cjs
-similarity index 99%
-rename from index.js
-rename to index.cjs
-index a4b2d4cd850adb5cda64eb9e5692457a73c0947e..077947eaa7b8bfb7276510ccc87a48a6a0146e64 100644
+diff --git a/index.js b/index.js
+index a4b2d4cd850adb5cda64eb9e5692457a73c0947e..82f0135560d38591d3a9d0bd8277f648f28eaa72 100644
 --- a/index.js
-+++ b/index.cjs
-@@ -65,7 +65,7 @@ function addNumericSeparator(num, str) {
++++ b/index.js
+@@ -65,8 +65,8 @@ function addNumericSeparator(num, str) {
      return $replace.call(str, sepRegex, '$&_');
  }
  
 -var utilInspect = require('./util.inspect');
-+var utilInspect = require('./util-inspect.cjs');
- var inspectCustom = utilInspect.custom;
+-var inspectCustom = utilInspect.custom;
++var utilInspect = require('./util.inspect.js');
++var inspectCustom = utilInspect?.custom;
  var inspectSymbol = isSymbol(inspectCustom) ? inspectCustom : null;
  
-diff --git a/package.json b/package.json
-index 9fd97ff7523f106de04c47adf74aa3a36db8dbbd..8cb5e3bd812568211ecf7c913101ba7d0e390540 100644
---- a/package.json
-+++ b/package.json
-@@ -2,7 +2,7 @@
-   "name": "object-inspect",
-   "version": "1.13.4",
-   "description": "string representations of objects in node and the browser",
--  "main": "index.js",
-+  "main": "index.cjs",
-   "sideEffects": false,
-   "devDependencies": {
-     "@ljharb/eslint-config": "^21.1.1",
-@@ -82,7 +82,7 @@
-   },
-   "license": "MIT",
-   "browser": {
--    "./util.inspect.js": false
-+    "./util-inspect.cjs": false
-   },
-   "auto-changelog": {
-     "output": "CHANGELOG.md",
+ var quotes = {
 diff --git a/test/inspect.js b/test/inspect.js
-index 1abf81b1f00b305519e52fe74477b2c5b71803c7..1746a081174db1e0ff4e494d0e475052265bd42b 100644
+index 1abf81b1f00b305519e52fe74477b2c5b71803c7..538b54e01376f43860763d0f34afd99d3c72e85d 100644
 --- a/test/inspect.js
 +++ b/test/inspect.js
 @@ -1,6 +1,6 @@
  var test = require('tape');
  var hasSymbols = require('has-symbols/shams')();
 -var utilInspect = require('../util.inspect');
-+var utilInspect = require('../util-inspect.cjs');
++var utilInspect = require('../util.inspect.js');
  var repeat = require('string.prototype.repeat');
  
  var inspect = require('..');
-diff --git a/util.inspect.js b/util-inspect.cjs
-similarity index 100%
-rename from util.inspect.js
-rename to util-inspect.cjs

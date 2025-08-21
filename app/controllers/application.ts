@@ -3,7 +3,7 @@ import { action, get } from '@ember/object';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import type { Store } from '@ef4/ember-orbit';
+import type { Store } from 'ember-orbit';
 import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
 import type { RecordSchema } from '@orbit/records';

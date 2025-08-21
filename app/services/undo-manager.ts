@@ -1,5 +1,5 @@
 import Service, { service } from '@ember/service';
-import type { Store } from '@ef4/ember-orbit';
+import type { Store } from 'ember-orbit';
 import type { IpcRenderer } from 'electron';
 import removeFromTo from 'swach/utils/remove-from-to';
 

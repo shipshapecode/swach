@@ -1,6 +1,6 @@
 import { action } from '@ember/object';
 import Service, { service } from '@ember/service';
-import type { Store } from '@ef4/ember-orbit';
+import type { Store } from 'ember-orbit';
 import { storageFor } from 'ember-local-storage';
 import { TinyColor } from '@ctrl/tinycolor';
 import type { ColorInput } from '@ctrl/tinycolor';

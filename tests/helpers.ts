@@ -1,4 +1,4 @@
-import { waitForSource } from '@ef4/ember-orbit/test-support';
+import { waitForSource } from 'ember-orbit/test-support';
 import { getContext, settled } from '@ember/test-helpers';
 import { animationsSettled } from 'ember-animated/test-support';
 import type Owner from '@ember/owner';

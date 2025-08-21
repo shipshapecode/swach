@@ -6,7 +6,7 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import type { Store } from '@ef4/ember-orbit';
+import type { Store } from 'ember-orbit';
 import noop from '@nullvoxpopuli/ember-composable-helpers/helpers/noop';
 import fade from 'ember-animated/transitions/fade';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';

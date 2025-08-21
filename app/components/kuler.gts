@@ -5,7 +5,7 @@ import { service } from '@ember/service';
 import { capitalize } from '@ember/string';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import type { Store } from '@ef4/ember-orbit';
+import type { Store } from 'ember-orbit';
 import eq from 'ember-truth-helpers/helpers/eq';
 import isEmpty from 'ember-truth-helpers/helpers/is-empty';
 import not from 'ember-truth-helpers/helpers/not';

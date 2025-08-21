@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
-import type { Store } from '@ef4/ember-orbit';
+import type { Store } from 'ember-orbit';
 import type TransitionContext from 'ember-animated/-private/transition-context';
 import AnimatedContainer from 'ember-animated/components/animated-container';
 import AnimatedEach from 'ember-animated/components/animated-each';

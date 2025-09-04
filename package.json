@@ -69,7 +69,7 @@
     "@orbit/utils": "^0.17.0",
     "@release-it-plugins/lerna-changelog": "^6.1.0",
     "@release-it-plugins/workspaces": "^4.2.1",
-    "@sentry/ember": "^7.120.4",
+    "@sentry/ember": "^10.9.0",
     "@tailwindcss/forms": "^0.5.10",
     "@tsconfig/ember": "^3.0.11",
     "@types/ember": "^4.0.11",

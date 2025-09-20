@@ -198,7 +198,6 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
           </div>
         {{/unless}}
 
-        {{!@glint-expect-error TODO: fix this}}
         <DragSortList
           class="absolute palette-color-squares flex grow h-8 top-0 w-full
             {{if this.isLocked 'palette-locked'}}"
@@ -241,7 +240,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
   </template>
   @service declare colorUtils: ColorUtils;
   @service declare dataSchema: RecordSchema;
-  @service declare dragSort: DragSortService;
+  @service declare dragSort: DragSortService<ColorModel>;
   @service declare router: Router;
   @service declare store: Store;
   @service declare undoManager: UndoManager;
@@ -293,7 +292,6 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       ),
     ];
 
-    // @ts-expect-error dragSort.on does not seem to exist in TS
     this.dragSort.on(
       'start',
       (event: { draggedItem: { hex: string | null } }) => {

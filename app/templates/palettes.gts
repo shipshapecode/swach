@@ -1,8 +1,8 @@
 import { concat, fn, hash } from '@ember/helper';
 import { on } from '@ember/modifier';
-import type { LiveQuery } from 'ember-orbit';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
+import type { LiveQuery } from 'ember-orbit';
 import RouteTemplate from 'ember-route-template';
 import set from 'ember-set-helper/helpers/set';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
@@ -54,11 +54,10 @@ export default RouteTemplate<{
         </div>
 
         {{#if @controller.last16Colors.length}}
-          {{!@glint-expect-error TODO: fix this}}
           <DragSortList
+            class="color-history-list flex h-20 flex-wrap w-full"
             data-test-color-history
             @additionalArgs={{hash isColorHistory=true}}
-            @classNames="color-history-list flex h-20 flex-wrap w-full"
             @isHorizontal={{true}}
             @items={{@controller.last16Colors}}
             @sourceOnly={{true}}

@@ -8,7 +8,9 @@ import { fadeOut } from 'ember-animated/motions/opacity';
 import DragSortItem from 'ember-drag-sort/components/drag-sort-item';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 
-export default class AnimatedDragSortList extends DragSortList {
+export default class AnimatedDragSortList<
+  Item extends object,
+> extends DragSortList<Item> {
   <template>
     {{!@glint-nocheck}}
     <AnimatedContainer ...attributes>
@@ -36,10 +38,11 @@ export default class AnimatedDragSortList extends DragSortList {
   </template>
   didDrag = false;
 
-  dragEnter = (event: DragEvent) => {
+  @action
+  dragEnter(event: DragEvent) {
     set(this, 'didDrag', true);
     super.dragEnter(event);
-  };
+  }
 
   @action
   rules() {

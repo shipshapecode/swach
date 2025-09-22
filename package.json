@@ -143,7 +143,7 @@
     "ember-cognito": "^3.0.1",
     "ember-css-transitions": "^4.5.0",
     "ember-decorators": "^6.1.1",
-    "ember-drag-sort": "^4.1.0",
+    "ember-drag-sort": "^4.1.1",
     "ember-element-helper": "^0.8.8",
     "ember-event-helpers": "^0.1.1",
     "ember-inflector": "^6.0.0",

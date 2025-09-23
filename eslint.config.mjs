@@ -46,6 +46,7 @@ export default ts.config(
    */
   {
     ignores: [
+      '.vite/',
       'declarations/',
 
       // ember-electron

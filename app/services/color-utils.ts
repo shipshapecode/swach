@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import Service, { service } from '@ember/service';
-import type { Store } from 'ember-orbit';
 import { storageFor } from 'ember-local-storage';
+import { orbit, type Store } from 'ember-orbit';
 import { TinyColor } from '@ctrl/tinycolor';
 import type { ColorInput } from '@ctrl/tinycolor';
 import type { IpcRenderer } from 'electron';
@@ -25,8 +25,9 @@ export interface ColorPOJO {
 }
 
 export default class ColorUtilsService extends Service {
+  @orbit declare store: Store;
+
   @service nearestColor!: NearestColor;
-  @service declare store: Store;
 
   @storageFor('settings') settings!: SettingsStorage;
 

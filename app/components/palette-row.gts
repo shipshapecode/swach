@@ -12,7 +12,7 @@ import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 import type DragSortService from 'ember-drag-sort/services/drag-sort';
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import sub from 'ember-math-helpers/helpers/sub';
-import type { Store } from 'ember-orbit';
+import { orbit, type Store } from 'ember-orbit';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
 import not from 'ember-truth-helpers/helpers/not';
@@ -238,11 +238,13 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       </div>
     </div>
   </template>
+
+  @orbit declare dataSchema: RecordSchema;
+  @orbit declare store: Store;
+
   @service declare colorUtils: ColorUtils;
-  @service declare dataSchema: RecordSchema;
   @service declare dragSort: DragSortService<ColorModel>;
   @service declare router: Router;
-  @service declare store: Store;
   @service declare undoManager: UndoManager;
 
   declare ipcRenderer: IpcRenderer;
@@ -292,18 +294,17 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       ),
     ];
 
-    this.dragSort.on(
-      'start',
-      (event: CustomEvent) => {
-        const draggedItem = event.detail?.draggedItem as { hex: string | null } | undefined;
-        if (draggedItem) {
-          document.documentElement.style.setProperty(
-            '--dragged-swatch-color',
-            draggedItem.hex
-          );
-        }
+    this.dragSort.on('start', (event: CustomEvent) => {
+      const draggedItem = event.detail?.draggedItem as
+        | { hex: string | null }
+        | undefined;
+      if (draggedItem) {
+        document.documentElement.style.setProperty(
+          '--dragged-swatch-color',
+          draggedItem.hex
+        );
       }
-    );
+    });
   }
 
   get isLocked() {

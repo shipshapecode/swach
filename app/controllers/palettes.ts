@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import type { LiveQuery, Store } from 'ember-orbit';
+import { orbit, type LiveQuery, type Store } from 'ember-orbit';
 import type { RecordOperationTerm } from '@orbit/records';
 import type ApplicationController from 'swach/controllers/application';
 import type ColorModel from 'swach/data-models/color';
@@ -13,11 +13,12 @@ import type DataService from 'swach/services/data';
 import type UndoManager from 'swach/services/undo-manager';
 
 export default class PalettesController extends Controller {
+  @orbit declare store: Store;
+
   @controller application!: ApplicationController;
   @service declare colorUtils: ColorUtils;
   @service declare data: DataService;
   @service declare router: Router;
-  @service declare store: Store;
   @service declare undoManager: UndoManager;
 
   declare model: LiveQuery;

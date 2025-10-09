@@ -4,13 +4,13 @@ import { action } from '@ember/object';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
-import type { Store } from 'ember-orbit';
 import type { Transition } from 'ember-animated/-private/transition';
 import AnimatedIf from 'ember-animated/components/animated-if';
 import type MotionService from 'ember-animated/services/-ea-motion';
 import fade from 'ember-animated/transitions/fade';
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import sub from 'ember-math-helpers/helpers/sub';
+import { orbit, type Store } from 'ember-orbit';
 import set from 'ember-set-helper/helpers/set';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
@@ -97,10 +97,12 @@ export default class KulerPaletteRowComponent extends Component<KulerPaletteRowS
       </div>
     </div>
   </template>
+
+  @orbit declare store: Store;
+
   @service declare colorUtils: ColorUtils;
   @service('-ea-motion') declare eaMotion: MotionService;
   @service declare router: Router;
-  @service declare store: Store;
   @service declare undoManager: UndoManager;
 
   fade = fade as Transition;

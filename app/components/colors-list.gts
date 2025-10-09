@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
-import type { Store } from 'ember-orbit';
+import { orbit, type Store } from 'ember-orbit';
 import type TransitionContext from 'ember-animated/-private/transition-context';
 import AnimatedContainer from 'ember-animated/components/animated-container';
 import AnimatedEach from 'ember-animated/components/animated-each';
@@ -41,7 +41,8 @@ export default class ColorsListComponent extends Component<ColorsListSignature> 
       {{/AnimatedEach}}
     </AnimatedContainer>
   </template>
-  @service declare store: Store;
+
+  @orbit declare store: Store;
   @service declare undoManager: UndoManager;
 
   get sortedColors(): Array<SelectedColorModel> {

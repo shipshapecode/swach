@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
-import type { LiveQuery, Store } from 'ember-orbit';
+import { orbit, type LiveQuery, type Store } from 'ember-orbit';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import type { RecordOperationTerm } from '@orbit/records';
 import AnimatedDragSortList from './animated-drag-sort-list.gts';
@@ -75,7 +75,9 @@ export default class PalettesListComponent extends Component<PalettesListSignatu
       {{/if}}
     </div>
   </template>
-  @service declare store: Store;
+
+  @orbit declare store: Store;
+
   @service declare undoManager: UndoManager;
 
   get palettes(): PaletteModel[] {

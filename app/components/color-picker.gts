@@ -7,7 +7,7 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import type { Store } from 'ember-orbit';
+import { orbit, type Store } from 'ember-orbit';
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
 import { rgbaToHex } from '../data-models/color.ts';
@@ -206,9 +206,11 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
       </div>
     {{/if}}
   </template>
+
+  @orbit declare store: Store;
+
   @service declare nearestColor: NearestColor;
   @service declare router: Router;
-  @service declare store: Store;
   @service declare undoManager: UndoManager;
 
   colorPicker?: iro.ColorPicker;

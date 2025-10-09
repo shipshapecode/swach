@@ -1,15 +1,16 @@
 import Route from '@ember/routing/route';
 import type Transition from '@ember/routing/transition';
 import { service } from '@ember/service';
-import type { LiveQuery, Store } from 'ember-orbit';
 import { storageFor } from 'ember-local-storage';
+import { orbit, type LiveQuery, type Store } from 'ember-orbit';
 import type Session from 'swach/services/session';
 import type { SettingsStorage } from 'swach/storages/settings';
 import viewTransitions from 'swach/utils/view-transitions';
 
 export default class PalettesRoute extends Route {
+  @orbit declare store: Store;
+
   @service declare session: Session;
-  @service declare store: Store;
 
   @storageFor('settings') settings!: SettingsStorage;
 

@@ -354,8 +354,8 @@ importers:
         specifier: ^4.2.2
         version: 4.2.2(@babel/core@7.28.4)
       ember-orbit:
-        specifier: ^0.18.0
-        version: 0.18.0(@babel/core@7.28.4)(ember-source@5.12.0(@glimmer/component@2.0.0)(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.101.2))
+        specifier: ^0.19.3
+        version: 0.19.3(@babel/core@7.28.4)(ember-source@5.12.0(@glimmer/component@2.0.0)(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.101.2))
       ember-qunit:
         specifier: ^9.0.3
         version: 9.0.3(@ember/test-helpers@5.2.2(@babel/core@7.28.4)(@glint/template@1.5.2))(@glint/template@1.5.2)(qunit@2.24.1)
@@ -5260,8 +5260,8 @@ packages:
   ember-modifier@4.2.2:
     resolution: {integrity: sha512-pPYBAGyczX0hedGWQFQOEiL9s45KS9efKxJxUQkMLjQyh+1Uef1mcmAGsdw2KmvNupITkE/nXxmVO1kZ9tt3ag==}
 
-  ember-orbit@0.18.0:
-    resolution: {integrity: sha512-pnR1PPrZW185L20I3/82QYLZ/BKcJBf0uSOYaTHmRVyV6aScPc53EeLo990mXvX51unxDy7Ch7fIR3kUZe+Fsg==}
+  ember-orbit@0.19.3:
+    resolution: {integrity: sha512-gmeNRVJc1ZL+LIAqi8uz03zO3Dyc3SiSXejj49Lc1PDAa8qu8qWioBEF0I0SD1kXZqJlxJA0pJL7AMEgHMvO3w==}
     engines: {node: '>= 20.11'}
     peerDependencies:
       ember-source: '>= 4.0.0'
@@ -17503,7 +17503,7 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  ember-orbit@0.18.0(@babel/core@7.28.4)(ember-source@5.12.0(@glimmer/component@2.0.0)(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.101.2)):
+  ember-orbit@0.19.3(@babel/core@7.28.4)(ember-source@5.12.0(@glimmer/component@2.0.0)(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.101.2)):
     dependencies:
       '@embroider/addon-shim': 1.10.0
       '@orbit/coordinator': 0.17.0

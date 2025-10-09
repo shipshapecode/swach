@@ -5,7 +5,7 @@ import { service } from '@ember/service';
 import { capitalize } from '@ember/string';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import type { Store } from 'ember-orbit';
+import { orbit, type Store } from 'ember-orbit';
 import eq from 'ember-truth-helpers/helpers/eq';
 import isEmpty from 'ember-truth-helpers/helpers/is-empty';
 import not from 'ember-truth-helpers/helpers/not';
@@ -111,8 +111,10 @@ export default class KulerComponent extends Component<KulerSignature> {
       </div>
     {{/if}}
   </template>
+
+  @orbit declare store: Store;
+
   @service declare colorUtils: ColorUtils;
-  @service declare store: Store;
 
   _debouncedColorChange!: (color: iro.Color | string) => void;
   colorPicker!: iro.ColorPicker;

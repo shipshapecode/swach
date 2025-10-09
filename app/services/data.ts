@@ -1,6 +1,6 @@
 import Service, { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import type { Store } from 'ember-orbit';
+import { orbit, type Store } from 'ember-orbit';
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type JSONAPISource from '@orbit/jsonapi';
@@ -9,9 +9,11 @@ import type Palette from 'swach/data-models/palette';
 import type Session from 'swach/services/session';
 
 export default class DataService extends Service {
-  @service dataCoordinator!: Coordinator;
+  @orbit dataCoordinator!: Coordinator;
+  @orbit declare store: Store;
+
   @service declare session: Session;
-  @service declare store: Store;
+
   @tracked colorHistory: Palette | undefined;
   isActivated = false;
 
@@ -95,9 +97,10 @@ export default class DataService extends Service {
   }
 
   private async getRecordsFromBackup(): Promise<InitializedRecord[]> {
-    const records = await this.dataCoordinator
-      .getSource<IndexedDBSource>('backup')
-      .query<InitializedRecord[]>((q) => q.findRecords());
+    const backup = this.dataCoordinator.getSource<IndexedDBSource>('backup');
+    const records = await backup.query<InitializedRecord[]>((q) =>
+      q.findRecords()
+    );
 
     if (records?.length > 0) {
       // If a data migration has been loaded that requires the recreation of
@@ -110,14 +113,12 @@ export default class DataService extends Service {
       if (
         // @ts-expect-error This is a hacked property until we have a real one to use in ember-orbit
         // prettier-ignore
-        this.dataCoordinator.getSource<IndexedDBSource>('backup').recreateInverseRelationshipsOnLoad
+        backup.recreateInverseRelationshipsOnLoad
       ) {
         // @ts-expect-error This is a hacked property until we have a real one to use in ember-orbit
         // prettier-ignore
-        this.dataCoordinator.getSource<IndexedDBSource>('backup').recreateInverseRelationshipsOnLoad = false;
-        await this.dataCoordinator
-          .getSource<IndexedDBSource>('backup')
-          .sync((t) => records.map((r) => t.addRecord(r)));
+        backup.recreateInverseRelationshipsOnLoad = false;
+        await backup.sync((t) => records.map((r) => t.addRecord(r)));
       }
 
       return records;
@@ -128,11 +129,11 @@ export default class DataService extends Service {
 
   private async getPalettesFromRemote(): Promise<InitializedRecord[]> {
     if (this.session.isAuthenticated) {
-      const remotePaletteRecords = await this.dataCoordinator
-        .getSource<JSONAPISource>('remote')
-        .query<
-          InitializedRecord[]
-        >((q) => q.findRecords('palette'), { include: ['colors'] });
+      const remote = this.dataCoordinator.getSource<JSONAPISource>('remote');
+      const remotePaletteRecords = await remote.query<InitializedRecord[]>(
+        (q) => q.findRecords('palette'),
+        { include: ['colors'] }
+      );
 
       if (remotePaletteRecords?.length > 0) {
         return remotePaletteRecords;
@@ -173,35 +174,34 @@ export default class DataService extends Service {
         });
 
         if (colors.length > 0) {
-          await this.dataCoordinator
-            .getSource<JSONAPISource>('remote')
-            .update<
-              InitializedRecord[]
-            >((t) => colors.map((r) => t.addRecord(r)), { parallelRequests: true });
+          await remote.update<InitializedRecord[]>(
+            (t) => colors.map((r) => t.addRecord(r)),
+            { parallelRequests: true }
+          );
         }
 
         if (palettes.length > 0) {
-          await this.dataCoordinator
-            .getSource<JSONAPISource>('remote')
-            .update<
-              InitializedRecord[]
-            >((t) => palettes.map((r) => t.addRecord(r)), { parallelRequests: true });
+          await remote.update<InitializedRecord[]>(
+            (t) => palettes.map((r) => t.addRecord(r)),
+            { parallelRequests: true }
+          );
         }
 
         if (paletteColors.length > 0) {
-          await this.dataCoordinator
-            .getSource<JSONAPISource>('remote')
-            .update<
-              InitializedRecord[]
-            >((t) => paletteColors.map((p) => t.replaceRelatedRecords(p.palette, 'colors', p.colors)), { parallelRequests: true });
+          await remote.update<InitializedRecord[]>(
+            (t) =>
+              paletteColors.map((p) =>
+                t.replaceRelatedRecords(p.palette, 'colors', p.colors)
+              ),
+            { parallelRequests: true }
+          );
         }
 
         // Re-fetch palettes and colors from remote
-        return this.dataCoordinator
-          .getSource<JSONAPISource>('remote')
-          .query<
-            InitializedRecord[]
-          >((q) => q.findRecords('palette'), { include: ['colors'] });
+        return remote.query<InitializedRecord[]>(
+          (q) => q.findRecords('palette'),
+          { include: ['colors'] }
+        );
       }
     } else {
       return [];

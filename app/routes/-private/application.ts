@@ -3,6 +3,7 @@ import Route from '@ember/routing/route';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { setupOrbit } from 'ember-orbit';
+import { isTesting } from '@embroider/macros';
 import type DataService from 'swach/services/data';
 import type Session from 'swach/services/session';
 
@@ -22,13 +23,15 @@ export default class ApplicationRoute extends Route {
   @service declare session: Session;
 
   async beforeModel(): Promise<void> {
-    const owner = getOwner(this);
+    if (!isTesting()) {
+      const owner = getOwner(this);
 
-    setupOrbit(owner!, {
-      ...dataModels,
-      ...dataSources,
-      ...dataStrategies,
-    });
+      setupOrbit(owner!, {
+        ...dataModels,
+        ...dataSources,
+        ...dataStrategies,
+      });
+    }
 
     await this.session.setup();
 

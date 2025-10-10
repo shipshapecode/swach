@@ -16,7 +16,7 @@ export const ToggleSwitch: TOC<ToggleSwitchSignature> = <template>
 
     <button
       aria-pressed="{{@checked}}"
-      class="relative inline-flex shrink-0 h-8 w-16 border-2 border-transparent rounded-full transition-colors ease-in-out duration-200 focus:outline-none
+      class="relative inline-flex shrink-0 h-8 w-16 border-2 border-transparent rounded-full transition-colors ease-in-out duration-200 focus:outline-hidden
         {{if @checked 'bg-green-400' 'bg-gray-200'}}"
       type="button"
       {{on "click" @onClick}}

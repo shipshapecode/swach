@@ -9,7 +9,7 @@ export default RouteTemplate<{
   };
 }>(
   <template>
-    <div class="bg-menu p-4 rounded w-full">
+    <div class="bg-menu p-4 rounded-sm w-full">
       <div class="pt-4 w-full">
         {{#if @model.email}}
           <h2 class="font-bold mb-6 text-2xl">

@@ -35,7 +35,7 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
           <label class="flex items-center mb-1">
             <Input
               data-test-settings-startup
-              class="form-checkbox h-4 mr-2 text-checkbox rounded w-4"
+              class="form-checkbox h-4 mr-2 text-checkbox rounded-sm w-4"
               @type="checkbox"
               @checked={{this.settings.openOnStartup}}
               {{on "change" @enableDisableAutoStart}}
@@ -49,7 +49,7 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
           <label class="flex items-center mb-1">
             <Input
               data-test-settings-show-dock-icon
-              class="form-checkbox h-4 mr-2 text-checkbox rounded w-4"
+              class="form-checkbox h-4 mr-2 text-checkbox rounded-sm w-4"
               @type="checkbox"
               @checked={{this.settings.showDockIcon}}
               {{on "change" @toggleShowDockIcon}}
@@ -62,7 +62,7 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
         <label class="flex items-center mb-1">
           <Input
             data-test-settings-sounds
-            class="form-checkbox h-4 mr-2 text-checkbox rounded w-4"
+            class="form-checkbox h-4 mr-2 text-checkbox rounded-sm w-4"
             @type="checkbox"
             @checked={{this.settings.sounds}}
           />
@@ -72,7 +72,7 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
 
         <label class="flex items-center mb-1">
           <Input
-            class="form-checkbox h-4 mr-2 text-checkbox rounded w-4"
+            class="form-checkbox h-4 mr-2 text-checkbox rounded-sm w-4"
             @type="checkbox"
             @checked={{this.settings.notifications}}
           />

@@ -26,7 +26,7 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
   <template>
     <div class="inline-flex mt-2 w-full">
       <div
-        class="input inline-block mr-2 overflow-hidden rounded whitespace-nowrap"
+        class="input inline-block mr-2 overflow-hidden rounded-sm whitespace-nowrap"
       >
         <HexInput
           data-test-kuler-hex

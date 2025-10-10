@@ -9,7 +9,7 @@ import type CognitoService from 'ember-cognito/services/cognito';
 
 export default class RegisterConfirm extends Component {
   <template>
-    <div class="bg-menu p-4 rounded w-full">
+    <div class="bg-menu p-4 rounded-sm w-full">
       <div class="flex justify-between pt-4 w-full">
         <h2 class="font-bold text-2xl">
           Confirm Registration
@@ -17,7 +17,7 @@ export default class RegisterConfirm extends Component {
       </div>
 
       {{#if this.errorMessage}}
-        <div class="bg-red-400 my-2 p-4 rounded text-xs text-red-800">
+        <div class="bg-red-400 my-2 p-4 rounded-sm text-xs text-red-800">
           {{this.errorMessage}}
         </div>
       {{/if}}
@@ -32,7 +32,7 @@ export default class RegisterConfirm extends Component {
             <Input
               data-test-register-input-user
               autocomplete="email"
-              class="input py-2 rounded-sm text-sm w-full"
+              class="input py-2 rounded-xs text-sm w-full"
               id="email-address"
               name="email"
               placeholder="Email address"
@@ -49,7 +49,7 @@ export default class RegisterConfirm extends Component {
 
             <Input
               data-test-register-input-code
-              class="input py-2 rounded-sm text-sm w-full"
+              class="input py-2 rounded-xs text-sm w-full"
               id="confirmation-code"
               name="confirmation-code"
               placeholder="Confirmation code"

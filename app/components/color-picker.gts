@@ -38,7 +38,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
   <template>
     {{#if @isShown}}
       <div
-        class="color-picker-popover bg-main border-menu fixed left-0 !top-[49px] h-full m-0 pb-4 px-2 pt-4 text-alt w-screen"
+        class="color-picker-popover bg-main border-menu fixed left-0 top-[49px]! h-full m-0 pb-4 px-2 pt-4 text-alt w-screen"
       >
         <div
           class="h-full relative w-full"
@@ -47,7 +47,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
         >
           <ColorRow @color={{this._selectedColor}} @showActions={{false}} />
 
-          <div class="bg-menu flex p-4 relative rounded">
+          <div class="bg-menu flex p-4 relative rounded-sm">
             <div
               class="flex-1 w-auto"
               id="color-picker-container"
@@ -58,7 +58,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
             <div class="absolute grow mt-4 mr-4 right-0 top-0">
               <HexInput
                 data-test-color-picker-hex
-                class="input rounded mb-4 w-24"
+                class="input rounded-sm mb-4 w-24"
                 @selectedColor={{this._selectedColor}}
                 @update={{fn this.updateColorInputs "hex"}}
                 @updateColor={{this.updateColor}}
@@ -123,7 +123,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
           </div>
 
           <div class="flex w-full">
-            <div class="bg-menu flex-1 mt-3 mr-3 px-2 py-4 relative rounded">
+            <div class="bg-menu flex-1 mt-3 mr-3 px-2 py-4 relative rounded-sm">
               <div class="flex flex-col h-full w-full">
                 <div
                   class="font-medium text-xxs text-main-text w-full whitespace-nowrap"
@@ -137,7 +137,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
               </div>
             </div>
 
-            <div class="bg-menu flex-1 mt-3 px-2 py-4 relative rounded">
+            <div class="bg-menu flex-1 mt-3 px-2 py-4 relative rounded-sm">
               <div class="flex flex-col h-full w-full">
                 <div
                   class="font-medium text-xxs text-main-text w-full whitespace-nowrap"
@@ -153,7 +153,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
           </div>
 
           <div class="flex w-full">
-            <div class="bg-menu flex-1 mt-3 mr-3 px-2 py-4 relative rounded">
+            <div class="bg-menu flex-1 mt-3 mr-3 px-2 py-4 relative rounded-sm">
               <div class="flex flex-col h-full w-full">
                 <div
                   class="font-medium text-xxs text-main-text w-full whitespace-nowrap"
@@ -167,7 +167,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
               </div>
             </div>
 
-            <div class="bg-menu flex-1 mt-3 px-2 py-4 relative rounded">
+            <div class="bg-menu flex-1 mt-3 px-2 py-4 relative rounded-sm">
               <div class="flex flex-col h-full w-full">
                 <div
                   class="font-medium text-xxs text-main-text w-full whitespace-nowrap"

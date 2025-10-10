@@ -2,5 +2,5 @@
    Three-Dots
    ------------------------------ */
 
-@import '_variables.css';
-@import '_dot-typing.css';
+@import './_variables.css';
+@import './_dot-typing.css';

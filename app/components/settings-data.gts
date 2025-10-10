@@ -33,8 +33,8 @@ export default class SettingsData extends Component {
       <OptionsMenu
         data-test-settings-format-dropdown
         class="my-4 w-full"
-        @optionsClasses="divide-y divide-alt !p-0 w-full"
-        @triggerClasses="bg-menu font-medium inline-flex justify-between px-4 py-2 rounded-md text-sm text-menu-text w-full focus:outline-none"
+        @optionsClasses="divide-y divide-alt p-0! w-full"
+        @triggerClasses="bg-menu font-medium inline-flex justify-between px-4 py-2 rounded-md text-sm text-menu-text w-full focus:outline-hidden"
       >
         <:trigger>
           {{this.settings.defaultColorFormat}}

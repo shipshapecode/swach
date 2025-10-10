@@ -1,53 +1,130 @@
-@tailwind base;
-@tailwind components;
+@import 'tailwindcss';
 
-.alert {
-  @apply mt-3 p-3 rounded text-sm;
+@plugin '@tailwindcss/forms' {
+  strategy: 'class';
 }
 
-.alert-danger {
-  @apply bg-red-400 text-red-800;
+@theme {
+  --fill-*: initial;
+  --fill-alt: var(--alt-color);
+  --fill-alt-hover: var(--alt-hover-color);
+
+  --fill-alt-__CSS_VALUES__: 7;
+  --fill-alt-__CSS_VALUES__-hover: 7;
+
+  --fill-alt-hover: var(--alt-hover-color);
+
+  --fill-main: var(--main-color);
+  --fill-main-text: var(--main-text);
+
+  --fill-main-__CSS_VALUES__: 7;
+  --fill-main-__CSS_VALUES__-text: 7;
+
+  --stroke-*: initial;
+  --stroke-alt: var(--alt-color);
+  --stroke-alt-hover: var(--alt-hover-color);
+
+  --stroke-alt-__CSS_VALUES__: 7;
+  --stroke-alt-__CSS_VALUES__-hover: 7;
+
+  --stroke-alt-hover: var(--alt-hover-color);
+
+  --stroke-main: var(--main-color);
+  --stroke-main-text: var(--main-text);
+
+  --stroke-main-__CSS_VALUES__: 7;
+  --stroke-main-__CSS_VALUES__-text: 7;
+
+  --color-alt: var(--alt-color);
+  --color-alt-hover: var(--alt-hover-color);
+  --color-btn-bg-primary: var(--btn-bg-primary);
+  --color-btn-bg-primary-hover: var(--btn-bg-primary-hover);
+  --color-btn-bg-secondary: var(--btn-bg-secondary);
+  --color-btn-bg-secondary-hover: var(--btn-bg-secondary-hover);
+  --color-btn-text-primary: var(--btn-text-primary);
+  --color-btn-text-secondary: var(--btn-text-secondary);
+  --color-checkbox: var(--checkbox);
+  --color-heading: var(--heading-color);
+  --color-input-bg: var(--input-bg);
+  --color-input-border: var(--input-border);
+  --color-main: var(--main-color);
+  --color-menu: var(--menu-color);
+  --color-menu-text: var(--menu-text-color);
+  --color-menu-text-hover: var(--menu-text-hover-color);
+  --color-main-text: var(--main-text);
+  --color-sub-text: var(--sub-text);
+
+  --text-smallest: 0.5rem;
+  --text-xxs: 0.65rem;
+
+  --width-36: 9rem;
 }
 
-.alert-success {
-  @apply bg-green-400 text-green-800;
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
 }
 
-.btn {
-  @apply bg-btn-bg-secondary cursor-default font-medium h-10 rounded text-btn-text-secondary text-sm transition-colors;
-}
+@layer components {
+  .alert {
+    @apply mt-3 p-3 rounded-sm text-sm;
+  }
 
-.btn:hover {
-  @apply bg-btn-bg-secondary-hover;
-}
+  .alert-danger {
+    @apply bg-red-400 text-red-800;
+  }
 
-.btn-primary {
-  @apply bg-btn-bg-primary text-btn-text-primary;
-}
+  .alert-success {
+    @apply bg-green-400 text-green-800;
+  }
 
-.btn-primary:hover {
-  @apply bg-btn-bg-primary-hover;
-}
+  .btn {
+    @apply bg-btn-bg-secondary cursor-default font-medium h-10 rounded-sm text-btn-text-secondary text-sm transition-colors;
+  }
 
-/* TODO: add this back when we can make inputs work correctly with @tailwindcss/forms
+  .btn:hover {
+    @apply bg-btn-bg-secondary-hover;
+  }
+
+  .btn-primary {
+    @apply bg-btn-bg-primary text-btn-text-primary;
+  }
+
+  .btn-primary:hover {
+    @apply bg-btn-bg-primary-hover;
+  }
+
+  /* TODO: add this back when we can make inputs work correctly with @tailwindcss/forms
 .form-checkbox {
   @apply border-gray-300 rounded text-checkbox focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
 } */
 
-.input {
-  @apply bg-input-bg border border-input-border pb-1 pl-2 pr-2 pt-1 text-main-text text-xs;
-}
+  .input {
+    @apply bg-input-bg border border-input-border pb-1 pl-2 pr-2 pt-1 text-main-text text-xs;
+  }
 
-.input-prefix {
-  @apply absolute flex h-full items-center left-0 ml-1 text-menu-text text-center text-smallest top-0;
-}
+  .input-prefix {
+    @apply absolute flex h-full items-center left-0 ml-1 text-menu-text text-center text-smallest top-0;
+  }
 
-.tab {
-  @apply text-center text-menu-text p-3 font-medium rounded-full text-sm hover:text-menu-text-hover;
-}
+  .tab {
+    @apply text-center text-menu-text p-3 font-medium rounded-full text-sm hover:text-menu-text-hover;
+  }
 
-.tab.active {
-  @apply bg-menu text-menu-text-hover;
+  .tab.active {
+    @apply bg-menu text-menu-text-hover;
+  }
 }
-
-@tailwind utilities;

@@ -129,7 +129,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
   <template>
     {{! template-lint-disable no-nested-interactive }}
     <div
-      class="bg-menu cursor-default mb-2 overflow-visible p-3 rounded w-full"
+      class="bg-menu cursor-default mb-2 overflow-visible p-3 rounded-sm w-full"
       data-test-palette-row="{{@palette.name}}"
       role="button"
       {{on "click" this.transitionToColors}}
@@ -146,7 +146,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
               type="text"
               {{didInsert this.insertedNameInput}}
               {{on "click" (stopPropagation (noop))}}
-              {{on "blur" this.stopEditing}}
+              {{on "blur-sm" this.stopEditing}}
               {{on "keypress" this.enterPress}}
               {{on "input" this.updatePaletteName}}
             />
@@ -192,7 +192,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       <div class="palette flex grow h-8 relative w-full">
         {{#unless @palette.colors.length}}
           <div
-            class="absolute bg-main border border-dashed border-gray-400 flex grow h-8 items-center justify-center rounded text-sm top-0 w-full"
+            class="absolute bg-main border border-dashed border-gray-400 flex grow h-8 items-center justify-center rounded-sm text-sm top-0 w-full"
           >
             Drag colors here
           </div>

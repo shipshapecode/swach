@@ -53,7 +53,7 @@ interface KulerSignature {
 
 export default class KulerComponent extends Component<KulerSignature> {
   <template>
-    <div class="bg-menu p-4 pb-8 rounded">
+    <div class="bg-menu p-4 pb-8 rounded-sm">
       <div class="mb-4">
         <select
           data-test-kuler-select
@@ -87,7 +87,7 @@ export default class KulerComponent extends Component<KulerSignature> {
     </h2>
 
     {{#if (not (isEmpty this.selectedPalette.selectedColorIndex))}}
-      <div class="bg-menu p-4 rounded">
+      <div class="bg-menu p-4 rounded-sm">
         <KulerPaletteRow
           @palette={{this.selectedPalette}}
           @setSelectedIroColor={{this.setSelectedIroColor}}

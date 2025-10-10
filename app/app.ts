@@ -6,6 +6,8 @@ import { importSync, isDevelopingApp, macroCondition } from '@embroider/macros';
 import compatModules from '@embroider/virtual/compat-modules';
 import config from 'swach/config/environment';
 
+import './styles/app.css';
+
 if (macroCondition(isDevelopingApp())) {
   importSync('./deprecation-workflow');
 }

@@ -19,7 +19,7 @@ export default RouteTemplate<{
     <div
       class="color-history-container bg-main fixed left-1/2 -translate-x-1/2 z-20"
     >
-      <div class="bg-menu flex flex-wrap h-32 p-2 rounded w-full">
+      <div class="bg-menu flex flex-wrap h-32 p-2 rounded-sm w-full">
         <div
           class="cursor-default flex grow items-center justify-between mb-2 p-1 text-main-text text-sm w-full"
           {{on "click" (stopPropagation @controller.transitionToColorHistory)}}
@@ -73,11 +73,11 @@ export default RouteTemplate<{
             >
               <div
                 data-test-color-history-square={{color.name}}
-                class="absolute h-8 left-0 rounded top-0 w-8 z-10"
+                class="absolute h-8 left-0 rounded-sm top-0 w-8 z-10"
                 style={{htmlSafe (concat "background-color: " color.hex)}}
               ></div>
               <div
-                class="opacity-checkerboard absolute h-8 left-0 rounded top-0 w-8 z-0"
+                class="opacity-checkerboard absolute h-8 left-0 rounded-sm top-0 w-8 z-0"
               ></div>
             </div>
           </DragSortList>

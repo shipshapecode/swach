@@ -21,7 +21,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
     <div class="w-full" ...attributes>
       <div
         data-test-contrast-preview
-        class="rounded w-full"
+        class="rounded-sm w-full"
         style={{htmlSafe
           (concat
             "background-color: "
@@ -43,7 +43,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
             <div class="flex grow justify-end">
               <div
                 data-test-wcag-score
-                class="h-8 leading-none p-2 rounded"
+                class="h-8 leading-none p-2 rounded-sm"
                 style={{htmlSafe
                   (concat
                     "background-color: "
@@ -84,7 +84,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
       </div>
 
       <div
-        class="bg-menu color-pickers-container flex justify-between mt-4 p-4 rounded w-full"
+        class="bg-menu color-pickers-container flex justify-between mt-4 p-4 rounded-sm w-full"
         style={{htmlSafe "-webkit-app-region: no-drag"}}
       >
         <div class="background-color-picker-container mr-2 w-full">
@@ -96,10 +96,10 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
           <div class="relative w-36">
             <input
               data-test-bg-input
-              class="input rounded mt-3 w-36"
+              class="input rounded-sm mt-3 w-36"
               type="text"
               value={{this.backgroundColor}}
-              {{on "blur" this.onBlurBg}}
+              {{on "blur-sm" this.onBlurBg}}
               {{on "keypress" this.enterPress}}
             />
 
@@ -122,10 +122,10 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
           <div class="relative w-36">
             <input
               data-test-fg-input
-              class="input rounded mt-3 w-36"
+              class="input rounded-sm mt-3 w-36"
               type="text"
               value={{this.foregroundColor}}
-              {{on "blur" this.onBlurFg}}
+              {{on "blur-sm" this.onBlurFg}}
               {{on "keypress" this.enterPress}}
             />
 

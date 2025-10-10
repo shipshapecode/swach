@@ -98,7 +98,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
               class="input rounded-sm mt-3 w-36"
               type="text"
               value={{this.backgroundColor}}
-              {{on "blur-sm" this.onBlurBg}}
+              {{on "blur" this.onBlurBg}}
               {{on "keypress" this.enterPress}}
             />
 
@@ -124,7 +124,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
               class="input rounded-sm mt-3 w-36"
               type="text"
               value={{this.foregroundColor}}
-              {{on "blur-sm" this.onBlurFg}}
+              {{on "blur" this.onBlurFg}}
               {{on "keypress" this.enterPress}}
             />
 

@@ -145,7 +145,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
               type="text"
               {{didInsert this.insertedNameInput}}
               {{on "click" (stopPropagation (noop))}}
-              {{on "blur-sm" this.stopEditing}}
+              {{on "blur" this.stopEditing}}
               {{on "keypress" this.enterPress}}
               {{on "input" this.updatePaletteName}}
             />

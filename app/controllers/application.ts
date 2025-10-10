@@ -96,6 +96,7 @@ export default class ApplicationController extends Controller {
   constructor() {
     super(...arguments);
 
+    debugger;
     if (typeof requireNode !== 'undefined') {
       const { ipcRenderer } = requireNode('electron');
 

@@ -19,8 +19,10 @@ const dataStrategies = import.meta.glob('../app/data-strategies/*.{js,ts}', {
 export async function waitForAll() {
   const coordinator = orbitRegistry.services.dataCoordinator;
 
-  for (const source of coordinator.sources) {
-    await waitForSource(source);
+  if (coordinator) {
+    for (const source of coordinator.sources) {
+      await waitForSource(source);
+    }
   }
 
   await settled();

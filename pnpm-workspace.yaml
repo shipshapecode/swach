@@ -1,9 +1,0 @@
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - '@sentry/cli'
-  - core-js
-  - electron
-  - electron-winstaller
-  - fs-xattr
-  - fsevents
-  - macos-alias

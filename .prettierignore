@@ -18,8 +18,6 @@ ember-cli-update.json
 # ember-electron
 /electron-app/node_modules/
 /electron-app/out/
-/electron-app/ember-dist/
-/electron-app/ember-test/
 
 # Sentry
 /electron-app/sentry-symbols.js

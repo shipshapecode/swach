@@ -4,7 +4,7 @@ import { init } from '@sentry/electron';
 import { ipcMain, nativeTheme } from 'electron';
 import isDev from 'electron-is-dev';
 import Store from 'electron-store';
-import { menubar } from 'menubar';
+import { menubar, type Menubar } from 'menubar';
 import pkg from '../../package.json';
 import { setupUpdateServer } from './auto-update.js';
 import { launchPicker } from './color-picker.js';
@@ -21,8 +21,6 @@ import {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const emberAppDir = resolve(__dirname, '..', 'ember-dist');
-
 init({
   appName: 'swach',
   dsn: 'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140',
@@ -36,7 +34,10 @@ const store = new Store({
   },
 });
 
-let emberAppURL = pathToFileURL(join(emberAppDir, 'index.html')).toString();
+const emberAppDir = resolve(__dirname, '..', 'dist');
+let emberAppURL = isDev
+  ? 'http://localhost:4200'
+  : pathToFileURL(join(emberAppDir, 'index.html')).toString();
 
 // On first boot of the application, go through the welcome screen
 if (store.get('firstRunV1')) {
@@ -44,7 +45,7 @@ if (store.get('firstRunV1')) {
   store.set('firstRunV1', false);
 }
 
-function openContrastChecker(mb) {
+function openContrastChecker(mb: Menubar) {
   mb.showWindow();
   mb.window.webContents.send('openContrastChecker');
 }

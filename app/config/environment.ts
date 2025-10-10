@@ -26,6 +26,7 @@ assert(
 
 export default config as {
   modulePrefix: string;
+  podModulePrefix?: string;
   locationType: string;
   rootURL: string;
   APP: Record<string, unknown>;

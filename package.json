@@ -122,7 +122,6 @@
     "concurrently": "^9.2.1",
     "decorator-transforms": "^2.3.0",
     "electron": "^37.6.1",
-    "electron-debug": "^3.2.0",
     "electron-download": "^4.1.1",
     "ember-animated": "^2.2.0",
     "ember-animated-tools": "^2.0.0",

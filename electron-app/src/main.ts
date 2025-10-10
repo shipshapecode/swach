@@ -23,14 +23,6 @@ const __dirname = dirname(__filename);
 
 const emberAppDir = resolve(__dirname, '..', 'ember-dist');
 
-if (isDev) {
-  import('electron-debug')
-    .then(({ default: debug }) => {
-      debug({ showDevTools: false });
-    })
-    .catch(() => {});
-}
-
 init({
   appName: 'swach',
   dsn: 'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140',
@@ -75,7 +67,7 @@ const mb = menubar({
       nodeIntegration: true,
     },
   },
-  icon: join(__dirname, '..', menubarIcon),
+  icon: join(__dirname, '../../electron-app', menubarIcon),
   preloadWindow: true,
   showDockIcon: store.get('showDockIcon'),
   showOnAllWorkspaces: false,

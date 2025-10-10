@@ -11,7 +11,6 @@ import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type { InitializedRecord } from '@orbit/records';
-import type { IpcRenderer } from 'electron';
 import IDBExportImport from 'indexeddb-export-import';
 import LoadingButton from './loading-button.gts';
 import OptionsMenu from './options-menu.gts';
@@ -89,7 +88,7 @@ export default class SettingsData extends Component {
 
   @storageFor('settings') settings!: SettingsStorage;
 
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
 
   colorFormats = ['hex', 'hsl', 'rgba'] as const;
   @tracked isExporting = false;
@@ -98,8 +97,8 @@ export default class SettingsData extends Component {
   constructor(owner: Owner, args: Record<string, unknown>) {
     super(owner, args);
 
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      const { ipcRenderer } = window.electronAPI;
 
       this.ipcRenderer = ipcRenderer;
     }

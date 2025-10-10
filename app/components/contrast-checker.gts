@@ -8,7 +8,6 @@ import { tracked } from '@glimmer/tracking';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import { type IroColorValue } from '@irojs/iro-core';
 import iro from '@jaames/iro';
-import type { IpcRenderer } from 'electron';
 import { hex, score } from 'wcag-contrast';
 import htmlSafe from '../helpers/html-safe.ts';
 
@@ -146,7 +145,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
 
   declare bgPickr: iro.ColorPicker;
   declare fgPickr: iro.ColorPicker;
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
   declare onBgChange: (color?: iro.Color) => void;
   declare onFgChange: (color?: iro.Color) => void;
 
@@ -161,24 +160,18 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
   constructor(owner: Owner, args: object) {
     super(owner, args);
 
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      const { ipcRenderer } = window.electronAPI;
 
       this.ipcRenderer = ipcRenderer;
 
-      this.ipcRenderer.on(
-        'pickContrastBgColor',
-        (_event, color: IroColorValue) => {
-          this.setBgColor(color);
-        }
-      );
+      this.ipcRenderer.on('pickContrastBgColor', (color: IroColorValue) => {
+        this.setBgColor(color);
+      });
 
-      this.ipcRenderer.on(
-        'pickContrastFgColor',
-        (_event, color: IroColorValue) => {
-          this.setFgColor(color);
-        }
-      );
+      this.ipcRenderer.on('pickContrastFgColor', (color: IroColorValue) => {
+        this.setFgColor(color);
+      });
     }
   }
 

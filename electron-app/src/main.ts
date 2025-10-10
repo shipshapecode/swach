@@ -62,10 +62,10 @@ const mb = menubar({
     resizable: false,
     width: 362,
     webPreferences: {
-      contextIsolation: false,
+      contextIsolation: true,
       devTools: isDev,
       preload: join(__dirname, 'preload.js'),
-      nodeIntegration: true,
+      nodeIntegration: false,
     },
   },
   icon: join(__dirname, '../../electron-app', menubarIcon),

@@ -449,7 +449,7 @@ module('Acceptance | palettes', function (hooks) {
   });
 
   // Ember specific tests
-  if (typeof requireNode === 'undefined') {
+  if (!(typeof window !== 'undefined' && window.electronAPI)) {
     test('creating palettes and undo / redo', async function (assert) {
       await visit('/palettes');
 

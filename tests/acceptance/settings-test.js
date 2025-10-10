@@ -34,14 +34,14 @@ module('Acceptance | settings', function (hooks) {
   });
 
   // Ember specific tests
-  if (typeof requireNode === 'undefined') {
+  if (!(typeof window !== 'undefined' && window.electronAPI)) {
     test('has five inputs', function (assert) {
       assert.dom('[data-test-settings-menu] input').exists({ count: 5 });
     });
   }
 
   // Electron specific tests
-  if (typeof requireNode !== 'undefined') {
+  if (typeof window !== 'undefined' && window.electronAPI) {
     // TODO: these are different for Mac/Windows vs Linux, so we need specific platform tests
     // test('has seven inputs', function (assert) {
     //   assert.dom('[data-test-settings-menu] input').exists({ count: 7 });

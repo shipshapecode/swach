@@ -15,18 +15,18 @@ export default defineConfig({
     }),
   ],
 
-  build: {
-    rollupOptions: {
-      // Use a function to determine what should be external - let Embroider handle Ember packages
-      external: (id) => {
-        // Let Embroider handle all Ember framework packages and addons
-        return (
-          id.startsWith('@ember/') ||
-          id.startsWith('@glimmer/') ||
-          id.startsWith('ember-') ||
-          id.includes('decorator-transforms')
-        );
-      },
-    },
-  },
+  // build: {
+  //   rollupOptions: {
+  //     // Use a function to determine what should be external - let Embroider handle Ember packages
+  //     external: (id) => {
+  //       // Let Embroider handle all Ember framework packages and addons
+  //       return (
+  //         id.startsWith('@ember/') ||
+  //         id.startsWith('@glimmer/') ||
+  //         id.startsWith('ember-') ||
+  //         id.includes('decorator-transforms')
+  //       );
+  //     },
+  //   },
+  // },
 });

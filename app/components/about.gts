@@ -3,7 +3,6 @@ import { action } from '@ember/object';
 import type Owner from '@ember/owner';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import type { IpcRenderer } from 'electron';
 
 interface AboutSignature {
   Element: HTMLDivElement;
@@ -38,7 +37,7 @@ export default class AboutComponent extends Component<AboutSignature> {
       </p>
     </div>
   </template>
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
 
   copyrightYear = new Date().getFullYear();
   @tracked version = 'Version not available';
@@ -46,8 +45,8 @@ export default class AboutComponent extends Component<AboutSignature> {
   constructor(owner: Owner, args: Record<string, unknown>) {
     super(owner, args);
 
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      const { ipcRenderer } = window.electronAPI;
 
       this.ipcRenderer = ipcRenderer;
 
@@ -61,7 +60,7 @@ export default class AboutComponent extends Component<AboutSignature> {
   visitWebsite(event: Event): void {
     event.preventDefault();
 
-    if (typeof requireNode !== 'undefined') {
+    if (typeof window !== 'undefined' && window.electronAPI) {
       void this.ipcRenderer.invoke('open-external', 'https://swach.io/');
     }
   }

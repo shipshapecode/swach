@@ -1,6 +1,5 @@
 import Service from '@ember/service';
 import { orbit, type Store } from 'ember-orbit';
-import type { IpcRenderer } from 'electron';
 import removeFromTo from 'swach/utils/remove-from-to';
 
 export default class UndoManager extends Service {
@@ -12,7 +11,7 @@ export default class UndoManager extends Service {
     redo: () => Promise<void>;
   }[] = [];
   index = -1;
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
   isExecuting = false;
   limit = 0;
   undoListener?: (e: KeyboardEvent) => unknown;
@@ -21,13 +20,13 @@ export default class UndoManager extends Service {
     super(...arguments);
 
     // If we have Electron running, use the application undo/redo, else use document
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      const { ipcRenderer } = window.electronAPI;
 
       this.ipcRenderer = ipcRenderer;
 
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      this.ipcRenderer.on('undoRedo', async (_event: unknown, type: string) => {
+      this.ipcRenderer.on('undoRedo', async (type: string) => {
         const isRedo = type === 'redo';
         const isUndo = type === 'undo';
 
@@ -54,7 +53,10 @@ export default class UndoManager extends Service {
   willDestroy(): void {
     super.willDestroy();
 
-    if (typeof requireNode === 'undefined' && this.undoListener) {
+    if (
+      !(typeof window !== 'undefined' && window.electronAPI) &&
+      this.undoListener
+    ) {
       document.removeEventListener('keydown', this.undoListener, true);
     }
 

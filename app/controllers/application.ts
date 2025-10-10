@@ -7,7 +7,6 @@ import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
 import { orbit, type Store } from 'ember-orbit';
 import type { RecordSchema } from '@orbit/records';
-import type { IpcRenderer } from 'electron';
 import type { SelectedColorModel } from 'swach/components/rgb-input';
 import type ColorModel from 'swach/data-models/color';
 import type ColorUtils from 'swach/services/color-utils';
@@ -29,7 +28,7 @@ export default class ApplicationController extends Controller {
 
   @storageFor('settings') settings!: SettingsStorage;
 
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
 
   @tracked colorPickerColor?: SelectedColorModel;
   @tracked colorPickerIsShown = false;
@@ -96,16 +95,13 @@ export default class ApplicationController extends Controller {
   constructor() {
     super(...arguments);
 
-    debugger;
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
-
-      this.ipcRenderer = ipcRenderer;
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      this.ipcRenderer = window.electronAPI.ipcRenderer;
 
       this.ipcRenderer.on(
         'changeColor',
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        async (_event: unknown, color: string) => {
+        async (color: string) => {
           const addedColor = await this.addColor(color);
 
           if (addedColor) {
@@ -121,7 +117,7 @@ export default class ApplicationController extends Controller {
       this.ipcRenderer.on(
         'openSharedPalette',
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        async (_event: unknown, query: string) => {
+        async (query: string) => {
           const data = JSON.parse(decodeURIComponent(query)) as {
             colors?: { name: string; hex: string }[];
             name?: string;
@@ -133,7 +129,7 @@ export default class ApplicationController extends Controller {
         }
       );
 
-      this.ipcRenderer.on('setTheme', (_event: unknown, theme: string) => {
+      this.ipcRenderer.on('setTheme', (theme: string) => {
         this.settings.set('osTheme', theme);
       });
 

@@ -62,5 +62,16 @@ declare module '@glint/environment-ember-loose/registry' {
 }
 
 declare global {
-  declare function requireNode(name: string): any;
+  interface Window {
+    electronAPI: {
+      ipcRenderer: {
+        send: (channel: string, ...args: any[]) => void;
+        on: (channel: string, func: (...args: any[]) => void) => (...args: any[]) => void;
+        off: (channel: string, func: (...args: any[]) => void) => void;
+        once: (channel: string, func: (...args: any[]) => void) => void;
+        invoke: (channel: string, ...args: any[]) => Promise<any>;
+        removeAllListeners: (channel: string) => void;
+      };
+    };
+  }
 }

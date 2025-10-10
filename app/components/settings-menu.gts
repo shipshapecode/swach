@@ -8,7 +8,6 @@ import { tracked } from '@glimmer/tracking';
 import { storageFor } from 'ember-local-storage';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
-import type { IpcRenderer } from 'electron';
 import capitalize from '../helpers/capitalize.ts';
 import About from './about.gts';
 import LoadingButton from './loading-button.gts';
@@ -129,7 +128,7 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
   </template>
   @storageFor('settings') settings!: SettingsStorage;
 
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
   themes = ['light', 'dark', 'dynamic'] as const;
 
   @tracked platform?: string;
@@ -137,8 +136,8 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
   constructor(owner: Owner, args: SettingsMenuSignature['Args']) {
     super(owner, args);
 
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      const { ipcRenderer } = window.electronAPI;
 
       this.ipcRenderer = ipcRenderer;
 

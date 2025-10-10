@@ -12,7 +12,6 @@ import not from 'ember-truth-helpers/helpers/not';
 import notEq from 'ember-truth-helpers/helpers/not-eq';
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
-import type { IpcRenderer } from 'electron';
 import { debounce } from 'throttle-debounce';
 import capitalize0 from '../helpers/capitalize.ts';
 import EditSelectedColor from './edit-selected-color.gts';
@@ -119,7 +118,7 @@ export default class KulerComponent extends Component<KulerSignature> {
   _debouncedColorChange!: (color: iro.Color | string) => void;
   colorPicker!: iro.ColorPicker;
   harmonies = ['analogous', 'monochromatic', 'tetrad', 'triad'] as const;
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
 
   @tracked baseColor;
   @tracked colors = [];
@@ -135,22 +134,19 @@ export default class KulerComponent extends Component<KulerSignature> {
     void this.baseColorChanged().then(() => {
       this._setupColorWheel();
 
-      if (typeof requireNode !== 'undefined') {
-        const { ipcRenderer } = requireNode('electron');
+      if (typeof window !== 'undefined' && window.electronAPI) {
+        const { ipcRenderer } = window.electronAPI;
 
         this.ipcRenderer = ipcRenderer;
 
-        this.ipcRenderer.on(
-          'selectKulerColor',
-          (_event: unknown, colorIndex: number) => {
-            this.setSelectedIroColor(colorIndex);
-          }
-        );
+        this.ipcRenderer.on('selectKulerColor', (colorIndex: number) => {
+          this.setSelectedIroColor(colorIndex);
+        });
 
         this.ipcRenderer.on(
           'updateKulerColor',
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
-          async (_event: unknown, color: string | iro.Color) => {
+          async (color: string | iro.Color) => {
             await this._onColorChange(color);
             this.colorPicker.setColors(
               this.selectedPalette.colors.map((c) => c.hex),

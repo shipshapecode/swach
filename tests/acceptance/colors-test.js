@@ -119,7 +119,7 @@ module('Acceptance | colors', function (hooks) {
   });
 
   // Ember specific tests
-  if (typeof requireNode === 'undefined') {
+  if (!(typeof window !== 'undefined' && window.electronAPI)) {
     test('ember - deleting colors', async function (assert) {
       await visit('/colors?paletteId=color-history-123');
 
@@ -163,7 +163,7 @@ module('Acceptance | colors', function (hooks) {
   }
 
   // Electron specific tests
-  if (typeof requireNode !== 'undefined') {
+  if (typeof window !== 'undefined' && window.electronAPI) {
     // TODO: We need a way to manually trigger undo and redo in Electron
     // const { ipcRenderer } = requireNode('electron');
     // test('electron - deleting colors', async function (assert) {

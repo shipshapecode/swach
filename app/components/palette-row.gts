@@ -17,7 +17,6 @@ import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
 import not from 'ember-truth-helpers/helpers/not';
 import type { RecordSchema } from '@orbit/records';
-import type { IpcRenderer } from 'electron';
 import htmlSafe from '../helpers/html-safe.ts';
 import OptionsMenu from './options-menu.gts';
 import type ColorModel from 'swach/data-models/color';
@@ -247,7 +246,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
   @service declare router: Router;
   @service declare undoManager: UndoManager;
 
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
 
   menuItems: (MenuOption | FavoriteOption | LockOption)[] | null = null;
   fade = fade;
@@ -257,8 +256,8 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
   constructor(owner: Owner, args: PaletteRowSignature['Args']) {
     super(owner, args);
 
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      const { ipcRenderer } = window.electronAPI;
 
       this.ipcRenderer = ipcRenderer;
     }
@@ -410,7 +409,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
         JSON.stringify({ name, colors: urlColors })
       )}`;
 
-      if (typeof requireNode !== 'undefined') {
+      if (typeof window !== 'undefined' && window.electronAPI) {
         void this.ipcRenderer.invoke('open-external', url);
       }
     }

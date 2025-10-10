@@ -37,7 +37,7 @@ module('Acceptance | settings/data', function (hooks) {
   });
 
   // Electron specific tests
-  if (typeof requireNode !== 'undefined') {
+  if (typeof window !== 'undefined' && window.electronAPI) {
     test('export triggers success message', async function (assert) {
       await visit('/settings/data');
 

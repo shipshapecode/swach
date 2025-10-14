@@ -1,6 +1,6 @@
 import { setupTest } from 'ember-qunit';
 import { module, test } from 'qunit';
-import { orbitRegistry, type Store } from 'ember-orbit';
+import { getOrbitRegistry, type Store } from 'ember-orbit';
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type Palette from 'swach/data-models/palette';
@@ -18,6 +18,7 @@ module('Unit | Service | data', function (hooks) {
 
   hooks.beforeEach(function () {
     dataService = this.owner.lookup('service:data') as DataService;
+    const orbitRegistry = getOrbitRegistry(this.owner);
     dataCoordinator = orbitRegistry.services.dataCoordinator;
     backup = dataCoordinator.getSource<IndexedDBSource>('backup');
     store = orbitRegistry.services.store;

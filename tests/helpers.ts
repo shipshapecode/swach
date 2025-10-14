@@ -1,7 +1,8 @@
-import { settled } from '@ember/test-helpers';
+import { getContext, settled } from '@ember/test-helpers';
 import { animationsSettled } from 'ember-animated/test-support';
 import { waitForSource } from 'ember-orbit/test-support/index';
-import { orbitRegistry, setupOrbit } from 'ember-orbit';
+import type Owner from '@ember/owner';
+import { getOrbitRegistry, setupOrbit } from 'ember-orbit';
 import type { IndexedDBSource } from '@orbit/indexeddb';
 import type BucketClass from '@orbit/indexeddb-bucket';
 import seedOrbit from './orbit/seed';
@@ -17,11 +18,14 @@ const dataStrategies = import.meta.glob('../app/data-strategies/*.{js,ts}', {
 });
 
 export async function waitForAll() {
+  // @ts-expect-error This is fine.
+  const owner = getContext().owner;
+  const orbitRegistry = getOrbitRegistry(owner);
   const coordinator = orbitRegistry.services.dataCoordinator;
 
   if (coordinator) {
     for (const source of coordinator.sources) {
-      await waitForSource(source);
+      await waitForSource(source, owner);
     }
   }
 
@@ -41,6 +45,7 @@ export function resetStorage(
     });
 
     if (options.seed) {
+      const orbitRegistry = getOrbitRegistry(this.owner);
       const sourceName = options.seed.source ?? 'backup';
       const source = orbitRegistry.registrations.sources[sourceName];
       await seedOrbit(source, options.seed.scenario);
@@ -48,6 +53,7 @@ export function resetStorage(
   });
 
   hooks.afterEach(async function () {
+    const orbitRegistry = getOrbitRegistry(this.owner);
     const backup = orbitRegistry.registrations.sources
       .backup as IndexedDBSource;
 

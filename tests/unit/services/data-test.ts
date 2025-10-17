@@ -1,25 +1,11 @@
 import { setupTest } from 'ember-qunit';
 import { module, test } from 'qunit';
-import { getOrbitRegistry, setupOrbit, type Store } from 'ember-orbit';
+import { getOrbitRegistry, type Store } from 'ember-orbit';
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type Palette from 'swach/data-models/palette';
 import type DataService from 'swach/services/data';
 import { resetStorage } from 'swach/tests/helpers';
-import seedOrbit from 'swach/tests/orbit/seed';
-
-const dataModels = import.meta.glob('../../../app/data-models/*.{js,ts}', {
-  eager: true,
-});
-const dataSources = import.meta.glob('../../../app/data-sources/*.{js,ts}', {
-  eager: true,
-});
-const dataStrategies = import.meta.glob(
-  '../../../app/data-strategies/*.{js,ts}',
-  {
-    eager: true,
-  }
-);
 
 module('Unit | Service | data', function (hooks) {
   setupTest(hooks);
@@ -29,22 +15,16 @@ module('Unit | Service | data', function (hooks) {
   let backup: IndexedDBSource;
   let store: Store;
 
-  hooks.beforeEach(function () {
-    setupOrbit(this.owner, {
-      ...dataModels,
-      ...dataSources,
-      ...dataStrategies,
-    });
-
-    dataService = this.owner.lookup('service:data') as DataService;
-    const orbitRegistry = getOrbitRegistry(this.owner);
-    dataCoordinator = orbitRegistry.services.dataCoordinator;
-    backup = dataCoordinator.getSource<IndexedDBSource>('backup');
-    store = orbitRegistry.services.store;
-  });
-
   module('activate', function (hooks) {
     resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
+
+    hooks.beforeEach(function () {
+      dataService = this.owner.lookup('service:data') as DataService;
+      const orbitRegistry = getOrbitRegistry(this.owner);
+      dataCoordinator = orbitRegistry.services.dataCoordinator;
+      backup = dataCoordinator.getSource<IndexedDBSource>('backup');
+      store = orbitRegistry.services.store;
+    });
 
     test('loads records from backup and syncs them with the store', async function (assert) {
       const backupPalettes = await backup.query<Palette[]>((q) =>
@@ -70,6 +50,14 @@ module('Unit | Service | data', function (hooks) {
 
   module('synchronize', function (hooks) {
     resetStorage(hooks);
+
+    hooks.beforeEach(function () {
+      dataService = this.owner.lookup('service:data') as DataService;
+      const orbitRegistry = getOrbitRegistry(this.owner);
+      dataCoordinator = orbitRegistry.services.dataCoordinator;
+      backup = dataCoordinator.getSource<IndexedDBSource>('backup');
+      store = orbitRegistry.services.store;
+    });
 
     test('must be called after `activate`', async function (assert) {
       assert.notOk(dataService.isActivated);
@@ -165,10 +153,18 @@ module('Unit | Service | data', function (hooks) {
     });
   });
 
-  module('reset', function () {
-    test('clears backup + store', async function (assert) {
-      seedOrbit(backup);
+  module('reset', function (hooks) {
+    resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
+    hooks.beforeEach(function () {
+      dataService = this.owner.lookup('service:data') as DataService;
+      const orbitRegistry = getOrbitRegistry(this.owner);
+      dataCoordinator = orbitRegistry.services.dataCoordinator;
+      backup = dataCoordinator.getSource<IndexedDBSource>('backup');
+      store = orbitRegistry.services.store;
+    });
+
+    test('clears backup + store', async function (assert) {
       await dataService.activate();
       await dataService.synchronize();
 

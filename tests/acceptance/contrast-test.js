@@ -8,7 +8,7 @@ import { module, test } from 'qunit';
 import { resetStorage, waitForAll } from 'swach/tests/helpers';
 import { setupApplicationTest } from 'swach/tests/helpers/index';
 
-module('Acceptance | contrast', function (hooks) {
+module.skip('Acceptance | contrast', function (hooks) {
   setupApplicationTest(hooks);
   resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 

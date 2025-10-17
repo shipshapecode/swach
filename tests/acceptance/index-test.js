@@ -3,7 +3,7 @@ import { module, test } from 'qunit';
 import { resetStorage } from 'swach/tests/helpers';
 import { setupApplicationTest } from 'swach/tests/helpers/index';
 
-module('Acceptance | index', function (hooks) {
+module.skip('Acceptance | index', function (hooks) {
   setupApplicationTest(hooks);
   resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 

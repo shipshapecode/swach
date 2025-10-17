@@ -1,5 +1,7 @@
 import { applyStandardSourceInjections } from 'ember-orbit';
+import { isTesting } from '@embroider/macros';
 import { IndexedDBSource } from '@orbit/indexeddb';
+import MemorySource from '@orbit/memory';
 import type {
   InitializedRecord,
   Record,
@@ -24,8 +26,17 @@ type PalettePOJO = Omit<Record, 'type'> & {
 const { SCHEMA_VERSION } = ENV;
 
 export default {
-  create(injections: { schema: RecordSchema }): IndexedDBSource {
+  create(injections: { schema: RecordSchema }) {
     applyStandardSourceInjections(injections);
+
+    // Just use a MemorySource for testing so we do not hit IndexedDB bugs.
+    if (isTesting()) {
+      return new MemorySource({
+        name: 'backup',
+        defaultTransformOptions: { useBuffer: true },
+        ...injections,
+      });
+    }
 
     const { schema } = injections;
     const backup = new IndexedDBSource({

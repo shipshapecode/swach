@@ -1,10 +1,9 @@
 import { getContext, settled } from '@ember/test-helpers';
 import { animationsSettled } from 'ember-animated/test-support';
 import { waitForSource } from 'ember-orbit/test-support/index';
-import type Owner from '@ember/owner';
 import { getOrbitRegistry, setupOrbit } from 'ember-orbit';
-import type { IndexedDBSource } from '@orbit/indexeddb';
 import type BucketClass from '@orbit/indexeddb-bucket';
+import type MemorySource from '@orbit/memory';
 import seedOrbit from './orbit/seed';
 
 const dataModels = import.meta.glob('../app/data-models/*.{js,ts}', {
@@ -54,10 +53,9 @@ export function resetStorage(
 
   hooks.afterEach(async function () {
     const orbitRegistry = getOrbitRegistry(this.owner);
-    const backup = orbitRegistry.registrations.sources
-      .backup as IndexedDBSource;
+    const backup = orbitRegistry.registrations.sources.backup as MemorySource;
 
-    await backup.cache.deleteDB();
+    backup.cache.reset();
 
     const bucket = orbitRegistry.registrations.buckets.main as
       | BucketClass

@@ -13,7 +13,6 @@ const config: ForgeConfig = {
     darwinDarkModeSupport: true,
     icon: 'electron-app/resources/icon',
     name: 'Swach',
-    packageManager: 'pnpm',
     ignore: [
       '/.gitignore',
       '/electron-forge-config.js',
@@ -32,16 +31,14 @@ const config: ForgeConfig = {
       },
     },
     osxNotarize: {
-      tool: 'notarytool',
-      appleId: process.env['APPLE_ID'],
-      appleIdPassword: process.env['APPLE_ID_PASSWORD'],
+      appleId: process.env.APPLE_ID,
+      appleIdPassword: process.env.APPLE_ID_PASSWORD,
       teamId: '779MXKT6B5',
     },
     protocols: [
       {
-        protocol: 'swach',
         name: 'swach',
-        schemes: 'swach',
+        schemes: ['swach'],
       },
     ],
   },

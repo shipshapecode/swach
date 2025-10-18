@@ -70,21 +70,18 @@ function runTests(emberAppDir) {
   console.log(`📁 Loading: ${testUrl}`);
 
   // Set up console forwarding for test output
-  testWindow.webContents.on(
-    'console-message',
-    (event, level, message, line, sourceId) => {
-      if (level === 1) {
-        // info level
-        console.log(`[TEST] ${message}`);
-      } else if (level === 2) {
-        // warning level
-        console.log(`[WARN] ${message}`);
-      } else if (level === 3) {
-        // error level
-        console.log(`[ERROR] ${message}`);
-      }
+  testWindow.webContents.on('console-message', (_event, level, message) => {
+    if (level === 1) {
+      // info level
+      console.log(`[TEST] ${message}`);
+    } else if (level === 2) {
+      // warning level
+      console.log(`[WARN] ${message}`);
+    } else if (level === 3) {
+      // error level
+      console.log(`[ERROR] ${message}`);
     }
-  );
+  });
 
   // Set up QUnit integration and test reporting
   testWindow.webContents.on('did-finish-load', () => {

@@ -39,3 +39,6 @@ electron-out/
 
 # Electron-Forge
 out/
+
+# TypeScript
+*.tsbuildinfo

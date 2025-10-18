@@ -1,6 +1,14 @@
 {
   "extends": "@ember/app-tsconfig",
-  "include": ["app", "tests", "types"],
+  "include": [
+    "app",
+    "tests",
+    "types",
+    "forge.config.ts",
+    "forge.env.d.ts",
+    "vite.*.config.ts"
+  ],
+  "references": [{ "path": "./electron-app" }],
   "glint": {
     "environment": ["ember-loose", "ember-template-imports"]
   },

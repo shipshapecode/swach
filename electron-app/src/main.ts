@@ -1,4 +1,5 @@
 import { basename, dirname, join, resolve } from 'node:path';
+// This should cause a type error
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { init } from '@sentry/electron';
 import { ipcMain, nativeTheme } from 'electron';
@@ -16,6 +17,8 @@ import {
   setupContextMenu,
   setupMenu,
 } from './shortcuts.js';
+
+const testError: string = 123;
 
 // __dirname in ESM
 const __filename = fileURLToPath(import.meta.url);

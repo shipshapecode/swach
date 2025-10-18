@@ -74,4 +74,13 @@ declare global {
       };
     };
   }
+
+  namespace NodeJS {
+    interface ProcessEnv {
+      APPLE_ID: string;
+      APPLE_ID_PASSWORD: string;
+      WINDOWS_PFX_FILE: string;
+      WINDOWS_PFX_PASSWORD: string;
+    }
+  }
 }

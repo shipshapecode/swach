@@ -1,10 +1,10 @@
-import { autoUpdater, dialog } from 'electron';
+import { autoUpdater, dialog, type App } from 'electron';
 
-export const setupUpdateServer = (app) => {
+export const setupUpdateServer = (app: App) => {
   const server = 'https://download.swach.io';
   const feed = `${server}/update/${process.platform}/${app.getVersion()}`;
 
-  autoUpdater.setFeedURL(feed);
+  autoUpdater.setFeedURL({ url: feed });
 
   // Checks for updates every 30 minutes
   const checkForUpdatesInterval = setInterval(
@@ -18,7 +18,7 @@ export const setupUpdateServer = (app) => {
     clearInterval(checkForUpdatesInterval);
     autoUpdater.removeAllListeners('update-not-available');
     const dialogOpts = {
-      type: 'question',
+      type: 'question' as const,
       buttons: ['Restart', 'Later'],
       title: 'Application Update',
       message: process.platform === 'win32' ? releaseNotes : releaseName,

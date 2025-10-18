@@ -31,18 +31,10 @@ export async function getAssetPath(emberAppDir: string, url: string) {
 }
 
 export default function handleFileURLs(emberAppDir: string) {
-  if (protocol.handle) {
-    // Electron >= 25
-    protocol.handle('file', async ({ url }) => {
-      const assetPath = await getAssetPath(emberAppDir, url);
-      return net.fetch(pathToFileURL(assetPath), {
-        bypassCustomProtocolHandlers: true,
-      });
+  protocol.handle('file', async ({ url }) => {
+    const assetPath = await getAssetPath(emberAppDir, url);
+    return net.fetch(pathToFileURL(assetPath).href, {
+      bypassCustomProtocolHandlers: true,
     });
-  } else {
-    // Electron < 25
-    protocol.interceptFileProtocol('file', async ({ url }, callback) => {
-      callback(await getAssetPath(emberAppDir, url));
-    });
-  }
+  });
 }

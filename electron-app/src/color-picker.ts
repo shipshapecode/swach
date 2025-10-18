@@ -1,9 +1,9 @@
 import { type Menubar } from 'menubar';
 
-export async function launchPicker(mb: Menubar, type = 'global') {
+async function launchPicker(mb: Menubar, type = 'global') {
   mb.hideWindow();
 
-  const color = await mb.window.webContents.executeJavaScript(
+  const color = await mb.window!.webContents.executeJavaScript(
     `
   async function openEyeDropper() {
     const eyeDropper = new EyeDropper();
@@ -26,19 +26,17 @@ export async function launchPicker(mb: Menubar, type = 'global') {
 
   if (color) {
     if (type === 'global') {
-      mb.window.webContents.send('changeColor', color);
+      mb.window!.webContents.send('changeColor', color);
     }
     if (type === 'contrastBg') {
-      mb.window.webContents.send('pickContrastBgColor', color);
+      mb.window!.webContents.send('pickContrastBgColor', color);
     }
     if (type === 'contrastFg') {
-      mb.window.webContents.send('pickContrastFgColor', color);
+      mb.window!.webContents.send('pickContrastFgColor', color);
     }
   }
 
-  mb.showWindow();
+  void mb.showWindow();
 }
 
-module.exports = {
-  launchPicker,
-};
+export { launchPicker };

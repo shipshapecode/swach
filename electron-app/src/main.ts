@@ -8,7 +8,7 @@ import Store from 'electron-store';
 import { menubar, type Menubar } from 'menubar';
 import pkg from '../../package.json';
 import { setupUpdateServer } from './auto-update.js';
-import { launchPicker } from './color-picker.js';
+
 import { noUpdatesAvailableDialog } from './dialogs.js';
 import handleFileUrls from './handle-file-urls.js';
 import { setupEventHandlers } from './ipc-events.js';
@@ -17,8 +17,6 @@ import {
   setupContextMenu,
   setupMenu,
 } from './shortcuts.js';
-
-const testError: string = 123;
 
 // __dirname in ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -49,8 +47,8 @@ if (store.get('firstRunV1')) {
 }
 
 function openContrastChecker(mb: Menubar) {
-  mb.showWindow();
-  mb.window.webContents.send('openContrastChecker');
+  void mb.showWindow();
+  mb.window!.webContents.send('openContrastChecker');
 }
 
 let menubarIcon = 'resources/menubar-icons/iconTemplate.png';
@@ -77,16 +75,16 @@ const mb = menubar({
   showOnAllWorkspaces: false,
 });
 
-mb.app.allowRendererProcessReuse = true;
+// mb.app.allowRendererProcessReuse = true; // Deprecated property
 
 mb.app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
 mb.app.commandLine.appendSwitch(
   'disable-backgrounding-occluded-windows',
   'true'
 );
-mb.app.commandLine.appendSwitch('ignore-certificate-errors', true);
+mb.app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
 
-let sharedPaletteLink;
+let sharedPaletteLink: string | undefined;
 
 async function openSharedPalette() {
   await mb.showWindow();
@@ -102,7 +100,7 @@ async function openSharedPalette() {
 if (isDev && process.platform === 'win32') {
   // Windows dev mode protocol registration
   mb.app.setAsDefaultProtocolClient('swach', process.execPath, [
-    resolve(process.argv[1]),
+    resolve(process.argv[1]!),
   ]);
 } else {
   mb.app.setAsDefaultProtocolClient('swach');
@@ -111,7 +109,7 @@ if (isDev && process.platform === 'win32') {
 mb.app.on('open-url', function (event, data) {
   event.preventDefault();
   sharedPaletteLink = data;
-  openSharedPalette();
+  void openSharedPalette();
 });
 
 // Force single application instance
@@ -124,7 +122,7 @@ if (!gotTheLock) {
     if (mb.window) {
       if (process.platform !== 'darwin') {
         sharedPaletteLink = argv.find((arg) => arg.startsWith('swach://'));
-        openSharedPalette();
+        void openSharedPalette();
       }
     }
   });
@@ -154,24 +152,24 @@ mb.app.on('window-all-closed', () => {
   }
 });
 
-mb.on('after-create-window', async () => {
+mb.on('after-create-window', () => {
   // Load the Ember application using our custom protocol/scheme
-  await handleFileUrls(emberAppDir);
+  handleFileUrls(emberAppDir);
 
-  mb.window.loadURL(emberAppURL);
+  void mb.window!.loadURL(emberAppURL);
 
   // If a loading operation goes wrong, we'll send Electron back to Ember entry
-  mb.window.webContents.on('did-fail-load', () => {
-    mb.window.loadURL(emberAppURL);
+  mb.window!.webContents.on('did-fail-load', () => {
+    void mb.window!.loadURL(emberAppURL);
   });
 
-  mb.window.once('ready-to-show', function () {
+  mb.window!.once('ready-to-show', function () {
     setTimeout(() => {
-      mb.showWindow();
+      void mb.showWindow();
     }, 750);
   });
 
-  mb.window.webContents.on('render-process-gone', () => {
+  mb.window!.webContents.on('render-process-gone', () => {
     console.log(
       'Your Ember app (or other code) in the main window has crashed.'
     );
@@ -180,24 +178,24 @@ mb.on('after-create-window', async () => {
     );
   });
 
-  mb.window.on('unresponsive', () => {
+  mb.window!.on('unresponsive', () => {
     console.log(
       'Your Ember app (or other code) has made the window unresponsive.'
     );
   });
 
-  mb.window.on('responsive', () => {
+  mb.window!.on('responsive', () => {
     console.log('The main window has become responsive again.');
   });
 
-  registerKeyboardShortcuts(mb, launchPicker, openContrastChecker);
+  registerKeyboardShortcuts(mb, openContrastChecker);
 
-  setupMenu(mb, launchPicker, openContrastChecker);
-  setupContextMenu(mb, launchPicker, openContrastChecker);
+  setupMenu(mb, openContrastChecker);
+  setupContextMenu(mb, openContrastChecker);
 
   const setOSTheme = () => {
     const theme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light';
-    mb.window.webContents.send('setTheme', theme);
+    mb.window!.webContents.send('setTheme', theme);
   };
 
   nativeTheme.on('updated', setOSTheme);

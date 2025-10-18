@@ -2,7 +2,7 @@ import { app, dialog } from 'electron';
 
 export function noUpdatesAvailableDialog() {
   const dialogOpts = {
-    type: 'info',
+    type: 'info' as const,
     title: 'Already up to date',
     message: 'Already up to date',
     detail: `Swach ${app.getVersion()} is the latest version available.`,
@@ -13,7 +13,7 @@ export function noUpdatesAvailableDialog() {
 
 export function restartDialog() {
   const dialogOpts = {
-    type: 'question',
+    type: 'question' as const,
     buttons: ['Restart', 'Later'],
     title: 'Restart Required',
     message: 'Restart now?',

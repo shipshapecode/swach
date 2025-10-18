@@ -5,7 +5,7 @@ import { type Menubar } from 'menubar';
 import { launchPicker } from './color-picker';
 import { restartDialog } from './dialogs';
 
-export function setupEventHandlers(mb: Menubar, store) {
+function setupEventHandlers(mb: Menubar, store: any) {
   ipcMain.on('copyColorToClipboard', (channel, color) => {
     clipboard.writeText(color);
   });
@@ -15,7 +15,7 @@ export function setupEventHandlers(mb: Menubar, store) {
   ipcMain.on('exportData', async (channel, jsonString) => {
     const downloadPath = `${mb.app.getPath('temp')}/swach-data.json`;
     fs.writeFileSync(downloadPath, jsonString);
-    await download(mb.window, `file://${downloadPath}`);
+    await download(mb.window!, `file://${downloadPath}`);
     fs.unlink(downloadPath, (err) => {
       if (err) throw err;
       console.log(`${downloadPath} was deleted`);
@@ -49,8 +49,9 @@ export function setupEventHandlers(mb: Menubar, store) {
     });
 
     if (!canceled && filePaths.length) {
-      return fs.readFileSync(filePaths[0], { encoding: 'utf8' });
+      return fs.readFileSync(filePaths[0]!, { encoding: 'utf8' });
     }
+    return null;
   });
 
   ipcMain.on('launchContrastBgPicker', async () => {
@@ -75,6 +76,4 @@ export function setupEventHandlers(mb: Menubar, store) {
   });
 }
 
-module.exports = {
-  setupEventHandlers,
-};
+export { setupEventHandlers };

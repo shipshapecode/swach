@@ -1,10 +1,12 @@
 import { globalShortcut, Menu, shell } from 'electron';
 import { type Menubar } from 'menubar';
+import { launchPicker } from './color-picker.js';
+
+type OpenContrastCheckerFn = (mb: Menubar) => void;
 
 export function registerKeyboardShortcuts(
   mb: Menubar,
-  launchPicker,
-  openContrastChecker
+  openContrastChecker: OpenContrastCheckerFn
 ) {
   globalShortcut.register('Ctrl+Super+Alt+p', () => {
     launchPicker(mb);
@@ -21,8 +23,7 @@ export function registerKeyboardShortcuts(
 
 export function setupContextMenu(
   mb: Menubar,
-  launchPicker,
-  openContrastChecker
+  openContrastChecker: OpenContrastCheckerFn
 ) {
   const contextMenu = Menu.buildFromTemplate([
     {
@@ -51,7 +52,10 @@ export function setupContextMenu(
   });
 }
 
-export function setupMenu(mb: Menubar, launchPicker, openContrastChecker) {
+export function setupMenu(
+  mb: Menubar,
+  openContrastChecker: OpenContrastCheckerFn
+) {
   const isMac = process.platform === 'darwin';
 
   const template = [
@@ -96,14 +100,14 @@ export function setupMenu(mb: Menubar, launchPicker, openContrastChecker) {
           label: 'Undo',
           accelerator: 'CmdOrCtrl+Z',
           async click() {
-            await mb.window.webContents.send('undoRedo', 'undo');
+            await mb.window!.webContents.send('undoRedo', 'undo');
           },
         },
         {
           label: 'Redo',
           accelerator: 'Shift+CmdOrCtrl+Z',
           async click() {
-            await mb.window.webContents.send('undoRedo', 'redo');
+            await mb.window!.webContents.send('undoRedo', 'redo');
           },
         },
         { type: 'separator' },
@@ -138,6 +142,6 @@ export function setupMenu(mb: Menubar, launchPicker, openContrastChecker) {
     },
   ];
 
-  const menu = Menu.buildFromTemplate(template);
+  const menu = Menu.buildFromTemplate(template as any);
   Menu.setApplicationMenu(menu);
 }

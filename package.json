@@ -34,7 +34,7 @@
     "start": "vite -c vite.renderer.config.ts",
     "start:electron": "electron-forge start",
     "test:ember": "vite build -c vite.renderer.config.ts --mode development && testem ci",
-    "test:electron": "vite build -c vite.renderer.config.ts --mode development && testem ci -f testem-electron.cjs"
+    "test:electron": "vite build -c vite.renderer.config.ts --mode development && electron electron-app/tests/index.js"
   },
   "exports": {
     "./tests/*": "./tests/*",

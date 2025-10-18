@@ -52,8 +52,7 @@ export default ts.config(
       // ember-electron
       'electron-app/node_modules/',
       'electron-app/out/',
-      'electron-app/ember-dist/',
-      'electron-app/ember-test/',
+      'electron-app/dist/',
       'electron-out/',
 
       // Sentry

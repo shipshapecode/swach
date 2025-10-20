@@ -1,4 +1,9 @@
-import { globalShortcut, Menu, shell } from 'electron';
+import {
+  globalShortcut,
+  Menu,
+  shell,
+  type MenuItemConstructorOptions,
+} from 'electron';
 import { type Menubar } from 'menubar';
 import { launchPicker } from './color-picker.js';
 
@@ -9,7 +14,7 @@ export function registerKeyboardShortcuts(
   openContrastChecker: OpenContrastCheckerFn
 ) {
   globalShortcut.register('Ctrl+Super+Alt+p', () => {
-    launchPicker(mb);
+    void launchPicker(mb);
   });
 
   globalShortcut.register('Ctrl+Super+Alt+c', () => {
@@ -29,7 +34,7 @@ export function setupContextMenu(
     {
       label: 'Color Picker',
       click() {
-        launchPicker(mb);
+        void launchPicker(mb);
       },
     },
     {
@@ -79,7 +84,7 @@ export function setupMenu(
         {
           label: 'Color Picker',
           click() {
-            launchPicker(mb);
+            void launchPicker(mb);
           },
         },
         {
@@ -99,15 +104,15 @@ export function setupMenu(
         {
           label: 'Undo',
           accelerator: 'CmdOrCtrl+Z',
-          async click() {
-            await mb.window!.webContents.send('undoRedo', 'undo');
+          click() {
+            mb.window!.webContents.send('undoRedo', 'undo');
           },
         },
         {
           label: 'Redo',
           accelerator: 'Shift+CmdOrCtrl+Z',
-          async click() {
-            await mb.window!.webContents.send('undoRedo', 'redo');
+          click() {
+            mb.window!.webContents.send('undoRedo', 'redo');
           },
         },
         { type: 'separator' },
@@ -142,6 +147,6 @@ export function setupMenu(
     },
   ];
 
-  const menu = Menu.buildFromTemplate(template as any);
+  const menu = Menu.buildFromTemplate(template as MenuItemConstructorOptions[]);
   Menu.setApplicationMenu(menu);
 }

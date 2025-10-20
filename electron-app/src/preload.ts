@@ -12,19 +12,22 @@ init({
 // the ipcRenderer without exposing the entire object
 contextBridge.exposeInMainWorld('electronAPI', {
   ipcRenderer: {
-    send: (channel: string, ...args: any[]) =>
+    send: (channel: string, ...args: unknown[]) =>
       ipcRenderer.send(channel, ...args),
-    on: (channel: string, func: (...args: any[]) => void) => {
-      const subscription = (_event: any, ...args: any[]) => func(...args);
+    on: (channel: string, func: (...args: unknown[]) => void) => {
+      const subscription = (_event: unknown, ...args: unknown[]) =>
+        func(...args);
       ipcRenderer.on(channel, subscription);
       return subscription;
     },
-    off: (channel: string, func: (...args: any[]) => void) =>
+    off: (channel: string, func: (...args: unknown[]) => void) =>
       ipcRenderer.off(channel, func),
-    once: (channel: string, func: (...args: any[]) => void) => {
-      ipcRenderer.once(channel, (_event: any, ...args: any[]) => func(...args));
+    once: (channel: string, func: (...args: unknown[]) => void) => {
+      ipcRenderer.once(channel, (_event: unknown, ...args: unknown[]) =>
+        func(...args)
+      );
     },
-    invoke: (channel: string, ...args: any[]) =>
+    invoke: (channel: string, ...args: unknown[]) =>
       ipcRenderer.invoke(channel, ...args),
     removeAllListeners: (channel: string) =>
       ipcRenderer.removeAllListeners(channel),

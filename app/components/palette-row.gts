@@ -293,10 +293,8 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       ),
     ];
 
-    this.dragSort.on('start', (event: CustomEvent) => {
-      const draggedItem = event.detail?.draggedItem as
-        | { hex: string | null }
-        | undefined;
+    this.dragSort.on('start', (event: CustomEvent<{ draggedItem?: { hex: string | null } }>) => {
+      const draggedItem = event.detail?.draggedItem;
       if (draggedItem) {
         document.documentElement.style.setProperty(
           '--dragged-swatch-color',

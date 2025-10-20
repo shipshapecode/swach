@@ -8,7 +8,6 @@ import Store from 'electron-store';
 import { menubar, type Menubar } from 'menubar';
 import pkg from '../../package.json';
 import { setupUpdateServer } from './auto-update.js';
-
 import { noUpdatesAvailableDialog } from './dialogs.js';
 import handleFileUrls from './handle-file-urls.js';
 import { setupEventHandlers } from './ipc-events.js';
@@ -201,7 +200,7 @@ mb.on('after-create-window', () => {
   nativeTheme.on('updated', setOSTheme);
 });
 
-mb.on('ready', async () => {
+mb.on('ready', () => {
   ipcMain.on('enableDisableAutoStart', (event, openAtLogin) => {
     // Only allow auto-start in production
     if (!isDev) {
@@ -233,6 +232,7 @@ mb.on('ready', async () => {
 if (!isDev && (process.platform === 'darwin' || process.platform === 'win32')) {
   const autoUpdater = setupUpdateServer(mb.app);
   ipcMain.on('checkForUpdates', () => {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     autoUpdater.once('update-not-available', noUpdatesAvailableDialog);
     autoUpdater.checkForUpdates();
   });

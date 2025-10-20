@@ -293,15 +293,18 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       ),
     ];
 
-    this.dragSort.on('start', (event: CustomEvent<{ draggedItem?: { hex: string | null } }>) => {
-      const draggedItem = event.detail?.draggedItem;
-      if (draggedItem) {
-        document.documentElement.style.setProperty(
-          '--dragged-swatch-color',
-          draggedItem.hex
-        );
+    this.dragSort.on(
+      'start',
+      (event: CustomEvent<{ draggedItem?: { hex: string | null } }>) => {
+        const draggedItem = event.detail?.draggedItem;
+        if (draggedItem) {
+          document.documentElement.style.setProperty(
+            '--dragged-swatch-color',
+            draggedItem.hex
+          );
+        }
       }
-    });
+    );
   }
 
   get isLocked() {

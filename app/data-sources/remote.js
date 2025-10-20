@@ -1,6 +1,6 @@
 import { getOwner } from '@ember/application';
-import { applyStandardSourceInjections } from 'ember-orbit';
 import { pluralize, singularize } from 'ember-inflector';
+import { applyStandardSourceInjections } from 'ember-orbit';
 import {
   JSONAPIRequestProcessor,
   JSONAPISerializers,

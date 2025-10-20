@@ -1,13 +1,13 @@
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
-import { orbit, type Store } from 'ember-orbit';
 import type TransitionContext from 'ember-animated/-private/transition-context';
 import AnimatedContainer from 'ember-animated/components/animated-container';
 import AnimatedEach from 'ember-animated/components/animated-each';
 import { easeOut } from 'ember-animated/easings/cosine';
 import move from 'ember-animated/motions/move';
 import { fadeOut } from 'ember-animated/motions/opacity';
+import { orbit, type Store } from 'ember-orbit';
 import type { RecordOperationTerm } from '@orbit/records';
 import ColorRow from './color-row.gts';
 import type { SelectedColorModel } from './rgb-input';

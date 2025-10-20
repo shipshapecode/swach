@@ -1,18 +1,23 @@
 import fs from 'fs';
 import { app, clipboard, dialog, ipcMain, nativeTheme, shell } from 'electron';
 import { download } from 'electron-dl';
+import type ElectronStore from 'electron-store';
 import { type Menubar } from 'menubar';
 import { launchPicker } from './color-picker';
 import { restartDialog } from './dialogs';
 
-function setupEventHandlers(mb: Menubar, store: any) {
-  ipcMain.on('copyColorToClipboard', (channel, color) => {
+function setupEventHandlers(
+  mb: Menubar,
+  store: ElectronStore<{ firstRunV1: boolean; showDockIcon: boolean }>
+) {
+  ipcMain.on('copyColorToClipboard', (_channel, color: string) => {
     clipboard.writeText(color);
   });
 
   ipcMain.on('exitApp', () => mb.app.quit());
 
-  ipcMain.on('exportData', async (channel, jsonString) => {
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  ipcMain.on('exportData', async (_channel, jsonString: string) => {
     const downloadPath = `${mb.app.getPath('temp')}/swach-data.json`;
     fs.writeFileSync(downloadPath, jsonString);
     await download(mb.window!, `file://${downloadPath}`);
@@ -22,11 +27,11 @@ function setupEventHandlers(mb: Menubar, store: any) {
     });
   });
 
-  ipcMain.handle('getAppVersion', async () => {
+  ipcMain.handle('getAppVersion', () => {
     return app.getVersion();
   });
 
-  ipcMain.handle('getBackupData', async () => {
+  ipcMain.handle('getBackupData', () => {
     const backupPath = `${mb.app.getPath('temp')}/backup-swach-data.json`;
     return fs.readFileSync(backupPath, { encoding: 'utf8' });
   });
@@ -35,7 +40,8 @@ function setupEventHandlers(mb: Menubar, store: any) {
     return process.platform;
   });
 
-  ipcMain.handle('getStoreValue', (event, key) => {
+  ipcMain.handle('getStoreValue', (_event, key: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return store.get(key);
   });
 
@@ -54,23 +60,24 @@ function setupEventHandlers(mb: Menubar, store: any) {
     return null;
   });
 
-  ipcMain.on('launchContrastBgPicker', async () => {
-    await launchPicker(mb, 'contrastBg');
+  ipcMain.on('launchContrastBgPicker', () => {
+    void launchPicker(mb, 'contrastBg');
   });
 
-  ipcMain.on('launchContrastFgPicker', async () => {
-    await launchPicker(mb, 'contrastFg');
+  ipcMain.on('launchContrastFgPicker', () => {
+    void launchPicker(mb, 'contrastFg');
   });
 
-  ipcMain.on('launchPicker', async () => {
-    await launchPicker(mb);
+  ipcMain.on('launchPicker', () => {
+    void launchPicker(mb);
   });
 
-  ipcMain.handle('open-external', async (_event, url) => {
+  ipcMain.handle('open-external', async (_event, url: string) => {
     await shell.openExternal(url);
   });
 
-  ipcMain.on('setShowDockIcon', async (channel, showDockIcon) => {
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  ipcMain.on('setShowDockIcon', async (_channel, showDockIcon) => {
     store.set('showDockIcon', showDockIcon);
     await restartDialog();
   });

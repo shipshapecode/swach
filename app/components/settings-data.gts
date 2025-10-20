@@ -155,6 +155,7 @@ export default class SettingsData extends Component {
                 idbDatabase,
                 jsonString,
 
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 async (err: Event | null) => {
                   if (!err) {
                     idbDatabase.close();

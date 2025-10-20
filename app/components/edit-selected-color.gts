@@ -111,9 +111,11 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
         _a: a,
       });
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return selectedColor;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return {} as SelectedColorModel;
   }
 
@@ -165,6 +167,7 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
    */
   @action
   updateColorInputs(key: keyof PublicRGBAHex, value: number | string): void {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/restrict-template-expressions
     set(this.selectedColor, `_${key}` as keyof PrivateRGBAHex, value);
   }
 }

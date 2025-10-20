@@ -5,4 +5,6 @@
 @import './color-squares.css';
 @import './icons.css';
 @import './drag-sort.css';
-/* @import "three-dots/three-dots"; */
+
+/* TODO: add back three-dots before shipping
+@import "three-dots/three-dots"; */

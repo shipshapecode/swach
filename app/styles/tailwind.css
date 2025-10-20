@@ -12,8 +12,6 @@
   --fill-alt-__CSS_VALUES__: 7;
   --fill-alt-__CSS_VALUES__-hover: 7;
 
-  --fill-alt-hover: var(--alt-hover-color);
-
   --fill-main: var(--main-color);
   --fill-main-text: var(--main-text);
 
@@ -26,8 +24,6 @@
 
   --stroke-alt-__CSS_VALUES__: 7;
   --stroke-alt-__CSS_VALUES__-hover: 7;
-
-  --stroke-alt-hover: var(--alt-hover-color);
 
   --stroke-main: var(--main-color);
   --stroke-main-text: var(--main-text);

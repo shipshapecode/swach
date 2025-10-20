@@ -27,13 +27,6 @@ declare module '@glint/environment-ember-loose/registry' {
         };
       };
     }>;
-    'html-safe': HelperLike<{
-      Args: {
-        Positional: [string: string];
-      };
-      Return: string;
-    }>;
-    'liquid-outlet': ComponentLike;
     OneWayInputMask: ComponentLike<{
       Element: HTMLInputElement;
       Args: {

@@ -5,6 +5,7 @@ import { getOrbitRegistry, setupOrbit } from 'ember-orbit';
 import type BucketClass from '@orbit/indexeddb-bucket';
 import type MemorySource from '@orbit/memory';
 import seedOrbit from './orbit/seed';
+import type Owner from '@ember/owner';
 
 const dataModels = import.meta.glob('../app/data-models/*.{js,ts}', {
   eager: true,
@@ -18,7 +19,7 @@ const dataStrategies = import.meta.glob('../app/data-strategies/*.{js,ts}', {
 
 export async function waitForAll() {
   // @ts-expect-error This is fine.
-  const owner = getContext().owner;
+  const owner = getContext().owner as Owner;
   const orbitRegistry = getOrbitRegistry(owner);
   const coordinator = orbitRegistry.services.dataCoordinator;
 

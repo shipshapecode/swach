@@ -46,22 +46,22 @@ export default ts.config(
    */
   {
     ignores: [
-      '.vite/',
-      'declarations/',
+      '.vite/**/*',
+      'declarations/**/*',
 
       // ember-electron
-      'electron-app/node_modules/',
-      'electron-app/out/',
-      'electron-app/dist/',
-      'electron-out/',
+      'electron-app/node_modules/**/*',
+      'electron-app/out/**/*',
+      'electron-app/dist/**/*',
+      'electron-out/**/*',
 
       // Sentry
       'electron-app/sentry-symbols.js',
 
-      'dist/',
-      'node_modules/',
-      'coverage/',
-      'types/',
+      'dist/**/*',
+      'node_modules/**/*',
+      'coverage/**/*',
+      'types/**/*',
       '!**/.*',
     ],
   },

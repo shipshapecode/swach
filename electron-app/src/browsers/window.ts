@@ -1,9 +1,8 @@
 // window.js (ESM)
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron';
 
-export default (dirname, route, title) => {
-  /** @type {import('electron').BrowserWindow | undefined} */
-  let win;
+export default (_dirname: string, route: string, title: string) => {
+  let win: BrowserWindow | null | undefined;
 
   const init = () => {
     if (win == null) createWindow();
@@ -24,12 +23,12 @@ export default (dirname, route, title) => {
         contextIsolation: false,
         nodeIntegration: true,
       },
-    };
+    } satisfies BrowserWindowConstructorOptions;
 
     win = new BrowserWindow(options);
 
     const windowRoute = `serve://dist#/${route}`;
-    win.loadURL(windowRoute);
+    void win.loadURL(windowRoute);
 
     win.on('closed', () => {
       win = undefined;

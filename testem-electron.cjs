@@ -7,7 +7,12 @@ module.exports = {
   launchers: {
     Electron: {
       exe: process.execPath,
-      args: ['./lib/test-runner.js', '<testPage>', '<baseUrl>', '<id>'],
+      args: [
+        './node_modules/vite-plugin-testem-electron/dist/test-runner.js',
+        '<testPage>',
+        '<baseUrl>',
+        '<id>',
+      ],
       protocol: 'browser',
     },
   },

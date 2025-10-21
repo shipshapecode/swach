@@ -3,7 +3,6 @@
   "version": "1.2.15",
   "private": true,
   "description": "A robust color management tool for the modern age.",
-  "main": ".vite/build/main.js",
   "repository": "https://github.com/shipshapecode/swach",
   "license": "MIT",
   "author": {
@@ -11,6 +10,11 @@
     "email": "rwwagner90@gmail.com",
     "url": "https://github.com/RobbieTheWagner"
   },
+  "exports": {
+    "./tests/*": "./tests/*",
+    "./*": "./app/*"
+  },
+  "main": ".vite/build/main.js",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -33,12 +37,8 @@
     "publish": "electron-forge publish",
     "start": "vite -c vite.renderer.config.ts",
     "start:electron": "electron-forge start",
-    "test:ember": "vite build -c vite.renderer.config.ts --mode development && testem ci",
-    "test:electron": "vite build -c vite.renderer.config.ts --mode development && testem ci -f testem-electron.cjs"
-  },
-  "exports": {
-    "./tests/*": "./tests/*",
-    "./*": "./app/*"
+    "test:electron": "vite build -c vite.renderer.config.ts --mode development && testem ci -f testem-electron.cjs",
+    "test:ember": "vite build -c vite.renderer.config.ts --mode development && testem ci"
   },
   "dependencies": {
     "@sentry/electron": "^4.24.0",
@@ -193,8 +193,19 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.1",
     "vite": "^7.1.10",
-    "vite-plugin-testem-electron": "^0.0.1",
+    "vite-plugin-testem-electron": "^1.0.1",
     "wcag-contrast": "^3.0.0"
+  },
+  "packageManager": "pnpm@10.18.2",
+  "engines": {
+    "node": ">= 20",
+    "pnpm": "^10.18.2"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "ember": {
+    "edition": "octane"
   },
   "pnpm": {
     "overrides": {
@@ -217,17 +228,6 @@
       "fsevents",
       "macos-alias"
     ]
-  },
-  "packageManager": "pnpm@10.18.2",
-  "engines": {
-    "node": ">= 20",
-    "pnpm": "^10.18.2"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org"
-  },
-  "ember": {
-    "edition": "octane"
   },
   "release-it": {
     "plugins": {

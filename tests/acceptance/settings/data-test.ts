@@ -1,4 +1,4 @@
-import { click, currentURL, visit } from '@ember/test-helpers';
+import { click, currentURL, visit, waitFor } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
 import IDBExportImport from 'indexeddb-export-import';
@@ -44,6 +44,7 @@ module('Acceptance | settings/data', function (hooks) {
       sinon.stub(IDBExportImport, 'exportToJsonString').callsArg(1);
       await click('[data-test-export-swatches-button]');
       await waitForAll();
+      await waitFor('.alert.alert-success');
       assert.dom('.alert.alert-success').exists({ count: 1 });
     });
     test('export triggers error message', async function (assert) {
@@ -54,6 +55,7 @@ module('Acceptance | settings/data', function (hooks) {
         .callsArgWith(1, 'error');
       await click('[data-test-export-swatches-button]');
       await waitForAll();
+      await waitFor('.alert.alert-danger');
       assert.dom('.alert.alert-danger').exists({ count: 1 });
     });
   }

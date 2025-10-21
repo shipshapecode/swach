@@ -193,7 +193,7 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.1",
     "vite": "^7.1.10",
-    "vite-plugin-testem-electron": "^1.0.1",
+    "vite-plugin-testem-electron": "^1.0.2",
     "wcag-contrast": "^3.0.0"
   },
   "packageManager": "pnpm@10.18.2",

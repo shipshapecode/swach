@@ -8,24 +8,27 @@ import { module, test } from 'qunit';
 import { resetStorage, waitForAll } from 'swach/tests/helpers';
 import { setupApplicationTest } from 'swach/tests/helpers/index';
 
-module.skip('Acceptance | contrast', function (hooks) {
+module('Acceptance | contrast', function (hooks) {
   setupApplicationTest(hooks);
   resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
-  hooks.beforeEach(async function () {
-    await visit('/contrast');
-  });
-
   test('visiting /contrast', async function (assert) {
+    await visit('/contrast');
+    await waitForAll();
+
     assert.strictEqual(currentURL(), '/contrast');
   });
 
-  test('has default value on open', function (assert) {
+  test('has default value on open', async function (assert) {
+    await visit('/contrast');
+    await waitForAll();
+
     assert.dom('[data-test-wcag-score]').hasText('21.00');
     assert.dom('[data-test-wcag-string]').hasText('AAA');
   });
 
   test('updates score when failing background value added', async function (assert) {
+    await visit('/contrast');
     await waitForAll();
 
     await fillIn('[data-test-bg-input]', '#504F4F');

@@ -1,8 +1,10 @@
 import {
   currentURL,
   fillIn,
+  find,
   triggerKeyEvent,
   visit,
+  waitUntil,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { resetStorage, waitForAll } from 'swach/tests/helpers';
@@ -22,6 +24,9 @@ module('Acceptance | contrast', function (hooks) {
   test('has default value on open', async function (assert) {
     await visit('/contrast');
     await waitForAll();
+    await waitUntil(() =>
+      find('[data-test-wcag-score]')?.textContent.trim('21.00')
+    );
 
     assert.dom('[data-test-wcag-score]').hasText('21.00');
     assert.dom('[data-test-wcag-string]').hasText('AAA');
@@ -36,6 +41,9 @@ module('Acceptance | contrast', function (hooks) {
 
     await waitForAll();
 
+    await waitUntil(() =>
+      find('[data-test-wcag-score]')?.textContent.trim('2.57')
+    );
     assert.dom('[data-test-wcag-score]').hasText('2.57');
     assert.dom('[data-test-wcag-string]').hasText('Fail');
   });

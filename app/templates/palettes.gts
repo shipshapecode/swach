@@ -7,8 +7,8 @@ import RouteTemplate from 'ember-route-template';
 import set from 'ember-set-helper/helpers/set';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import not from 'ember-truth-helpers/helpers/not';
-import OptionsMenu from '../components/options-menu.ts';
-import PalettesList from '../components/palettes-list.ts';
+import OptionsMenu from '../components/options-menu.gts';
+import PalettesList from '../components/palettes-list.gts';
 import htmlSafe from '../helpers/html-safe.ts';
 import type PalettesController from 'swach/controllers/palettes';
 
@@ -19,7 +19,7 @@ export default RouteTemplate<{
     <div
       class="color-history-container bg-main fixed left-1/2 -translate-x-1/2 z-20"
     >
-      <div class="bg-menu flex flex-wrap h-32 p-2 rounded w-full">
+      <div class="bg-menu flex flex-wrap h-32 p-2 rounded-sm w-full">
         <div
           class="cursor-default flex grow items-center justify-between mb-2 p-1 text-main-text text-sm w-full"
           {{on "click" (stopPropagation @controller.transitionToColorHistory)}}
@@ -54,11 +54,10 @@ export default RouteTemplate<{
         </div>
 
         {{#if @controller.last16Colors.length}}
-          {{!@glint-expect-error TODO: fix this}}
           <DragSortList
+            class="color-history-list flex h-20 flex-wrap w-full"
             data-test-color-history
             @additionalArgs={{hash isColorHistory=true}}
-            @classNames="color-history-list flex h-20 flex-wrap w-full"
             @isHorizontal={{true}}
             @items={{@controller.last16Colors}}
             @sourceOnly={{true}}
@@ -74,11 +73,11 @@ export default RouteTemplate<{
             >
               <div
                 data-test-color-history-square={{color.name}}
-                class="absolute h-8 left-0 rounded top-0 w-8 z-10"
+                class="absolute h-8 left-0 rounded-sm top-0 w-8 z-10"
                 style={{htmlSafe (concat "background-color: " color.hex)}}
               ></div>
               <div
-                class="opacity-checkerboard absolute h-8 left-0 rounded top-0 w-8 z-0"
+                class="opacity-checkerboard absolute h-8 left-0 rounded-sm top-0 w-8 z-0"
               ></div>
             </div>
           </DragSortList>
@@ -142,5 +141,5 @@ export default RouteTemplate<{
       @palettes={{@model}}
       @showFavorites={{@controller.showFavorites}}
     />
-  </template>,
+  </template>
 );

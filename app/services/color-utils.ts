@@ -1,10 +1,9 @@
 import { action } from '@ember/object';
 import Service, { service } from '@ember/service';
 import { storageFor } from 'ember-local-storage';
-import type { Store } from 'ember-orbit';
+import { orbit, type Store } from 'ember-orbit';
 import { TinyColor } from '@ctrl/tinycolor';
 import type { ColorInput } from '@ctrl/tinycolor';
-import type { IpcRenderer } from 'electron';
 import { rgbaToHex } from 'swach/data-models/color';
 import type ColorModel from 'swach/data-models/color';
 import type NearestColor from 'swach/services/nearest-color';
@@ -25,18 +24,19 @@ export interface ColorPOJO {
 }
 
 export default class ColorUtilsService extends Service {
+  @orbit declare store: Store;
+
   @service nearestColor!: NearestColor;
-  @service declare store: Store;
 
   @storageFor('settings') settings!: SettingsStorage;
 
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
 
   constructor() {
     super(...arguments);
 
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      const { ipcRenderer } = window.electronAPI;
 
       this.ipcRenderer = ipcRenderer;
     }

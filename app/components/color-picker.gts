@@ -7,22 +7,22 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import type { Store } from 'ember-orbit';
+import { orbit, type Store } from 'ember-orbit';
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
 import { rgbaToHex } from '../data-models/color.ts';
 import type ColorModel from '../data-models/color.ts';
 import type NearestColor from '../services/nearest-color.ts';
 import type UndoManager from '../services/undo-manager.ts';
-import AlphaInput from './alpha-input.ts';
-import ColorRow from './color-row.ts';
-import HexInput from './hex-input.ts';
-import RgbInput from './rgb-input.ts';
+import AlphaInput from './alpha-input.gts';
+import ColorRow from './color-row.gts';
+import HexInput from './hex-input.gts';
 import type {
   PrivateRGBAHex,
   PublicRGBAHex,
   SelectedColorModel,
-} from './rgb-input.ts';
+} from './rgb-input';
+import RgbInput from './rgb-input.gts';
 
 interface ColorPickerSignature {
   Element: HTMLDivElement;
@@ -38,7 +38,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
   <template>
     {{#if @isShown}}
       <div
-        class="color-picker-popover bg-main border-menu fixed left-0 !top-[49px] h-full m-0 pb-4 px-2 pt-4 text-alt w-screen"
+        class="color-picker-popover bg-main border-menu fixed left-0 top-[49px]! h-full m-0 pb-4 px-2 pt-4 text-alt w-screen"
       >
         <div
           class="h-full relative w-full"
@@ -47,7 +47,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
         >
           <ColorRow @color={{this._selectedColor}} @showActions={{false}} />
 
-          <div class="bg-menu flex p-4 relative rounded">
+          <div class="bg-menu flex p-4 relative rounded-sm">
             <div
               class="flex-1 w-auto"
               id="color-picker-container"
@@ -58,7 +58,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
             <div class="absolute grow mt-4 mr-4 right-0 top-0">
               <HexInput
                 data-test-color-picker-hex
-                class="input rounded mb-4 w-24"
+                class="input rounded-sm mb-4 w-24"
                 @selectedColor={{this._selectedColor}}
                 @update={{fn this.updateColorInputs "hex"}}
                 @updateColor={{this.updateColor}}
@@ -123,7 +123,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
           </div>
 
           <div class="flex w-full">
-            <div class="bg-menu flex-1 mt-3 mr-3 px-2 py-4 relative rounded">
+            <div class="bg-menu flex-1 mt-3 mr-3 px-2 py-4 relative rounded-sm">
               <div class="flex flex-col h-full w-full">
                 <div
                   class="font-medium text-xxs text-main-text w-full whitespace-nowrap"
@@ -137,7 +137,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
               </div>
             </div>
 
-            <div class="bg-menu flex-1 mt-3 px-2 py-4 relative rounded">
+            <div class="bg-menu flex-1 mt-3 px-2 py-4 relative rounded-sm">
               <div class="flex flex-col h-full w-full">
                 <div
                   class="font-medium text-xxs text-main-text w-full whitespace-nowrap"
@@ -153,7 +153,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
           </div>
 
           <div class="flex w-full">
-            <div class="bg-menu flex-1 mt-3 mr-3 px-2 py-4 relative rounded">
+            <div class="bg-menu flex-1 mt-3 mr-3 px-2 py-4 relative rounded-sm">
               <div class="flex flex-col h-full w-full">
                 <div
                   class="font-medium text-xxs text-main-text w-full whitespace-nowrap"
@@ -167,7 +167,7 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
               </div>
             </div>
 
-            <div class="bg-menu flex-1 mt-3 px-2 py-4 relative rounded">
+            <div class="bg-menu flex-1 mt-3 px-2 py-4 relative rounded-sm">
               <div class="flex flex-col h-full w-full">
                 <div
                   class="font-medium text-xxs text-main-text w-full whitespace-nowrap"
@@ -206,9 +206,11 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
       </div>
     {{/if}}
   </template>
+
+  @orbit declare store: Store;
+
   @service declare nearestColor: NearestColor;
   @service declare router: Router;
-  @service declare store: Store;
   @service declare undoManager: UndoManager;
 
   colorPicker?: iro.ColorPicker;
@@ -260,9 +262,9 @@ export default class ColorPickerComponent extends Component<ColorPickerSignature
             { type: 'color', id: colorToEdit.id },
             attr,
             //@ts-expect-error TODO fix this error later
-            this._selectedColor[attr],
-          ),
-        ),
+            this._selectedColor[attr]
+          )
+        )
       );
 
       this.undoManager.setupUndoRedo();

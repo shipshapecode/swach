@@ -1,7 +1,7 @@
 import { on } from '@ember/modifier';
 import RouteTemplate from 'ember-route-template';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
-import ContrastChecker from '../components/contrast-checker.ts';
+import ContrastChecker from '../components/contrast-checker.gts';
 import type ContrastController from 'swach/controllers/contrast';
 
 export default RouteTemplate<{
@@ -20,5 +20,5 @@ export default RouteTemplate<{
     </button>
 
     <ContrastChecker />
-  </template>,
+  </template>
 );

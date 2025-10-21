@@ -8,7 +8,6 @@ import { tracked } from '@glimmer/tracking';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import { type IroColorValue } from '@irojs/iro-core';
 import iro from '@jaames/iro';
-import type { IpcRenderer } from 'electron';
 import { hex, score } from 'wcag-contrast';
 import htmlSafe from '../helpers/html-safe.ts';
 
@@ -21,7 +20,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
     <div class="w-full" ...attributes>
       <div
         data-test-contrast-preview
-        class="rounded w-full"
+        class="rounded-sm w-full"
         style={{htmlSafe
           (concat
             "background-color: "
@@ -43,7 +42,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
             <div class="flex grow justify-end">
               <div
                 data-test-wcag-score
-                class="h-8 leading-none p-2 rounded"
+                class="h-8 leading-none p-2 rounded-sm"
                 style={{htmlSafe
                   (concat
                     "background-color: "
@@ -84,7 +83,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
       </div>
 
       <div
-        class="bg-menu color-pickers-container flex justify-between mt-4 p-4 rounded w-full"
+        class="bg-menu color-pickers-container flex justify-between mt-4 p-4 rounded-sm w-full"
         style={{htmlSafe "-webkit-app-region: no-drag"}}
       >
         <div class="background-color-picker-container mr-2 w-full">
@@ -96,7 +95,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
           <div class="relative w-36">
             <input
               data-test-bg-input
-              class="input rounded mt-3 w-36"
+              class="input rounded-sm mt-3 w-36"
               type="text"
               value={{this.backgroundColor}}
               {{on "blur" this.onBlurBg}}
@@ -122,7 +121,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
           <div class="relative w-36">
             <input
               data-test-fg-input
-              class="input rounded mt-3 w-36"
+              class="input rounded-sm mt-3 w-36"
               type="text"
               value={{this.foregroundColor}}
               {{on "blur" this.onBlurFg}}
@@ -146,7 +145,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
 
   declare bgPickr: iro.ColorPicker;
   declare fgPickr: iro.ColorPicker;
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
   declare onBgChange: (color?: iro.Color) => void;
   declare onFgChange: (color?: iro.Color) => void;
 
@@ -161,24 +160,18 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
   constructor(owner: Owner, args: object) {
     super(owner, args);
 
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      const { ipcRenderer } = window.electronAPI;
 
       this.ipcRenderer = ipcRenderer;
 
-      this.ipcRenderer.on(
-        'pickContrastBgColor',
-        (_event, color: IroColorValue) => {
-          this.setBgColor(color);
-        },
-      );
+      this.ipcRenderer.on('pickContrastBgColor', (color: IroColorValue) => {
+        this.setBgColor(color);
+      });
 
-      this.ipcRenderer.on(
-        'pickContrastFgColor',
-        (_event, color: IroColorValue) => {
-          this.setFgColor(color);
-        },
-      );
+      this.ipcRenderer.on('pickContrastFgColor', (color: IroColorValue) => {
+        this.setFgColor(color);
+      });
     }
   }
 

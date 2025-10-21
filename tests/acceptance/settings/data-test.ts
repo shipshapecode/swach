@@ -1,4 +1,4 @@
-import { click, currentURL, visit } from '@ember/test-helpers';
+import { click, currentURL, visit, waitFor } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
 import IDBExportImport from 'indexeddb-export-import';
@@ -22,13 +22,13 @@ module('Acceptance | settings/data', function (hooks) {
       .dom('[data-test-settings-format-dropdown] [data-test-options-trigger]')
       .hasText('hex');
     await click(
-      '[data-test-settings-format-dropdown] [data-test-options-trigger]',
+      '[data-test-settings-format-dropdown] [data-test-options-trigger]'
     );
 
     await waitForAll();
 
     await click(
-      '[data-test-settings-format-dropdown] [data-test-options-content] [data-test-format-option="hsl"]',
+      '[data-test-settings-format-dropdown] [data-test-options-content] [data-test-format-option="hsl"]'
     );
 
     assert
@@ -37,13 +37,14 @@ module('Acceptance | settings/data', function (hooks) {
   });
 
   // Electron specific tests
-  if (typeof requireNode !== 'undefined') {
+  if (typeof window !== 'undefined' && window.electronAPI) {
     test('export triggers success message', async function (assert) {
       await visit('/settings/data');
 
       sinon.stub(IDBExportImport, 'exportToJsonString').callsArg(1);
       await click('[data-test-export-swatches-button]');
       await waitForAll();
+      await waitFor('.alert.alert-success');
       assert.dom('.alert.alert-success').exists({ count: 1 });
     });
     test('export triggers error message', async function (assert) {
@@ -54,6 +55,7 @@ module('Acceptance | settings/data', function (hooks) {
         .callsArgWith(1, 'error');
       await click('[data-test-export-swatches-button]');
       await waitForAll();
+      await waitFor('.alert.alert-danger');
       assert.dom('.alert.alert-danger').exists({ count: 1 });
     });
   }

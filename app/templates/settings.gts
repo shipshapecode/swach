@@ -1,7 +1,7 @@
 import { on } from '@ember/modifier';
 import RouteTemplate from 'ember-route-template';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
-import SettingsNav from '../components/settings-nav.ts';
+import SettingsNav from '../components/settings-nav.gts';
 import type SettingsController from 'swach/controllers/settings';
 
 export default RouteTemplate<{
@@ -24,5 +24,5 @@ export default RouteTemplate<{
     <div class="text-main-text w-full">
       {{outlet}}
     </div>
-  </template>,
+  </template>
 );

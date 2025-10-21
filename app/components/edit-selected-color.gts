@@ -3,14 +3,14 @@ import { action, set, setProperties } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import type iro from '@jaames/iro';
-import AlphaInput from './alpha-input.ts';
-import HexInput from './hex-input.ts';
-import RgbInput from './rgb-input.ts';
+import AlphaInput from './alpha-input.gts';
+import HexInput from './hex-input.gts';
+import RgbInput from './rgb-input.gts';
 import type {
   PrivateRGBAHex,
   PublicRGBAHex,
   SelectedColorModel,
-} from 'swach/components/rgb-input';
+} from './rgb-input.gts';
 import type PaletteModel from 'swach/data-models/palette';
 import type ColorUtils from 'swach/services/color-utils';
 
@@ -26,7 +26,7 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
   <template>
     <div class="inline-flex mt-2 w-full">
       <div
-        class="input inline-block mr-2 overflow-hidden rounded whitespace-nowrap"
+        class="input inline-block mr-2 overflow-hidden rounded-sm whitespace-nowrap"
       >
         <HexInput
           data-test-kuler-hex
@@ -111,9 +111,11 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
         _a: a,
       });
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return selectedColor;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return {} as SelectedColorModel;
   }
 
@@ -154,7 +156,7 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
   updateColor(): void {
     this.args.colorPicker.setColors(
       this.args.palette.colors.map((c) => c.hex),
-      this.args.palette.selectedColorIndex,
+      this.args.palette.selectedColorIndex
     );
   }
 
@@ -165,6 +167,7 @@ export default class EditSelectedColorComponent extends Component<EditSelectedCo
    */
   @action
   updateColorInputs(key: keyof PublicRGBAHex, value: number | string): void {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/restrict-template-expressions
     set(this.selectedColor, `_${key}` as keyof PrivateRGBAHex, value);
   }
 }

@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import type { LiveQuery, Store } from 'ember-orbit';
+import { orbit, type LiveQuery, type Store } from 'ember-orbit';
 import type { RecordOperationTerm } from '@orbit/records';
 import type ApplicationController from 'swach/controllers/application';
 import type ColorModel from 'swach/data-models/color';
@@ -13,11 +13,12 @@ import type DataService from 'swach/services/data';
 import type UndoManager from 'swach/services/undo-manager';
 
 export default class PalettesController extends Controller {
+  @orbit declare store: Store;
+
   @controller application!: ApplicationController;
   @service declare colorUtils: ColorUtils;
   @service declare data: DataService;
   @service declare router: Router;
-  @service declare store: Store;
   @service declare undoManager: UndoManager;
 
   declare model: LiveQuery;
@@ -47,7 +48,7 @@ export default class PalettesController extends Controller {
 
     if (colorHistory) {
       await this.store.update((t) =>
-        t.replaceRelatedRecords(colorHistory, 'colors', []),
+        t.replaceRelatedRecords(colorHistory, 'colors', [])
       );
     }
 
@@ -116,7 +117,7 @@ export default class PalettesController extends Controller {
           sourceList,
           targetList,
           targetIndex,
-          targetPalette,
+          targetPalette
         );
       } else if (sourceList === targetList) {
         // Move color within a single palette
@@ -125,7 +126,7 @@ export default class PalettesController extends Controller {
             sourceColor,
             sourceList,
             sourcePalette,
-            targetIndex,
+            targetIndex
           );
         }
       } else {
@@ -136,7 +137,7 @@ export default class PalettesController extends Controller {
           sourcePalette,
           targetList,
           targetIndex,
-          targetPalette,
+          targetPalette
         );
       }
 
@@ -152,7 +153,7 @@ export default class PalettesController extends Controller {
     sourceList: ColorModel[],
     targetList: ColorModel[],
     targetIndex: number,
-    targetParent: PaletteModel,
+    targetParent: PaletteModel
   ): Promise<void> {
     if (sourceList !== targetList) {
       // Clone the attributes of the original color but not its id and
@@ -188,12 +189,12 @@ export default class PalettesController extends Controller {
         t.replaceAttribute(
           { type: 'palette', id: targetParent.id },
           'colorOrder',
-          colorsList,
+          colorsList
         ),
         t.replaceRelatedRecords(
           { type: 'palette', id: targetParent.id },
           'colors',
-          colorsList,
+          colorsList
         ),
       ]);
     }
@@ -206,7 +207,7 @@ export default class PalettesController extends Controller {
     sourceColor: ColorModel,
     sourceList: ColorModel[],
     sourcePalette: PaletteModel,
-    targetIndex: number,
+    targetIndex: number
   ): Promise<void> {
     const sourceColorList = sourceList.map((c) => c.$identity);
     const colorToMove = sourceColorList.find((c) => c.id === sourceColor.id);
@@ -216,7 +217,7 @@ export default class PalettesController extends Controller {
       sourceColorList.splice(targetIndex, 0, colorToMove);
 
       await this.store.update((t) =>
-        t.replaceAttribute(sourcePalette, 'colorOrder', sourceColorList),
+        t.replaceAttribute(sourcePalette, 'colorOrder', sourceColorList)
       );
     }
   }
@@ -230,7 +231,7 @@ export default class PalettesController extends Controller {
     sourcePalette: PaletteModel,
     targetList: ColorModel[],
     targetIndex: number,
-    targetPalette: PaletteModel,
+    targetPalette: PaletteModel
   ): Promise<void> {
     const sourceColorOrder = sourceList.map((c) => c.$identity);
     const colorToRemove = sourceColorOrder.find((c) => c.id === sourceColor.id);
@@ -248,12 +249,12 @@ export default class PalettesController extends Controller {
           let insertIndex = targetIndex;
           const targetColorOrder = targetList.map((c) => c.$identity);
           const existingColor = targetList.find(
-            (c) => c.hex === sourceColor.hex,
+            (c) => c.hex === sourceColor.hex
           );
 
           if (existingColor) {
             const colorToRemove = targetColorOrder.find(
-              (c) => c.id === existingColor.id,
+              (c) => c.id === existingColor.id
             );
 
             if (colorToRemove) {
@@ -268,7 +269,7 @@ export default class PalettesController extends Controller {
 
               targetColorOrder.splice(
                 targetColorOrder.indexOf(colorToRemove),
-                1,
+                1
               );
             }
 
@@ -277,11 +278,11 @@ export default class PalettesController extends Controller {
           targetColorOrder.splice(insertIndex, 0, sourceColor.$identity);
 
           operations.push(
-            t.addToRelatedRecords(targetPalette, 'colors', sourceColor),
+            t.addToRelatedRecords(targetPalette, 'colors', sourceColor)
           );
 
           operations.push(
-            t.replaceAttribute(targetPalette, 'colorOrder', targetColorOrder),
+            t.replaceAttribute(targetPalette, 'colorOrder', targetColorOrder)
           );
         }
 

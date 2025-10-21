@@ -8,8 +8,8 @@ import Component from '@glimmer/component';
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import htmlSafe from '../helpers/html-safe.ts';
-import OptionsMenu from './options-menu.ts';
-import type { SelectedColorModel } from './rgb-input.ts';
+import OptionsMenu from './options-menu.gts';
+import type { SelectedColorModel } from './rgb-input';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type ColorUtils from 'swach/services/color-utils';
@@ -28,17 +28,17 @@ interface ColorRowSignature {
 export default class ColorRowComponent extends Component<ColorRowSignature> {
   <template>
     <div
-      class="bg-menu cursor-default flex mb-2 p-3 rounded w-full"
+      class="bg-menu cursor-default flex mb-2 p-3 rounded-sm w-full"
       data-test-color={{@color.name}}
       {{on "click" (fn this.colorUtils.copyColorToClipboard @color)}}
     >
-      <div class="inline-block m-1 h-14 relative rounded w-14">
+      <div class="inline-block m-1 h-14 relative rounded-sm w-14">
         <div
-          class="absolute h-14 left-0 rounded top-0 w-14 z-10"
+          class="absolute h-14 left-0 rounded-sm top-0 w-14 z-10"
           style={{htmlSafe (concat "background-color: " @color.hex)}}
         ></div>
         <div
-          class="opacity-checkerboard absolute h-14 left-0 rounded top-0 w-14 z-0"
+          class="opacity-checkerboard absolute h-14 left-0 rounded-sm top-0 w-14 z-0"
         ></div>
       </div>
 

@@ -5,9 +5,8 @@ import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
-import type { Store } from 'ember-orbit';
+import { orbit, type Store } from 'ember-orbit';
 import type { RecordSchema } from '@orbit/records';
-import type { IpcRenderer } from 'electron';
 import type { SelectedColorModel } from 'swach/components/rgb-input';
 import type ColorModel from 'swach/data-models/color';
 import type ColorUtils from 'swach/services/color-utils';
@@ -17,18 +16,19 @@ import type UndoManager from 'swach/services/undo-manager';
 import type { SettingsStorage, themes } from 'swach/storages/settings';
 
 export default class ApplicationController extends Controller {
+  @orbit declare dataSchema: RecordSchema;
+  @orbit declare store: Store;
+
   @service declare colorUtils: ColorUtils;
   @service declare data: DataService;
-  @service declare dataSchema: RecordSchema;
   @service flashMessages!: FlashMessageService;
   @service declare router: Router;
   @service declare session: Session;
-  @service declare store: Store;
   @service declare undoManager: UndoManager;
 
   @storageFor('settings') settings!: SettingsStorage;
 
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
 
   @tracked colorPickerColor?: SelectedColorModel;
   @tracked colorPickerIsShown = false;
@@ -95,21 +95,19 @@ export default class ApplicationController extends Controller {
   constructor() {
     super(...arguments);
 
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
-
-      this.ipcRenderer = ipcRenderer;
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      this.ipcRenderer = window.electronAPI.ipcRenderer;
 
       this.ipcRenderer.on(
         'changeColor',
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        async (_event: unknown, color: string) => {
+        async (color: string) => {
           const addedColor = await this.addColor(color);
 
           if (addedColor) {
             await this.colorUtils.copyColorToClipboard(addedColor);
           }
-        },
+        }
       );
 
       this.ipcRenderer.on('openContrastChecker', () => {
@@ -119,7 +117,7 @@ export default class ApplicationController extends Controller {
       this.ipcRenderer.on(
         'openSharedPalette',
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        async (_event: unknown, query: string) => {
+        async (query: string) => {
           const data = JSON.parse(decodeURIComponent(query)) as {
             colors?: { name: string; hex: string }[];
             name?: string;
@@ -128,10 +126,10 @@ export default class ApplicationController extends Controller {
           const name = data?.name ?? 'Palette';
 
           await this.createPalette(name, colors);
-        },
+        }
       );
 
-      this.ipcRenderer.on('setTheme', (_event: unknown, theme: string) => {
+      this.ipcRenderer.on('setTheme', (theme: string) => {
         this.settings.set('osTheme', theme);
       });
 
@@ -171,7 +169,7 @@ export default class ApplicationController extends Controller {
     if (colorHistory) {
       const colorPOJO = this.colorUtils.createColorPOJO(
         color,
-        this.dataSchema.generateId('color'),
+        this.dataSchema.generateId('color')
       );
 
       delete colorPOJO.attributes.hex;
@@ -198,14 +196,14 @@ export default class ApplicationController extends Controller {
   @action
   async createPalette(
     paletteName: string,
-    colors: { name: string; hex: string }[],
+    colors: { name: string; hex: string }[]
   ): Promise<void> {
     this.router.transitionTo('palettes');
 
     const colorPOJOs = colors.map((c) => {
       const colorPOJO = this.colorUtils.createColorPOJO(
         c.hex,
-        this.dataSchema.generateId('color'),
+        this.dataSchema.generateId('color')
       );
 
       delete colorPOJO.attributes.hex;
@@ -237,7 +235,7 @@ export default class ApplicationController extends Controller {
   enableDisableAutoStart(event: Event): void {
     this.ipcRenderer.send(
       'enableDisableAutoStart',
-      (<HTMLInputElement>event.target).checked,
+      (<HTMLInputElement>event.target).checked
     );
   }
 

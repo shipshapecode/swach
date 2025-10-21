@@ -14,48 +14,48 @@ module('Acceptance | kuler', function (hooks) {
   setupApplicationTest(hooks);
   resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
-  hooks.beforeEach(async function () {
+  test('visiting /kuler with query parameters', async function (assert) {
     await visit('/kuler?colorId=pale-magenta');
-  });
 
-  test('visiting /kuler with query parameters', function (assert) {
     assert.strictEqual(currentURL(), '/kuler?colorId=pale-magenta');
   });
 
   test('analogous palette', async function (assert) {
+    await visit('/kuler?colorId=pale-magenta');
     await fillIn('[data-test-kuler-select]', 'Analogous');
 
     assert
       .dom(
-        '[data-test-kuler-palette="Analogous"] [data-test-kuler-palette-name]',
+        '[data-test-kuler-palette="Analogous"] [data-test-kuler-palette-name]'
       )
       .hasText('Analogous');
 
     assert
       .dom(
-        '[data-test-kuler-palette="Analogous"] [data-test-kuler-palette-color]',
+        '[data-test-kuler-palette="Analogous"] [data-test-kuler-palette-color]'
       )
       .exists({ count: 5 });
   });
 
   test('monochromatic palette', async function (assert) {
+    await visit('/kuler?colorId=pale-magenta');
     await fillIn('[data-test-kuler-select]', 'Monochromatic');
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-name]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-name]'
       )
       .hasText('Monochromatic');
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color]'
       )
       .exists({ count: 5 });
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="0"]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="0"]'
       )
       .hasStyle({
         backgroundColor: 'rgb(247, 138, 224)',
@@ -63,7 +63,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]'
       )
       .hasStyle({
         backgroundColor: 'rgb(43, 24, 39)',
@@ -71,7 +71,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="2"]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="2"]'
       )
       .hasStyle({
         backgroundColor: 'rgb(94, 53, 85)',
@@ -79,7 +79,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="3"]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="3"]'
       )
       .hasStyle({
         backgroundColor: 'rgb(145, 81, 131)',
@@ -87,7 +87,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="4"]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="4"]'
       )
       .hasStyle({
         backgroundColor: 'rgb(196, 110, 178)',
@@ -95,6 +95,7 @@ module('Acceptance | kuler', function (hooks) {
   });
 
   test('tetrad palette', async function (assert) {
+    await visit('/kuler?colorId=pale-magenta');
     await fillIn('[data-test-kuler-select]', 'Tetrad');
 
     assert
@@ -107,6 +108,7 @@ module('Acceptance | kuler', function (hooks) {
   });
 
   test('triad palette', async function (assert) {
+    await visit('/kuler?colorId=pale-magenta');
     await fillIn('[data-test-kuler-select]', 'Triad');
 
     assert
@@ -119,13 +121,13 @@ module('Acceptance | kuler', function (hooks) {
 
     await triggerEvent(
       '[data-test-kuler-palette="Triad"] [data-test-kuler-palette-menu]',
-      'mouseenter',
+      'mouseenter'
     );
 
     await waitForAll();
 
     await click(
-      '[data-test-kuler-palette="Triad"] [data-test-save-kuler-palette]',
+      '[data-test-kuler-palette="Triad"] [data-test-save-kuler-palette]'
     );
 
     await waitForAll();
@@ -135,7 +137,7 @@ module('Acceptance | kuler', function (hooks) {
     await waitForAll();
 
     const colorsList = document.querySelector(
-      '[data-test-palette-row="Triad"] .palette-color-squares',
+      '[data-test-palette-row="Triad"] .palette-color-squares'
     );
 
     assert
@@ -143,30 +145,31 @@ module('Acceptance | kuler', function (hooks) {
       .exists({ count: 3 });
 
     const thirdColor = colorsList.querySelectorAll(
-      '[data-test-palette-color-square]',
+      '[data-test-palette-color-square]'
     )[2];
 
     assert.dom(thirdColor).hasStyle({ backgroundColor: 'rgb(138, 224, 247)' });
   });
 
   test('changing base', async function (assert) {
+    await visit('/kuler?colorId=pale-magenta');
     await fillIn('[data-test-kuler-select]', 'Monochromatic');
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-name]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-name]'
       )
       .hasText('Monochromatic');
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color]'
       )
       .exists({ count: 5 });
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="0"]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="0"]'
       )
       .hasStyle({
         backgroundColor: 'rgb(247, 138, 224)',
@@ -174,7 +177,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]'
       )
       .hasStyle({
         backgroundColor: 'rgb(43, 24, 39)',
@@ -182,7 +185,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="2"]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="2"]'
       )
       .hasStyle({
         backgroundColor: 'rgb(94, 53, 85)',
@@ -190,7 +193,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="3"]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="3"]'
       )
       .hasStyle({
         backgroundColor: 'rgb(145, 81, 131)',
@@ -198,32 +201,32 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="4"]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="4"]'
       )
       .hasStyle({
         backgroundColor: 'rgb(196, 110, 178)',
       });
 
     await click(
-      '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]',
+      '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]'
     );
     await click('[data-test-set-base-color]');
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-name]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-name]'
       )
       .hasText('Monochromatic');
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color]'
       )
       .exists({ count: 5 });
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="0"]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="0"]'
       )
       .hasStyle({
         backgroundColor: 'rgb(43, 24, 39)',
@@ -231,7 +234,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="1"]'
       )
       .hasStyle({
         backgroundColor: 'rgb(94, 52, 85)',
@@ -239,7 +242,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="2"]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="2"]'
       )
       .hasStyle({
         backgroundColor: 'rgb(145, 81, 132)',
@@ -247,7 +250,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="3"]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="3"]'
       )
       .hasStyle({
         backgroundColor: 'rgb(196, 109, 178)',
@@ -255,7 +258,7 @@ module('Acceptance | kuler', function (hooks) {
 
     assert
       .dom(
-        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="4"]',
+        '[data-test-kuler-palette="Monochromatic"] [data-test-kuler-palette-color="4"]'
       )
       .hasStyle({
         backgroundColor: 'rgb(247, 138, 224)',
@@ -264,6 +267,8 @@ module('Acceptance | kuler', function (hooks) {
 
   module('inputs', function () {
     test('hex input updates rgba', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-hex]').hasValue('#f78ae0');
       assert.dom('[data-test-kuler-r]').hasValue('247');
       assert.dom('[data-test-kuler-g]').hasValue('138');
@@ -285,6 +290,8 @@ module('Acceptance | kuler', function (hooks) {
 
   module('red', function () {
     test('incomplete clears input', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-r]').hasValue('247');
 
       await fillIn('[data-test-kuler-r]', '255');
@@ -296,6 +303,8 @@ module('Acceptance | kuler', function (hooks) {
     });
 
     test('values capped at 255', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-r]').hasValue('247');
 
       await fillIn('[data-test-kuler-r]', '400');
@@ -308,6 +317,8 @@ module('Acceptance | kuler', function (hooks) {
 
   module('green', function () {
     test('incomplete clears input', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-g]').hasValue('138');
 
       await fillIn('[data-test-kuler-g]', '255');
@@ -319,6 +330,8 @@ module('Acceptance | kuler', function (hooks) {
     });
 
     test('values capped at 255', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-g]').hasValue('138');
 
       await fillIn('[data-test-kuler-g]', '400');
@@ -331,6 +344,8 @@ module('Acceptance | kuler', function (hooks) {
 
   module('blue', function () {
     test('incomplete clears input', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-b]').hasValue('224');
 
       await fillIn('[data-test-kuler-b]', '255');
@@ -342,6 +357,8 @@ module('Acceptance | kuler', function (hooks) {
     });
 
     test('values capped at 255', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-b]').hasValue('224');
 
       await fillIn('[data-test-kuler-b]', '400');
@@ -354,6 +371,8 @@ module('Acceptance | kuler', function (hooks) {
 
   module('alpha', function () {
     test('incomplete clears input', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-a]').hasValue('1');
 
       await fillIn('[data-test-kuler-a]', '0.52');
@@ -365,6 +384,8 @@ module('Acceptance | kuler', function (hooks) {
     });
 
     test('values capped at 1', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-a]').hasValue('1');
 
       await fillIn('[data-test-kuler-a]', '1.50');

@@ -5,18 +5,17 @@ import { service } from '@ember/service';
 import { capitalize } from '@ember/string';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import type { Store } from 'ember-orbit';
+import { orbit, type Store } from 'ember-orbit';
 import eq from 'ember-truth-helpers/helpers/eq';
 import isEmpty from 'ember-truth-helpers/helpers/is-empty';
 import not from 'ember-truth-helpers/helpers/not';
 import notEq from 'ember-truth-helpers/helpers/not-eq';
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
-import type { IpcRenderer } from 'electron';
 import { debounce } from 'throttle-debounce';
 import capitalize0 from '../helpers/capitalize.ts';
-import EditSelectedColor from './edit-selected-color.ts';
-import KulerPaletteRow from './kuler-palette-row.ts';
+import EditSelectedColor from './edit-selected-color.gts';
+import KulerPaletteRow from './kuler-palette-row.gts';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type { ColorPOJO } from 'swach/services/color-utils';
@@ -53,7 +52,7 @@ interface KulerSignature {
 
 export default class KulerComponent extends Component<KulerSignature> {
   <template>
-    <div class="bg-menu p-4 pb-8 rounded">
+    <div class="bg-menu p-4 pb-8 rounded-sm">
       <div class="mb-4">
         <select
           data-test-kuler-select
@@ -87,7 +86,7 @@ export default class KulerComponent extends Component<KulerSignature> {
     </h2>
 
     {{#if (not (isEmpty this.selectedPalette.selectedColorIndex))}}
-      <div class="bg-menu p-4 rounded">
+      <div class="bg-menu p-4 rounded-sm">
         <KulerPaletteRow
           @palette={{this.selectedPalette}}
           @setSelectedIroColor={{this.setSelectedIroColor}}
@@ -111,13 +110,15 @@ export default class KulerComponent extends Component<KulerSignature> {
       </div>
     {{/if}}
   </template>
+
+  @orbit declare store: Store;
+
   @service declare colorUtils: ColorUtils;
-  @service declare store: Store;
 
   _debouncedColorChange!: (color: iro.Color | string) => void;
   colorPicker!: iro.ColorPicker;
   harmonies = ['analogous', 'monochromatic', 'tetrad', 'triad'] as const;
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
 
   @tracked baseColor;
   @tracked colors = [];
@@ -133,28 +134,25 @@ export default class KulerComponent extends Component<KulerSignature> {
     void this.baseColorChanged().then(() => {
       this._setupColorWheel();
 
-      if (typeof requireNode !== 'undefined') {
-        const { ipcRenderer } = requireNode('electron');
+      if (typeof window !== 'undefined' && window.electronAPI) {
+        const { ipcRenderer } = window.electronAPI;
 
         this.ipcRenderer = ipcRenderer;
 
-        this.ipcRenderer.on(
-          'selectKulerColor',
-          (_event: unknown, colorIndex: number) => {
-            this.setSelectedIroColor(colorIndex);
-          },
-        );
+        this.ipcRenderer.on('selectKulerColor', (colorIndex: number) => {
+          this.setSelectedIroColor(colorIndex);
+        });
 
         this.ipcRenderer.on(
           'updateKulerColor',
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
-          async (_event: unknown, color: string | iro.Color) => {
+          async (color: string | iro.Color) => {
             await this._onColorChange(color);
             this.colorPicker.setColors(
               this.selectedPalette.colors.map((c) => c.hex),
-              this.selectedPalette.selectedColorIndex,
+              this.selectedPalette.selectedColorIndex
             );
-          },
+          }
         );
       }
     });
@@ -187,7 +185,7 @@ export default class KulerComponent extends Component<KulerSignature> {
         return this.colorUtils.createColorPOJO(color.toHexString());
       });
       const colors = colorPOJOs.map(
-        (color: ColorPOJO) => color.attributes,
+        (color: ColorPOJO) => color.attributes
       ) as unknown as ColorModel[];
 
       palette.colors = colors;
@@ -208,11 +206,11 @@ export default class KulerComponent extends Component<KulerSignature> {
     ] as ColorModel;
 
     return this.baseColorChanged(
-      this.palettes.indexOf(this.selectedPalette),
+      this.palettes.indexOf(this.selectedPalette)
     ).then(() => {
       this.colorPicker.setColors(
         this.selectedPalette.colors.map((c) => c.hex),
-        this.selectedPalette.selectedColorIndex,
+        this.selectedPalette.selectedColorIndex
       );
     });
   }
@@ -238,7 +236,7 @@ export default class KulerComponent extends Component<KulerSignature> {
       this.selectedPalette = palette;
       this.colorPicker.setColors(
         this.selectedPalette.colors.map((c) => c.hex),
-        palette.selectedColorIndex,
+        palette.selectedColorIndex
       );
     }
   }
@@ -253,7 +251,7 @@ export default class KulerComponent extends Component<KulerSignature> {
     const { selectedColorIndex } = this.selectedPalette;
     // if changing the selected baseColor, we should update all the colors
     const newColor = this.colorUtils.createColorPOJO(
-      color instanceof iro.Color ? color.rgba : color,
+      color instanceof iro.Color ? color.rgba : color
     );
 
     // @ts-expect-error TODO: fix this to be able to not use prototype extensions
@@ -270,7 +268,7 @@ export default class KulerComponent extends Component<KulerSignature> {
 
     this.colorPicker.setColors(
       this.selectedPalette.colors.map((c) => c.hex),
-      this.selectedPalette.selectedColorIndex,
+      this.selectedPalette.selectedColorIndex
     );
   }
 
@@ -323,7 +321,7 @@ export default class KulerComponent extends Component<KulerSignature> {
           },
         ],
         width: 207,
-      },
+      }
     );
 
     this.colorPicker.on('color:change', this._debouncedColorChange);

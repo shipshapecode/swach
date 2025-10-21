@@ -10,9 +10,9 @@ export default class SettingsCloudProfileController extends Controller {
   @tracked loading = false;
 
   @action
-  logOut() {
+  async logOut() {
     this.loading = true;
-    this.session.invalidate();
+    await this.session.invalidate();
     this.loading = false;
   }
 }

@@ -12,14 +12,13 @@ import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 import type DragSortService from 'ember-drag-sort/services/drag-sort';
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import sub from 'ember-math-helpers/helpers/sub';
-import type { Store } from 'ember-orbit';
+import { orbit, type Store } from 'ember-orbit';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
 import not from 'ember-truth-helpers/helpers/not';
 import type { RecordSchema } from '@orbit/records';
-import type { IpcRenderer } from 'electron';
 import htmlSafe from '../helpers/html-safe.ts';
-import OptionsMenu from './options-menu.ts';
+import OptionsMenu from './options-menu.gts';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type ColorUtils from 'swach/services/color-utils';
@@ -58,7 +57,7 @@ class MenuOption {
     action: () => void,
     icon: string,
     label: string,
-    palette: PaletteModel,
+    palette: PaletteModel
   ) {
     this.action = action;
     this.icon = icon;
@@ -129,7 +128,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
   <template>
     {{! template-lint-disable no-nested-interactive }}
     <div
-      class="bg-menu cursor-default mb-2 overflow-visible p-3 rounded w-full"
+      class="bg-menu cursor-default mb-2 overflow-visible p-3 rounded-sm w-full"
       data-test-palette-row="{{@palette.name}}"
       role="button"
       {{on "click" this.transitionToColors}}
@@ -192,13 +191,12 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       <div class="palette flex grow h-8 relative w-full">
         {{#unless @palette.colors.length}}
           <div
-            class="absolute bg-main border border-dashed border-gray-400 flex grow h-8 items-center justify-center rounded text-sm top-0 w-full"
+            class="absolute bg-main border border-dashed border-gray-400 flex grow h-8 items-center justify-center rounded-sm text-sm top-0 w-full"
           >
             Drag colors here
           </div>
         {{/unless}}
 
-        {{!@glint-expect-error TODO: fix this}}
         <DragSortList
           class="absolute palette-color-squares flex grow h-8 top-0 w-full
             {{if this.isLocked 'palette-locked'}}"
@@ -239,14 +237,16 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       </div>
     </div>
   </template>
+
+  @orbit declare dataSchema: RecordSchema;
+  @orbit declare store: Store;
+
   @service declare colorUtils: ColorUtils;
-  @service declare dataSchema: RecordSchema;
-  @service declare dragSort: DragSortService;
+  @service declare dragSort: DragSortService<ColorModel>;
   @service declare router: Router;
-  @service declare store: Store;
   @service declare undoManager: UndoManager;
 
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
 
   menuItems: (MenuOption | FavoriteOption | LockOption)[] | null = null;
   fade = fade;
@@ -256,8 +256,8 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
   constructor(owner: Owner, args: PaletteRowSignature['Args']) {
     super(owner, args);
 
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      const { ipcRenderer } = window.electronAPI;
 
       this.ipcRenderer = ipcRenderer;
     }
@@ -267,14 +267,14 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
         this.toggleIsEditing,
         'rename',
         'Rename Palette',
-        this.args.palette,
+        this.args.palette
       ),
       new MenuOption(
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         this.duplicatePalette,
         'duplicate',
         'Duplicate Palette',
-        this.args.palette,
+        this.args.palette
       ),
       new LockOption(this.lockPalette, this.args.palette),
       new FavoriteOption(this.favoritePalette, this.args.palette),
@@ -282,26 +282,28 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
         this.sharePalette,
         'share',
         'Share Palette',
-        this.args.palette,
+        this.args.palette
       ),
       new MenuOption(
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         this.deletePalette,
         'trash',
         'Delete Palette',
-        this.args.palette,
+        this.args.palette
       ),
     ];
 
-    // @ts-expect-error dragSort.on does not seem to exist in TS
     this.dragSort.on(
       'start',
-      (event: { draggedItem: { hex: string | null } }) => {
-        document.documentElement.style.setProperty(
-          '--dragged-swatch-color',
-          event.draggedItem.hex,
-        );
-      },
+      (event: CustomEvent<{ draggedItem?: { hex: string | null } }>) => {
+        const draggedItem = event.detail?.draggedItem;
+        if (draggedItem) {
+          document.documentElement.style.setProperty(
+            '--dragged-swatch-color',
+            draggedItem.hex
+          );
+        }
+      }
     );
   }
 
@@ -309,12 +311,12 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
     return this.args.palette.isLocked;
   }
 
-  get sortedColors(): (ColorModel | undefined)[] {
-    return this.args?.palette?.colorOrder?.map(
+  get sortedColors(): Array<ColorModel> {
+    return this.args.palette.colorOrder.map(
       (color: { type: string; id: string }) => {
         return this.args.palette.colors.find((c) => c.id === color.id);
-      },
-    );
+      }
+    ) as Array<ColorModel>;
   }
 
   deletePalette = async () => {
@@ -338,7 +340,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
 
       // Find the color by id and replace it with colorCopy.id
       colorOrder = colorOrder.map((c) =>
-        c.id === color.id ? { type: 'color', id: colorCopy.id } : c,
+        c.id === color.id ? { type: 'color', id: colorCopy.id } : c
       );
 
       return colorCopy;
@@ -375,8 +377,8 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
         t.replaceAttribute(
           this.args.palette,
           'isFavorite',
-          !this.args.palette.isFavorite,
-        ),
+          !this.args.palette.isFavorite
+        )
       );
     }
   };
@@ -391,8 +393,8 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       t.replaceAttribute(
         this.args.palette,
         'isLocked',
-        !this.args.palette.isLocked,
-      ),
+        !this.args.palette.isLocked
+      )
     );
   };
 
@@ -405,10 +407,10 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       });
 
       const url = `https://swach.io/palette?data=${encodeURIComponent(
-        JSON.stringify({ name, colors: urlColors }),
+        JSON.stringify({ name, colors: urlColors })
       )}`;
 
-      if (typeof requireNode !== 'undefined') {
+      if (typeof window !== 'undefined' && window.electronAPI) {
         void this.ipcRenderer.invoke('open-external', url);
       }
     }
@@ -434,8 +436,8 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       t.replaceAttribute(
         this.args.palette,
         'name',
-        (<HTMLInputElement>event.target).value,
-      ),
+        (<HTMLInputElement>event.target).value
+      )
     );
   };
 }

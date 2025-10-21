@@ -27,13 +27,6 @@ declare module '@glint/environment-ember-loose/registry' {
         };
       };
     }>;
-    'html-safe': HelperLike<{
-      Args: {
-        Positional: [string: string];
-      };
-      Return: string;
-    }>;
-    'liquid-outlet': ComponentLike;
     OneWayInputMask: ComponentLike<{
       Element: HTMLInputElement;
       Args: {
@@ -62,5 +55,25 @@ declare module '@glint/environment-ember-loose/registry' {
 }
 
 declare global {
-  declare function requireNode(name: string): any;
+  interface Window {
+    electronAPI: {
+      ipcRenderer: {
+        send: (channel: string, ...args: any[]) => void;
+        on: (channel: string, func: (...args: any[]) => void) => (...args: any[]) => void;
+        off: (channel: string, func: (...args: any[]) => void) => void;
+        once: (channel: string, func: (...args: any[]) => void) => void;
+        invoke: (channel: string, ...args: any[]) => Promise<any>;
+        removeAllListeners: (channel: string) => void;
+      };
+    };
+  }
+
+  namespace NodeJS {
+    interface ProcessEnv {
+      APPLE_ID: string;
+      APPLE_ID_PASSWORD: string;
+      WINDOWS_PFX_FILE: string;
+      WINDOWS_PFX_PASSWORD: string;
+    }
+  }
 }

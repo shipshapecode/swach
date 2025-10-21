@@ -1,6 +1,6 @@
 import { currentURL, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { resetStorage } from 'swach/tests/helpers';
+import { resetStorage, waitForAll } from 'swach/tests/helpers';
 import { setupApplicationTest } from 'swach/tests/helpers/index';
 
 module('Acceptance | index', function (hooks) {
@@ -9,6 +9,7 @@ module('Acceptance | index', function (hooks) {
 
   test('visiting /index', async function (assert) {
     await visit('/');
+    await waitForAll();
 
     assert.strictEqual(currentURL(), '/palettes');
   });

@@ -1,6 +1,6 @@
 import Service, { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import type { Store } from 'ember-orbit';
+import { orbit, type Store } from 'ember-orbit';
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type JSONAPISource from '@orbit/jsonapi';
@@ -9,14 +9,13 @@ import type Palette from 'swach/data-models/palette';
 import type Session from 'swach/services/session';
 
 export default class DataService extends Service {
-  @service dataCoordinator!: Coordinator;
+  @orbit dataCoordinator!: Coordinator;
+  @orbit declare store: Store;
+
   @service declare session: Session;
-  @service declare store: Store;
+
   @tracked colorHistory: Palette | undefined;
   isActivated = false;
-
-  backup = this.dataCoordinator.getSource<IndexedDBSource>('backup');
-  remote = this.dataCoordinator.getSource<JSONAPISource>('remote');
 
   async activate(): Promise<void> {
     const records = await this.getRecordsFromBackup();
@@ -29,7 +28,7 @@ export default class DataService extends Service {
           }
 
           return t.addRecord(r);
-        }),
+        })
       );
     }
 
@@ -41,7 +40,7 @@ export default class DataService extends Service {
   async synchronize(): Promise<void> {
     if (!this.isActivated) {
       throw new Error(
-        'Data service: synchronize cannot be called prior to activate',
+        'Data service: synchronize cannot be called prior to activate'
       );
     }
 
@@ -49,7 +48,7 @@ export default class DataService extends Service {
     const colorHistoryPalettes = this.store.cache.query<Palette[]>((q) =>
       q
         .findRecords('palette')
-        .filter({ attribute: 'isColorHistory', value: true }),
+        .filter({ attribute: 'isColorHistory', value: true })
     );
 
     // Ensure that there is one, and only one, palette marked as isColorHistory.
@@ -69,7 +68,7 @@ export default class DataService extends Service {
       });
     } else if (colorHistoryPalettes.length > 1) {
       const remoteColorHistoryPalette = remotePaletteRecords.find(
-        (p) => p.attributes?.['isColorHistory'],
+        (p) => p.attributes?.['isColorHistory']
       );
 
       const preferredColorHistoryPaletteId =
@@ -86,20 +85,21 @@ export default class DataService extends Service {
       }
 
       await this.store.update((t) =>
-        duplicateColorHistoryPalettes.map((p) => t.removeRecord(p)),
+        duplicateColorHistoryPalettes.map((p) => t.removeRecord(p))
       );
     }
   }
 
   async reset(): Promise<void> {
     this.colorHistory = undefined;
-    await this.backup.reset();
+    await this.dataCoordinator.getSource<IndexedDBSource>('backup').reset();
     await this.store.reset();
   }
 
   private async getRecordsFromBackup(): Promise<InitializedRecord[]> {
-    const records = await this.backup.query<InitializedRecord[]>((q) =>
-      q.findRecords(),
+    const backup = this.dataCoordinator.getSource<IndexedDBSource>('backup');
+    const records = await backup.query<InitializedRecord[]>((q) =>
+      q.findRecords()
     );
 
     if (records?.length > 0) {
@@ -109,11 +109,16 @@ export default class DataService extends Service {
       // will simply be reloaded into the backup db.
       // TODO: This is a bit of a hack that should be replaced with better
       // support for migrations in `IndexedDBCache` in `@orbit/indexeddb`.
-      // @ts-expect-error This is a hacked property until we have a real one to use in ember-orbit
-      if (this.backup.recreateInverseRelationshipsOnLoad) {
+
+      if (
         // @ts-expect-error This is a hacked property until we have a real one to use in ember-orbit
-        this.backup.recreateInverseRelationshipsOnLoad = false;
-        await this.backup.sync((t) => records.map((r) => t.addRecord(r)));
+        // prettier-ignore
+        backup.recreateInverseRelationshipsOnLoad
+      ) {
+        // @ts-expect-error This is a hacked property until we have a real one to use in ember-orbit
+        // prettier-ignore
+        backup.recreateInverseRelationshipsOnLoad = false;
+        await backup.sync((t) => records.map((r) => t.addRecord(r)));
       }
 
       return records;
@@ -124,9 +129,10 @@ export default class DataService extends Service {
 
   private async getPalettesFromRemote(): Promise<InitializedRecord[]> {
     if (this.session.isAuthenticated) {
-      const remotePaletteRecords = await this.remote.query<InitializedRecord[]>(
+      const remote = this.dataCoordinator.getSource<JSONAPISource>('remote');
+      const remotePaletteRecords = await remote.query<InitializedRecord[]>(
         (q) => q.findRecords('palette'),
-        { include: ['colors'] },
+        { include: ['colors'] }
       );
 
       if (remotePaletteRecords?.length > 0) {
@@ -136,10 +142,10 @@ export default class DataService extends Service {
         // should be a one-time operation that will happen on initial login
         // after signing up.
         let colors = this.store.source.cache.query<InitializedRecord[]>((q) =>
-          q.findRecords('color'),
+          q.findRecords('color')
         );
         let palettes = this.store.source.cache.query<InitializedRecord[]>((q) =>
-          q.findRecords('palette'),
+          q.findRecords('palette')
         );
 
         // Add colors first, then palettes, then relationships between them
@@ -168,33 +174,33 @@ export default class DataService extends Service {
         });
 
         if (colors.length > 0) {
-          await this.remote.update<InitializedRecord[]>(
+          await remote.update<InitializedRecord[]>(
             (t) => colors.map((r) => t.addRecord(r)),
-            { parallelRequests: true },
+            { parallelRequests: true }
           );
         }
 
         if (palettes.length > 0) {
-          await this.remote.update<InitializedRecord[]>(
+          await remote.update<InitializedRecord[]>(
             (t) => palettes.map((r) => t.addRecord(r)),
-            { parallelRequests: true },
+            { parallelRequests: true }
           );
         }
 
         if (paletteColors.length > 0) {
-          await this.remote.update<InitializedRecord[]>(
+          await remote.update<InitializedRecord[]>(
             (t) =>
               paletteColors.map((p) =>
-                t.replaceRelatedRecords(p.palette, 'colors', p.colors),
+                t.replaceRelatedRecords(p.palette, 'colors', p.colors)
               ),
-            { parallelRequests: true },
+            { parallelRequests: true }
           );
         }
 
         // Re-fetch palettes and colors from remote
-        return this.remote.query<InitializedRecord[]>(
+        return remote.query<InitializedRecord[]>(
           (q) => q.findRecords('palette'),
-          { include: ['colors'] },
+          { include: ['colors'] }
         );
       }
     } else {

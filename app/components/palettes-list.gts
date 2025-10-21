@@ -1,11 +1,11 @@
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
-import type { LiveQuery, Store } from 'ember-orbit';
+import { orbit, type LiveQuery, type Store } from 'ember-orbit';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import type { RecordOperationTerm } from '@orbit/records';
-import AnimatedDragSortList from './animated-drag-sort-list.ts';
-import PaletteRow from './palette-row.ts';
+import AnimatedDragSortList from './animated-drag-sort-list.gts';
+import PaletteRow from './palette-row.gts';
 import type ColorModel from 'swach/data-models/color';
 import type PaletteModel from 'swach/data-models/palette';
 import type UndoManager from 'swach/services/undo-manager';
@@ -37,7 +37,6 @@ export default class PalettesListComponent extends Component<PalettesListSignatu
   <template>
     <div class="palettes-list mt-48 overflow-visible" ...attributes>
       {{#if this.palettes.length}}
-        {{! @glint-expect-error TODO: fix this}}
         <AnimatedDragSortList
           class="overflow-visible"
           @group="palettes"
@@ -76,7 +75,9 @@ export default class PalettesListComponent extends Component<PalettesListSignatu
       {{/if}}
     </div>
   </template>
-  @service declare store: Store;
+
+  @orbit declare store: Store;
+
   @service declare undoManager: UndoManager;
 
   get palettes(): PaletteModel[] {
@@ -116,8 +117,8 @@ export default class PalettesListComponent extends Component<PalettesListSignatu
           t.replaceAttribute(
             { type: 'palette', id: palette.id },
             'index',
-            index,
-          ),
+            index
+          )
         );
       });
 

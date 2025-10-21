@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 import type Transition from '@ember/routing/transition';
 import { service } from '@ember/service';
 import { storageFor } from 'ember-local-storage';
-import type { Store } from 'ember-orbit';
+import { orbit, type Store } from 'ember-orbit';
 import type PaletteModel from 'swach/data-models/palette';
 import type Session from 'swach/services/session';
 import type { SettingsStorage } from 'swach/storages/settings';
@@ -15,8 +15,9 @@ export default class ColorsRoute extends Route {
     },
   };
 
+  @orbit declare store: Store;
+
   @service declare session: Session;
-  @service declare store: Store;
 
   @storageFor('settings') settings!: SettingsStorage;
 

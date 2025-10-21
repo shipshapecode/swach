@@ -8,10 +8,9 @@ import { tracked } from '@glimmer/tracking';
 import { storageFor } from 'ember-local-storage';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
-import type { IpcRenderer } from 'electron';
 import capitalize from '../helpers/capitalize.ts';
-import About from './about.ts';
-import LoadingButton from './loading-button.ts';
+import About from './about.gts';
+import LoadingButton from './loading-button.gts';
 import type { SettingsStorage, themes } from 'swach/storages/settings';
 
 interface SettingsMenuSignature {
@@ -35,7 +34,7 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
           <label class="flex items-center mb-1">
             <Input
               data-test-settings-startup
-              class="form-checkbox h-4 mr-2 text-checkbox rounded w-4"
+              class="form-checkbox h-4 mr-2 text-checkbox rounded-sm w-4"
               @type="checkbox"
               @checked={{this.settings.openOnStartup}}
               {{on "change" @enableDisableAutoStart}}
@@ -49,7 +48,7 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
           <label class="flex items-center mb-1">
             <Input
               data-test-settings-show-dock-icon
-              class="form-checkbox h-4 mr-2 text-checkbox rounded w-4"
+              class="form-checkbox h-4 mr-2 text-checkbox rounded-sm w-4"
               @type="checkbox"
               @checked={{this.settings.showDockIcon}}
               {{on "change" @toggleShowDockIcon}}
@@ -62,7 +61,7 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
         <label class="flex items-center mb-1">
           <Input
             data-test-settings-sounds
-            class="form-checkbox h-4 mr-2 text-checkbox rounded w-4"
+            class="form-checkbox h-4 mr-2 text-checkbox rounded-sm w-4"
             @type="checkbox"
             @checked={{this.settings.sounds}}
           />
@@ -72,7 +71,7 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
 
         <label class="flex items-center mb-1">
           <Input
-            class="form-checkbox h-4 mr-2 text-checkbox rounded w-4"
+            class="form-checkbox h-4 mr-2 text-checkbox rounded-sm w-4"
             @type="checkbox"
             @checked={{this.settings.notifications}}
           />
@@ -129,7 +128,7 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
   </template>
   @storageFor('settings') settings!: SettingsStorage;
 
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
   themes = ['light', 'dark', 'dynamic'] as const;
 
   @tracked platform?: string;
@@ -137,8 +136,8 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
   constructor(owner: Owner, args: SettingsMenuSignature['Args']) {
     super(owner, args);
 
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      const { ipcRenderer } = window.electronAPI;
 
       this.ipcRenderer = ipcRenderer;
 

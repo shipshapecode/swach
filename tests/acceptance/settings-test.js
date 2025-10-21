@@ -7,47 +7,54 @@ module('Acceptance | settings', function (hooks) {
   setupApplicationTest(hooks);
   resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
-  hooks.beforeEach(async function () {
+  test('visiting /settings', async function (assert) {
     await visit('/settings');
-  });
 
-  test('visiting /settings', function (assert) {
     assert.strictEqual(currentURL(), '/settings');
   });
 
-  test('settings menu is shown', function (assert) {
+  test('settings menu is shown', async function (assert) {
+    await visit('/settings');
+
     assert.dom('[data-test-settings-menu]').exists();
   });
 
-  test('sounds is checked by default', function (assert) {
+  test('sounds is checked by default', async function (assert) {
+    await visit('/settings');
+
     assert.dom('[data-test-settings-sounds]').isChecked();
   });
 
   test('theme setting updates when selected', async function (assert) {
+    await visit('/settings');
     await click('[data-test-settings-select-theme="light"]');
 
     const theme = JSON.parse(
-      localStorage.getItem('storage:settings'),
+      localStorage.getItem('storage:settings')
     ).userTheme;
 
     assert.strictEqual(theme, 'light');
   });
 
   // Ember specific tests
-  if (typeof requireNode === 'undefined') {
-    test('has five inputs', function (assert) {
+  if (!(typeof window !== 'undefined' && window.electronAPI)) {
+    test('has five inputs', async function (assert) {
+      await visit('/settings');
+
       assert.dom('[data-test-settings-menu] input').exists({ count: 5 });
     });
   }
 
   // Electron specific tests
-  if (typeof requireNode !== 'undefined') {
+  if (typeof window !== 'undefined' && window.electronAPI) {
     // TODO: these are different for Mac/Windows vs Linux, so we need specific platform tests
-    // test('has seven inputs', function (assert) {
-    //   assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
-    // });
-    // test('start on startup is not checked by default', async function (assert) {
-    //   assert.dom('[data-test-settings-startup]').isNotChecked();
-    // });
+    test('has seven inputs', async function (assert) {
+      await visit('/settings');
+      assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
+    });
+    test('start on startup is not checked by default', async function (assert) {
+      await visit('/settings');
+      assert.dom('[data-test-settings-startup]').isNotChecked();
+    });
   }
 });

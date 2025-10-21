@@ -52,5 +52,5 @@ export default RouteTemplate<{ Args: { model: unknown; controller: unknown } }>(
         </div>
       </div>
     </div>
-  </template>,
+  </template>
 );

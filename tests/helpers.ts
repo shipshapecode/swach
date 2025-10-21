@@ -1,27 +1,32 @@
 import { getContext, settled } from '@ember/test-helpers';
 import { animationsSettled } from 'ember-animated/test-support';
-import { waitForSource } from 'ember-orbit/test-support';
+import { waitForSource } from 'ember-orbit/test-support/index';
 import type Owner from '@ember/owner';
-import type Coordinator from '@orbit/coordinator';
-import type { IndexedDBSource } from '@orbit/indexeddb';
+import { getOrbitRegistry, setupOrbit } from 'ember-orbit';
 import type BucketClass from '@orbit/indexeddb-bucket';
-// @ts-expect-error TODO: not yet typed
+import type MemorySource from '@orbit/memory';
 import seedOrbit from './orbit/seed';
 
-export async function waitForAll() {
-  const { owner } = getContext() as { owner: Owner };
-  // @ts-expect-error Not sure why it says this does not exist
-  const { services } = owner.resolveRegistration('ember-orbit:config') as {
-    services: {
-      coordinator: string;
-    };
-  };
-  const coordinator = owner.lookup(
-    `service:${services.coordinator}`,
-  ) as unknown as Coordinator;
+const dataModels = import.meta.glob('../app/data-models/*.{js,ts}', {
+  eager: true,
+});
+const dataSources = import.meta.glob('../app/data-sources/*.{js,ts}', {
+  eager: true,
+});
+const dataStrategies = import.meta.glob('../app/data-strategies/*.{js,ts}', {
+  eager: true,
+});
 
-  for (const source of coordinator.sources) {
-    await waitForSource(source);
+export async function waitForAll() {
+  // @ts-expect-error This is fine.
+  const owner = getContext().owner as Owner;
+  const orbitRegistry = getOrbitRegistry(owner);
+  const coordinator = orbitRegistry.services.dataCoordinator;
+
+  if (coordinator) {
+    for (const source of coordinator.sources) {
+      await waitForSource(source, owner);
+    }
   }
 
   await settled();
@@ -30,23 +35,30 @@ export async function waitForAll() {
 
 export function resetStorage(
   hooks: NestedHooks,
-  options: { seed?: { source?: string; scenario?: string } } = {},
+  options: { seed?: { source?: string; scenario?: string } } = {}
 ) {
   hooks.beforeEach(async function () {
-    if (options.seed) {
-      const sourceName = options.seed.source ?? 'backup';
-      const source = this.owner.lookup(`data-source:${sourceName}`);
+    setupOrbit(this.owner, {
+      ...dataModels,
+      ...dataSources,
+      ...dataStrategies,
+    });
 
+    if (options.seed) {
+      const orbitRegistry = getOrbitRegistry(this.owner);
+      const sourceName = options.seed.source ?? 'backup';
+      const source = orbitRegistry.registrations.sources[sourceName];
       await seedOrbit(source, options.seed.scenario);
     }
   });
 
   hooks.afterEach(async function () {
-    const backup = this.owner.lookup('data-source:backup') as IndexedDBSource;
+    const orbitRegistry = getOrbitRegistry(this.owner);
+    const backup = orbitRegistry.registrations.sources.backup as MemorySource;
 
-    await backup.cache.deleteDB();
+    backup.cache.reset();
 
-    const bucket = this.owner.lookup('data-bucket:main') as
+    const bucket = orbitRegistry.registrations.buckets.main as
       | BucketClass
       | undefined;
 

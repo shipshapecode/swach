@@ -24,8 +24,17 @@ module('Acceptance | contrast', function (hooks) {
   test('has default value on open', async function (assert) {
     await visit('/contrast');
     await waitForAll();
-    await waitUntil(() =>
-      find('[data-test-wcag-score]')?.textContent.trim('21.00')
+    // Wait for the color pickers to be initialized and score to be computed
+    await waitUntil(
+      () => {
+        const scoreElement = find('[data-test-wcag-score]');
+        const stringElement = find('[data-test-wcag-string]');
+        return (
+          scoreElement?.textContent.trim() === '21.00' &&
+          stringElement?.textContent.trim() === 'AAA'
+        );
+      },
+      { timeout: 2000 }
     );
 
     assert.dom('[data-test-wcag-score]').hasText('21.00');
@@ -36,14 +45,30 @@ module('Acceptance | contrast', function (hooks) {
     await visit('/contrast');
     await waitForAll();
 
+    // Wait for initial state to be ready
+    await waitUntil(
+      () => find('[data-test-wcag-score]')?.textContent.trim() === '21.00',
+      { timeout: 2000 }
+    );
+
     await fillIn('[data-test-bg-input]', '#504F4F');
     await triggerKeyEvent('[data-test-bg-input]', 'keypress', 13);
 
     await waitForAll();
 
-    await waitUntil(() =>
-      find('[data-test-wcag-score]')?.textContent.trim('2.57')
+    // Wait for the background color to update and score to recalculate
+    await waitUntil(
+      () => {
+        const scoreElement = find('[data-test-wcag-score]');
+        const stringElement = find('[data-test-wcag-string]');
+        return (
+          scoreElement?.textContent.trim() === '2.57' &&
+          stringElement?.textContent.trim() === 'Fail'
+        );
+      },
+      { timeout: 3000 }
     );
+
     assert.dom('[data-test-wcag-score]').hasText('2.57');
     assert.dom('[data-test-wcag-string]').hasText('Fail');
   });

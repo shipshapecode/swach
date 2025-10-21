@@ -1,15 +1,19 @@
-const {
-  BrowserWindow,
+import { access } from 'node:fs/promises';
+import { dirname, join, parse, relative, resolve } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import {
   app,
+  BrowserWindow,
   ipcMain,
   nativeTheme,
-  protocol,
   net,
-} = require('electron');
-const { pathToFileURL, fileURLToPath } = require('url');
-const { access } = require('fs').promises;
-const Store = require('electron-store');
-const path = require('path');
+  protocol,
+} from 'electron';
+import Store from 'electron-store';
+
+// __dirname in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const store = new Store({
   defaults: {
@@ -20,11 +24,11 @@ const store = new Store({
 });
 
 // Handle file URLs for asset loading
-async function getAssetPath(emberAppDir, url) {
+async function getAssetPath(emberAppDir: string, url: string) {
   const urlPath = fileURLToPath(url);
-  const { root } = path.parse(urlPath);
-  const relPath = path.relative(root, urlPath);
-  const appPath = path.join(emberAppDir, relPath);
+  const { root } = parse(urlPath);
+  const relPath = relative(root, urlPath);
+  const appPath = join(emberAppDir, relPath);
 
   try {
     await access(appPath);
@@ -34,34 +38,33 @@ async function getAssetPath(emberAppDir, url) {
   }
 }
 
-function handleFileUrls(emberAppDir) {
-  if (protocol.handle) {
-    protocol.handle('file', async ({ url }) => {
-      const assetPath = await getAssetPath(emberAppDir, url);
-      return net.fetch(pathToFileURL(assetPath), {
-        bypassCustomProtocolHandlers: true,
-      });
+function handleFileUrls(emberAppDir: string) {
+  protocol.handle('file', async ({ url }) => {
+    const assetPath = await getAssetPath(emberAppDir, url);
+    return net.fetch(pathToFileURL(assetPath).href, {
+      bypassCustomProtocolHandlers: true,
     });
-  } else {
-    protocol.interceptFileProtocol('file', async ({ url }, callback) => {
-      callback(await getAssetPath(emberAppDir, url));
-    });
-  }
+  });
 }
 
-function runTests(emberAppDir) {
+function runTests(emberAppDir: string) {
+  // Set a global for the preload script to detect test mode
+  process.env.ELECTRON_IS_TESTING = 'true';
+
   const testWindow = new BrowserWindow({
     width: 1200,
     height: 800,
     show: !process.env.CI,
     webPreferences: {
       backgroundThrottling: false,
-      contextIsolation: false,
-      nodeIntegration: true,
+      contextIsolation: true,
+      nodeIntegration: false,
+      preload: join(__dirname, '..', '..', '.vite', 'build', 'preload.js'),
     },
   });
 
-  delete testWindow.module;
+  // Do we need this?
+  // delete testWindow.module;
 
   // Build test URL
   const testUrl = `file://${emberAppDir}/tests/index.html?hidepassed`;
@@ -245,15 +248,16 @@ ipcMain.handle('getPlatform', () => {
   return process.platform;
 });
 
-ipcMain.handle('getStoreValue', (event, key) => {
-  return store.get(key);
+ipcMain.handle('getStoreValue', (_event, key: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+  return store.get(key) as unknown;
 });
 
 ipcMain.handle('getShouldUseDarkColors', () => {
   return nativeTheme.shouldUseDarkColors ? 'dark' : 'light';
 });
 
-const emberAppDir = path.resolve(__dirname, '..', '..', 'dist');
+const emberAppDir = resolve(__dirname, '..', '..', 'dist');
 
 app.on('ready', async function onReady() {
   await handleFileUrls(emberAppDir);

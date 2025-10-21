@@ -1,14 +1,14 @@
 import fs from 'fs';
 import { app, clipboard, dialog, ipcMain, nativeTheme, shell } from 'electron';
 import { download } from 'electron-dl';
-import type ElectronStore from 'electron-store';
+import type Store from 'electron-store';
 import { type Menubar } from 'menubar';
 import { launchPicker } from './color-picker';
 import { restartDialog } from './dialogs';
 
 function setupEventHandlers(
   mb: Menubar,
-  store: ElectronStore<{ firstRunV1: boolean; showDockIcon: boolean }>
+  store: Store<{ firstRunV1: boolean; showDockIcon: boolean }>
 ) {
   ipcMain.on('copyColorToClipboard', (_channel, color: string) => {
     clipboard.writeText(color);

@@ -3,7 +3,7 @@ import { module, test } from 'qunit';
 import { resetStorage } from 'swach/tests/helpers';
 import { setupApplicationTest } from 'swach/tests/helpers/index';
 
-module.skip('Acceptance | settings', function (hooks) {
+module('Acceptance | settings', function (hooks) {
   setupApplicationTest(hooks);
   resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
@@ -48,13 +48,13 @@ module.skip('Acceptance | settings', function (hooks) {
   // Electron specific tests
   if (typeof window !== 'undefined' && window.electronAPI) {
     // TODO: these are different for Mac/Windows vs Linux, so we need specific platform tests
-    // test('has seven inputs', function (assert) {
-    //   await visit('/settings');
-    //   assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
-    // });
-    // test('start on startup is not checked by default', async function (assert) {
-    //   await visit('/settings');
-    //   assert.dom('[data-test-settings-startup]').isNotChecked();
-    // });
+    test('has seven inputs', async function (assert) {
+      await visit('/settings');
+      assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
+    });
+    test('start on startup is not checked by default', async function (assert) {
+      await visit('/settings');
+      assert.dom('[data-test-settings-startup]').isNotChecked();
+    });
   }
 });

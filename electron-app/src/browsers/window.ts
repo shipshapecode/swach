@@ -20,8 +20,8 @@ export default (_dirname: string, route: string, title: string) => {
       titleBarStyle: 'hidden',
       title,
       webPreferences: {
-        contextIsolation: false,
-        nodeIntegration: true,
+        contextIsolation: true,
+        nodeIntegration: false,
       },
     } satisfies BrowserWindowConstructorOptions;
 

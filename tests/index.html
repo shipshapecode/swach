@@ -8,6 +8,23 @@
 
     {{content-for "head"}}
     {{content-for "test-head"}}
+    
+    <!-- ember-electron shim-test-head.js equivalent -->
+    <script>
+      // testem looks for a function called getTestemId, and if present, uses it to
+      // determine the ID of this test run so it can communicate back to the testem
+      // server -- see https://github.com/testem/testem/commit/4a51acc2fc0c3a23273fea838fd166b4691c2300.
+      //
+      // The testemId query param is added to the test URL by test-runner.js.
+      //
+      window.getTestemId = function () {
+        let match = window.location.search.match(/[?&]testemId=([^?&]+)/);
+        return match ? match[1] : null;
+      };
+    </script>
+    
+    <!-- Fix asset loading paths for tests (ember-electron base href equivalent) -->
+    <base href="..">
 
     <link rel="stylesheet" href="/@embroider/virtual/vendor.css">
     <link rel="stylesheet" href="/@embroider/virtual/test-support.css">
@@ -27,6 +44,8 @@
     </div>
 
     <script src="/testem.js" integrity="" data-embroider-ignore></script>
+    <!-- ember-electron testem integration: load testem.js over HTTP for proper communication -->
+    <script src="http://testemserver/testem.js"></script>
     <script src="/@embroider/virtual/vendor.js"></script>
     <script src="/@embroider/virtual/test-support.js"></script>
     <script type="module">import "ember-testing";</script>

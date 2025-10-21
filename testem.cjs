@@ -5,8 +5,11 @@ if (typeof module !== 'undefined') {
     test_page: 'tests/index.html?hidepassed',
     cwd: 'dist',
     disable_watching: true,
-    launch_in_ci: ['Chrome'],
-    launch_in_dev: ['Chrome'],
+    launchers: {
+      Electron: require('./lib/test-runner'),
+    },
+    launch_in_ci: ['Electron'],
+    launch_in_dev: ['Electron'],
     browser_start_timeout: 120,
     browser_args: {
       Chrome: {

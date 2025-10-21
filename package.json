@@ -34,7 +34,7 @@
     "start": "vite -c vite.renderer.config.ts",
     "start:electron": "electron-forge start",
     "test:ember": "vite build -c vite.renderer.config.ts --mode development && testem ci",
-    "test:electron": "vite build -c vite.renderer.config.ts --mode development && electron electron-app/tests/index.ts"
+    "test:electron": "vite build -c vite.renderer.config.ts --mode development && testem ci -f testem-electron.cjs"
   },
   "exports": {
     "./tests/*": "./tests/*",
@@ -189,9 +189,11 @@
     "tailwindcss": "^4.1.14",
     "throttle-debounce": "^5.0.2",
     "tracked-built-ins": "^3.4.0",
+    "tree-kill": "^1.2.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.1",
     "vite": "^7.1.10",
+    "vite-plugin-testem-electron": "^0.0.1",
     "wcag-contrast": "^3.0.0"
   },
   "pnpm": {

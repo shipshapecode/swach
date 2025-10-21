@@ -455,6 +455,9 @@ importers:
       tracked-built-ins:
         specifier: ^3.4.0
         version: 3.4.0(@babel/core@7.28.4)
+      tree-kill:
+        specifier: ^1.2.2
+        version: 1.2.2
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -464,6 +467,9 @@ importers:
       vite:
         specifier: ^7.1.10
         version: 7.1.10(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1)
+      vite-plugin-testem-electron:
+        specifier: ^0.0.1
+        version: 0.0.1(electron@37.7.0)(vite@7.1.10(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1))
       wcag-contrast:
         specifier: ^3.0.0
         version: 3.0.0
@@ -10411,6 +10417,13 @@ packages:
     resolution: {integrity: sha512-ZZKSmDAEFOijERBLkmYfJ+vmk3w+7hOLYDNkRCuRuMJGEmqYNCNLyBBFwWKVMhfwaEF3WOd0Zlw86U/WC/+nYw==}
     engines: {'0': node >=0.6.0}
 
+  vite-plugin-testem-electron@0.0.1:
+    resolution: {integrity: sha512-CEKEQ+sv1fbK6IiThAO1yiRzuhaNkE9/9Jpk27h7lV8LmczIndJMI932XbYy4l0TGghZXyPDmT/kZPrmVSTiVg==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      electron: '>=10.0.0'
+      vite: '>=3.0.0'
+
   vite@7.1.10:
     resolution: {integrity: sha512-CmuvUBzVJ/e3HGxhg6cYk88NGgTnBoOo7ogtfJJ0fefUWAxN/WDSUa50o+oVBxuIhO8FoEZW0j2eW7sfjs5EtA==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -14227,14 +14240,14 @@ snapshots:
       '@types/ember__array': 4.0.10(@babel/core@7.28.4)
       '@types/ember__component': 4.0.22(@babel/core@7.28.4)
       '@types/ember__controller': 4.0.12(@babel/core@7.28.4)
-      '@types/ember__debug': 4.0.8
-      '@types/ember__engine': 4.0.11
+      '@types/ember__debug': 4.0.8(@babel/core@7.28.4)
+      '@types/ember__engine': 4.0.11(@babel/core@7.28.4)
       '@types/ember__error': 4.0.6
       '@types/ember__object': 4.0.12(@babel/core@7.28.4)
       '@types/ember__polyfills': 4.0.6
       '@types/ember__routing': 4.0.23(@babel/core@7.28.4)
       '@types/ember__runloop': 4.0.10
-      '@types/ember__service': 4.0.9
+      '@types/ember__service': 4.0.9(@babel/core@7.28.4)
       '@types/ember__string': 3.0.15
       '@types/ember__template': 4.0.7
       '@types/ember__test': 4.0.6(@babel/core@7.28.4)
@@ -14247,14 +14260,14 @@ snapshots:
       '@types/ember__array': 4.0.10(@babel/core@7.28.4)
       '@types/ember__component': 4.0.22(@babel/core@7.28.4)
       '@types/ember__controller': 4.0.12(@babel/core@7.28.4)
-      '@types/ember__debug': 4.0.8
-      '@types/ember__engine': 4.0.11
+      '@types/ember__debug': 4.0.8(@babel/core@7.28.4)
+      '@types/ember__engine': 4.0.11(@babel/core@7.28.4)
       '@types/ember__error': 4.0.6
       '@types/ember__object': 4.0.12(@babel/core@7.28.4)
       '@types/ember__polyfills': 4.0.6
       '@types/ember__routing': 4.0.23(@babel/core@7.28.4)
       '@types/ember__runloop': 4.0.10(@babel/core@7.28.4)
-      '@types/ember__service': 4.0.9
+      '@types/ember__service': 4.0.9(@babel/core@7.28.4)
       '@types/ember__string': 3.0.15
       '@types/ember__template': 4.0.7
       '@types/ember__test': 4.0.6(@babel/core@7.28.4)
@@ -14268,7 +14281,7 @@ snapshots:
     dependencies:
       '@glimmer/component': 1.1.2(@babel/core@7.28.4)
       '@types/ember': 4.0.11
-      '@types/ember__engine': 4.0.11
+      '@types/ember__engine': 4.0.11(@babel/core@7.28.4)
       '@types/ember__object': 4.0.12(@babel/core@7.28.4)
       '@types/ember__owner': 4.0.9
       '@types/ember__routing': 4.0.23(@babel/core@7.28.4)
@@ -14299,15 +14312,21 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  '@types/ember__debug@4.0.8':
+  '@types/ember__debug@4.0.8(@babel/core@7.28.4)':
     dependencies:
       '@types/ember__object': 4.0.12(@babel/core@7.28.4)
       '@types/ember__owner': 4.0.9
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
 
-  '@types/ember__engine@4.0.11':
+  '@types/ember__engine@4.0.11(@babel/core@7.28.4)':
     dependencies:
       '@types/ember__object': 4.0.12(@babel/core@7.28.4)
       '@types/ember__owner': 4.0.9
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
 
   '@types/ember__error@4.0.6': {}
 
@@ -14328,7 +14347,7 @@ snapshots:
       '@types/ember': 4.0.11(@babel/core@7.28.4)
       '@types/ember__controller': 4.0.12(@babel/core@7.28.4)
       '@types/ember__object': 4.0.12(@babel/core@7.28.4)
-      '@types/ember__service': 4.0.9
+      '@types/ember__service': 4.0.9(@babel/core@7.28.4)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -14344,9 +14363,12 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  '@types/ember__service@4.0.9':
+  '@types/ember__service@4.0.9(@babel/core@7.28.4)':
     dependencies:
       '@types/ember__object': 4.0.12(@babel/core@7.28.4)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
 
   '@types/ember__string@3.0.15': {}
 
@@ -24219,6 +24241,12 @@ snapshots:
       assert-plus: 1.0.0
       core-util-is: 1.0.2
       extsprintf: 1.3.0
+
+  vite-plugin-testem-electron@0.0.1(electron@37.7.0)(vite@7.1.10(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1)):
+    dependencies:
+      electron: 37.7.0
+      tree-kill: 1.2.2
+      vite: 7.1.10(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1)
 
   vite@7.1.10(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1):
     dependencies:

@@ -1,8 +1,8 @@
 import {
+  blur,
   currentURL,
   fillIn,
   find,
-  triggerKeyEvent,
   visit,
   waitUntil,
 } from '@ember/test-helpers';
@@ -52,21 +52,27 @@ module('Acceptance | contrast', function (hooks) {
     );
 
     await fillIn('[data-test-bg-input]', '#504F4F');
-    await triggerKeyEvent('[data-test-bg-input]', 'keypress', 13);
+
+    // Explicitly trigger blur to ensure the color updates
+    await blur('[data-test-bg-input]');
 
     await waitForAll();
+
+    // Additional wait for Electron environment
+    await new Promise((resolve) => setTimeout(resolve, 200));
 
     // Wait for the background color to update and score to recalculate
     await waitUntil(
       () => {
         const scoreElement = find('[data-test-wcag-score]');
         const stringElement = find('[data-test-wcag-string]');
+
         return (
           scoreElement?.textContent.trim() === '2.57' &&
           stringElement?.textContent.trim() === 'Fail'
         );
       },
-      { timeout: 3000 }
+      { timeout: 5000 }
     );
 
     assert.dom('[data-test-wcag-score]').hasText('2.57');

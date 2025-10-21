@@ -1,4 +1,4 @@
-import { fillIn, render, triggerKeyEvent } from '@ember/test-helpers';
+import { blur, fillIn, find, render, waitUntil } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import ContrastChecker from 'swach/components/contrast-checker';
 import { waitForAll } from 'swach/tests/helpers';
@@ -13,11 +13,23 @@ module('Integration | Component | contrast-checker', function (hooks) {
     await waitForAll();
 
     await fillIn('[data-test-bg-input]', '#004747');
-    await triggerKeyEvent('[data-test-bg-input]', 'keypress', 13);
+    await blur('[data-test-bg-input]');
     await fillIn('[data-test-fg-input]', '#005A2A');
-    await triggerKeyEvent('[data-test-fg-input]', 'keypress', 13);
+    await blur('[data-test-fg-input]');
 
     await waitForAll();
+    await waitUntil(
+      () => {
+        const scoreElement = find('[data-test-wcag-score]');
+        const stringElement = find('[data-test-wcag-string]');
+
+        return (
+          scoreElement?.textContent.trim() === '1.25' &&
+          stringElement?.textContent.trim() === 'Fail'
+        );
+      },
+      { timeout: 5000 }
+    );
 
     assert.dom('[data-test-wcag-score]').hasText('1.25');
     assert.dom('[data-test-wcag-string]').hasText('Fail');
@@ -26,9 +38,21 @@ module('Integration | Component | contrast-checker', function (hooks) {
       .hasStyle({ backgroundColor: 'rgb(0, 71, 71)', color: 'rgb(0, 90, 42)' });
 
     await fillIn('[data-test-fg-input]', '#00A24B');
-    await triggerKeyEvent('[data-test-fg-input]', 'keypress', 13);
+    await blur('[data-test-fg-input]');
 
     await waitForAll();
+    await waitUntil(
+      () => {
+        const scoreElement = find('[data-test-wcag-score]');
+        const stringElement = find('[data-test-wcag-string]');
+
+        return (
+          scoreElement?.textContent.trim() === '3.15' &&
+          stringElement?.textContent.trim() === 'AA Large'
+        );
+      },
+      { timeout: 5000 }
+    );
 
     assert.dom('[data-test-wcag-score]').hasText('3.15');
     assert.dom('[data-test-wcag-string]').hasText('AA Large');
@@ -38,9 +62,21 @@ module('Integration | Component | contrast-checker', function (hooks) {
     });
 
     await fillIn('[data-test-fg-input]', '#00CE60');
-    await triggerKeyEvent('[data-test-fg-input]', 'keypress', 13);
+    await blur('[data-test-fg-input]');
 
     await waitForAll();
+    await waitUntil(
+      () => {
+        const scoreElement = find('[data-test-wcag-score]');
+        const stringElement = find('[data-test-wcag-string]');
+
+        return (
+          scoreElement?.textContent.trim() === '5.02' &&
+          stringElement?.textContent.trim() === 'AA'
+        );
+      },
+      { timeout: 5000 }
+    );
 
     assert.dom('[data-test-wcag-score]').hasText('5.02');
     assert.dom('[data-test-wcag-string]').hasText('AA');
@@ -50,9 +86,21 @@ module('Integration | Component | contrast-checker', function (hooks) {
     });
 
     await fillIn('[data-test-fg-input]', '#FFFFFF');
-    await triggerKeyEvent('[data-test-fg-input]', 'keypress', 13);
+    await blur('[data-test-fg-input]');
 
     await waitForAll();
+    await waitUntil(
+      () => {
+        const scoreElement = find('[data-test-wcag-score]');
+        const stringElement = find('[data-test-wcag-string]');
+
+        return (
+          scoreElement?.textContent.trim() === '10.54' &&
+          stringElement?.textContent.trim() === 'AAA'
+        );
+      },
+      { timeout: 5000 }
+    );
 
     assert.dom('[data-test-wcag-score]').hasText('10.54');
     assert.dom('[data-test-wcag-string]').hasText('AAA');

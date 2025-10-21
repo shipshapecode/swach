@@ -21,7 +21,7 @@ const store = new Store({
 });
 
 // IPC handlers needed by the app
-ipcMain.handle('getAppVersion', async () => {
+ipcMain.handle('getAppVersion', () => {
   return app.getVersion();
 });
 
@@ -40,11 +40,11 @@ ipcMain.handle('getShouldUseDarkColors', () => {
 
 const emberAppDir = resolve(__dirname, '..', '..', 'dist');
 
-app.on('ready', async function onReady() {
+app.on('ready', function onReady() {
   // Set a global for the preload script to detect test mode
   process.env.ELECTRON_IS_TESTING = 'true';
 
-  await handleFileUrls(emberAppDir);
+  handleFileUrls(emberAppDir);
 
   // Set up testem communication
   setupTestem();

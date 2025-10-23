@@ -25,6 +25,7 @@ if (macroCondition(!isTesting())) {
       environment: config.environment,
       release: `v${pkg.version}`,
     },
+    // @ts-expect-error TODO: fix this type error
     emberInit
   );
 }

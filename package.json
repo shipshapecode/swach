@@ -106,7 +106,7 @@
     "@release-it-plugins/workspaces": "^4.2.1",
     "@rollup/plugin-babel": "^6.1.0",
     "@sentry/cli": "^2.56.1",
-    "@sentry/ember": "^7.120.4",
+    "@sentry/ember": "^10.21.0",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/vite": "^4.1.14",
     "@tsconfig/ember": "^3.0.11",

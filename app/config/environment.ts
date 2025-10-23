@@ -25,6 +25,7 @@ assert(
 );
 
 export default config as {
+  environment: string;
   modulePrefix: string;
   podModulePrefix?: string;
   locationType: string;

@@ -1,7 +1,7 @@
 import { basename, dirname, join, resolve } from 'node:path';
 // This should cause a type error
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { init } from '@sentry/electron';
+import { init } from '@sentry/electron/main';
 import { ipcMain, nativeTheme } from 'electron';
 import isDev from 'electron-is-dev';
 import Store from 'electron-store';
@@ -22,8 +22,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 init({
-  appName: 'swach',
-  dsn: 'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140',
+  dsn: 'https://6974b46329f24dc1b9fca4507c65e942@o361681.ingest.us.sentry.io/3956140',
   release: `v${pkg.version}`,
 });
 

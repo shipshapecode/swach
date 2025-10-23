@@ -41,9 +41,9 @@
     "test:ember": "vite build -c vite.renderer.config.ts --mode development && testem ci"
   },
   "dependencies": {
-    "@sentry/electron": "^4.24.0",
+    "@sentry/electron": "^7.2.0",
     "electron-dl": "^3.5.2",
-    "electron-is-dev": "^2.0.0",
+    "electron-is-dev": "^3.0.0",
     "electron-squirrel-startup": "^1.0.1",
     "electron-store": "^8.2.0",
     "indexeddb-export-import": "^2.1.5",
@@ -53,8 +53,6 @@
   "devDependencies": {
     "@babel/core": "^7.28.4",
     "@babel/eslint-parser": "^7.28.4",
-    "@babel/plugin-proposal-decorators": "^7.28.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
     "@babel/plugin-transform-runtime": "^7.28.3",
     "@babel/plugin-transform-typescript": "^7.28.0",
     "@babel/preset-env": "^7.28.3",
@@ -105,8 +103,7 @@
     "@release-it-plugins/lerna-changelog": "^6.1.0",
     "@release-it-plugins/workspaces": "^4.2.1",
     "@rollup/plugin-babel": "^6.1.0",
-    "@sentry/cli": "^2.56.1",
-    "@sentry/ember": "^7.120.4",
+    "@sentry/ember": "^10.21.0",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/vite": "^4.1.14",
     "@tsconfig/ember": "^3.0.11",
@@ -124,7 +121,6 @@
     "concurrently": "^9.2.1",
     "decorator-transforms": "^2.3.0",
     "electron": "^37.7.0",
-    "electron-download": "^4.1.1",
     "ember-animated": "^2.2.0",
     "ember-animated-tools": "^2.0.0",
     "ember-auto-import": "^2.11.1",
@@ -218,7 +214,6 @@
     },
     "onlyBuiltDependencies": [
       "@parcel/watcher",
-      "@sentry/cli",
       "@tailwindcss/oxide",
       "core-js",
       "electron",

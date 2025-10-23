@@ -1,7 +1,5 @@
 'use strict';
 
-const version = require('../package').version;
-
 module.exports = function (environment) {
   const ENV = {
     modulePrefix: 'swach',
@@ -40,12 +38,6 @@ module.exports = function (environment) {
     },
     orbit: {
       skipValidatorService: true,
-    },
-  };
-
-  ENV['@sentry/ember'] = {
-    sentry: {
-      environment,
     },
   };
 
@@ -88,10 +80,6 @@ module.exports = function (environment) {
       identityPoolId: 'us-east-2:b38b2ff6-f0e2-4ddb-8c51-294480a7fdb4',
       region: 'us-east-2',
     };
-
-    ENV['@sentry/ember'].sentry.dsn =
-      'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140';
-    ENV['@sentry/ember'].sentry.release = `v${version}`;
   }
 
   return ENV;

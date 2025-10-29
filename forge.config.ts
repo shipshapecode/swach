@@ -13,13 +13,6 @@ const config: ForgeConfig = {
     darwinDarkModeSupport: true,
     icon: 'electron-app/resources/icon',
     name: 'Swach',
-    ignore: [
-      '/.gitignore',
-      '/electron-forge-config.js',
-      '/ember-test(/|$)',
-      '/tests(/|$)',
-      '\\.map$',
-    ],
     osxSign: {
       optionsForFile: () => {
         return {

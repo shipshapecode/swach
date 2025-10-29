@@ -31,7 +31,7 @@
 # broccoli-debug
 /DEBUG/
 
-electron-out/
+out/
 .idea/
 
 # Vite

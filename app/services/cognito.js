@@ -1,22 +1,23 @@
+import { getOwner } from '@ember/owner';
 import { service } from '@ember/service';
 import CognitoService from 'ember-cognito/services/cognito';
-import ENV from '../config/environment';
-
-const cognitoEnv = Object.assign(
-  {
-    autoRefreshSession: false,
-  },
-  ENV.cognito
-);
 
 export default class CognitoServiceExtended extends CognitoService {
   @service session;
-  poolId = cognitoEnv.poolId;
-  clientId = cognitoEnv.clientId;
-  identityPoolId = cognitoEnv.identityPoolId;
-  region = cognitoEnv.region;
-  autoRefreshSession = cognitoEnv.autoRefreshSession;
-  authenticationFlowType = cognitoEnv.authenticationFlowType;
+
+  constructor() {
+    super(...arguments);
+
+    const config = getOwner(this).resolveRegistration('config:environment');
+    const cognitoEnv = config.cognito ?? {};
+
+    this.poolId = cognitoEnv.poolId;
+    this.clientId = cognitoEnv.clientId;
+    this.identityPoolId = cognitoEnv.identityPoolId;
+    this.region = cognitoEnv.region;
+    this.autoRefreshSession = cognitoEnv.autoRefreshSession ?? false;
+    this.authenticationFlowType = cognitoEnv.authenticationFlowType;
+  }
 
   /**
    * Configures the Amplify library with the pool & client IDs, and any additional

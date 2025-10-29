@@ -15,12 +15,7 @@ ember-cli-update.json
 # ember-try
 /.node_modules.ember-try/
 
-# ember-electron
-/electron-app/node_modules/
-/electron-app/out/
-
-# Sentry
-/electron-app/sentry-symbols.js
+/out/
 
 # Types
 /types/

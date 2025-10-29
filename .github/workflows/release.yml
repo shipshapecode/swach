@@ -87,11 +87,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: |
-            electron-app/out/**/*.deb
-            electron-app/out/**/*.dmg
-            electron-app/out/**/*Setup.exe
-            electron-app/out/**/*.rpm
-            electron-app/out/**/*.zip
+            out/**/*.deb
+            out/**/*.dmg
+            out/**/*Setup.exe
+            out/**/*.rpm
+            out/**/*.zip
       - name: Create a Sentry.io release
         uses: tclindner/sentry-releases-action@v1.3.0
         if: matrix.os == 'ubuntu-22.04'

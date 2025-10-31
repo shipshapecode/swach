@@ -125,7 +125,7 @@
     "@glint/environment-ember-template-imports": "^1.5.2",
     "@glint/template": "~1.5.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
-    "@release-it-plugins/lerna-changelog": "^6.1.0",
+    "@release-it-plugins/lerna-changelog": "^7.0.0",
     "@rollup/plugin-babel": "^6.1.0",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/vite": "^4.1.16",

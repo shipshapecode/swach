@@ -270,8 +270,8 @@ importers:
         specifier: ^4.7.0
         version: 4.7.0(content-tag@4.0.0)(prettier-plugin-ember-template-tag@2.1.0(prettier@3.6.2))(prettier@3.6.2)
       '@release-it-plugins/lerna-changelog':
-        specifier: ^6.1.0
-        version: 6.1.0(release-it@16.3.0(encoding@0.1.13)(typescript@5.9.3))
+        specifier: ^7.0.0
+        version: 7.0.0(release-it@16.3.0(encoding@0.1.13)(typescript@5.9.3))
       '@rollup/plugin-babel':
         specifier: ^6.1.0
         version: 6.1.0(@babel/core@7.28.5)(@types/babel__core@7.20.5)(rollup@4.52.5)
@@ -2610,8 +2610,8 @@ packages:
       '@types/react':
         optional: true
 
-  '@release-it-plugins/lerna-changelog@6.1.0':
-    resolution: {integrity: sha512-zcgiUHiQkqAo1p5HN3xw6+0zmgRs1wzveRreC4CTNs2vErW8L5sCkEZQfSJLd918q+GR43L1/HudjlsiKQK8QA==}
+  '@release-it-plugins/lerna-changelog@7.0.0':
+    resolution: {integrity: sha512-IGHKdcUCyQ5ibtfkF2AQNMrMtyWF1aigic/ZWHPbD77B2zCcymzsyzVskhrGnHVeZGoOOG3vqGuE6U2INz8k6w==}
     engines: {node: '>= 16'}
     peerDependencies:
       release-it: ^14.0.0 || ^15.1.3 || ^16.0.0 || ^17.0.0
@@ -7564,9 +7564,6 @@ packages:
   lodash._isiterateecall@3.0.9:
     resolution: {integrity: sha512-De+ZbrMu6eThFti/CSzhRvTKMgQToLxbij58LMfM8JnYDNSOjkjTCIaa8ixglOeGh2nyPlakbt5bJWJ7gvpYlQ==}
 
-  lodash._reinterpolate@3.0.0:
-    resolution: {integrity: sha512-xYHt68QRoYGjeeM/XOE1uJtvXQAgvszfBhjV4yvsQH0u2i9I6cI6c6/eG4Hh3UAOVn0y/xAXwmTzEay49Q//HA==}
-
   lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
 
@@ -7613,13 +7610,6 @@ packages:
   lodash.omit@4.5.0:
     resolution: {integrity: sha512-XeqSp49hNGmlkj2EJlfrQFIzQ6lXdNro9sddtQzcJY8QaoC2GO0DT7xaIokHeyM+mIT0mPMlPvkYzg2xCuHdZg==}
     deprecated: This package is deprecated. Use destructuring assignment syntax instead.
-
-  lodash.template@4.5.0:
-    resolution: {integrity: sha512-84vYFxIkmidUiFxidA/KjjH9pAycqW+h980j7Fuz5qxRtO9pgB7MDFTdys1N7A5mcucRiDyEq4fusljItR1T/A==}
-    deprecated: This package is deprecated. Use https://socket.dev/npm/package/eta instead.
-
-  lodash.templatesettings@4.2.0:
-    resolution: {integrity: sha512-stgLz+i3Aa9mZgnjr/O+v9ruKZsPsndy7qPZOchbqk2cnTU1ZaldKK+v7m54WoKIyxiuMZTKT2H81F8BeAc3ZQ==}
 
   lodash.throttle@4.1.1:
     resolution: {integrity: sha512-wIkUCfVKpVsWo3JSZlc+8MB5it+2AN5W8J7YVMST30UrvcQNZ1Okbj+rbVniijTWE6FGYy4XJq/rHkas8qJMLQ==}
@@ -13950,11 +13940,11 @@ snapshots:
       react: 19.1.0
       react-native: 0.79.2(@babel/core@7.28.5)(react@19.1.0)
 
-  '@release-it-plugins/lerna-changelog@6.1.0(release-it@16.3.0(encoding@0.1.13)(typescript@5.9.3))':
+  '@release-it-plugins/lerna-changelog@7.0.0(release-it@16.3.0(encoding@0.1.13)(typescript@5.9.3))':
     dependencies:
       execa: 5.1.1
       lerna-changelog: 2.2.0
-      lodash.template: 4.5.0
+      lodash: 4.17.21
       mdast-util-from-markdown: 1.3.1
       release-it: 16.3.0(encoding@0.1.13)(typescript@5.9.3)
       tmp: 0.2.5
@@ -14385,14 +14375,14 @@ snapshots:
       '@types/ember__array': 4.0.10(@babel/core@7.28.5)
       '@types/ember__component': 4.0.22(@babel/core@7.28.5)
       '@types/ember__controller': 4.0.12(@babel/core@7.28.5)
-      '@types/ember__debug': 4.0.8(@babel/core@7.28.5)
-      '@types/ember__engine': 4.0.11(@babel/core@7.28.5)
+      '@types/ember__debug': 4.0.8
+      '@types/ember__engine': 4.0.11
       '@types/ember__error': 4.0.6
       '@types/ember__object': 4.0.12(@babel/core@7.28.5)
       '@types/ember__polyfills': 4.0.6
       '@types/ember__routing': 4.0.23(@babel/core@7.28.5)
       '@types/ember__runloop': 4.0.10
-      '@types/ember__service': 4.0.9(@babel/core@7.28.5)
+      '@types/ember__service': 4.0.9
       '@types/ember__string': 3.0.15
       '@types/ember__template': 4.0.7
       '@types/ember__test': 4.0.6(@babel/core@7.28.5)
@@ -14405,14 +14395,14 @@ snapshots:
       '@types/ember__array': 4.0.10(@babel/core@7.28.5)
       '@types/ember__component': 4.0.22(@babel/core@7.28.5)
       '@types/ember__controller': 4.0.12(@babel/core@7.28.5)
-      '@types/ember__debug': 4.0.8(@babel/core@7.28.5)
-      '@types/ember__engine': 4.0.11(@babel/core@7.28.5)
+      '@types/ember__debug': 4.0.8
+      '@types/ember__engine': 4.0.11
       '@types/ember__error': 4.0.6
       '@types/ember__object': 4.0.12(@babel/core@7.28.5)
       '@types/ember__polyfills': 4.0.6
       '@types/ember__routing': 4.0.23(@babel/core@7.28.5)
       '@types/ember__runloop': 4.0.10(@babel/core@7.28.5)
-      '@types/ember__service': 4.0.9(@babel/core@7.28.5)
+      '@types/ember__service': 4.0.9
       '@types/ember__string': 3.0.15
       '@types/ember__template': 4.0.7
       '@types/ember__test': 4.0.6(@babel/core@7.28.5)
@@ -14426,7 +14416,7 @@ snapshots:
     dependencies:
       '@glimmer/component': 1.1.2(@babel/core@7.28.5)
       '@types/ember': 4.0.11
-      '@types/ember__engine': 4.0.11(@babel/core@7.28.5)
+      '@types/ember__engine': 4.0.11
       '@types/ember__object': 4.0.12(@babel/core@7.28.5)
       '@types/ember__owner': 4.0.9
       '@types/ember__routing': 4.0.23(@babel/core@7.28.5)
@@ -14457,21 +14447,15 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  '@types/ember__debug@4.0.8(@babel/core@7.28.5)':
+  '@types/ember__debug@4.0.8':
     dependencies:
       '@types/ember__object': 4.0.12(@babel/core@7.28.5)
       '@types/ember__owner': 4.0.9
-    transitivePeerDependencies:
-      - '@babel/core'
-      - supports-color
 
-  '@types/ember__engine@4.0.11(@babel/core@7.28.5)':
+  '@types/ember__engine@4.0.11':
     dependencies:
       '@types/ember__object': 4.0.12(@babel/core@7.28.5)
       '@types/ember__owner': 4.0.9
-    transitivePeerDependencies:
-      - '@babel/core'
-      - supports-color
 
   '@types/ember__error@4.0.6': {}
 
@@ -14492,7 +14476,7 @@ snapshots:
       '@types/ember': 4.0.11(@babel/core@7.28.5)
       '@types/ember__controller': 4.0.12(@babel/core@7.28.5)
       '@types/ember__object': 4.0.12(@babel/core@7.28.5)
-      '@types/ember__service': 4.0.9(@babel/core@7.28.5)
+      '@types/ember__service': 4.0.9
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -14508,12 +14492,9 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  '@types/ember__service@4.0.9(@babel/core@7.28.5)':
+  '@types/ember__service@4.0.9':
     dependencies:
       '@types/ember__object': 4.0.12(@babel/core@7.28.5)
-    transitivePeerDependencies:
-      - '@babel/core'
-      - supports-color
 
   '@types/ember__string@3.0.15': {}
 
@@ -20725,8 +20706,6 @@ snapshots:
 
   lodash._isiterateecall@3.0.9: {}
 
-  lodash._reinterpolate@3.0.0: {}
-
   lodash.camelcase@4.3.0: {}
 
   lodash.capitalize@4.2.1: {}
@@ -20761,15 +20740,6 @@ snapshots:
   lodash.merge@4.6.2: {}
 
   lodash.omit@4.5.0: {}
-
-  lodash.template@4.5.0:
-    dependencies:
-      lodash._reinterpolate: 3.0.0
-      lodash.templatesettings: 4.2.0
-
-  lodash.templatesettings@4.2.0:
-    dependencies:
-      lodash._reinterpolate: 3.0.0
 
   lodash.throttle@4.1.1: {}
 

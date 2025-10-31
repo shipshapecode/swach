@@ -160,7 +160,7 @@
     "ember-template-lint": "^7.9.3",
     "ember-test-selectors": "^7.1.0",
     "ember-truth-helpers": "^5.0.0",
-    "eslint": "^9.37.0",
+    "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-ember": "^12.7.4",
     "eslint-plugin-n": "^17.23.1",

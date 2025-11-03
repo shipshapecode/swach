@@ -62,7 +62,7 @@
     "aws4fetch": "^1.0.20",
     "color-name-list": "^13.1.0",
     "decorator-transforms": "^2.3.0",
-    "electron-dl": "^3.5.2",
+    "electron-dl": "^4.0.0",
     "electron-is-dev": "^3.0.0",
     "electron-squirrel-startup": "^1.0.1",
     "electron-store": "^8.2.0",

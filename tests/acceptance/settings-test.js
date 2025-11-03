@@ -38,10 +38,10 @@ module('Acceptance | settings', function (hooks) {
 
   // Ember specific tests
   if (!(typeof window !== 'undefined' && window.electronAPI)) {
-    test('ember - has five inputs', async function (assert) {
+    test('ember - has six inputs', async function (assert) {
       await visit('/settings');
 
-      assert.dom('[data-test-settings-menu] input').exists({ count: 5 });
+      assert.dom('[data-test-settings-menu] input').exists({ count: 6 });
     });
   }
 

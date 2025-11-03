@@ -1,3 +1,5 @@
+import { existsSync, mkdirSync, unlinkSync, writeFileSync } from 'node:fs';
+import { homedir } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
 // This should cause a type error
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -222,6 +224,39 @@ mb.on('ready', () => {
             `"--hidden"`,
           ],
         });
+      }
+
+      if (process.platform === 'linux') {
+        const autostartDir = join(homedir(), '.config', 'autostart');
+        const desktopFile = join(autostartDir, 'swach.desktop');
+
+        if (openAtLogin) {
+          // Create autostart directory if it doesn't exist
+          if (!existsSync(autostartDir)) {
+            mkdirSync(autostartDir, { recursive: true });
+          }
+
+          // Create .desktop file for autostart
+          const desktopEntry = `[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Swach
+Comment=A robust color management tool for the modern age.
+Exec=${process.execPath} --hidden
+Icon=swach
+Terminal=false
+StartupNotify=false
+X-GNOME-Autostart-enabled=true
+Hidden=false
+`;
+
+          writeFileSync(desktopFile, desktopEntry);
+        } else {
+          // Remove .desktop file to disable autostart
+          if (existsSync(desktopFile)) {
+            unlinkSync(desktopFile);
+          }
+        }
       }
     }
   });

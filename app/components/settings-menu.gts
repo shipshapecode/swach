@@ -30,19 +30,17 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
       data-test-settings-menu
     >
       <div class="pb-2">
-        {{#if this.isMacOSOrWindows}}
-          <label class="flex items-center mb-1">
-            <Input
-              data-test-settings-startup
-              class="form-checkbox h-4 mr-2 text-checkbox rounded-sm w-4"
-              @type="checkbox"
-              @checked={{this.settings.openOnStartup}}
-              {{on "change" @enableDisableAutoStart}}
-            />
+        <label class="flex items-center mb-1">
+          <Input
+            data-test-settings-startup
+            class="form-checkbox h-4 mr-2 text-checkbox rounded-sm w-4"
+            @type="checkbox"
+            @checked={{this.settings.openOnStartup}}
+            {{on "change" @enableDisableAutoStart}}
+          />
 
-            Start Swach on system startup
-          </label>
-        {{/if}}
+          Start Swach on system startup
+        </label>
 
         {{#if this.isMacOS}}
           <label class="flex items-center mb-1">

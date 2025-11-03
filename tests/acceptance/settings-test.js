@@ -48,9 +48,9 @@ module('Acceptance | settings', function (hooks) {
   // Electron specific tests
   if (typeof window !== 'undefined' && window.electronAPI) {
     // TODO: these are different for Mac/Windows vs Linux, so we need specific platform tests
-    test('electron - has seven inputs', async function (assert) {
+    test('electron - has six inputs', async function (assert) {
       await visit('/settings');
-      assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
+      assert.dom('[data-test-settings-menu] input').exists({ count: 6 });
     });
     test('electron - start on startup is not checked by default', async function (assert) {
       await visit('/settings');

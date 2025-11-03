@@ -277,7 +277,7 @@ importers:
         version: 6.1.0(@babel/core@7.28.5)(@types/babel__core@7.20.5)(rollup@4.52.5)
       '@tailwindcss/forms':
         specifier: ^0.5.10
-        version: 0.5.10(tailwindcss@4.1.14)
+        version: 0.5.10(tailwindcss@4.1.16)
       '@tailwindcss/vite':
         specifier: ^4.1.16
         version: 4.1.16(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@2.8.1))
@@ -429,8 +429,8 @@ importers:
         specifier: ^39.0.1
         version: 39.0.1(stylelint@16.25.0(typescript@5.9.3))
       tailwindcss:
-        specifier: ^4.1.14
-        version: 4.1.14
+        specifier: ^4.1.16
+        version: 4.1.16
       tree-kill:
         specifier: ^1.2.2
         version: 1.2.2
@@ -9893,9 +9893,6 @@ packages:
   tabster@8.5.6:
     resolution: {integrity: sha512-2vfrRGrx8O9BjdrtSlVA5fvpmbq5HQBRN13XFRg6LAvZ1Fr3QdBnswgT4YgFS5Bhoo5nxwgjRaRueI2Us/dv7g==}
 
-  tailwindcss@4.1.14:
-    resolution: {integrity: sha512-b7pCxjGO98LnxVkKjaZSDeNuljC4ueKUddjENJOADtubtdo8llTaJy7HwBMeLNSSo2N5QIAgklslK1+Ir8r6CA==}
-
   tailwindcss@4.1.16:
     resolution: {integrity: sha512-pONL5awpaQX4LN5eiv7moSiSPd/DLDzKVRJz8Q9PgzmAdd1R4307GQS2ZpfiN7ZmekdQrfhZZiSE5jkLR4WNaA==}
 
@@ -14208,10 +14205,10 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
-  '@tailwindcss/forms@0.5.10(tailwindcss@4.1.14)':
+  '@tailwindcss/forms@0.5.10(tailwindcss@4.1.16)':
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 4.1.14
+      tailwindcss: 4.1.16
 
   '@tailwindcss/node@4.1.16':
     dependencies:
@@ -23548,8 +23545,6 @@ snapshots:
       tslib: 2.8.1
     optionalDependencies:
       '@rollup/rollup-linux-x64-gnu': 4.40.0
-
-  tailwindcss@4.1.14: {}
 
   tailwindcss@4.1.16: {}
 

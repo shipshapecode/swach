@@ -89,7 +89,7 @@
     "indexeddb-export-import": "^2.1.5",
     "menubar": "^9.5.2",
     "throttle-debounce": "^5.0.2",
-    "tracked-built-ins": "^3.4.0"
+    "tracked-built-ins": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.28.5",

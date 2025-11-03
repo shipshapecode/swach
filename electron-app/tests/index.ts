@@ -1,4 +1,4 @@
-import { dirname, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { app, ipcMain, nativeTheme } from 'electron';
 import Store from 'electron-store';
@@ -50,7 +50,9 @@ app.on('ready', function onReady() {
   setupTestem();
 
   // Open the test window - testem.js will handle QUnit integration automatically
-  openTestWindow(emberAppDir);
+  openTestWindow(emberAppDir, {
+    preloadPath: resolve(__dirname, '..', '..', '.vite', 'build', 'preload.js'),
+  });
 });
 
 app.on('window-all-closed', function onWindowAllClosed() {

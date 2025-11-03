@@ -38,7 +38,7 @@ module('Acceptance | settings', function (hooks) {
 
   // Ember specific tests
   if (!(typeof window !== 'undefined' && window.electronAPI)) {
-    test('has five inputs', async function (assert) {
+    test('ember - has five inputs', async function (assert) {
       await visit('/settings');
 
       assert.dom('[data-test-settings-menu] input').exists({ count: 5 });
@@ -48,11 +48,11 @@ module('Acceptance | settings', function (hooks) {
   // Electron specific tests
   if (typeof window !== 'undefined' && window.electronAPI) {
     // TODO: these are different for Mac/Windows vs Linux, so we need specific platform tests
-    test('has seven inputs', async function (assert) {
+    test('electron - has seven inputs', async function (assert) {
       await visit('/settings');
       assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
     });
-    test('start on startup is not checked by default', async function (assert) {
+    test('electron - start on startup is not checked by default', async function (assert) {
       await visit('/settings');
       assert.dom('[data-test-settings-startup]').isNotChecked();
     });

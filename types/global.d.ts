@@ -57,6 +57,7 @@ declare module '@glint/environment-ember-loose/registry' {
 declare global {
   interface Window {
     electronAPI: {
+      platform: 'darwin' | 'linux' | 'win32';
       ipcRenderer: {
         send: (channel: string, ...args: any[]) => void;
         on: (channel: string, func: (...args: any[]) => void) => (...args: any[]) => void;

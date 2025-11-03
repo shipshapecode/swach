@@ -13,21 +13,27 @@ const config: ForgeConfig = {
     darwinDarkModeSupport: true,
     icon: 'electron-app/resources/icon',
     name: 'Swach',
-    osxSign: {
-      optionsForFile: () => {
-        return {
-          entitlements: 'electron-app/src/entitlements.plist',
-          hardenedRuntime: true,
-          identity:
-            'Developer ID Application: Ship Shape Consulting LLC (779MXKT6B5)',
-        };
+    // Skip codesigning during tests to avoid build issues
+    ...(process.env.SKIP_CODESIGN !== 'true' && {
+      osxSign: {
+        optionsForFile: () => {
+          return {
+            entitlements: 'electron-app/src/entitlements.plist',
+            hardenedRuntime: true,
+            identity:
+              'Developer ID Application: Ship Shape Consulting LLC (779MXKT6B5)',
+          };
+        },
       },
-    },
-    osxNotarize: {
-      appleId: process.env.APPLE_ID,
-      appleIdPassword: process.env.APPLE_ID_PASSWORD,
-      teamId: '779MXKT6B5',
-    },
+    }),
+    // Skip notarization during tests
+    ...(process.env.SKIP_CODESIGN !== 'true' && {
+      osxNotarize: {
+        appleId: process.env.APPLE_ID,
+        appleIdPassword: process.env.APPLE_ID_PASSWORD,
+        teamId: '779MXKT6B5',
+      },
+    }),
     protocols: [
       {
         name: 'swach',

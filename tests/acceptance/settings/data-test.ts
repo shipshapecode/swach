@@ -38,7 +38,7 @@ module('Acceptance | settings/data', function (hooks) {
 
   // Electron specific tests
   if (typeof window !== 'undefined' && window.electronAPI) {
-    test('export triggers success message', async function (assert) {
+    test('electron - export triggers success message', async function (assert) {
       await visit('/settings/data');
 
       sinon.stub(IDBExportImport, 'exportToJsonString').callsArg(1);
@@ -47,7 +47,7 @@ module('Acceptance | settings/data', function (hooks) {
       await waitFor('.alert.alert-success');
       assert.dom('.alert.alert-success').exists({ count: 1 });
     });
-    test('export triggers error message', async function (assert) {
+    test('electron - export triggers error message', async function (assert) {
       await visit('/settings/data');
 
       sinon

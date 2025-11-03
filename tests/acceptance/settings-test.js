@@ -38,21 +38,38 @@ module('Acceptance | settings', function (hooks) {
 
   // Ember specific tests
   if (!(typeof window !== 'undefined' && window.electronAPI)) {
-    test('has five inputs', async function (assert) {
+    test('ember - has six inputs', async function (assert) {
       await visit('/settings');
 
-      assert.dom('[data-test-settings-menu] input').exists({ count: 5 });
+      assert.dom('[data-test-settings-menu] input').exists({ count: 6 });
     });
   }
 
   // Electron specific tests
   if (typeof window !== 'undefined' && window.electronAPI) {
-    // TODO: these are different for Mac/Windows vs Linux, so we need specific platform tests
-    test('has seven inputs', async function (assert) {
-      await visit('/settings');
-      assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
-    });
-    test('start on startup is not checked by default', async function (assert) {
+    if (window.electronAPI.platform === 'darwin') {
+      test('electron:darwin - has seven inputs', async function (assert) {
+        await visit('/settings');
+        assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
+      });
+    }
+
+    if (window.electronAPI.platform === 'linux') {
+      test('electron:linux - has six inputs', async function (assert) {
+        await visit('/settings');
+        assert.dom('[data-test-settings-menu] input').exists({ count: 6 });
+      });
+    }
+
+    // TODO: Figure out number of inputs on windows
+    // if (window.electronAPI.platform === 'win32') {
+    //   test('electron:win32 - has seven inputs', async function (assert) {
+    //     await visit('/settings');
+    //     assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
+    //   });
+    // }
+
+    test('electron - start on startup is not checked by default', async function (assert) {
       await visit('/settings');
       assert.dom('[data-test-settings-startup]').isNotChecked();
     });

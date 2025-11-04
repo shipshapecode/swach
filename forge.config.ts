@@ -78,14 +78,34 @@ const config: ForgeConfig = {
     new MakerSnap(
       {
         base: 'core22',
-        confinement: 'strict',
-        grade: 'stable',
-        summary: 'A robust color management tool for the modern age.',
-        description:
-          'Swach is a modern color palette manager that helps designers and developers organize, manage, and share color palettes effectively.',
         icon: 'electron-app/resources/icon.png',
-        // Simplified configuration - let Electron Forge handle the app structure
-        executableName: 'swach',
+        confinement: 'strict',
+        description: 'A robust color management tool for the modern age.',
+        summary: 'A robust color management tool for the modern age.',
+        grade: 'stable',
+        layout: {
+          '/usr/lib/x86_64-linux-gnu/imlib2': {
+            bind: '$SNAP/usr/lib/x86_64-linux-gnu/imlib2',
+          },
+        },
+        appConfig: {
+          extensions: ['gnome'],
+        },
+        parts: {
+          setup: {
+            plugin: 'nil',
+            'stage-packages': [
+              'default',
+              'giblib1',
+              'libimlib2',
+              'libx11-6',
+              'libxcursor1',
+              'libxfixes3',
+              'scrot',
+            ],
+          },
+        },
+        type: 'app',
       },
       ['linux']
     ),

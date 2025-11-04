@@ -102,11 +102,11 @@ const config: ForgeConfig = {
       },
       ['linux']
     ),
-    new MakerSquirrel({
-      name: 'Swach',
-      certificateFile: process.env['WINDOWS_PFX_FILE'],
-      certificatePassword: process.env['WINDOWS_PFX_PASSWORD'],
-    }),
+    // new MakerSquirrel({
+    //   name: 'Swach',
+    //   certificateFile: process.env['WINDOWS_PFX_FILE'],
+    //   certificatePassword: process.env['WINDOWS_PFX_PASSWORD'],
+    // }),
     new MakerZIP({}, ['darwin']),
   ],
   plugins: [

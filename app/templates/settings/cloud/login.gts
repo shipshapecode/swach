@@ -1,6 +1,6 @@
-import RouteTemplate from 'ember-route-template';
+import type { TemplateOnlyComponent } from '@ember/component/template-only';
 import Login from '../../../components/login.gts';
 
-export default RouteTemplate<{ Args: { model: unknown; controller: unknown } }>(
-  <template><Login /></template>
-);
+export default <template><Login /></template> satisfies TemplateOnlyComponent<{
+  Args: { model: unknown; controller: unknown };
+}>;

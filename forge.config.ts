@@ -1,6 +1,6 @@
 import { MakerDeb } from '@electron-forge/maker-deb';
 import { MakerDMG } from '@electron-forge/maker-dmg';
-// import { MakerSnap } from '@electron-forge/maker-snap';
+import { MakerSnap } from '@electron-forge/maker-snap';
 // import { MakerSquirrel } from '@electron-forge/maker-squirrel';
 import { MakerZIP } from '@electron-forge/maker-zip';
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
@@ -75,40 +75,20 @@ const config: ForgeConfig = {
         icon: 'electron-app/resources/dmg.icns',
       };
     }, ['darwin']),
-    // new MakerSnap(
-    //   {
-    //     base: 'core22',
-    //     icon: 'electron-app/resources/icon.png',
-    //     confinement: 'strict',
-    //     description: 'A robust color management tool for the modern age.',
-    //     summary: 'A robust color management tool for the modern age.',
-    //     grade: 'stable',
-    //     layout: {
-    //       '/usr/lib/x86_64-linux-gnu/imlib2': {
-    //         bind: '$SNAP/usr/lib/x86_64-linux-gnu/imlib2',
-    //       },
-    //     },
-    //     appConfig: {
-    //       extensions: ['gnome'],
-    //     },
-    //     parts: {
-    //       setup: {
-    //         plugin: 'nil',
-    //         'stage-packages': [
-    //           'default',
-    //           'giblib1',
-    //           'libimlib2',
-    //           'libx11-6',
-    //           'libxcursor1',
-    //           'libxfixes3',
-    //           'scrot',
-    //         ],
-    //       },
-    //     },
-    //     type: 'app',
-    //   },
-    //   ['linux']
-    // ),
+    new MakerSnap(
+      {
+        base: 'core22',
+        confinement: 'strict',
+        grade: 'stable',
+        summary: 'A robust color management tool for the modern age.',
+        description:
+          'Swach is a modern color palette manager that helps designers and developers organize, manage, and share color palettes effectively.',
+        icon: 'electron-app/resources/icon.png',
+        // Simplified configuration - let Electron Forge handle the app structure
+        executableName: 'swach',
+      },
+      ['linux']
+    ),
     // new MakerSquirrel({
     //   name: 'Swach',
     //   certificateFile: process.env['WINDOWS_PFX_FILE'],

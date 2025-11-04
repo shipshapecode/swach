@@ -65,7 +65,7 @@
     "electron-dl": "^4.0.0",
     "electron-is-dev": "^3.0.1",
     "electron-squirrel-startup": "^1.0.1",
-    "electron-store": "^8.2.0",
+    "electron-store": "^11.0.2",
     "ember-animated": "^2.2.0",
     "ember-animated-tools": "^2.0.0",
     "ember-cli-flash": "^6.0.0",

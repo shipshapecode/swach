@@ -22,6 +22,7 @@ const config: ForgeConfig = {
     darwinDarkModeSupport: true,
     icon: 'electron-app/resources/icon',
     name: 'Swach',
+    extraResource: ['./electron-app/resources'],
     // Only include codesigning configuration if certificates are available
     ...(shouldSign && {
       osxSign: {

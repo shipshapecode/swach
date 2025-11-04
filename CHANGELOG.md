@@ -1,3 +1,12 @@
+
+## v2.0.9 (2025-11-04)
+
+#### :house: Internal
+* [#2398](https://github.com/shipshapecode/swach/pull/2398) Remove ember-route-template ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v2.0.8 (2025-11-04)
 
 ## v2.0.7 (2025-11-04)

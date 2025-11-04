@@ -49,6 +49,8 @@ const config: ForgeConfig = {
         schemes: ['swach'],
       },
     ],
+    // Include all resources in the packaged app
+    extraResource: ['electron-app/resources'],
   },
   makers: [
     new MakerDeb(

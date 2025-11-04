@@ -35,7 +35,7 @@ const store = new Store({
   },
 });
 
-const emberAppDir = resolve(__dirname, '..', 'dist');
+const emberAppDir = resolve(__dirname, '..', 'renderer', 'main_window');
 let emberAppURL = isDev
   ? 'http://localhost:4200'
   : pathToFileURL(join(emberAppDir, 'index.html')).toString();
@@ -51,9 +51,19 @@ function openContrastChecker(mb: Menubar) {
   mb.window!.webContents.send('openContrastChecker');
 }
 
-let menubarIcon = 'resources/menubar-icons/iconTemplate.png';
-if (process.platform === 'win32') menubarIcon = 'resources/icon.ico';
-if (process.platform === 'linux') menubarIcon = 'resources/png/64x64.png';
+let menubarIcon = 'menubar-icons/iconTemplate.png';
+if (process.platform === 'win32') menubarIcon = 'icon.ico';
+if (process.platform === 'linux') menubarIcon = 'png/64x64.png';
+
+// Determine the correct icon path based on environment
+let iconPath: string;
+if (isDev) {
+  // In development, use the source directory
+  iconPath = join(__dirname, '../../electron-app/resources', menubarIcon);
+} else {
+  // In production, use the packaged resources directory
+  iconPath = join(process.resourcesPath, 'resources', menubarIcon);
+}
 
 const mb = menubar({
   index: false,
@@ -69,7 +79,7 @@ const mb = menubar({
       nodeIntegration: false,
     },
   },
-  icon: join(__dirname, '../../electron-app', menubarIcon),
+  icon: iconPath,
   preloadWindow: true,
   showDockIcon: store.get('showDockIcon'),
   showOnAllWorkspaces: false,

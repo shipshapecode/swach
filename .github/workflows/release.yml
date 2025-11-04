@@ -102,4 +102,4 @@ jobs:
         with:
           tagName: ${{ github.ref }}
           environment: production
-          sourceMapOptions: '{"include": ["electron-app/ember-dist/assets"], "urlPrefix": "~/ember-dist/assets"}'
+          sourceMapOptions: '{"include": ["dist/assets"], "urlPrefix": "~/dist/assets"}'

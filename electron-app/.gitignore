@@ -93,7 +93,6 @@ dist/
 out/
 
 # Ember build
-ember-dist/
 ember-test/
 
 # Sentry

@@ -22,7 +22,6 @@ const config: ForgeConfig = {
     darwinDarkModeSupport: true,
     icon: 'electron-app/resources/icon',
     name: 'Swach',
-    extraResource: ['./electron-app/resources'],
     // Only include codesigning configuration if certificates are available
     ...(shouldSign && {
       osxSign: {
@@ -32,10 +31,6 @@ const config: ForgeConfig = {
             hardenedRuntime: true,
             identity:
               'Developer ID Application: Ship Shape Consulting LLC (779MXKT6B5)',
-            // Specify the CI keychain directly
-            ...(process.env.CI && {
-              keychain: '/Users/runner/Library/Keychains/build.keychain-db',
-            }),
           };
         },
       },
@@ -71,16 +66,13 @@ const config: ForgeConfig = {
       },
       ['linux']
     ),
-    new MakerDMG(
-      (arch) => {
-        return {
-          name: arch === 'arm64' ? 'Swach-arm64' : 'Swach',
-          background: 'electron-app/resources/installBackground.png',
-          icon: 'electron-app/resources/dmg.icns',
-        };
-      },
-      ['darwin']
-    ),
+    new MakerDMG(() => {
+      return {
+        name: 'Swach',
+        background: 'electron-app/resources/installBackground.png',
+        icon: 'electron-app/resources/dmg.icns',
+      };
+    }, ['darwin']),
     new MakerSnap(
       {
         base: 'core22',

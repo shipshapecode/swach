@@ -36,7 +36,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-22.04]
+        os: [macos-15-intel, ubuntu-22.04]
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

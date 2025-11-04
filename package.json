@@ -109,7 +109,7 @@
     "@electron-forge/plugin-fuses": "^7.10.2",
     "@electron-forge/plugin-vite": "^7.10.2",
     "@electron-forge/publisher-snapcraft": "^7.10.2",
-    "@electron/fuses": "^1.8.0",
+    "@electron/fuses": "^2.0.0",
     "@ember/app-tsconfig": "^1.0.3",
     "@ember/optional-features": "^2.2.0",
     "@ember/test-helpers": "^5.4.0",

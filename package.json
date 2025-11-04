@@ -154,7 +154,6 @@
     "ember-load-initializers": "^3.0.1",
     "ember-qunit": "^9.0.4",
     "ember-resolver": "^13.1.1",
-    "ember-route-template": "^1.0.3",
     "ember-sinon-qunit": "^7.5.0",
     "ember-template-imports": "^4.3.0",
     "ember-template-lint": "^7.9.3",

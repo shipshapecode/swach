@@ -1,6 +1,6 @@
-import RouteTemplate from 'ember-route-template';
+import type { TemplateOnlyComponent } from '@ember/component/template-only';
 import type WelcomeController from 'swach/controllers/welcome';
 
-export default RouteTemplate<{
+export default <template>{{outlet}}</template> satisfies TemplateOnlyComponent<{
   Args: { model: unknown; controller: WelcomeController };
-}>(<template>{{outlet}}</template>);
+}>;

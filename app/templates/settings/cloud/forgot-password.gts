@@ -1,6 +1,8 @@
-import RouteTemplate from 'ember-route-template';
+import type { TemplateOnlyComponent } from '@ember/component/template-only';
 import ForgotPassword from '../../../components/forgot-password.gts';
 
-export default RouteTemplate<{ Args: { model: unknown; controller: unknown } }>(
-  <template><ForgotPassword /></template>
-);
+export default <template>
+  <ForgotPassword />
+</template> satisfies TemplateOnlyComponent<{
+  Args: { model: unknown; controller: unknown };
+}>;

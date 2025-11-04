@@ -1,56 +1,56 @@
+import type { TemplateOnlyComponent } from '@ember/component/template-only';
 import { LinkTo } from '@ember/routing';
-import RouteTemplate from 'ember-route-template';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 
-export default RouteTemplate<{ Args: { model: unknown; controller: unknown } }>(
-  <template>
-    <div class="flex h-full items-center justify-center p-4 w-full">
-      <div class="flex flex-col h-full w-full">
-        <div class="flex justify-center w-full">
-          {{svgJar "cloud" class="h-36 mb-8 w-36"}}
-        </div>
+export default <template>
+  <div class="flex h-full items-center justify-center p-4 w-full">
+    <div class="flex flex-col h-full w-full">
+      <div class="flex justify-center w-full">
+        {{svgJar "cloud" class="h-36 mb-8 w-36"}}
+      </div>
 
-        <h2 class="font-semibold mb-2 text-alt text-xl">
-          Sync data to the cloud
-        </h2>
+      <h2 class="font-semibold mb-2 text-alt text-xl">
+        Sync data to the cloud
+      </h2>
 
-        <div class="flex-auto grow mb-2 mt-2 text-main-text">
-          <p class="text-sm">
-            Swach now supports creating accounts to sync your data to the cloud.
-            This is useful if you use multiple devices or want to make sure your
-            data is backed up. Once you log in for the first time, you will be
-            <span class="italic">required</span>
-            to log in to use Swach after that.
-          </p>
+      <div class="flex-auto grow mb-2 mt-2 text-main-text">
+        <p class="text-sm">
+          Swach now supports creating accounts to sync your data to the cloud.
+          This is useful if you use multiple devices or want to make sure your
+          data is backed up. Once you log in for the first time, you will be
+          <span class="italic">required</span>
+          to log in to use Swach after that.
+        </p>
 
-          <div class="h-full mt-6 w-full">
-            Would you like to create an account now?
-          </div>
-        </div>
-
-        <div class="flex flex-col mt-8 w-full">
-          <LinkTo
-            class="btn btn-secondary flex-1 p-2 text-center text-sm"
-            @route="welcome.dock-icon"
-          >
-            Previous
-          </LinkTo>
-
-          <LinkTo
-            class="btn btn-primary flex-1 mt-2 p-2 text-center text-sm"
-            @route="settings.cloud"
-          >
-            Yes, please! (recommended)
-          </LinkTo>
-
-          <LinkTo
-            class="btn btn-primary flex-1 mt-2 p-2 text-center text-sm"
-            @route="palettes"
-          >
-            No account for now, thanks.
-          </LinkTo>
+        <div class="h-full mt-6 w-full">
+          Would you like to create an account now?
         </div>
       </div>
+
+      <div class="flex flex-col mt-8 w-full">
+        <LinkTo
+          class="btn btn-secondary flex-1 p-2 text-center text-sm"
+          @route="welcome.dock-icon"
+        >
+          Previous
+        </LinkTo>
+
+        <LinkTo
+          class="btn btn-primary flex-1 mt-2 p-2 text-center text-sm"
+          @route="settings.cloud"
+        >
+          Yes, please! (recommended)
+        </LinkTo>
+
+        <LinkTo
+          class="btn btn-primary flex-1 mt-2 p-2 text-center text-sm"
+          @route="palettes"
+        >
+          No account for now, thanks.
+        </LinkTo>
+      </div>
     </div>
-  </template>
-);
+  </div>
+</template> satisfies TemplateOnlyComponent<{
+  Args: { model: unknown; controller: unknown };
+}>;

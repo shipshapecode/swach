@@ -42,8 +42,8 @@ const config: ForgeConfig = {
     // Only include notarization if both certificates and credentials are available
     ...(shouldNotarize && {
       osxNotarize: {
-        appleId: process.env.APPLE_ID!,
-        appleIdPassword: process.env.APPLE_ID_PASSWORD!,
+        appleId: process.env.APPLE_ID,
+        appleIdPassword: process.env.APPLE_ID_PASSWORD,
         teamId: '779MXKT6B5',
       },
     }),

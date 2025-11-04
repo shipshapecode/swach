@@ -8,14 +8,22 @@ import { VitePlugin } from '@electron-forge/plugin-vite';
 import type { ForgeConfig } from '@electron-forge/shared-types';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
 
+// Simple check: only sign if we have Apple ID credentials and not explicitly skipping
+const shouldSign = !!(
+  process.env.APPLE_ID &&
+  process.env.APPLE_ID_PASSWORD &&
+  process.env.SKIP_CODESIGN !== 'true'
+);
+const shouldNotarize = shouldSign;
+
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
     darwinDarkModeSupport: true,
     icon: 'electron-app/resources/icon',
     name: 'Swach',
-    // Skip codesigning during tests to avoid build issues
-    ...(process.env.SKIP_CODESIGN !== 'true' && {
+    // Only include codesigning configuration if certificates are available
+    ...(shouldSign && {
       osxSign: {
         optionsForFile: () => {
           return {
@@ -23,15 +31,19 @@ const config: ForgeConfig = {
             hardenedRuntime: true,
             identity:
               'Developer ID Application: Ship Shape Consulting LLC (779MXKT6B5)',
+            // Specify the CI keychain directly
+            ...(process.env.CI && {
+              keychain: '/Users/runner/Library/Keychains/build.keychain-db',
+            }),
           };
         },
       },
     }),
-    // Skip notarization during tests
-    ...(process.env.SKIP_CODESIGN !== 'true' && {
+    // Only include notarization if both certificates and credentials are available
+    ...(shouldNotarize && {
       osxNotarize: {
-        appleId: process.env.APPLE_ID,
-        appleIdPassword: process.env.APPLE_ID_PASSWORD,
+        appleId: process.env.APPLE_ID!,
+        appleIdPassword: process.env.APPLE_ID_PASSWORD!,
         teamId: '779MXKT6B5',
       },
     }),

@@ -1,31 +1,35 @@
-
 ## v2.0.0 (2025-11-04)
 
 #### :boom: Breaking Change
-* [#2332](https://github.com/shipshapecode/swach/pull/2332) Combine electron and ember apps and convert to vite ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
-* [#2206](https://github.com/shipshapecode/swach/pull/2206) Remove touchbar support ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+- [#2332](https://github.com/shipshapecode/swach/pull/2332) Combine electron and ember apps and convert to vite ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2206](https://github.com/shipshapecode/swach/pull/2206) Remove touchbar support ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
 
 #### :rocket: Enhancement
-* [#2394](https://github.com/shipshapecode/swach/pull/2394) Add open on startup support for Linux ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+- [#2394](https://github.com/shipshapecode/swach/pull/2394) Add open on startup support for Linux ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
 
 #### :bug: Bug Fix
-* [#2256](https://github.com/shipshapecode/swach/pull/2256) chore(deps): bump ember-simple-auth@7.1.1 ([@BobrImperator](https://github.com/BobrImperator))
+
+- [#2256](https://github.com/shipshapecode/swach/pull/2256) chore(deps): bump ember-simple-auth@7.1.1 ([@BobrImperator](https://github.com/BobrImperator))
 
 #### :house: Internal
-* [#2395](https://github.com/shipshapecode/swach/pull/2395) Update to latest blueprints ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
-* [#2393](https://github.com/shipshapecode/swach/pull/2393) Use node 22 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
-* [#2379](https://github.com/shipshapecode/swach/pull/2379) Get forge make command running ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
-* [#2366](https://github.com/shipshapecode/swach/pull/2366) Update sentry ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
-* [#2334](https://github.com/shipshapecode/swach/pull/2334) Update ember-render-modifiers ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
-* [#2333](https://github.com/shipshapecode/swach/pull/2333) Remove ember-tooltips ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
-* [#2327](https://github.com/shipshapecode/swach/pull/2327) Run template tag codemod, update types ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
-* [#2281](https://github.com/shipshapecode/swach/pull/2281) Convert scss files to css ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
-* [#2280](https://github.com/shipshapecode/swach/pull/2280) Run ember-cli-update to 6.4, pin ember-source to 5.12 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
-* [#2279](https://github.com/shipshapecode/swach/pull/2279) Use node 20 and pnpm 10 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
-* [#2205](https://github.com/shipshapecode/swach/pull/2205) Update to Ember 5.11 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
-* [#2120](https://github.com/shipshapecode/swach/pull/2120) Use ViewTransitions instead of animated outlet ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+- [#2395](https://github.com/shipshapecode/swach/pull/2395) Update to latest blueprints ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2393](https://github.com/shipshapecode/swach/pull/2393) Use node 22 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2379](https://github.com/shipshapecode/swach/pull/2379) Get forge make command running ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2366](https://github.com/shipshapecode/swach/pull/2366) Update sentry ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2334](https://github.com/shipshapecode/swach/pull/2334) Update ember-render-modifiers ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2333](https://github.com/shipshapecode/swach/pull/2333) Remove ember-tooltips ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2327](https://github.com/shipshapecode/swach/pull/2327) Run template tag codemod, update types ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2281](https://github.com/shipshapecode/swach/pull/2281) Convert scss files to css ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2280](https://github.com/shipshapecode/swach/pull/2280) Run ember-cli-update to 6.4, pin ember-source to 5.12 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2279](https://github.com/shipshapecode/swach/pull/2279) Use node 20 and pnpm 10 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2205](https://github.com/shipshapecode/swach/pull/2205) Update to Ember 5.11 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2120](https://github.com/shipshapecode/swach/pull/2120) Use ViewTransitions instead of animated outlet ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
 
 #### Committers: 2
+
 - Bartlomiej Dudzik ([@BobrImperator](https://github.com/BobrImperator))
 - Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
 

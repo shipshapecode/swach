@@ -53,7 +53,7 @@ You will need the following things properly installed on your computer.
 
 ### Building / Packaging
 
-- `ember electron:make`
+- `pnpm make`
 
 ## Releasing
 

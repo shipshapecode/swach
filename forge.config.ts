@@ -83,6 +83,13 @@ const config: ForgeConfig = {
         description: 'A robust color management tool for the modern age.',
         summary: 'A robust color management tool for the modern age.',
         grade: 'stable',
+        title: 'Swach',
+        contact: 'swach@shipshape.io',
+        donation: 'https://buymeacoffee.com/shipshape',
+        license: 'MIT',
+        website: 'https://swach.io',
+        issues: 'https://github.com/shipshapecode/swach/issues',
+        'source-code': 'https://github.com/shipshapecode/swach',
         layout: {
           '/usr/lib/x86_64-linux-gnu/imlib2': {
             bind: '$SNAP/usr/lib/x86_64-linux-gnu/imlib2',

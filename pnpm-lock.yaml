@@ -8,6 +8,9 @@ overrides:
   '@ember/string': ^4.0.1
 
 patchedDependencies:
+  electron-installer-snap:
+    hash: bf4f05911962dd091cd1b48213d74b5f8e8ddb0267de53caf190b127677ff62f
+    path: patches/electron-installer-snap.patch
   ember-local-storage:
     hash: 7a283711fa827de035fc3cc2ebe13c451ddf557492e8b185e99f915713c95f06
     path: patches/ember-local-storage.patch
@@ -12096,7 +12099,7 @@ snapshots:
       '@electron-forge/maker-base': 7.10.2
       '@electron-forge/shared-types': 7.10.2
     optionalDependencies:
-      electron-installer-snap: 5.2.0
+      electron-installer-snap: 5.2.0(patch_hash=bf4f05911962dd091cd1b48213d74b5f8e8ddb0267de53caf190b127677ff62f)
     transitivePeerDependencies:
       - bluebird
       - supports-color
@@ -12171,7 +12174,7 @@ snapshots:
       '@electron-forge/publisher-base': 7.10.2
       fs-extra: 10.1.0
     optionalDependencies:
-      electron-installer-snap: 5.2.0
+      electron-installer-snap: 5.2.0(patch_hash=bf4f05911962dd091cd1b48213d74b5f8e8ddb0267de53caf190b127677ff62f)
     transitivePeerDependencies:
       - bluebird
       - supports-color
@@ -14353,14 +14356,14 @@ snapshots:
       '@types/ember__array': 4.0.10(@babel/core@7.28.5)
       '@types/ember__component': 4.0.22(@babel/core@7.28.5)
       '@types/ember__controller': 4.0.12(@babel/core@7.28.5)
-      '@types/ember__debug': 4.0.8
-      '@types/ember__engine': 4.0.11
+      '@types/ember__debug': 4.0.8(@babel/core@7.28.5)
+      '@types/ember__engine': 4.0.11(@babel/core@7.28.5)
       '@types/ember__error': 4.0.6
       '@types/ember__object': 4.0.12(@babel/core@7.28.5)
       '@types/ember__polyfills': 4.0.6
       '@types/ember__routing': 4.0.23(@babel/core@7.28.5)
       '@types/ember__runloop': 4.0.10
-      '@types/ember__service': 4.0.9
+      '@types/ember__service': 4.0.9(@babel/core@7.28.5)
       '@types/ember__string': 3.0.15
       '@types/ember__template': 4.0.7
       '@types/ember__test': 4.0.6(@babel/core@7.28.5)
@@ -14373,14 +14376,14 @@ snapshots:
       '@types/ember__array': 4.0.10(@babel/core@7.28.5)
       '@types/ember__component': 4.0.22(@babel/core@7.28.5)
       '@types/ember__controller': 4.0.12(@babel/core@7.28.5)
-      '@types/ember__debug': 4.0.8
-      '@types/ember__engine': 4.0.11
+      '@types/ember__debug': 4.0.8(@babel/core@7.28.5)
+      '@types/ember__engine': 4.0.11(@babel/core@7.28.5)
       '@types/ember__error': 4.0.6
       '@types/ember__object': 4.0.12(@babel/core@7.28.5)
       '@types/ember__polyfills': 4.0.6
       '@types/ember__routing': 4.0.23(@babel/core@7.28.5)
       '@types/ember__runloop': 4.0.10(@babel/core@7.28.5)
-      '@types/ember__service': 4.0.9
+      '@types/ember__service': 4.0.9(@babel/core@7.28.5)
       '@types/ember__string': 3.0.15
       '@types/ember__template': 4.0.7
       '@types/ember__test': 4.0.6(@babel/core@7.28.5)
@@ -14394,7 +14397,7 @@ snapshots:
     dependencies:
       '@glimmer/component': 1.1.2(@babel/core@7.28.5)
       '@types/ember': 4.0.11
-      '@types/ember__engine': 4.0.11
+      '@types/ember__engine': 4.0.11(@babel/core@7.28.5)
       '@types/ember__object': 4.0.12(@babel/core@7.28.5)
       '@types/ember__owner': 4.0.9
       '@types/ember__routing': 4.0.23(@babel/core@7.28.5)
@@ -14425,15 +14428,21 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  '@types/ember__debug@4.0.8':
+  '@types/ember__debug@4.0.8(@babel/core@7.28.5)':
     dependencies:
       '@types/ember__object': 4.0.12(@babel/core@7.28.5)
       '@types/ember__owner': 4.0.9
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
 
-  '@types/ember__engine@4.0.11':
+  '@types/ember__engine@4.0.11(@babel/core@7.28.5)':
     dependencies:
       '@types/ember__object': 4.0.12(@babel/core@7.28.5)
       '@types/ember__owner': 4.0.9
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
 
   '@types/ember__error@4.0.6': {}
 
@@ -14454,7 +14463,7 @@ snapshots:
       '@types/ember': 4.0.11(@babel/core@7.28.5)
       '@types/ember__controller': 4.0.12(@babel/core@7.28.5)
       '@types/ember__object': 4.0.12(@babel/core@7.28.5)
-      '@types/ember__service': 4.0.9
+      '@types/ember__service': 4.0.9(@babel/core@7.28.5)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -14470,9 +14479,12 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  '@types/ember__service@4.0.9':
+  '@types/ember__service@4.0.9(@babel/core@7.28.5)':
     dependencies:
       '@types/ember__object': 4.0.12(@babel/core@7.28.5)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
 
   '@types/ember__string@3.0.15': {}
 
@@ -17309,7 +17321,7 @@ snapshots:
       - supports-color
     optional: true
 
-  electron-installer-snap@5.2.0:
+  electron-installer-snap@5.2.0(patch_hash=bf4f05911962dd091cd1b48213d74b5f8e8ddb0267de53caf190b127677ff62f):
     dependencies:
       '@malept/cross-spawn-promise': 1.1.1
       debug: 4.4.3

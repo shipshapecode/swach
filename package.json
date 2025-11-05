@@ -204,7 +204,8 @@
     },
     "patchedDependencies": {
       "ember-local-storage": "patches/ember-local-storage.patch",
-      "object-inspect": "patches/object-inspect.patch"
+      "object-inspect": "patches/object-inspect.patch",
+      "electron-installer-snap": "patches/electron-installer-snap.patch"
     },
     "onlyBuiltDependencies": [
       "@parcel/watcher",

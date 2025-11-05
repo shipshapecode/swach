@@ -1,0 +1,48 @@
+diff --git a/src/index.js b/src/index.js
+index a6d50fa2acb44a7356c8a74797dd8ca89956c774..047dc1810fe3cac69c32b3dd11801a350514c7ca 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -90,9 +90,26 @@ class SnapCreator {
+     await createDesktopFile(snapGuiDir, this.config)
+     await copyIcon(snapGuiDir, this.config)
+     await copyLauncher(snapDir, this.config)
++
++    // Copy source directory to snapcraft working directory for LXD compatibility
++    await fs.copy(this.packageDir, path.join(snapDir, 'out'), {
++      recursive: true,
++    });
++
+     await createYamlFromTemplate(snapDir, this.packageDir, this.config)
+     await copyHooks(snapMetaDir, this.config)
+-    await this.snapcraft.run(snapDir, 'snap', this.snapcraftOptions)
++
++    // Use relative output path for LXD compatibility
++    const relativeSnapcraftOptions = {
++      ...this.snapcraftOptions,
++      output: 'snap.build'
++    }
++
++    await this.snapcraft.run(snapDir, 'snap', relativeSnapcraftOptions)
++
++    // Copy the built snap back to the final destination
++    await fs.copy(path.join(snapDir, 'snap.build'), this.snapDestPath)
++
+     return this.snapDestPath
+   }
+ 
+diff --git a/src/yaml.js b/src/yaml.js
+index a71ea23724230c30f535460b9829f36c06b89514..e258aae6be02f7e9dec52c8e3b114b7049763d92 100644
+--- a/src/yaml.js
++++ b/src/yaml.js
+@@ -193,9 +193,8 @@ class SnapcraftYAML {
+   }
+ 
+   transformParts (packageDir) {
+-    this.parts.source = path.dirname(packageDir)
+-    this.parts.organize = {}
+-    this.parts.organize[path.basename(packageDir)] = this.data.name
++    // Use relative path for LXD compatibility
++    this.parts.source = 'out'
+ 
+     return this.updateDependencies()
+   }

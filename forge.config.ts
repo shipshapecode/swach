@@ -103,6 +103,9 @@ const config: ForgeConfig = {
               'scrot',
             ],
           },
+          swach: {
+            'source-type': 'local',
+          },
         },
         type: 'app',
       },

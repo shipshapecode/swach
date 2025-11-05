@@ -8,9 +8,6 @@ overrides:
   '@ember/string': ^4.0.1
 
 patchedDependencies:
-  electron-installer-snap:
-    hash: bf4f05911962dd091cd1b48213d74b5f8e8ddb0267de53caf190b127677ff62f
-    path: patches/electron-installer-snap.patch
   ember-local-storage:
     hash: 7a283711fa827de035fc3cc2ebe13c451ddf557492e8b185e99f915713c95f06
     path: patches/ember-local-storage.patch

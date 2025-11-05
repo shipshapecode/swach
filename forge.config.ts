@@ -95,7 +95,6 @@ const config: ForgeConfig = {
           setup: {
             plugin: 'nil',
             'stage-packages': [
-              'default',
               'giblib1',
               'libimlib2',
               'libx11-6',

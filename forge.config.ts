@@ -161,15 +161,15 @@ const config: ForgeConfig = {
       [FuseV1Options.OnlyLoadAppFromAsar]: true,
     }),
   ],
-  // publishers: [
-  //   {
-  //     name: '@electron-forge/publisher-snapcraft',
-  //     platforms: ['linux'],
-  //     config: {
-  //       release: '[latest/stable]',
-  //     },
-  //   },
-  // ],
+  publishers: [
+    {
+      name: '@electron-forge/publisher-snapcraft',
+      platforms: ['linux'],
+      config: {
+        release: '[latest/stable]',
+      },
+    },
+  ],
 };
 
 export default config;

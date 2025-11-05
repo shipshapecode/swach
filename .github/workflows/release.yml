@@ -66,58 +66,58 @@ jobs:
         uses: samuelmeuli/action-snapcraft@v2
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.snapcraft_token }}
-       - name: Debug pre-make state
-         if: startsWith(github.ref, 'refs/tags/')
-         run: |
-           echo "=== Pre-make debugging ==="
-           echo "Current working directory:"
-           pwd
-           echo "Contents of current directory:"
-           ls -la
-           echo "Contents of out directory (if exists):"
-           ls -la out/ || echo "No out directory yet"
-           echo "Electron Forge config check:"
-           node -e "const config = require('./forge.config.ts'); console.log('MakerSnap config:', JSON.stringify(config.default.makers.find(m => m.name === '@electron-forge/maker-snap'), null, 2))" || echo "Could not parse forge config"
-       - name: Make
-         if: startsWith(github.ref, 'refs/tags/')
-         run: pnpm make --publish
-         env:
-           APPLE_ID: ${{ secrets.APPLE_ID }}
-           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
-           # WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
-           # WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
-       - name: Debug snapcraft failure
-         if: failure() && matrix.os == 'ubuntu-22.04'
-         run: |
-           echo "=== Post-failure debugging ==="
-           echo "Listing snapcraft log directory:"
-           ls -la /home/runner/.local/state/snapcraft/log/ || echo "No snapcraft log directory found"
-           echo "Showing snapcraft logs:"
-           find /home/runner/.local/state/snapcraft/log/ -name "*.log" -exec echo "=== {} ===" \; -exec cat {} \; || echo "No log files found"
-           echo "=== Checking Electron build output structure ==="
-           echo "Contents of out directory:"
-           ls -la out/ || echo "No out directory found"
-           echo "Detailed out directory structure:"
-           find out/ -type d | head -20 || echo "No directories in out"
-           find out/ -name "Swach*" -type d || echo "No Swach directories found"
-           echo "Sample files in out:"
-           find out/ -type f | head -30 || echo "No files in out directory"
-           echo "=== Checking temp snapcraft directories ==="
-           find /tmp -name "*electron-snap*" -type d 2>/dev/null | head -5 || echo "No electron-snap temp dirs"
-           echo "=== Checking snapcraft workspace ==="
-           for dir in $(find /tmp -name "*electron-snap*" -type d 2>/dev/null | head -3); do
-             echo "Contents of $dir:"
-             ls -la "$dir" 2>/dev/null || echo "Cannot access $dir"
-             if [ -f "$dir/snap/snapcraft.yaml" ]; then
-               echo "=== Generated snapcraft.yaml in $dir ==="
-               cat "$dir/snap/snapcraft.yaml"
-             fi
-           done
-           echo "=== Checking what electron-installer-snap received ==="
-           echo "Process tree during failure:"
-           ps aux | grep -E "(snap|electron)" || echo "No relevant processes found"
-           echo "=== Environment variables ==="
-           env | grep -E "(SNAP|ELECTRON|CRAFT)" || echo "No relevant env vars"
+      - name: Debug pre-make state
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          echo "=== Pre-make debugging ==="
+          echo "Current working directory:"
+          pwd
+          echo "Contents of current directory:"
+          ls -la
+          echo "Contents of out directory (if exists):"
+          ls -la out/ || echo "No out directory yet"
+          echo "Electron Forge config check:"
+          node -e "const config = require('./forge.config.ts'); console.log('MakerSnap config:', JSON.stringify(config.default.makers.find(m => m.name === '@electron-forge/maker-snap'), null, 2))" || echo "Could not parse forge config"
+      - name: Make
+        if: startsWith(github.ref, 'refs/tags/')
+        run: pnpm make --publish
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          # WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
+          # WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
+      - name: Debug snapcraft failure
+        if: failure() && matrix.os == 'ubuntu-22.04'
+        run: |
+          echo "=== Post-failure debugging ==="
+          echo "Listing snapcraft log directory:"
+          ls -la /home/runner/.local/state/snapcraft/log/ || echo "No snapcraft log directory found"
+          echo "Showing snapcraft logs:"
+          find /home/runner/.local/state/snapcraft/log/ -name "*.log" -exec echo "=== {} ===" \; -exec cat {} \; || echo "No log files found"
+          echo "=== Checking Electron build output structure ==="
+          echo "Contents of out directory:"
+          ls -la out/ || echo "No out directory found"
+          echo "Detailed out directory structure:"
+          find out/ -type d | head -20 || echo "No directories in out"
+          find out/ -name "Swach*" -type d || echo "No Swach directories found"
+          echo "Sample files in out:"
+          find out/ -type f | head -30 || echo "No files in out directory"
+          echo "=== Checking temp snapcraft directories ==="
+          find /tmp -name "*electron-snap*" -type d 2>/dev/null | head -5 || echo "No electron-snap temp dirs"
+          echo "=== Checking snapcraft workspace ==="
+          for dir in $(find /tmp -name "*electron-snap*" -type d 2>/dev/null | head -3); do
+            echo "Contents of $dir:"
+            ls -la "$dir" 2>/dev/null || echo "Cannot access $dir"
+            if [ -f "$dir/snap/snapcraft.yaml" ]; then
+              echo "=== Generated snapcraft.yaml in $dir ==="
+              cat "$dir/snap/snapcraft.yaml"
+            fi
+          done
+          echo "=== Checking what electron-installer-snap received ==="
+          echo "Process tree during failure:"
+          ps aux | grep -E "(snap|electron)" || echo "No relevant processes found"
+          echo "=== Environment variables ==="
+          env | grep -E "(SNAP|ELECTRON|CRAFT)" || echo "No relevant env vars"
       # - name: Make Apple arm64
       #   if: matrix.os == 'macos-11.0' && startsWith(github.ref, 'refs/tags/')
       #   run: pnpm make --arch=arm64

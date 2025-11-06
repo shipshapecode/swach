@@ -166,7 +166,7 @@ const config: ForgeConfig = {
       name: '@electron-forge/publisher-snapcraft',
       platforms: ['linux'],
       config: {
-        release: '[latest/stable]',
+        release: 'latest/stable',
       },
     },
   ],

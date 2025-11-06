@@ -39,6 +39,7 @@ out/
 
 # Electron-Forge
 out/
+.snapcraft/
 
 # TypeScript
 *.tsbuildinfo

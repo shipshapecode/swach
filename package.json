@@ -178,7 +178,7 @@
     "sinon": "^21.0.0",
     "stylelint": "^16.25.0",
     "stylelint-config-standard": "^39.0.1",
-    "tailwindcss": "^4.1.16",
+    "tailwindcss": "^4.1.17",
     "throttle-debounce": "^5.0.2",
     "tree-kill": "^1.2.2",
     "typescript": "^5.9.3",

@@ -4,11 +4,14 @@ on:
   push:
     branches:
       - main
+    tags:
+      - v*
   pull_request: {}
 
 jobs:
-  test:
+  ember-test:
     name: Tests
+
     runs-on: ubuntu-22.04
     timeout-minutes: 10
     steps:

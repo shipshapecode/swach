@@ -4,11 +4,14 @@ on:
   push:
     branches:
       - main
+    tags:
+      - v*
   pull_request: {}
 
 jobs:
   lint:
     name: JS, HBS, Prettier, Types
+
     runs-on: ubuntu-22.04
     timeout-minutes: 10
     steps:

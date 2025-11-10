@@ -6,32 +6,10 @@ on:
       - v*
 
 jobs:
-  test:
-    name: Lint and Test
-    runs-on: ubuntu-22.04
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: 'pnpm'
-      - run: pnpm install  
-      - name: Lint JS
-        run: pnpm lint:js
-      - name: Lint HBS
-        run: pnpm lint:hbs
-      - name: Get xvfb
-        run: sudo apt-get install xvfb
-      - name: Browser Test
-        run: pnpm test:ember
-      - name: Electron Test
-        run: xvfb-run --auto-servernum pnpm test:electron     
   build:
     name: Build (${{ matrix.os }})
     if: startsWith(github.ref, 'refs/tags/')
-    needs: test
+    needs: [lint, ember-test, electron-test]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     strategy:

@@ -1,5 +1,14 @@
 
 
+
+## v2.0.39 (2025-11-10)
+
+#### :house: Internal
+* [#2413](https://github.com/shipshapecode/swach/pull/2413) Switch to relative paths in most spots ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v2.0.38 (2025-11-10)
 
 ## v2.0.37 (2025-11-10)

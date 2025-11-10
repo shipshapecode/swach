@@ -3,19 +3,22 @@ import type Owner from '@ember/owner';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+
 import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
 import { orbit, type Store } from 'ember-orbit';
 import set from 'ember-set-helper/helpers/set';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
+
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type { InitializedRecord } from '@orbit/records';
 import IDBExportImport from 'indexeddb-export-import';
+
+import type { SettingsStorage } from '../storages/settings.ts';
+import { getDBOpenRequest } from '../utils/get-db-open-request.ts';
 import LoadingButton from './loading-button.gts';
 import OptionsMenu from './options-menu.gts';
-import type { SettingsStorage } from 'swach/storages/settings';
-import { getDBOpenRequest } from 'swach/utils/get-db-open-request';
 
 export default class SettingsData extends Component {
   <template>

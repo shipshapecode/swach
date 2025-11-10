@@ -5,21 +5,24 @@ import { service } from '@ember/service';
 import { capitalize } from '@ember/string';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+
 import { orbit, type Store } from 'ember-orbit';
 import eq from 'ember-truth-helpers/helpers/eq';
 import isEmpty from 'ember-truth-helpers/helpers/is-empty';
 import not from 'ember-truth-helpers/helpers/not';
 import notEq from 'ember-truth-helpers/helpers/not-eq';
+
 import { TinyColor } from '@ctrl/tinycolor';
 import iro from '@jaames/iro';
 import { debounce } from 'throttle-debounce';
+
+import type ColorModel from '../data-models/color.ts';
+import type PaletteModel from '../data-models/palette.ts';
 import capitalize0 from '../helpers/capitalize.ts';
+import type { ColorPOJO } from '../services/color-utils.ts';
+import type ColorUtils from '../services/color-utils.ts';
 import EditSelectedColor from './edit-selected-color.gts';
 import KulerPaletteRow from './kuler-palette-row.gts';
-import type ColorModel from 'swach/data-models/color';
-import type PaletteModel from 'swach/data-models/palette';
-import type { ColorPOJO } from 'swach/services/color-utils';
-import type ColorUtils from 'swach/services/color-utils';
 
 /* eslint-disable @typescript-eslint/unbound-method */
 

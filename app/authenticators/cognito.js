@@ -1,4 +1,5 @@
 import { service } from '@ember/service';
+
 import CognitoAuthenticator from 'ember-cognito/authenticators/cognito';
 
 export default class CognitoAuthenticatorExtended extends CognitoAuthenticator {

@@ -1,5 +1,6 @@
 import type { TemplateOnlyComponent } from '@ember/component/template-only';
 import { LinkTo } from '@ember/routing';
+
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 
 export default <template>

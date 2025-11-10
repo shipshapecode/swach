@@ -1,10 +1,14 @@
 import { getContext, settled } from '@ember/test-helpers';
 import { animationsSettled } from 'ember-animated/test-support';
 import { waitForSource } from 'ember-orbit/test-support/index';
+
 import type Owner from '@ember/owner';
+
 import { getOrbitRegistry, setupOrbit } from 'ember-orbit';
+
 import type BucketClass from '@orbit/indexeddb-bucket';
 import type MemorySource from '@orbit/memory';
+
 import seedOrbit from './orbit/seed';
 
 const dataModels = import.meta.glob('../app/data-models/*.{js,ts}', {

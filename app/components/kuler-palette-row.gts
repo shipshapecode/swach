@@ -4,6 +4,7 @@ import { action } from '@ember/object';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
+
 import type { Transition } from 'ember-animated/-private/transition';
 import AnimatedIf from 'ember-animated/components/animated-if';
 import type MotionService from 'ember-animated/services/-ea-motion';
@@ -14,11 +15,12 @@ import { orbit, type Store } from 'ember-orbit';
 import set from 'ember-set-helper/helpers/set';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
+
+import type ColorModel from '../data-models/color.ts';
+import type PaletteModel from '../data-models/palette.ts';
 import htmlSafe from '../helpers/html-safe.ts';
-import type ColorModel from 'swach/data-models/color';
-import type PaletteModel from 'swach/data-models/palette';
-import type ColorUtils from 'swach/services/color-utils';
-import type UndoManager from 'swach/services/undo-manager';
+import type ColorUtils from '../services/color-utils.ts';
+import type UndoManager from '../services/undo-manager.ts';
 
 interface KulerPaletteRowSignature {
   Args: {

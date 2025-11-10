@@ -2,6 +2,7 @@ import type { TemplateOnlyComponent } from '@ember/component/template-only';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { LinkTo } from '@ember/routing';
+
 // @ts-expect-error TODO: fix this
 import AnimatedTools from 'ember-animated-tools/components/animated-tools';
 import FlashMessage from 'ember-cli-flash/components/flash-message';
@@ -9,9 +10,10 @@ import setBodyClass from 'ember-set-body-class/helpers/set-body-class';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import and from 'ember-truth-helpers/helpers/and';
 import not from 'ember-truth-helpers/helpers/not';
+
 import ColorPicker from '../components/color-picker.gts';
 import OptionsMenu from '../components/options-menu.gts';
-import type ApplicationController from 'swach/controllers/application';
+import type ApplicationController from '../controllers/application.ts';
 
 <template>
   {{setBodyClass @controller.theme}}

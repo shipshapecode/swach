@@ -1,9 +1,11 @@
 import { click, currentURL, visit, waitFor } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
+
 import IDBExportImport from 'indexeddb-export-import';
-import { resetStorage, waitForAll } from 'swach/tests/helpers';
-import { setupApplicationTest } from 'swach/tests/helpers/index';
+
+import { resetStorage, waitForAll } from '../../helpers';
+import { setupApplicationTest } from '../../helpers/index';
 
 module('Acceptance | settings/data', function (hooks) {
   setupApplicationTest(hooks);

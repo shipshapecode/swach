@@ -6,6 +6,7 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+
 import noop from '@nullvoxpopuli/ember-composable-helpers/helpers/noop';
 import fade from 'ember-animated/transitions/fade';
 import DragSortList from 'ember-drag-sort/components/drag-sort-list';
@@ -16,13 +17,15 @@ import { orbit, type Store } from 'ember-orbit';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
 import not from 'ember-truth-helpers/helpers/not';
+
 import type { RecordSchema } from '@orbit/records';
+
+import type ColorModel from '../data-models/color.ts';
+import type PaletteModel from '../data-models/palette.ts';
 import htmlSafe from '../helpers/html-safe.ts';
+import type ColorUtils from '../services/color-utils.ts';
+import type UndoManager from '../services/undo-manager.ts';
 import OptionsMenu from './options-menu.gts';
-import type ColorModel from 'swach/data-models/color';
-import type PaletteModel from 'swach/data-models/palette';
-import type ColorUtils from 'swach/services/color-utils';
-import type UndoManager from 'swach/services/undo-manager';
 
 interface PaletteRowSignature {
   Element: HTMLDivElement;

@@ -7,8 +7,9 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { resetStorage, waitForAll } from 'swach/tests/helpers';
-import { setupApplicationTest } from 'swach/tests/helpers/index';
+
+import { resetStorage, waitForAll } from '../helpers';
+import { setupApplicationTest } from '../helpers/index';
 
 module('Acceptance | kuler', function (hooks) {
   setupApplicationTest(hooks);

@@ -1,5 +1,6 @@
 import { getOwner } from '@ember/owner';
 import { service } from '@ember/service';
+
 import CognitoService from 'ember-cognito/services/cognito';
 
 export default class CognitoServiceExtended extends CognitoService {

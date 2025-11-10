@@ -1,4 +1,5 @@
 import { assert } from '@ember/debug';
+
 import loadConfigFromMeta from '@embroider/config-meta-loader';
 
 const config = loadConfigFromMeta('swach') as unknown;

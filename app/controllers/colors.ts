@@ -1,6 +1,7 @@
 import Controller, { inject as controller } from '@ember/controller';
-import type ApplicationController from 'swach/controllers/application';
-import type PaletteModel from 'swach/data-models/palette';
+
+import type ApplicationController from '../controllers/application.ts';
+import type PaletteModel from '../data-models/palette.ts';
 
 export default class ColorsController extends Controller {
   queryParams = ['paletteId'];

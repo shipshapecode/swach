@@ -2,7 +2,11 @@ import { fn } from '@ember/helper';
 import { action, set, setProperties } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
+
 import type iro from '@jaames/iro';
+
+import type PaletteModel from '../data-models/palette.ts';
+import type ColorUtils from '../services/color-utils.ts';
 import AlphaInput from './alpha-input.gts';
 import HexInput from './hex-input.gts';
 import RgbInput from './rgb-input.gts';
@@ -11,8 +15,6 @@ import type {
   PublicRGBAHex,
   SelectedColorModel,
 } from './rgb-input.gts';
-import type PaletteModel from 'swach/data-models/palette';
-import type ColorUtils from 'swach/services/color-utils';
 
 interface EditSelectedColorSignature {
   Element: HTMLDivElement;

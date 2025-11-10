@@ -1,7 +1,8 @@
 import { click, currentURL, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { resetStorage } from 'swach/tests/helpers';
-import { setupApplicationTest } from 'swach/tests/helpers/index';
+
+import { resetStorage } from '../helpers';
+import { setupApplicationTest } from '../helpers/index';
 
 module('Acceptance | settings', function (hooks) {
   setupApplicationTest(hooks);

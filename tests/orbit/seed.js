@@ -1,9 +1,9 @@
-import colors from 'swach/tests/orbit/fixtures/colors';
-import colorHistoryColors from 'swach/tests/orbit/fixtures/colors/color-history';
-import firstPaletteColors from 'swach/tests/orbit/fixtures/colors/first-palette';
-import lockedPaletteColors from 'swach/tests/orbit/fixtures/colors/locked-palette';
-import secondPaletteColors from 'swach/tests/orbit/fixtures/colors/second-palette';
-import palettes from 'swach/tests/orbit/fixtures/palettes';
+import colors from './fixtures/colors';
+import colorHistoryColors from './fixtures/colors/color-history';
+import firstPaletteColors from './fixtures/colors/first-palette';
+import lockedPaletteColors from './fixtures/colors/locked-palette';
+import secondPaletteColors from './fixtures/colors/second-palette';
+import palettes from './fixtures/palettes';
 
 export default async function seedOrbit(source, scenario = 'basic') {
   if (scenario === 'basic') {

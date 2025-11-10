@@ -1,6 +1,7 @@
 import type { TemplateOnlyComponent } from '@ember/component/template-only';
+
 import LoadingButton from '../../../components/loading-button.gts';
-import type SettingsCloudProfileController from 'swach/controllers/settings/cloud/profile';
+import type SettingsCloudProfileController from '../../../controllers/settings/cloud/profile.ts';
 
 export default <template>
   <div class="bg-menu p-4 rounded-sm w-full">

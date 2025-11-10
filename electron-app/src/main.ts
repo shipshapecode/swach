@@ -3,11 +3,13 @@ import { homedir } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
 // This should cause a type error
 import { fileURLToPath, pathToFileURL } from 'node:url';
+
 import { init } from '@sentry/electron/main';
 import { ipcMain, nativeTheme } from 'electron';
 import isDev from 'electron-is-dev';
 import Store from 'electron-store';
 import { menubar, type Menubar } from 'menubar';
+
 import pkg from '../../package.json';
 import { setupUpdateServer } from './auto-update.js';
 import { noUpdatesAvailableDialog } from './dialogs.js';

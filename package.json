@@ -138,7 +138,7 @@
     "babel-preset-env": "^1.7.0",
     "broccoli-asset-rev": "^3.0.0",
     "concurrently": "^9.2.1",
-    "electron": "^38.5.0",
+    "electron": "^39.1.1",
     "ember-auto-import": "^2.11.1",
     "ember-cli": "^6.8.0",
     "ember-cli-babel": "^8.2.0",

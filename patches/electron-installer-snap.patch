@@ -1,14 +1,14 @@
 diff --git a/src/index.js b/src/index.js
-index a6d50fa2acb44a7356c8a74797dd8ca89956c774..047dc1810fe3cac69c32b3dd11801a350514c7ca 100644
+index a6d50fa2acb44a7356c8a74797dd8ca89956c774..7ee359b9ff3f201a435eb635ee75ba5b88c04a13 100644
 --- a/src/index.js
 +++ b/src/index.js
-@@ -90,9 +90,26 @@ class SnapCreator {
+@@ -90,9 +90,25 @@ class SnapCreator {
      await createDesktopFile(snapGuiDir, this.config)
      await copyIcon(snapGuiDir, this.config)
      await copyLauncher(snapDir, this.config)
 +
 +    // Copy source directory to snapcraft working directory for LXD compatibility
-+    await fs.copy(this.packageDir, path.join(snapDir, 'out'), {
++    await fs.copy(this.packageDir, path.join(snapDir, 'out', path.basename(this.packageDir)), {
 +      recursive: true,
 +    });
 +
@@ -26,7 +26,6 @@ index a6d50fa2acb44a7356c8a74797dd8ca89956c774..047dc1810fe3cac69c32b3dd11801a35
 +
 +    // Copy the built snap back to the final destination
 +    await fs.copy(path.join(snapDir, 'snap.build'), this.snapDestPath)
-+
      return this.snapDestPath
    }
  

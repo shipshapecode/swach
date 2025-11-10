@@ -9,7 +9,7 @@ overrides:
 
 patchedDependencies:
   electron-installer-snap:
-    hash: 0a6b4ea3b48e03b0049b73977e66c500a60c345a4d9563b9f158f18ec733199a
+    hash: 7f371823725e9530f39d4a13bfe75e9f64e113be2fe3b271561a23b50394a9f9
     path: patches/electron-installer-snap.patch
   ember-local-storage:
     hash: 7a283711fa827de035fc3cc2ebe13c451ddf557492e8b185e99f915713c95f06
@@ -12107,7 +12107,7 @@ snapshots:
       '@electron-forge/maker-base': 7.10.2
       '@electron-forge/shared-types': 7.10.2
     optionalDependencies:
-      electron-installer-snap: 5.2.0(patch_hash=0a6b4ea3b48e03b0049b73977e66c500a60c345a4d9563b9f158f18ec733199a)
+      electron-installer-snap: 5.2.0(patch_hash=7f371823725e9530f39d4a13bfe75e9f64e113be2fe3b271561a23b50394a9f9)
     transitivePeerDependencies:
       - bluebird
       - supports-color
@@ -12182,7 +12182,7 @@ snapshots:
       '@electron-forge/publisher-base': 7.10.2
       fs-extra: 10.1.0
     optionalDependencies:
-      electron-installer-snap: 5.2.0(patch_hash=0a6b4ea3b48e03b0049b73977e66c500a60c345a4d9563b9f158f18ec733199a)
+      electron-installer-snap: 5.2.0(patch_hash=7f371823725e9530f39d4a13bfe75e9f64e113be2fe3b271561a23b50394a9f9)
     transitivePeerDependencies:
       - bluebird
       - supports-color
@@ -17329,7 +17329,7 @@ snapshots:
       - supports-color
     optional: true
 
-  electron-installer-snap@5.2.0(patch_hash=0a6b4ea3b48e03b0049b73977e66c500a60c345a4d9563b9f158f18ec733199a):
+  electron-installer-snap@5.2.0(patch_hash=7f371823725e9530f39d4a13bfe75e9f64e113be2fe3b271561a23b50394a9f9):
     dependencies:
       '@malept/cross-spawn-promise': 1.1.1
       debug: 4.4.3

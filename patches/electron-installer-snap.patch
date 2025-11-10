@@ -31,18 +31,16 @@ index a6d50fa2acb44a7356c8a74797dd8ca89956c774..047dc1810fe3cac69c32b3dd11801a35
    }
  
 diff --git a/src/yaml.js b/src/yaml.js
-index a71ea23724230c30f535460b9829f36c06b89514..e258aae6be02f7e9dec52c8e3b114b7049763d92 100644
+index a71ea23724230c30f535460b9829f36c06b89514..d87ec1ed26d6361e07728e49a4a086c2a0da91e3 100644
 --- a/src/yaml.js
 +++ b/src/yaml.js
-@@ -193,9 +193,8 @@ class SnapcraftYAML {
+@@ -193,7 +193,8 @@ class SnapcraftYAML {
    }
  
    transformParts (packageDir) {
 -    this.parts.source = path.dirname(packageDir)
--    this.parts.organize = {}
--    this.parts.organize[path.basename(packageDir)] = this.data.name
 +    // Use relative path for LXD compatibility
 +    this.parts.source = 'out'
+     this.parts.organize = {}
+     this.parts.organize[path.basename(packageDir)] = this.data.name
  
-     return this.updateDependencies()
-   }

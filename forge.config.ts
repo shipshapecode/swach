@@ -101,8 +101,6 @@ const config: ForgeConfig = {
         },
         appConfig: {
           extensions: ['gnome'],
-          // TODO: we should not be manually setting this
-          command: 'bin/electron-launch $SNAP/Swach --no-sandbox',
         },
         parts: {
           setup: {

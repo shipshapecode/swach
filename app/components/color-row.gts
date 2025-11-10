@@ -5,14 +5,16 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { isEmpty } from '@ember/utils';
 import Component from '@glimmer/component';
+
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
+
+import type ColorModel from '../data-models/color.ts';
+import type PaletteModel from '../data-models/palette.ts';
 import htmlSafe from '../helpers/html-safe.ts';
+import type ColorUtils from '../services/color-utils.ts';
 import OptionsMenu from './options-menu.gts';
 import type { SelectedColorModel } from './rgb-input';
-import type ColorModel from 'swach/data-models/color';
-import type PaletteModel from 'swach/data-models/palette';
-import type ColorUtils from 'swach/services/color-utils';
 
 interface ColorRowSignature {
   Element: HTMLDivElement;

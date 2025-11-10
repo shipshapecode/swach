@@ -1,4 +1,5 @@
 import type { TemplateOnlyComponent } from '@ember/component/template-only';
+
 import ForgotPassword from '../../../components/forgot-password.gts';
 
 export default <template>

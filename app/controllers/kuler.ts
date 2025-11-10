@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
-import type ColorModel from 'swach/data-models/color';
+
+import type ColorModel from '../data-models/color.ts';
 
 export default class KulerController extends Controller {
   queryParams = ['colorId'];

@@ -1,6 +1,7 @@
 import type { TemplateOnlyComponent } from '@ember/component/template-only';
+
 import SettingsMenu from '../../components/settings-menu.gts';
-import type SettingsIndexController from 'swach/controllers/settings/index';
+import type SettingsIndexController from '../../controllers/settings/index.ts';
 
 export default <template>
   <SettingsMenu

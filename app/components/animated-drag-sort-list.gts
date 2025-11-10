@@ -1,4 +1,5 @@
 import { action, set } from '@ember/object';
+
 import TransitionContext from 'ember-animated/-private/transition-context';
 import AnimatedContainer from 'ember-animated/components/animated-container';
 import AnimatedEach from 'ember-animated/components/animated-each';

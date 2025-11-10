@@ -5,13 +5,15 @@ import { action } from '@ember/object';
 import type Owner from '@ember/owner';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+
 import { storageFor } from 'ember-local-storage';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
+
 import capitalize from '../helpers/capitalize.ts';
+import type { SettingsStorage, themes } from '../storages/settings.ts';
 import About from './about.gts';
 import LoadingButton from './loading-button.gts';
-import type { SettingsStorage, themes } from 'swach/storages/settings';
 
 interface SettingsMenuSignature {
   Element: HTMLDivElement;

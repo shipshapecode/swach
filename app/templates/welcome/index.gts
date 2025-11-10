@@ -1,7 +1,9 @@
 import type { TemplateOnlyComponent } from '@ember/component/template-only';
 import { LinkTo } from '@ember/routing';
+
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
-import type WelcomeIndexController from 'swach/controllers/welcome/index';
+
+import type WelcomeIndexController from '../../controllers/welcome/index.ts';
 
 export default <template>
   <div class="flex h-full items-center justify-center p-4 w-full">

@@ -7,9 +7,10 @@ import {
 } from 'ember-cognito/test-support';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
+
+import { resetStorage, waitForAll } from '../../helpers';
+import { setupApplicationTest } from '../../helpers/index.ts';
 import type DataService from 'swach/services/data';
-import { resetStorage, waitForAll } from 'swach/tests/helpers';
-import { setupApplicationTest } from 'swach/tests/helpers/index';
 
 module('Acceptance | settings/cloud', function (hooks) {
   setupApplicationTest(hooks);

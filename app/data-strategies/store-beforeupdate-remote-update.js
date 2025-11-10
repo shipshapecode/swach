@@ -1,4 +1,5 @@
 import { getOwner } from '@ember/application';
+
 import { RequestStrategy } from '@orbit/coordinator';
 
 export default {

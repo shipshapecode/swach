@@ -25,9 +25,13 @@ const swachInternals = ['^swach/(.*)$', '^[./]'].join('|');
 
 const importOrder = [
   testing,
+  '',
   emberCore,
+  '',
   emberAddons,
+  '',
   '<THIRD_PARTY_MODULES>',
+  '',
   swachInternals,
 ];
 const importOrderParserPlugins = ['typescript', 'decorators-legacy'];

@@ -1,7 +1,10 @@
 import { isEmpty } from '@ember/utils';
+
 import { attr, hasOne, Model } from 'ember-orbit';
+
 import { TinyColor } from '@ctrl/tinycolor';
-import type PaletteModel from 'swach/data-models/palette';
+
+import type PaletteModel from '../data-models/palette.ts';
 
 export default class ColorModel extends Model {
   @attr('datetime') createdAt!: string;

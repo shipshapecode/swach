@@ -1,4 +1,5 @@
 import { getOwner } from '@ember/application';
+
 import { SyncStrategy } from '@orbit/coordinator';
 
 export default {

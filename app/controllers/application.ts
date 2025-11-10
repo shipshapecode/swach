@@ -3,17 +3,20 @@ import { action, get } from '@ember/object';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
+
 import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
 import { orbit, type Store } from 'ember-orbit';
+
 import type { RecordSchema } from '@orbit/records';
-import type { SelectedColorModel } from 'swach/components/rgb-input';
-import type ColorModel from 'swach/data-models/color';
-import type ColorUtils from 'swach/services/color-utils';
-import type DataService from 'swach/services/data';
-import type Session from 'swach/services/session';
-import type UndoManager from 'swach/services/undo-manager';
-import type { SettingsStorage, themes } from 'swach/storages/settings';
+
+import type { SelectedColorModel } from '../components/rgb-input.gts';
+import type ColorModel from '../data-models/color.ts';
+import type ColorUtils from '../services/color-utils.ts';
+import type DataService from '../services/data.ts';
+import type Session from '../services/session.ts';
+import type UndoManager from '../services/undo-manager.ts';
+import type { SettingsStorage, themes } from '../storages/settings.ts';
 
 export default class ApplicationController extends Controller {
   @orbit declare dataSchema: RecordSchema;

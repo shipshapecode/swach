@@ -1,4 +1,5 @@
 import { applyStandardSourceInjections } from 'ember-orbit';
+
 import { isTesting } from '@embroider/macros';
 import { IndexedDBSource } from '@orbit/indexeddb';
 import MemorySource from '@orbit/memory';
@@ -9,6 +10,7 @@ import type {
   RecordSchema,
 } from '@orbit/records';
 import { clone } from '@orbit/utils';
+
 import ENV from 'swach/config/environment';
 
 type PalettePOJO = Omit<Record, 'type'> & {

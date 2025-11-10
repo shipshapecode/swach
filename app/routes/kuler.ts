@@ -1,12 +1,14 @@
 import Route from '@ember/routing/route';
 import type Transition from '@ember/routing/transition';
 import { service } from '@ember/service';
+
 import { storageFor } from 'ember-local-storage';
 import { orbit, type Store } from 'ember-orbit';
-import type ColorModel from 'swach/data-models/color';
-import type Session from 'swach/services/session';
-import type { SettingsStorage } from 'swach/storages/settings';
-import viewTransitions from 'swach/utils/view-transitions';
+
+import type ColorModel from '../data-models/color.ts';
+import type Session from '../services/session.ts';
+import type { SettingsStorage } from '../storages/settings.ts';
+import viewTransitions from '../utils/view-transitions.ts';
 
 export default class KulerRoute extends Route {
   queryParams = {

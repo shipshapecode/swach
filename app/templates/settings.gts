@@ -1,8 +1,10 @@
 import type { TemplateOnlyComponent } from '@ember/component/template-only';
 import { on } from '@ember/modifier';
+
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
+
 import SettingsNav from '../components/settings-nav.gts';
-import type SettingsController from 'swach/controllers/settings';
+import type SettingsController from '../controllers/settings.ts';
 
 export default <template>
   <button

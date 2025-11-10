@@ -1,13 +1,16 @@
 import { action } from '@ember/object';
 import Service, { service } from '@ember/service';
+
 import { storageFor } from 'ember-local-storage';
 import { orbit, type Store } from 'ember-orbit';
+
 import { TinyColor } from '@ctrl/tinycolor';
 import type { ColorInput } from '@ctrl/tinycolor';
-import { rgbaToHex } from 'swach/data-models/color';
-import type ColorModel from 'swach/data-models/color';
-import type NearestColor from 'swach/services/nearest-color';
-import type { SettingsStorage } from 'swach/storages/settings';
+
+import { rgbaToHex } from '../data-models/color.ts';
+import type ColorModel from '../data-models/color.ts';
+import type NearestColor from '../services/nearest-color.ts';
+import type { SettingsStorage } from '../storages/settings.ts';
 
 export interface ColorPOJO {
   type: 'color';

@@ -5,11 +5,14 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+
 import { storageFor } from 'ember-local-storage';
+
+import { isTesting } from '@embroider/macros';
+
+import type Session from '../services/session.ts';
+import type { SettingsStorage } from '../storages/settings.ts';
 import LoadingButton from './loading-button.gts';
-import config from 'swach/config/environment';
-import type Session from 'swach/services/session';
-import type { SettingsStorage } from 'swach/storages/settings';
 
 export default class LoginComponent extends Component {
   <template>
@@ -118,7 +121,7 @@ export default class LoginComponent extends Component {
       await this.session.authenticate('authenticator:cognito', credentials);
 
       // We want to skip this in tests, since once a user has logged in routes become inaccessible
-      if (config.environment !== 'test') {
+      if (!isTesting()) {
         this.settings.set('userHasLoggedInBefore', true);
       }
 

@@ -1,8 +1,10 @@
 import fs from 'fs';
+
 import { app, clipboard, dialog, ipcMain, nativeTheme, shell } from 'electron';
 import { download } from 'electron-dl';
 import type Store from 'electron-store';
 import { type Menubar } from 'menubar';
+
 import { launchPicker } from './color-picker';
 import { restartDialog } from './dialogs';
 

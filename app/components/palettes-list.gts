@@ -1,14 +1,17 @@
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
+
 import { orbit, type LiveQuery, type Store } from 'ember-orbit';
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
+
 import type { RecordOperationTerm } from '@orbit/records';
+
+import type ColorModel from '../data-models/color.ts';
+import type PaletteModel from '../data-models/palette.ts';
+import type UndoManager from '../services/undo-manager.ts';
 import AnimatedDragSortList from './animated-drag-sort-list.gts';
 import PaletteRow from './palette-row.gts';
-import type ColorModel from 'swach/data-models/color';
-import type PaletteModel from 'swach/data-models/palette';
-import type UndoManager from 'swach/services/undo-manager';
 
 interface PalettesListSignature {
   Element: HTMLDivElement;

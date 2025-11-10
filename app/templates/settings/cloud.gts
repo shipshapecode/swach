@@ -1,4 +1,5 @@
 import type { TemplateOnlyComponent } from '@ember/component/template-only';
+
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
 
 export default <template>

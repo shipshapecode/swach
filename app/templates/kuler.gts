@@ -1,8 +1,10 @@
 import type { TemplateOnlyComponent } from '@ember/component/template-only';
 import { on } from '@ember/modifier';
+
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
+
 import Kuler from '../components/kuler.gts';
-import type KulerController from 'swach/controllers/kuler';
+import type KulerController from '../controllers/kuler.ts';
 
 export default <template>
   <button

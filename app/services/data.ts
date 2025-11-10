@@ -1,12 +1,15 @@
 import Service, { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
+
 import { orbit, type Store } from 'ember-orbit';
+
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type JSONAPISource from '@orbit/jsonapi';
 import type { InitializedRecord, RecordIdentity } from '@orbit/records';
-import type Palette from 'swach/data-models/palette';
-import type Session from 'swach/services/session';
+
+import type Palette from '../data-models/palette.ts';
+import type Session from '../services/session.ts';
 
 export default class DataService extends Service {
   @orbit dataCoordinator!: Coordinator;

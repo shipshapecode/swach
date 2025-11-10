@@ -10,9 +10,11 @@ import {
 } from '@ember/test-helpers';
 import { animationsSettled } from 'ember-animated/test-support';
 import { module, test } from 'qunit';
+
 import { move, sort } from 'ember-drag-sort/utils/trigger';
-import { resetStorage, waitForAll } from 'swach/tests/helpers';
-import { setupApplicationTest } from 'swach/tests/helpers/index';
+
+import { resetStorage, waitForAll } from '../helpers';
+import { setupApplicationTest } from '../helpers/index';
 
 module('Acceptance | palettes', function (hooks) {
   setupApplicationTest(hooks);

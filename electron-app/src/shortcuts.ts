@@ -5,6 +5,7 @@ import {
   type MenuItemConstructorOptions,
 } from 'electron';
 import { type Menubar } from 'menubar';
+
 import { launchPicker } from './color-picker.js';
 
 type OpenContrastCheckerFn = (mb: Menubar) => void;

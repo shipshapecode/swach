@@ -1,6 +1,8 @@
 import Service from '@ember/service';
+
 import { orbit, type Store } from 'ember-orbit';
-import removeFromTo from 'swach/utils/remove-from-to';
+
+import removeFromTo from '../utils/remove-from-to.ts';
 
 export default class UndoManager extends Service {
   @orbit declare store: Store;

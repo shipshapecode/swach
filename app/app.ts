@@ -1,7 +1,9 @@
 import Application from '@ember/application';
+
 import { init as emberInit } from '@sentry/ember';
 import loadInitializers from 'ember-load-initializers';
 import Resolver from 'ember-resolver';
+
 import {
   importSync,
   isDevelopingApp,
@@ -10,9 +12,13 @@ import {
 } from '@embroider/macros';
 import compatModules from '@embroider/virtual/compat-modules';
 import { init } from '@sentry/electron/renderer';
+
 import config from 'swach/config/environment';
+
 import './styles/all.css';
+
 import setupInspector from '@embroider/legacy-inspector-support/ember-source-4.12';
+
 import pkg from '../package.json';
 
 if (macroCondition(isDevelopingApp())) {

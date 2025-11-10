@@ -1,9 +1,11 @@
 import type { TemplateOnlyComponent } from '@ember/component/template-only';
 import { LinkTo } from '@ember/routing';
+
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
+
 import ColorsList from '../components/colors-list.gts';
-import type ColorsController from 'swach/controllers/colors';
-import type PaletteModel from 'swach/data-models/palette';
+import type ColorsController from '../controllers/colors.ts';
+import type PaletteModel from '../data-models/palette.ts';
 
 export default <template>
   <LinkTo

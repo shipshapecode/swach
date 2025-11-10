@@ -1,8 +1,10 @@
 import type { TemplateOnlyComponent } from '@ember/component/template-only';
 import { on } from '@ember/modifier';
+
 import svgJar from 'ember-svg-jar/helpers/svg-jar';
+
 import ContrastChecker from '../components/contrast-checker.gts';
-import type ContrastController from 'swach/controllers/contrast';
+import type ContrastController from '../controllers/contrast.ts';
 
 export default <template>
   <button

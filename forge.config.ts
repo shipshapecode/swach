@@ -78,6 +78,7 @@ const config: ForgeConfig = {
     new MakerSnap(
       {
         name: 'Swach',
+        executableName: 'Swach',
         base: 'core22',
         icon: 'electron-app/resources/icon.png',
         confinement: 'strict',
@@ -97,11 +98,6 @@ const config: ForgeConfig = {
           },
           '/usr/lib/aarch64-linux-gnu/imlib2': {
             bind: '$SNAP/usr/lib/aarch64-linux-gnu/imlib2',
-          },
-        },
-        apps: {
-          Swach: {
-            command: 'Swach --no-sandbox',
           },
         },
         appConfig: {

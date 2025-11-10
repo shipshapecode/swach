@@ -94,6 +94,9 @@ const config: ForgeConfig = {
           '/usr/lib/x86_64-linux-gnu/imlib2': {
             bind: '$SNAP/usr/lib/x86_64-linux-gnu/imlib2',
           },
+          '/usr/lib/aarch64-linux-gnu/imlib2': {
+            bind: '$SNAP/usr/lib/aarch64-linux-gnu/imlib2',
+          },
         },
         appConfig: {
           extensions: ['gnome'],

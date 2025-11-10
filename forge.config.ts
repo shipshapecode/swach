@@ -102,22 +102,22 @@ const config: ForgeConfig = {
         appConfig: {
           extensions: ['gnome'],
         },
-        parts: {
-          setup: {
-            plugin: 'nil',
-            'stage-packages': [
-              'giblib1',
-              'libimlib2',
-              'libx11-6',
-              'libxcursor1',
-              'libxfixes3',
-              'scrot',
-            ],
-          },
-          swach: {
-            'source-type': 'local',
-          },
-        },
+        // parts: {
+        //   setup: {
+        //     plugin: 'nil',
+        //     'stage-packages': [
+        //       'giblib1',
+        //       'libimlib2',
+        //       'libx11-6',
+        //       'libxcursor1',
+        //       'libxfixes3',
+        //       'scrot',
+        //     ],
+        //   },
+        //   swach: {
+        //     'source-type': 'local',
+        //   },
+        // },
         type: 'app',
       },
       ['linux']

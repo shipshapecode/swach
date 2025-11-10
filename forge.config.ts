@@ -77,7 +77,6 @@ const config: ForgeConfig = {
     }, ['darwin']),
     new MakerSnap(
       {
-        name: 'Swach',
         executableName: 'Swach',
         base: 'core22',
         icon: 'electron-app/resources/icon.png',
@@ -115,7 +114,7 @@ const config: ForgeConfig = {
               'scrot',
             ],
           },
-          Swach: {
+          swach: {
             'source-type': 'local',
           },
         },

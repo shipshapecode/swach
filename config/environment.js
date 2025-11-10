@@ -2,7 +2,7 @@
 
 module.exports = function (environment) {
   const ENV = {
-    modulePrefix: 'swach',
+    modulePrefix: 'Swach',
     environment,
     rootURL: process.env.EMBER_CLI_ELECTRON ? '' : '/',
     locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'history',

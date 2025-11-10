@@ -7,7 +7,7 @@ import OnClickOutsideModifier from 'ember-click-outside/modifiers/on-click-outsi
 import SvgJarHelper from 'ember-svg-jar/helpers/svg-jar';
 
 // Types for compiled templates
-declare module 'swach/templates/*' {
+declare module 'Swach/templates/*' {
   import { TemplateFactory } from 'ember-cli-htmlbars';
   const tmpl: TemplateFactory;
   export default tmpl;

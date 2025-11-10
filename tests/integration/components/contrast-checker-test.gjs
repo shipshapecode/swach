@@ -1,9 +1,10 @@
 import { blur, fillIn, find, render, waitUntil } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 
+import ContrastChecker from 'Swach/components/contrast-checker';
+
 import { waitForAll } from '../../helpers';
 import { setupRenderingTest } from '../../helpers/index';
-import ContrastChecker from 'swach/components/contrast-checker';
 
 module('Integration | Component | contrast-checker', function (hooks) {
   setupRenderingTest(hooks);

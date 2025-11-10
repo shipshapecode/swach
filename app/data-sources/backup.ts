@@ -10,8 +10,7 @@ import type {
   RecordSchema,
 } from '@orbit/records';
 import { clone } from '@orbit/utils';
-
-import ENV from 'swach/config/environment';
+import ENV from 'Swach/config/environment';
 
 type PalettePOJO = Omit<Record, 'type'> & {
   type: 'palette';

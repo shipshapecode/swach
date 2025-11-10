@@ -10,8 +10,7 @@ import {
 } from '@orbit/jsonapi';
 import { buildSerializerSettingsFor } from '@orbit/serializers';
 import { AwsClient } from 'aws4fetch';
-
-import ENV from 'swach/config/environment';
+import ENV from 'Swach/config/environment';
 
 export default {
   create(injections = {}) {

@@ -15,8 +15,8 @@
   "compilerOptions": {
     "allowJs": true,
     "paths": {
-      "swach/tests/*": ["./tests/*"],
-      "swach/*": ["./app/*"],
+      "Swach/tests/*": ["./tests/*"],
+      "Swach/*": ["./app/*"],
       "*": ["./types/*"]
     },
     "types": [

@@ -12,8 +12,7 @@ import {
 } from '@embroider/macros';
 import compatModules from '@embroider/virtual/compat-modules';
 import { init } from '@sentry/electron/renderer';
-
-import config from 'swach/config/environment';
+import config from 'Swach/config/environment';
 
 import './styles/all.css';
 

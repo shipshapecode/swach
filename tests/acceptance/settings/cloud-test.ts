@@ -8,9 +8,10 @@ import {
 import { module, test } from 'qunit';
 import sinon from 'sinon';
 
+import type DataService from 'Swach/services/data';
+
 import { resetStorage, waitForAll } from '../../helpers';
 import { setupApplicationTest } from '../../helpers/index.ts';
-import type DataService from 'swach/services/data';
 
 module('Acceptance | settings/cloud', function (hooks) {
   setupApplicationTest(hooks);

@@ -6,7 +6,7 @@ import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import not from 'ember-truth-helpers/helpers/not';
 
 import ToggleSwitch from '../../components/toggle-switch.gts';
-import type WelcomeDockIconController from 'swach/controllers/welcome/dock-icon';
+import type WelcomeDockIconController from '../../controllers/welcome/dock-icon.ts';
 
 export default <template>
   <div class="flex h-full items-center justify-center p-4 w-full">

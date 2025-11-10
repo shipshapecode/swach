@@ -5,10 +5,10 @@ import { getOrbitRegistry, type Store } from 'ember-orbit';
 
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
+import type Palette from 'Swach/data-models/palette';
+import type DataService from 'Swach/services/data';
 
 import { resetStorage } from '../../helpers';
-import type Palette from 'swach/data-models/palette';
-import type DataService from 'swach/services/data';
 
 module('Unit | Service | data', function (hooks) {
   setupTest(hooks);

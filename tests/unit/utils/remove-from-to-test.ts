@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 
-import removeFromTo from 'swach/utils/remove-from-to';
+import removeFromTo from 'Swach/utils/remove-from-to';
 
 module('Unit | Utility | removeFromTo', function () {
   test('from: 0, to: 0', function (assert) {

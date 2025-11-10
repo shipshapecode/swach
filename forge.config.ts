@@ -57,7 +57,7 @@ const config: ForgeConfig = {
       {
         options: {
           bin: 'Swach',
-          name: 'swach',
+          name: 'Swach',
           productName: 'Swach',
           productDescription:
             'A robust color management tool for the modern age.',
@@ -77,6 +77,7 @@ const config: ForgeConfig = {
     }, ['darwin']),
     new MakerSnap(
       {
+        name: 'Swach',
         base: 'core22',
         icon: 'electron-app/resources/icon.png',
         confinement: 'strict',
@@ -98,6 +99,11 @@ const config: ForgeConfig = {
             bind: '$SNAP/usr/lib/aarch64-linux-gnu/imlib2',
           },
         },
+        apps: {
+          Swach: {
+            command: 'Swach --no-sandbox',
+          },
+        },
         appConfig: {
           extensions: ['gnome'],
         },
@@ -113,7 +119,7 @@ const config: ForgeConfig = {
               'scrot',
             ],
           },
-          swach: {
+          Swach: {
             'source-type': 'local',
           },
         },

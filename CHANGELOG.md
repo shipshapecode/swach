@@ -1,4 +1,13 @@
 
+
+## v2.0.31 (2025-11-10)
+
+#### :house: Internal
+* [#2410](https://github.com/shipshapecode/swach/pull/2410) Support ARM for snap ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v2.0.30 (2025-11-06)
 
 ## v2.0.29 (2025-11-06)

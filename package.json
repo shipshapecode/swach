@@ -36,7 +36,7 @@
     "package": "EMBER_CLI_ELECTRON=true electron-forge package",
     "publish": "electron-forge publish",
     "start": "vite -c vite.renderer.config.ts",
-    "start:electron": "electron-forge start",
+    "start:electron": "ELECTRON_DISABLE_SANDBOX=1 electron-forge start",
     "test:electron": "SKIP_CODESIGN=true electron-forge package && vite build -c vite.renderer.config.ts --mode development && testem ci -f testem-electron.cjs",
     "test:ember": "vite build -c vite.renderer.config.ts --mode development && testem ci"
   },

@@ -294,8 +294,8 @@ importers:
         specifier: ^17.0.4
         version: 17.0.4
       babel-plugin-ember-template-compilation:
-        specifier: ^2.4.1
-        version: 2.4.1
+        specifier: ^3.0.1
+        version: 3.0.1
       babel-preset-env:
         specifier: ^1.7.0
         version: 1.7.0

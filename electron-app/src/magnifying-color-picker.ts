@@ -13,6 +13,7 @@ class MagnifyingColorPicker {
   private magnifierWindow: BrowserWindow | null = null;
   private updateInterval: NodeJS.Timeout | null = null;
   private isActive = false;
+  private cachedScreenshot: { image: any; rawData: Uint8Array; monitor: any } | null = null;
 
   async pickColor(): Promise<string | null> {
     console.log('[Magnifying Color Picker] Starting...');
@@ -24,6 +25,8 @@ class MagnifyingColorPicker {
     this.isActive = true;
 
     try {
+      // Take screenshot ONCE when starting, before magnifier window appears
+      await this.captureInitialScreenshot();
       await this.createMagnifierWindow();
       return await this.startColorPicking();
     } catch (error) {
@@ -32,6 +35,31 @@ class MagnifyingColorPicker {
     } finally {
       this.cleanup();
     }
+  }
+
+  private async captureInitialScreenshot(): Promise<void> {
+    console.log('[Magnifying Color Picker] Taking initial screenshot...');
+    
+    // Get the primary display for initial capture
+    const primaryDisplay = screen.getPrimaryDisplay();
+    const centerX = Math.floor(primaryDisplay.workAreaSize.width / 2);
+    const centerY = Math.floor(primaryDisplay.workAreaSize.height / 2);
+    
+    const monitor = screenshots.Monitor.fromPoint(centerX, centerY);
+    if (!monitor) {
+      throw new Error('No monitor found for initial screenshot');
+    }
+
+    const fullImage = monitor.captureImageSync();
+    const rawImageData = fullImage.toRawSync();
+    
+    this.cachedScreenshot = {
+      image: fullImage,
+      rawData: rawImageData,
+      monitor: monitor
+    };
+    
+    console.log(`[Magnifying Color Picker] Cached screenshot: ${fullImage.width}x${fullImage.height}`);
   }
 
   private async createMagnifierWindow(): Promise<void> {
@@ -111,12 +139,12 @@ class MagnifyingColorPicker {
           box-sizing: border-box;
         }
         
-        .pixel.center {
-          border: 3px solid #ff0000;
-          box-shadow: 0 0 6px #ff0000, inset 0 0 4px rgba(255, 0, 0, 0.3);
-          z-index: 10;
-          position: relative;
-        }
+         .pixel.center {
+           border: 3px solid #ffffff;
+           box-shadow: 0 0 6px #000000, inset 0 0 4px rgba(255, 255, 255, 0.8);
+           z-index: 10;
+           position: relative;
+         }
         
         .color-info {
           position: absolute;
@@ -397,70 +425,84 @@ class MagnifyingColorPicker {
     onColorChange: (color: string) => void
   ): void {
     try {
-      const monitor = screenshots.Monitor.fromPoint(cursorPos.x, cursorPos.y);
-      if (!monitor) return;
+      // Use cached screenshot instead of taking a new one!
+      if (!this.cachedScreenshot) {
+        console.warn('[Debug] No cached screenshot available');
+        return;
+      }
 
-      // Capture 9x9 area around cursor for the grid
-      const gridSize = 9;
-      const halfSize = Math.floor(gridSize / 2); // halfSize = 4
-
+      const { image: fullImage, rawData: rawImageData, monitor } = this.cachedScreenshot;
+      
+      // Calculate cursor position in image coordinates using the cached monitor info
       const monitorX = cursorPos.x - monitor.x;
       const monitorY = cursorPos.y - monitor.y;
+      
+      // Simple scaling: image size / monitor size
+      const scaleX = fullImage.width / monitor.width;
+      const scaleY = fullImage.height / monitor.height;
+      
+      const imageX = Math.floor(monitorX * scaleX);
+      const imageY = Math.floor(monitorY * scaleY);
+      
+      console.log(`[Debug] Using cached screenshot - Cursor: (${cursorPos.x}, ${cursorPos.y}) -> Image: (${imageX}, ${imageY})`);
 
-      console.log(
-        `[Debug] Cursor: (${cursorPos.x}, ${cursorPos.y}), Monitor: (${monitorX}, ${monitorY})`
-      );
+      // Helper to read pixel at specific coordinates from cached data
+      const getPixelAt = (x: number, y: number): ColorInfo | null => {
+        // Bounds check
+        if (x < 0 || y < 0 || x >= fullImage.width || y >= fullImage.height) {
+          return null;
+        }
+        
+        const pixelIndex = (y * fullImage.width + x) * 4;
+        if (pixelIndex + 3 >= rawImageData.length) {
+          return null;
+        }
+        
+        const r = rawImageData[pixelIndex] || 0;
+        const g = rawImageData[pixelIndex + 1] || 0;
+        const b = rawImageData[pixelIndex + 2] || 0;
+        const hex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+        
+        return { hex, r, g, b };
+      };
 
-      // Calculate capture area with bounds checking
-      const startX = Math.max(
-        0,
-        Math.min(monitorX - halfSize, monitor.width - gridSize)
-      );
-      const startY = Math.max(
-        0,
-        Math.min(monitorY - halfSize, monitor.height - gridSize)
-      );
+      // Get center color at cursor position
+      const centerColor = getPixelAt(imageX, imageY);
+      if (!centerColor) {
+        console.warn(`[Debug] Could not read pixel at (${imageX}, ${imageY})`);
+        return;
+      }
 
-      console.log(
-        `[Debug] Capturing from (${startX}, ${startY}) size ${gridSize}x${gridSize}`
-      );
+      console.log(`[Debug] Center color from cache: ${centerColor.hex}`);
+      onColorChange(centerColor.hex);
 
-      // Capture the grid area
-      const fullImage = monitor.captureImageSync();
-      const gridImage = fullImage.cropSync(startX, startY, gridSize, gridSize);
-      const rawData = gridImage.toRawSync();
-
-      // Convert to 2D array of colors
+      // Build 9x9 grid around cursor
+      const gridSize = 9;
+      const halfSize = 4; // (9-1)/2
       const pixels: ColorInfo[][] = [];
+
       for (let row = 0; row < gridSize; row++) {
         pixels[row] = [];
         for (let col = 0; col < gridSize; col++) {
-          const pixelIndex = (row * gridSize + col) * 4;
-          const r = rawData[pixelIndex] || 0;
-          const g = rawData[pixelIndex + 1] || 0;
-          const b = rawData[pixelIndex + 2] || 0;
-          const hex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-          pixels[row]![col] = { hex, r, g, b };
+          const gridImageX = imageX - halfSize + col;
+          const gridImageY = imageY - halfSize + row;
+          
+          const pixelColor = getPixelAt(gridImageX, gridImageY);
+          pixels[row]![col] = pixelColor || { hex: '#808080', r: 128, g: 128, b: 128 }; // Gray fallback
         }
       }
 
-      // Center pixel is at [4][4] in a 9x9 grid (middle position)
-      const centerColor = pixels[4]?.[4];
-      if (centerColor) {
-        console.log(`[Debug] Center pixel color: ${centerColor.hex}`);
-        onColorChange(centerColor.hex);
-
-        // Send to renderer
-        if (this.magnifierWindow && !this.magnifierWindow.isDestroyed()) {
-          this.magnifierWindow.webContents.send('update-pixel-grid', {
-            centerColor,
-            pixels,
-            cursorPos,
-          });
-        }
+      // Send to renderer
+      if (this.magnifierWindow && !this.magnifierWindow.isDestroyed()) {
+        this.magnifierWindow.webContents.send('update-pixel-grid', {
+          centerColor,
+          pixels,
+          cursorPos,
+        });
       }
+
     } catch (error) {
-      console.warn('[Magnifying Color Picker] Capture error:', error);
+      console.warn('[Debug] Capture error:', error);
     }
   }
 
@@ -478,6 +520,9 @@ class MagnifyingColorPicker {
       this.magnifierWindow.close();
       this.magnifierWindow = null;
     }
+
+    // Clear cached screenshot
+    this.cachedScreenshot = null;
 
     // Clean up IPC handlers
     ipcMain.removeAllListeners('magnifier-ready');
@@ -498,8 +543,21 @@ async function launchMagnifyingColorPicker(
   const picker = new MagnifyingColorPicker();
 
   try {
-    mb.hideWindow();
-
+    // Hide window and wait for it to be fully hidden
+    if (mb.window && !mb.window.isDestroyed()) {
+      const hidePromise = new Promise<void>((resolve) => {
+        if (mb.window!.isVisible()) {
+          mb.window!.once('hide', () => resolve());
+          mb.hideWindow();
+        } else {
+          resolve();
+        }
+      });
+      await hidePromise;
+    } else {
+      mb.hideWindow();
+    }
+    
     const color = await picker.pickColor();
 
     if (color) {

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swach Magnifier</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: transparent;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: none;
+    }
+
+    .magnifier-container {
+      width: 220px;
+      height: 220px;
+      position: relative;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 4px solid #333333;
+      box-shadow: 
+        0 0 20px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.8);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .pixel-canvas {
+      width: 100%;
+      height: 150px;
+      display: block;
+      border-radius: 50% 50% 0 0;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      image-rendering: pixelated;
+    }
+
+    .crosshair {
+      position: absolute;
+      top: 75px;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      transform: translateX(-50%);
+      border: 2px solid #000000;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .crosshair::before,
+    .crosshair::after {
+      content: '';
+      position: absolute;
+      background: #000000;
+    }
+
+    .crosshair::before {
+      width: 1px;
+      height: 30px;
+      top: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .crosshair::after {
+      width: 30px;
+      height: 1px;
+      top: 50%;
+      left: -7px;
+      transform: translateY(-50%);
+    }
+
+    .color-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-top: 1px solid #dee2e6;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border-radius: 0 0 50% 50%;
+    }
+
+    .color-preview {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid #333;
+      margin-bottom: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .hex-value {
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .color-name {
+      font-size: 10px;
+      color: #666;
+      font-weight: 400;
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .zoom-indicator {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    /* Animation for smooth updates */
+    .magnifier-container {
+      transition: all 0.1s ease-out;
+    }
+
+    .color-info {
+      transition: background-color 0.2s ease;
+    }
+
+    /* Dark theme support */
+    @media (prefers-color-scheme: dark) {
+      .magnifier-container {
+        background: #2d3748;
+        border-color: #4a5568;
+      }
+      
+      .color-info {
+        background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+        border-color: #4a5568;
+      }
+      
+      .hex-value {
+        color: #e2e8f0;
+      }
+      
+      .color-name {
+        color: #a0aec0;
+      }
+      
+      .crosshair {
+        border-color: #ffffff;
+      }
+      
+      .crosshair::before,
+      .crosshair::after {
+        background: #ffffff;
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 300px) {
+      .magnifier-container {
+        width: 180px;
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="magnifier-container">
+    <canvas class="pixel-canvas" id="pixelCanvas" width="220" height="150"></canvas>
+    
+    <div class="crosshair"></div>
+    
+    <div class="zoom-indicator" id="zoomIndicator">10×</div>
+    
+    <div class="color-info">
+      <div class="color-preview" id="colorPreview" style="background-color: #000000;"></div>
+      <div class="hex-value" id="hexValue">#000000</div>
+      <div class="color-name" id="colorName">Black</div>
+    </div>
+  </div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+    
+    // Canvas and context for drawing pixel grid
+    const canvas = document.getElementById('pixelCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // UI elements
+    const colorPreview = document.getElementById('colorPreview');
+    const hexValue = document.getElementById('hexValue');
+    const colorName = document.getElementById('colorName');
+    const zoomIndicator = document.getElementById('zoomIndicator');
+    
+    // Pixel grid configuration
+    const GRID_SIZE = 30; // 30x30 pixel capture
+    const CANVAS_SIZE = 150; // Canvas display size
+    const PIXEL_SIZE = CANVAS_SIZE / GRID_SIZE; // Each pixel will be 5x5 on canvas
+    
+    // Color name database (simplified - could be enhanced with more comprehensive list)
+    const basicColorNames = {
+      '#000000': 'Black',
+      '#FFFFFF': 'White',
+      '#FF0000': 'Red',
+      '#00FF00': 'Green',
+      '#0000FF': 'Blue',
+      '#FFFF00': 'Yellow',
+      '#FF00FF': 'Magenta',
+      '#00FFFF': 'Cyan',
+      '#FFA500': 'Orange',
+      '#800080': 'Purple',
+      '#FFC0CB': 'Pink',
+      '#A52A2A': 'Brown',
+      '#808080': 'Gray',
+      '#800000': 'Maroon',
+      '#008000': 'Dark Green',
+      '#000080': 'Navy'
+    };
+    
+    // Listen for magnifier updates from main process
+    ipcRenderer.on('update-magnifier', (event, data) => {
+      updateMagnifierDisplay(data);
+    });
+    
+    function updateMagnifierDisplay(data) {
+      const { imageData, centerColor, zoomLevel } = data;
+      
+      // Update zoom indicator
+      zoomIndicator.textContent = `${zoomLevel}×`;
+      
+      // Draw pixel grid on canvas
+      drawPixelGrid(imageData);
+      
+      // Update color information
+      updateColorInfo(centerColor);
+    }
+    
+    function drawPixelGrid(imageData) {
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // imageData is an Array containing RGBA values (converted from Buffer for IPC)
+      for (let y = 0; y < GRID_SIZE; y++) {
+        for (let x = 0; x < GRID_SIZE; x++) {
+          const pixelIndex = (y * GRID_SIZE + x) * 4; // 4 bytes per pixel (RGBA)
+          
+          const r = imageData[pixelIndex] || 0;
+          const g = imageData[pixelIndex + 1] || 0;
+          const b = imageData[pixelIndex + 2] || 0;
+          const a = imageData[pixelIndex + 3] !== undefined ? imageData[pixelIndex + 3] / 255 : 1;
+          
+          // Set pixel color
+          ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a})`;
+          
+          // Draw enlarged pixel
+          ctx.fillRect(
+            x * PIXEL_SIZE,
+            y * PIXEL_SIZE,
+            PIXEL_SIZE,
+            PIXEL_SIZE
+          );
+          
+          // Add subtle grid lines for clarity (optional)
+          if (PIXEL_SIZE >= 3) {
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.lineWidth = 0.5;
+            ctx.strokeRect(
+              x * PIXEL_SIZE,
+              y * PIXEL_SIZE,
+              PIXEL_SIZE,
+              PIXEL_SIZE
+            );
+          }
+        }
+      }
+      
+      // Highlight center pixel
+      const centerX = Math.floor(GRID_SIZE / 2);
+      const centerY = Math.floor(GRID_SIZE / 2);
+      
+      ctx.strokeStyle = '#000000';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(
+        centerX * PIXEL_SIZE - 1,
+        centerY * PIXEL_SIZE - 1,
+        PIXEL_SIZE + 2,
+        PIXEL_SIZE + 2
+      );
+    }
+    
+    function updateColorInfo(colorInfo) {
+      const { hex, r, g, b } = colorInfo;
+      
+      // Update color preview
+      colorPreview.style.backgroundColor = hex;
+      
+      // Update hex value
+      hexValue.textContent = hex.toUpperCase();
+      
+      // Update color name
+      const name = getColorName(hex, r, g, b);
+      colorName.textContent = name;
+    }
+    
+    function getColorName(hex, r, g, b) {
+      // Check exact matches first
+      if (basicColorNames[hex.toUpperCase()]) {
+        return basicColorNames[hex.toUpperCase()];
+      }
+      
+      // Simple color classification based on RGB values
+      const brightness = (r + g + b) / 3;
+      const maxComponent = Math.max(r, g, b);
+      const minComponent = Math.min(r, g, b);
+      const saturation = maxComponent === 0 ? 0 : (maxComponent - minComponent) / maxComponent;
+      
+      // Grayscale colors
+      if (saturation < 0.1) {
+        if (brightness < 50) return 'Very Dark Gray';
+        if (brightness < 100) return 'Dark Gray';
+        if (brightness < 150) return 'Medium Gray';
+        if (brightness < 200) return 'Light Gray';
+        return 'Very Light Gray';
+      }
+      
+      // Determine dominant color
+      if (r > g && r > b) {
+        if (g > 100) return 'Orange-Red';
+        return brightness > 150 ? 'Light Red' : 'Dark Red';
+      }
+      
+      if (g > r && g > b) {
+        if (b > 100) return 'Teal';
+        return brightness > 150 ? 'Light Green' : 'Dark Green';
+      }
+      
+      if (b > r && b > g) {
+        if (r > 100) return 'Purple';
+        return brightness > 150 ? 'Light Blue' : 'Dark Blue';
+      }
+      
+      // Mixed colors
+      if (r > 150 && g > 150 && b < 100) return 'Yellow';
+      if (r > 150 && b > 150 && g < 100) return 'Magenta';
+      if (g > 150 && b > 150 && r < 100) return 'Cyan';
+      
+      return 'Unknown Color';
+    }
+    
+    // Handle click events for fallback color selection (when EyeDropper is not available)
+    canvas.addEventListener('click', () => {
+      const centerColor = getCurrentCenterColor();
+      if (centerColor) {
+        ipcRenderer.send('magnifier-color-selected', centerColor.hex);
+      }
+    });
+    
+    function getCurrentCenterColor() {
+      // This would be set by the last update-magnifier event
+      // For now, we'll use the displayed hex value
+      const hex = hexValue.textContent;
+      return hex ? { hex } : null;
+    }
+    
+    // Keyboard shortcuts for zoom (if needed in the future)
+    document.addEventListener('keydown', (event) => {
+      switch (event.key) {
+        case 'Escape':
+          // Could be used to cancel color picking
+          ipcRenderer.send('magnifier-color-selected', '');
+          break;
+        case 'Enter':
+        case ' ':
+          // Select current color
+          const centerColor = getCurrentCenterColor();
+          if (centerColor) {
+            ipcRenderer.send('magnifier-color-selected', centerColor.hex);
+          }
+          break;
+      }
+    });
+    
+    console.log('Swach Enhanced Magnifier initialized');
+  </script>
+</body>
+</html>

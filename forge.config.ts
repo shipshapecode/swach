@@ -17,7 +17,9 @@ const shouldNotarize = shouldSign;
 
 const config: ForgeConfig = {
   packagerConfig: {
-    asar: true,
+    asar: {
+      unpack: '**/node_modules/node-screenshots*/**/*',
+    },
     darwinDarkModeSupport: true,
     icon: 'electron-app/resources/icon',
     name: 'Swach',

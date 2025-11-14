@@ -1,6 +1,15 @@
 import { type Menubar } from 'menubar';
 
+import { launchMagnifyingColorPicker } from './magnifying-color-picker';
+import { launchWorkingColorPicker } from './working-color-picker';
+
+// Main color picker function - uses the magnifying glass implementation
 async function launchPicker(mb: Menubar, type = 'global') {
+  await launchMagnifyingColorPicker(mb, type);
+}
+
+// Original EyeDropper implementation as fallback
+async function launchOriginalPicker(mb: Menubar, type = 'global') {
   mb.hideWindow();
 
   const color = await mb.window!.webContents.executeJavaScript(
@@ -39,4 +48,9 @@ async function launchPicker(mb: Menubar, type = 'global') {
   void mb.showWindow();
 }
 
-export { launchPicker };
+export {
+  launchPicker,
+  launchOriginalPicker,
+  launchWorkingColorPicker,
+  launchMagnifyingColorPicker,
+};

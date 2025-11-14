@@ -87,7 +87,8 @@
     "ember-source": "^6.8.1",
     "ember-svg-jar": "^2.7.0",
     "indexeddb-export-import": "^2.1.5",
-    "menubar": "RobbieTheWagner/menubar#af671dfdbccaa85ae4561b3b70294b559abd691c",
+    "menubar": "^9.5.2",
+    "node-screenshots": "^0.2.1",
     "throttle-debounce": "^5.0.2",
     "tracked-built-ins": "^4.0.0"
   },

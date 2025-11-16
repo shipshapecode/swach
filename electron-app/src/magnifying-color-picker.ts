@@ -109,8 +109,8 @@ class MagnifyingColorPicker {
 
     // Create magnifying glass overlay
     this.magnifierWindow = new BrowserWindow({
-      width: 220,
-      height: 220, // Reduced height since we removed bottom panel
+      width: 170,
+      height: 170,
       frame: false,
       transparent: true,
       alwaysOnTop: true,
@@ -127,8 +127,8 @@ class MagnifyingColorPicker {
     // Start at center of screen initially
     const primaryDisplay = screen.getPrimaryDisplay();
     this.magnifierWindow.setPosition(
-      Math.floor(primaryDisplay.workAreaSize.width / 2) - 110,
-      Math.floor(primaryDisplay.workAreaSize.height / 2) - 110 // Adjusted for smaller window
+      Math.floor(primaryDisplay.workAreaSize.width / 2) - 85,
+      Math.floor(primaryDisplay.workAreaSize.height / 2) - 85
     );
 
     let htmlFilePath: string;
@@ -240,11 +240,11 @@ class MagnifyingColorPicker {
 
     // Position magnifier so the CENTER SQUARE of the 9x9 grid is exactly on the cursor
     // The center square is at grid position [4][4] (middle of 9x9 grid)
-    // Each grid cell is 200px / 9 = 22.22px
-    // Center square is at (4 * 22.22 + 11.11) = 100px from grid edge
-    // Grid starts at 10px from window edge, so center is at 110px from window edge
-    const newX = cursorPos.x - 110; // Position so center square is on cursor
-    const newY = cursorPos.y - 110; // Position so center square is on cursor
+    // Each grid cell is 150px / 9 = 16.67px
+    // Center square is at (4 * 16.67 + 8.33) = 75px from grid edge
+    // Grid starts at 10px from window edge, so center is at 85px from window edge
+    const newX = cursorPos.x - 85; // Position so center square is on cursor
+    const newY = cursorPos.y - 85; // Position so center square is on cursor
 
     // Allow the magnifier window to go outside screen bounds so we can pick colors
     // at the very edges of the screen. The window will be partially offscreen but

@@ -109,8 +109,8 @@ class MagnifyingColorPicker {
 
     // Create magnifying glass overlay
     this.magnifierWindow = new BrowserWindow({
-      width: 170,
-      height: 170,
+      width: 200,
+      height: 200,
       frame: false,
       transparent: true,
       alwaysOnTop: true,
@@ -118,6 +118,7 @@ class MagnifyingColorPicker {
       resizable: false,
       focusable: true,
       show: false,
+      hasShadow: false, // Remove OS window shadow/border
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
@@ -127,8 +128,8 @@ class MagnifyingColorPicker {
     // Start at center of screen initially
     const primaryDisplay = screen.getPrimaryDisplay();
     this.magnifierWindow.setPosition(
-      Math.floor(primaryDisplay.workAreaSize.width / 2) - 85,
-      Math.floor(primaryDisplay.workAreaSize.height / 2) - 85
+      Math.floor(primaryDisplay.workAreaSize.width / 2) - 100,
+      Math.floor(primaryDisplay.workAreaSize.height / 2) - 100
     );
 
     let htmlFilePath: string;
@@ -239,12 +240,13 @@ class MagnifyingColorPicker {
     if (!this.magnifierWindow) return;
 
     // Position magnifier so the CENTER SQUARE of the 9x9 grid is exactly on the cursor
-    // The center square is at grid position [4][4] (middle of 9x9 grid)
+    // The magnifier circle is now centered in a 200px window
+    // Circle is 150px, so it starts at (200-150)/2 = 25px from window edge
     // Each grid cell is 150px / 9 = 16.67px
     // Center square is at (4 * 16.67 + 8.33) = 75px from grid edge
-    // Grid starts at 10px from window edge, so center is at 85px from window edge
-    const newX = cursorPos.x - 85; // Position so center square is on cursor
-    const newY = cursorPos.y - 85; // Position so center square is on cursor
+    // Total: 25px (window margin) + 75px (to center) = 100px from window edge
+    const newX = cursorPos.x - 100; // Position so center square is on cursor
+    const newY = cursorPos.y - 100; // Position so center square is on cursor
 
     // Allow the magnifier window to go outside screen bounds so we can pick colors
     // at the very edges of the screen. The window will be partially offscreen but

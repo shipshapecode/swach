@@ -65,6 +65,8 @@ const config: ForgeConfig = {
           maintainer: 'Ship Shape Consulting LLC',
           homepage: 'https://swach.io',
           icon: 'electron-app/resources/icon.png',
+          // Dependencies required for node-screenshots on Linux
+          depends: ['libxcb1', 'libxrandr2', 'libdbus-1-3'],
         },
       },
       ['linux']

@@ -1,7 +1,6 @@
 import { type Menubar } from 'menubar';
 
 import { launchMagnifyingColorPicker } from './magnifying-color-picker';
-import { launchWorkingColorPicker } from './working-color-picker';
 
 // Main color picker function - uses the magnifying glass implementation
 async function launchPicker(mb: Menubar, type = 'global') {
@@ -51,6 +50,5 @@ async function launchOriginalPicker(mb: Menubar, type = 'global') {
 export {
   launchPicker,
   launchOriginalPicker,
-  launchWorkingColorPicker,
   launchMagnifyingColorPicker,
 };

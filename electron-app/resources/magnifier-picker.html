@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      cursor: none;
+      user-select: none;
+      overflow: hidden;
+    }
+    
+    .magnifier-container {
+      position: relative;
+      width: 220px;
+      height: 220px;
+    }
+    
+    .magnifier-circle {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 4px solid #ffffff;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      background: #000;
+    }
+    
+    .pixel-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 200px;
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      grid-template-rows: repeat(9, 1fr);
+    }
+    
+    .pixel {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-sizing: border-box;
+    }
+    
+     .pixel.center {
+       border: 3px solid #ffffff;
+       box-shadow: 0 0 6px #000000, inset 0 0 4px rgba(255, 255, 255, 0.8);
+       z-index: 10;
+       position: relative;
+     }
+    
+     .color-label {
+       position: absolute;
+       top: 85px; /* Position above the center pixel */
+       left: 50%;
+       transform: translateX(-50%);
+       background: rgba(0, 0, 0, 0.85);
+       color: white;
+       padding: 4px 8px;
+       border-radius: 4px;
+       font-size: 11px;
+       font-family: Monaco, Consolas, monospace;
+       white-space: nowrap;
+       pointer-events: none;
+       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+       z-index: 20;
+     }
+    
+    .debug {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      font-size: 8px;
+      color: #fff;
+      background: rgba(0,0,0,0.7);
+      padding: 1px 3px;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="magnifier-container">
+    <div class="debug" id="debugInfo">Ready</div>
+    <div class="magnifier-circle">
+      <div class="pixel-grid" id="pixelGrid"></div>
+    </div>
+    <div class="color-label" id="colorLabel">Color: #FFFFFF</div>
+  </div>
+  
+  <script>
+    const { ipcRenderer } = require('electron');
+    
+    const pixelGrid = document.getElementById('pixelGrid');
+    const colorLabel = document.getElementById('colorLabel');
+    const debugInfo = document.getElementById('debugInfo');
+    
+    console.log('[Magnifier] Script loaded');
+    
+    // Create 9x9 grid of pixels (81 total)
+    function createPixelGrid() {
+      pixelGrid.innerHTML = '';
+      for (let i = 0; i < 81; i++) {
+        const pixel = document.createElement('div');
+        pixel.className = 'pixel';
+        pixel.id = `pixel-${i}`;
+        
+        // Center pixel is at position 40 (5th row, 5th column in 0-indexed 9x9 grid: 4*9+4 = 40)
+        if (i === 40) {
+          pixel.className += ' center';
+        }
+        
+        pixelGrid.appendChild(pixel);
+      }
+    }
+    
+    createPixelGrid();
+    
+    // Signal ready
+    ipcRenderer.send('magnifier-ready');
+    
+    let updateCount = 0;
+    
+    // Listen for pixel grid updates
+    ipcRenderer.on('update-pixel-grid', (event, data) => {
+      try {
+        updateCount++;
+        debugInfo.textContent = `Updates: ${updateCount}`;
+        
+        // Update center color info
+        const centerColor = data.centerColor;
+        const colorName = data.colorName || 'Unknown';
+        colorLabel.textContent = `${colorName}: ${centerColor.hex.toUpperCase()}`;
+        
+        // Update pixel grid with surrounding colors
+        if (data.pixels && data.pixels.length === 9) {
+          let pixelIndex = 0;
+          for (let row = 0; row < 9; row++) {
+            for (let col = 0; col < 9; col++) {
+              const pixel = document.getElementById(`pixel-${pixelIndex}`);
+              if (pixel && data.pixels[row] && data.pixels[row][col]) {
+                pixel.style.backgroundColor = data.pixels[row][col].hex;
+              }
+              pixelIndex++;
+            }
+          }
+        }
+        
+      } catch (error) {
+        console.error('[Magnifier] Error updating grid:', error);
+        debugInfo.textContent = 'Error: ' + error.message;
+      }
+    });
+    
+    // Handle clicks
+    document.addEventListener('click', (e) => {
+      console.log('[Magnifier] Click detected');
+      ipcRenderer.send('color-selected');
+    });
+    
+    // Handle escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        ipcRenderer.send('picker-cancelled');
+      }
+    });
+    
+    window.focus();
+  </script>
+</body>
+</html>

@@ -1,6 +1,16 @@
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import { colornames } from 'color-name-list';
 import { BrowserWindow, globalShortcut, ipcMain, screen } from 'electron';
+import isDev from 'electron-is-dev';
 import { type Menubar } from 'menubar';
+import nearestColor from 'nearest-color';
 import * as screenshots from 'node-screenshots';
+
+// __dirname in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 interface ColorInfo {
   hex: string;
@@ -18,6 +28,32 @@ class MagnifyingColorPicker {
     rawData: Uint8Array;
     monitor: any;
   } | null = null;
+  private nearestColorFn: ({
+    r,
+    g,
+    b,
+  }: {
+    r: number;
+    g: number;
+    b: number;
+  }) => { name: string };
+
+  constructor() {
+    // Setup color name lookup function
+    const namedColors = colornames.reduce(
+      (
+        o: { [key: string]: string },
+        { name, hex }: { name: string; hex: string }
+      ) => Object.assign(o, { [name]: hex }),
+      {}
+    );
+    this.nearestColorFn = nearestColor.from(namedColors);
+  }
+
+  private getColorName(r: number, g: number, b: number): string {
+    const result = this.nearestColorFn({ r, g, b });
+    return result.name;
+  }
 
   async pickColor(): Promise<string | null> {
     console.log('[Magnifying Color Picker] Starting...');
@@ -74,7 +110,7 @@ class MagnifyingColorPicker {
     // Create magnifying glass overlay
     this.magnifierWindow = new BrowserWindow({
       width: 220,
-      height: 320,
+      height: 220, // Reduced height since we removed bottom panel
       frame: false,
       transparent: true,
       alwaysOnTop: true,
@@ -92,235 +128,30 @@ class MagnifyingColorPicker {
     const primaryDisplay = screen.getPrimaryDisplay();
     this.magnifierWindow.setPosition(
       Math.floor(primaryDisplay.workAreaSize.width / 2) - 110,
-      Math.floor(primaryDisplay.workAreaSize.height / 2) - 160
+      Math.floor(primaryDisplay.workAreaSize.height / 2) - 110 // Adjusted for smaller window
     );
 
-    const htmlContent = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <style>
-        body {
-          margin: 0;
-          padding: 0;
-          background: transparent;
-          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-          cursor: none;
-          user-select: none;
-          overflow: hidden;
-        }
-        
-        .magnifier-container {
-          position: relative;
-          width: 220px;
-          height: 320px;
-        }
-        
-        .magnifier-circle {
-          position: absolute;
-          top: 10px;
-          left: 10px;
-          width: 200px;
-          height: 200px;
-          border-radius: 50%;
-          border: 4px solid #ffffff;
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-          overflow: hidden;
-          background: #000;
-        }
-        
-        .pixel-grid {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 200px;
-          height: 200px;
-          display: grid;
-          grid-template-columns: repeat(9, 1fr);
-          grid-template-rows: repeat(9, 1fr);
-        }
-        
-        .pixel {
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          box-sizing: border-box;
-        }
-        
-         .pixel.center {
-           border: 3px solid #ffffff;
-           box-shadow: 0 0 6px #000000, inset 0 0 4px rgba(255, 255, 255, 0.8);
-           z-index: 10;
-           position: relative;
-         }
-        
-        .color-info {
-          position: absolute;
-          top: 230px;
-          left: 10px;
-          right: 10px;
-          background: rgba(255, 255, 255, 0.95);
-          border-radius: 12px;
-          padding: 12px;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-          text-align: center;
-        }
-        
-        .color-preview {
-          width: 40px;
-          height: 40px;
-          border-radius: 6px;
-          border: 2px solid #333;
-          margin: 0 auto 8px;
-          background: #ffffff;
-        }
-        
-        .hex-value {
-          font-size: 16px;
-          font-weight: bold;
-          font-family: Monaco, Consolas, monospace;
-          color: #333;
-          margin-bottom: 3px;
-        }
-        
-        .rgb-value {
-          font-size: 10px;
-          color: #666;
-          margin-bottom: 8px;
-        }
-        
-        .instructions {
-          font-size: 9px;
-          color: #888;
-          line-height: 1.2;
-        }
-        
-        .debug {
-          position: absolute;
-          top: 2px;
-          left: 2px;
-          font-size: 8px;
-          color: #fff;
-          background: rgba(0,0,0,0.7);
-          padding: 1px 3px;
-          border-radius: 2px;
-        }
-      </style>
-    </head>
-    <body>
-      <div class="magnifier-container">
-        <div class="debug" id="debugInfo">Ready</div>
-        <div class="magnifier-circle">
-          <div class="pixel-grid" id="pixelGrid"></div>
-        </div>
-        
-        <div class="color-info">
-          <div class="color-preview" id="colorPreview"></div>
-          <div class="hex-value" id="hexValue">#FFFFFF</div>
-          <div class="rgb-value" id="rgbValue">RGB(255, 255, 255)</div>
-          <div class="instructions">
-            Click to select • ESC to cancel
-          </div>
-        </div>
-      </div>
-      
-      <script>
-        const { ipcRenderer } = require('electron');
-        
-        const pixelGrid = document.getElementById('pixelGrid');
-        const colorPreview = document.getElementById('colorPreview');
-        const hexValue = document.getElementById('hexValue');
-        const rgbValue = document.getElementById('rgbValue');
-        const debugInfo = document.getElementById('debugInfo');
-        
-        console.log('[Magnifier] Script loaded');
-        
-        // Create 9x9 grid of pixels (81 total)
-        function createPixelGrid() {
-          pixelGrid.innerHTML = '';
-          for (let i = 0; i < 81; i++) {
-            const pixel = document.createElement('div');
-            pixel.className = 'pixel';
-            pixel.id = \`pixel-\${i}\`;
-            
-            // Center pixel is at position 40 (5th row, 5th column in 0-indexed 9x9 grid: 4*9+4 = 40)
-            if (i === 40) {
-              pixel.className += ' center';
-            }
-            
-            pixelGrid.appendChild(pixel);
-          }
-        }
-        
-        createPixelGrid();
-        
-        // Signal ready
-        ipcRenderer.send('magnifier-ready');
-        
-        let updateCount = 0;
-        
-        // Listen for pixel grid updates
-        ipcRenderer.on('update-pixel-grid', (event, data) => {
-          try {
-            updateCount++;
-            debugInfo.textContent = \`Updates: \${updateCount}\`;
-            
-            // Update center color info
-            const centerColor = data.centerColor;
-            colorPreview.style.backgroundColor = centerColor.hex;
-            hexValue.textContent = centerColor.hex.toUpperCase();
-            rgbValue.textContent = \`RGB(\${centerColor.r}, \${centerColor.g}, \${centerColor.b})\`;
-            
-            // Update pixel grid with surrounding colors
-            if (data.pixels && data.pixels.length === 9) {
-              let pixelIndex = 0;
-              for (let row = 0; row < 9; row++) {
-                for (let col = 0; col < 9; col++) {
-                  const pixel = document.getElementById(\`pixel-\${pixelIndex}\`);
-                  if (pixel && data.pixels[row] && data.pixels[row][col]) {
-                    pixel.style.backgroundColor = data.pixels[row][col].hex;
-                  }
-                  pixelIndex++;
-                }
-              }
-            }
-            
-          } catch (error) {
-            console.error('[Magnifier] Error updating grid:', error);
-            debugInfo.textContent = 'Error: ' + error.message;
-          }
-        });
-        
-        // Handle clicks
-        document.addEventListener('click', (e) => {
-          console.log('[Magnifier] Click detected');
-          ipcRenderer.send('color-selected');
-        });
-        
-        // Handle escape
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') {
-            ipcRenderer.send('picker-cancelled');
-          }
-        });
-        
-        window.focus();
-      </script>
-    </body>
-    </html>`;
+    let htmlFilePath: string;
+    if (isDev) {
+      // In development, use the source directory
+      htmlFilePath = join(
+        __dirname,
+        '../../electron-app/resources',
+        'magnifier-picker.html'
+      );
+    } else {
+      // In production, use the packaged resources directory
+      htmlFilePath = join(
+        process.resourcesPath,
+        'resources',
+        'magnifier-picker.html'
+      );
+    }
 
-    await this.magnifierWindow.loadURL(
-      `data:text/html;charset=utf-8,${encodeURIComponent(htmlContent)}`
-    );
+    await this.magnifierWindow.loadFile(htmlFilePath);
     this.magnifierWindow.show();
 
     console.log('[Magnifying Color Picker] Magnifier window created and shown');
-
-    // Start cursor tracking immediately
-    setTimeout(() => {
-      console.log(
-        '[Magnifying Color Picker] 🚀 Starting fluid cursor tracking...'
-      );
-      this.startCursorTracking(() => {});
-    }, 100);
   }
 
   private async startColorPicking(): Promise<string | null> {
@@ -358,6 +189,11 @@ class MagnifyingColorPicker {
       // Register global escape
       globalShortcut.register('Escape', () => {
         resolveOnce(null);
+      });
+
+      // Start cursor tracking with color update callback
+      this.startCursorTracking((color: string) => {
+        currentColor = color;
       });
 
       // No timeout - let user take as long as they want
@@ -499,10 +335,18 @@ class MagnifyingColorPicker {
         }
       }
 
+      // Get color name for center color
+      const colorName = this.getColorName(
+        centerColor.r,
+        centerColor.g,
+        centerColor.b
+      );
+
       // Send to renderer
       if (this.magnifierWindow && !this.magnifierWindow.isDestroyed()) {
         this.magnifierWindow.webContents.send('update-pixel-grid', {
           centerColor,
+          colorName,
           pixels,
           cursorPos,
         });

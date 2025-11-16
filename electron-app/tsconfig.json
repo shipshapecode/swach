@@ -22,6 +22,11 @@
     "declarationMap": true,
     "outDir": "./dist"
   },
-  "include": ["src/**/*", "tests/**/*"],
+  "include": [
+    "src/**/*",
+    "tests/**/*",
+    "../types/color-name-list/index.d.ts",
+    "../types/nearest-color/index.d.ts"
+  ],
   "exclude": ["node_modules", "dist", ".vite"]
 }

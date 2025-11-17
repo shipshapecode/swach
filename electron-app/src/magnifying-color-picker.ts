@@ -318,11 +318,16 @@ class MagnifyingColorPicker {
 
       const { bitmap, width, height, display } = this.cachedScreenshot;
 
+      // Get the actual window position to account for OS offsets
+      const windowBounds = this.magnifierWindow?.getBounds();
+      const windowOffsetY = windowBounds?.y || 0;
+
       // Calculate cursor position in image coordinates
-      // Since we capture the full display (including dock/menubar), cursor position
-      // is already in the right coordinate space (no offset needed)
+      // The screenshot captures the full screen from Y=0, but the window may start
+      // at Y=34 (below menubar). We need to add the offset to map cursor position
+      // to the correct position in the screenshot.
       const monitorX = cursorPos.x;
-      const monitorY = cursorPos.y;
+      const monitorY = cursorPos.y + windowOffsetY;
 
       // Simple scaling: image size / display size
       const scaleX = width / display.size.width;
@@ -333,11 +338,12 @@ class MagnifyingColorPicker {
 
       console.log(
         `[Debug] Cursor screen: (${cursorPos.x}, ${cursorPos.y}), ` +
+          `Window offset: (0, ${windowOffsetY}), ` +
+          `Monitor relative: (${monitorX}, ${monitorY}), ` +
           `Display size: ${display.size.width}x${display.size.height}, ` +
           `Image size: ${width}x${height}, ` +
-          `Expected image size: ${display.size.width * display.scaleFactor}x${display.size.height * display.scaleFactor}, ` +
           `Scale: (${scaleX.toFixed(2)}, ${scaleY.toFixed(2)}), ` +
-          `Image pos: (${imageX}, ${imageY}) = cursor (${cursorPos.x}, ${cursorPos.y}) * scale (${scaleX.toFixed(2)}, ${scaleY.toFixed(2)})`
+          `Image pos: (${imageX}, ${imageY})`
       );
 
       // Helper to read pixel at specific coordinates from cached data

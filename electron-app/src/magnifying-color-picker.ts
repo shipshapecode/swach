@@ -2,11 +2,16 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { colornames } from 'color-name-list';
-import { BrowserWindow, globalShortcut, ipcMain, screen } from 'electron';
+import {
+  BrowserWindow,
+  desktopCapturer,
+  globalShortcut,
+  ipcMain,
+  screen,
+} from 'electron';
 import isDev from 'electron-is-dev';
 import { type Menubar } from 'menubar';
 import nearestColor from 'nearest-color';
-import * as screenshots from 'node-screenshots';
 
 // __dirname in ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -24,9 +29,10 @@ class MagnifyingColorPicker {
   private updateInterval: NodeJS.Timeout | null = null;
   private isActive = false;
   private cachedScreenshot: {
-    image: any;
-    rawData: Uint8Array;
-    monitor: any;
+    bitmap: Buffer;
+    width: number;
+    height: number;
+    display: Electron.Display;
   } | null = null;
   private nearestColorFn: ({
     r,
@@ -80,27 +86,44 @@ class MagnifyingColorPicker {
   private async captureInitialScreenshot(): Promise<void> {
     console.log('[Magnifying Color Picker] Taking initial screenshot...');
 
-    // Get the primary display for initial capture
-    const primaryDisplay = screen.getPrimaryDisplay();
-    const centerX = Math.floor(primaryDisplay.workAreaSize.width / 2);
-    const centerY = Math.floor(primaryDisplay.workAreaSize.height / 2);
+    // Get cursor position and find its display
+    const cursorPos = screen.getCursorScreenPoint();
+    const display = screen.getDisplayNearestPoint(cursorPos);
 
-    const monitor = screenshots.Monitor.fromPoint(centerX, centerY);
-    if (!monitor) {
-      throw new Error('No monitor found for initial screenshot');
+    console.log(
+      `[Magnifying Color Picker] Capturing display: ${display.id}, bounds: ${JSON.stringify(display.bounds)}, scaleFactor: ${display.scaleFactor}`
+    );
+
+    // Capture all screens at native resolution
+    const sources = await desktopCapturer.getSources({
+      types: ['screen'],
+      thumbnailSize: {
+        width: display.size.width * display.scaleFactor,
+        height: display.size.height * display.scaleFactor,
+      },
+    });
+
+    // Find the source matching our display
+    // For now, use the first source (primary screen)
+    // TODO: Implement smarter matching for multi-monitor setups
+    const source = sources[0];
+
+    if (!source) {
+      throw new Error('No screen source found for capture');
     }
 
-    const fullImage = monitor.captureImageSync();
-    const rawImageData = fullImage.toRawSync();
+    const nativeImage = source.thumbnail;
+    const bitmap = nativeImage.toBitmap(); // Returns Buffer in BGRA format
 
     this.cachedScreenshot = {
-      image: fullImage,
-      rawData: rawImageData,
-      monitor: monitor,
+      bitmap: bitmap,
+      width: nativeImage.getSize().width,
+      height: nativeImage.getSize().height,
+      display: display,
     };
 
     console.log(
-      `[Magnifying Color Picker] Cached screenshot: ${fullImage.width}x${fullImage.height}`
+      `[Magnifying Color Picker] Cached screenshot: ${this.cachedScreenshot.width}x${this.cachedScreenshot.height}`
     );
   }
 
@@ -268,19 +291,15 @@ class MagnifyingColorPicker {
         return;
       }
 
-      const {
-        image: fullImage,
-        rawData: rawImageData,
-        monitor,
-      } = this.cachedScreenshot;
+      const { bitmap, width, height, display } = this.cachedScreenshot;
 
-      // Calculate cursor position in image coordinates using the cached monitor info
-      const monitorX = cursorPos.x - monitor.x;
-      const monitorY = cursorPos.y - monitor.y;
+      // Calculate cursor position in image coordinates using the cached display info
+      const monitorX = cursorPos.x - display.bounds.x;
+      const monitorY = cursorPos.y - display.bounds.y;
 
-      // Simple scaling: image size / monitor size
-      const scaleX = fullImage.width / monitor.width;
-      const scaleY = fullImage.height / monitor.height;
+      // Simple scaling: image size / display size
+      const scaleX = width / display.bounds.width;
+      const scaleY = height / display.bounds.height;
 
       const imageX = Math.floor(monitorX * scaleX);
       const imageY = Math.floor(monitorY * scaleY);
@@ -292,18 +311,21 @@ class MagnifyingColorPicker {
       // Helper to read pixel at specific coordinates from cached data
       const getPixelAt = (x: number, y: number): ColorInfo | null => {
         // Bounds check
-        if (x < 0 || y < 0 || x >= fullImage.width || y >= fullImage.height) {
+        if (x < 0 || y < 0 || x >= width || y >= height) {
           return null;
         }
 
-        const pixelIndex = (y * fullImage.width + x) * 4;
-        if (pixelIndex + 3 >= rawImageData.length) {
+        const pixelIndex = (y * width + x) * 4;
+        if (pixelIndex + 3 >= bitmap.length) {
           return null;
         }
 
-        const r = rawImageData[pixelIndex] || 0;
-        const g = rawImageData[pixelIndex + 1] || 0;
-        const b = rawImageData[pixelIndex + 2] || 0;
+        // CRITICAL: toBitmap() returns BGRA format, not RGBA!
+        const b = bitmap[pixelIndex] || 0;
+        const g = bitmap[pixelIndex + 1] || 0;
+        const r = bitmap[pixelIndex + 2] || 0;
+        // const a = bitmap[pixelIndex + 3] || 0; // Alpha (unused)
+
         const hex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
 
         return { hex, r, g, b };

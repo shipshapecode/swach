@@ -95,6 +95,7 @@ class MagnifyingColorPicker {
     );
 
     // Capture all screens at native resolution
+    // Use display.size (not bounds) to include dock/menubar areas
     const sources = await desktopCapturer.getSources({
       types: ['screen'],
       thumbnailSize: {
@@ -122,18 +123,34 @@ class MagnifyingColorPicker {
       display: display,
     };
 
+    const expectedWidth = display.size.width * display.scaleFactor;
+    const expectedHeight = display.size.height * display.scaleFactor;
+
     console.log(
-      `[Magnifying Color Picker] Cached screenshot: ${this.cachedScreenshot.width}x${this.cachedScreenshot.height}`
+      `[Magnifying Color Picker] Cached screenshot: ${this.cachedScreenshot.width}x${this.cachedScreenshot.height} ` +
+        `(expected ${expectedWidth}x${expectedHeight}, scale=${display.scaleFactor}, includes dock/menubar)`
     );
   }
 
   private async createMagnifierWindow(): Promise<void> {
     console.log('[Magnifying Color Picker] Creating magnifier window...');
 
-    // Create magnifying glass overlay
+    // Get the display containing the cursor
+    const cursorPos = screen.getCursorScreenPoint();
+    const display = screen.getDisplayNearestPoint(cursorPos);
+
+    console.log(
+      `[Magnifying Color Picker] Creating fullscreen overlay on display: ${display.id}, bounds: ${JSON.stringify(display.bounds)}`
+    );
+
+    // Create fullscreen transparent overlay covering entire display
+    // This allows smooth cursor tracking via CSS transforms instead of window movement
+    // Use display.size (not bounds) to cover the FULL screen including dock/menubar
     this.magnifierWindow = new BrowserWindow({
-      width: 200,
-      height: 200,
+      x: 0,
+      y: 0,
+      width: display.size.width,
+      height: display.size.height,
       frame: false,
       transparent: true,
       alwaysOnTop: true,
@@ -141,7 +158,7 @@ class MagnifyingColorPicker {
       resizable: false,
       focusable: true,
       show: false,
-      hasShadow: false, // Remove OS window shadow/border
+      hasShadow: false,
       webPreferences: {
         // TODO: probably make this false
         nodeIntegration: true,
@@ -151,12 +168,10 @@ class MagnifyingColorPicker {
 
     this.magnifierWindow.setAlwaysOnTop(true, 'screen-saver');
 
-    // Start at center of screen initially
-    const primaryDisplay = screen.getPrimaryDisplay();
-    this.magnifierWindow.setPosition(
-      Math.floor(primaryDisplay.workAreaSize.width / 2) - 100,
-      Math.floor(primaryDisplay.workAreaSize.height / 2) - 100
-    );
+    // Don't forward mouse events - we want to capture clicks to prevent
+    // them from reaching dock/apps below, while still allowing the magnifier
+    // to receive color selection clicks
+    // Note: We do NOT use setIgnoreMouseEvents here
 
     let htmlFilePath: string;
     if (isDev) {
@@ -263,21 +278,20 @@ class MagnifyingColorPicker {
   }
 
   private updateMagnifierPosition(cursorPos: { x: number; y: number }): void {
-    if (!this.magnifierWindow) return;
+    if (!this.magnifierWindow || this.magnifierWindow.isDestroyed()) return;
 
-    // Position magnifier so the CENTER SQUARE of the 9x9 grid is exactly on the cursor
-    // The magnifier circle is now centered in a 200px window
-    // Circle is 150px, so it starts at (200-150)/2 = 25px from window edge
-    // Each grid cell is 150px / 9 = 16.67px
-    // Center square is at (4 * 16.67 + 8.33) = 75px from grid edge
-    // Total: 25px (window margin) + 75px (to center) = 100px from window edge
-    const newX = cursorPos.x - 100; // Position so center square is on cursor
-    const newY = cursorPos.y - 100; // Position so center square is on cursor
-
-    // Allow the magnifier window to go outside screen bounds so we can pick colors
-    // at the very edges of the screen. The window will be partially offscreen but
-    // the center square will still be exactly on the cursor position.
-    this.magnifierWindow.setPosition(newX, newY);
+    // Instead of moving the window, send cursor position to renderer
+    // The renderer will move the magnifier UI via CSS transform for smooth movement
+    // This is especially important for Linux compatibility where rapid window
+    // repositioning doesn't work well
+    // Since the window covers the full screen starting at (0,0), we don't need
+    // to subtract display bounds
+    this.magnifierWindow.webContents.send('update-magnifier-position', {
+      x: cursorPos.x,
+      y: cursorPos.y,
+      displayX: 0,
+      displayY: 0,
+    });
   }
 
   private capturePixelGrid(
@@ -293,19 +307,25 @@ class MagnifyingColorPicker {
 
       const { bitmap, width, height, display } = this.cachedScreenshot;
 
-      // Calculate cursor position in image coordinates using the cached display info
-      const monitorX = cursorPos.x - display.bounds.x;
-      const monitorY = cursorPos.y - display.bounds.y;
+      // Calculate cursor position in image coordinates
+      // Since we capture the full display (including dock/menubar), cursor position
+      // is already in the right coordinate space (no offset needed)
+      const monitorX = cursorPos.x;
+      const monitorY = cursorPos.y;
 
       // Simple scaling: image size / display size
-      const scaleX = width / display.bounds.width;
-      const scaleY = height / display.bounds.height;
+      const scaleX = width / display.size.width;
+      const scaleY = height / display.size.height;
 
       const imageX = Math.floor(monitorX * scaleX);
       const imageY = Math.floor(monitorY * scaleY);
 
       console.log(
-        `[Debug] Using cached screenshot - Cursor: (${cursorPos.x}, ${cursorPos.y}) -> Image: (${imageX}, ${imageY})`
+        `[Debug] Cursor screen: (${cursorPos.x}, ${cursorPos.y}), ` +
+          `Display size: ${display.size.width}x${display.size.height}, ` +
+          `Image size: ${width}x${height}, ` +
+          `Scale: (${scaleX.toFixed(2)}, ${scaleY.toFixed(2)}), ` +
+          `Image pos: (${imageX}, ${imageY})`
       );
 
       // Helper to read pixel at specific coordinates from cached data

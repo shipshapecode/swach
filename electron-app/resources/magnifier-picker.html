@@ -10,15 +10,33 @@
         cursor: none;
         user-select: none;
         overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      .overlay-container {
+        /* Fullscreen transparent container */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        cursor: none; /* Hide system cursor */
       }
 
       .magnifier-container {
-        position: relative;
+        /* Absolutely positioned, moved via transform for smooth movement */
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 200px;
         height: 200px;
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: none; /* Hide system cursor on magnifier too */
+        will-change: transform; /* Performance hint for GPU acceleration */
+        transform: translate(0px, 0px); /* Updated via JavaScript */
       }
 
       .magnifier-circle {
@@ -27,7 +45,7 @@
         height: 150px;
         border-radius: 50%;
         border: 4px solid #ffffff;
-        box-sizing: border-box;
+        box-sizing: content-box; /* Border outside the 150px, so grid is truly 150x150 */
         overflow: hidden;
         background: #000;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -46,8 +64,9 @@
       }
 
       .pixel {
-        border: 1px solid rgba(128, 128, 128, 0.4);
-        box-sizing: border-box;
+        /* Use outline instead of border so it doesn't affect grid cell size */
+        outline: 1px solid rgba(128, 128, 128, 0.4);
+        outline-offset: -1px;
       }
 
       .pixel.center {
@@ -78,6 +97,20 @@
         gap: 4px;
       }
 
+      .cursor-indicator {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: red;
+        border: 1px solid white;
+        border-radius: 50%;
+        /* Center of 200px container = 100px, adjust for indicator size */
+        top: 97px;
+        left: 97px;
+        z-index: 100;
+        pointer-events: none;
+      }
+
       .color-name {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -97,20 +130,24 @@
     </style>
   </head>
   <body>
-    <div class="magnifier-container">
-      <div class="magnifier-circle">
-        <div class="pixel-grid" id="pixelGrid"></div>
-      </div>
-      <div class="color-label" id="colorLabel">
-        <span class="color-name" id="colorName">Color</span>
-        <span class="colon">:</span>
-        <span class="hex-code" id="hexCode">#FFFFFF</span>
+    <div class="overlay-container">
+      <div class="magnifier-container" id="magnifierContainer">
+        <div class="cursor-indicator"></div>
+        <div class="magnifier-circle">
+          <div class="pixel-grid" id="pixelGrid"></div>
+        </div>
+        <div class="color-label" id="colorLabel">
+          <span class="color-name" id="colorName">Color</span>
+          <span class="colon">:</span>
+          <span class="hex-code" id="hexCode">#FFFFFF</span>
+        </div>
       </div>
     </div>
 
     <script>
       const { ipcRenderer } = require("electron");
 
+      const magnifierContainer = document.getElementById("magnifierContainer");
       const pixelGrid = document.getElementById("pixelGrid");
       const colorLabel = document.getElementById("colorLabel");
       const colorName = document.getElementById("colorName");
@@ -139,6 +176,31 @@
 
       // Signal ready
       ipcRenderer.send("magnifier-ready");
+
+      // Listen for position updates from main process
+      // This moves the magnifier UI smoothly via CSS transform
+      ipcRenderer.on("update-magnifier-position", (event, data) => {
+        // Position magnifier so CENTER SQUARE of 9x9 grid is at cursor
+        // The window is positioned at display.bounds.x/y, so we need to
+        // offset the cursor position relative to the window, not the screen
+
+        // If display bounds are provided, adjust for multi-monitor
+        const displayX = data.displayX || 0;
+        const displayY = data.displayY || 0;
+
+        // Magnifier is 200px, center is at 100px offset
+        // Subtract display offset to get window-relative coordinates
+        const translateX = data.x - displayX - 100;
+        const translateY = data.y - displayY - 100;
+
+        // Debug logging
+        console.log(
+          `[Magnifier] Cursor: (${data.x}, ${data.y}), Display: (${displayX}, ${displayY}), Translate: (${translateX}, ${translateY})`,
+        );
+
+        // Use transform for hardware-accelerated smooth movement
+        magnifierContainer.style.transform = `translate(${translateX}px, ${translateY}px)`;
+      });
 
       // Listen for pixel grid updates
       ipcRenderer.on("update-pixel-grid", (event, data) => {

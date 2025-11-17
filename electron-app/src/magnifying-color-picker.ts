@@ -120,10 +120,13 @@ class MagnifyingColorPicker {
       show: false,
       hasShadow: false, // Remove OS window shadow/border
       webPreferences: {
+        // TODO: probably make this false
         nodeIntegration: true,
         contextIsolation: false,
       },
     });
+
+    this.magnifierWindow.setAlwaysOnTop(true, 'screen-saver');
 
     // Start at center of screen initially
     const primaryDisplay = screen.getPrimaryDisplay();

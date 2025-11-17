@@ -7,7 +7,7 @@
         padding: 0;
         background: transparent;
         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-        /* cursor: none; */ /* TEMPORARILY VISIBLE FOR DEBUGGING */
+        cursor: none;
         user-select: none;
         overflow: hidden;
         width: 100vw;
@@ -21,7 +21,8 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        /* cursor: none; */ /* TEMPORARILY VISIBLE FOR DEBUGGING */
+        cursor: none;
+        pointer-events: none; /* Pass through events except on magnifier */
       }
 
       .magnifier-container {
@@ -34,7 +35,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        /* cursor: none; */ /* TEMPORARILY VISIBLE FOR DEBUGGING */
+        cursor: none;
+        pointer-events: none; /* Capture events on magnifier itself */
         will-change: transform; /* Performance hint for GPU acceleration */
         transform: translate(0px, 0px); /* Updated via JavaScript */
       }
@@ -97,20 +99,6 @@
         gap: 4px;
       }
 
-      .cursor-indicator {
-        position: absolute;
-        width: 6px;
-        height: 6px;
-        background: red;
-        border: 1px solid white;
-        border-radius: 50%;
-        /* Center of 200px container = 100px, adjust for indicator size */
-        top: 97px;
-        left: 97px;
-        z-index: 100;
-        pointer-events: none;
-      }
-
       .color-name {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -132,7 +120,6 @@
   <body>
     <div class="overlay-container">
       <div class="magnifier-container" id="magnifierContainer">
-        <div class="cursor-indicator"></div>
         <div class="magnifier-circle">
           <div class="pixel-grid" id="pixelGrid"></div>
         </div>

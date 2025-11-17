@@ -7,7 +7,7 @@
         padding: 0;
         background: transparent;
         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-        cursor: none;
+        /* cursor: none; */ /* TEMPORARILY VISIBLE FOR DEBUGGING */
         user-select: none;
         overflow: hidden;
         width: 100vw;
@@ -21,7 +21,7 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        cursor: none; /* Hide system cursor */
+        /* cursor: none; */ /* TEMPORARILY VISIBLE FOR DEBUGGING */
       }
 
       .magnifier-container {
@@ -34,7 +34,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        cursor: none; /* Hide system cursor on magnifier too */
+        /* cursor: none; */ /* TEMPORARILY VISIBLE FOR DEBUGGING */
         will-change: transform; /* Performance hint for GPU acceleration */
         transform: translate(0px, 0px); /* Updated via JavaScript */
       }
@@ -193,10 +193,13 @@
         const translateX = data.x - displayX - 100;
         const translateY = data.y - displayY - 100;
 
-        // Debug logging
-        console.log(
-          `[Magnifier] Cursor: (${data.x}, ${data.y}), Display: (${displayX}, ${displayY}), Translate: (${translateX}, ${translateY})`,
-        );
+        // Debug logging (only log occasionally to avoid spam)
+        if (Math.random() < 0.05) {
+          console.log(
+            `[Magnifier] Cursor: (${data.x}, ${data.y}), Display: (${displayX}, ${displayY}), Translate: (${translateX}, ${translateY})` +
+              `\n  Container will be at: (${translateX}, ${translateY}), center at: (${translateX + 100}, ${translateY + 100})`,
+          );
+        }
 
         // Use transform for hardware-accelerated smooth movement
         magnifierContainer.style.transform = `translate(${translateX}px, ${translateY}px)`;

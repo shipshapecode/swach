@@ -91,7 +91,11 @@ class MagnifyingColorPicker {
     const display = screen.getDisplayNearestPoint(cursorPos);
 
     console.log(
-      `[Magnifying Color Picker] Capturing display: ${display.id}, bounds: ${JSON.stringify(display.bounds)}, scaleFactor: ${display.scaleFactor}`
+      `[Magnifying Color Picker] Capturing display: ${display.id}` +
+        `\n  bounds: ${JSON.stringify(display.bounds)}` +
+        `\n  size: ${JSON.stringify(display.size)}` +
+        `\n  workArea: ${JSON.stringify(display.workArea)}` +
+        `\n  scaleFactor: ${display.scaleFactor}`
     );
 
     // Capture all screens at native resolution
@@ -193,7 +197,13 @@ class MagnifyingColorPicker {
     await this.magnifierWindow.loadFile(htmlFilePath);
     this.magnifierWindow.show();
 
-    console.log('[Magnifying Color Picker] Magnifier window created and shown');
+    // Verify window position
+    const windowBounds = this.magnifierWindow.getBounds();
+    console.log(
+      `[Magnifying Color Picker] Magnifier window created and shown` +
+        `\n  Requested: (0, 0, ${display.size.width}x${display.size.height})` +
+        `\n  Actual: (${windowBounds.x}, ${windowBounds.y}, ${windowBounds.width}x${windowBounds.height})`
+    );
   }
 
   private async startColorPicking(): Promise<string | null> {
@@ -280,17 +290,18 @@ class MagnifyingColorPicker {
   private updateMagnifierPosition(cursorPos: { x: number; y: number }): void {
     if (!this.magnifierWindow || this.magnifierWindow.isDestroyed()) return;
 
+    // Get the actual window position to account for any OS offsets (like menubar)
+    const windowBounds = this.magnifierWindow.getBounds();
+
     // Instead of moving the window, send cursor position to renderer
     // The renderer will move the magnifier UI via CSS transform for smooth movement
     // This is especially important for Linux compatibility where rapid window
     // repositioning doesn't work well
-    // Since the window covers the full screen starting at (0,0), we don't need
-    // to subtract display bounds
     this.magnifierWindow.webContents.send('update-magnifier-position', {
       x: cursorPos.x,
       y: cursorPos.y,
-      displayX: 0,
-      displayY: 0,
+      displayX: windowBounds.x,
+      displayY: windowBounds.y,
     });
   }
 
@@ -324,8 +335,9 @@ class MagnifyingColorPicker {
         `[Debug] Cursor screen: (${cursorPos.x}, ${cursorPos.y}), ` +
           `Display size: ${display.size.width}x${display.size.height}, ` +
           `Image size: ${width}x${height}, ` +
+          `Expected image size: ${display.size.width * display.scaleFactor}x${display.size.height * display.scaleFactor}, ` +
           `Scale: (${scaleX.toFixed(2)}, ${scaleY.toFixed(2)}), ` +
-          `Image pos: (${imageX}, ${imageY})`
+          `Image pos: (${imageX}, ${imageY}) = cursor (${cursorPos.x}, ${cursorPos.y}) * scale (${scaleX.toFixed(2)}, ${scaleY.toFixed(2)})`
       );
 
       // Helper to read pixel at specific coordinates from cached data

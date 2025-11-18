@@ -16,13 +16,15 @@
     "noUncheckedIndexedAccess": true,
     "allowJs": true,
     "types": ["node", "electron"],
-    "lib": ["ES2022"],
+    "lib": ["ES2022", "DOM"],
     "composite": true,
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist"
   },
   "include": [
+    "main.ts",
+    "magnifier/**/*",
     "src/**/*",
     "tests/**/*",
     "../types/color-name-list/index.d.ts",

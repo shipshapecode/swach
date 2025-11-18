@@ -89,7 +89,7 @@ const config: ForgeConfig = {
       build: [
         {
           // `entry` is just an alias for `build.lib.entry` in the corresponding file of `config`.
-          entry: 'electron-app/src/main.ts',
+          entry: 'electron-app/main.ts',
           config: 'vite.main.config.ts',
           target: 'main',
         },
@@ -98,7 +98,7 @@ const config: ForgeConfig = {
           config: 'vite.preload.config.ts',
         },
         {
-          entry: 'magnifier-renderer/magnifier-preload.ts',
+          entry: 'electron-app/magnifier/magnifier-preload.ts',
           config: 'vite.preload.config.ts',
         },
       ],

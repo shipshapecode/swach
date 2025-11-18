@@ -38,8 +38,8 @@
     "start:electron": "ELECTRON_DISABLE_SANDBOX=1 electron-forge start",
     "test:electron": "SKIP_CODESIGN=true electron-forge package && vite build -c vite.renderer.config.ts --mode development && testem ci -f testem-electron.cjs",
     "test:ember": "vite build -c vite.renderer.config.ts --mode development && testem ci",
-    "test:magnifier": "vitest run -c magnifier-renderer/vitest.config.ts",
-    "test:magnifier:watch": "vitest -c magnifier-renderer/vitest.config.ts"
+    "test:magnifier": "vitest run -c electron-app/magnifier/vitest.config.ts",
+    "test:magnifier:watch": "vitest -c electron-app/magnifier/vitest.config.ts"
   },
   "dependencies": {
     "@ctrl/tinycolor": "^4.2.0",

@@ -50,6 +50,9 @@
         background: #000;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         flex-shrink: 0;
+        transition:
+          width 0.2s ease-out,
+          height 0.2s ease-out;
       }
 
       .pixel-grid {
@@ -138,6 +141,10 @@
 
       let currentGridSize = 9;
       let currentDiameter = 150;
+
+      // Throttle wheel events to prevent rapid fire zooming
+      let lastWheelTime = 0;
+      const WHEEL_THROTTLE_MS = 100;
 
       function createPixelGrid(gridSize) {
         currentGridSize = gridSize;
@@ -232,6 +239,14 @@
         "wheel",
         (e) => {
           e.preventDefault();
+
+          // Throttle wheel events to prevent rapid fire zooming
+          const now = Date.now();
+          if (now - lastWheelTime < WHEEL_THROTTLE_MS) {
+            return;
+          }
+          lastWheelTime = now;
+
           const delta = e.deltaY > 0 ? -1 : 1;
 
           if (e.altKey) {

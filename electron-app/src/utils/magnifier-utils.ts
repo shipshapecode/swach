@@ -1,4 +1,6 @@
-export const AVAILABLE_DIAMETERS = [120, 180, 240, 300, 360, 420];
+export const AVAILABLE_DIAMETERS = [
+  120, 150, 180, 210, 240, 270, 300, 330, 360, 390, 420,
+];
 export const AVAILABLE_GRID_SIZES = [5, 7, 9, 11, 13, 15, 17, 19, 21];
 export const MIN_SQUARE_SIZE = 10;
 export const MAX_SQUARE_SIZE = 40;

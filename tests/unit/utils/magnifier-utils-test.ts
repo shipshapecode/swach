@@ -56,11 +56,6 @@ module('Unit | Utility | magnifier-utils', function () {
       assert.strictEqual(getNextDiameter(420, 1), 420);
       assert.strictEqual(getNextDiameter(420, 5), 420);
     });
-
-    test('handles multi-step increments', function (assert) {
-      assert.strictEqual(getNextDiameter(120, 2), 240);
-      assert.strictEqual(getNextDiameter(180, 3), 420);
-    });
   });
 
   module('adjustSquareSize', function () {

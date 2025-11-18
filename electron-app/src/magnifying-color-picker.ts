@@ -33,6 +33,12 @@ class MagnifyingColorPicker {
     height: number;
     display: Electron.Display;
   } | null = null;
+  private magnifierDiameter = 150;
+  private gridSize = 9;
+  private readonly MIN_DIAMETER = 100;
+  private readonly MAX_DIAMETER = 400;
+  private readonly MIN_GRID_SIZE = 5;
+  private readonly MAX_GRID_SIZE = 21;
   private nearestColorFn: ({
     r,
     g,
@@ -158,6 +164,32 @@ class MagnifyingColorPicker {
       ipcMain.once('color-selected', () => resolveOnce(currentColor));
       ipcMain.once('picker-cancelled', () => resolveOnce(null));
 
+      ipcMain.on('magnifier-zoom-diameter', (_event, delta: number) => {
+        const step = 20;
+        this.magnifierDiameter = Math.max(
+          this.MIN_DIAMETER,
+          Math.min(this.MAX_DIAMETER, this.magnifierDiameter + delta * step)
+        );
+        // Trigger immediate update
+        const cursorPos = screen.getCursorScreenPoint();
+        this.capturePixelGrid(cursorPos, (color: string) => {
+          currentColor = color;
+        });
+      });
+
+      ipcMain.on('magnifier-zoom-density', (_event, delta: number) => {
+        const step = 2;
+        const newSize = this.gridSize + delta * step;
+        if (newSize >= this.MIN_GRID_SIZE && newSize <= this.MAX_GRID_SIZE) {
+          this.gridSize = newSize;
+          // Trigger immediate update
+          const cursorPos = screen.getCursorScreenPoint();
+          this.capturePixelGrid(cursorPos, (color: string) => {
+            currentColor = color;
+          });
+        }
+      });
+
       globalShortcut.register('Escape', () => resolveOnce(null));
 
       this.startCursorTracking((color: string) => {
@@ -246,8 +278,8 @@ class MagnifyingColorPicker {
 
     onColorChange(centerColor.hex);
 
-    const gridSize = 9;
-    const halfSize = 4;
+    const gridSize = this.gridSize;
+    const halfSize = Math.floor(gridSize / 2);
     const pixels: ColorInfo[][] = [];
 
     // Sample at logical pixel boundaries (scaleFactor apart) instead of physical pixels
@@ -281,6 +313,8 @@ class MagnifyingColorPicker {
         centerColor,
         colorName,
         pixels,
+        diameter: this.magnifierDiameter,
+        gridSize: this.gridSize,
       });
     }
   }
@@ -303,6 +337,8 @@ class MagnifyingColorPicker {
     ipcMain.removeAllListeners('magnifier-ready');
     ipcMain.removeAllListeners('color-selected');
     ipcMain.removeAllListeners('picker-cancelled');
+    ipcMain.removeAllListeners('magnifier-zoom-diameter');
+    ipcMain.removeAllListeners('magnifier-zoom-density');
 
     globalShortcut.unregister('Escape');
   }

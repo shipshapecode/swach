@@ -7,6 +7,10 @@ contextBridge.exposeInMainWorld('magnifierAPI', {
     ready: () => ipcRenderer.send('magnifier-ready'),
     colorSelected: () => ipcRenderer.send('color-selected'),
     cancelled: () => ipcRenderer.send('picker-cancelled'),
+    zoomDiameter: (delta: number) =>
+      ipcRenderer.send('magnifier-zoom-diameter', delta),
+    zoomDensity: (delta: number) =>
+      ipcRenderer.send('magnifier-zoom-density', delta),
   },
 
   // Receive methods for magnifier-specific updates

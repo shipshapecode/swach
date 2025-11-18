@@ -130,18 +130,29 @@
 
     <script>
       const magnifierContainer = document.getElementById("magnifierContainer");
+      const magnifierCircle = document.querySelector(".magnifier-circle");
       const pixelGrid = document.getElementById("pixelGrid");
       const colorName = document.getElementById("colorName");
       const hexCode = document.getElementById("hexCode");
 
-      function createPixelGrid() {
+      let currentGridSize = 9;
+      let currentDiameter = 150;
+
+      function createPixelGrid(gridSize) {
+        currentGridSize = gridSize;
+        const totalPixels = gridSize * gridSize;
+        const centerIndex = Math.floor(totalPixels / 2);
+
         pixelGrid.innerHTML = "";
-        for (let i = 0; i < 81; i++) {
+        pixelGrid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+        pixelGrid.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
+
+        for (let i = 0; i < totalPixels; i++) {
           const pixel = document.createElement("div");
           pixel.className = "pixel";
           pixel.id = `pixel-${i}`;
 
-          if (i === 40) {
+          if (i === centerIndex) {
             pixel.className += " center";
           }
 
@@ -149,14 +160,28 @@
         }
       }
 
-      createPixelGrid();
+      function updateMagnifierSize(diameter) {
+        currentDiameter = diameter;
+        magnifierCircle.style.width = `${diameter}px`;
+        magnifierCircle.style.height = `${diameter}px`;
+        pixelGrid.style.width = `${diameter}px`;
+        pixelGrid.style.height = `${diameter}px`;
+
+        // Update container size to maintain centering offset
+        const containerSize = diameter + 50;
+        magnifierContainer.style.width = `${containerSize}px`;
+        magnifierContainer.style.height = `${containerSize}px`;
+      }
+
+      createPixelGrid(9);
       window.magnifierAPI.send.ready();
 
       window.magnifierAPI.on.updatePosition((data) => {
         const displayX = data.displayX || 0;
         const displayY = data.displayY || 0;
-        const translateX = data.x - displayX - 100;
-        const translateY = data.y - displayY - 100;
+        const offset = (currentDiameter + 50) / 2;
+        const translateX = data.x - displayX - offset;
+        const translateY = data.y - displayY - offset;
 
         magnifierContainer.style.transform = `translate(${translateX}px, ${translateY}px)`;
       });
@@ -167,10 +192,21 @@
         colorName.textContent = currentColorName;
         hexCode.textContent = centerColor.hex.toUpperCase();
 
-        if (data.pixels && data.pixels.length === 9) {
+        // Update grid size if changed
+        if (data.gridSize && data.gridSize !== currentGridSize) {
+          createPixelGrid(data.gridSize);
+        }
+
+        // Update diameter if changed
+        if (data.diameter && data.diameter !== currentDiameter) {
+          updateMagnifierSize(data.diameter);
+        }
+
+        // Update pixel colors
+        if (data.pixels && data.pixels.length === currentGridSize) {
           let pixelIndex = 0;
-          for (let row = 0; row < 9; row++) {
-            for (let col = 0; col < 9; col++) {
+          for (let row = 0; row < currentGridSize; row++) {
+            for (let col = 0; col < currentGridSize; col++) {
               const pixel = document.getElementById(`pixel-${pixelIndex}`);
               if (pixel && data.pixels[row] && data.pixels[row][col]) {
                 pixel.style.backgroundColor = data.pixels[row][col].hex;
@@ -190,6 +226,21 @@
           window.magnifierAPI.send.cancelled();
         }
       });
+
+      document.addEventListener(
+        "wheel",
+        (e) => {
+          e.preventDefault();
+          const delta = e.deltaY > 0 ? -1 : 1;
+
+          if (e.altKey) {
+            window.magnifierAPI.send.zoomDensity(delta);
+          } else {
+            window.magnifierAPI.send.zoomDiameter(delta);
+          }
+        },
+        { passive: false },
+      );
 
       window.focus();
     </script>

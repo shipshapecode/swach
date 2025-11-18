@@ -72,6 +72,8 @@ declare global {
         ready: () => void;
         colorSelected: () => void;
         cancelled: () => void;
+        zoomDiameter: (delta: number) => void;
+        zoomDensity: (delta: number) => void;
       };
       on: {
         updatePosition: (callback: (data: {
@@ -84,6 +86,8 @@ declare global {
           centerColor: { hex: string; r: number; g: number; b: number };
           colorName: string;
           pixels: Array<Array<{ hex: string; r: number; g: number; b: number }>>;
+          diameter: number;
+          gridSize: number;
         }) => void) => void;
       };
     };

@@ -15,18 +15,16 @@
       }
 
       .overlay-container {
-        /* Fullscreen transparent container */
         position: fixed;
         top: 0;
         left: 0;
         width: 100vw;
         height: 100vh;
         cursor: none;
-        pointer-events: none; /* Pass through events except on magnifier */
+        pointer-events: none;
       }
 
       .magnifier-container {
-        /* Absolutely positioned, moved via transform for smooth movement */
         position: absolute;
         top: 0;
         left: 0;
@@ -36,9 +34,9 @@
         align-items: center;
         justify-content: center;
         cursor: none;
-        pointer-events: none; /* Capture events on magnifier itself */
-        will-change: transform; /* Performance hint for GPU acceleration */
-        transform: translate(0px, 0px); /* Updated via JavaScript */
+        pointer-events: none;
+        will-change: transform;
+        transform: translate(0px, 0px);
       }
 
       .magnifier-circle {
@@ -47,7 +45,7 @@
         height: 150px;
         border-radius: 50%;
         border: 4px solid #ffffff;
-        box-sizing: content-box; /* Border outside the 150px, so grid is truly 150x150 */
+        box-sizing: content-box;
         overflow: hidden;
         background: #000;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -66,7 +64,6 @@
       }
 
       .pixel {
-        /* Use outline instead of border so it doesn't affect grid cell size */
         outline: 1px solid rgba(128, 128, 128, 0.4);
         outline-offset: -1px;
       }
@@ -82,7 +79,7 @@
 
       .color-label {
         position: absolute;
-        top: 50px; /* Adjusted proportionally for 150px magnifier */
+        top: 50px;
         left: 50%;
         transform: translateX(-50%);
         background: rgba(0, 0, 0, 0.85);
@@ -134,13 +131,9 @@
     <script>
       const magnifierContainer = document.getElementById("magnifierContainer");
       const pixelGrid = document.getElementById("pixelGrid");
-      const colorLabel = document.getElementById("colorLabel");
       const colorName = document.getElementById("colorName");
       const hexCode = document.getElementById("hexCode");
 
-      console.log("[Magnifier] Script loaded");
-
-      // Create 9x9 grid of pixels (81 total)
       function createPixelGrid() {
         pixelGrid.innerHTML = "";
         for (let i = 0; i < 81; i++) {
@@ -148,7 +141,6 @@
           pixel.className = "pixel";
           pixel.id = `pixel-${i}`;
 
-          // Center pixel is at position 40 (5th row, 5th column in 0-indexed 9x9 grid: 4*9+4 = 40)
           if (i === 40) {
             pixel.className += " center";
           }
@@ -158,71 +150,41 @@
       }
 
       createPixelGrid();
-
-      // Signal ready using the exposed API
       window.magnifierAPI.send.ready();
 
-      // Listen for position updates from main process
-      // This moves the magnifier UI smoothly via CSS transform
       window.magnifierAPI.on.updatePosition((data) => {
-        // Position magnifier so CENTER SQUARE of 9x9 grid is at cursor
-        // The window is positioned at display.bounds.x/y, so we need to
-        // offset the cursor position relative to the window, not the screen
-
-        // If display bounds are provided, adjust for multi-monitor
         const displayX = data.displayX || 0;
         const displayY = data.displayY || 0;
-
-        // Magnifier is 200px, center is at 100px offset
-        // Subtract display offset to get window-relative coordinates
         const translateX = data.x - displayX - 100;
         const translateY = data.y - displayY - 100;
 
-        // Debug logging (only log occasionally to avoid spam)
-        if (Math.random() < 0.05) {
-          console.log(
-            `[Magnifier] Cursor: (${data.x}, ${data.y}), Display: (${displayX}, ${displayY}), Translate: (${translateX}, ${translateY})` +
-              `\n  Container will be at: (${translateX}, ${translateY}), center at: (${translateX + 100}, ${translateY + 100})`,
-          );
-        }
-
-        // Use transform for hardware-accelerated smooth movement
         magnifierContainer.style.transform = `translate(${translateX}px, ${translateY}px)`;
       });
 
-      // Listen for pixel grid updates
       window.magnifierAPI.on.updatePixelGrid((data) => {
-        try {
-          // Update center color info
-          const centerColor = data.centerColor;
-          const currentColorName = data.colorName || "Unknown";
-          colorName.textContent = currentColorName;
-          hexCode.textContent = centerColor.hex.toUpperCase();
+        const centerColor = data.centerColor;
+        const currentColorName = data.colorName || "Unknown";
+        colorName.textContent = currentColorName;
+        hexCode.textContent = centerColor.hex.toUpperCase();
 
-          // Update pixel grid with surrounding colors
-          if (data.pixels && data.pixels.length === 9) {
-            let pixelIndex = 0;
-            for (let row = 0; row < 9; row++) {
-              for (let col = 0; col < 9; col++) {
-                const pixel = document.getElementById(`pixel-${pixelIndex}`);
-                if (pixel && data.pixels[row] && data.pixels[row][col]) {
-                  pixel.style.backgroundColor = data.pixels[row][col].hex;
-                }
-                pixelIndex++;
+        if (data.pixels && data.pixels.length === 9) {
+          let pixelIndex = 0;
+          for (let row = 0; row < 9; row++) {
+            for (let col = 0; col < 9; col++) {
+              const pixel = document.getElementById(`pixel-${pixelIndex}`);
+              if (pixel && data.pixels[row] && data.pixels[row][col]) {
+                pixel.style.backgroundColor = data.pixels[row][col].hex;
               }
+              pixelIndex++;
             }
           }
-        } catch (error) {
-          console.error("[Magnifier] Error updating grid:", error);
         }
       });
 
-      // Handle clicks
-      document.addEventListener("click", (e) => {
+      document.addEventListener("click", () => {
         window.magnifierAPI.send.colorSelected();
       });
 
-      // Handle escape
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
           window.magnifierAPI.send.cancelled();

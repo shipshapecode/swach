@@ -13,7 +13,6 @@ import isDev from 'electron-is-dev';
 import { type Menubar } from 'menubar';
 import nearestColor from 'nearest-color';
 
-// __dirname in ESM
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -62,8 +61,6 @@ class MagnifyingColorPicker {
   }
 
   async pickColor(): Promise<string | null> {
-    console.log('[Magnifying Color Picker] Starting...');
-
     if (this.isActive) {
       return null;
     }
@@ -71,7 +68,6 @@ class MagnifyingColorPicker {
     this.isActive = true;
 
     try {
-      // Take screenshot ONCE when starting, before magnifier window appears
       await this.captureInitialScreenshot();
       await this.createMagnifierWindow();
       return await this.startColorPicking();
@@ -84,22 +80,9 @@ class MagnifyingColorPicker {
   }
 
   private async captureInitialScreenshot(): Promise<void> {
-    console.log('[Magnifying Color Picker] Taking initial screenshot...');
-
-    // Get cursor position and find its display
     const cursorPos = screen.getCursorScreenPoint();
     const display = screen.getDisplayNearestPoint(cursorPos);
 
-    console.log(
-      `[Magnifying Color Picker] Capturing display: ${display.id}` +
-        `\n  bounds: ${JSON.stringify(display.bounds)}` +
-        `\n  size: ${JSON.stringify(display.size)}` +
-        `\n  workArea: ${JSON.stringify(display.workArea)}` +
-        `\n  scaleFactor: ${display.scaleFactor}`
-    );
-
-    // Capture all screens at native resolution
-    // Use display.size (not bounds) to include dock/menubar areas
     const sources = await desktopCapturer.getSources({
       types: ['screen'],
       thumbnailSize: {
@@ -108,9 +91,6 @@ class MagnifyingColorPicker {
       },
     });
 
-    // Find the source matching our display
-    // For now, use the first source (primary screen)
-    // TODO: Implement smarter matching for multi-monitor setups
     const source = sources[0];
 
     if (!source) {
@@ -118,38 +98,20 @@ class MagnifyingColorPicker {
     }
 
     const nativeImage = source.thumbnail;
-    const bitmap = nativeImage.toBitmap(); // Returns Buffer in BGRA format
+    const bitmap = nativeImage.toBitmap();
 
     this.cachedScreenshot = {
-      bitmap: bitmap,
+      bitmap,
       width: nativeImage.getSize().width,
       height: nativeImage.getSize().height,
-      display: display,
+      display,
     };
-
-    const expectedWidth = display.size.width * display.scaleFactor;
-    const expectedHeight = display.size.height * display.scaleFactor;
-
-    console.log(
-      `[Magnifying Color Picker] Cached screenshot: ${this.cachedScreenshot.width}x${this.cachedScreenshot.height} ` +
-        `(expected ${expectedWidth}x${expectedHeight}, scale=${display.scaleFactor}, includes dock/menubar)`
-    );
   }
 
   private async createMagnifierWindow(): Promise<void> {
-    console.log('[Magnifying Color Picker] Creating magnifier window...');
-
-    // Get the display containing the cursor
     const cursorPos = screen.getCursorScreenPoint();
     const display = screen.getDisplayNearestPoint(cursorPos);
 
-    console.log(
-      `[Magnifying Color Picker] Creating fullscreen overlay on display: ${display.id}, bounds: ${JSON.stringify(display.bounds)}`
-    );
-
-    // Create fullscreen transparent overlay covering entire display
-    // This allows smooth cursor tracking via CSS transforms instead of window movement
-    // Use display.size (not bounds) to cover the FULL screen including dock/menubar
     this.magnifierWindow = new BrowserWindow({
       x: 0,
       y: 0,
@@ -172,38 +134,12 @@ class MagnifyingColorPicker {
 
     this.magnifierWindow.setAlwaysOnTop(true, 'screen-saver');
 
-    // Don't forward mouse events - we want to capture clicks to prevent
-    // them from reaching dock/apps below, while still allowing the magnifier
-    // to receive color selection clicks
-    // Note: We do NOT use setIgnoreMouseEvents here
-
-    let htmlFilePath: string;
-    if (isDev) {
-      // In development, use the source directory
-      htmlFilePath = join(
-        __dirname,
-        '../../electron-app/resources',
-        'magnifier-picker.html'
-      );
-    } else {
-      // In production, use the packaged resources directory
-      htmlFilePath = join(
-        process.resourcesPath,
-        'resources',
-        'magnifier-picker.html'
-      );
-    }
+    const htmlFilePath = isDev
+      ? join(__dirname, '../../electron-app/resources', 'magnifier-picker.html')
+      : join(process.resourcesPath, 'resources', 'magnifier-picker.html');
 
     await this.magnifierWindow.loadFile(htmlFilePath);
     this.magnifierWindow.show();
-
-    // Verify window position
-    const windowBounds = this.magnifierWindow.getBounds();
-    console.log(
-      `[Magnifying Color Picker] Magnifier window created and shown` +
-        `\n  Requested: (0, 0, ${display.size.width}x${display.size.height})` +
-        `\n  Actual: (${windowBounds.x}, ${windowBounds.y}, ${windowBounds.width}x${windowBounds.height})`
-    );
   }
 
   private async startColorPicking(): Promise<string | null> {
@@ -218,45 +154,20 @@ class MagnifyingColorPicker {
         }
       };
 
-      // Set up IPC handlers
-      const handleReady = () => {
-        console.log('[Magnifying Color Picker] ✅ Magnifier ready');
-      };
+      ipcMain.once('magnifier-ready', () => {});
+      ipcMain.once('color-selected', () => resolveOnce(currentColor));
+      ipcMain.once('picker-cancelled', () => resolveOnce(null));
 
-      const handleColorSelected = () => {
-        console.log('[Magnifying Color Picker] Color selected:', currentColor);
-        resolveOnce(currentColor);
-      };
+      globalShortcut.register('Escape', () => resolveOnce(null));
 
-      const handleCancelled = () => {
-        console.log('[Magnifying Color Picker] Cancelled');
-        resolveOnce(null);
-      };
-
-      // Register IPC handlers
-      ipcMain.once('magnifier-ready', handleReady);
-      ipcMain.once('color-selected', handleColorSelected);
-      ipcMain.once('picker-cancelled', handleCancelled);
-
-      // Register global escape
-      globalShortcut.register('Escape', () => {
-        resolveOnce(null);
-      });
-
-      // Start cursor tracking with color update callback
       this.startCursorTracking((color: string) => {
         currentColor = color;
       });
-
-      // No timeout - let user take as long as they want
     });
   }
 
   private startCursorTracking(onColorChange: (color: string) => void): void {
-    console.log('[Magnifying Color Picker] Starting fluid cursor tracking');
-
     let lastCursorPos = { x: -1, y: -1 };
-    let lastCapturePos = { x: -1, y: -1 };
 
     this.updateInterval = setInterval(() => {
       if (!this.magnifierWindow || this.magnifierWindow.isDestroyed()) {
@@ -269,34 +180,19 @@ class MagnifyingColorPicker {
 
       const cursorPos = screen.getCursorScreenPoint();
 
-      // Always update position for completely fluid movement
       if (cursorPos.x !== lastCursorPos.x || cursorPos.y !== lastCursorPos.y) {
         lastCursorPos = cursorPos;
         this.updateMagnifierPosition(cursorPos);
-
-        // Capture pixels when cursor moved at least 1 pixel (responsive but not excessive)
-        const captureNeeded =
-          Math.abs(cursorPos.x - lastCapturePos.x) >= 1 ||
-          Math.abs(cursorPos.y - lastCapturePos.y) >= 1;
-
-        if (captureNeeded) {
-          lastCapturePos = cursorPos;
-          this.capturePixelGrid(cursorPos, onColorChange);
-        }
+        this.capturePixelGrid(cursorPos, onColorChange);
       }
-    }, 8); // 120fps for ultra-smooth tracking
+    }, 8);
   }
 
   private updateMagnifierPosition(cursorPos: { x: number; y: number }): void {
     if (!this.magnifierWindow || this.magnifierWindow.isDestroyed()) return;
 
-    // Get the actual window position to account for any OS offsets (like menubar)
     const windowBounds = this.magnifierWindow.getBounds();
 
-    // Instead of moving the window, send cursor position to renderer
-    // The renderer will move the magnifier UI via CSS transform for smooth movement
-    // This is especially important for Linux compatibility where rapid window
-    // repositioning doesn't work well
     this.magnifierWindow.webContents.send('update-magnifier-position', {
       x: cursorPos.x,
       y: cursorPos.y,
@@ -309,121 +205,87 @@ class MagnifyingColorPicker {
     cursorPos: { x: number; y: number },
     onColorChange: (color: string) => void
   ): void {
-    try {
-      // Use cached screenshot instead of taking a new one!
-      if (!this.cachedScreenshot) {
-        console.warn('[Debug] No cached screenshot available');
-        return;
+    if (!this.cachedScreenshot) return;
+
+    const { bitmap, width, height, display } = this.cachedScreenshot;
+
+    // Cursor position is already in screen coordinates
+    // Screenshot is captured from screen coordinates (0,0)
+    // So we use cursor position directly without window offsets
+    const monitorX = cursorPos.x;
+    const monitorY = cursorPos.y;
+
+    // Round cursor to nearest logical pixel, then convert to physical pixel
+    // This ensures the center pixel aligns with logical pixel boundaries
+    const logicalX = Math.round(monitorX);
+    const logicalY = Math.round(monitorY);
+    const imageX = logicalX * display.scaleFactor;
+    const imageY = logicalY * display.scaleFactor;
+
+    const getPixelAt = (x: number, y: number): ColorInfo | null => {
+      if (x < 0 || y < 0 || x >= width || y >= height) {
+        return null;
       }
 
-      const { bitmap, width, height, display } = this.cachedScreenshot;
-
-      // Get the actual window position to account for OS offsets
-      const windowBounds = this.magnifierWindow?.getBounds();
-      const windowOffsetY = windowBounds?.y || 0;
-
-      // Calculate cursor position in image coordinates
-      // The screenshot captures the full screen from Y=0, but the window may start
-      // at Y=34 (below menubar). We need to add the offset to map cursor position
-      // to the correct position in the screenshot.
-      const monitorX = cursorPos.x;
-      const monitorY = cursorPos.y + windowOffsetY;
-
-      // Simple scaling: image size / display size
-      const scaleX = width / display.size.width;
-      const scaleY = height / display.size.height;
-
-      const imageX = Math.floor(monitorX * scaleX);
-      const imageY = Math.floor(monitorY * scaleY);
-
-      console.log(
-        `[Debug] Cursor screen: (${cursorPos.x}, ${cursorPos.y}), ` +
-          `Window offset: (0, ${windowOffsetY}), ` +
-          `Monitor relative: (${monitorX}, ${monitorY}), ` +
-          `Display size: ${display.size.width}x${display.size.height}, ` +
-          `Image size: ${width}x${height}, ` +
-          `Scale: (${scaleX.toFixed(2)}, ${scaleY.toFixed(2)}), ` +
-          `Image pos: (${imageX}, ${imageY})`
-      );
-
-      // Helper to read pixel at specific coordinates from cached data
-      const getPixelAt = (x: number, y: number): ColorInfo | null => {
-        // Bounds check
-        if (x < 0 || y < 0 || x >= width || y >= height) {
-          return null;
-        }
-
-        const pixelIndex = (y * width + x) * 4;
-        if (pixelIndex + 3 >= bitmap.length) {
-          return null;
-        }
-
-        // CRITICAL: toBitmap() returns BGRA format, not RGBA!
-        const b = bitmap[pixelIndex] || 0;
-        const g = bitmap[pixelIndex + 1] || 0;
-        const r = bitmap[pixelIndex + 2] || 0;
-        // const a = bitmap[pixelIndex + 3] || 0; // Alpha (unused)
-
-        const hex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-
-        return { hex, r, g, b };
-      };
-
-      // Get center color at cursor position
-      const centerColor = getPixelAt(imageX, imageY);
-      if (!centerColor) {
-        console.warn(`[Debug] Could not read pixel at (${imageX}, ${imageY})`);
-        return;
+      const pixelIndex = (y * width + x) * 4;
+      if (pixelIndex + 3 >= bitmap.length) {
+        return null;
       }
 
-      console.log(`[Debug] Center color from cache: ${centerColor.hex}`);
-      onColorChange(centerColor.hex);
+      const b = bitmap[pixelIndex] || 0;
+      const g = bitmap[pixelIndex + 1] || 0;
+      const r = bitmap[pixelIndex + 2] || 0;
 
-      // Build 9x9 grid around cursor
-      const gridSize = 9;
-      const halfSize = 4; // (9-1)/2
-      const pixels: ColorInfo[][] = [];
+      const hex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
 
-      for (let row = 0; row < gridSize; row++) {
-        pixels[row] = [];
-        for (let col = 0; col < gridSize; col++) {
-          const gridImageX = imageX - halfSize + col;
-          const gridImageY = imageY - halfSize + row;
+      return { hex, r, g, b };
+    };
 
-          const pixelColor = getPixelAt(gridImageX, gridImageY);
-          pixels[row]![col] = pixelColor || {
-            hex: '#808080',
-            r: 128,
-            g: 128,
-            b: 128,
-          }; // Gray fallback
-        }
+    const centerColor = getPixelAt(imageX, imageY);
+    if (!centerColor) return;
+
+    onColorChange(centerColor.hex);
+
+    const gridSize = 9;
+    const halfSize = 4;
+    const pixels: ColorInfo[][] = [];
+
+    // Sample at logical pixel boundaries (scaleFactor apart) instead of physical pixels
+    // This ensures each cursor position maps to a unique grid position
+    const step = display.scaleFactor;
+
+    for (let row = 0; row < gridSize; row++) {
+      pixels[row] = [];
+      for (let col = 0; col < gridSize; col++) {
+        const gridImageX = Math.floor(imageX - halfSize * step + col * step);
+        const gridImageY = Math.floor(imageY - halfSize * step + row * step);
+
+        const pixelColor = getPixelAt(gridImageX, gridImageY);
+        pixels[row]![col] = pixelColor || {
+          hex: '#808080',
+          r: 128,
+          g: 128,
+          b: 128,
+        };
       }
+    }
 
-      // Get color name for center color
-      const colorName = this.getColorName(
-        centerColor.r,
-        centerColor.g,
-        centerColor.b
-      );
+    const colorName = this.getColorName(
+      centerColor.r,
+      centerColor.g,
+      centerColor.b
+    );
 
-      // Send to renderer
-      if (this.magnifierWindow && !this.magnifierWindow.isDestroyed()) {
-        this.magnifierWindow.webContents.send('update-pixel-grid', {
-          centerColor,
-          colorName,
-          pixels,
-          cursorPos,
-        });
-      }
-    } catch (error) {
-      console.warn('[Debug] Capture error:', error);
+    if (this.magnifierWindow && !this.magnifierWindow.isDestroyed()) {
+      this.magnifierWindow.webContents.send('update-pixel-grid', {
+        centerColor,
+        colorName,
+        pixels,
+      });
     }
   }
 
   private cleanup(): void {
-    console.log('[Magnifying Color Picker] Cleaning up...');
-
     this.isActive = false;
 
     if (this.updateInterval) {
@@ -436,18 +298,13 @@ class MagnifyingColorPicker {
       this.magnifierWindow = null;
     }
 
-    // Clear cached screenshot
     this.cachedScreenshot = null;
 
-    // Clean up IPC handlers
     ipcMain.removeAllListeners('magnifier-ready');
     ipcMain.removeAllListeners('color-selected');
     ipcMain.removeAllListeners('picker-cancelled');
 
-    // Unregister shortcuts
     globalShortcut.unregister('Escape');
-
-    console.log('[Magnifying Color Picker] Cleanup completed');
   }
 }
 
@@ -476,8 +333,6 @@ async function launchMagnifyingColorPicker(
     const color = await picker.pickColor();
 
     if (color) {
-      console.log('[Magnifying Color Picker] Selected color:', color);
-
       if (type === 'global') {
         mb.window!.webContents.send('changeColor', color);
       }

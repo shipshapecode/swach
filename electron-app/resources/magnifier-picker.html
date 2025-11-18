@@ -49,14 +49,15 @@
         overflow: hidden;
         background: #000;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        flex-shrink: 0;
       }
 
       .pixel-grid {
         position: absolute;
         top: 0;
         left: 0;
-        width: 150px;
-        height: 150px;
+        width: 100%;
+        height: 100%;
         border-radius: 50%;
         display: grid;
         grid-template-columns: repeat(9, 1fr);
@@ -162,15 +163,13 @@
 
       function updateMagnifierSize(diameter) {
         currentDiameter = diameter;
+        // Ensure both dimensions are identical for a perfect circle
         magnifierCircle.style.width = `${diameter}px`;
         magnifierCircle.style.height = `${diameter}px`;
-        pixelGrid.style.width = `${diameter}px`;
-        pixelGrid.style.height = `${diameter}px`;
-
-        // Update container size to maintain centering offset
-        const containerSize = diameter + 50;
-        magnifierContainer.style.width = `${containerSize}px`;
-        magnifierContainer.style.height = `${containerSize}px`;
+        magnifierCircle.style.minWidth = `${diameter}px`;
+        magnifierCircle.style.minHeight = `${diameter}px`;
+        magnifierCircle.style.maxWidth = `${diameter}px`;
+        magnifierCircle.style.maxHeight = `${diameter}px`;
       }
 
       createPixelGrid(9);
@@ -179,7 +178,9 @@
       window.magnifierAPI.on.updatePosition((data) => {
         const displayX = data.displayX || 0;
         const displayY = data.displayY || 0;
-        const offset = (currentDiameter + 50) / 2;
+        // Keep container offset fixed at 100px (half of initial 200px container)
+        // The circle will be centered within the container via flexbox
+        const offset = 100;
         const translateX = data.x - displayX - offset;
         const translateY = data.y - displayY - offset;
 

@@ -142,9 +142,9 @@
       let currentGridSize = 9;
       let currentDiameter = 150;
 
-      // Throttle wheel events to prevent rapid fire zooming
-      let lastWheelTime = 0;
-      const WHEEL_THROTTLE_MS = 100;
+      // Throttle wheel events for diameter changes only
+      let lastDiameterZoomTime = 0;
+      const DIAMETER_ZOOM_THROTTLE_MS = 100;
 
       function createPixelGrid(gridSize) {
         currentGridSize = gridSize;
@@ -240,18 +240,19 @@
         (e) => {
           e.preventDefault();
 
-          // Throttle wheel events to prevent rapid fire zooming
-          const now = Date.now();
-          if (now - lastWheelTime < WHEEL_THROTTLE_MS) {
-            return;
-          }
-          lastWheelTime = now;
-
           const delta = e.deltaY > 0 ? -1 : 1;
 
           if (e.altKey) {
+            // No throttling for density changes - keep them responsive
             window.magnifierAPI.send.zoomDensity(delta);
           } else {
+            // Throttle diameter changes to prevent rapid fire zooming
+            const now = Date.now();
+            if (now - lastDiameterZoomTime < DIAMETER_ZOOM_THROTTLE_MS) {
+              return;
+            }
+            lastDiameterZoomTime = now;
+
             window.magnifierAPI.send.zoomDiameter(delta);
           }
         },

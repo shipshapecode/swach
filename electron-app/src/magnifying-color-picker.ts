@@ -13,6 +13,13 @@ import isDev from 'electron-is-dev';
 import { type Menubar } from 'menubar';
 import nearestColor from 'nearest-color';
 
+import {
+  adjustSquareSize,
+  calculateOptimalGridSize,
+  cursorToImageCoordinates,
+  getNextDiameter,
+} from './utils/magnifier-utils';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -36,10 +43,6 @@ class MagnifyingColorPicker {
   private magnifierDiameter = 180;
   private squareSize = 20;
   private gridSize = 9;
-  private readonly AVAILABLE_DIAMETERS = [120, 180, 240, 300, 360, 420];
-  private readonly AVAILABLE_GRID_SIZES = [5, 7, 9, 11, 13, 15, 17, 19, 21];
-  private readonly MIN_SQUARE_SIZE = 10;
-  private readonly MAX_SQUARE_SIZE = 40;
   private nearestColorFn: ({
     r,
     g,
@@ -65,23 +68,6 @@ class MagnifyingColorPicker {
   private getColorName(r: number, g: number, b: number): string {
     const result = this.nearestColorFn({ r, g, b });
     return result.name;
-  }
-
-  private calculateOptimalGridSize(
-    diameter: number,
-    squareSize: number
-  ): number {
-    const idealGridSize = Math.floor(diameter / squareSize);
-    const adjustedGridSize =
-      idealGridSize % 2 === 0 ? idealGridSize - 1 : idealGridSize;
-
-    const closestGridSize = this.AVAILABLE_GRID_SIZES.reduce((prev, curr) =>
-      Math.abs(curr - adjustedGridSize) < Math.abs(prev - adjustedGridSize)
-        ? curr
-        : prev
-    );
-
-    return closestGridSize;
   }
 
   async pickColor(): Promise<string | null> {
@@ -183,17 +169,11 @@ class MagnifyingColorPicker {
       ipcMain.once('picker-cancelled', () => resolveOnce(null));
 
       ipcMain.on('magnifier-zoom-diameter', (_event, delta: number) => {
-        const currentIndex = this.AVAILABLE_DIAMETERS.indexOf(
-          this.magnifierDiameter
-        );
-        const newIndex = Math.max(
-          0,
-          Math.min(this.AVAILABLE_DIAMETERS.length - 1, currentIndex + delta)
-        );
+        const newDiameter = getNextDiameter(this.magnifierDiameter, delta);
 
-        if (newIndex !== currentIndex) {
-          this.magnifierDiameter = this.AVAILABLE_DIAMETERS[newIndex]!;
-          this.gridSize = this.calculateOptimalGridSize(
+        if (newDiameter !== this.magnifierDiameter) {
+          this.magnifierDiameter = newDiameter;
+          this.gridSize = calculateOptimalGridSize(
             this.magnifierDiameter,
             this.squareSize
           );
@@ -206,21 +186,20 @@ class MagnifyingColorPicker {
       });
 
       ipcMain.on('magnifier-zoom-density', (_event, delta: number) => {
-        const step = 2;
-        this.squareSize = Math.max(
-          this.MIN_SQUARE_SIZE,
-          Math.min(this.MAX_SQUARE_SIZE, this.squareSize + delta * step)
-        );
+        const newSquareSize = adjustSquareSize(this.squareSize, delta);
 
-        this.gridSize = this.calculateOptimalGridSize(
-          this.magnifierDiameter,
-          this.squareSize
-        );
+        if (newSquareSize !== this.squareSize) {
+          this.squareSize = newSquareSize;
+          this.gridSize = calculateOptimalGridSize(
+            this.magnifierDiameter,
+            this.squareSize
+          );
 
-        const cursorPos = screen.getCursorScreenPoint();
-        this.capturePixelGrid(cursorPos, (color: string) => {
-          currentColor = color;
-        });
+          const cursorPos = screen.getCursorScreenPoint();
+          this.capturePixelGrid(cursorPos, (color: string) => {
+            currentColor = color;
+          });
+        }
       });
 
       globalShortcut.register('Escape', () => resolveOnce(null));
@@ -274,18 +253,11 @@ class MagnifyingColorPicker {
 
     const { bitmap, width, height, display } = this.cachedScreenshot;
 
-    // Cursor position is already in screen coordinates
-    // Screenshot is captured from screen coordinates (0,0)
-    // So we use cursor position directly without window offsets
-    const monitorX = cursorPos.x;
-    const monitorY = cursorPos.y;
-
-    // Round cursor to nearest logical pixel, then convert to physical pixel
-    // This ensures the center pixel aligns with logical pixel boundaries
-    const logicalX = Math.round(monitorX);
-    const logicalY = Math.round(monitorY);
-    const imageX = logicalX * display.scaleFactor;
-    const imageY = logicalY * display.scaleFactor;
+    const { imageX, imageY } = cursorToImageCoordinates(
+      cursorPos.x,
+      cursorPos.y,
+      display.scaleFactor
+    );
 
     const getPixelAt = (x: number, y: number): ColorInfo | null => {
       if (x < 0 || y < 0 || x >= width || y >= height) {

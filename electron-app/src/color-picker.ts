@@ -1,6 +1,6 @@
 import { type Menubar } from 'menubar';
 
-import { launchMagnifyingColorPicker } from './magnifying-color-picker';
+import { launchMagnifyingColorPicker } from '../../magnifier-renderer/magnifier-main';
 
 async function launchPicker(mb: Menubar, type = 'global') {
   await launchMagnifyingColorPicker(mb, type);

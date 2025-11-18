@@ -37,7 +37,9 @@
     "start": "vite -c vite.renderer.config.ts",
     "start:electron": "ELECTRON_DISABLE_SANDBOX=1 electron-forge start",
     "test:electron": "SKIP_CODESIGN=true electron-forge package && vite build -c vite.renderer.config.ts --mode development && testem ci -f testem-electron.cjs",
-    "test:ember": "vite build -c vite.renderer.config.ts --mode development && testem ci"
+    "test:ember": "vite build -c vite.renderer.config.ts --mode development && testem ci",
+    "test:magnifier": "vitest run -c magnifier-renderer/vitest.config.ts",
+    "test:magnifier:watch": "vitest -c magnifier-renderer/vitest.config.ts"
   },
   "dependencies": {
     "@ctrl/tinycolor": "^4.2.0",
@@ -133,6 +135,7 @@
     "@types/node": "^24.10.0",
     "@types/qunit": "^2.19.13",
     "@types/sinon": "^17.0.4",
+    "@vitest/ui": "^4.0.10",
     "babel-plugin-ember-template-compilation": "^2.4.1",
     "babel-preset-env": "^1.7.0",
     "broccoli-asset-rev": "^3.0.0",
@@ -182,6 +185,7 @@
     "typescript-eslint": "^8.46.3",
     "vite": "^7.2.2",
     "vite-plugin-testem-electron": "^1.0.2",
+    "vitest": "^4.0.10",
     "wcag-contrast": "^3.0.0"
   },
   "packageManager": "pnpm@10.20.0",

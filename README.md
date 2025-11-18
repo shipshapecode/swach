@@ -95,9 +95,8 @@ The build system works as follows:
 
 ### Building / Packaging
 
-#### Development Builds
+#### Testing
 
-- `pnpm build` - Builds just the Ember app for web
 - `pnpm test:ember` - Builds and runs Ember tests
 - `pnpm test:electron` - Builds and packages Electron, then runs Electron-specific tests
 

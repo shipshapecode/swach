@@ -164,9 +164,9 @@ class MagnifyingColorPicker {
       show: false,
       hasShadow: false,
       webPreferences: {
-        // TODO: probably make this false
-        nodeIntegration: true,
-        contextIsolation: false,
+        nodeIntegration: false,
+        contextIsolation: true,
+        preload: join(__dirname, 'magnifier-preload.js'),
       },
     });
 

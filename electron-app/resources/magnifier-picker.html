@@ -132,8 +132,6 @@
     </div>
 
     <script>
-      const { ipcRenderer } = require("electron");
-
       const magnifierContainer = document.getElementById("magnifierContainer");
       const pixelGrid = document.getElementById("pixelGrid");
       const colorLabel = document.getElementById("colorLabel");
@@ -161,12 +159,12 @@
 
       createPixelGrid();
 
-      // Signal ready
-      ipcRenderer.send("magnifier-ready");
+      // Signal ready using the exposed API
+      window.magnifierAPI.send.ready();
 
       // Listen for position updates from main process
       // This moves the magnifier UI smoothly via CSS transform
-      ipcRenderer.on("update-magnifier-position", (event, data) => {
+      window.magnifierAPI.on.updatePosition((data) => {
         // Position magnifier so CENTER SQUARE of 9x9 grid is at cursor
         // The window is positioned at display.bounds.x/y, so we need to
         // offset the cursor position relative to the window, not the screen
@@ -193,7 +191,7 @@
       });
 
       // Listen for pixel grid updates
-      ipcRenderer.on("update-pixel-grid", (event, data) => {
+      window.magnifierAPI.on.updatePixelGrid((data) => {
         try {
           // Update center color info
           const centerColor = data.centerColor;
@@ -221,13 +219,13 @@
 
       // Handle clicks
       document.addEventListener("click", (e) => {
-        ipcRenderer.send("color-selected");
+        window.magnifierAPI.send.colorSelected();
       });
 
       // Handle escape
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
-          ipcRenderer.send("picker-cancelled");
+          window.magnifierAPI.send.cancelled();
         }
       });
 

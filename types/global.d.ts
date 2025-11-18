@@ -67,6 +67,26 @@ declare global {
         removeAllListeners: (channel: string) => void;
       };
     };
+    magnifierAPI: {
+      send: {
+        ready: () => void;
+        colorSelected: () => void;
+        cancelled: () => void;
+      };
+      on: {
+        updatePosition: (callback: (data: {
+          x: number;
+          y: number;
+          displayX: number;
+          displayY: number;
+        }) => void) => void;
+        updatePixelGrid: (callback: (data: {
+          centerColor: { hex: string; r: number; g: number; b: number };
+          colorName: string;
+          pixels: Array<Array<{ hex: string; r: number; g: number; b: number }>>;
+        }) => void) => void;
+      };
+    };
   }
 
   namespace NodeJS {

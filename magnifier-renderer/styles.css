@@ -1,0 +1,39 @@
+@import 'tailwindcss';
+
+@layer base {
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+/* Custom styles that can't be easily converted to Tailwind classes */
+.pixel {
+  outline: 1px solid rgba(128, 128, 128, 0.4);
+  outline-offset: -1px;
+  transition: background-color 0.1s ease-out;
+}
+
+.pixel.center {
+  border: 3px solid #ffffff;
+  box-shadow:
+    0 0 6px #000000,
+    inset 0 0 4px rgba(255, 255, 255, 0.8);
+  z-index: 10;
+  position: relative;
+}
+
+/* Fix magnifier circle zoom animations */
+.magnifier-circle {
+  transition:
+    width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    min-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Fix color label transition */
+#colorLabel {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}

@@ -144,11 +144,24 @@ class MagnifyingColorPicker {
 
     this.magnifierWindow.setAlwaysOnTop(true, 'screen-saver');
 
-    const htmlFilePath = isDev
-      ? join(__dirname, '../../electron-app/resources', 'magnifier-picker.html')
-      : join(process.resourcesPath, 'resources', 'magnifier-picker.html');
-
-    await this.magnifierWindow.loadFile(htmlFilePath);
+    if (isDev) {
+      // In development, use the Vite dev server
+      console.log(
+        '[Magnifying Color Picker] Loading from dev server: http://localhost:5173/'
+      );
+      await this.magnifierWindow.loadURL('http://localhost:5173/');
+    } else {
+      // In production, load from built files
+      const magnifierPath = join(
+        __dirname,
+        '../renderer/magnifier_window/index.html'
+      );
+      console.log(
+        '[Magnifying Color Picker] Loading from file:',
+        magnifierPath
+      );
+      await this.magnifierWindow.loadFile(magnifierPath);
+    }
     this.magnifierWindow.show();
   }
 

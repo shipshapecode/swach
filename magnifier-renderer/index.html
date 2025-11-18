@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Swach Magnifier</title>
+  </head>
+  <body
+    class="m-0 p-0 bg-transparent cursor-none select-none overflow-hidden w-screen h-screen"
+  >
+    <div
+      class="fixed top-0 left-0 w-screen h-screen cursor-none pointer-events-none"
+    >
+      <div
+        class="absolute top-0 left-0 w-[200px] h-[200px] flex items-center justify-center cursor-none pointer-events-none translate-x-0 translate-y-0"
+        style="will-change: transform"
+        id="magnifierContainer"
+      >
+        <div
+          class="magnifier-circle relative w-[150px] h-[150px] rounded-full border-4 border-white bg-black shadow-lg overflow-hidden shrink-0 box-content"
+        >
+          <div
+            class="absolute top-0 left-0 w-full h-full rounded-full grid grid-cols-9 grid-rows-9 transition-all duration-300 ease-out"
+            id="pixelGrid"
+          ></div>
+        </div>
+        <div
+          class="absolute top-[50px] left-1/2 transform -translate-x-1/2 bg-black/85 text-white px-2 py-1 rounded text-[9px] font-mono pointer-events-none shadow-md z-20 max-w-[80px] flex gap-1"
+          id="colorLabel"
+        >
+          <span
+            class="overflow-hidden text-ellipsis whitespace-nowrap shrink min-w-0"
+            id="colorName"
+            >Color</span
+          >
+          <span class="shrink-0">:</span>
+          <span class="shrink-0 whitespace-nowrap" id="hexCode">#FFFFFF</span>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

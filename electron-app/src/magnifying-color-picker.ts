@@ -33,12 +33,13 @@ class MagnifyingColorPicker {
     height: number;
     display: Electron.Display;
   } | null = null;
-  private magnifierDiameter = 150;
+  private magnifierDiameter = 180;
+  private squareSize = 20;
   private gridSize = 9;
-  private readonly MIN_DIAMETER = 100;
-  private readonly MAX_DIAMETER = 400;
-  private readonly MIN_GRID_SIZE = 5;
-  private readonly MAX_GRID_SIZE = 21;
+  private readonly AVAILABLE_DIAMETERS = [120, 180, 240, 300, 360, 420];
+  private readonly AVAILABLE_GRID_SIZES = [5, 7, 9, 11, 13, 15, 17, 19, 21];
+  private readonly MIN_SQUARE_SIZE = 10;
+  private readonly MAX_SQUARE_SIZE = 40;
   private nearestColorFn: ({
     r,
     g,
@@ -64,6 +65,23 @@ class MagnifyingColorPicker {
   private getColorName(r: number, g: number, b: number): string {
     const result = this.nearestColorFn({ r, g, b });
     return result.name;
+  }
+
+  private calculateOptimalGridSize(
+    diameter: number,
+    squareSize: number
+  ): number {
+    const idealGridSize = Math.floor(diameter / squareSize);
+    const adjustedGridSize =
+      idealGridSize % 2 === 0 ? idealGridSize - 1 : idealGridSize;
+
+    const closestGridSize = this.AVAILABLE_GRID_SIZES.reduce((prev, curr) =>
+      Math.abs(curr - adjustedGridSize) < Math.abs(prev - adjustedGridSize)
+        ? curr
+        : prev
+    );
+
+    return closestGridSize;
   }
 
   async pickColor(): Promise<string | null> {
@@ -165,29 +183,44 @@ class MagnifyingColorPicker {
       ipcMain.once('picker-cancelled', () => resolveOnce(null));
 
       ipcMain.on('magnifier-zoom-diameter', (_event, delta: number) => {
-        const step = 20;
-        this.magnifierDiameter = Math.max(
-          this.MIN_DIAMETER,
-          Math.min(this.MAX_DIAMETER, this.magnifierDiameter + delta * step)
+        const currentIndex = this.AVAILABLE_DIAMETERS.indexOf(
+          this.magnifierDiameter
         );
-        // Trigger immediate update
-        const cursorPos = screen.getCursorScreenPoint();
-        this.capturePixelGrid(cursorPos, (color: string) => {
-          currentColor = color;
-        });
-      });
+        const newIndex = Math.max(
+          0,
+          Math.min(this.AVAILABLE_DIAMETERS.length - 1, currentIndex + delta)
+        );
 
-      ipcMain.on('magnifier-zoom-density', (_event, delta: number) => {
-        const step = 2;
-        const newSize = this.gridSize + delta * step;
-        if (newSize >= this.MIN_GRID_SIZE && newSize <= this.MAX_GRID_SIZE) {
-          this.gridSize = newSize;
-          // Trigger immediate update
+        if (newIndex !== currentIndex) {
+          this.magnifierDiameter = this.AVAILABLE_DIAMETERS[newIndex]!;
+          this.gridSize = this.calculateOptimalGridSize(
+            this.magnifierDiameter,
+            this.squareSize
+          );
+
           const cursorPos = screen.getCursorScreenPoint();
           this.capturePixelGrid(cursorPos, (color: string) => {
             currentColor = color;
           });
         }
+      });
+
+      ipcMain.on('magnifier-zoom-density', (_event, delta: number) => {
+        const step = 2;
+        this.squareSize = Math.max(
+          this.MIN_SQUARE_SIZE,
+          Math.min(this.MAX_SQUARE_SIZE, this.squareSize + delta * step)
+        );
+
+        this.gridSize = this.calculateOptimalGridSize(
+          this.magnifierDiameter,
+          this.squareSize
+        );
+
+        const cursorPos = screen.getCursorScreenPoint();
+        this.capturePixelGrid(cursorPos, (color: string) => {
+          currentColor = color;
+        });
       });
 
       globalShortcut.register('Escape', () => resolveOnce(null));

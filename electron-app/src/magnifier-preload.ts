@@ -23,8 +23,15 @@ contextBridge.exposeInMainWorld('magnifierAPI', {
         displayY: number;
       }) => void
     ) => {
-      const subscription = (_event: unknown, data: unknown) =>
-        callback(data as any);
+      const subscription = (
+        _event: unknown,
+        data: {
+          x: number;
+          y: number;
+          displayX: number;
+          displayY: number;
+        }
+      ) => callback(data);
       ipcRenderer.on('update-magnifier-position', subscription);
       return subscription;
     },
@@ -35,8 +42,16 @@ contextBridge.exposeInMainWorld('magnifierAPI', {
         pixels: Array<Array<{ hex: string; r: number; g: number; b: number }>>;
       }) => void
     ) => {
-      const subscription = (_event: unknown, data: unknown) =>
-        callback(data as any);
+      const subscription = (
+        _event: unknown,
+        data: {
+          centerColor: { hex: string; r: number; g: number; b: number };
+          colorName: string;
+          pixels: Array<
+            Array<{ hex: string; r: number; g: number; b: number }>
+          >;
+        }
+      ) => callback(data);
       ipcRenderer.on('update-pixel-grid', subscription);
       return subscription;
     },

@@ -38,13 +38,13 @@ module('Unit | Utility | magnifier-utils', function () {
 
   module('getNextDiameter', function () {
     test('increments diameter when delta is positive', function (assert) {
-      assert.strictEqual(getNextDiameter(180, 1), 240);
-      assert.strictEqual(getNextDiameter(240, 1), 300);
+      assert.strictEqual(getNextDiameter(180, 1), 210);
+      assert.strictEqual(getNextDiameter(240, 1), 270);
     });
 
     test('decrements diameter when delta is negative', function (assert) {
-      assert.strictEqual(getNextDiameter(240, -1), 180);
-      assert.strictEqual(getNextDiameter(180, -1), 120);
+      assert.strictEqual(getNextDiameter(240, -1), 210);
+      assert.strictEqual(getNextDiameter(180, -1), 150);
     });
 
     test('clamps at minimum diameter', function (assert) {
@@ -133,7 +133,10 @@ module('Unit | Utility | magnifier-utils', function () {
   module('constants', function () {
     test('AVAILABLE_DIAMETERS is valid', function (assert) {
       assert.true(AVAILABLE_DIAMETERS.length > 0);
-      assert.deepEqual(AVAILABLE_DIAMETERS, [120, 180, 240, 300, 360, 420]);
+      assert.deepEqual(
+        AVAILABLE_DIAMETERS,
+        [120, 150, 180, 210, 240, 270, 300, 330, 360, 390, 420]
+      );
     });
 
     test('AVAILABLE_GRID_SIZES contains only odd numbers', function (assert) {

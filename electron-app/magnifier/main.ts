@@ -12,6 +12,7 @@ class MagnifierRenderer {
   private currentDiameter = 150;
   private lastDiameterZoomTime = 0;
   private readonly DIAMETER_ZOOM_THROTTLE_MS = 300;
+  private hasShownCircle = false;
 
   constructor() {
     const container = document.getElementById('magnifierContainer');
@@ -136,6 +137,12 @@ class MagnifierRenderer {
 
       (this.magnifierContainer as HTMLElement).style.transform =
         `translate(${translateX}px, ${translateY}px)`;
+
+      // Show circle on first position update (after it's correctly positioned)
+      if (!this.hasShownCircle) {
+        this.hasShownCircle = true;
+        this.magnifierCircle.classList.remove('opacity-0');
+      }
     });
 
     // Listen for pixel grid updates

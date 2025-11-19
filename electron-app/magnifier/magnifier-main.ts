@@ -124,8 +124,8 @@ class MagnifyingColorPicker {
     const display = screen.getDisplayNearestPoint(cursorPos);
 
     this.magnifierWindow = new BrowserWindow({
-      x: 0,
-      y: 0,
+      x: display.bounds.x,
+      y: display.bounds.y,
       width: display.size.width,
       height: display.size.height,
       frame: false,
@@ -146,23 +146,15 @@ class MagnifyingColorPicker {
     this.magnifierWindow.setAlwaysOnTop(true, 'screen-saver');
 
     if (isDev) {
-      // In development, use the Vite dev server
-      console.log(
-        '[Magnifying Color Picker] Loading from dev server: http://localhost:5173/'
-      );
       await this.magnifierWindow.loadURL('http://localhost:5173/');
     } else {
-      // In production, load from built files
       const magnifierPath = join(
         __dirname,
         '../renderer/magnifier_window/index.html'
       );
-      console.log(
-        '[Magnifying Color Picker] Loading from file:',
-        magnifierPath
-      );
       await this.magnifierWindow.loadFile(magnifierPath);
     }
+
     this.magnifierWindow.show();
   }
 
@@ -178,7 +170,6 @@ class MagnifyingColorPicker {
         }
       };
 
-      ipcMain.once('magnifier-ready', () => {});
       ipcMain.once('color-selected', () => resolveOnce(currentColor));
       ipcMain.once('picker-cancelled', () => resolveOnce(null));
 

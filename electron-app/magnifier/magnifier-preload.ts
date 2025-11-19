@@ -1,7 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron';
 
-// Expose only the specific IPC channels needed for the magnifier picker
-contextBridge.exposeInMainWorld('magnifierAPI', {
+// Define the actual API implementation - this is the source of truth for types
+export const magnifierAPI = {
   // Send methods for magnifier-specific events
   send: {
     ready: () => ipcRenderer.send('magnifier-ready'),
@@ -40,6 +40,8 @@ contextBridge.exposeInMainWorld('magnifierAPI', {
         centerColor: { hex: string; r: number; g: number; b: number };
         colorName: string;
         pixels: Array<Array<{ hex: string; r: number; g: number; b: number }>>;
+        diameter: number;
+        gridSize: number;
       }) => void
     ) => {
       const subscription = (
@@ -50,10 +52,15 @@ contextBridge.exposeInMainWorld('magnifierAPI', {
           pixels: Array<
             Array<{ hex: string; r: number; g: number; b: number }>
           >;
+          diameter: number;
+          gridSize: number;
         }
       ) => callback(data);
       ipcRenderer.on('update-pixel-grid', subscription);
       return subscription;
     },
   },
-});
+} as const;
+
+// Expose the API to the main world
+contextBridge.exposeInMainWorld('magnifierAPI', magnifierAPI);

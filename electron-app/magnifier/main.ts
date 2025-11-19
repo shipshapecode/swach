@@ -1,42 +1,8 @@
 import './styles.css';
 
-// Type definitions for our magnifier API
-declare global {
-  interface Window {
-    magnifierAPI: {
-      send: {
-        ready: () => void;
-        colorSelected: () => void;
-        cancelled: () => void;
-        zoomDiameter: (delta: number) => void;
-        zoomDensity: (delta: number) => void;
-      };
-      on: {
-        updatePosition: (
-          callback: (data: {
-            x: number;
-            y: number;
-            displayX: number;
-            displayY: number;
-          }) => void
-        ) => void;
-        updatePixelGrid: (
-          callback: (data: {
-            centerColor: { hex: string; r: number; g: number; b: number };
-            colorName: string;
-            pixels: Array<
-              Array<{ hex: string; r: number; g: number; b: number }>
-            >;
-            gridSize?: number;
-            diameter?: number;
-          }) => void
-        ) => void;
-      };
-    };
-  }
-}
-
-// ColorInfo interface removed - not used in this file
+import type { PixelGridData, PositionData } from './types';
+// Import global types - this ensures Window.magnifierAPI is available
+import '../../types/global';
 
 class MagnifierRenderer {
   private magnifierContainer: Element;
@@ -151,7 +117,7 @@ class MagnifierRenderer {
 
   private setupIpcListeners(): void {
     // Listen for position updates
-    window.magnifierAPI.on.updatePosition((data) => {
+    window.magnifierAPI.on.updatePosition((data: PositionData) => {
       const displayX = data.displayX || 0;
       const displayY = data.displayY || 0;
       // Keep container offset fixed at 100px (half of initial 200px container)
@@ -165,7 +131,7 @@ class MagnifierRenderer {
     });
 
     // Listen for pixel grid updates
-    window.magnifierAPI.on.updatePixelGrid((data) => {
+    window.magnifierAPI.on.updatePixelGrid((data: PixelGridData) => {
       const centerColor = data.centerColor;
       const currentColorName = data.colorName || 'Unknown';
 

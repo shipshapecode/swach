@@ -1,6 +1,7 @@
 import 'ember-cli-flash';
 import '@glint/environment-ember-loose'
 import { ComponentLike, HelperLike, ModifierLike } from '@glint/template';
+import type { MagnifierAPI } from '../electron-app/magnifier/types';
 
 import OnClickOutsideModifier from 'ember-click-outside/modifiers/on-click-outside';
 
@@ -67,30 +68,7 @@ declare global {
         removeAllListeners: (channel: string) => void;
       };
     };
-    magnifierAPI: {
-      send: {
-        ready: () => void;
-        colorSelected: () => void;
-        cancelled: () => void;
-        zoomDiameter: (delta: number) => void;
-        zoomDensity: (delta: number) => void;
-      };
-      on: {
-        updatePosition: (callback: (data: {
-          x: number;
-          y: number;
-          displayX: number;
-          displayY: number;
-        }) => void) => void;
-        updatePixelGrid: (callback: (data: {
-          centerColor: { hex: string; r: number; g: number; b: number };
-          colorName: string;
-          pixels: Array<Array<{ hex: string; r: number; g: number; b: number }>>;
-          diameter: number;
-          gridSize: number;
-        }) => void) => void;
-      };
-    };
+    magnifierAPI: MagnifierAPI;
   }
 
   namespace NodeJS {

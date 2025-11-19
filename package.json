@@ -123,7 +123,7 @@
     "@glint/core": "^1.5.2",
     "@glint/environment-ember-loose": "^1.5.2",
     "@glint/environment-ember-template-imports": "^1.5.2",
-    "@glint/template": "~1.5.2",
+    "@glint/template": "~1.7.3",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
     "@release-it-plugins/lerna-changelog": "^8.0.1",
     "@rollup/plugin-babel": "^6.1.0",

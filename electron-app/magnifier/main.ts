@@ -14,11 +14,21 @@ class MagnifierRenderer {
   private readonly DIAMETER_ZOOM_THROTTLE_MS = 300;
 
   constructor() {
-    this.magnifierContainer = document.getElementById('magnifierContainer')!;
-    this.magnifierCircle = document.querySelector('.magnifier-circle')!;
-    this.pixelGrid = document.getElementById('pixelGrid')!;
-    this.colorName = document.getElementById('colorName')!;
-    this.hexCode = document.getElementById('hexCode')!;
+    const container = document.getElementById('magnifierContainer');
+    const circle = document.querySelector('.magnifier-circle');
+    const pixelGrid = document.getElementById('pixelGrid');
+    const colorName = document.getElementById('colorName');
+    const hexCode = document.getElementById('hexCode');
+
+    if (!container || !circle || !pixelGrid || !colorName || !hexCode) {
+      throw new Error('Required DOM elements not found for MagnifierRenderer');
+    }
+
+    this.magnifierContainer = container;
+    this.magnifierCircle = circle;
+    this.pixelGrid = pixelGrid;
+    this.colorName = colorName;
+    this.hexCode = hexCode;
 
     this.initialize();
   }
@@ -153,8 +163,9 @@ class MagnifierRenderer {
           for (let col = 0; col < this.currentGridSize; col++) {
             const pixel = document.getElementById(`pixel-${pixelIndex}`);
             const rowData = data.pixels[row];
-            if (pixel && rowData && rowData[col]) {
-              pixel.style.backgroundColor = rowData[col]!.hex;
+            const colorData = rowData?.[col];
+            if (pixel && colorData) {
+              pixel.style.backgroundColor = colorData.hex;
             }
             pixelIndex++;
           }

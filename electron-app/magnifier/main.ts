@@ -1,8 +1,6 @@
 import './styles.css';
 
 import type { PixelGridData, PositionData } from './types';
-// Import global types - this ensures Window.magnifierAPI is available
-import '../../types/global';
 
 class MagnifierRenderer {
   private magnifierContainer: Element;

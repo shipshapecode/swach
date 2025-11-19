@@ -27,6 +27,7 @@
     "magnifier/**/*",
     "src/**/*",
     "tests/**/*",
+    "../types/global.d.ts",
     "../types/color-name-list/index.d.ts",
     "../types/nearest-color/index.d.ts"
   ],

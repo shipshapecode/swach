@@ -21,5 +21,7 @@ jobs:
       - run: pnpm install  
       - name: Get xvfb
         run: sudo apt-get install xvfb
+      - name: Magnifier Test
+        run: pnpm test:magnifier 
       - name: Electron Test
         run: xvfb-run --auto-servernum pnpm test:electron   

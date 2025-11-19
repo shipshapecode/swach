@@ -1,6 +1,7 @@
 import 'ember-cli-flash';
 import '@glint/environment-ember-loose'
 import { ComponentLike, HelperLike, ModifierLike } from '@glint/template';
+import type { MagnifierAPI } from '../electron-app/magnifier/types';
 
 import OnClickOutsideModifier from 'ember-click-outside/modifiers/on-click-outside';
 
@@ -67,6 +68,7 @@ declare global {
         removeAllListeners: (channel: string) => void;
       };
     };
+    magnifierAPI: MagnifierAPI;
   }
 
   namespace NodeJS {

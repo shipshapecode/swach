@@ -16,12 +16,20 @@
     "noUncheckedIndexedAccess": true,
     "allowJs": true,
     "types": ["node", "electron"],
-    "lib": ["ES2022"],
+    "lib": ["ES2022", "DOM"],
     "composite": true,
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist"
   },
-  "include": ["src/**/*", "tests/**/*"],
+  "include": [
+    "main.ts",
+    "magnifier/**/*",
+    "src/**/*",
+    "tests/**/*",
+    "../types/global.d.ts",
+    "../types/color-name-list/index.d.ts",
+    "../types/nearest-color/index.d.ts"
+  ],
   "exclude": ["node_modules", "dist", ".vite"]
 }

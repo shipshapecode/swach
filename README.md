@@ -25,6 +25,20 @@ You will need the following things properly installed on your computer.
 - [Ember CLI](https://ember-cli.com/)
 - [Google Chrome](https://google.com/chrome/)
 
+### Linux System Requirements
+
+On Linux, the color picker functionality requires additional system libraries. These dependencies are automatically installed when using the `.deb` package, but if building from source, ensure you have:
+
+```bash
+# Debian / Ubuntu
+sudo apt-get install libxcb1 libxrandr2 libdbus-1-3
+
+# Alpine
+sudo apk add libxcb libxrandr dbus
+```
+
+These libraries are required for the screenshot functionality used by the magnifying color picker.
+
 ## Installation
 
 - `git clone <repository-url>` this repository
@@ -81,9 +95,8 @@ The build system works as follows:
 
 ### Building / Packaging
 
-#### Development Builds
+#### Testing
 
-- `pnpm build` - Builds just the Ember app for web
 - `pnpm test:ember` - Builds and runs Ember tests
 - `pnpm test:electron` - Builds and packages Electron, then runs Electron-specific tests
 

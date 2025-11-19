@@ -10,16 +10,16 @@ import isDev from 'electron-is-dev';
 import Store from 'electron-store';
 import { menubar, type Menubar } from 'menubar';
 
-import pkg from '../../package.json';
-import { setupUpdateServer } from './auto-update.js';
-import { noUpdatesAvailableDialog } from './dialogs.js';
-import handleFileUrls from './handle-file-urls.js';
-import { setupEventHandlers } from './ipc-events.js';
+import pkg from '../package.json';
+import { setupUpdateServer } from './src/auto-update.js';
+import { noUpdatesAvailableDialog } from './src/dialogs.js';
+import handleFileUrls from './src/handle-file-urls.js';
+import { setupEventHandlers } from './src/ipc-events.js';
 import {
   registerKeyboardShortcuts,
   setupContextMenu,
   setupMenu,
-} from './shortcuts.js';
+} from './src/shortcuts.js';
 
 // __dirname in ESM
 const __filename = fileURLToPath(import.meta.url);

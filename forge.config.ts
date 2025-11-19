@@ -78,6 +78,7 @@ const config: ForgeConfig = {
     new MakerSquirrel(
       {
         name: 'Swach',
+        setupExe: 'Swach-${version}.Setup.exe',
       },
       ['win32']
     ),

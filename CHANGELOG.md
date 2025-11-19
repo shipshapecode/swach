@@ -1,6 +1,18 @@
 
 
 
+
+## v2.0.41 (2025-11-19)
+
+#### :boom: Breaking Change
+* [#2417](https://github.com/shipshapecode/swach/pull/2417) Add color name and zooming functionality to eyedropper ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### :house: Internal
+* [#2418](https://github.com/shipshapecode/swach/pull/2418) Use eSigner to sign for Windows ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v2.0.40 (2025-11-10)
 
 ## v2.0.39 (2025-11-10)

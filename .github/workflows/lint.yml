@@ -19,11 +19,5 @@ jobs:
           node-version: 22
           cache: 'pnpm'
       - run: pnpm install  
-      - name: Lint JS
-        run: pnpm lint:js
-      - name: Lint HBS
-        run: pnpm lint:hbs
-      - name: Lint Prettier
-        run: pnpm lint:format
-      - name: Lint Types
-        run: pnpm lint:types
+      - name: Lint
+        run: pnpm lint

@@ -17,24 +17,25 @@
         id="magnifierContainer"
       >
         <div
-          class="magnifier-circle relative w-[150px] h-[150px] rounded-full border-4 border-white bg-black shadow-lg overflow-hidden shrink-0 box-content"
+          class="magnifier-circle relative w-[150px] h-[150px] rounded-full border-4 border-white bg-black shadow-lg overflow-hidden shrink-0 box-content flex flex-col justify-center items-center"
         >
           <div
             class="absolute top-0 left-0 w-full h-full rounded-full grid grid-cols-9 grid-rows-9 transition-all duration-300 ease-out"
             id="pixelGrid"
           ></div>
-        </div>
-        <div
-          class="absolute top-[50px] left-1/2 transform -translate-x-1/2 bg-black/85 text-white px-2 py-1 rounded text-[9px] font-mono pointer-events-none shadow-md z-20 max-w-[80px] flex gap-1"
-          id="colorLabel"
-        >
-          <span
-            class="overflow-hidden text-ellipsis whitespace-nowrap shrink min-w-0"
-            id="colorName"
-            >Color</span
+          <div
+            class="relative z-20 bg-black/85 text-white px-2 py-1 rounded text-[10px] font-mono pointer-events-none shadow-md flex gap-1 min-w-0 max-w-[min(12rem,70%)] mb-16"
+            id="color-label"
           >
-          <span class="shrink-0">:</span>
-          <span class="shrink-0 whitespace-nowrap" id="hexCode">#FFFFFF</span>
+            <span
+              class="overflow-hidden text-ellipsis whitespace-nowrap shrink min-w-0"
+              id="colorName"
+            >
+              Color
+            </span>
+            <span class="shrink-0">:</span>
+            <span class="shrink-0 whitespace-nowrap" id="hexCode">#FFFFFF</span>
+          </div>
         </div>
       </div>
     </div>

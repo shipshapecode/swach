@@ -2,28 +2,25 @@
 
 @layer base {
   body {
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    @apply font-sans;
   }
 }
 
 /* Custom styles that can't be easily converted to Tailwind classes */
 .pixel {
-  outline: 1px solid rgba(128, 128, 128, 0.4);
-  outline-offset: -1px;
-  transition: background-color 0.1s ease-out;
+  @apply transition-colors duration-100 ease-out outline-1 outline-neutral-500/40 -outline-offset-1;
 }
 
 .pixel.center {
-  border: 3px solid #ffffff;
+  @apply border-2 border-white relative z-10;
   box-shadow:
-    0 0 6px #000000,
-    inset 0 0 4px rgba(255, 255, 255, 0.8);
-  z-index: 10;
-  position: relative;
+    0 0 6px #000,
+    inset 0 0 4px rgb(255 255 255 / 80%);
 }
 
 /* Fix magnifier circle zoom animations */
 .magnifier-circle {
+  @apply duration-300 ease-out;
   transition:
     width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
@@ -34,6 +31,6 @@
 }
 
 /* Fix color label transition */
-#colorLabel {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+#color-label {
+  @apply transition-all duration-200 ease-out;
 }

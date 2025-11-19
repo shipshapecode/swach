@@ -66,15 +66,20 @@ export function getCenterPixelIndex(gridSize: number): number {
 }
 
 /**
- * Convert cursor position to image coordinates accounting for display scaling.
+ * Convert cursor position to image coordinates accounting for display scaling and bounds offset.
  */
 export function cursorToImageCoordinates(
   cursorX: number,
   cursorY: number,
-  scaleFactor: number
+  scaleFactor: number,
+  displayBounds: { x: number; y: number }
 ): { imageX: number; imageY: number } {
-  const logicalX = Math.round(cursorX);
-  const logicalY = Math.round(cursorY);
+  // Convert global cursor coordinates to display-relative coordinates
+  const displayRelativeX = cursorX - displayBounds.x;
+  const displayRelativeY = cursorY - displayBounds.y;
+
+  const logicalX = Math.round(displayRelativeX);
+  const logicalY = Math.round(displayRelativeY);
   const imageX = logicalX * scaleFactor;
   const imageY = logicalY * scaleFactor;
 

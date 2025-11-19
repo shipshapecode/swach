@@ -101,10 +101,11 @@ class MagnifyingColorPicker {
       },
     });
 
-    const source = sources[0];
+    // Find the source that matches the display under the cursor
+    const source = sources.find((s) => s.display_id === display.id.toString());
 
     if (!source) {
-      throw new Error('No screen source found for capture');
+      throw new Error(`No screen source found for display ${display.id}`);
     }
 
     const nativeImage = source.thumbnail;
@@ -269,7 +270,8 @@ class MagnifyingColorPicker {
     const { imageX, imageY } = cursorToImageCoordinates(
       cursorPos.x,
       cursorPos.y,
-      display.scaleFactor
+      display.scaleFactor,
+      display.bounds
     );
 
     const getPixelAt = (x: number, y: number): ColorInfo | null => {

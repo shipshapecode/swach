@@ -99,28 +99,42 @@ describe('magnifier-utils', () => {
   });
 
   describe('cursorToImageCoordinates', () => {
-    test('converts cursor position with 1x scale', () => {
-      const result = cursorToImageCoordinates(100, 200, 1);
+    test('converts cursor position with 1x scale on primary display', () => {
+      const result = cursorToImageCoordinates(100, 200, 1, { x: 0, y: 0 });
       expect(result.imageX).toBe(100);
       expect(result.imageY).toBe(200);
     });
 
-    test('converts cursor position with 2x scale (Retina)', () => {
-      const result = cursorToImageCoordinates(100, 200, 2);
+    test('converts cursor position with 2x scale (Retina) on primary display', () => {
+      const result = cursorToImageCoordinates(100, 200, 2, { x: 0, y: 0 });
       expect(result.imageX).toBe(200);
       expect(result.imageY).toBe(400);
     });
 
     test('rounds to nearest logical pixel', () => {
-      const result = cursorToImageCoordinates(100.6, 200.4, 2);
+      const result = cursorToImageCoordinates(100.6, 200.4, 2, { x: 0, y: 0 });
       expect(result.imageX).toBe(202);
       expect(result.imageY).toBe(400);
     });
 
     test('handles fractional scale factors', () => {
-      const result = cursorToImageCoordinates(100, 100, 1.5);
+      const result = cursorToImageCoordinates(100, 100, 1.5, { x: 0, y: 0 });
       expect(result.imageX).toBe(150);
       expect(result.imageY).toBe(150);
+    });
+
+    test('handles display bounds offset for secondary display', () => {
+      // Cursor at global position 1920, 100 on a secondary display with bounds at x: 1920, y: 0
+      const result = cursorToImageCoordinates(1920, 100, 2, { x: 1920, y: 0 });
+      expect(result.imageX).toBe(0); // Should be 0 relative to the display
+      expect(result.imageY).toBe(200); // 100 * 2 scale factor
+    });
+
+    test('handles display bounds offset for vertically stacked displays', () => {
+      // Cursor at global position 100, 1080 on a display with bounds at x: 0, y: 1080
+      const result = cursorToImageCoordinates(100, 1080, 1, { x: 0, y: 1080 });
+      expect(result.imageX).toBe(100);
+      expect(result.imageY).toBe(0); // Should be 0 relative to the display
     });
   });
 

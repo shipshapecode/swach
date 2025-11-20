@@ -52,7 +52,6 @@ parts:
       - libxss1
       - libxtst6
     override-build: |
-      dpkg-deb -x $SNAPCRAFT_PART_SRC .
       find . -name "*.desktop" -exec sed -i 's|Exec=.*|Exec=Swach|g' {} \;
       mkdir -p $SNAPCRAFT_PART_INSTALL/bin
       cp usr/bin/Swach $SNAPCRAFT_PART_INSTALL/bin/ 2>/dev/null || cp usr/local/bin/Swach $SNAPCRAFT_PART_INSTALL/bin/ 2>/dev/null || true

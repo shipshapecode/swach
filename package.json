@@ -136,7 +136,7 @@
     "@types/qunit": "^2.19.13",
     "@types/sinon": "^21.0.0",
     "@vitest/ui": "^4.0.10",
-    "babel-plugin-ember-template-compilation": "^2.4.1",
+    "babel-plugin-ember-template-compilation": "^3.0.1",
     "babel-preset-env": "^1.7.0",
     "broccoli-asset-rev": "^3.0.0",
     "concurrently": "^9.2.1",

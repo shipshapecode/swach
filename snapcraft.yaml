@@ -36,7 +36,7 @@ apps:
 
 parts:
   swach:
-    plugin: dump
+    plugin: nil
     source:
       - on amd64: out/make/deb/x64/swach_${SNAP_VERSION}_amd64.deb
       - on arm64: out/make/deb/arm64/swach_${SNAP_VERSION}_arm64.deb
@@ -54,7 +54,7 @@ parts:
       - libxss1
       - libxtst6
     override-build: |
-      # Extract DEB contents manually
+      # Extract DEB manually
       dpkg-deb -x $SNAPCRAFT_PART_SRC .
       # Fix chrome-sandbox permissions
       chmod 0755 usr/lib/swach/chrome-sandbox

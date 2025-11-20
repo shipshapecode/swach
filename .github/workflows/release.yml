@@ -68,17 +68,20 @@ jobs:
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
 
 
-      - name: Get version from package.json
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Get version from package.json (Windows)
+        if: startsWith(github.ref, 'refs/tags/') && runner.os == 'Windows'
         id: version
         run: |
-          if [[ "${{ runner.os }}" == "Windows" ]]; then
-            $version = pnpm pkg get version
-            echo "VERSION=$version" >> $env:GITHUB_OUTPUT
-          else
-            VERSION=$(pnpm pkg get version)
-            echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
-          fi
+          $version = pnpm pkg get version
+          echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+        shell: powershell
+      - name: Get version from package.json (Unix)
+        if: startsWith(github.ref, 'refs/tags/') && runner.os != 'Windows'
+        id: version_unix
+        run: |
+          VERSION=$(pnpm pkg get version)
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        shell: bash
       - name: Sign Windows Executable with eSigner
         if: matrix.os == 'windows-latest' && startsWith(github.ref, 'refs/tags/')
         uses: sslcom/esigner-codesign@develop
@@ -92,10 +95,21 @@ jobs:
           override: true
           malware_block: false
           environment_name: PROD
+      - name: Debug DEB directory structure
+        if: matrix.os == 'ubuntu-22.04' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          echo "Listing all files in out/make:"
+          find out/make -type f | head -20
+          echo ""
+          echo "Looking for .deb files:"
+          find out/make -name "*.deb" | head -10
+          echo ""
+          echo "Current directory structure:"
+          ls -la out/make/ || true
       - name: Build Snap from DEB (amd64)
         if: matrix.os == 'ubuntu-22.04' && startsWith(github.ref, 'refs/tags/')
         run: |
-          VERSION=${{ steps.version.outputs.VERSION }}
+          VERSION=${{ steps.version_unix.outputs.VERSION }}
           ARCH=amd64
           sed -i "s/\${SNAP_VERSION}/$VERSION/g" snapcraft.yaml
           sed -i "s/\${SNAPCRAFT_TARGET_ARCH}/$ARCH/g" snapcraft.yaml
@@ -103,10 +117,21 @@ jobs:
           find . -name "*.snap" -exec mv {} out/make/ \;
         env:
           SNAPCRAFT_BUILD_ENVIRONMENT: lxd
+      - name: Debug DEB directory structure (arm64)
+        if: matrix.os == 'ubuntu-22.04-arm' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          echo "Listing all files in out/make:"
+          find out/make -type f | head -20
+          echo ""
+          echo "Looking for .deb files:"
+          find out/make -name "*.deb" | head -10
+          echo ""
+          echo "Current directory structure:"
+          ls -la out/make/ || true
       - name: Build Snap from DEB (arm64)
         if: matrix.os == 'ubuntu-22.04-arm' && startsWith(github.ref, 'refs/tags/')
         run: |
-          VERSION=${{ steps.version.outputs.VERSION }}
+          VERSION=${{ steps.version_unix.outputs.VERSION }}
           ARCH=arm64
           sed -i "s/\${SNAP_VERSION}/$VERSION/g" snapcraft.yaml
           sed -i "s/\${SNAPCRAFT_TARGET_ARCH}/$ARCH/g" snapcraft.yaml

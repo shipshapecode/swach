@@ -19,7 +19,8 @@ source-code: https://github.com/shipshapecode/swach
 
 apps:
   swach:
-    command: bin/Swach
+    command: usr/bin/swach
+    desktop: usr/share/applications/swach.desktop
     extensions:
       - gnome
     plugs:

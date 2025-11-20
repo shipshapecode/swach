@@ -95,6 +95,15 @@ jobs:
           override: true
           malware_block: false
           environment_name: PROD
+      - name: Debug DEB contents (amd64)
+        if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'X64' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          DEB_FILE="out/make/deb/x64/swach_${{ steps.version_unix.outputs.VERSION }}_amd64.deb"
+          echo "Examining DEB file: $DEB_FILE"
+          dpkg-deb -c "$DEB_FILE" | head -20
+          echo ""
+          echo "Looking for executable:"
+          dpkg-deb -c "$DEB_FILE" | grep -E -i "(swach|Swach|executable|bin/)"
       - name: Build Snap from DEB (amd64)
         if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'X64' && startsWith(github.ref, 'refs/tags/')
         run: |
@@ -106,6 +115,15 @@ jobs:
           find . -name "*.snap" -exec mv {} out/make/ \;
         env:
           SNAPCRAFT_BUILD_ENVIRONMENT: lxd
+      - name: Debug DEB contents (arm64)
+        if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'ARM64' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          DEB_FILE="out/make/deb/arm64/swach_${{ steps.version_unix.outputs.VERSION }}_arm64.deb"
+          echo "Examining DEB file: $DEB_FILE"
+          dpkg-deb -c "$DEB_FILE" | head -20
+          echo ""
+          echo "Looking for executable:"
+          dpkg-deb -c "$DEB_FILE" | grep -E -i "(swach|Swach|executable|bin/)"
       - name: Build Snap from DEB (arm64)
         if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'ARM64' && startsWith(github.ref, 'refs/tags/')
         run: |

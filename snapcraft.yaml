@@ -19,7 +19,7 @@ source-code: https://github.com/shipshapecode/swach
 
 apps:
   swach:
-    command: usr/lib/swach/Swach
+    command: bin/Swach
     extensions:
       - gnome
     plugs:
@@ -37,7 +37,9 @@ apps:
 parts:
   swach:
     plugin: dump
-    source: out/make/deb/${DEB_ARCH}/swach_${SNAP_VERSION}_${SNAPCRAFT_TARGET_ARCH}.deb
+    source:
+      - on amd64: out/make/deb/x64/swach_${SNAP_VERSION}_amd64.deb
+      - on arm64: out/make/deb/arm64/swach_${SNAP_VERSION}_arm64.deb
     stage-packages:
       - libasound2
       - libatk-bridge2.0-0
@@ -52,15 +54,13 @@ parts:
       - libxss1
       - libxtst6
     override-build: |
+      # Extract DEB contents manually
+      dpkg-deb -x $SNAPCRAFT_PART_SRC .
       # Fix chrome-sandbox permissions
       chmod 0755 usr/lib/swach/chrome-sandbox
-      # Debug what files are available
-      echo "=== Files in current directory ==="
-      find . -name "*swach*" -type f
-      echo "=== Files in usr/bin ==="
-      find usr/bin -name "*swach*" -type f 2>/dev/null || echo "usr/bin not found"
-      echo "=== Files in usr/lib ==="
-      find usr/lib -name "*swach*" -type f 2>/dev/null || echo "usr/lib not found"
+      # Create symlink for easier command access
+      mkdir -p bin
+      ln -sf ../usr/lib/swach/Swach bin/Swach
 
 plugs:
   audio-record:

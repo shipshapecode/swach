@@ -109,8 +109,6 @@ jobs:
         run: |
           VERSION=${{ steps.version_unix.outputs.VERSION }}
           sed -i "s/\${SNAP_VERSION}/$VERSION/g" snapcraft.yaml
-          sed -i "s/\${DEB_ARCH}/x64/g" snapcraft.yaml
-          sed -i "s/\${SNAPCRAFT_TARGET_ARCH}/amd64/g" snapcraft.yaml
           snapcraft pack --target-arch amd64
           find . -name "*.snap" -exec mv {} out/make/ \;
         env:
@@ -129,8 +127,6 @@ jobs:
         run: |
           VERSION=${{ steps.version_unix.outputs.VERSION }}
           sed -i "s/\${SNAP_VERSION}/$VERSION/g" snapcraft.yaml
-          sed -i "s/\${DEB_ARCH}/arm64/g" snapcraft.yaml
-          sed -i "s/\${SNAPCRAFT_TARGET_ARCH}/arm64/g" snapcraft.yaml
           snapcraft pack --target-arch arm64
           find . -name "*.snap" -exec mv {} out/make/ \;
         env:

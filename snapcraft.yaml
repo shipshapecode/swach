@@ -43,6 +43,8 @@ parts:
     source:
       - on amd64: out/make/deb/x64/swach_${SNAP_VERSION}_amd64.deb
       - on arm64: out/make/deb/arm64/swach_${SNAP_VERSION}_arm64.deb
+    organize:
+      usr/bin/swach: bin/Swach
     stage-packages:
       - libasound2
       - libatk-bridge2.0-0

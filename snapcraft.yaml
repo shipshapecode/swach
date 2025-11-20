@@ -36,6 +36,7 @@ apps:
       - x11
       - wayland
       - opengl
+      - screen-inhibit-control
 
 parts:
   swach:
@@ -45,6 +46,10 @@ parts:
       - on arm64: out/make/deb/arm64/swach_${SNAP_VERSION}_arm64.deb
     organize:
       usr/bin/swach: bin/Swach
+    override-prime: |
+      craftctl default
+      # Fix chrome-sandbox permissions - remove setuid bit
+      chmod 755 usr/lib/swach/chrome-sandbox
     stage-packages:
       - libasound2
       - libatk-bridge2.0-0
@@ -59,8 +64,9 @@ parts:
       - libxss1
       - libxtst6
 
-plugs:
-  audio-record:
-    interface: audio-record
-  screen-control:
-    interface: screen-control
+lint:
+  ignore:
+    - library:
+        - usr/lib/*/libssl.so*
+        - usr/lib/*/libcrypto.so*
+    - classic

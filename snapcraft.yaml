@@ -30,7 +30,7 @@ apps:
 parts:
   Swach:
     plugin: dump
-    source: ../out/make/deb/${SNAPCRAFT_TARGET_ARCH}/swach_${SNAPCRAFT_PROJECT_VERSION}_${SNAPCRAFT_TARGET_ARCH}.deb
+    source: out/make/deb/${SNAPCRAFT_TARGET_ARCH}/swach_${SNAPCRAFT_PROJECT_VERSION}_${SNAPCRAFT_TARGET_ARCH}.deb
     stage-packages:
       - libasound2
       - libatk-bridge2.0-0

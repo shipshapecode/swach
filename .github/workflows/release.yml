@@ -96,23 +96,23 @@ jobs:
           malware_block: false
           environment_name: PROD
       - name: Build Snap from DEB (amd64)
-        if: matrix.os == 'ubuntu-22.04' && startsWith(github.ref, 'refs/tags/')
+        if: startsWith(matrix.os, 'ubuntu') && !endsWith(matrix.os, 'arm') && startsWith(github.ref, 'refs/tags/')
         run: |
           VERSION=${{ steps.version_unix.outputs.VERSION }}
           sed -i "s/\${SNAP_VERSION}/$VERSION/g" snapcraft.yaml
-          sed -i "s/\${DEB_ARCH}/arm64/g" snapcraft.yaml
-          sed -i "s/\${SNAPCRAFT_TARGET_ARCH}/arm64/g" snapcraft.yaml
+          sed -i "s/\${DEB_ARCH}/amd64/g" snapcraft.yaml
+          sed -i "s/\${SNAPCRAFT_TARGET_ARCH}/amd64/g" snapcraft.yaml
           snapcraft pack --target-arch amd64
           find . -name "*.snap" -exec mv {} out/make/ \;
         env:
           SNAPCRAFT_BUILD_ENVIRONMENT: lxd
       - name: Build Snap from DEB (arm64)
-        if: matrix.os == 'ubuntu-22.04-arm' && startsWith(github.ref, 'refs/tags/')
+        if: startsWith(matrix.os, 'ubuntu') && endsWith(matrix.os, 'arm') && startsWith(github.ref, 'refs/tags/')
         run: |
           VERSION=${{ steps.version_unix.outputs.VERSION }}
           sed -i "s/\${SNAP_VERSION}/$VERSION/g" snapcraft.yaml
-          sed -i "s/\${DEB_ARCH}/x64/g" snapcraft.yaml
-          sed -i "s/\${SNAPCRAFT_TARGET_ARCH}/amd64/g" snapcraft.yaml
+          sed -i "s/\${DEB_ARCH}/arm64/g" snapcraft.yaml
+          sed -i "s/\${SNAPCRAFT_TARGET_ARCH}/arm64/g" snapcraft.yaml
           snapcraft pack --target-arch arm64
           find . -name "*.snap" -exec mv {} out/make/ \;
         env:
@@ -120,7 +120,7 @@ jobs:
       - name: Publish Snap to Snap Store
         if: startsWith(matrix.os, 'ubuntu') && startsWith(github.ref, 'refs/tags/')
         run: |
-          if [[ "${{ matrix.os }}" == "ubuntu-22.04-arm" ]]; then
+          if [[ "${{ matrix.os }}" == *"-arm" ]]; then
             SNAP_ARCH="arm64"
           else
             SNAP_ARCH="amd64"

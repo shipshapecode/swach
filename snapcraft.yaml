@@ -9,6 +9,9 @@ description: |
 grade: stable
 confinement: strict
 base: core22
+architectures:
+  - build-on: amd64
+  - build-on: arm64
 title: Swach
 contact: swach@shipshape.io
 donation: https://buymeacoffee.com/shipshape

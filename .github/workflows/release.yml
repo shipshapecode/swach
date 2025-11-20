@@ -60,14 +60,7 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
 
-      - name: Setup Core22
-        if: startsWith(matrix.os, 'ubuntu') && startsWith(github.ref, 'refs/tags/')
-        run: |
-          sudo snap install core22 --classic
-          sudo snap refresh core22
-          sudo snap install snapcraft --classic
-          sudo snap refresh snapcraft
-          echo "/snap/bin" >> $GITHUB_PATH
+      # Core22 and snapcraft are now handled by the action-build step below
 
       - name: Get version from package.json (Windows)
         if: startsWith(github.ref, 'refs/tags/') && runner.os == 'Windows'
@@ -80,7 +73,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/') && runner.os != 'Windows'
         id: version_unix
         run: |
-          VERSION=$(pnpm pkg get version)
+          VERSION=$(pnpm pkg get version | tr -d '"')
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
         shell: bash
       - name: Sign Windows Executable with eSigner
@@ -105,14 +98,26 @@ jobs:
           echo ""
           echo "Looking for executable:"
           dpkg-deb -c "$DEB_FILE" | grep -E -i "(swach|Swach|executable|bin/)"
-      - name: Build Snap from DEB (amd64)
+      
+      - name: Prepare snapcraft.yaml for build (amd64)
         if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'X64' && startsWith(github.ref, 'refs/tags/')
         run: |
           VERSION=${{ steps.version_unix.outputs.VERSION }}
           sed -i "s/\${SNAP_VERSION}/$VERSION/g" snapcraft.yaml
-          sed -i "s|\${GITHUB_WORKSPACE}|${{ github.workspace }}|g" snapcraft.yaml
-          snapcraft pack --target-arch amd64
-          find . -name "*.snap" -exec mv {} out/make/ \;
+          cat snapcraft.yaml
+      
+      - name: Build Snap from DEB (amd64)
+        if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'X64' && startsWith(github.ref, 'refs/tags/')
+        id: build-snap-amd64
+        uses: snapcore/action-build@v1
+        env:
+          SNAPCRAFT_BUILD_ENVIRONMENT: lxd
+      
+      - name: Move snap to out/make (amd64)
+        if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'X64' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          mkdir -p out/make
+          mv ${{ steps.build-snap-amd64.outputs.snap }} out/make/
       - name: Debug DEB contents (arm64)
         if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'ARM64' && startsWith(github.ref, 'refs/tags/')
         run: |
@@ -122,14 +127,31 @@ jobs:
           echo ""
           echo "Looking for executable:"
           dpkg-deb -c "$DEB_FILE" | grep -E -i "(swach|Swach|executable|bin/)"
-      - name: Build Snap from DEB (arm64)
+      
+      - name: Prepare snapcraft.yaml for build (arm64)
         if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'ARM64' && startsWith(github.ref, 'refs/tags/')
         run: |
           VERSION=${{ steps.version_unix.outputs.VERSION }}
           sed -i "s/\${SNAP_VERSION}/$VERSION/g" snapcraft.yaml
-          sed -i "s|\${GITHUB_WORKSPACE}|${{ github.workspace }}|g" snapcraft.yaml
-          snapcraft pack --target-arch arm64
-          find . -name "*.snap" -exec mv {} out/make/ \;
+          cat snapcraft.yaml
+      
+      - name: Build Snap from DEB (arm64)
+        if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'ARM64' && startsWith(github.ref, 'refs/tags/')
+        id: build-snap-arm64
+        uses: snapcore/action-build@v1
+        env:
+          SNAPCRAFT_BUILD_ENVIRONMENT: lxd
+      
+      - name: Move snap to out/make (arm64)
+        if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'ARM64' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          mkdir -p out/make
+          mv ${{ steps.build-snap-arm64.outputs.snap }} out/make/
+      - name: Install Snapcraft for Upload
+        if: startsWith(matrix.os, 'ubuntu') && startsWith(github.ref, 'refs/tags/')
+        run: |
+          sudo snap install snapcraft --classic
+      
       - name: Publish Snap to Snap Store
         if: startsWith(matrix.os, 'ubuntu') && startsWith(github.ref, 'refs/tags/')
         run: |

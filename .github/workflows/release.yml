@@ -95,46 +95,24 @@ jobs:
           override: true
           malware_block: false
           environment_name: PROD
-      - name: Debug DEB directory structure
-        if: matrix.os == 'ubuntu-22.04' && startsWith(github.ref, 'refs/tags/')
-        run: |
-          echo "Listing all files in out/make:"
-          find out/make -type f | head -20
-          echo ""
-          echo "Looking for .deb files:"
-          find out/make -name "*.deb" | head -10
-          echo ""
-          echo "Current directory structure:"
-          ls -la out/make/ || true
       - name: Build Snap from DEB (amd64)
         if: matrix.os == 'ubuntu-22.04' && startsWith(github.ref, 'refs/tags/')
         run: |
           VERSION=${{ steps.version_unix.outputs.VERSION }}
-          ARCH=amd64
           sed -i "s/\${SNAP_VERSION}/$VERSION/g" snapcraft.yaml
-          sed -i "s/\${SNAPCRAFT_TARGET_ARCH}/$ARCH/g" snapcraft.yaml
+          sed -i "s/\${DEB_ARCH}/arm64/g" snapcraft.yaml
+          sed -i "s/\${SNAPCRAFT_TARGET_ARCH}/arm64/g" snapcraft.yaml
           snapcraft pack --target-arch amd64
           find . -name "*.snap" -exec mv {} out/make/ \;
         env:
           SNAPCRAFT_BUILD_ENVIRONMENT: lxd
-      - name: Debug DEB directory structure (arm64)
-        if: matrix.os == 'ubuntu-22.04-arm' && startsWith(github.ref, 'refs/tags/')
-        run: |
-          echo "Listing all files in out/make:"
-          find out/make -type f | head -20
-          echo ""
-          echo "Looking for .deb files:"
-          find out/make -name "*.deb" | head -10
-          echo ""
-          echo "Current directory structure:"
-          ls -la out/make/ || true
       - name: Build Snap from DEB (arm64)
         if: matrix.os == 'ubuntu-22.04-arm' && startsWith(github.ref, 'refs/tags/')
         run: |
           VERSION=${{ steps.version_unix.outputs.VERSION }}
-          ARCH=arm64
           sed -i "s/\${SNAP_VERSION}/$VERSION/g" snapcraft.yaml
-          sed -i "s/\${SNAPCRAFT_TARGET_ARCH}/$ARCH/g" snapcraft.yaml
+          sed -i "s/\${DEB_ARCH}/x64/g" snapcraft.yaml
+          sed -i "s/\${SNAPCRAFT_TARGET_ARCH}/amd64/g" snapcraft.yaml
           snapcraft pack --target-arch arm64
           find . -name "*.snap" -exec mv {} out/make/ \;
         env:

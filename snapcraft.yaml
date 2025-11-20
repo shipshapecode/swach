@@ -25,7 +25,8 @@ apps:
       - gnome
     plugs:
       - audio-record
-      - screen-control
+      - audio-playback
+      - screencast-legacy
       - desktop
       - desktop-legacy
       - home
@@ -51,6 +52,9 @@ parts:
       - libxrandr2
       - libxss1
       - libxtst6
+    override-build: |
+      # Fix chrome-sandbox permissions
+      chmod 0755 usr/lib/swach/chrome-sandbox
 
 plugs:
   audio-record:

@@ -15,6 +15,11 @@ const shouldSign = !!(
 );
 const shouldNotarize = shouldSign;
 
+const shortDescription = 'A robust color management tool for the modern age.';
+const longDescription = `Swach is a powerful color management tool designed for modern workflows. 
+  Features include color palette management, contrast checking, and an eyedropper 
+  tool for precise color picking from any part of your screen.`;
+
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
@@ -58,8 +63,8 @@ const config: ForgeConfig = {
           bin: 'Swach',
           name: 'Swach',
           productName: 'Swach',
-          productDescription:
-            'A robust color management tool for the modern age.',
+          description: shortDescription,
+          productDescription: longDescription,
           maintainer: 'Ship Shape Consulting LLC',
           homepage: 'https://swach.io',
           icon: 'electron-app/resources/icon.png',
@@ -126,15 +131,6 @@ const config: ForgeConfig = {
       [FuseV1Options.EnableEmbeddedAsarIntegrityValidation]: true,
       [FuseV1Options.OnlyLoadAppFromAsar]: true,
     }),
-  ],
-  publishers: [
-    {
-      name: '@electron-forge/publisher-snapcraft',
-      platforms: ['linux'],
-      config: {
-        release: 'latest/stable',
-      },
-    },
   ],
 };
 

@@ -1,0 +1,57 @@
+name: swach
+version: git
+summary: A robust color management tool for the modern age.
+description: |
+  Swach is a powerful color management tool designed for modern workflows. 
+  Features include color palette management, contrast checking, and an eyedropper 
+  tool for precise color picking from any part of your screen.
+
+grade: stable
+confinement: strict
+base: core22
+
+apps:
+  Swach:
+    command: bin/Swach
+    desktop: usr/share/applications/Swach.desktop
+    extensions:
+      - gnome
+    plugs:
+      - audio-record
+      - screen-control
+      - desktop
+      - desktop-legacy
+      - home
+      - network
+      - x11
+      - wayland
+      - opengl
+
+parts:
+  Swach:
+    plugin: dump
+    source: ../out/make/deb/${SNAPCRAFT_TARGET_ARCH}/swach_${SNAPCRAFT_PROJECT_VERSION}_${SNAPCRAFT_TARGET_ARCH}.deb
+    stage-packages:
+      - libasound2
+      - libatk-bridge2.0-0
+      - libdrm2
+      - libgbm1
+      - libgtk-3-0
+      - libnss3
+      - libxcomposite1
+      - libxdamage1
+      - libxfixes3
+      - libxrandr2
+      - libxss1
+      - libxtst6
+    override-build: |
+      dpkg-deb -x $SNAPCRAFT_PART_SRC .
+      find . -name "*.desktop" -exec sed -i 's|Exec=.*|Exec=Swach|g' {} \;
+      mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+      cp usr/bin/Swach $SNAPCRAFT_PART_INSTALL/bin/ 2>/dev/null || cp usr/local/bin/Swach $SNAPCRAFT_PART_INSTALL/bin/ 2>/dev/null || true
+
+plugs:
+  audio-record:
+    interface: audio-record
+  screen-control:
+    interface: screen-control

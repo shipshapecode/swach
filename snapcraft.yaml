@@ -1,4 +1,4 @@
-name: swach
+name: Swach
 version: git
 summary: A robust color management tool for the modern age.
 description: |
@@ -9,6 +9,13 @@ description: |
 grade: stable
 confinement: strict
 base: core22
+title: Swach
+contact: swach@shipshape.io
+donation: https://buymeacoffee.com/shipshape
+license: MIT
+website: https://swach.io
+issues: https://github.com/shipshapecode/swach/issues
+source-code: https://github.com/shipshapecode/swach
 
 apps:
   Swach:

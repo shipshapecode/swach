@@ -19,7 +19,7 @@ source-code: https://github.com/shipshapecode/swach
 
 apps:
   swach:
-    command: usr/bin/swach
+    command: usr/lib/swach/Swach
     extensions:
       - gnome
     plugs:
@@ -54,6 +54,13 @@ parts:
     override-build: |
       # Fix chrome-sandbox permissions
       chmod 0755 usr/lib/swach/chrome-sandbox
+      # Debug what files are available
+      echo "=== Files in current directory ==="
+      find . -name "*swach*" -type f
+      echo "=== Files in usr/bin ==="
+      find usr/bin -name "*swach*" -type f 2>/dev/null || echo "usr/bin not found"
+      echo "=== Files in usr/lib ==="
+      find usr/lib -name "*swach*" -type f 2>/dev/null || echo "usr/lib not found"
 
 plugs:
   audio-record:

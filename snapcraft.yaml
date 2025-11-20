@@ -46,6 +46,14 @@ parts:
       - on arm64: out/make/deb/arm64/swach_${SNAP_VERSION}_arm64.deb
     organize:
       usr/bin/swach: bin/Swach
+    stage:
+      - bin/Swach
+      - usr/lib/swach/*
+      - usr/share/*
+    prime:
+      - bin/Swach
+      - usr/lib/swach/*
+      - usr/share/*
     override-prime: |
       craftctl default
       # Fix chrome-sandbox permissions - remove setuid bit

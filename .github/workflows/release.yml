@@ -90,7 +90,7 @@ jobs:
       - name: Build Snap from DEB (amd64)
         if: matrix.os == 'ubuntu-22.04' && startsWith(github.ref, 'refs/tags/')
         run: |
-          snapcraft --target-arch amd64
+          snapcraft pack --target-arch amd64
           find . -name "*.snap" -exec mv {} out/make/ \;
         env:
           SNAPCRAFT_BUILD_ENVIRONMENT: lxd
@@ -98,7 +98,7 @@ jobs:
       - name: Build Snap from DEB (arm64)
         if: matrix.os == 'ubuntu-22.04-arm' && startsWith(github.ref, 'refs/tags/')
         run: |
-          snapcraft --target-arch arm64
+          snapcraft pack --target-arch arm64
           find . -name "*.snap" -exec mv {} out/make/ \;
         env:
           SNAPCRAFT_BUILD_ENVIRONMENT: lxd

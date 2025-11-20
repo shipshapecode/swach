@@ -1,4 +1,4 @@
-name: Swach
+name: swach
 version: git
 summary: A robust color management tool for the modern age.
 description: |
@@ -18,7 +18,7 @@ issues: https://github.com/shipshapecode/swach/issues
 source-code: https://github.com/shipshapecode/swach
 
 apps:
-  Swach:
+  swach:
     command: bin/Swach
     desktop: usr/share/applications/Swach.desktop
     extensions:
@@ -35,7 +35,7 @@ apps:
       - opengl
 
 parts:
-  Swach:
+  swach:
     plugin: dump
     source: out/make/deb/${SNAPCRAFT_TARGET_ARCH}/swach_${SNAPCRAFT_PROJECT_VERSION}_${SNAPCRAFT_TARGET_ARCH}.deb
     stage-packages:

@@ -134,7 +134,7 @@
     "@types/ember": "^4.0.11",
     "@types/node": "^24.10.1",
     "@types/qunit": "^2.19.13",
-    "@types/sinon": "^17.0.4",
+    "@types/sinon": "^21.0.0",
     "@vitest/ui": "^4.0.10",
     "babel-plugin-ember-template-compilation": "^2.4.1",
     "babel-preset-env": "^1.7.0",

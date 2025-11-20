@@ -113,6 +113,7 @@ jobs:
           find . -name "*.snap" -exec mv {} out/make/ \;
         env:
           SNAPCRAFT_BUILD_ENVIRONMENT: lxd
+          GITHUB_WORKSPACE: ${{ github.workspace }}
       - name: Debug DEB contents (arm64)
         if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'ARM64' && startsWith(github.ref, 'refs/tags/')
         run: |
@@ -131,6 +132,7 @@ jobs:
           find . -name "*.snap" -exec mv {} out/make/ \;
         env:
           SNAPCRAFT_BUILD_ENVIRONMENT: lxd
+          GITHUB_WORKSPACE: ${{ github.workspace }}
       - name: Publish Snap to Snap Store
         if: startsWith(matrix.os, 'ubuntu') && startsWith(github.ref, 'refs/tags/')
         run: |

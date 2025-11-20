@@ -51,17 +51,26 @@ parts:
       - libxss1
       - libxtst6
     override-build: |
+      # Debug environment variables
+      echo "=== Environment Variables ==="
+      env | grep -E "(GITHUB|WORKSPACE|PWD|SNAPCRAFT)" | sort
+
       # Determine architecture and select correct DEB
       ARCH=$(dpkg --print-architecture)
       echo "Detected architecture: $ARCH"
 
       if [ "$ARCH" = "amd64" ]; then
-        DEB_FILE="../out/make/deb/x64/swach_${SNAP_VERSION}_amd64.deb"
+        DEB_FILE="${GITHUB_WORKSPACE}/out/make/deb/x64/swach_${SNAP_VERSION}_amd64.deb"
       else
-        DEB_FILE="../out/make/deb/arm64/swach_${SNAP_VERSION}_arm64.deb"
+        DEB_FILE="${GITHUB_WORKSPACE}/out/make/deb/arm64/swach_${SNAP_VERSION}_arm64.deb"
       fi
 
       echo "Using DEB file: $DEB_FILE"
+      echo "GITHUB_WORKSPACE: ${GITHUB_WORKSPACE}"
+      echo "Current directory: $(pwd)"
+      echo "Parent directory contents:"
+      ls -la ../../ || echo "Cannot access parent"
+
       ls -la "$DEB_FILE" || echo "DEB file not found!"
 
       # Extract DEB

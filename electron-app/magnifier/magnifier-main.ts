@@ -93,6 +93,14 @@ class MagnifyingColorPicker {
     const cursorPos = screen.getCursorScreenPoint();
     const display = screen.getDisplayNearestPoint(cursorPos);
 
+    console.log('[DEBUG] Cursor position:', cursorPos);
+    console.log('[DEBUG] Display info:', {
+      id: display.id,
+      bounds: display.bounds,
+      size: display.size,
+      scaleFactor: display.scaleFactor,
+    });
+
     const sources = await desktopCapturer.getSources({
       types: ['screen'],
       thumbnailSize: {
@@ -101,12 +109,51 @@ class MagnifyingColorPicker {
       },
     });
 
+    console.log(
+      '[DEBUG] desktopCapturer.getSources() returned:',
+      sources.length,
+      'sources'
+    );
+    sources.forEach((s, index) => {
+      console.log(`[DEBUG] Source ${index}:`, {
+        id: s.id,
+        name: s.name,
+        display_id: s.display_id,
+        appIcon: s.appIcon ? 'present' : 'null',
+        thumbnail: s.thumbnail
+          ? `${s.thumbnail.getSize().width}x${s.thumbnail.getSize().height}`
+          : 'null',
+      });
+    });
+    console.log('[DEBUG] Looking for display_id:', display.id.toString());
+
     // Find the source that matches the display under the cursor
-    const source = sources.find((s) => s.display_id === display.id.toString());
+    let source = sources.find((s) => s.display_id === display.id.toString());
+
+    // Fallback: if no matching display_id, just use the first source
+    if (!source && sources.length > 0) {
+      console.warn(
+        '[DEBUG] No matching display_id found, using first source as fallback'
+      );
+      source = sources[0];
+    }
 
     if (!source) {
+      console.error('[DEBUG] Failed to find any source!');
+      console.error(
+        '[DEBUG] Available display_ids:',
+        sources.map((s) => s.display_id)
+      );
+      console.error('[DEBUG] Needed display_id:', display.id.toString());
       throw new Error(`No screen source found for display ${display.id}`);
     }
+
+    console.log(
+      '[DEBUG] Using source:',
+      source.id,
+      'display_id:',
+      source.display_id
+    );
 
     const nativeImage = source.thumbnail;
     const bitmap = nativeImage.toBitmap();

@@ -28,6 +28,7 @@ plugs:
 apps:
   swach:
     command: bin/launcher
+    desktop: usr/share/applications/swach.desktop
     extensions:
       - gnome
     environment:
@@ -59,6 +60,10 @@ parts:
       - on arm64: out/make/deb/arm64/swach_${SNAP_VERSION}_arm64.deb
     override-prime: |
       craftctl default
+      # Fix desktop file to use launcher instead of direct path
+      if [ -f usr/share/applications/swach.desktop ]; then
+        sed -i 's|Exec=/usr/lib/swach/Swach.*|Exec=swach %U|g' usr/share/applications/swach.desktop
+      fi
       # Fix chrome-sandbox permissions - remove setuid bit
       if [ -f usr/lib/swach/chrome-sandbox ]; then
         chmod 755 usr/lib/swach/chrome-sandbox

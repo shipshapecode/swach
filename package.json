@@ -35,7 +35,7 @@
     "package": "cross-env EMBER_CLI_ELECTRON=true electron-forge package",
     "publish": "electron-forge publish",
     "start": "vite -c vite.renderer.config.ts",
-    "start:electron": "cross-env ELECTRON_DISABLE_SANDBOX=1 electron-forge start",
+    "start:electron": "cross-env ELECTRON_DISABLE_SANDBOX=1 electron-forge start -- --no-sandbox --disable-gpu-sandbox --ozone-platform=x11",
     "test:electron": "cross-env SKIP_CODESIGN=true electron-forge package && vite build -c vite.renderer.config.ts --mode development && testem ci -f testem-electron.cjs",
     "test:ember": "vite build -c vite.renderer.config.ts --mode development && testem ci",
     "test:magnifier": "vitest run -c electron-app/magnifier/vitest.config.ts",

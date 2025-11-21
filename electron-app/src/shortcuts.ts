@@ -46,6 +46,13 @@ export function setupContextMenu(
     },
     { type: 'separator' },
     {
+      label: 'Toggle DevTools',
+      click() {
+        mb.window?.webContents.toggleDevTools();
+      },
+    },
+    { type: 'separator' },
+    {
       label: 'Quit',
       click() {
         mb.app.quit();

@@ -76,7 +76,7 @@ const mb = menubar({
     width: 362,
     webPreferences: {
       contextIsolation: true,
-      devTools: isDev,
+      devTools: true,
       preload: join(__dirname, 'preload.js'),
       nodeIntegration: false,
     },

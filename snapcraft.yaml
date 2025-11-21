@@ -22,12 +22,11 @@ source-code: https://github.com/shipshapecode/swach
 
 apps:
   swach:
-    command: usr/lib/swach/Swach --no-sandbox --disable-gpu-sandbox --ozone-platform=x11
+    command: bin/launcher
     extensions:
       - gnome
     environment:
       TMPDIR: $XDG_RUNTIME_DIR
-      DISABLE_WAYLAND: 1
     plugs:
       - audio-record
       - audio-playback
@@ -42,22 +41,18 @@ apps:
       - screen-inhibit-control
 
 parts:
+  launcher:
+    plugin: dump
+    source: snap/local
+    source-type: local
+
   swach:
     plugin: dump
     source:
       - on amd64: out/make/deb/x64/swach_${SNAP_VERSION}_amd64.deb
       - on arm64: out/make/deb/arm64/swach_${SNAP_VERSION}_arm64.deb
-    prime:
-      - usr/lib/swach/*
-      - usr/share/*
     override-prime: |
       craftctl default
-      echo "=== DEBUG: Prime directory after craftctl default ==="
-      echo "Working directory: $(pwd)"
-      echo "=== Looking for desktop files ==="
-      find . -name "*.desktop"
-      echo "=== Contents of usr/share/applications ==="
-      ls -la usr/share/applications/ || echo "usr/share/applications does not exist"
       # Fix chrome-sandbox permissions - remove setuid bit
       if [ -f usr/lib/swach/chrome-sandbox ]; then
         chmod 755 usr/lib/swach/chrome-sandbox

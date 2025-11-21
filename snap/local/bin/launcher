@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec "$SNAP/usr/lib/swach/Swach" --no-sandbox --disable-gpu-sandbox --ozone-platform=x11 "$@"

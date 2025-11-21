@@ -68,15 +68,7 @@ const config: ForgeConfig = {
           maintainer: 'Ship Shape Consulting LLC',
           homepage: 'https://swach.io',
           icon: 'electron-app/resources/icon.png',
-          desktopTemplate: `[Desktop Entry]
-Name=Swach
-Comment=${shortDescription}
-Exec=/usr/lib/swach/Swach --no-sandbox --disable-gpu-sandbox --ozone-platform=x11 %U
-Terminal=false
-Type=Application
-Icon=swach
-StartupWMClass=Swach
-Categories=Graphics;Utility;`,
+          desktopTemplate: 'electron-app/resources/swach.desktop',
         },
       },
       ['linux']

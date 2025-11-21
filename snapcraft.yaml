@@ -25,6 +25,8 @@ apps:
     command: bin/Swach
     extensions:
       - gnome
+    environment:
+      LD_LIBRARY_PATH: '$SNAP/usr/lib/swach:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET:$LD_LIBRARY_PATH'
     plugs:
       - audio-record
       - audio-playback
@@ -66,8 +68,10 @@ parts:
       ls -la bin/ || echo "bin/ does not exist"
       echo "Contents of usr/lib/swach/:"
       ls -la usr/lib/swach/ || echo "usr/lib/swach/ does not exist"
-      echo "=== Looking for Swach anywhere ==="
-      find . -name "*Swach*" -o -name "*swach*" | grep -i swach | head -20
+      echo "=== Looking for libffmpeg.so ==="
+      find . -name "*ffmpeg*" | head -20
+      echo "=== Looking for all .so files in usr/lib/swach ==="
+      find usr/lib/swach -name "*.so" | head -20
       # Fix chrome-sandbox permissions - remove setuid bit
       if [ -f usr/lib/swach/chrome-sandbox ]; then
         chmod 755 usr/lib/swach/chrome-sandbox

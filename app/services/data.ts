@@ -24,15 +24,51 @@ export default class DataService extends Service {
     const records = await this.getRecordsFromBackup();
 
     if (records.length > 0) {
-      await this.store.sync((t) =>
-        records.map((r) => {
-          if (r?.attributes?.['hex']) {
-            delete r.attributes['hex'];
-          }
+      try {
+        await this.store.sync((t) =>
+          records.map((r) => {
+            if (r?.attributes?.['hex']) {
+              delete r.attributes['hex'];
+            }
 
-          return t.addRecord(r);
-        })
-      );
+            return t.addRecord(r);
+          })
+        );
+      } catch (error) {
+        console.error(
+          '[Data Service] Failed to restore from backup due to corrupt data:',
+          error
+        );
+        console.log('[Data Service] Deleting corrupt IndexedDB database...');
+
+        // Delete the entire corrupt database
+        const dbName = 'swach-main-backup';
+        const deleteRequest = indexedDB.deleteDatabase(dbName);
+
+        await new Promise<void>((resolve, reject) => {
+          deleteRequest.onsuccess = () => {
+            console.log('[Data Service] Successfully deleted corrupt database');
+            resolve();
+          };
+          deleteRequest.onerror = () => {
+            console.error(
+              '[Data Service] Failed to delete database:',
+              deleteRequest.error
+            );
+            reject(
+              new Error(
+                `Failed to delete corrupt database: ${deleteRequest.error}`
+              )
+            );
+          };
+          deleteRequest.onblocked = () => {
+            console.error(
+              '[Data Service] Database deletion blocked - may have open connections'
+            );
+            reject(new Error('Database deletion blocked by open connections'));
+          };
+        });
+      }
     }
 
     await this.dataCoordinator.activate();

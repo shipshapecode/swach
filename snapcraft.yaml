@@ -22,7 +22,7 @@ source-code: https://github.com/shipshapecode/swach
 
 apps:
   swach:
-    command: usr/lib/swach/Swach --no-sandbox --disable-gpu-sandbox
+    command: usr/lib/swach/Swach --no-sandbox --disable-gpu-sandbox --ozone-platform=x11
     extensions:
       - gnome
     environment:

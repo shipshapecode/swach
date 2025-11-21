@@ -22,9 +22,12 @@ source-code: https://github.com/shipshapecode/swach
 
 apps:
   swach:
-    command: usr/lib/swach/Swach --no-sandbox
+    command: usr/lib/swach/Swach --no-sandbox --disable-gpu-sandbox
     extensions:
       - gnome
+    environment:
+      TMPDIR: $XDG_RUNTIME_DIR
+      DISABLE_WAYLAND: 1
     plugs:
       - audio-record
       - audio-playback
@@ -51,14 +54,10 @@ parts:
       craftctl default
       echo "=== DEBUG: Prime directory after craftctl default ==="
       echo "Working directory: $(pwd)"
-      echo "Contents of bin/:"
-      ls -la bin/ || echo "bin/ does not exist"
-      echo "Contents of usr/lib/swach/:"
-      ls -la usr/lib/swach/ || echo "usr/lib/swach/ does not exist"
-      echo "=== Looking for libffmpeg.so ==="
-      find . -name "*ffmpeg*" | head -20
-      echo "=== Looking for all .so files in usr/lib/swach ==="
-      find usr/lib/swach -name "*.so" | head -20
+      echo "=== Looking for desktop files ==="
+      find . -name "*.desktop"
+      echo "=== Contents of usr/share/applications ==="
+      ls -la usr/share/applications/ || echo "usr/share/applications does not exist"
       # Fix chrome-sandbox permissions - remove setuid bit
       if [ -f usr/lib/swach/chrome-sandbox ]; then
         chmod 755 usr/lib/swach/chrome-sandbox

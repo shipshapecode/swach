@@ -20,6 +20,11 @@ website: https://swach.io
 issues: https://github.com/shipshapecode/swach/issues
 source-code: https://github.com/shipshapecode/swach
 
+plugs:
+  shmem:
+    interface: shared-memory
+    private: true
+
 apps:
   swach:
     command: bin/launcher
@@ -39,6 +44,7 @@ apps:
       - wayland
       - opengl
       - screen-inhibit-control
+      - shmem
 
 parts:
   launcher:

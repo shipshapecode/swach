@@ -22,11 +22,9 @@ source-code: https://github.com/shipshapecode/swach
 
 apps:
   swach:
-    command: bin/Swach
+    command: usr/lib/swach/Swach
     extensions:
       - gnome
-    environment:
-      LD_LIBRARY_PATH: '$SNAP/usr/lib/swach:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET:$LD_LIBRARY_PATH'
     plugs:
       - audio-record
       - audio-playback
@@ -46,18 +44,7 @@ parts:
     source:
       - on amd64: out/make/deb/x64/swach_${SNAP_VERSION}_amd64.deb
       - on arm64: out/make/deb/arm64/swach_${SNAP_VERSION}_arm64.deb
-    override-stage: |
-      craftctl default
-      echo "=== DEBUG: Contents after stage in $CRAFT_STAGE ==="
-      ls -laR $CRAFT_STAGE/bin/ || echo "bin/ does not exist"
-      echo "=== Looking for Swach ==="
-      find $CRAFT_STAGE -name "*Swach*" -o -name "*swach*" | head -20
-      echo "=== Contents of usr/lib/swach ==="
-      ls -la $CRAFT_STAGE/usr/lib/swach/ || echo "usr/lib/swach does not exist"
-    organize:
-      usr/lib/swach/Swach: bin/Swach
     prime:
-      - bin/Swach
       - usr/lib/swach/*
       - usr/share/*
     override-prime: |

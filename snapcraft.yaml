@@ -22,7 +22,7 @@ source-code: https://github.com/shipshapecode/swach
 
 apps:
   swach:
-    command: usr/lib/swach/Swach
+    command: usr/lib/swach/Swach --no-sandbox
     extensions:
       - gnome
     plugs:

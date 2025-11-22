@@ -8,11 +8,8 @@ import { type Menubar } from 'menubar';
 import nearestColor from 'nearest-color';
 
 import { RustSamplerManager } from '../src/rust-sampler-manager.js';
-import {
-  adjustSquareSize,
-  calculateOptimalGridSize,
-  getNextDiameter,
-} from './utils';
+import { calculateGridSize } from './grid-calculation.js';
+import { adjustSquareSize, getNextDiameter } from './utils';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -136,10 +133,18 @@ class MagnifyingColorPicker {
         const newDiameter = getNextDiameter(this.magnifierDiameter, delta);
 
         if (newDiameter !== this.magnifierDiameter) {
+          console.log(
+            `[Magnifier] Diameter change: ${this.magnifierDiameter} → ${newDiameter}`
+          );
           this.magnifierDiameter = newDiameter;
-          this.gridSize = calculateOptimalGridSize(
+          const oldGridSize = this.gridSize;
+          this.gridSize = calculateGridSize(
             this.magnifierDiameter,
             this.squareSize
+          );
+
+          console.log(
+            `[Magnifier] Grid size change: ${oldGridSize} → ${this.gridSize}`
           );
 
           // Update grid size in Rust sampler
@@ -151,10 +156,18 @@ class MagnifyingColorPicker {
         const newSquareSize = adjustSquareSize(this.squareSize, delta);
 
         if (newSquareSize !== this.squareSize) {
+          console.log(
+            `[Magnifier] Square size change: ${this.squareSize} → ${newSquareSize}`
+          );
           this.squareSize = newSquareSize;
-          this.gridSize = calculateOptimalGridSize(
+          const oldGridSize = this.gridSize;
+          this.gridSize = calculateGridSize(
             this.magnifierDiameter,
             this.squareSize
+          );
+
+          console.log(
+            `[Magnifier] Grid size change: ${oldGridSize} → ${this.gridSize}`
           );
 
           // Update grid size in Rust sampler
@@ -192,6 +205,7 @@ class MagnifyingColorPicker {
               pixels: pixelData.grid,
               diameter: this.magnifierDiameter,
               gridSize: this.gridSize,
+              squareSize: this.squareSize,
             });
           }
         },

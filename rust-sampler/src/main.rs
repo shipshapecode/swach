@@ -20,58 +20,74 @@ fn main() {
 }
 
 fn run() -> Result<(), String> {
+    use std::sync::mpsc::{channel, Receiver};
+    use std::sync::{Arc, Mutex};
+    use std::thread;
+    
     eprintln!("Swach pixel sampler starting...");
     
     let mut sampler = create_sampler()?;
     eprintln!("Sampler created successfully");
 
-    let stdin = io::stdin();
-    let mut reader = stdin.lock();
-    let mut line = String::new();
-
-    // Main loop - wait for commands
-    loop {
-        line.clear();
+    // Create channels for command communication
+    let (cmd_tx, cmd_rx): (std::sync::mpsc::Sender<Command>, Receiver<Command>) = channel();
+    
+    // Spawn stdin reader thread
+    thread::spawn(move || {
+        let stdin = io::stdin();
+        let mut reader = stdin.lock();
+        let mut line = String::new();
         
-        match reader.read_line(&mut line) {
-            Ok(0) => {
-                // EOF - parent process closed
-                eprintln!("EOF received, exiting");
-                break;
-            }
-            Ok(_) => {
-                let trimmed = line.trim();
-                if trimmed.is_empty() {
-                    continue;
+        loop {
+            line.clear();
+            match reader.read_line(&mut line) {
+                Ok(0) => {
+                    eprintln!("[StdinThread] EOF received");
+                    let _ = cmd_tx.send(Command::Stop);
+                    break;
                 }
-
-                match serde_json::from_str::<Command>(trimmed) {
-                    Ok(Command::Start { grid_size, sample_rate }) => {
-                        eprintln!("Starting sampling: grid_size={}, sample_rate={}", grid_size, sample_rate);
-                        if let Err(e) = run_sampling_loop(&mut *sampler, grid_size, sample_rate, &mut reader) {
-                            eprintln!("Sampling loop error: {}", e);
-                            send_error(&e);
+                Ok(_) => {
+                    let trimmed = line.trim();
+                    if !trimmed.is_empty() {
+                        match serde_json::from_str::<Command>(trimmed) {
+                            Ok(cmd) => {
+                                eprintln!("[StdinThread] Parsed command: {:?}", cmd);
+                                let _ = cmd_tx.send(cmd);
+                            }
+                            Err(e) => {
+                                eprintln!("[StdinThread] Failed to parse: {}", e);
+                            }
                         }
                     }
-                    Ok(Command::UpdateGrid { grid_size }) => {
-                        eprintln!("Grid size update: {}", grid_size);
-                        // This would be handled in the sampling loop
-                    }
-                    Ok(Command::Stop) => {
-                        eprintln!("Stop command received");
-                        break;
-                    }
-                    Err(e) => {
-                        let error_msg = format!("Failed to parse command: {}", e);
-                        eprintln!("{}", error_msg);
-                        send_error(&error_msg);
-                    }
+                }
+                Err(e) => {
+                    eprintln!("[StdinThread] Read error: {}", e);
+                    let _ = cmd_tx.send(Command::Stop);
+                    break;
                 }
             }
+        }
+    });
+
+    // Main loop - wait for commands from channel
+    loop {
+        match cmd_rx.recv() {
+            Ok(Command::Start { grid_size, sample_rate }) => {
+                eprintln!("Starting sampling: grid_size={}, sample_rate={}", grid_size, sample_rate);
+                if let Err(e) = run_sampling_loop(&mut *sampler, grid_size, sample_rate, &cmd_rx) {
+                    eprintln!("Sampling loop error: {}", e);
+                    send_error(&e);
+                }
+            }
+            Ok(Command::UpdateGrid { .. }) => {
+                eprintln!("Update grid command received outside sampling loop (ignored)");
+            }
+            Ok(Command::Stop) => {
+                eprintln!("Stop command received");
+                break;
+            }
             Err(e) => {
-                let error_msg = format!("Failed to read from stdin: {}", e);
-                eprintln!("{}", error_msg);
-                send_error(&error_msg);
+                eprintln!("Channel error: {}", e);
                 break;
             }
         }
@@ -83,18 +99,50 @@ fn run() -> Result<(), String> {
 
 fn run_sampling_loop(
     sampler: &mut dyn PixelSampler,
-    grid_size: usize,
+    initial_grid_size: usize,
     sample_rate: u64,
-    _reader: &mut dyn BufRead,
+    cmd_rx: &std::sync::mpsc::Receiver<Command>,
 ) -> Result<(), String> {
+    use std::sync::mpsc::TryRecvError;
+    
     let interval = Duration::from_micros(1_000_000 / sample_rate);
     let mut last_cursor = Point { x: -1, y: -1 };
     let mut sample_count = 0;
     let start_time = std::time::Instant::now();
     let mut slow_frame_count = 0;
+    let mut current_grid_size = initial_grid_size;
+    let mut last_logged_grid_size = initial_grid_size;
     
     loop {
+        // Check for commands (non-blocking)
+        match cmd_rx.try_recv() {
+            Ok(Command::UpdateGrid { grid_size }) => {
+                eprintln!("[Sampler] Grid size update received: {}", grid_size);
+                current_grid_size = grid_size;
+            }
+            Ok(Command::Stop) => {
+                eprintln!("[Sampler] Stop command received");
+                return Ok(());
+            }
+            Ok(Command::Start { .. }) => {
+                eprintln!("[Sampler] Ignoring nested start command");
+            }
+            Err(TryRecvError::Disconnected) => {
+                eprintln!("[Sampler] Command channel disconnected");
+                return Ok(());
+            }
+            Err(TryRecvError::Empty) => {
+                // No command waiting, continue sampling
+            }
+        }
+        
         let loop_start = std::time::Instant::now();
+        
+        // Log when grid size changes
+        if current_grid_size != last_logged_grid_size {
+            eprintln!("[Sampler] Grid size changed: {} → {}", last_logged_grid_size, current_grid_size);
+            last_logged_grid_size = current_grid_size;
+        }
 
         // Get cursor position
         let cursor = match sampler.get_cursor_position() {
@@ -145,10 +193,10 @@ fn run_sampling_loop(
             });
 
         // Sample grid
-        let grid = sampler.sample_grid(cursor.x, cursor.y, grid_size, 1.0)
+        let grid = sampler.sample_grid(cursor.x, cursor.y, current_grid_size, 1.0)
             .unwrap_or_else(|e| {
                 eprintln!("Failed to sample grid: {}", e);
-                vec![vec![Color::new(128, 128, 128); grid_size]; grid_size]
+                vec![vec![Color::new(128, 128, 128); current_grid_size]; current_grid_size]
             });
 
         // Convert to output format

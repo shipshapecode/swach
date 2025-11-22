@@ -120,11 +120,13 @@ export class RustSamplerManager {
   }
 
   updateGridSize(gridSize: number): void {
+    console.log(`[RustSampler] Sending update_grid command: ${gridSize}`);
     const command = {
       command: 'update_grid',
       grid_size: gridSize,
     };
     this.sendCommand(command);
+    console.log(`[RustSampler] Command sent:`, JSON.stringify(command));
   }
 
   stop(): void {

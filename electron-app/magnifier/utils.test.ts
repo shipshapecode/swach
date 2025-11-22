@@ -157,5 +157,38 @@ describe('magnifier-utils', () => {
       expect(MIN_SQUARE_SIZE).toBeLessThan(MAX_SQUARE_SIZE);
       expect(MIN_SQUARE_SIZE).toBeGreaterThan(0);
     });
+
+    test('all diameter/square size combinations produce valid grid sizes', () => {
+      // Test all combinations to ensure they work
+      const squareSizes = [MIN_SQUARE_SIZE, 20, 30, MAX_SQUARE_SIZE];
+      const results: string[] = [];
+
+      AVAILABLE_DIAMETERS.forEach((diameter) => {
+        squareSizes.forEach((squareSize) => {
+          const gridSize = calculateOptimalGridSize(diameter, squareSize);
+          expect(AVAILABLE_GRID_SIZES.includes(gridSize)).toBe(true);
+          results.push(`D${diameter}/S${squareSize}=G${gridSize}`);
+        });
+      });
+
+      // Log for debugging
+      console.log('Diameter/Square combinations:', results.join(', '));
+    });
+
+    test('max diameter with min square size should give largest grid', () => {
+      const maxDiameter = AVAILABLE_DIAMETERS[AVAILABLE_DIAMETERS.length - 1]!;
+      const gridSize = calculateOptimalGridSize(maxDiameter, MIN_SQUARE_SIZE);
+
+      // 420 / 10 = 42, closest odd is 21 (max available)
+      expect(gridSize).toBe(21);
+    });
+
+    test('min diameter with max square size should give smallest grid', () => {
+      const minDiameter = AVAILABLE_DIAMETERS[0]!;
+      const gridSize = calculateOptimalGridSize(minDiameter, MAX_SQUARE_SIZE);
+
+      // 120 / 40 = 3, closest available is 5 (min available)
+      expect(gridSize).toBe(5);
+    });
   });
 });

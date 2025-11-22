@@ -1,5 +1,7 @@
 import './styles.css';
 
+import { calculateActualSquareSize } from './grid-calculation';
+import { calculatePixelUpdatesWithMismatch } from './pixel-grid-utils';
 import type { PixelGridData, PositionData } from './types';
 
 class MagnifierRenderer {
@@ -10,6 +12,7 @@ class MagnifierRenderer {
   private hexCode: Element;
   private currentGridSize = 9;
   private currentDiameter = 150;
+  private currentSquareSize = 20;
   private lastDiameterZoomTime = 0;
   private readonly DIAMETER_ZOOM_THROTTLE_MS = 300;
   private hasShownCircle = false;
@@ -52,10 +55,21 @@ class MagnifierRenderer {
     const centerIndex = Math.floor(totalPixels / 2);
 
     this.pixelGrid.innerHTML = '';
-    (this.pixelGrid as HTMLElement).style.gridTemplateColumns =
-      `repeat(${gridSize}, 1fr)`;
-    (this.pixelGrid as HTMLElement).style.gridTemplateRows =
-      `repeat(${gridSize}, 1fr)`;
+
+    // Calculate actual square size to fill the circle perfectly
+    // This ensures the grid always fills the circle regardless of rounding
+    const actualSquareSize = calculateActualSquareSize(
+      this.currentDiameter,
+      gridSize
+    );
+
+    const gridElement = this.pixelGrid as HTMLElement;
+    gridElement.style.gridTemplateColumns = `repeat(${gridSize}, ${actualSquareSize}px)`;
+    gridElement.style.gridTemplateRows = `repeat(${gridSize}, ${actualSquareSize}px)`;
+
+    // Grid should exactly fill the circle
+    gridElement.style.width = `${this.currentDiameter}px`;
+    gridElement.style.height = `${this.currentDiameter}px`;
 
     for (let i = 0; i < totalPixels; i++) {
       const pixel = document.createElement('div');
@@ -153,28 +167,84 @@ class MagnifierRenderer {
       this.colorName.textContent = currentColorName;
       this.hexCode.textContent = centerColor.hex.toUpperCase();
 
-      // Update grid size if changed
-      if (data.gridSize && data.gridSize !== this.currentGridSize) {
-        this.createPixelGrid(data.gridSize);
-      }
-
-      // Update diameter if changed
+      // Update diameter if changed (this controls the circle size)
       if (data.diameter && data.diameter !== this.currentDiameter) {
         this.updateMagnifierSize(data.diameter);
       }
 
-      // Update pixel colors
-      if (data.pixels && data.pixels.length === this.currentGridSize) {
-        let pixelIndex = 0;
-        for (let row = 0; row < this.currentGridSize; row++) {
-          for (let col = 0; col < this.currentGridSize; col++) {
-            const pixel = document.getElementById(`pixel-${pixelIndex}`);
-            const rowData = data.pixels[row];
-            const colorData = rowData?.[col];
-            if (pixel && colorData) {
-              pixel.style.backgroundColor = colorData.hex;
-            }
-            pixelIndex++;
+      // Determine the target grid size
+      const targetGridSize = data.gridSize || this.currentGridSize;
+
+      // Recreate grid if size changed
+      if (targetGridSize !== this.currentGridSize) {
+        this.createPixelGrid(targetGridSize);
+      }
+
+      // Update pixel colors using proper coordinate mapping
+      if (data.pixels && data.pixels.length > 0) {
+        const incomingDataSize = data.pixels.length;
+
+        // Calculate which pixels need to be updated with proper coordinate mapping
+        // This handles size mismatches during transitions by centering smaller grids
+        const updates = calculatePixelUpdatesWithMismatch(
+          data.pixels,
+          incomingDataSize,
+          this.currentGridSize
+        );
+
+        // Apply all updates
+        for (const update of updates) {
+          const pixel = document.getElementById(update.pixelId);
+          if (pixel) {
+            pixel.style.backgroundColor = update.color.hex;
+          }
+        }
+      }
+
+      // Update pixel colors using proper coordinate mapping
+      if (data.pixels && data.pixels.length > 0) {
+        const incomingDataSize = data.pixels.length;
+
+        // Calculate which pixels need to be updated with proper coordinate mapping
+        // This handles size mismatches during transitions by centering smaller grids
+        const updates = calculatePixelUpdatesWithMismatch(
+          data.pixels,
+          incomingDataSize,
+          this.currentGridSize
+        );
+
+        // Apply all updates
+        for (const update of updates) {
+          const pixel = document.getElementById(update.pixelId);
+          if (pixel) {
+            pixel.style.backgroundColor = update.color.hex;
+          }
+        }
+      }
+
+      // Update pixel colors using proper coordinate mapping
+      if (data.pixels && data.pixels.length > 0) {
+        const incomingDataSize = data.pixels.length;
+
+        console.log(
+          `[Magnifier] Updating pixels: data=${incomingDataSize}x${incomingDataSize}, display=${this.currentGridSize}x${this.currentGridSize}`
+        );
+
+        // Calculate which pixels need to be updated with proper coordinate mapping
+        // This handles size mismatches during transitions by centering smaller grids
+        const updates = calculatePixelUpdatesWithMismatch(
+          data.pixels,
+          incomingDataSize,
+          this.currentGridSize
+        );
+
+        console.log(`[Magnifier] Applying ${updates.length} pixel updates`);
+
+        // Apply all updates
+        for (const update of updates) {
+          const pixel = document.getElementById(update.pixelId);
+          if (pixel) {
+            pixel.style.backgroundColor = update.color.hex;
           }
         }
       }

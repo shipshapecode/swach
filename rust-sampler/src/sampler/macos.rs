@@ -145,26 +145,55 @@ impl PixelSampler for MacOSSampler {
 
         let data = image.data();
         let bytes_per_row = image.bytes_per_row();
+        let image_width = image.width() as usize;
+        let image_height = image.height() as usize;
         let bits_per_pixel = image.bits_per_pixel();
         let bytes_per_pixel = (bits_per_pixel / 8) as usize;
         
-        // Sample pixels from the captured image
+        // Calculate scale factor - image might be 2x larger on Retina displays
+        let scale_x = image_width / grid_size;
+        let scale_y = image_height / grid_size;
+        
+        // Debug: log image info for first few samples
+        static mut SAMPLE_COUNT: u32 = 0;
+        unsafe {
+            if SAMPLE_COUNT < 3 {
+                eprintln!("[MacOSSampler] Captured {}x{} image for {}x{} grid, scale={}×{}, bytes_per_row={}", 
+                    image_width, image_height, grid_size, grid_size, scale_x, scale_y, bytes_per_row);
+                SAMPLE_COUNT += 1;
+            }
+        }
+        
+        // Sample pixels from the captured image accounting for scale
         let mut grid = Vec::with_capacity(grid_size);
         
         for row in 0..grid_size {
             let mut row_pixels = Vec::with_capacity(grid_size);
             for col in 0..grid_size {
+                // Account for Retina scaling - sample at scaled positions
+                let pixel_row = row * scale_y;
+                let pixel_col = col * scale_x;
+                
                 // Calculate offset in the image data
-                let offset = row * bytes_per_row + col * bytes_per_pixel;
+                let offset = (pixel_row * bytes_per_row) + (pixel_col * bytes_per_pixel);
                 
                 if offset + bytes_per_pixel <= data.len() as usize {
                     // CGImage format is typically BGRA
                     let b = data[offset];
                     let g = data[offset + 1];
                     let r = data[offset + 2];
+                    
+                    unsafe {
+                        if SAMPLE_COUNT == 1 && row == grid_size/2 && col == grid_size/2 {
+                            eprintln!("[MacOSSampler] Center grid[{}][{}] → pixel[{}][{}] offset={}: RGB({},{},{}) = #{:02X}{:02X}{:02X}", 
+                                row, col, pixel_row, pixel_col, offset, r, g, b, r, g, b);
+                        }
+                    }
+                    
                     row_pixels.push(Color::new(r, g, b));
                 } else {
-                    // Fallback if we're out of bounds
+                    eprintln!("[MacOSSampler] Out of bounds: row={}, col={}, offset={}, data.len={}", 
+                        row, col, offset, data.len());
                     row_pixels.push(Color::new(128, 128, 128));
                 }
             }

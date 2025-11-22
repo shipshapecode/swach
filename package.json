@@ -58,7 +58,7 @@
     "@orbit/records": "^0.17.0",
     "@orbit/serializers": "^0.17.0",
     "@orbit/utils": "^0.17.0",
-    "@sentry/electron": "^7.2.0",
+    "@sentry/electron": "^7.3.0",
     "@sentry/ember": "^10.26.0",
     "aws4fetch": "^1.0.20",
     "color-name-list": "^13.26.0",

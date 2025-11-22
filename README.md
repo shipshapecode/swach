@@ -24,20 +24,29 @@ You will need the following things properly installed on your computer.
 - [pnpm](https://pnpm.io/)
 - [Ember CLI](https://ember-cli.com/)
 - [Google Chrome](https://google.com/chrome/)
+- [Rust](https://www.rust-lang.org/) (for building the pixel sampler)
 
 ### Linux System Requirements
 
-On Linux, the color picker functionality requires additional system libraries. These dependencies are automatically installed when using the `.deb` package, but if building from source, ensure you have:
+On Linux, the color picker functionality requires additional system libraries and tools. These dependencies are automatically installed when using the `.deb` package, but if building from source, ensure you have:
 
 ```bash
 # Debian / Ubuntu
 sudo apt-get install libxcb1 libxrandr2 libdbus-1-3
 
+# For Wayland (recommended)
+sudo apt-get install grim
+
+# For X11 (fallback)
+sudo apt-get install imagemagick xdotool
+# OR
+sudo apt-get install scrot xdotool
+
 # Alpine
-sudo apk add libxcb libxrandr dbus
+sudo apk add libxcb libxrandr dbus grim
 ```
 
-These libraries are required for the screenshot functionality used by the magnifying color picker.
+**Wayland Users:** The `grim` tool is required for screenshot-based color picking on Wayland. See [rust-sampler/README.md](rust-sampler/README.md) for more details.
 
 ## Installation
 

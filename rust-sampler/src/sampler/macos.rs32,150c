@@ -1,0 +1,244 @@
+use crate::types::{Color, PixelSampler, Point};
+use core_graphics::display::{CGDisplay, CGPoint};
+
+pub struct MacOSSampler {
+    display: CGDisplay,
+    scale_factor: f64,
+}
+
+impl MacOSSampler {
+    pub fn new() -> Result<Self, String> {
+        let display = CGDisplay::main();
+        
+        // Get display scale factor for Retina support
+        // On Retina displays, this will be 2.0; on standard displays, 1.0
+        let bounds = display.bounds();
+        let mode = display.display_mode();
+        let scale_factor = if let Some(mode) = mode {
+            (mode.width() as f64) / bounds.size.width
+        } else {
+            1.0 // Fallback to 1.0 if we can't determine
+        };
+        
+        eprintln!("[MacOSSampler] Scale factor: {}", scale_factor);
+        
+        Ok(MacOSSampler {
+            display,
+            scale_factor,
+        })
+    }
+
+    #[allow(dead_code)]
+    fn get_cursor_position(&self) -> Result<Point, String> {
+        // Use Core Graphics to get current mouse position
+        unsafe {
+            // Call CGEventCreate which creates an event at the current cursor position
+            #[link(name = "CoreGraphics", kind = "framework")]
+            extern "C" {
+                fn CGEventCreate(source: *mut std::ffi::c_void) -> *mut std::ffi::c_void;
+                fn CGEventGetLocation(event: *mut std::ffi::c_void) -> CGPoint;
+                fn CFRelease(cf: *const std::ffi::c_void);
+            }
+            
+            let event_ref = CGEventCreate(std::ptr::null_mut());
+            if event_ref.is_null() {
+                return Err("Failed to create CG event".to_string());
+            }
+            
+            let point = CGEventGetLocation(event_ref);
+            CFRelease(event_ref as *const std::ffi::c_void);
+            
+            Ok(Point {
+                x: point.x as i32,
+                y: point.y as i32,
+            })
+        }
+    }
+}
+
+impl PixelSampler for MacOSSampler {
+    fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
+        // Capture a single pixel efficiently
+        self.sample_pixel_from_rect(x, y, 1, 1)
+    }
+
+    fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {
+        // The grid is sampled at logical pixel boundaries (1 logical pixel apart)
+        // But the captured image is in physical pixels (scaled by display scale factor)
+        //
+        // For example on a 2x Retina display:
+        // - Grid size 9 = 9 logical pixels = 18 physical pixels in the bitmap
+        // - We capture 9x9 logical pixels (which becomes 18x18 in the bitmap)
+        // - We sample every scale_factor pixels in the bitmap (every 2nd pixel on Retina)
+        
+        let scale = self.scale_factor;
+        let half_size = (grid_size / 2) as i32;
+        
+        // Capture region: grid_size logical pixels, centered on cursor
+        let start_x = center_x - half_size;
+        let start_y = center_y - half_size;
+        
+        let image = self.display
+            .image_for_rect(core_graphics::geometry::CGRect::new(
+                &CGPoint::new(start_x as f64, start_y as f64),
+                &core_graphics::geometry::CGSize::new(grid_size as f64, grid_size as f64),
+            ))
+            .ok_or_else(|| "Failed to capture screen region".to_string())?;
+
+        let width = image.width() as usize;
+        let height = image.height() as usize;
+        let data = image.data();
+        let data_len = data.len() as usize;
+        let bytes_per_row = image.bytes_per_row() as usize;
+        let bits_per_pixel = image.bits_per_pixel();
+        let bytes_per_pixel = (bits_per_pixel / 8) as usize;
+        
+        // Debug: log first capture details
+        static FIRST_CAPTURE: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(true);
+        if FIRST_CAPTURE.swap(false, std::sync::atomic::Ordering::Relaxed) {
+            eprintln!("[MacOSSampler] First capture: requested {}x{} logical, got {}x{} physical", 
+                     grid_size, grid_size, width, height);
+            eprintln!("[MacOSSampler] Scale factor: {}, bytes_per_pixel: {}, bytes_per_row: {}", 
+                     scale, bytes_per_pixel, bytes_per_row);
+            eprintln!("[MacOSSampler] Data len: {}, expected for {}x{}: {}", 
+                     data_len, width, height, width * height * bytes_per_pixel);
+        }
+
+        let mut grid = Vec::with_capacity(grid_size);
+        
+        // Sample at physical pixel boundaries (scale_factor apart in the bitmap)
+        for row in 0..grid_size {
+            let mut row_pixels = Vec::with_capacity(grid_size);
+            for col in 0..grid_size {
+                // In the physical bitmap, each logical pixel is scale_factor physical pixels
+                // So to sample the (row, col) logical pixel, we access physical pixel (row * scale, col * scale)
+                let phys_x = (col as f64 * scale).round() as usize;
+                let phys_y = (row as f64 * scale).round() as usize;
+                
+                // Calculate byte index in the bitmap
+                let pixel_index = phys_y * bytes_per_row + phys_x * bytes_per_pixel;
+                
+                if pixel_index + bytes_per_pixel <= data_len && phys_x < width && phys_y < height {
+                    // macOS CGImage format is BGRA
+                    let b = data[pixel_index];
+                    let g = data[pixel_index + 1];
+                    let r = data[pixel_index + 2];
+                    // Alpha at pixel_index + 3, but we don't need it
+                    
+                    // Debug center pixel
+                    if row == grid_size / 2 && col == grid_size / 2 {
+                        static CENTER_COUNT: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
+                        let count = CENTER_COUNT.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+                        if count < 3 {
+                            eprintln!("[MacOSSampler] Center pixel at ({}, {}): phys=({}, {}), idx={}, RGB=({}, {}, {})", 
+                                     col, row, phys_x, phys_y, pixel_index, r, g, b);
+                        }
+                    }
+                    
+                    row_pixels.push(Color::new(r, g, b));
+                } else {
+                    // Out of bounds - use gray fallback
+                    row_pixels.push(Color::new(128, 128, 128));
+                }
+            }
+            grid.push(row_pixels);
+        }
+
+        Ok(grid)
+    }
+
+    fn get_cursor_position(&self) -> Result<Point, String> {
+        // Use Core Graphics to get the current mouse position
+        unsafe {
+            // Call CGEventCreate which creates an event at the current cursor position
+            #[link(name = "CoreGraphics", kind = "framework")]
+            extern "C" {
+                fn CGEventCreate(source: *mut std::ffi::c_void) -> *mut std::ffi::c_void;
+                fn CGEventGetLocation(event: *mut std::ffi::c_void) -> CGPoint;
+                fn CFRelease(cf: *const std::ffi::c_void);
+            }
+            
+            let event_ref = CGEventCreate(std::ptr::null_mut());
+            if event_ref.is_null() {
+                return Err("Failed to create CG event".to_string());
+            }
+            
+            let point = CGEventGetLocation(event_ref);
+            CFRelease(event_ref as *const std::ffi::c_void);
+            
+            Ok(Point {
+                x: point.x as i32,
+                y: point.y as i32,
+            })
+        }
+    }
+}
+
+impl MacOSSampler {
+    fn sample_pixel_from_rect(&mut self, x: i32, y: i32, w: i32, h: i32) -> Result<Color, String> {
+        // Create a small image at the specified coordinates
+        let image = self.display
+            .image_for_rect(core_graphics::geometry::CGRect::new(
+                &CGPoint::new(x as f64, y as f64),
+                &core_graphics::geometry::CGSize::new(w as f64, h as f64),
+            ))
+            .ok_or_else(|| "Failed to capture screen region".to_string())?;
+
+        let data = image.data();
+        let bits_per_pixel = image.bits_per_pixel();
+        let bytes_per_pixel = (bits_per_pixel / 8) as isize;
+        
+        if (data.len() as isize) < bytes_per_pixel {
+            return Err("Insufficient image data".to_string());
+        }
+
+        // CGImage format is typically BGRA
+        let b = data[0];
+        let g = data[1];
+        let r = data[2];
+
+        Ok(Color::new(r, g, b))
+    }
+
+    #[allow(dead_code)]
+    fn get_cursor_position(&self) -> Result<Point, String> {
+        // Use Core Graphics to get current mouse position
+        unsafe {
+            // Call CGEventCreate which creates an event at the current cursor position
+            #[link(name = "CoreGraphics", kind = "framework")]
+            extern "C" {
+                fn CGEventCreate(source: *mut std::ffi::c_void) -> *mut std::ffi::c_void;
+                fn CGEventGetLocation(event: *mut std::ffi::c_void) -> CGPoint;
+                fn CFRelease(cf: *const std::ffi::c_void);
+            }
+            
+            let event_ref = CGEventCreate(std::ptr::null_mut());
+            if event_ref.is_null() {
+                return Err("Failed to create CG event".to_string());
+            }
+            
+            let point = CGEventGetLocation(event_ref);
+            CFRelease(event_ref as *const std::ffi::c_void);
+            
+            Ok(Point {
+                x: point.x as i32,
+                y: point.y as i32,
+            })
+        }
+    }
+            
+            let event_ref = CGEventCreate(std::ptr::null_mut());
+            if event_ref.is_null() {
+                return Err("Failed to create CG event".to_string());
+            }
+            
+            let point = CGEventGetLocation(event_ref);
+            CFRelease(event_ref as *const std::ffi::c_void);
+            
+            Ok(Point {
+                x: point.x as i32,
+                y: point.y as i32,
+            })
+        }
+    }
+}

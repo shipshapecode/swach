@@ -54,7 +54,11 @@ const config: ForgeConfig = {
       },
     ],
     // Include all resources in the packaged app
-    extraResource: ['electron-app/resources'],
+    extraResource: [
+      'electron-app/resources',
+      'rust-sampler/target/release/swach-sampler',
+      'rust-sampler/target/release/swach-sampler.exe',
+    ],
   },
   makers: [
     new MakerDeb(

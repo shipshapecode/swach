@@ -20,6 +20,8 @@
     "test": "tests"
   },
   "scripts": {
+    "build:rust": "cd rust-sampler && cargo build --release",
+    "build:rust:dev": "cd rust-sampler && cargo build",
     "format": "prettier . --cache --write",
     "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
     "lint:css": "stylelint \"**/*.css\"",
@@ -31,11 +33,11 @@
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
     "lint:types": "glint --build",
-    "make": "cross-env EMBER_CLI_ELECTRON=true electron-forge make",
-    "package": "cross-env EMBER_CLI_ELECTRON=true electron-forge package",
+    "make": "pnpm build:rust && cross-env EMBER_CLI_ELECTRON=true electron-forge make",
+    "package": "pnpm build:rust && cross-env EMBER_CLI_ELECTRON=true electron-forge package",
     "publish": "electron-forge publish",
     "start": "vite -c vite.renderer.config.ts",
-    "start:electron": "cross-env ELECTRON_DISABLE_SANDBOX=1 electron-forge start -- --no-sandbox --disable-gpu-sandbox --ozone-platform=x11",
+    "start:electron": "pnpm build:rust:dev && cross-env ELECTRON_DISABLE_SANDBOX=1 electron-forge start -- --no-sandbox --disable-gpu-sandbox --ozone-platform=x11",
     "test:electron": "cross-env SKIP_CODESIGN=true electron-forge package && vite build -c vite.renderer.config.ts --mode development && testem ci -f testem-electron.cjs",
     "test:ember": "vite build -c vite.renderer.config.ts --mode development && testem ci",
     "test:magnifier": "vitest run -c electron-app/magnifier/vitest.config.ts",

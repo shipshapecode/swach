@@ -98,11 +98,11 @@ class MagnifyingColorPicker {
     this.magnifierWindow.setAlwaysOnTop(true, 'screen-saver');
 
     // Prevent this window from being captured in screen recordings/screenshots
-    // This makes it invisible to CGWindowListCreateImage and other capture APIs
+    // macOS: Uses NSWindowSharingNone - works perfectly with CGWindowListCreateImage
+    // Windows: Uses WDA_EXCLUDEFROMCAPTURE (Windows 10 2004+) - should work
+    // Linux: Limited/no support depending on compositor
     this.magnifierWindow.setContentProtection(true);
-    console.log(
-      '[Magnifier] Set content protection to exclude from screen capture'
-    );
+    console.log(`[Magnifier] Set content protection on ${process.platform}`);
 
     if (isDev) {
       await this.magnifierWindow.loadURL('http://localhost:5173/');
@@ -167,25 +167,9 @@ class MagnifyingColorPicker {
       // Start the Rust sampler
       // Note: macOS screen capture takes ~50-80ms per frame
       // Setting to 15 Hz provides smooth experience without overloading
-
-      // Get the native window ID so Rust can exclude it from capture
-      let excludeWindowId = 0;
-      if (this.magnifierWindow && process.platform === 'darwin') {
-        try {
-          // Get CGWindowID from native handle
-          const handle = this.magnifierWindow.getNativeWindowHandle();
-          // On macOS, the window ID is stored as a uint32 at offset 0
-          excludeWindowId = handle.readUInt32LE(0);
-          console.log('[Magnifier] Window ID for exclusion:', excludeWindowId);
-        } catch (e) {
-          console.warn('[Magnifier] Could not get window ID:', e);
-        }
-      }
-
       this.samplerManager.start(
         this.gridSize,
         15, // 15 Hz sample rate (realistic for screen capture)
-        excludeWindowId, // Pass window ID to exclude from capture
         (pixelData) => {
           // Update current color
           currentColor = pixelData.center.hex;

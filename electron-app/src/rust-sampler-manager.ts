@@ -41,7 +41,6 @@ export class RustSamplerManager {
   start(
     gridSize: number,
     sampleRate: number,
-    excludeWindowId: number,
     onData: SamplerCallback,
     onError: ErrorCallback
   ): void {
@@ -115,7 +114,6 @@ export class RustSamplerManager {
       command: 'start',
       grid_size: gridSize,
       sample_rate: sampleRate,
-      exclude_window_id: excludeWindowId,
     };
 
     this.sendCommand(startCommand);

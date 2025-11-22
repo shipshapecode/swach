@@ -194,10 +194,6 @@ impl LinuxSampler {
 }
 
 impl PixelSampler for LinuxSampler {
-    fn set_exclude_window_id(&mut self, _window_id: u32) {
-        // Not implemented for Linux
-    }
-    
     fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
         self.ensure_fresh_screenshot()?;
 

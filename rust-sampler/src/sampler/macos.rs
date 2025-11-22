@@ -2,12 +2,10 @@ use crate::types::{Color, PixelSampler, Point};
 use core_graphics::display::{CGDisplay, CGPoint};
 use core_graphics::geometry::{CGRect, CGSize};
 use core_graphics::image::CGImage;
-use core_foundation::base::TCFType;
 
 pub struct MacOSSampler {
-    display: CGDisplay,
-    scale_factor: f64,
-    exclude_window_id: u32,
+    _display: CGDisplay,
+    _scale_factor: f64,
 }
 
 // Native macOS APIs for window-aware screen capture
@@ -23,14 +21,9 @@ extern "C" {
 
 // CGWindowListOption constants
 const K_CG_WINDOW_LIST_OPTION_ON_SCREEN_ONLY: u32 = 1 << 0;
-const K_CG_WINDOW_LIST_OPTION_ON_SCREEN_ABOVE_WINDOW: u32 = 1 << 1;
-const K_CG_WINDOW_LIST_OPTION_ON_SCREEN_BELOW_WINDOW: u32 = 1 << 2;
-const K_CG_WINDOW_LIST_EXCLUDE_DESKTOP_ELEMENTS: u32 = 1 << 4;
 
 // CGWindowImageOption constants  
-const K_CG_WINDOW_IMAGE_DEFAULT: u32 = 0;
 const K_CG_WINDOW_IMAGE_BEST_RESOLUTION: u32 = 1 << 0;
-const K_CG_WINDOW_IMAGE_NOMINAL_RESOLUTION: u32 = 1 << 1;
 
 impl MacOSSampler {
     pub fn new() -> Result<Self, String> {
@@ -49,9 +42,8 @@ impl MacOSSampler {
         eprintln!("[MacOSSampler] Scale factor: {}", scale_factor);
         
         Ok(MacOSSampler {
-            display,
-            scale_factor,
-            exclude_window_id: 0,
+            _display: display,
+            _scale_factor: scale_factor,
         })
     }
     
@@ -81,11 +73,6 @@ impl MacOSSampler {
 }
 
 impl PixelSampler for MacOSSampler {
-    fn set_exclude_window_id(&mut self, window_id: u32) {
-        self.exclude_window_id = window_id;
-        eprintln!("[MacOSSampler] Set exclude_window_id to: {}", window_id);
-    }
-    
     fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
         // Capture a 1x1 pixel at the specified coordinates using window list
         let rect = CGRect::new(

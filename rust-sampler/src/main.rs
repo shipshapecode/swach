@@ -46,9 +46,9 @@ fn run() -> Result<(), String> {
                 }
 
                 match serde_json::from_str::<Command>(trimmed) {
-                    Ok(Command::Start { grid_size, sample_rate, exclude_window_id }) => {
-                        eprintln!("Starting sampling: grid_size={}, sample_rate={}, exclude_window_id={}", grid_size, sample_rate, exclude_window_id);
-                        if let Err(e) = run_sampling_loop(&mut *sampler, grid_size, sample_rate, exclude_window_id, &mut reader) {
+                    Ok(Command::Start { grid_size, sample_rate }) => {
+                        eprintln!("Starting sampling: grid_size={}, sample_rate={}", grid_size, sample_rate);
+                        if let Err(e) = run_sampling_loop(&mut *sampler, grid_size, sample_rate, &mut reader) {
                             eprintln!("Sampling loop error: {}", e);
                             send_error(&e);
                         }
@@ -85,12 +85,8 @@ fn run_sampling_loop(
     sampler: &mut dyn PixelSampler,
     grid_size: usize,
     sample_rate: u64,
-    exclude_window_id: u32,
     _reader: &mut dyn BufRead,
 ) -> Result<(), String> {
-    // Set the window ID to exclude in the sampler
-    sampler.set_exclude_window_id(exclude_window_id);
-    eprintln!("[Sampler] Excluding window ID: {}", exclude_window_id);
     let interval = Duration::from_micros(1_000_000 / sample_rate);
     let mut last_cursor = Point { x: -1, y: -1 };
     let mut sample_count = 0;
@@ -204,8 +200,6 @@ fn run_sampling_loop(
             }
         }
     }
-    
-    Ok(())
 }
 
 fn send_error(error: &str) {

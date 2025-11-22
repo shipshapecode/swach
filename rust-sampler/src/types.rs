@@ -62,8 +62,6 @@ pub enum Command {
     Start {
         grid_size: usize,
         sample_rate: u64,
-        #[serde(default)]
-        exclude_window_id: u32,
     },
     #[serde(rename = "update_grid")]
     UpdateGrid {
@@ -84,9 +82,6 @@ pub trait PixelSampler {
     
     /// Get cursor position
     fn get_cursor_position(&self) -> Result<Point, String>;
-    
-    /// Set window ID to exclude from capture (0 = no exclusion)
-    fn set_exclude_window_id(&mut self, window_id: u32);
     
     /// Sample a grid of pixels around a center point
     fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {

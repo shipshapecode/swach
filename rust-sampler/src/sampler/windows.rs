@@ -28,10 +28,6 @@ impl Drop for WindowsSampler {
 }
 
 impl PixelSampler for WindowsSampler {
-    fn set_exclude_window_id(&mut self, _window_id: u32) {
-        // Not implemented for Windows
-    }
-    
     fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
         unsafe {
             let color_ref = GetPixel(self.hdc, x, y);

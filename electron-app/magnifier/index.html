@@ -12,15 +12,15 @@
       class="fixed top-0 left-0 w-screen h-screen cursor-none pointer-events-none"
     >
       <div
-        class="absolute top-0 left-0 w-[200px] h-[200px] flex items-center justify-center cursor-none pointer-events-none translate-x-0 translate-y-0"
+        class="absolute top-0 left-0 w-[200px] h-[200px] cursor-none pointer-events-none translate-x-0 translate-y-0"
         style="will-change: transform"
         id="magnifierContainer"
       >
         <div
-          class="magnifier-circle opacity-0 relative w-[150px] h-[150px] rounded-full border-4 border-white bg-black shadow-lg overflow-hidden shrink-0 box-content flex flex-col justify-center items-center"
+          class="magnifier-circle opacity-0 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] rounded-full border-4 border-white bg-black shadow-lg overflow-hidden shrink-0 box-content flex flex-col justify-center items-center"
         >
           <div
-            class="absolute top-0 left-0 w-full h-full rounded-full grid grid-cols-9 grid-rows-9 transition-all duration-300 ease-out"
+            class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full grid grid-cols-9 grid-rows-9"
             id="pixelGrid"
           ></div>
           <div

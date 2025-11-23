@@ -58,50 +58,61 @@ class MagnifierRenderer {
   }
 
   private createPixelGrid(gridSize: number): void {
-    this.lastRenderedGridSize = gridSize;
     const totalPixels = gridSize * gridSize;
     const centerIndex = Math.floor(totalPixels / 2);
-
-    this.pixelGrid.innerHTML = '';
+    const currentPixelCount = this.pixelGrid.children.length;
 
     // Calculate actual square size to fill the circle perfectly
-    // This ensures the grid always fills the circle regardless of rounding
     const actualSquareSize = calculateActualSquareSize(
       this.currentDiameter,
       gridSize
     );
 
     const gridElement = this.pixelGrid as HTMLElement;
+
+    // Update dimensions and grid template
+    // Don't override position/transform - let HTML/CSS handle centering
+    gridElement.style.width = `${this.currentDiameter}px`;
+    gridElement.style.height = `${this.currentDiameter}px`;
     gridElement.style.gridTemplateColumns = `repeat(${gridSize}, ${actualSquareSize}px)`;
     gridElement.style.gridTemplateRows = `repeat(${gridSize}, ${actualSquareSize}px)`;
 
-    // Grid should exactly fill the circle
-    gridElement.style.width = `${this.currentDiameter}px`;
-    gridElement.style.height = `${this.currentDiameter}px`;
+    // Only rebuild if pixel count changed
+    if (currentPixelCount !== totalPixels) {
+      this.pixelGrid.innerHTML = '';
 
-    // Ensure grid is centered and positioned correctly
-    gridElement.style.position = 'absolute';
-    gridElement.style.left = '50%';
-    gridElement.style.top = '50%';
-    gridElement.style.transform = 'translate(-50%, -50%)';
+      for (let i = 0; i < totalPixels; i++) {
+        const pixel = document.createElement('div');
+        pixel.className = 'pixel';
+        pixel.id = `pixel-${i}`;
 
-    for (let i = 0; i < totalPixels; i++) {
-      const pixel = document.createElement('div');
-      pixel.className = 'pixel';
-      pixel.id = `pixel-${i}`;
+        if (i === centerIndex) {
+          pixel.className += ' center';
+        }
 
-      if (i === centerIndex) {
-        pixel.className += ' center';
+        this.pixelGrid.appendChild(pixel);
       }
-
-      this.pixelGrid.appendChild(pixel);
+    } else {
+      // Same number of pixels, just update center class
+      for (let i = 0; i < totalPixels; i++) {
+        const pixel = this.pixelGrid.children[i] as HTMLElement;
+        if (i === centerIndex) {
+          if (!pixel.classList.contains('center')) {
+            pixel.classList.add('center');
+          }
+        } else {
+          pixel.classList.remove('center');
+        }
+      }
     }
+
+    this.lastRenderedGridSize = gridSize;
   }
 
   private updateMagnifierSize(diameter: number): void {
-    this.currentDiameter = diameter;
     const circle = this.magnifierCircle as HTMLElement;
-    // Ensure both dimensions are identical for a perfect circle
+
+    // Set dimensions only - let CSS handle positioning
     circle.style.width = `${diameter}px`;
     circle.style.height = `${diameter}px`;
     circle.style.minWidth = `${diameter}px`;
@@ -181,32 +192,32 @@ class MagnifierRenderer {
       this.colorName.textContent = currentColorName;
       this.hexCode.textContent = centerColor.hex.toUpperCase();
 
-      // Update square size if provided (from alt+scroll)
-      if (
+      // Check what needs updating BEFORE modifying state
+      const needsSquareSizeUpdate =
         (data as any).squareSize &&
-        (data as any).squareSize !== this.currentSquareSize
-      ) {
+        (data as any).squareSize !== this.currentSquareSize;
+      const needsDiameterUpdate =
+        data.diameter && data.diameter !== this.currentDiameter;
+
+      // Update state
+      if (needsSquareSizeUpdate) {
         this.currentSquareSize = (data as any).squareSize;
       }
-
-      // Update diameter if changed (from normal scroll)
-      if (data.diameter && data.diameter !== this.currentDiameter) {
+      if (needsDiameterUpdate) {
         this.currentDiameter = data.diameter;
-        this.updateMagnifierSize(data.diameter);
       }
 
       // Calculate grid size based on current diameter and square size
-      // This is DERIVED STATE - always calculated, never stored separately
       const calculatedGridSize = this.currentGridSize;
+      const needsGridUpdate = calculatedGridSize !== this.lastRenderedGridSize;
 
-      // Recreate grid if calculated size changed from what's rendered
-      if (calculatedGridSize !== this.lastRenderedGridSize) {
+      // Update grid and circle together
+      if (needsGridUpdate) {
         this.createPixelGrid(calculatedGridSize);
       }
 
-      // Recreate grid if calculated size changed from what's rendered
-      if (calculatedGridSize !== this.lastRenderedGridSize) {
-        this.createPixelGrid(calculatedGridSize);
+      if (needsDiameterUpdate) {
+        this.updateMagnifierSize(this.currentDiameter);
       }
 
       // Update pixel colors using proper coordinate mapping

@@ -11,6 +11,29 @@
 use crate::types::{Color, PixelSampler, Point};
 use std::env;
 use std::ptr;
+use std::sync::atomic::{AtomicBool, Ordering};
+
+static X_ERROR_OCCURRED: AtomicBool = AtomicBool::new(false);
+
+// Custom X error handler that doesn't exit the process
+unsafe extern "C" fn x_error_handler(
+    _display: *mut x11::xlib::Display,
+    error_event: *mut x11::xlib::XErrorEvent,
+) -> i32 {
+    X_ERROR_OCCURRED.store(true, Ordering::SeqCst);
+    
+    let error = &*error_event;
+    eprintln!(
+        "X11 Error: type={}, serial={}, error_code={}, request_code={}, minor_code={}",
+        error.type_,
+        error.serial,
+        error.error_code,
+        error.request_code,
+        error.minor_code
+    );
+    
+    0 // Return 0 to indicate we handled it
+}
 
 pub struct LinuxSampler {
     x11_display: *mut x11::xlib::Display,
@@ -28,6 +51,9 @@ impl LinuxSampler {
             if display.is_null() {
                 return Err("Failed to open X11 display. Make sure X11 or XWayland is available.".to_string());
             }
+            
+            // Install custom error handler to prevent crashes on X errors
+            x11::xlib::XSetErrorHandler(Some(x_error_handler));
             
             // Get screen dimensions
             let screen = x11::xlib::XDefaultScreen(display);
@@ -58,9 +84,25 @@ impl LinuxSampler {
         unsafe {
             let root = x11::xlib::XDefaultRootWindow(self.x11_display);
             
-            // Sync to ensure we're getting current screen state
-            x11::xlib::XSync(self.x11_display, 0);
+            // Get actual root window attributes to verify geometry
+            let mut root_attrs: x11::xlib::XWindowAttributes = std::mem::zeroed();
+            let status = x11::xlib::XGetWindowAttributes(self.x11_display, root, &mut root_attrs);
             
+            if status == 0 {
+                return Err("Failed to get root window attributes".to_string());
+            }
+            
+            // Verify coordinates are within root window bounds
+            if clamped_x >= root_attrs.width || clamped_y >= root_attrs.height {
+                eprintln!("Warning: Coordinates ({}, {}) outside root window ({}x{})", 
+                    clamped_x, clamped_y, root_attrs.width, root_attrs.height);
+                return Ok(Color::new(128, 128, 128)); // Return gray for out of bounds
+            }
+            
+            // Clear any previous X errors
+            X_ERROR_OCCURRED.store(false, Ordering::SeqCst);
+            
+            // Try to get the image
             let image = x11::xlib::XGetImage(
                 self.x11_display,
                 root,
@@ -72,8 +114,23 @@ impl LinuxSampler {
                 x11::xlib::ZPixmap,
             );
             
+            // Sync to process any pending errors
+            x11::xlib::XSync(self.x11_display, 0);
+            
+            // Check if an X error occurred
+            if X_ERROR_OCCURRED.load(Ordering::SeqCst) {
+                eprintln!("X error occurred during XGetImage at ({}, {}) - root window: {}x{}", 
+                    clamped_x, clamped_y, root_attrs.width, root_attrs.height);
+                if !image.is_null() {
+                    x11::xlib::XDestroyImage(image);
+                }
+                return Ok(Color::new(128, 128, 128)); // Return gray on error
+            }
+            
             if image.is_null() {
-                return Err(format!("Failed to get X11 image at ({}, {})", clamped_x, clamped_y));
+                eprintln!("XGetImage returned null at ({}, {}) - root window: {}x{}", 
+                    clamped_x, clamped_y, root_attrs.width, root_attrs.height);
+                return Ok(Color::new(128, 128, 128)); // Return gray on error
             }
             
             let pixel = x11::xlib::XGetPixel(image, 0, 0);

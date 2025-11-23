@@ -1,15 +1,15 @@
-// Linux pixel sampler with support for X11 and Wayland (via XWayland)
+// Linux pixel sampler with support for X11 and Wayland
 // 
-// This implementation uses native X11 APIs for pixel sampling and cursor tracking.
-// On Wayland systems, the Electron app is launched with --ozone-platform=x11 which
-// forces it to use XWayland compatibility layer. This allows the X11 implementation
-// to work transparently on both X11 and Wayland systems.
-//
-// Note: Native Wayland support would require compositor-specific portal APIs and
-// would not provide the real-time pixel sampling needed for the magnifier feature.
+// Strategy:
+// 1. Try X11 XGetImage (fast, works on native X11)
+// 2. If that fails (Wayland/XWayland), fall back to screenshot tools:
+//    - grim (Wayland)
+//    - scrot (X11 fallback)
+//    - imagemagick import (X11 fallback)
 
 use crate::types::{Color, PixelSampler, Point};
 use std::env;
+use std::process::Command;
 use std::ptr;
 use std::sync::atomic::{AtomicBool, Ordering};
 
@@ -21,17 +21,6 @@ unsafe extern "C" fn x_error_handler(
     error_event: *mut x11::xlib::XErrorEvent,
 ) -> i32 {
     X_ERROR_OCCURRED.store(true, Ordering::SeqCst);
-    
-    let error = &*error_event;
-    eprintln!(
-        "X11 Error: type={}, serial={}, error_code={}, request_code={}, minor_code={}",
-        error.type_,
-        error.serial,
-        error.error_code,
-        error.request_code,
-        error.minor_code
-    );
-    
     0 // Return 0 to indicate we handled it
 }
 
@@ -39,29 +28,33 @@ pub struct LinuxSampler {
     x11_display: *mut x11::xlib::Display,
     screen_width: i32,
     screen_height: i32,
-    cached_region: Option<CachedRegion>,
+    method: CaptureMethod,
+    screenshot_cache: Option<ScreenshotCache>,
 }
 
-struct CachedRegion {
-    image: *mut x11::xlib::XImage,
-    x: i32,
-    y: i32,
+enum CaptureMethod {
+    X11Direct,
+    Grim,
+    Scrot,
+    ImageMagick,
+}
+
+struct ScreenshotCache {
+    data: Vec<u8>,
     width: u32,
     height: u32,
+    timestamp: std::time::Instant,
 }
 
 impl LinuxSampler {
     pub fn new() -> Result<Self, String> {
-        // Try to open X11 display
-        // This works on native X11 and also on Wayland when using XWayland
-        // (The app is launched with --ozone-platform=x11 which forces XWayland)
         unsafe {
             let display = x11::xlib::XOpenDisplay(ptr::null());
             if display.is_null() {
-                return Err("Failed to open X11 display. Make sure X11 or XWayland is available.".to_string());
+                return Err("Failed to open X11 display".to_string());
             }
             
-            // Install custom error handler to prevent crashes on X errors
+            // Install custom error handler
             x11::xlib::XSetErrorHandler(Some(x_error_handler));
             
             // Get screen dimensions
@@ -69,102 +62,297 @@ impl LinuxSampler {
             let screen_width = x11::xlib::XDisplayWidth(display, screen);
             let screen_height = x11::xlib::XDisplayHeight(display, screen);
             
-            // Check if we're running via XWayland on Wayland
-            let session_type = env::var("XDG_SESSION_TYPE").unwrap_or_default();
-            if session_type == "wayland" {
-                eprintln!("Linux sampler initialized (XWayland on Wayland) - Screen: {}x{}", screen_width, screen_height);
-            } else {
-                eprintln!("Linux sampler initialized (X11) - Screen: {}x{}", screen_width, screen_height);
-            }
+            // Try to determine the best capture method
+            let method = Self::detect_capture_method(display);
+            
+            eprintln!("Linux sampler initialized - Screen: {}x{}, Method: {:?}", 
+                screen_width, screen_height, method);
             
             Ok(LinuxSampler {
                 x11_display: display,
                 screen_width,
                 screen_height,
-                cached_region: None,
+                method,
+                screenshot_cache: None,
             })
         }
     }
     
-    fn capture_region(&mut self, center_x: i32, center_y: i32, size: u32) -> Result<(), String> {
-        // Clear old cached region
-        if let Some(ref cache) = self.cached_region {
-            unsafe {
-                x11::xlib::XDestroyImage(cache.image);
+    fn detect_capture_method(display: *mut x11::xlib::Display) -> CaptureMethod {
+        // Try X11 direct capture first
+        unsafe {
+            X_ERROR_OCCURRED.store(false, Ordering::SeqCst);
+            
+            let root = x11::xlib::XDefaultRootWindow(display);
+            let test_image = x11::xlib::XGetImage(
+                display,
+                root,
+                0, 0, 1, 1,
+                x11::xlib::XAllPlanes(),
+                x11::xlib::ZPixmap,
+            );
+            
+            x11::xlib::XSync(display, 0);
+            
+            if !X_ERROR_OCCURRED.load(Ordering::SeqCst) && !test_image.is_null() {
+                x11::xlib::XDestroyImage(test_image);
+                eprintln!("X11 direct capture available");
+                return CaptureMethod::X11Direct;
+            }
+            
+            if !test_image.is_null() {
+                x11::xlib::XDestroyImage(test_image);
             }
         }
         
-        // Calculate region to capture (centered on cursor)
-        let half_size = (size / 2) as i32;
-        let x = (center_x - half_size).max(0);
-        let y = (center_y - half_size).max(0);
-        let width = size.min((self.screen_width - x) as u32);
-        let height = size.min((self.screen_height - y) as u32);
+        // X11 failed, try screenshot tools
+        eprintln!("X11 direct capture failed, trying screenshot tools...");
         
+        // Check for grim (Wayland)
+        if Command::new("which").arg("grim").output().map(|o| o.status.success()).unwrap_or(false) {
+            eprintln!("Using grim for screen capture");
+            return CaptureMethod::Grim;
+        }
+        
+        // Check for scrot
+        if Command::new("which").arg("scrot").output().map(|o| o.status.success()).unwrap_or(false) {
+            eprintln!("Using scrot for screen capture");
+            return CaptureMethod::Scrot;
+        }
+        
+        // Check for ImageMagick import
+        if Command::new("which").arg("import").output().map(|o| o.status.success()).unwrap_or(false) {
+            eprintln!("Using ImageMagick import for screen capture");
+            return CaptureMethod::ImageMagick;
+        }
+        
+        eprintln!("WARNING: No screenshot tool found! Install grim, scrot, or imagemagick");
+        CaptureMethod::X11Direct // Will fail but at least we tried
+    }
+    
+    fn capture_screenshot(&mut self) -> Result<(), String> {
+        match self.method {
+            CaptureMethod::X11Direct => self.capture_x11_region(0, 0, self.screen_width as u32, self.screen_height as u32),
+            CaptureMethod::Grim => self.capture_with_grim(),
+            CaptureMethod::Scrot => self.capture_with_scrot(),
+            CaptureMethod::ImageMagick => self.capture_with_imagemagick(),
+        }
+    }
+    
+    fn capture_x11_region(&mut self, x: i32, y: i32, width: u32, height: u32) -> Result<(), String> {
         unsafe {
             let root = x11::xlib::XDefaultRootWindow(self.x11_display);
             
-            // Clear any previous errors
             X_ERROR_OCCURRED.store(false, Ordering::SeqCst);
             
             let image = x11::xlib::XGetImage(
                 self.x11_display,
                 root,
-                x,
-                y,
-                width,
-                height,
+                x, y, width, height,
                 x11::xlib::XAllPlanes(),
                 x11::xlib::ZPixmap,
             );
             
-            // Sync to process any pending errors
             x11::xlib::XSync(self.x11_display, 0);
             
             if X_ERROR_OCCURRED.load(Ordering::SeqCst) || image.is_null() {
-                return Err(format!("Failed to capture region at ({}, {}) {}x{}", x, y, width, height));
+                return Err("X11 capture failed".to_string());
             }
             
-            self.cached_region = Some(CachedRegion {
-                image,
-                x,
-                y,
+            // Convert XImage to RGB buffer
+            let img = &*image;
+            let mut data = Vec::with_capacity((width * height * 3) as usize);
+            
+            for row in 0..height {
+                for col in 0..width {
+                    let pixel = x11::xlib::XGetPixel(image, col as i32, row as i32);
+                    let r = ((pixel >> 16) & 0xFF) as u8;
+                    let g = ((pixel >> 8) & 0xFF) as u8;
+                    let b = (pixel & 0xFF) as u8;
+                    data.push(r);
+                    data.push(g);
+                    data.push(b);
+                }
+            }
+            
+            x11::xlib::XDestroyImage(image);
+            
+            self.screenshot_cache = Some(ScreenshotCache {
+                data,
                 width,
                 height,
+                timestamp: std::time::Instant::now(),
             });
             
             Ok(())
         }
     }
-
-    fn sample_from_cache(&self, x: i32, y: i32) -> Result<Color, String> {
-        let cache = self.cached_region.as_ref()
-            .ok_or_else(|| "No cached region available".to_string())?;
+    
+    fn capture_with_grim(&mut self) -> Result<(), String> {
+        let output = Command::new("grim")
+            .arg("-t").arg("ppm")
+            .arg("-")
+            .output()
+            .map_err(|e| format!("Failed to run grim: {}", e))?;
         
-        // Check if the coordinates are within the cached region
-        if x < cache.x || y < cache.y || 
-           x >= cache.x + cache.width as i32 || 
-           y >= cache.y + cache.height as i32 {
-            return Err("Coordinates outside cached region".to_string());
+        if !output.status.success() {
+            return Err(format!("grim failed: {}", String::from_utf8_lossy(&output.stderr)));
         }
         
-        unsafe {
-            // Calculate local coordinates within the cached image
-            let local_x = x - cache.x;
-            let local_y = y - cache.y;
-            
-            let pixel = x11::xlib::XGetPixel(cache.image, local_x, local_y);
-            
-            // Extract RGB components from pixel value
-            let r = ((pixel >> 16) & 0xFF) as u8;
-            let g = ((pixel >> 8) & 0xFF) as u8;
-            let b = (pixel & 0xFF) as u8;
-            
-            Ok(Color::new(r, g, b))
-        }
+        self.parse_ppm_screenshot(&output.stdout)
     }
     
-    fn get_x11_cursor_position(&self) -> Result<Point, String> {
+    fn capture_with_scrot(&mut self) -> Result<(), String> {
+        use std::fs;
+        use std::io::Read;
+        
+        let temp_file = "/tmp/swach_screenshot.ppm";
+        
+        let status = Command::new("scrot")
+            .arg("-o")
+            .arg(temp_file)
+            .status()
+            .map_err(|e| format!("Failed to run scrot: {}", e))?;
+        
+        if !status.success() {
+            return Err("scrot failed".to_string());
+        }
+        
+        let mut file = fs::File::open(temp_file)
+            .map_err(|e| format!("Failed to open screenshot: {}", e))?;
+        
+        let mut buffer = Vec::new();
+        file.read_to_end(&mut buffer)
+            .map_err(|e| format!("Failed to read screenshot: {}", e))?;
+        
+        let _ = fs::remove_file(temp_file);
+        
+        self.parse_ppm_screenshot(&buffer)
+    }
+    
+    fn capture_with_imagemagick(&mut self) -> Result<(), String> {
+        let output = Command::new("import")
+            .arg("-window").arg("root")
+            .arg("-depth").arg("8")
+            .arg("ppm:-")
+            .output()
+            .map_err(|e| format!("Failed to run import: {}", e))?;
+        
+        if !output.status.success() {
+            return Err("import failed".to_string());
+        }
+        
+        self.parse_ppm_screenshot(&output.stdout)
+    }
+    
+    fn parse_ppm_screenshot(&mut self, data: &[u8]) -> Result<(), String> {
+        let mut lines = data.split(|&b| b == b'\n');
+        
+        // Read magic number
+        let magic = lines.next().ok_or("Invalid PPM: missing magic")?;
+        if magic != b"P6" {
+            return Err(format!("Invalid PPM magic: {:?}", String::from_utf8_lossy(magic)));
+        }
+        
+        // Skip comments
+        let mut dims_line = lines.next();
+        while let Some(line) = dims_line {
+            if !line.starts_with(b"#") {
+                break;
+            }
+            dims_line = lines.next();
+        }
+        
+        let dims_str = String::from_utf8_lossy(dims_line.ok_or("Missing dimensions")?);
+        let dims: Vec<&str> = dims_str.trim().split_whitespace().collect();
+        if dims.len() != 2 {
+            return Err(format!("Invalid dimensions: {}", dims_str));
+        }
+        
+        let width: u32 = dims[0].parse().map_err(|e| format!("Invalid width: {}", e))?;
+        let height: u32 = dims[1].parse().map_err(|e| format!("Invalid height: {}", e))?;
+        
+        // Read max value
+        let max_val_line = lines.next().ok_or("Missing max value")?;
+        let max_val = String::from_utf8_lossy(max_val_line).trim().parse::<u32>()
+            .map_err(|e| format!("Invalid max value: {}", e))?;
+        
+        if max_val != 255 {
+            return Err(format!("Unsupported max value: {}", max_val));
+        }
+        
+        // Get pixel data
+        let header_len = data.len() - lines.as_slice().len();
+        let pixel_data = &data[header_len..];
+        
+        self.screenshot_cache = Some(ScreenshotCache {
+            data: pixel_data.to_vec(),
+            width,
+            height,
+            timestamp: std::time::Instant::now(),
+        });
+        
+        Ok(())
+    }
+    
+    fn ensure_fresh_screenshot(&mut self) -> Result<(), String> {
+        let needs_refresh = match &self.screenshot_cache {
+            None => true,
+            Some(cache) => cache.timestamp.elapsed().as_millis() > 50, // 50ms cache for 20 FPS
+        };
+        
+        if needs_refresh {
+            self.capture_screenshot()?;
+        }
+        
+        Ok(())
+    }
+}
+
+impl Drop for LinuxSampler {
+    fn drop(&mut self) {
+        unsafe {
+            x11::xlib::XCloseDisplay(self.x11_display);
+        }
+    }
+}
+
+impl std::fmt::Debug for CaptureMethod {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            CaptureMethod::X11Direct => write!(f, "X11Direct"),
+            CaptureMethod::Grim => write!(f, "Grim"),
+            CaptureMethod::Scrot => write!(f, "Scrot"),
+            CaptureMethod::ImageMagick => write!(f, "ImageMagick"),
+        }
+    }
+}
+
+impl PixelSampler for LinuxSampler {
+    fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
+        self.ensure_fresh_screenshot()?;
+        
+        let cache = self.screenshot_cache.as_ref()
+            .ok_or("No screenshot cached")?;
+        
+        if x < 0 || y < 0 || x >= cache.width as i32 || y >= cache.height as i32 {
+            return Ok(Color::new(128, 128, 128));
+        }
+        
+        let index = ((y as u32 * cache.width + x as u32) * 3) as usize;
+        
+        if index + 2 >= cache.data.len() {
+            return Ok(Color::new(128, 128, 128));
+        }
+        
+        let r = cache.data[index];
+        let g = cache.data[index + 1];
+        let b = cache.data[index + 2];
+        
+        Ok(Color::new(r, g, b))
+    }
+
+    fn get_cursor_position(&self) -> Result<Point, String> {
         unsafe {
             let root = x11::xlib::XDefaultRootWindow(self.x11_display);
             
@@ -189,49 +377,17 @@ impl LinuxSampler {
             );
             
             if result == 0 {
-                return Err("Failed to query X11 pointer".to_string());
+                return Err("Failed to query pointer".to_string());
             }
             
             Ok(Point { x: root_x, y: root_y })
         }
     }
-}
-
-impl Drop for LinuxSampler {
-    fn drop(&mut self) {
-        if let Some(ref cache) = self.cached_region {
-            unsafe {
-                x11::xlib::XDestroyImage(cache.image);
-            }
-        }
-        unsafe {
-            x11::xlib::XCloseDisplay(self.x11_display);
-        }
-    }
-}
-
-impl PixelSampler for LinuxSampler {
-    fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
-        self.sample_from_cache(x, y)
-    }
-
-    fn get_cursor_position(&self) -> Result<Point, String> {
-        self.get_x11_cursor_position()
-    }
     
-    fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<crate::types::Color>>, String> {
-        // Capture a region large enough for the grid
-        // Add some padding to account for grid size
-        let capture_size = (grid_size * 2 + 20) as u32;
+    fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {
+        // Ensure we have a fresh screenshot
+        self.ensure_fresh_screenshot()?;
         
-        if let Err(e) = self.capture_region(center_x, center_y, capture_size) {
-            eprintln!("Failed to capture region: {}", e);
-            // Return gray grid on error
-            let gray = crate::types::Color::new(128, 128, 128);
-            return Ok(vec![vec![gray; grid_size]; grid_size]);
-        }
-        
-        // Now sample from the cached region
         let half_size = (grid_size / 2) as i32;
         let mut grid = Vec::with_capacity(grid_size);
         
@@ -241,8 +397,8 @@ impl PixelSampler for LinuxSampler {
                 let x = center_x + (col as i32 - half_size);
                 let y = center_y + (row as i32 - half_size);
                 
-                let color = self.sample_from_cache(x, y)
-                    .unwrap_or(crate::types::Color::new(128, 128, 128));
+                let color = self.sample_pixel(x, y)
+                    .unwrap_or(Color::new(128, 128, 128));
                 row_pixels.push(color);
             }
             grid.push(row_pixels);

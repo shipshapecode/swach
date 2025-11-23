@@ -21,13 +21,15 @@ This Rust binary provides continuous, real-time pixel sampling for the Swach col
 - Direct pixel sampling without external tools
 - Native cursor position tracking via `XQueryPointer`
 - No external dependencies required
+- Best performance
 
 ### Linux (Wayland) ✅
 
-- Works via XWayland compatibility layer
-- The app is launched with `--ozone-platform=x11` flag, which forces X11 mode
-- This allows the X11 sampler implementation to work on Wayland systems
-- No additional user configuration required
+- Automatically falls back to screenshot tools when X11 direct capture fails
+- Tries tools in order: `grim` (Wayland), `scrot`, `imagemagick`
+- Caches screenshots for 50ms to maintain ~20 FPS
+- **Install grim for Wayland support**: `sudo apt install grim` (Ubuntu/Debian)
+- Works but slower than native X11
 
 ### Windows ✅
 
@@ -38,29 +40,48 @@ This Rust binary provides continuous, real-time pixel sampling for the Swach col
 
 ## Linux Setup
 
-### X11 (Recommended)
-
-No additional setup required! The sampler uses native X11 libraries for pixel sampling.
+### Build Dependencies
 
 ```bash
-# X11 development libraries (usually already installed)
+# X11 development libraries
 # Ubuntu/Debian
-sudo apt install libx11-dev
+sudo apt install build-essential pkg-config libx11-dev
 
 # Fedora
-sudo dnf install libX11-devel
+sudo dnf install gcc pkg-config libX11-devel
 
 # Arch Linux
-sudo pacman -S libx11
+sudo pacman -S base-devel pkg-config libx11
 ```
 
-### Wayland
+### Runtime Dependencies
 
-The app automatically runs via XWayland on Wayland systems (using the `--ozone-platform=x11` flag). This means:
+#### For X11 (Native - Best Performance)
 
-- The X11 implementation works transparently on Wayland
-- No additional setup required
-- User doesn't need to know whether they're running X11 or Wayland
+No additional dependencies! X11 direct capture is used automatically.
+
+#### For Wayland (Fallback - Good Performance)
+
+Install a screenshot tool (sampler auto-detects which is available):
+
+```bash
+# Recommended: grim (designed for Wayland)
+sudo apt install grim        # Ubuntu/Debian
+sudo dnf install grim        # Fedora
+sudo pacman -S grim          # Arch
+
+# Alternative: scrot (works on X11 too)
+sudo apt install scrot       # Ubuntu/Debian
+sudo dnf install scrot       # Fedora
+sudo pacman -S scrot         # Arch
+
+# Alternative: ImageMagick
+sudo apt install imagemagick # Ubuntu/Debian
+sudo dnf install ImageMagick # Fedora
+sudo pacman -S imagemagick   # Arch
+```
+
+The sampler will automatically detect and use the best available method.
 
 ## Building
 

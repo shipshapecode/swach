@@ -14,6 +14,8 @@ use std::ptr;
 
 pub struct LinuxSampler {
     x11_display: *mut x11::xlib::Display,
+    screen_width: i32,
+    screen_height: i32,
 }
 
 impl LinuxSampler {
@@ -27,29 +29,43 @@ impl LinuxSampler {
                 return Err("Failed to open X11 display. Make sure X11 or XWayland is available.".to_string());
             }
             
+            // Get screen dimensions
+            let screen = x11::xlib::XDefaultScreen(display);
+            let screen_width = x11::xlib::XDisplayWidth(display, screen);
+            let screen_height = x11::xlib::XDisplayHeight(display, screen);
+            
             // Check if we're running via XWayland on Wayland
             let session_type = env::var("XDG_SESSION_TYPE").unwrap_or_default();
             if session_type == "wayland" {
-                eprintln!("Linux sampler initialized (XWayland on Wayland)");
+                eprintln!("Linux sampler initialized (XWayland on Wayland) - Screen: {}x{}", screen_width, screen_height);
             } else {
-                eprintln!("Linux sampler initialized (X11)");
+                eprintln!("Linux sampler initialized (X11) - Screen: {}x{}", screen_width, screen_height);
             }
             
             Ok(LinuxSampler {
                 x11_display: display,
+                screen_width,
+                screen_height,
             })
         }
     }
 
     fn sample_x11_pixel(&self, x: i32, y: i32) -> Result<Color, String> {
+        // Clamp coordinates to screen bounds to avoid BadMatch errors
+        let clamped_x = x.max(0).min(self.screen_width - 1);
+        let clamped_y = y.max(0).min(self.screen_height - 1);
+        
         unsafe {
             let root = x11::xlib::XDefaultRootWindow(self.x11_display);
             
-            let mut image = x11::xlib::XGetImage(
+            // Sync to ensure we're getting current screen state
+            x11::xlib::XSync(self.x11_display, 0);
+            
+            let image = x11::xlib::XGetImage(
                 self.x11_display,
                 root,
-                x,
-                y,
+                clamped_x,
+                clamped_y,
                 1,
                 1,
                 x11::xlib::XAllPlanes(),
@@ -57,7 +73,7 @@ impl LinuxSampler {
             );
             
             if image.is_null() {
-                return Err("Failed to get X11 image".to_string());
+                return Err(format!("Failed to get X11 image at ({}, {})", clamped_x, clamped_y));
             }
             
             let pixel = x11::xlib::XGetPixel(image, 0, 0);

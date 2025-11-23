@@ -8,7 +8,6 @@
 //    - imagemagick import (X11 fallback)
 
 use crate::types::{Color, PixelSampler, Point};
-use std::env;
 use std::process::Command;
 use std::ptr;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -18,7 +17,7 @@ static X_ERROR_OCCURRED: AtomicBool = AtomicBool::new(false);
 // Custom X error handler that doesn't exit the process
 unsafe extern "C" fn x_error_handler(
     _display: *mut x11::xlib::Display,
-    error_event: *mut x11::xlib::XErrorEvent,
+    _error_event: *mut x11::xlib::XErrorEvent,
 ) -> i32 {
     X_ERROR_OCCURRED.store(true, Ordering::SeqCst);
     0 // Return 0 to indicate we handled it
@@ -160,7 +159,6 @@ impl LinuxSampler {
             }
             
             // Convert XImage to RGB buffer
-            let img = &*image;
             let mut data = Vec::with_capacity((width * height * 3) as usize);
             
             for row in 0..height {
@@ -246,44 +244,55 @@ impl LinuxSampler {
     }
     
     fn parse_ppm_screenshot(&mut self, data: &[u8]) -> Result<(), String> {
-        let mut lines = data.split(|&b| b == b'\n');
+        // Find the start of pixel data by parsing header manually
+        let mut pos = 0;
         
-        // Read magic number
-        let magic = lines.next().ok_or("Invalid PPM: missing magic")?;
-        if magic != b"P6" {
-            return Err(format!("Invalid PPM magic: {:?}", String::from_utf8_lossy(magic)));
+        // Read magic number (P6)
+        let magic_end = data.iter().position(|&b| b == b'\n').ok_or("No newline after magic")?;
+        if &data[0..magic_end] != b"P6" {
+            return Err(format!("Invalid PPM magic: {:?}", String::from_utf8_lossy(&data[0..magic_end])));
         }
+        pos = magic_end + 1;
         
-        // Skip comments
-        let mut dims_line = lines.next();
-        while let Some(line) = dims_line {
-            if !line.starts_with(b"#") {
+        // Skip comments and find dimensions
+        let mut width = 0u32;
+        let mut height = 0u32;
+        while pos < data.len() {
+            let line_end = data[pos..].iter().position(|&b| b == b'\n').ok_or("Unexpected EOF")? + pos;
+            let line = &data[pos..line_end];
+            
+            if line.starts_with(b"#") {
+                pos = line_end + 1;
+                continue;
+            }
+            
+            // Parse dimensions
+            let dims_str = String::from_utf8_lossy(line);
+            let dims: Vec<&str> = dims_str.trim().split_whitespace().collect();
+            if dims.len() == 2 {
+                width = dims[0].parse().map_err(|e| format!("Invalid width: {}", e))?;
+                height = dims[1].parse().map_err(|e| format!("Invalid height: {}", e))?;
+                pos = line_end + 1;
                 break;
             }
-            dims_line = lines.next();
+            
+            return Err("Could not parse dimensions".to_string());
         }
-        
-        let dims_str = String::from_utf8_lossy(dims_line.ok_or("Missing dimensions")?);
-        let dims: Vec<&str> = dims_str.trim().split_whitespace().collect();
-        if dims.len() != 2 {
-            return Err(format!("Invalid dimensions: {}", dims_str));
-        }
-        
-        let width: u32 = dims[0].parse().map_err(|e| format!("Invalid width: {}", e))?;
-        let height: u32 = dims[1].parse().map_err(|e| format!("Invalid height: {}", e))?;
         
         // Read max value
-        let max_val_line = lines.next().ok_or("Missing max value")?;
-        let max_val = String::from_utf8_lossy(max_val_line).trim().parse::<u32>()
+        let line_end = data[pos..].iter().position(|&b| b == b'\n').ok_or("No newline after max value")? + pos;
+        let max_val_str = String::from_utf8_lossy(&data[pos..line_end]);
+        let max_val: u32 = max_val_str.trim().parse()
             .map_err(|e| format!("Invalid max value: {}", e))?;
         
         if max_val != 255 {
             return Err(format!("Unsupported max value: {}", max_val));
         }
         
-        // Get pixel data
-        let header_len = data.len() - lines.as_slice().len();
-        let pixel_data = &data[header_len..];
+        pos = line_end + 1;
+        
+        // Rest is pixel data
+        let pixel_data = &data[pos..];
         
         self.screenshot_cache = Some(ScreenshotCache {
             data: pixel_data.to_vec(),

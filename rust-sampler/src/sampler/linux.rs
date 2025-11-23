@@ -104,29 +104,19 @@ impl LinuxSampler {
             }
         }
         
-        // X11 failed, try screenshot tools
-        eprintln!("X11 direct capture failed, trying screenshot tools...");
+        // X11 failed - likely running on Wayland via XWayland
+        eprintln!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        eprintln!("⚠️  WAYLAND DETECTED - Using Electron Fallback");
+        eprintln!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        eprintln!("");
+        eprintln!("The Rust sampler cannot access the screen on Wayland.");
+        eprintln!("Swach will use the Electron-based color picker instead.");
+        eprintln!("");
+        eprintln!("Note: For best performance, use an X11 session.");
+        eprintln!("");
+        eprintln!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         
-        // Check for grim (Wayland)
-        if Command::new("which").arg("grim").output().map(|o| o.status.success()).unwrap_or(false) {
-            eprintln!("Using grim for screen capture");
-            return CaptureMethod::Grim;
-        }
-        
-        // Check for scrot
-        if Command::new("which").arg("scrot").output().map(|o| o.status.success()).unwrap_or(false) {
-            eprintln!("Using scrot for screen capture");
-            return CaptureMethod::Scrot;
-        }
-        
-        // Check for ImageMagick import
-        if Command::new("which").arg("import").output().map(|o| o.status.success()).unwrap_or(false) {
-            eprintln!("Using ImageMagick import for screen capture");
-            return CaptureMethod::ImageMagick;
-        }
-        
-        eprintln!("WARNING: No screenshot tool found! Install grim, scrot, or imagemagick");
-        CaptureMethod::X11Direct // Will fail but at least we tried
+        CaptureMethod::X11Direct // Will fail, triggering fallback to Electron picker
     }
     
     fn capture_screenshot(&mut self) -> Result<(), String> {

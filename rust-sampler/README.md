@@ -23,13 +23,13 @@ This Rust binary provides continuous, real-time pixel sampling for the Swach col
 - No external dependencies required
 - Best performance
 
-### Linux (Wayland) ✅
+### Linux (Wayland) ⚠️ Automatic Fallback
 
-- Automatically falls back to screenshot tools when X11 direct capture fails
-- Tries tools in order: `grim` (Wayland), `scrot`, `imagemagick`
-- Caches screenshots for 50ms to maintain ~20 FPS
-- **Install grim for Wayland support**: `sudo apt install grim` (Ubuntu/Debian)
-- Works but slower than native X11
+- **Rust sampler not supported** - Wayland's security model prevents direct screen access
+- **Automatic fallback** - App automatically uses Electron's desktopCapturer on Wayland
+- Works transparently - no user action required
+- Performance: Good but slightly slower than native X11
+- Note: Electron's desktopCapturer handles Portal/PipeWire complexity internally
 
 ### Windows ✅
 

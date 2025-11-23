@@ -23,8 +23,12 @@ windows = { version = "0.58", features = [
 [target.'cfg(target_os = "linux")'.dependencies]
 # X11 support for direct pixel sampling
 x11 = { version = "2.21", features = ["xlib"] }
-# Note: Wayland does not support direct screen pixel sampling due to security model
-# Applications on Wayland need to use compositor-specific protocols
+# Wayland support via XDG Desktop Portal + PipeWire
+ashpd = { version = "0.9" }
+pipewire = "0.8"
+tokio = { version = "1", features = ["rt", "sync", "macros"] }
+futures = "0.3"
+dirs = "5.0"
 
 [profile.release]
 opt-level = 3

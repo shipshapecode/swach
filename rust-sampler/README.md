@@ -8,66 +8,59 @@ This Rust binary provides continuous, real-time pixel sampling for the Swach col
 
 ## Platform Support
 
-### macOS
+### macOS ✅
 
 - Uses Core Graphics `CGDisplayCreateImage` for efficient screen capture
 - Direct pixel access without full screenshots
 - Hardware-accelerated sampling
+- Native cursor position tracking via NSEvent
 
-### Linux (Wayland)
+### Linux (X11) ✅
 
-- **Requires `grim` for Wayland screenshot support**
-- Falls back to X11 methods (`import` from ImageMagick or `scrot`) when available
-- Automatically detects Wayland vs X11 session
+- Uses native X11 `XGetImage` and `XGetPixel` APIs
+- Direct pixel sampling without external tools
+- Native cursor position tracking via `XQueryPointer`
+- No external dependencies required
 
-### Linux (X11)
+### Linux (Wayland) ✅
 
-- Uses ImageMagick's `import` command
-- Falls back to `scrot` if ImageMagick is not available
-- Requires `xdotool` for cursor position tracking
+- Works via XWayland compatibility layer
+- The app is launched with `--ozone-platform=x11` flag, which forces X11 mode
+- This allows the X11 sampler implementation to work on Wayland systems
+- No additional user configuration required
 
-### Windows
+### Windows ✅
 
 - Uses Windows GDI `GetPixel` API
 - Direct pixel sampling without screenshots
-- Native cursor position tracking
+- Native cursor position tracking via `GetCursorPos`
+- No external dependencies required
 
-## Linux/Wayland Setup
+## Linux Setup
 
-For Wayland users, you need to install `grim`:
+### X11 (Recommended)
+
+No additional setup required! The sampler uses native X11 libraries for pixel sampling.
 
 ```bash
-# Arch Linux
-sudo pacman -S grim
-
+# X11 development libraries (usually already installed)
 # Ubuntu/Debian
-sudo apt install grim
+sudo apt install libx11-dev
 
 # Fedora
-sudo dnf install grim
+sudo dnf install libX11-devel
 
-# openSUSE
-sudo zypper install grim
+# Arch Linux
+sudo pacman -S libx11
 ```
 
-For X11 users (fallback), install one of:
+### Wayland
 
-```bash
-# ImageMagick (recommended)
-sudo apt install imagemagick  # Ubuntu/Debian
-sudo dnf install ImageMagick  # Fedora
-sudo pacman -S imagemagick    # Arch Linux
+The app automatically runs via XWayland on Wayland systems (using the `--ozone-platform=x11` flag). This means:
 
-# OR scrot (lighter alternative)
-sudo apt install scrot        # Ubuntu/Debian
-sudo dnf install scrot        # Fedora
-sudo pacman -S scrot          # Arch Linux
-
-# For cursor tracking on X11
-sudo apt install xdotool      # Ubuntu/Debian
-sudo dnf install xdotool      # Fedora
-sudo pacman -S xdotool        # Arch Linux
-```
+- The X11 implementation works transparently on Wayland
+- No additional setup required
+- User doesn't need to know whether they're running X11 or Wayland
 
 ## Building
 
@@ -148,22 +141,14 @@ Debug/diagnostic messages are sent to stderr.
 
 ### Sampling Rate
 
-- macOS: Can achieve 60+ FPS easily with direct pixel access
-- Windows: Similar to macOS, native GDI is very fast
-- Linux (X11): Limited by screenshot tool speed (~30-60 FPS)
-- Linux (Wayland): Limited by screenshot tool speed (~30-60 FPS)
-
-### Wayland Screenshot Caching
-
-The Linux/Wayland implementation caches screenshots for 100ms to balance performance and accuracy. This means:
-
-- Updates happen approximately 10 times per second
-- Reduces CPU usage significantly
-- Provides smooth-enough experience for color picking
+- **macOS**: Can achieve 60+ FPS easily with direct pixel access
+- **Windows**: Similar to macOS, native GDI is very fast
+- **Linux (X11)**: Individual XGetImage calls per pixel - can achieve 30-60 FPS depending on grid size
+- **Linux (Wayland via XWayland)**: Same as X11 - 30-60 FPS
 
 ### Grid Sampling
 
-Larger grid sizes (e.g., 15x15 vs 9x9) have minimal performance impact since they sample from the same cached image data.
+Larger grid sizes (e.g., 15x15 vs 9x9) require more individual pixel samples, which impacts performance on all platforms. The impact is most noticeable on Linux/X11 where each pixel requires a separate X11 call.
 
 ## Permissions
 
@@ -174,13 +159,12 @@ Larger grid sizes (e.g., 15x15 vs 9x9) have minimal performance impact since the
 
 ### Linux (Wayland)
 
-- No special permissions required
-- Screenshot tool (`grim`) handles Wayland compositor communication
+- Not supported - Wayland security model prevents pixel access
 
 ### Linux (X11)
 
 - No special permissions required
-- Direct X11 access for screenshots and cursor position
+- Direct X11 access for pixel sampling and cursor position
 
 ### Windows
 

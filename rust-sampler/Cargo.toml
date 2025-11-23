@@ -21,11 +21,10 @@ windows = { version = "0.58", features = [
 ] }
 
 [target.'cfg(target_os = "linux")'.dependencies]
-# Support both X11 and Wayland
-ashpd = { version = "0.9", features = ["wayland"] }
-# Fallback to X11
+# X11 support for direct pixel sampling
 x11 = { version = "2.21", features = ["xlib"] }
-libc = "0.2"
+# Note: Wayland does not support direct screen pixel sampling due to security model
+# Applications on Wayland need to use compositor-specific protocols
 
 [profile.release]
 opt-level = 3

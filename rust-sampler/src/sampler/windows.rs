@@ -1,18 +1,24 @@
 use crate::types::{Color, PixelSampler, Point};
 use windows::Win32::Foundation::POINT;
 use windows::Win32::Graphics::Gdi::{
-    GetDC, GetPixel, ReleaseDC, COLORREF,
+    GetDC, GetPixel, ReleaseDC, HDC, CLR_INVALID,
 };
 use windows::Win32::UI::WindowsAndMessaging::GetCursorPos;
 
 pub struct WindowsSampler {
-    hdc: windows::Win32::Graphics::Gdi::HDC,
+    hdc: HDC,
 }
 
 impl WindowsSampler {
     pub fn new() -> Result<Self, String> {
         unsafe {
             let hdc = GetDC(None);
+            
+            if hdc.is_invalid() {
+                return Err("Failed to get device context".to_string());
+            }
+            
+            eprintln!("Windows sampler initialized");
             
             Ok(WindowsSampler { hdc })
         }
@@ -32,7 +38,12 @@ impl PixelSampler for WindowsSampler {
         unsafe {
             let color_ref = GetPixel(self.hdc, x, y);
             
-            // COLORREF format is 0x00BBGGRR
+            // Check for error (CLR_INVALID is returned on error)
+            if color_ref == CLR_INVALID {
+                return Err(format!("Failed to get pixel at ({}, {})", x, y));
+            }
+            
+            // COLORREF format is 0x00BBGGRR (BGR, not RGB)
             let r = (color_ref & 0xFF) as u8;
             let g = ((color_ref >> 8) & 0xFF) as u8;
             let b = ((color_ref >> 16) & 0xFF) as u8;

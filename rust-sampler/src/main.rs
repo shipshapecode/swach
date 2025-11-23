@@ -21,7 +21,6 @@ fn main() {
 
 fn run() -> Result<(), String> {
     use std::sync::mpsc::{channel, Receiver};
-    use std::sync::{Arc, Mutex};
     use std::thread;
     
     eprintln!("Swach pixel sampler starting...");

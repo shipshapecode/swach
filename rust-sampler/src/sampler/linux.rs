@@ -151,12 +151,40 @@ impl LinuxSampler {
             // Convert XImage to RGB buffer
             let mut data = Vec::with_capacity((width * height * 3) as usize);
             
+            // Read color masks from the XImage structure
+            let red_mask = (*image).red_mask;
+            let green_mask = (*image).green_mask;
+            let blue_mask = (*image).blue_mask;
+            
+            // Compute shift amounts by counting trailing zeros
+            let red_shift = red_mask.trailing_zeros();
+            let green_shift = green_mask.trailing_zeros();
+            let blue_shift = blue_mask.trailing_zeros();
+            
+            // Compute mask bit widths for normalization
+            let red_bits = red_mask.count_ones();
+            let green_bits = green_mask.count_ones();
+            let blue_bits = blue_mask.count_ones();
+            
+            // Compute normalization divisors (max value for each channel)
+            let red_max = (1u64 << red_bits) - 1;
+            let green_max = (1u64 << green_bits) - 1;
+            let blue_max = (1u64 << blue_bits) - 1;
+            
             for row in 0..height {
                 for col in 0..width {
                     let pixel = x11::xlib::XGetPixel(image, col as i32, row as i32);
-                    let r = ((pixel >> 16) & 0xFF) as u8;
-                    let g = ((pixel >> 8) & 0xFF) as u8;
-                    let b = (pixel & 0xFF) as u8;
+                    
+                    // Extract raw channel values using masks and shifts
+                    let r_raw = (pixel & red_mask) >> red_shift;
+                    let g_raw = (pixel & green_mask) >> green_shift;
+                    let b_raw = (pixel & blue_mask) >> blue_shift;
+                    
+                    // Normalize to 8-bit (0..255)
+                    let r = ((r_raw * 255) / red_max) as u8;
+                    let g = ((g_raw * 255) / green_max) as u8;
+                    let b = ((b_raw * 255) / blue_max) as u8;
+                    
                     data.push(r);
                     data.push(g);
                     data.push(b);

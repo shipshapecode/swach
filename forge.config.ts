@@ -56,8 +56,10 @@ const config: ForgeConfig = {
     // Include all resources in the packaged app
     extraResource: [
       'electron-app/resources',
-      'rust-sampler/target/release/swach-sampler',
-      'rust-sampler/target/release/swach-sampler.exe',
+      // Conditionally include platform-specific Rust sampler binary
+      ...(process.platform === 'win32'
+        ? ['rust-sampler/target/release/swach-sampler.exe']
+        : ['rust-sampler/target/release/swach-sampler']),
     ],
   },
   makers: [

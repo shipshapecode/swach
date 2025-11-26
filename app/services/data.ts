@@ -57,7 +57,7 @@ export default class DataService extends Service {
             );
             reject(
               new Error(
-                `Failed to delete corrupt database: ${deleteRequest.error}`
+                `Failed to delete corrupt database: ${deleteRequest.error?.message ?? 'Unknown error'}`
               )
             );
           };

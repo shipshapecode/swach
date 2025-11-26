@@ -24,10 +24,7 @@ describe('Magnifier Renderer Integration', () => {
   }
 
   // Helper to verify all pixels in a grid size are covered
-  function verifyAllPixelsCovered(
-    updates: PixelUpdate[],
-    _gridSize: number
-  ): void {
+  function verifyAllPixelsCovered(updates: PixelUpdate[]): void {
     const pixelIds = new Set(updates.map((u) => u.pixelId));
 
     // Check that we have the right number of unique updates
@@ -43,18 +40,18 @@ describe('Magnifier Renderer Integration', () => {
       // Frame 1: Display is 9x9, data is 9x9 (perfect match)
       const frame1 = calculatePixelUpdatesWithMismatch(oldData, 9, 9);
       expect(frame1).toHaveLength(81);
-      verifyAllPixelsCovered(frame1, 9);
+      verifyAllPixelsCovered(frame1);
 
       // Frame 2: Display is 11x11, data is still 9x9 (transition)
       // Should center 9x9 data in 11x11 grid
       const frame2 = calculatePixelUpdatesWithMismatch(oldData, 9, 11);
       expect(frame2).toHaveLength(81); // Only update the 81 pixels we have data for
-      verifyAllPixelsCovered(frame2, 9);
+      verifyAllPixelsCovered(frame2);
 
       // Frame 3: Display is 11x11, data is 11x11 (complete)
       const frame3 = calculatePixelUpdatesWithMismatch(newData, 11, 11);
       expect(frame3).toHaveLength(121);
-      verifyAllPixelsCovered(frame3, 11);
+      verifyAllPixelsCovered(frame3);
 
       // Verify that all 121 pixels would eventually be covered
       const allPixelIds = new Set(frame3.map((u) => u.pixelId));
@@ -97,7 +94,7 @@ describe('Magnifier Renderer Integration', () => {
       // Should use center portion of 11x11 data
       const frame2 = calculatePixelUpdatesWithMismatch(oldData, 11, 9);
       expect(frame2).toHaveLength(81);
-      verifyAllPixelsCovered(frame2, 9);
+      verifyAllPixelsCovered(frame2);
 
       // Frame 3: Display is 9x9, data is 9x9
       const frame3 = calculatePixelUpdatesWithMismatch(newData, 9, 9);
@@ -115,7 +112,7 @@ describe('Magnifier Renderer Integration', () => {
       // Frame 2: 9x9 data in 5x5 display (use center)
       const frame2 = calculatePixelUpdatesWithMismatch(oldData, 9, 5);
       expect(frame2).toHaveLength(25);
-      verifyAllPixelsCovered(frame2, 5);
+      verifyAllPixelsCovered(frame2);
 
       // Frame 3: 5x5 data in 5x5 display
       const frame3 = calculatePixelUpdatesWithMismatch(newData, 5, 5);
@@ -145,7 +142,7 @@ describe('Magnifier Renderer Integration', () => {
       const updates = calculatePixelUpdatesWithMismatch(data, 21, 21);
 
       expect(updates).toHaveLength(441); // 21*21
-      verifyAllPixelsCovered(updates, 21);
+      verifyAllPixelsCovered(updates);
     });
 
     it('should handle transition from 19x19 to 21x21', () => {
@@ -172,7 +169,7 @@ describe('Magnifier Renderer Integration', () => {
       const updates = calculatePixelUpdatesWithMismatch(data, 5, 5);
 
       expect(updates).toHaveLength(25);
-      verifyAllPixelsCovered(updates, 5);
+      verifyAllPixelsCovered(updates);
     });
 
     it('should handle even-odd size transitions', () => {

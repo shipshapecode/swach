@@ -194,14 +194,13 @@ class MagnifierRenderer {
 
       // Check what needs updating BEFORE modifying state
       const needsSquareSizeUpdate =
-        (data as any).squareSize &&
-        (data as any).squareSize !== this.currentSquareSize;
+        data.squareSize && data.squareSize !== this.currentSquareSize;
       const needsDiameterUpdate =
         data.diameter && data.diameter !== this.currentDiameter;
 
       // Update state
       if (needsSquareSizeUpdate) {
-        this.currentSquareSize = (data as any).squareSize;
+        this.currentSquareSize = data.squareSize;
       }
       if (needsDiameterUpdate) {
         this.currentDiameter = data.diameter;

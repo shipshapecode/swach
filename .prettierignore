@@ -3,6 +3,7 @@
 
 # compiled output
 /dist/
+/electron-app/dist/
 
 # misc
 /coverage/
@@ -19,3 +20,6 @@ CHANGELOG.md
 
 # Types
 /types/
+
+# Rust build artifacts
+/rust-sampler/target/

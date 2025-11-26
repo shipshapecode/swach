@@ -11,6 +11,12 @@ interface PixelData {
   timestamp: number;
 }
 
+interface ErrorResponse {
+  error: string;
+}
+
+type SamplerResponse = PixelData | ErrorResponse;
+
 type SamplerCallback = (data: PixelData) => void;
 type ErrorCallback = (error: string) => void;
 
@@ -78,13 +84,13 @@ export class RustSamplerManager {
       for (const line of lines) {
         if (line.trim()) {
           try {
-            const parsed = JSON.parse(line);
+            const parsed = JSON.parse(line) as SamplerResponse;
 
             if ('error' in parsed) {
               console.error('[RustSampler] Error:', parsed.error);
               this.errorCallback?.(parsed.error);
             } else {
-              this.dataCallback?.(parsed as PixelData);
+              this.dataCallback?.(parsed);
             }
           } catch (e) {
             console.error('[RustSampler] Failed to parse JSON:', line, e);

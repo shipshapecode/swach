@@ -232,7 +232,7 @@ pkill -9 -f swach-sampler
 ### Test sampler directly
 
 ```bash
-echo '{"command":"start","grid_size":9,"sample_rate":20"}' | rust-sampler/target/debug/swach-sampler
+echo '{"command":"start","grid_size":9,"sample_rate":20}' | rust-sampler/target/debug/swach-sampler
 ```
 
 Should output JSON with color data.

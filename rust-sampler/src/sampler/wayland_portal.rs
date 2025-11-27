@@ -17,7 +17,9 @@ pub struct WaylandPortalSampler {
     runtime: tokio::runtime::Runtime,
     x11_display: *mut x11::xlib::Display,
     frame_buffer: Arc<Mutex<Option<FrameBuffer>>>,
-    pipewire_stream: Option<pw::stream::Stream>,
+    _pipewire_mainloop: Option<pw::main_loop::MainLoop>,
+    _pipewire_stream: Option<pw::stream::Stream>,
+    _stream_listener: Option<pw::stream::StreamListener<Arc<Mutex<Option<FrameBuffer>>>>>,
     screencast_started: std::sync::Arc<std::sync::atomic::AtomicBool>,
 }
 
@@ -26,6 +28,45 @@ struct FrameBuffer {
     width: u32,
     height: u32,
     stride: usize,
+}
+
+// Helper function to estimate screen dimensions from pixel count
+// This is a heuristic for common screen resolutions
+fn estimate_dimensions(pixel_count: usize) -> (u32, u32) {
+    let common_resolutions = [
+        (3840, 2160), // 4K
+        (2560, 1440), // 1440p
+        (1920, 1080), // 1080p
+        (1680, 1050),
+        (1600, 900),
+        (1440, 900),
+        (1366, 768),
+        (1280, 1024),
+        (1280, 800),
+        (1280, 720),
+        (1024, 768),
+    ];
+    
+    for &(w, h) in &common_resolutions {
+        if w * h == pixel_count as u32 {
+            return (w, h);
+        }
+    }
+    
+    // If no exact match, try to find closest aspect ratio
+    let sqrt = (pixel_count as f64).sqrt() as u32;
+    let mut best = (0, 0);
+    let mut best_diff = u32::MAX;
+    
+    for &(w, h) in &common_resolutions {
+        let diff = (w as i64 - sqrt as i64).abs() as u32;
+        if diff < best_diff {
+            best_diff = diff;
+            best = (w, h);
+        }
+    }
+    
+    best
 }
 
 impl WaylandPortalSampler {
@@ -57,7 +98,9 @@ impl WaylandPortalSampler {
             runtime,
             x11_display,
             frame_buffer: Arc::new(Mutex::new(None)),
-            pipewire_stream: None,
+            _pipewire_mainloop: None,
+            _pipewire_stream: None,
+            _stream_listener: None,
             screencast_started: std::sync::Arc::new(std::sync::atomic::AtomicBool::new(false)),
         })
     }
@@ -109,7 +152,8 @@ impl WaylandPortalSampler {
             eprintln!("(This dialog will only appear once)");
         }
         
-        self.runtime.block_on(async {
+        // Get the PipeWire node ID from the portal
+        let node_id = self.runtime.block_on(async {
             // Connect to screencast portal
             let screencast = Screencast::new().await
                 .map_err(|e| format!("Failed to connect to screencast portal: {}", e))?;
@@ -161,25 +205,179 @@ impl WaylandPortalSampler {
             
             eprintln!("PipeWire node ID: {}", node_id);
             
-            // TODO: Complete PipeWire frame capture implementation
-            // The Portal screencast API is working and token persistence is implemented.
-            // What remains:
-            //
-            // 1. Initialize PipeWire mainloop and context
-            // 2. Create a PipeWire stream connected to the node_id
-            // 3. Set up stream listener to receive video frames
-            // 4. Extract frame data (width, height, stride, pixel format)
-            // 5. Copy frame data to frame_buffer Arc<Mutex<>> for sampling
-            // 6. Run mainloop in background thread
-            //
-            // References:
-            // - pipewire-rs examples: https://gitlab.freedesktop.org/pipewire/pipewire-rs
-            // - screencast example: https://github.com/Doukindou/screencast-rs
-            //
-            // For now, return an error to indicate this is not yet fully functional
-            
-            Err("PipeWire frame capture not yet implemented. Portal+token persistence works, but frame streaming needs completion.".to_string())
-        })
+            Ok::<u32, String>(node_id)
+        })?;
+        
+        // Initialize PipeWire
+        eprintln!("Initializing PipeWire...");
+        pw::init();
+        
+        // Create PipeWire main loop
+        let mainloop = pw::main_loop::MainLoop::new(None)
+            .map_err(|e| format!("Failed to create PipeWire main loop: {:?}", e))?;
+        
+        // Create PipeWire context
+        let context = pw::context::Context::new(&mainloop)
+            .map_err(|e| format!("Failed to create PipeWire context: {:?}", e))?;
+        
+        // Connect to PipeWire
+        let core = context.connect(None)
+            .map_err(|e| format!("Failed to connect to PipeWire: {:?}", e))?;
+        
+        // Create a stream
+        let stream = pw::stream::Stream::new(
+            &core,
+            "swach-screencast",
+            pw::properties::properties! {
+                *pw::keys::MEDIA_TYPE => "Video",
+                *pw::keys::MEDIA_CATEGORY => "Capture",
+                *pw::keys::MEDIA_ROLE => "Screen",
+            },
+        ).map_err(|e| format!("Failed to create PipeWire stream: {:?}", e))?;
+        
+        // Add listener to receive frames
+        let frame_buffer_clone = Arc::clone(&frame_buffer);
+        
+        // Store video format info
+        let video_info: Arc<Mutex<Option<(u32, u32, usize)>>> = Arc::new(Mutex::new(None));
+        let video_info_clone = Arc::clone(&video_info);
+        
+        let listener = stream
+            .add_local_listener_with_user_data(frame_buffer_clone)
+            .state_changed(move |_stream, _user_data, old, new| {
+                eprintln!("PipeWire stream state: {:?} -> {:?}", old, new);
+            })
+            .param_changed(move |_stream, _user_data, id, param| {
+                use pw::spa::param::ParamType;
+                
+                // Only care about Format params
+                if id != ParamType::Format.as_raw() {
+                    return;
+                }
+                
+                if let Some(param) = param {
+                    // Try to extract video format information
+                    use pw::spa::param::video::VideoInfoRaw;
+                    use pw::spa::pod::deserialize::PodDeserializer;
+                    
+                    if let Ok((media_type, media_subtype)) = pw::spa::param::format_utils::parse_format(param) {
+                        eprintln!("Stream format: {:?}/{:?}", media_type, media_subtype);
+                        
+                        // Try to parse as video format
+                        match VideoInfoRaw::parse(param) {
+                            Ok(info) => {
+                                let width = info.size().width;
+                                let height = info.size().height;
+                                let stride = info.stride() as usize;
+                                
+                                eprintln!("Video format: {}x{} stride={}", width, height, stride);
+                                
+                                if let Ok(mut vi) = video_info_clone.lock() {
+                                    *vi = Some((width, height, stride));
+                                }
+                            }
+                            Err(e) => {
+                                eprintln!("Could not parse video format: {:?}", e);
+                            }
+                        }
+                    }
+                }
+            })
+            .process(|stream, user_data| {
+                // This callback is called for each video frame
+                match stream.dequeue_buffer() {
+                    None => {
+                        // No buffer available - this is normal, just return
+                    }
+                    Some(mut buffer) => {
+                        let datas = buffer.datas_mut();
+                        if datas.is_empty() {
+                            return;
+                        }
+                        
+                        let data = &mut datas[0];
+                        
+                        // Get the chunk data (contains actual pixel data)
+                        let chunk = data.chunk();
+                        let size = chunk.size() as usize;
+                        
+                        if size == 0 {
+                            return;
+                        }
+                        
+                        // Get video format info from stored state
+                        let format_info = if let Ok(vi) = video_info.lock() {
+                            *vi
+                        } else {
+                            None
+                        };
+                        
+                        // Get frame data
+                        if let Some(slice) = data.data() {
+                            if slice.len() >= size {
+                                let pixel_data = slice[..size].to_vec();
+                                
+                                let (width, height, stride) = if let Some((w, h, s)) = format_info {
+                                    // Use parsed format info
+                                    (w, h, s)
+                                } else {
+                                    // Fallback: estimate dimensions
+                                    let pixel_count = size / 4;
+                                    let (w, h) = estimate_dimensions(pixel_count);
+                                    let s = w as usize * 4;
+                                    (w, h, s)
+                                };
+                                
+                                if width > 0 && height > 0 {
+                                    if let Ok(mut fb) = user_data.lock() {
+                                        *fb = Some(FrameBuffer {
+                                            data: pixel_data,
+                                            width,
+                                            height,
+                                            stride,
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            .register()
+            .map_err(|e| format!("Failed to register stream listener: {:?}", e))?;
+        
+        // Connect stream to the PipeWire node
+        eprintln!("Connecting to PipeWire node {}...", node_id);
+        
+        stream.connect(
+            pw::spa::utils::Direction::Input,
+            Some(node_id),
+            pw::stream::StreamFlags::AUTOCONNECT | pw::stream::StreamFlags::MAP_BUFFERS,
+            &mut [],
+        )
+        .map_err(|e| format!("Failed to connect stream: {:?}", e))?;
+        
+        eprintln!("✓ PipeWire stream connected successfully");
+        
+        // Run mainloop in background thread
+        let mainloop_clone = mainloop.clone();
+        std::thread::spawn(move || {
+            eprintln!("PipeWire mainloop started");
+            mainloop_clone.run();
+            eprintln!("PipeWire mainloop stopped");
+        });
+        
+        // Store the stream and mainloop so they don't get dropped
+        self._pipewire_stream = Some(stream);
+        self._stream_listener = Some(listener);
+        self._pipewire_mainloop = Some(mainloop);
+        
+        // Give the stream a moment to start receiving frames
+        std::thread::sleep(std::time::Duration::from_millis(500));
+        
+        eprintln!("✓ Screen capture fully initialized");
+        
+        Ok(())
     }
 }
 

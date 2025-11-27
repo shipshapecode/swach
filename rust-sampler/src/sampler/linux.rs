@@ -62,7 +62,7 @@ impl LinuxSampler {
             let screen_height = x11::xlib::XDisplayHeight(display, screen);
             
             // Try to determine the best capture method
-            let method = Self::detect_capture_method(display);
+            let method = Self::detect_capture_method(display)?;
             
             eprintln!("Linux sampler initialized - Screen: {}x{}, Method: {:?}", 
                 screen_width, screen_height, method);
@@ -77,7 +77,7 @@ impl LinuxSampler {
         }
     }
     
-    fn detect_capture_method(display: *mut x11::xlib::Display) -> CaptureMethod {
+    fn detect_capture_method(display: *mut x11::xlib::Display) -> Result<CaptureMethod, String> {
         // Try X11 direct capture first
         unsafe {
             X_ERROR_OCCURRED.store(false, Ordering::SeqCst);
@@ -96,7 +96,7 @@ impl LinuxSampler {
             if !X_ERROR_OCCURRED.load(Ordering::SeqCst) && !test_image.is_null() {
                 x11::xlib::XDestroyImage(test_image);
                 eprintln!("X11 direct capture available");
-                return CaptureMethod::X11Direct;
+                return Ok(CaptureMethod::X11Direct);
             }
             
             if !test_image.is_null() {
@@ -104,19 +104,9 @@ impl LinuxSampler {
             }
         }
         
-        // X11 failed - likely running on Wayland via XWayland
-        eprintln!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-        eprintln!("⚠️  WAYLAND DETECTED - Using Electron Fallback");
-        eprintln!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-        eprintln!("");
-        eprintln!("The Rust sampler cannot access the screen on Wayland.");
-        eprintln!("Swach will use the Electron-based color picker instead.");
-        eprintln!("");
-        eprintln!("Note: For best performance, use an X11 session.");
-        eprintln!("");
-        eprintln!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-        
-        CaptureMethod::X11Direct // Will fail, triggering fallback to Electron picker
+        // X11 failed - likely running on Wayland
+        eprintln!("X11 direct capture not available (likely Wayland)");
+        Err("X11 capture failed - running on Wayland".to_string())
     }
     
     fn capture_screenshot(&mut self) -> Result<(), String> {

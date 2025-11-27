@@ -371,7 +371,7 @@ impl WaylandPortalSampler {
         eprintln!("Starting PipeWire mainloop iterations...");
         for _i in 0..10 {
             if let Some(ref ml) = self._pipewire_mainloop {
-                ml.loop_().iterate(pw::loop_::Timeout::Finite(std::time::Duration::from_millis(50)));
+                ml.loop_().iterate(std::time::Duration::from_millis(50));
             }
         }
         
@@ -396,7 +396,7 @@ impl PixelSampler for WaylandPortalSampler {
         
         // Iterate mainloop to process new frames
         if let Some(ref ml) = self._pipewire_mainloop {
-            ml.loop_().iterate(pw::loop_::Timeout::Finite(std::time::Duration::from_millis(1)));
+            ml.loop_().iterate(std::time::Duration::from_millis(1));
         }
         
         let buffer = self.frame_buffer.lock().unwrap();
@@ -459,7 +459,7 @@ impl PixelSampler for WaylandPortalSampler {
         
         // Iterate mainloop to process new frames
         if let Some(ref ml) = self._pipewire_mainloop {
-            ml.loop_().iterate(pw::loop_::Timeout::Finite(std::time::Duration::from_millis(1)));
+            ml.loop_().iterate(std::time::Duration::from_millis(1));
         }
         
         let half_size = (grid_size / 2) as i32;

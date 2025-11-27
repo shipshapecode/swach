@@ -57,6 +57,14 @@ class MagnifyingColorPicker {
     this.isActive = true;
 
     try {
+      // Pre-start the sampler to trigger permission dialogs BEFORE showing magnifier
+      // This is critical on Wayland where the permission dialog needs to be clickable
+      console.log(
+        '[Magnifying Color Picker] Pre-starting sampler for permission check...'
+      );
+      await this.samplerManager.ensureStarted(this.gridSize, 15);
+      console.log('[Magnifying Color Picker] Sampler ready, showing magnifier');
+
       await this.createMagnifierWindow();
       return await this.startColorPicking();
     } catch (error) {

@@ -125,6 +125,42 @@ export class RustSamplerManager {
     this.sendCommand(startCommand);
   }
 
+  /**
+   * Ensure sampler is started and wait for first successful data callback
+   * This is useful for triggering permission dialogs before showing UI
+   */
+  async ensureStarted(gridSize: number, sampleRate: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      let resolved = false;
+      const timeout = setTimeout(() => {
+        if (!resolved) {
+          resolved = true;
+          reject(new Error('Timeout waiting for sampler to start'));
+        }
+      }, 30000); // 30 second timeout for permission dialog
+
+      // Start with a temporary callback that resolves on first data
+      this.start(
+        gridSize,
+        sampleRate,
+        () => {
+          if (!resolved) {
+            resolved = true;
+            clearTimeout(timeout);
+            resolve();
+          }
+        },
+        (error) => {
+          if (!resolved) {
+            resolved = true;
+            clearTimeout(timeout);
+            reject(new Error(error));
+          }
+        }
+      );
+    });
+  }
+
   updateGridSize(gridSize: number): void {
     console.log(`[RustSampler] Sending update_grid command: ${gridSize}`);
     const command = {

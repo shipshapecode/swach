@@ -83,6 +83,10 @@ impl WaylandPortalSampler {
         Ok(())
     }
     
+    pub fn request_permission(&mut self) -> Result<(), String> {
+        self.ensure_screencast_started()
+    }
+    
     fn ensure_screencast_started(&mut self) -> Result<(), String> {
         // Check if already started
         if self.screencast_started.load(std::sync::atomic::Ordering::SeqCst) {

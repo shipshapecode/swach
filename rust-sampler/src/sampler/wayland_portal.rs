@@ -17,8 +17,8 @@ pub struct WaylandPortalSampler {
     runtime: tokio::runtime::Runtime,
     x11_display: *mut x11::xlib::Display,
     frame_buffer: Arc<Mutex<Option<FrameBuffer>>>,
-    _pipewire_mainloop: Option<pw::main_loop::MainLoop>,
-    _pipewire_stream: Option<pw::stream::Stream>,
+    _pipewire_mainloop: Option<pw::MainLoop>,
+    _pipewire_stream: Option<pw::Stream>,
     _stream_listener: Option<pw::stream::StreamListener<Arc<Mutex<Option<FrameBuffer>>>>>,
     screencast_started: std::sync::Arc<std::sync::atomic::AtomicBool>,
 }
@@ -210,34 +210,35 @@ impl WaylandPortalSampler {
         
         // Initialize PipeWire
         eprintln!("Initializing PipeWire...");
-        pw::init();
+        unsafe {
+            pw::init();
+        }
         
         // Create PipeWire main loop
-        let mainloop = pw::main_loop::MainLoop::new(Default::default())
-            .map_err(|e| format!("Failed to create PipeWire main loop: {:?}", e))?;
+        let mainloop = pw::MainLoop::new(None)
+            .map_err(|_| "Failed to create PipeWire main loop".to_string())?;
+        
+        // Get loop reference for context
+        let loop_ref = mainloop.loop_();
         
         // Create PipeWire context
-        let context = pw::context::Context::with_properties(
-            &mainloop,
-            pw::properties::properties! {
-                *pw::keys::CONTEXT_NAME => "swach",
-            }
-        ).map_err(|e| format!("Failed to create PipeWire context: {:?}", e))?;
+        let context = pw::Context::new(&loop_ref)
+            .map_err(|_| "Failed to create PipeWire context".to_string())?;
         
-        // Connect to PipeWire
+        // Connect to PipeWire core
         let core = context.connect(None)
-            .map_err(|e| format!("Failed to connect to PipeWire: {:?}", e))?;
+            .map_err(|_| "Failed to connect to PipeWire".to_string())?;
         
         // Create a stream
-        let stream = pw::stream::Stream::with_properties(
+        let stream = pw::Stream::new(
             &core,
             "swach-screencast",
-            pw::properties::properties! {
+            pw::properties! {
                 *pw::keys::MEDIA_TYPE => "Video",
                 *pw::keys::MEDIA_CATEGORY => "Capture",
                 *pw::keys::MEDIA_ROLE => "Screen",
             },
-        ).map_err(|e| format!("Failed to create PipeWire stream: {:?}", e))?;
+        ).map_err(|_| "Failed to create PipeWire stream".to_string())?;
         
         // Add listener to receive frames
         let frame_buffer_clone = Arc::clone(&frame_buffer);
@@ -262,29 +263,28 @@ impl WaylandPortalSampler {
                 if let Some(param) = param {
                     // Try to extract video format information
                     use pw::spa::param::video::VideoInfoRaw;
+                    use pw::spa::pod::Pod;
                     
                     if let Ok((media_type, media_subtype)) = pw::spa::param::format_utils::parse_format(param) {
                         eprintln!("Stream format: {:?}/{:?}", media_type, media_subtype);
                         
                         // Try to parse as video format
-                        let mut info = VideoInfoRaw::default();
-                        match info.parse(param) {
-                            Ok(_) => {
-                                let format = info.format();
-                                let size = info.size();
-                                let width = size.width;
-                                let height = size.height;
-                                let stride = info.stride();
-                                
-                                eprintln!("Video format: {:?} {}x{} stride={}", format, width, height, stride);
-                                
-                                if let Ok(mut vi) = video_info_clone.lock() {
-                                    *vi = Some((width, height, stride as usize));
-                                }
+                        let mut info = VideoInfoRaw::new();
+                        if let Ok(_) = info.parse(param) {
+                            let size = info.size();
+                            let width = size.width;
+                            let height = size.height;
+                            
+                            // Calculate stride from width and format (assume 4 bytes per pixel for BGRA)
+                            let stride = width as usize * 4;
+                            
+                            eprintln!("Video format: {}x{} stride={}", width, height, stride);
+                            
+                            if let Ok(mut vi) = video_info_clone.lock() {
+                                *vi = Some((width, height, stride));
                             }
-                            Err(e) => {
-                                eprintln!("Could not parse video format: {:?}", e);
-                            }
+                        } else {
+                            eprintln!("Could not parse video format");
                         }
                     }
                 }

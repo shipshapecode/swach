@@ -361,21 +361,19 @@ impl WaylandPortalSampler {
         
         eprintln!("✓ PipeWire stream connected successfully");
         
-        // Run mainloop in background thread
-        let mainloop_clone = mainloop.clone();
-        std::thread::spawn(move || {
-            eprintln!("PipeWire mainloop started");
-            mainloop_clone.run();
-            eprintln!("PipeWire mainloop stopped");
-        });
-        
         // Store the stream and mainloop so they don't get dropped
         self._pipewire_stream = Some(stream);
         self._stream_listener = Some(listener);
         self._pipewire_mainloop = Some(mainloop);
         
-        // Give the stream a moment to start receiving frames
-        std::thread::sleep(std::time::Duration::from_millis(500));
+        // Iterate the mainloop a few times to kick off the stream
+        // This allows format negotiation and initial frames to be received
+        eprintln!("Starting PipeWire mainloop iterations...");
+        for i in 0..10 {
+            if let Some(ref ml) = self._pipewire_mainloop {
+                ml.iterate(std::time::Duration::from_millis(50));
+            }
+        }
         
         eprintln!("✓ Screen capture fully initialized");
         
@@ -395,6 +393,11 @@ impl PixelSampler for WaylandPortalSampler {
     fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
         // Ensure screencast is started (lazy initialization)
         self.ensure_screencast_started()?;
+        
+        // Iterate mainloop to process new frames
+        if let Some(ref ml) = self._pipewire_mainloop {
+            ml.iterate(std::time::Duration::from_millis(1));
+        }
         
         let buffer = self.frame_buffer.lock().unwrap();
         let frame = buffer.as_ref()
@@ -453,6 +456,11 @@ impl PixelSampler for WaylandPortalSampler {
     fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {
         // Ensure screencast is started (lazy initialization)
         self.ensure_screencast_started()?;
+        
+        // Iterate mainloop to process new frames
+        if let Some(ref ml) = self._pipewire_mainloop {
+            ml.iterate(std::time::Duration::from_millis(1));
+        }
         
         let half_size = (grid_size / 2) as i32;
         let mut grid = Vec::with_capacity(grid_size);

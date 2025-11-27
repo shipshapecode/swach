@@ -253,14 +253,12 @@ impl LinuxSampler {
     
     fn parse_ppm_screenshot(&mut self, data: &[u8]) -> Result<(), String> {
         // Find the start of pixel data by parsing header manually
-        let mut pos = 0;
-        
         // Read magic number (P6)
         let magic_end = data.iter().position(|&b| b == b'\n').ok_or("No newline after magic")?;
         if &data[0..magic_end] != b"P6" {
             return Err(format!("Invalid PPM magic: {:?}", String::from_utf8_lossy(&data[0..magic_end])));
         }
-        pos = magic_end + 1;
+        let mut pos = magic_end + 1;
         
         // Skip comments and find dimensions
         let mut width = 0u32;

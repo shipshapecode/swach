@@ -218,11 +218,8 @@ impl WaylandPortalSampler {
         let mainloop = pw::main_loop::MainLoop::new(None)
             .map_err(|_| "Failed to create PipeWire main loop".to_string())?;
         
-        // Get loop reference for context
-        let loop_ref = mainloop.loop_();
-        
-        // Create PipeWire context
-        let context = pw::context::Context::new(&loop_ref)
+        // Create PipeWire context (pass MainLoop directly, it implements IsLoopRc)
+        let context = pw::context::Context::new(&mainloop)
             .map_err(|_| "Failed to create PipeWire context".to_string())?;
         
         // Connect to PipeWire core

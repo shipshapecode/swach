@@ -225,7 +225,7 @@ impl WaylandPortalSampler {
         ).map_err(|e| format!("Failed to create PipeWire context: {:?}", e))?;
         
         // Connect to PipeWire
-        let core = context.connect(pw::properties::properties! {})
+        let core = context.connect(None)
             .map_err(|e| format!("Failed to connect to PipeWire: {:?}", e))?;
         
         // Create a stream

@@ -213,19 +213,23 @@ impl WaylandPortalSampler {
         pw::init();
         
         // Create PipeWire main loop
-        let mainloop = pw::main_loop::MainLoop::new(None)
+        let mainloop = pw::main_loop::MainLoop::new(Default::default())
             .map_err(|e| format!("Failed to create PipeWire main loop: {:?}", e))?;
         
         // Create PipeWire context
-        let context = pw::context::Context::new(&mainloop)
-            .map_err(|e| format!("Failed to create PipeWire context: {:?}", e))?;
+        let context = pw::context::Context::with_properties(
+            &mainloop,
+            pw::properties::properties! {
+                *pw::keys::CONTEXT_NAME => "swach",
+            }
+        ).map_err(|e| format!("Failed to create PipeWire context: {:?}", e))?;
         
         // Connect to PipeWire
-        let core = context.connect(None)
+        let core = context.connect(pw::properties::properties! {})
             .map_err(|e| format!("Failed to connect to PipeWire: {:?}", e))?;
         
         // Create a stream
-        let stream = pw::stream::Stream::new(
+        let stream = pw::stream::Stream::with_properties(
             &core,
             "swach-screencast",
             pw::properties::properties! {
@@ -258,22 +262,24 @@ impl WaylandPortalSampler {
                 if let Some(param) = param {
                     // Try to extract video format information
                     use pw::spa::param::video::VideoInfoRaw;
-                    use pw::spa::pod::deserialize::PodDeserializer;
                     
                     if let Ok((media_type, media_subtype)) = pw::spa::param::format_utils::parse_format(param) {
                         eprintln!("Stream format: {:?}/{:?}", media_type, media_subtype);
                         
                         // Try to parse as video format
-                        match VideoInfoRaw::parse(param) {
-                            Ok(info) => {
-                                let width = info.size().width;
-                                let height = info.size().height;
-                                let stride = info.stride() as usize;
+                        let mut info = VideoInfoRaw::default();
+                        match info.parse(param) {
+                            Ok(_) => {
+                                let format = info.format();
+                                let size = info.size();
+                                let width = size.width;
+                                let height = size.height;
+                                let stride = info.stride();
                                 
-                                eprintln!("Video format: {}x{} stride={}", width, height, stride);
+                                eprintln!("Video format: {:?} {}x{} stride={}", format, width, height, stride);
                                 
                                 if let Ok(mut vi) = video_info_clone.lock() {
-                                    *vi = Some((width, height, stride));
+                                    *vi = Some((width, height, stride as usize));
                                 }
                             }
                             Err(e) => {

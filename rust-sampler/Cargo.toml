@@ -4,9 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [features]
-# Enable Wayland support by default on Linux for PipeWire screencast with persistent tokens
+# Enable Wayland support by default for PipeWire screencast with persistent tokens
 default = ["wayland"]
-# Wayland support (requires system libraries: libpipewire-0.3-dev)
+# Wayland support (requires system libraries: libpipewire-0.3-dev on Linux)
 wayland = ["ashpd", "pipewire", "tokio", "futures"]
 
 [dependencies]

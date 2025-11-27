@@ -7,11 +7,10 @@
 // 4. Samples pixels from the video frames
 
 use crate::types::{Color, PixelSampler, Point};
-use ashpd::desktop::screencast::{CursorMode, Screencast, SourceType, PersistMode};
+use ashpd::desktop::screencast::{CursorMode, Screencast, SourceType};
 use ashpd::WindowIdentifier;
 use pipewire as pw;
 use std::sync::{Arc, Mutex};
-use std::os::fd::AsRawFd;
 
 pub struct WaylandPortalSampler {
     runtime: tokio::runtime::Runtime,
@@ -101,32 +100,38 @@ impl WaylandPortalSampler {
             let session = screencast.create_session().await
                 .map_err(|e| format!("Failed to create screencast session: {}", e))?;
             
-            // Select sources (monitors)
-            screencast.select_sources(
-                &session,
-                CursorMode::Embedded, // Include cursor in stream
-                SourceType::Monitor.into(),
-                false, // Don't allow multiple sources
-                restore_token.as_deref(),
-                Some(PersistMode::ExplicitlyRevoked), // Persist until user revokes
-            ).await
+            // Build select sources request
+            let sources_request = screencast
+                .select_sources(
+                    &session,
+                    CursorMode::Embedded,
+                    SourceType::Monitor.into(),
+                    false,
+                    restore_token.as_deref(),
+                )
+                .await
                 .map_err(|e| format!("Failed to select screencast sources: {}", e))?;
             
-            // Start the screencast
-            let response = screencast.start(&session, &WindowIdentifier::default()).await
-                .map_err(|e| format!("Failed to start screencast: {}", e))?;
+            // Start the screencast and get the response
+            let streams_response = screencast
+                .start(&session, &WindowIdentifier::default())
+                .send()
+                .await
+                .map_err(|e| format!("Failed to start screencast: {}", e))?
+                .response()
+                .map_err(|e| format!("Failed to get screencast response: {}", e))?;
             
             eprintln!("✓ Screen capture started successfully");
             
             // Save restore token for next time
-            if let Some(token) = response.restore_token() {
+            if let Some(token) = streams_response.restore_token() {
                 if let Err(e) = Self::save_restore_token(token) {
                     eprintln!("Warning: Could not save permission token: {}", e);
                 }
             }
             
             // Get PipeWire stream information
-            let streams = response.streams();
+            let streams = streams_response.streams();
             if streams.is_empty() {
                 return Err("No video streams available".to_string());
             }

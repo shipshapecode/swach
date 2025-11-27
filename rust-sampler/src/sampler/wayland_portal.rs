@@ -17,8 +17,8 @@ pub struct WaylandPortalSampler {
     runtime: tokio::runtime::Runtime,
     x11_display: *mut x11::xlib::Display,
     frame_buffer: Arc<Mutex<Option<FrameBuffer>>>,
-    _pipewire_mainloop: Option<pw::MainLoop>,
-    _pipewire_stream: Option<pw::Stream>,
+    _pipewire_mainloop: Option<pw::main_loop::MainLoop>,
+    _pipewire_stream: Option<pw::stream::Stream>,
     _stream_listener: Option<pw::stream::StreamListener<Arc<Mutex<Option<FrameBuffer>>>>>,
     screencast_started: std::sync::Arc<std::sync::atomic::AtomicBool>,
 }
@@ -215,14 +215,14 @@ impl WaylandPortalSampler {
         }
         
         // Create PipeWire main loop
-        let mainloop = pw::MainLoop::new(None)
+        let mainloop = pw::main_loop::MainLoop::new(None)
             .map_err(|_| "Failed to create PipeWire main loop".to_string())?;
         
         // Get loop reference for context
         let loop_ref = mainloop.loop_();
         
         // Create PipeWire context
-        let context = pw::Context::new(&loop_ref)
+        let context = pw::context::Context::new(&loop_ref)
             .map_err(|_| "Failed to create PipeWire context".to_string())?;
         
         // Connect to PipeWire core
@@ -230,10 +230,10 @@ impl WaylandPortalSampler {
             .map_err(|_| "Failed to connect to PipeWire".to_string())?;
         
         // Create a stream
-        let stream = pw::Stream::new(
+        let stream = pw::stream::Stream::new(
             &core,
             "swach-screencast",
-            pw::properties! {
+            pw::properties::properties! {
                 *pw::keys::MEDIA_TYPE => "Video",
                 *pw::keys::MEDIA_CATEGORY => "Capture",
                 *pw::keys::MEDIA_ROLE => "Screen",
@@ -263,7 +263,6 @@ impl WaylandPortalSampler {
                 if let Some(param) = param {
                     // Try to extract video format information
                     use pw::spa::param::video::VideoInfoRaw;
-                    use pw::spa::pod::Pod;
                     
                     if let Ok((media_type, media_subtype)) = pw::spa::param::format_utils::parse_format(param) {
                         eprintln!("Stream format: {:?}/{:?}", media_type, media_subtype);

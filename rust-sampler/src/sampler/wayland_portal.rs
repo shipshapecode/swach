@@ -8,6 +8,7 @@
 
 use crate::types::{Color, PixelSampler, Point};
 use ashpd::desktop::screencast::{CursorMode, Screencast, SourceType};
+use ashpd::desktop::PersistMode;
 use ashpd::WindowIdentifier;
 use pipewire as pw;
 use std::sync::{Arc, Mutex};
@@ -101,13 +102,14 @@ impl WaylandPortalSampler {
                 .map_err(|e| format!("Failed to create screencast session: {}", e))?;
             
             // Build select sources request
-            let sources_request = screencast
+            screencast
                 .select_sources(
                     &session,
                     CursorMode::Embedded,
                     SourceType::Monitor.into(),
                     false,
                     restore_token.as_deref(),
+                    PersistMode::ExplicitlyRevoked,
                 )
                 .await
                 .map_err(|e| format!("Failed to select screencast sources: {}", e))?;
@@ -115,11 +117,8 @@ impl WaylandPortalSampler {
             // Start the screencast and get the response
             let streams_response = screencast
                 .start(&session, &WindowIdentifier::default())
-                .send()
                 .await
-                .map_err(|e| format!("Failed to start screencast: {}", e))?
-                .response()
-                .map_err(|e| format!("Failed to get screencast response: {}", e))?;
+                .map_err(|e| format!("Failed to start screencast: {}", e))?;
             
             eprintln!("✓ Screen capture started successfully");
             

@@ -23,13 +23,13 @@ This Rust binary provides continuous, real-time pixel sampling for the Swach col
 - No external dependencies required
 - Best performance
 
-### Linux (Wayland) ⚠️ Automatic Fallback
+### Linux (Wayland) ✅
 
-- **Rust sampler not supported** - Wayland's security model prevents direct screen access
-- **Automatic fallback** - App automatically uses Electron's desktopCapturer on Wayland
-- Works transparently - no user action required
-- Performance: Good but slightly slower than native X11
-- Note: Electron's desktopCapturer handles Portal/PipeWire complexity internally
+- Uses XDG Desktop Portal + PipeWire for screen capture
+- **Persistent tokens** - Permission dialog only shown once, then saved
+- Supports GNOME, KDE Plasma, and other Portal-compatible desktops
+- Performance: Good, comparable to X11
+- Note: Requires PipeWire and portal support (standard on modern distros)
 
 ### Windows ✅
 
@@ -42,46 +42,76 @@ This Rust binary provides continuous, real-time pixel sampling for the Swach col
 
 ### Build Dependencies
 
+#### For All Linux Users (X11 + Wayland)
+
 ```bash
-# X11 development libraries
 # Ubuntu/Debian
-sudo apt install build-essential pkg-config libx11-dev
+sudo apt install build-essential pkg-config libx11-dev libpipewire-0.3-dev
 
 # Fedora
-sudo dnf install gcc pkg-config libX11-devel
+sudo dnf install gcc pkg-config libX11-devel pipewire-devel
 
 # Arch Linux
-sudo pacman -S base-devel pkg-config libx11
+sudo pacman -S base-devel pkg-config libx11 pipewire
+```
+
+**Note:** PipeWire support is enabled by default. This allows the sampler to work on both X11 and Wayland systems seamlessly:
+
+- On X11: Uses direct X11 capture (fastest)
+- On Wayland: Falls back to Portal + PipeWire (with persistent permissions)
+
+#### Optional: X11-Only Build
+
+If you only need X11 support (no Wayland):
+
+```bash
+cargo build --no-default-features
+```
+
+#### Optional: Wayland Support (Experimental)
+
+**Note:** Wayland support is not currently used and requires additional system libraries. Only enable this if you're developing Wayland features.
+
+```bash
+# Ubuntu/Debian
+sudo apt install libpipewire-0.3-dev
+
+# Fedora
+sudo dnf install pipewire-devel
+
+# Arch Linux
+sudo pacman -S pipewire
+```
+
+To build with Wayland support:
+
+```bash
+cargo build --features wayland
 ```
 
 ### Runtime Dependencies
 
-#### For X11 (Native - Best Performance)
+#### For X11
 
-No additional dependencies! X11 direct capture is used automatically.
+No additional runtime dependencies! X11 direct capture is used automatically.
 
-#### For Wayland (Fallback - Good Performance)
+#### For Wayland
 
-Install a screenshot tool (sampler auto-detects which is available):
+PipeWire must be running (standard on modern Linux distros):
 
 ```bash
-# Recommended: grim (designed for Wayland)
-sudo apt install grim        # Ubuntu/Debian
-sudo dnf install grim        # Fedora
-sudo pacman -S grim          # Arch
+# Check if PipeWire is running
+systemctl --user status pipewire
 
-# Alternative: scrot (works on X11 too)
-sudo apt install scrot       # Ubuntu/Debian
-sudo dnf install scrot       # Fedora
-sudo pacman -S scrot         # Arch
-
-# Alternative: ImageMagick
-sudo apt install imagemagick # Ubuntu/Debian
-sudo dnf install ImageMagick # Fedora
-sudo pacman -S imagemagick   # Arch
+# Most modern distros (Ubuntu 22.04+, Fedora 34+, etc.) have PipeWire by default
 ```
 
-The sampler will automatically detect and use the best available method.
+**First-time Permission:**
+
+- On first use, you'll see a system dialog asking for screen capture permission
+- Click "Share" to grant permission
+- The permission token is saved in `~/.local/share/swach/screencast-token`
+- Future launches will use the saved token automatically (no permission dialog)
 
 ## Building
 

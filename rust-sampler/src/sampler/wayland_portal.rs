@@ -11,7 +11,7 @@ use ashpd::desktop::screencast::{CursorMode, Screencast, SourceType, PersistMode
 use ashpd::WindowIdentifier;
 use pipewire as pw;
 use std::sync::{Arc, Mutex};
-use std::os::fd::FromRawFd;
+use std::os::fd::AsRawFd;
 
 pub struct WaylandPortalSampler {
     runtime: tokio::runtime::Runtime,
@@ -134,22 +134,26 @@ impl WaylandPortalSampler {
             let stream = &streams[0];
             let node_id = stream.pipe_wire_node_id();
             
-            eprintln!("Connecting to PipeWire stream (node: {})...", node_id);
+            eprintln!("PipeWire node ID: {}", node_id);
             
-            // Initialize PipeWire
-            pw::init();
+            // TODO: Complete PipeWire frame capture implementation
+            // The Portal screencast API is working and token persistence is implemented.
+            // What remains:
+            //
+            // 1. Initialize PipeWire mainloop and context
+            // 2. Create a PipeWire stream connected to the node_id
+            // 3. Set up stream listener to receive video frames
+            // 4. Extract frame data (width, height, stride, pixel format)
+            // 5. Copy frame data to frame_buffer Arc<Mutex<>> for sampling
+            // 6. Run mainloop in background thread
+            //
+            // References:
+            // - pipewire-rs examples: https://gitlab.freedesktop.org/pipewire/pipewire-rs
+            // - screencast example: https://github.com/Doukindou/screencast-rs
+            //
+            // For now, return an error to indicate this is not yet fully functional
             
-            // TODO: Set up PipeWire stream to receive frames
-            // This requires:
-            // 1. Creating PipeWire main loop
-            // 2. Connecting to the node
-            // 3. Setting up buffer callbacks
-            // 4. Copying frame data to frame_buffer
-            
-            eprintln!("⚠ PipeWire frame capture not yet fully implemented");
-            eprintln!("   This requires additional PipeWire integration");
-            
-            Ok(())
+            Err("PipeWire frame capture not yet implemented. Portal+token persistence works, but frame streaming needs completion.".to_string())
         })
     }
 }
@@ -216,5 +220,25 @@ impl PixelSampler for WaylandPortalSampler {
             
             Ok(Point { x: root_x, y: root_y })
         }
+    }
+    
+    fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {
+        let half_size = (grid_size / 2) as i32;
+        let mut grid = Vec::with_capacity(grid_size);
+        
+        for row in 0..grid_size {
+            let mut row_pixels = Vec::with_capacity(grid_size);
+            for col in 0..grid_size {
+                let x = center_x + (col as i32 - half_size);
+                let y = center_y + (row as i32 - half_size);
+                
+                let color = self.sample_pixel(x, y)
+                    .unwrap_or(Color::new(128, 128, 128));
+                row_pixels.push(color);
+            }
+            grid.push(row_pixels);
+        }
+        
+        Ok(grid)
     }
 }

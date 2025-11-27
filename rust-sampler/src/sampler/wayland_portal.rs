@@ -115,10 +115,14 @@ impl WaylandPortalSampler {
                 .map_err(|e| format!("Failed to select screencast sources: {}", e))?;
             
             // Start the screencast and get the response
-            let streams_response = screencast
+            let start_request = screencast
                 .start(&session, &WindowIdentifier::default())
                 .await
                 .map_err(|e| format!("Failed to start screencast: {}", e))?;
+            
+            // Get the actual response data
+            let streams_response = start_request.response()
+                .map_err(|e| format!("Failed to get screencast response: {}", e))?;
             
             eprintln!("✓ Screen capture started successfully");
             

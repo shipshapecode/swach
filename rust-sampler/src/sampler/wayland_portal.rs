@@ -18,6 +18,7 @@ pub struct WaylandPortalSampler {
     x11_display: *mut x11::xlib::Display,
     frame_buffer: Arc<Mutex<Option<FrameBuffer>>>,
     pipewire_stream: Option<pw::stream::Stream>,
+    screencast_started: std::sync::Arc<std::sync::atomic::AtomicBool>,
 }
 
 struct FrameBuffer {
@@ -57,6 +58,7 @@ impl WaylandPortalSampler {
             x11_display,
             frame_buffer: Arc::new(Mutex::new(None)),
             pipewire_stream: None,
+            screencast_started: std::sync::Arc::new(std::sync::atomic::AtomicBool::new(false)),
         })
     }
     
@@ -81,7 +83,18 @@ impl WaylandPortalSampler {
         Ok(())
     }
     
-    pub fn start_screencast(&mut self) -> Result<(), String> {
+    fn ensure_screencast_started(&mut self) -> Result<(), String> {
+        // Check if already started
+        if self.screencast_started.load(std::sync::atomic::Ordering::SeqCst) {
+            return Ok(());
+        }
+        
+        self.start_screencast()?;
+        self.screencast_started.store(true, std::sync::atomic::Ordering::SeqCst);
+        Ok(())
+    }
+    
+    fn start_screencast(&mut self) -> Result<(), String> {
         let restore_token = Self::load_restore_token();
         let frame_buffer = Arc::clone(&self.frame_buffer);
         
@@ -176,6 +189,9 @@ impl Drop for WaylandPortalSampler {
 
 impl PixelSampler for WaylandPortalSampler {
     fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
+        // Ensure screencast is started (lazy initialization)
+        self.ensure_screencast_started()?;
+        
         let buffer = self.frame_buffer.lock().unwrap();
         let frame = buffer.as_ref()
             .ok_or("No frame available - screencast not started or no frames received yet")?;
@@ -231,6 +247,9 @@ impl PixelSampler for WaylandPortalSampler {
     }
     
     fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {
+        // Ensure screencast is started (lazy initialization)
+        self.ensure_screencast_started()?;
+        
         let half_size = (grid_size / 2) as i32;
         let mut grid = Vec::with_capacity(grid_size);
         

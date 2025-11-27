@@ -47,14 +47,14 @@ pub fn create_sampler() -> Result<Box<dyn PixelSampler>, String> {
                 {
                     eprintln!("Attempting Wayland Portal capture with PipeWire...");
                     match WaylandPortalSampler::new() {
-                        Ok(mut sampler) => {
-                            // Start the screencast session
-                            sampler.start_screencast()?;
-                            eprintln!("✓ Wayland Portal capture initialized");
+                        Ok(sampler) => {
+                            // Don't start screencast yet - wait until first sample is requested
+                            // This avoids showing permission dialog before magnifier is ready
+                            eprintln!("✓ Wayland Portal sampler created (will request permission on first use)");
                             return Ok(Box::new(sampler));
                         }
                         Err(e) => {
-                            eprintln!("✗ Wayland Portal capture failed: {}", e);
+                            eprintln!("✗ Wayland Portal sampler creation failed: {}", e);
                         }
                     }
                 }

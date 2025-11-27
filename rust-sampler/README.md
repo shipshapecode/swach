@@ -178,7 +178,7 @@ Debug/diagnostic messages are sent to stderr.
 - **macOS**: Can achieve 60+ FPS easily with direct pixel access
 - **Windows**: Similar to macOS, native GDI is very fast
 - **Linux (X11)**: Individual XGetImage calls per pixel - can achieve 30-60 FPS depending on grid size
-- **Linux (Wayland via XWayland)**: Same as X11 - 30-60 FPS
+- **Linux (Wayland)**: PipeWire video streaming - ~15 FPS with excellent quality and low latency
 
 ### Grid Sampling
 

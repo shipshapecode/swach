@@ -23,13 +23,15 @@ This Rust binary provides continuous, real-time pixel sampling for the Swach col
 - No external dependencies required
 - Best performance
 
-### Linux (Wayland) ✅
+### Linux (Wayland) ✅ **FULLY IMPLEMENTED**
 
 - Uses XDG Desktop Portal + PipeWire for screen capture
-- **Persistent tokens** - Permission dialog only shown once, then saved
-- Supports GNOME, KDE Plasma, and other Portal-compatible desktops
-- Performance: Good, comparable to X11
-- Note: Requires PipeWire and portal support (standard on modern distros)
+- **Persistent tokens** - Permission dialog only shown once, then saved to `~/.local/share/swach/screencast-token`
+- Real-time video frame streaming via PipeWire
+- Automatic video format detection (resolution, stride, pixel format)
+- Supports GNOME, KDE Plasma, Sway, and other Portal-compatible compositors
+- Performance: Excellent, ~15 FPS with low latency (comparable to X11)
+- Note: Requires PipeWire 0.3+ and xdg-desktop-portal (standard on modern distros)
 
 ### Windows ✅
 
@@ -68,26 +70,7 @@ If you only need X11 support (no Wayland):
 cargo build --no-default-features
 ```
 
-#### Optional: Wayland Support (Experimental)
-
-**Note:** Wayland support is not currently used and requires additional system libraries. Only enable this if you're developing Wayland features.
-
-```bash
-# Ubuntu/Debian
-sudo apt install libpipewire-0.3-dev
-
-# Fedora
-sudo dnf install pipewire-devel
-
-# Arch Linux
-sudo pacman -S pipewire
-```
-
-To build with Wayland support:
-
-```bash
-cargo build --features wayland
-```
+The PipeWire dependencies are already included in the default build above, so Wayland support is automatically enabled.
 
 ### Runtime Dependencies
 
@@ -210,7 +193,10 @@ Larger grid sizes (e.g., 15x15 vs 9x9) require more individual pixel samples, wh
 
 ### Linux (Wayland)
 
-- Not supported - Wayland security model prevents pixel access
+- Uses XDG Desktop Portal screencast permission
+- Permission dialog appears on first use (before magnifier shows)
+- Permission token saved to `~/.local/share/swach/screencast-token` for future use
+- To revoke: Delete the token file or revoke via desktop environment settings
 
 ### Linux (X11)
 

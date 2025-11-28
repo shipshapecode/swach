@@ -1,8 +1,6 @@
 use crate::types::{Color, PixelSampler, Point};
-use windows::Win32::Foundation::POINT;
-use windows::Win32::Graphics::Gdi::{
-    GetDC, GetPixel, ReleaseDC, HDC, CLR_INVALID,
-};
+use windows::Win32::Foundation::{COLORREF, POINT};
+use windows::Win32::Graphics::Gdi::{GetDC, GetPixel, ReleaseDC, HDC, CLR_INVALID};
 use windows::Win32::UI::WindowsAndMessaging::GetCursorPos;
 
 pub struct WindowsSampler {
@@ -39,14 +37,17 @@ impl PixelSampler for WindowsSampler {
             let color_ref = GetPixel(self.hdc, x, y);
             
             // Check for error (CLR_INVALID is returned on error)
-            if color_ref == CLR_INVALID {
+            if color_ref == COLORREF(CLR_INVALID) {
                 return Err(format!("Failed to get pixel at ({}, {})", x, y));
             }
             
+            // Extract the u32 value from COLORREF
+            let color_value = color_ref.0;
+            
             // COLORREF format is 0x00BBGGRR (BGR, not RGB)
-            let r = (color_ref & 0xFF) as u8;
-            let g = ((color_ref >> 8) & 0xFF) as u8;
-            let b = ((color_ref >> 16) & 0xFF) as u8;
+            let r = (color_value & 0xFF) as u8;
+            let g = ((color_value >> 8) & 0xFF) as u8;
+            let b = ((color_value >> 16) & 0xFF) as u8;
             
             Ok(Color::new(r, g, b))
         }

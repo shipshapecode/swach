@@ -6,7 +6,7 @@ on:
       - main
   pull_request:
     paths:
-      - 'rust-sampler/**'
+      - 'electron-app/magnifier/rust-sampler/**'
       - '.github/workflows/rust-tests.yml'
 
 jobs:

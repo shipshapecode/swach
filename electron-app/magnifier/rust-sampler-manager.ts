@@ -32,6 +32,8 @@ export class RustSamplerManager {
       const ext = process.platform === 'win32' ? '.exe' : '';
       return join(
         app.getAppPath(),
+        'electron-app',
+        'magnifier',
         'rust-sampler',
         'target',
         'debug',

@@ -7,11 +7,8 @@ import isDev from 'electron-is-dev';
 import { type Menubar } from 'menubar';
 import nearestColor from 'nearest-color';
 
-import {
-  RustSamplerManager,
-  type PixelData,
-} from '../src/rust-sampler-manager.js';
 import { calculateGridSize } from './grid-calculation.js';
+import { RustSamplerManager, type PixelData } from './rust-sampler-manager.js';
 import { adjustSquareSize, getNextDiameter } from './utils.js';
 
 const __filename = fileURLToPath(import.meta.url);

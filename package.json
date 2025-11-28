@@ -20,9 +20,9 @@
     "test": "tests"
   },
   "scripts": {
-    "build:rust": "cd rust-sampler && cargo build --release --features x11,wayland",
-    "build:rust:ci": "cd rust-sampler && cargo build --release --features x11",
-    "build:rust:dev": "cd rust-sampler && cargo build --features x11,wayland",
+    "build:rust": "cd electron-app/magnifier/rust-sampler && cargo build --release --features x11,wayland",
+    "build:rust:ci": "cd electron-app/magnifier/rust-sampler && cargo build --release --features x11",
+    "build:rust:dev": "cd electron-app/magnifier/rust-sampler && cargo build --features x11,wayland",
     "format": "prettier . --cache --write",
     "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
     "lint:css": "stylelint \"**/*.css\"",
@@ -43,7 +43,7 @@
     "test:ember": "vite build -c vite.renderer.config.ts --mode development && testem ci",
     "test:magnifier": "vitest run -c electron-app/magnifier/vitest.config.ts",
     "test:magnifier:watch": "vitest -c electron-app/magnifier/vitest.config.ts",
-    "test:rust": "cd rust-sampler && cargo test --features x11,wayland"
+    "test:rust": "cd electron-app/magnifier/rust-sampler && cargo test --features x11,wayland"
   },
   "dependencies": {
     "@ctrl/tinycolor": "^4.2.0",

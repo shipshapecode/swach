@@ -8,11 +8,6 @@ mod linux;
 #[cfg(all(target_os = "linux", feature = "x11"))]
 pub use linux::LinuxSampler;
 
-// Wayland support (optional, requires the "wayland" feature)
-// Note: wayland.rs uses screenshot portal (not currently used)
-// #[cfg(all(target_os = "linux", feature = "wayland"))]
-// mod wayland;
-
 // Wayland screencast with PipeWire (active implementation)
 #[cfg(all(target_os = "linux", feature = "wayland"))]
 mod wayland_portal;

@@ -137,13 +137,14 @@ impl WaylandPortalSampler {
             
             eprintln!("✓ Screen capture permission granted");
             
-            // Get PipeWire node ID
-            let streams = session.streams();
+            // Get PipeWire node ID and restore token
+            let streams = streams_response.streams();
             if streams.is_empty() {
                 return Err("No PipeWire streams available".to_string());
             }
             
             let node_id = streams[0].pipe_wire_node_id();
+            let new_token = streams_response.restore_token().map(|s| s.to_string());
             
             Ok::<(u32, Option<String>), String>((node_id, new_token))
         })?;
@@ -216,7 +217,7 @@ impl WaylandPortalSampler {
                 if let Some(param) = param {
                     use pw::spa::param::video::VideoInfoRaw;
                     
-                    if let Ok((media_type, media_subtype)) = pw::spa::param::format_utils::parse_format(param) {
+                    if let Ok((_media_type, _media_subtype)) = pw::spa::param::format_utils::parse_format(param) {
                         let mut info = VideoInfoRaw::new();
                         if let Ok(_) = info.parse(param) {
                             let size = info.size();

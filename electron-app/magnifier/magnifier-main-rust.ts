@@ -12,8 +12,7 @@ import {
   type PixelData,
 } from '../src/rust-sampler-manager.js';
 import { calculateGridSize } from './grid-calculation.js';
-import { adjustSquareSize, getNextDiameter } from './utils';
-
+import { adjustSquareSize, getNextDiameter } from './utils.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 

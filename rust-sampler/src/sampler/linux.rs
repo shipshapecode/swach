@@ -135,6 +135,10 @@ impl LinuxSampler {
             x11::xlib::XSync(self.x11_display, 0);
             
             if X_ERROR_OCCURRED.load(Ordering::SeqCst) || image.is_null() {
+                // Clean up XImage if it was allocated before returning error
+                if !image.is_null() {
+                    x11::xlib::XDestroyImage(image);
+                }
                 return Err("X11 capture failed".to_string());
             }
             

@@ -21,6 +21,7 @@
   },
   "scripts": {
     "build:rust": "cd rust-sampler && cargo build --release --features x11,wayland",
+    "build:rust:ci": "cd rust-sampler && cargo build --features x11",
     "build:rust:dev": "cd rust-sampler && cargo build --features x11,wayland",
     "format": "prettier . --cache --write",
     "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
@@ -38,7 +39,7 @@
     "publish": "electron-forge publish",
     "start": "vite -c vite.renderer.config.ts",
     "start:electron": "pnpm build:rust:dev && cross-env ELECTRON_DISABLE_SANDBOX=1 electron-forge start -- --no-sandbox --disable-gpu-sandbox --ozone-platform=x11",
-    "test:electron": "pnpm build:rust:dev && cross-env SKIP_CODESIGN=true electron-forge package && vite build -c vite.renderer.config.ts --mode development && testem ci -f testem-electron.cjs",
+    "test:electron": "pnpm build:rust:ci && cross-env SKIP_CODESIGN=true electron-forge package && vite build -c vite.renderer.config.ts --mode development && testem ci -f testem-electron.cjs",
     "test:ember": "vite build -c vite.renderer.config.ts --mode development && testem ci",
     "test:magnifier": "vitest run -c electron-app/magnifier/vitest.config.ts",
     "test:magnifier:watch": "vitest -c electron-app/magnifier/vitest.config.ts",

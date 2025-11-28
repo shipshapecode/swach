@@ -22,7 +22,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb libpipewire-0.3-dev libx11-dev pkg-config libclang-dev
+          sudo apt-get install -y xvfb libx11-dev pkg-config
       - run: pnpm install
       - name: Magnifier Test
         run: pnpm test:magnifier 

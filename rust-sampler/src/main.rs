@@ -48,13 +48,14 @@ fn run() -> Result<(), String> {
                 Ok(_) => {
                     let trimmed = line.trim();
                     if !trimmed.is_empty() {
+                        eprintln!("[StdinThread] Received line: {}", trimmed);
                         match serde_json::from_str::<Command>(trimmed) {
                             Ok(cmd) => {
                                 eprintln!("[StdinThread] Parsed command: {:?}", cmd);
                                 let _ = cmd_tx.send(cmd);
                             }
                             Err(e) => {
-                                eprintln!("[StdinThread] Failed to parse: {}", e);
+                                eprintln!("[StdinThread] Failed to parse: {} - Error: {}", trimmed, e);
                             }
                         }
                     }
@@ -116,8 +117,9 @@ fn run_sampling_loop(
         // Check for commands (non-blocking)
         match cmd_rx.try_recv() {
             Ok(Command::UpdateGrid { grid_size }) => {
-                eprintln!("[Sampler] Grid size update received: {}", grid_size);
+                eprintln!("[Sampler] ⚡ Grid size update received: {} → {}", current_grid_size, grid_size);
                 current_grid_size = grid_size;
+                eprintln!("[Sampler] ⚡ Grid size now set to: {}", current_grid_size);
             }
             Ok(Command::Stop) => {
                 eprintln!("[Sampler] Stop command received");
@@ -197,12 +199,30 @@ fn run_sampling_loop(
                 eprintln!("Failed to sample grid: {}", e);
                 vec![vec![Color::new(128, 128, 128); current_grid_size]; current_grid_size]
             });
+        
+        // Debug: verify grid dimensions
+        if sample_count % 30 == 0 {
+            eprintln!("[Sampler] Sending grid: {}x{}, first pixel: {:?}", 
+                grid.len(), 
+                grid.get(0).map(|r| r.len()).unwrap_or(0),
+                grid.get(0).and_then(|r| r.get(0))
+            );
+        }
 
         // Convert to output format
         let grid_data: Vec<Vec<ColorData>> = grid
             .into_iter()
             .map(|row| row.into_iter().map(ColorData::from).collect())
             .collect();
+
+        // Debug: log grid data dimensions
+        if sample_count % 30 == 0 {
+            eprintln!("[Sampler] Grid data dimensions: {}x{}, current_grid_size={}", 
+                grid_data.len(), 
+                grid_data.get(0).map(|r| r.len()).unwrap_or(0),
+                current_grid_size
+            );
+        }
 
         let pixel_data = PixelData {
             cursor: cursor.clone(),

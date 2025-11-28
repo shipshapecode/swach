@@ -22,8 +22,8 @@ type ErrorCallback = (error: string) => void;
 
 export class RustSamplerManager {
   private process: ChildProcess | null = null;
-  private dataCallback: SamplerCallback | null = null;
-  private errorCallback: ErrorCallback | null = null;
+  public dataCallback: SamplerCallback | null = null;
+  public errorCallback: ErrorCallback | null = null;
 
   private getBinaryPath(): string {
     if (isDev) {
@@ -206,14 +206,26 @@ export class RustSamplerManager {
   }
 
   private sendCommand(command: object): void {
-    if (!this.process || !this.process.stdin) {
-      console.error('[RustSampler] Cannot send command, process not running');
+    if (!this.process) {
+      console.error('[RustSampler] Cannot send command, process is null');
+      return;
+    }
+
+    if (!this.process.stdin) {
+      console.error('[RustSampler] Cannot send command, process.stdin is null');
+      console.error('[RustSampler] Process state:', {
+        killed: this.process.killed,
+        exitCode: this.process.exitCode,
+        signalCode: this.process.signalCode,
+      });
       return;
     }
 
     try {
       const json = JSON.stringify(command);
+      console.log('[RustSampler] Writing to stdin:', json);
       this.process.stdin.write(json + '\n');
+      console.log('[RustSampler] Write successful');
     } catch (e) {
       console.error('[RustSampler] Failed to send command:', e);
     }

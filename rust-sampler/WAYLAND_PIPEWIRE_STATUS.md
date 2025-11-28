@@ -1,8 +1,8 @@
-# Wayland PipeWire Screen Capture - Implementation Complete! ✅
+# Wayland PipeWire Screen Capture - Screenshot-Based Implementation ✅
 
 ## Overview
 
-Wayland screen capture support using XDG Desktop Portal + PipeWire has been **fully implemented**. This document describes the implementation and how to test it.
+Wayland screen capture support using XDG Desktop Portal + PipeWire has been **fully implemented** using a **screenshot-based approach**. This document describes the implementation and its limitations.
 
 ## Implementation Status: ✅ COMPLETE
 
@@ -26,17 +26,18 @@ Wayland screen capture support using XDG Desktop Portal + PipeWire has been **fu
 - On subsequent app launches, the saved token is loaded and used
 - **Result**: Permission dialog only shows once, then never again (until user explicitly revokes)
 
-#### 3. PipeWire Frame Streaming
+#### 3. Screenshot-Based Sampling
 
-- **File**: `rust-sampler/src/sampler/wayland_portal.rs` (lines 211-340)
+- **File**: `rust-sampler/src/sampler/wayland_portal.rs`
 - **Status**: ✅ FULLY IMPLEMENTED
-- Initializes PipeWire mainloop and context
+- Captures a screenshot on each sample/grid request
+- Initializes PipeWire mainloop and context for each capture
 - Creates PipeWire stream and connects to portal node
-- Implements frame processing callback
+- Captures a single frame, then disconnects
 - Parses video format metadata (width, height, stride)
 - Extracts pixel data from SPA buffers
-- Updates shared frame buffer with latest frame data
-- **Result**: Real-time screen capture working!
+- **Result**: Screenshot-based sampling working!
+- **Trade-off**: Not live-updating, but avoids capturing the magnifier window
 
 #### 4. Fallback Architecture
 
@@ -66,56 +67,66 @@ Wayland screen capture support using XDG Desktop Portal + PipeWire has been **fu
 
 ## Implementation Details
 
+### Why Screenshot-Based?
+
+**Wayland's security model** does not allow applications to exclude specific windows from screen captures. When using live PipeWire video streaming, the magnifier window overlay gets captured in the video feed, creating a circular dependency (the magnifier shows itself).
+
+Options we considered:
+
+1. **Live video streaming**: Captures magnifier window (doesn't work)
+2. **Window exclusion**: Not supported by Wayland/PipeWire portals
+3. **Layer shell protocol**: Only for compositor-specific overlays, not Electron windows
+4. **setContentProtection**: Not widely supported on Linux compositors
+5. **Screenshot approach**: ✅ Works - captures screen before magnifier appears
+
 ### Key Components
 
-#### Video Format Parsing
+#### Screenshot Capture Flow
 
-The implementation uses `VideoInfoRaw::parse()` to extract video format metadata from PipeWire SPA parameters:
+1. User clicks to sample a pixel or requests a grid
+2. `ensure_screencast_permission()` - Gets portal permission (once)
+3. `capture_screenshot()` - Connects to PipeWire, captures one frame
+4. Samples pixels from the screenshot buffer
+5. Disconnects PipeWire stream
+
+#### Video Format Parsing
 
 ```rust
 match VideoInfoRaw::parse(param) {
     Ok(info) => {
         let width = info.size().width;
         let height = info.size().height;
-        let stride = info.stride() as usize;
+        let stride = width as usize * 4; // BGRA
         // Store for use in frame processing
     }
 }
 ```
 
-#### Frame Processing
-
-The `process` callback is invoked for each video frame:
+#### Single Frame Capture
 
 ```rust
-.process(|stream, user_data| {
-    match stream.dequeue_buffer() {
-        Some(mut buffer) => {
-            // Extract pixel data from buffer
-            // Update shared frame_buffer with new data
-        }
+// Capture until we get one frame
+let frame_captured = Arc::new(AtomicBool::new(false));
+.process(move |stream, user_data| {
+    if frame_captured.load(SeqCst) {
+        return; // Already got our frame
     }
+    // ... extract frame data ...
+    frame_captured.store(true, SeqCst);
 })
 ```
 
-#### Dimension Estimation Fallback
-
-If video format parsing fails, the implementation includes a heuristic that estimates screen dimensions based on common resolutions (1080p, 1440p, 4K, etc.).
-
 ### Thread Safety
 
-- Main PipeWire loop runs in a background thread
-- Frame buffer is shared via `Arc<Mutex<Option<FrameBuffer>>>`
-- Video format info also shared via `Arc<Mutex<Option<(u32, u32, usize)>>>`
-- All callbacks are thread-safe
+- Screenshot buffer is shared via `Arc<Mutex<Option<ScreenshotBuffer>>>`
+- Video format info shared via `Arc<Mutex<Option<(u32, u32, usize)>>>`
+- Frame capture flag uses `Arc<AtomicBool>` for lock-free synchronization
 
 ### Lifecycle Management
 
-- PipeWire resources stored in struct to prevent premature dropping:
-  - `_pipewire_mainloop: Option<pw::main_loop::MainLoop>`
-  - `_pipewire_stream: Option<pw::stream::Stream>`
-  - `_stream_listener: Option<pw::stream::StreamListener<...>>`
-- X11 display properly closed in `Drop` implementation
+- PipeWire resources created and destroyed per screenshot
+- X11 display kept open and properly closed in `Drop` implementation
+- No background threads - mainloop runs synchronously until frame captured
 
 ## Testing the Implementation
 
@@ -227,10 +238,17 @@ pw-top
 
 ### Known Limitations
 
-1. **First-time permission required**: Users must grant permission on first use (by design)
-2. **X11 dependency for cursor**: Still uses X11 `XQueryPointer` for cursor position (XWayland required)
-3. **Format assumption**: Assumes BGRA pixel format (standard for most compositors)
-4. **Single monitor**: Currently captures first stream only (usually primary monitor)
+1. **Screenshot-based, not live**: Unlike macOS/Windows, the Wayland implementation captures a screenshot on each sample request rather than streaming live video. This is necessary to avoid capturing the magnifier window overlay, as Wayland's security model does not support excluding specific windows from screen captures.
+
+2. **First-time permission required**: Users must grant permission on first use (by design)
+
+3. **X11 dependency for cursor**: Still uses X11 `XQueryPointer` for cursor position (XWayland required)
+
+4. **Format assumption**: Assumes BGRA pixel format (standard for most compositors)
+
+5. **Single monitor**: Currently captures first stream only (usually primary monitor)
+
+6. **Performance**: Screenshot capture has more overhead than live streaming (~50-100ms per screenshot vs continuous frames)
 
 ### Troubleshooting
 
@@ -292,9 +310,9 @@ All criteria have been met! ✅
 
 ### Performance
 
-- [x] Frame rate: ~15 FPS (comparable to X11)
-- [x] Latency: < 100ms from cursor movement to display
-- [x] CPU usage: < 10% during sampling
+- [x] Screenshot capture: ~50-100ms per sample/grid
+- [x] Acceptable for color picking use case
+- [x] Not suitable for real-time preview (by design - prevents magnifier capture)
 
 ## System Compatibility
 

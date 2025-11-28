@@ -3,8 +3,14 @@
 // This implementation:
 // 1. Uses ashpd to request screencast via Portal
 // 2. Stores restore tokens to avoid repeated permission prompts  
-// 3. Uses PipeWire to receive video frames
-// 4. Samples pixels from the video frames
+// 3. Takes a screenshot on each sample request (not live streaming)
+// 4. Samples pixels from the screenshot buffer
+//
+// NOTE: This approach does not provide live updates like the macOS/Windows samplers.
+// The screen is captured once per sample/grid request. This is a limitation of 
+// Wayland's security model - we cannot exclude windows (like the magnifier) from
+// PipeWire video streams, so we use screenshots instead to avoid capturing the
+// magnifier window overlay.
 
 use crate::types::{Color, PixelSampler, Point};
 use ashpd::desktop::screencast::{CursorMode, Screencast, SourceType};
@@ -16,57 +22,17 @@ use std::sync::{Arc, Mutex};
 pub struct WaylandPortalSampler {
     runtime: tokio::runtime::Runtime,
     x11_display: *mut x11::xlib::Display,
-    frame_buffer: Arc<Mutex<Option<FrameBuffer>>>,
-    _pipewire_mainloop: Option<pw::main_loop::MainLoop>,
-    _pipewire_stream: Option<pw::stream::Stream>,
-    _stream_listener: Option<pw::stream::StreamListener<Arc<Mutex<Option<FrameBuffer>>>>>,
-    screencast_started: std::sync::Arc<std::sync::atomic::AtomicBool>,
+    screenshot_buffer: Arc<Mutex<Option<ScreenshotBuffer>>>,
+    pipewire_node_id: Option<u32>,
+    restore_token: Option<String>,
+    screenshot_captured: bool, // Track if we've already captured the initial screenshot
 }
 
-struct FrameBuffer {
+struct ScreenshotBuffer {
     data: Vec<u8>,
     width: u32,
     height: u32,
     stride: usize,
-}
-
-// Helper function to estimate screen dimensions from pixel count
-// This is a heuristic for common screen resolutions
-fn estimate_dimensions(pixel_count: usize) -> (u32, u32) {
-    let common_resolutions = [
-        (3840, 2160), // 4K
-        (2560, 1440), // 1440p
-        (1920, 1080), // 1080p
-        (1680, 1050),
-        (1600, 900),
-        (1440, 900),
-        (1366, 768),
-        (1280, 1024),
-        (1280, 800),
-        (1280, 720),
-        (1024, 768),
-    ];
-    
-    for &(w, h) in &common_resolutions {
-        if w * h == pixel_count as u32 {
-            return (w, h);
-        }
-    }
-    
-    // If no exact match, try to find closest aspect ratio
-    let sqrt = (pixel_count as f64).sqrt() as u32;
-    let mut best = (0, 0);
-    let mut best_diff = u32::MAX;
-    
-    for &(w, h) in &common_resolutions {
-        let diff = (w as i64 - sqrt as i64).abs() as u32;
-        if diff < best_diff {
-            best_diff = diff;
-            best = (w, h);
-        }
-    }
-    
-    best
 }
 
 impl WaylandPortalSampler {
@@ -77,6 +43,9 @@ impl WaylandPortalSampler {
         eprintln!();
         eprintln!("Using XDG Desktop Portal for screen access.");
         eprintln!("You may see a permission dialog on first use.");
+        eprintln!();
+        eprintln!("⚠️  NOTE: Wayland color picker uses screenshots");
+        eprintln!("    (not live video) to avoid capturing the magnifier.");
         eprintln!();
         
         // Still need X11 for cursor position
@@ -94,14 +63,16 @@ impl WaylandPortalSampler {
             .build()
             .map_err(|e| format!("Failed to create async runtime: {}", e))?;
         
+        // Load any existing restore token
+        let restore_token = Self::load_restore_token();
+        
         Ok(WaylandPortalSampler {
             runtime,
             x11_display,
-            frame_buffer: Arc::new(Mutex::new(None)),
-            _pipewire_mainloop: None,
-            _pipewire_stream: None,
-            _stream_listener: None,
-            screencast_started: std::sync::Arc::new(std::sync::atomic::AtomicBool::new(false)),
+            screenshot_buffer: Arc::new(Mutex::new(None)),
+            pipewire_node_id: None,
+            restore_token,
+            screenshot_captured: false,
         })
     }
     
@@ -127,23 +98,16 @@ impl WaylandPortalSampler {
     }
     
     pub fn request_permission(&mut self) -> Result<(), String> {
-        self.ensure_screencast_started()
+        self.ensure_screencast_permission()
     }
     
-    fn ensure_screencast_started(&mut self) -> Result<(), String> {
-        // Check if already started
-        if self.screencast_started.load(std::sync::atomic::Ordering::SeqCst) {
+    fn ensure_screencast_permission(&mut self) -> Result<(), String> {
+        // If we already have a node ID, permission is granted
+        if self.pipewire_node_id.is_some() {
             return Ok(());
         }
         
-        self.start_screencast()?;
-        self.screencast_started.store(true, std::sync::atomic::Ordering::SeqCst);
-        Ok(())
-    }
-    
-    fn start_screencast(&mut self) -> Result<(), String> {
-        let restore_token = Self::load_restore_token();
-        let frame_buffer = Arc::clone(&self.frame_buffer);
+        let restore_token = self.restore_token.clone();
         
         if restore_token.is_some() {
             eprintln!("Using saved screen capture permission...");
@@ -153,7 +117,7 @@ impl WaylandPortalSampler {
         }
         
         // Get the PipeWire node ID from the portal
-        let node_id = self.runtime.block_on(async {
+        let (node_id, new_token) = self.runtime.block_on(async {
             // Connect to screencast portal
             let screencast = Screencast::new().await
                 .map_err(|e| format!("Failed to connect to screencast portal: {}", e))?;
@@ -162,11 +126,11 @@ impl WaylandPortalSampler {
             let session = screencast.create_session().await
                 .map_err(|e| format!("Failed to create screencast session: {}", e))?;
             
-            // Build select sources request
+            // Select sources
             screencast
                 .select_sources(
                     &session,
-                    CursorMode::Embedded,
+                    CursorMode::Hidden, // Don't include cursor in screenshots
                     SourceType::Monitor.into(),
                     false,
                     restore_token.as_deref(),
@@ -175,26 +139,22 @@ impl WaylandPortalSampler {
                 .await
                 .map_err(|e| format!("Failed to select screencast sources: {}", e))?;
             
-            // Start the screencast and get the response
+            // Start the screencast
             let start_request = screencast
                 .start(&session, &WindowIdentifier::default())
                 .await
                 .map_err(|e| format!("Failed to start screencast: {}", e))?;
             
-            // Get the actual response data
+            // Get the response
             let streams_response = start_request.response()
                 .map_err(|e| format!("Failed to get screencast response: {}", e))?;
             
-            eprintln!("✓ Screen capture started successfully");
+            eprintln!("✓ Screen capture permission granted");
             
-            // Save restore token for next time
-            if let Some(token) = streams_response.restore_token() {
-                if let Err(e) = Self::save_restore_token(token) {
-                    eprintln!("Warning: Could not save permission token: {}", e);
-                }
-            }
+            // Get restore token for next time
+            let new_token = streams_response.restore_token().map(|t| t.to_string());
             
-            // Get PipeWire stream information
+            // Get PipeWire node ID
             let streams = streams_response.streams();
             if streams.is_empty() {
                 return Err("No video streams available".to_string());
@@ -205,20 +165,36 @@ impl WaylandPortalSampler {
             
             eprintln!("PipeWire node ID: {}", node_id);
             
-            Ok::<u32, String>(node_id)
+            Ok::<(u32, Option<String>), String>((node_id, new_token))
         })?;
         
-        // Initialize PipeWire
-        eprintln!("Initializing PipeWire...");
-        unsafe {
-            pw::init();
+        // Save restore token if we got a new one
+        if let Some(token) = new_token {
+            self.restore_token = Some(token.clone());
+            if let Err(e) = Self::save_restore_token(&token) {
+                eprintln!("Warning: Could not save permission token: {}", e);
+            }
         }
+        
+        self.pipewire_node_id = Some(node_id);
+        eprintln!("✓ Screen capture initialized");
+        
+        Ok(())
+    }
+    
+    // Capture a screenshot from the PipeWire stream
+    fn capture_screenshot(&mut self) -> Result<(), String> {
+        let node_id = self.pipewire_node_id
+            .ok_or("Screen capture not initialized - call request_permission first")?;
+        
+        // Initialize PipeWire
+        pw::init();
         
         // Create PipeWire main loop
         let mainloop = pw::main_loop::MainLoop::new(None)
             .map_err(|_| "Failed to create PipeWire main loop".to_string())?;
         
-        // Create PipeWire context (pass MainLoop directly, it implements IsLoopRc)
+        // Create PipeWire context
         let context = pw::context::Context::new(&mainloop)
             .map_err(|_| "Failed to create PipeWire context".to_string())?;
         
@@ -229,7 +205,7 @@ impl WaylandPortalSampler {
         // Create a stream
         let stream = pw::stream::Stream::new(
             &core,
-            "swach-screencast",
+            "swach-screenshot",
             pw::properties::properties! {
                 *pw::keys::MEDIA_TYPE => "Video",
                 *pw::keys::MEDIA_CATEGORY => "Capture",
@@ -237,60 +213,52 @@ impl WaylandPortalSampler {
             },
         ).map_err(|_| "Failed to create PipeWire stream".to_string())?;
         
-        // Add listener to receive frames
-        let frame_buffer_clone = Arc::clone(&frame_buffer);
+        // Buffer to store the screenshot
+        let screenshot_buffer = Arc::clone(&self.screenshot_buffer);
+        let frame_captured = Arc::new(std::sync::atomic::AtomicBool::new(false));
+        let frame_captured_clone = Arc::clone(&frame_captured);
         
-        // Store video format info
+        // Video format info
         let video_info: Arc<Mutex<Option<(u32, u32, usize)>>> = Arc::new(Mutex::new(None));
         let video_info_clone = Arc::clone(&video_info);
+        let video_info_process = Arc::clone(&video_info);
         
-        let listener = stream
-            .add_local_listener_with_user_data(frame_buffer_clone)
-            .state_changed(move |_stream, _user_data, old, new| {
-                eprintln!("PipeWire stream state: {:?} -> {:?}", old, new);
-            })
+        // Add listener to receive one frame
+        let _listener = stream
+            .add_local_listener_with_user_data(screenshot_buffer)
             .param_changed(move |_stream, _user_data, id, param| {
                 use pw::spa::param::ParamType;
                 
-                // Only care about Format params
                 if id != ParamType::Format.as_raw() {
                     return;
                 }
                 
                 if let Some(param) = param {
-                    // Try to extract video format information
                     use pw::spa::param::video::VideoInfoRaw;
                     
                     if let Ok((media_type, media_subtype)) = pw::spa::param::format_utils::parse_format(param) {
-                        eprintln!("Stream format: {:?}/{:?}", media_type, media_subtype);
-                        
-                        // Try to parse as video format
                         let mut info = VideoInfoRaw::new();
                         if let Ok(_) = info.parse(param) {
                             let size = info.size();
                             let width = size.width;
                             let height = size.height;
-                            
-                            // Calculate stride from width and format (assume 4 bytes per pixel for BGRA)
-                            let stride = width as usize * 4;
-                            
-                            eprintln!("Video format: {}x{} stride={}", width, height, stride);
+                            let stride = width as usize * 4; // BGRA format
                             
                             if let Ok(mut vi) = video_info_clone.lock() {
                                 *vi = Some((width, height, stride));
                             }
-                        } else {
-                            eprintln!("Could not parse video format");
                         }
                     }
                 }
             })
-            .process(|stream, user_data| {
-                // This callback is called for each video frame
+            .process(move |stream, user_data| {
+                // Only capture one frame
+                if frame_captured_clone.load(std::sync::atomic::Ordering::SeqCst) {
+                    return;
+                }
+                
                 match stream.dequeue_buffer() {
-                    None => {
-                        // No buffer available - this is normal, just return
-                    }
+                    None => {}
                     Some(mut buffer) => {
                         let datas = buffer.datas_mut();
                         if datas.is_empty() {
@@ -298,8 +266,6 @@ impl WaylandPortalSampler {
                         }
                         
                         let data = &mut datas[0];
-                        
-                        // Get the chunk data (contains actual pixel data)
                         let chunk = data.chunk();
                         let size = chunk.size() as usize;
                         
@@ -307,8 +273,8 @@ impl WaylandPortalSampler {
                             return;
                         }
                         
-                        // Get video format info from stored state
-                        let format_info = if let Ok(vi) = video_info.lock() {
+                        // Get video format
+                        let format_info = if let Ok(vi) = video_info_process.lock() {
                             *vi
                         } else {
                             None
@@ -319,25 +285,18 @@ impl WaylandPortalSampler {
                             if slice.len() >= size {
                                 let pixel_data = slice[..size].to_vec();
                                 
-                                let (width, height, stride) = if let Some((w, h, s)) = format_info {
-                                    // Use parsed format info
-                                    (w, h, s)
-                                } else {
-                                    // Fallback: estimate dimensions
-                                    let pixel_count = size / 4;
-                                    let (w, h) = estimate_dimensions(pixel_count);
-                                    let s = w as usize * 4;
-                                    (w, h, s)
-                                };
-                                
-                                if width > 0 && height > 0 {
-                                    if let Ok(mut fb) = user_data.lock() {
-                                        *fb = Some(FrameBuffer {
-                                            data: pixel_data,
-                                            width,
-                                            height,
-                                            stride,
-                                        });
+                                if let Some((width, height, stride)) = format_info {
+                                    if width > 0 && height > 0 {
+                                        eprintln!("[Wayland] Captured screenshot: {}x{} ({} bytes)", width, height, pixel_data.len());
+                                        if let Ok(mut buf) = user_data.lock() {
+                                            *buf = Some(ScreenshotBuffer {
+                                                data: pixel_data,
+                                                width,
+                                                height,
+                                                stride,
+                                            });
+                                            frame_captured_clone.store(true, std::sync::atomic::Ordering::SeqCst);
+                                        }
                                     }
                                 }
                             }
@@ -349,8 +308,6 @@ impl WaylandPortalSampler {
             .map_err(|e| format!("Failed to register stream listener: {:?}", e))?;
         
         // Connect stream to the PipeWire node
-        eprintln!("Connecting to PipeWire node {}...", node_id);
-        
         stream.connect(
             pw::spa::utils::Direction::Input,
             Some(node_id),
@@ -359,23 +316,17 @@ impl WaylandPortalSampler {
         )
         .map_err(|e| format!("Failed to connect stream: {:?}", e))?;
         
-        eprintln!("✓ PipeWire stream connected successfully");
+        // Iterate mainloop until we capture one frame (timeout after 5 seconds)
+        let start_time = std::time::Instant::now();
+        let timeout = std::time::Duration::from_secs(5);
         
-        // Store the stream and mainloop so they don't get dropped
-        self._pipewire_stream = Some(stream);
-        self._stream_listener = Some(listener);
-        self._pipewire_mainloop = Some(mainloop);
-        
-        // Iterate the mainloop a few times to kick off the stream
-        // This allows format negotiation and initial frames to be received
-        eprintln!("Starting PipeWire mainloop iterations...");
-        for _i in 0..10 {
-            if let Some(ref ml) = self._pipewire_mainloop {
-                ml.loop_().iterate(std::time::Duration::from_millis(50));
+        while !frame_captured.load(std::sync::atomic::Ordering::SeqCst) {
+            if start_time.elapsed() > timeout {
+                return Err("Timeout waiting for screenshot frame".to_string());
             }
+            
+            let _ = mainloop.loop_().iterate(std::time::Duration::from_millis(10));
         }
-        
-        eprintln!("✓ Screen capture fully initialized");
         
         Ok(())
     }
@@ -391,32 +342,35 @@ impl Drop for WaylandPortalSampler {
 
 impl PixelSampler for WaylandPortalSampler {
     fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
-        // Ensure screencast is started (lazy initialization)
-        self.ensure_screencast_started()?;
+        // Ensure we have permission
+        self.ensure_screencast_permission()?;
         
-        // Iterate mainloop to process new frames
-        if let Some(ref ml) = self._pipewire_mainloop {
-            ml.loop_().iterate(std::time::Duration::from_millis(1));
+        // Capture screenshot ONLY ONCE at the start of the session
+        if !self.screenshot_captured {
+            eprintln!("📸 Capturing initial screenshot...");
+            self.capture_screenshot()?;
+            self.screenshot_captured = true;
+            eprintln!("✓ Screenshot captured - will be reused for all samples");
         }
         
-        let buffer = self.frame_buffer.lock().unwrap();
-        let frame = buffer.as_ref()
-            .ok_or("No frame available - screencast not started or no frames received yet")?;
+        let buffer = self.screenshot_buffer.lock().unwrap();
+        let screenshot = buffer.as_ref()
+            .ok_or("No screenshot available")?;
         
-        if x < 0 || y < 0 || x >= frame.width as i32 || y >= frame.height as i32 {
+        if x < 0 || y < 0 || x >= screenshot.width as i32 || y >= screenshot.height as i32 {
             return Ok(Color::new(128, 128, 128));
         }
         
-        let offset = (y as usize * frame.stride) + (x as usize * 4);
+        let offset = (y as usize * screenshot.stride) + (x as usize * 4);
         
-        if offset + 3 >= frame.data.len() {
+        if offset + 3 >= screenshot.data.len() {
             return Ok(Color::new(128, 128, 128));
         }
         
-        // Assuming BGRA format (common in PipeWire)
-        let b = frame.data[offset];
-        let g = frame.data[offset + 1];
-        let r = frame.data[offset + 2];
+        // Assuming BGRA format
+        let b = screenshot.data[offset];
+        let g = screenshot.data[offset + 1];
+        let r = screenshot.data[offset + 2];
         
         Ok(Color::new(r, g, b))
     }
@@ -454,16 +408,26 @@ impl PixelSampler for WaylandPortalSampler {
     }
     
     fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {
-        // Ensure screencast is started (lazy initialization)
-        self.ensure_screencast_started()?;
+        // Ensure we have permission
+        self.ensure_screencast_permission()?;
         
-        // Iterate mainloop to process new frames
-        if let Some(ref ml) = self._pipewire_mainloop {
-            ml.loop_().iterate(std::time::Duration::from_millis(1));
+        // Capture screenshot ONLY ONCE at the start of the session
+        if !self.screenshot_captured {
+            eprintln!("📸 Capturing initial screenshot...");
+            self.capture_screenshot()?;
+            self.screenshot_captured = true;
+            eprintln!("✓ Screenshot captured - will be reused for all samples");
         }
+        
+        let buffer = self.screenshot_buffer.lock().unwrap();
+        let screenshot = buffer.as_ref()
+            .ok_or("No screenshot available")?;
         
         let half_size = (grid_size / 2) as i32;
         let mut grid = Vec::with_capacity(grid_size);
+        
+        eprintln!("[Wayland] sample_grid called: center=({},{}), grid_size={}, screenshot={}x{}", 
+            center_x, center_y, grid_size, screenshot.width, screenshot.height);
         
         for row in 0..grid_size {
             let mut row_pixels = Vec::with_capacity(grid_size);
@@ -471,8 +435,23 @@ impl PixelSampler for WaylandPortalSampler {
                 let x = center_x + (col as i32 - half_size);
                 let y = center_y + (row as i32 - half_size);
                 
-                let color = self.sample_pixel(x, y)
-                    .unwrap_or(Color::new(128, 128, 128));
+                // Sample from the screenshot buffer
+                let color = if x < 0 || y < 0 || x >= screenshot.width as i32 || y >= screenshot.height as i32 {
+                    Color::new(128, 128, 128)
+                } else {
+                    let offset = (y as usize * screenshot.stride) + (x as usize * 4);
+                    
+                    if offset + 3 >= screenshot.data.len() {
+                        Color::new(128, 128, 128)
+                    } else {
+                        // Assuming BGRA format
+                        let b = screenshot.data[offset];
+                        let g = screenshot.data[offset + 1];
+                        let r = screenshot.data[offset + 2];
+                        Color::new(r, g, b)
+                    }
+                };
+                
                 row_pixels.push(color);
             }
             grid.push(row_pixels);

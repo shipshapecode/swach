@@ -185,43 +185,57 @@ class MagnifyingColorPicker {
 
       globalShortcut.register('Escape', () => resolveOnce(null));
 
-      // Start the Rust sampler
-      // Note: macOS screen capture takes ~50-80ms per frame
-      // Setting to 15 Hz provides smooth experience without overloading
-      this.samplerManager.start(
-        this.gridSize,
-        15, // 15 Hz sample rate (realistic for screen capture)
-        (pixelData) => {
-          // Update current color
-          currentColor = pixelData.center.hex;
+      // Set up data callback for the sampler
+      const dataCallback = (pixelData: any) => {
+        // Update current color
+        currentColor = pixelData.center.hex;
 
-          // Get color name
-          const colorName = this.getColorName(
-            pixelData.center.r,
-            pixelData.center.g,
-            pixelData.center.b
-          );
+        // Get color name
+        const colorName = this.getColorName(
+          pixelData.center.r,
+          pixelData.center.g,
+          pixelData.center.b
+        );
 
-          // Update magnifier position
-          this.updateMagnifierPosition(pixelData.cursor);
+        // Update magnifier position
+        this.updateMagnifierPosition(pixelData.cursor);
 
-          // Send pixel grid to renderer
-          if (this.magnifierWindow && !this.magnifierWindow.isDestroyed()) {
-            this.magnifierWindow.webContents.send('update-pixel-grid', {
-              centerColor: pixelData.center,
-              colorName,
-              pixels: pixelData.grid,
-              diameter: this.magnifierDiameter,
-              gridSize: this.gridSize,
-              squareSize: this.squareSize,
-            });
-          }
-        },
-        (error) => {
-          console.error('[Magnifying Color Picker] Sampler error:', error);
-          // Continue even on errors - they might be transient
+        // Send pixel grid to renderer
+        if (this.magnifierWindow && !this.magnifierWindow.isDestroyed()) {
+          this.magnifierWindow.webContents.send('update-pixel-grid', {
+            centerColor: pixelData.center,
+            colorName,
+            pixels: pixelData.grid,
+            diameter: this.magnifierDiameter,
+            gridSize: this.gridSize,
+            squareSize: this.squareSize,
+          });
         }
-      );
+      };
+
+      const errorCallback = (error: string) => {
+        console.error('[Magnifying Color Picker] Sampler error:', error);
+        // Continue even on errors - they might be transient
+      };
+
+      // Start the Rust sampler if not already running
+      // (it may already be running from ensureStarted)
+      if (!this.samplerManager.isRunning()) {
+        console.log('[Magnifier] Starting sampler (not yet running)');
+        this.samplerManager.start(
+          this.gridSize,
+          15, // 15 Hz sample rate (realistic for screen capture)
+          dataCallback,
+          errorCallback
+        );
+      } else {
+        console.log(
+          '[Magnifier] Sampler already running from ensureStarted, updating callbacks'
+        );
+        // Replace callbacks since ensureStarted used temporary ones
+        this.samplerManager.dataCallback = dataCallback;
+        this.samplerManager.errorCallback = errorCallback;
+      }
     });
   }
 

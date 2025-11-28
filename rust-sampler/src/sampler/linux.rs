@@ -22,12 +22,7 @@ pub struct LinuxSampler {
     x11_display: *mut x11::xlib::Display,
     screen_width: i32,
     screen_height: i32,
-    method: CaptureMethod,
     screenshot_cache: Option<ScreenshotCache>,
-}
-
-enum CaptureMethod {
-    X11Direct,
 }
 
 struct ScreenshotCache {
@@ -53,24 +48,22 @@ impl LinuxSampler {
             let screen_width = x11::xlib::XDisplayWidth(display, screen);
             let screen_height = x11::xlib::XDisplayHeight(display, screen);
             
-            // Try to determine the best capture method
-            let method = Self::detect_capture_method(display)?;
+            // Test X11 capture capability
+            Self::test_x11_capture(display)?;
             
-            eprintln!("Linux sampler initialized - Screen: {}x{}, Method: {:?}", 
-                screen_width, screen_height, method);
+            eprintln!("Linux sampler initialized - Screen: {}x{}", screen_width, screen_height);
             
             Ok(LinuxSampler {
                 x11_display: display,
                 screen_width,
                 screen_height,
-                method,
                 screenshot_cache: None,
             })
         }
     }
     
-    fn detect_capture_method(display: *mut x11::xlib::Display) -> Result<CaptureMethod, String> {
-        // Try X11 direct capture first
+    fn test_x11_capture(display: *mut x11::xlib::Display) -> Result<(), String> {
+        // Test X11 capture capability
         unsafe {
             X_ERROR_OCCURRED.store(false, Ordering::SeqCst);
             
@@ -87,8 +80,7 @@ impl LinuxSampler {
             
             if !X_ERROR_OCCURRED.load(Ordering::SeqCst) && !test_image.is_null() {
                 x11::xlib::XDestroyImage(test_image);
-                eprintln!("X11 direct capture available");
-                return Ok(CaptureMethod::X11Direct);
+                return Ok(());
             }
             
             if !test_image.is_null() {
@@ -96,9 +88,7 @@ impl LinuxSampler {
             }
         }
         
-        // X11 failed - likely running on Wayland
-        eprintln!("X11 direct capture not available (likely Wayland)");
-        Err("X11 capture failed - running on Wayland".to_string())
+        Err("X11 capture failed".to_string())
     }
     
     fn capture_screenshot(&mut self) -> Result<(), String> {
@@ -185,11 +175,6 @@ impl LinuxSampler {
         }
     }
     
-
-
-
-
-    
     fn ensure_fresh_screenshot(&mut self) -> Result<(), String> {
         let needs_refresh = match &self.screenshot_cache {
             None => true,
@@ -208,14 +193,6 @@ impl Drop for LinuxSampler {
     fn drop(&mut self) {
         unsafe {
             x11::xlib::XCloseDisplay(self.x11_display);
-        }
-    }
-}
-
-impl std::fmt::Debug for CaptureMethod {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CaptureMethod::X11Direct => write!(f, "X11Direct"),
         }
     }
 }

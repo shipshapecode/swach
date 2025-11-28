@@ -37,17 +37,6 @@ struct ScreenshotBuffer {
 
 impl WaylandPortalSampler {
     pub fn new() -> Result<Self, String> {
-        eprintln!("═══════════════════════════════════════════════════════");
-        eprintln!("  Initializing Wayland Screen Capture");
-        eprintln!("═══════════════════════════════════════════════════════");
-        eprintln!();
-        eprintln!("Using XDG Desktop Portal for screen access.");
-        eprintln!("You may see a permission dialog on first use.");
-        eprintln!();
-        eprintln!("⚠️  NOTE: Wayland color picker uses screenshots");
-        eprintln!("    (not live video) to avoid capturing the magnifier.");
-        eprintln!();
-        
         // Still need X11 for cursor position
         let x11_display = unsafe {
             let display = x11::xlib::XOpenDisplay(std::ptr::null());
@@ -109,11 +98,8 @@ impl WaylandPortalSampler {
         
         let restore_token = self.restore_token.clone();
         
-        if restore_token.is_some() {
-            eprintln!("Using saved screen capture permission...");
-        } else {
+        if restore_token.is_none() {
             eprintln!("Requesting screen capture permission...");
-            eprintln!("(This dialog will only appear once)");
         }
         
         // Get the PipeWire node ID from the portal
@@ -151,19 +137,13 @@ impl WaylandPortalSampler {
             
             eprintln!("✓ Screen capture permission granted");
             
-            // Get restore token for next time
-            let new_token = streams_response.restore_token().map(|t| t.to_string());
-            
             // Get PipeWire node ID
-            let streams = streams_response.streams();
+            let streams = session.streams();
             if streams.is_empty() {
-                return Err("No video streams available".to_string());
+                return Err("No PipeWire streams available".to_string());
             }
             
-            let stream = &streams[0];
-            let node_id = stream.pipe_wire_node_id();
-            
-            eprintln!("PipeWire node ID: {}", node_id);
+            let node_id = streams[0].pipe_wire_node_id();
             
             Ok::<(u32, Option<String>), String>((node_id, new_token))
         })?;
@@ -330,6 +310,17 @@ impl WaylandPortalSampler {
         
         Ok(())
     }
+    
+    fn ensure_screenshot_captured(&mut self) -> Result<(), String> {
+        self.ensure_screencast_permission()?;
+        
+        if !self.screenshot_captured {
+            self.capture_screenshot()?;
+            self.screenshot_captured = true;
+        }
+        
+        Ok(())
+    }
 }
 
 impl Drop for WaylandPortalSampler {
@@ -342,16 +333,7 @@ impl Drop for WaylandPortalSampler {
 
 impl PixelSampler for WaylandPortalSampler {
     fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
-        // Ensure we have permission
-        self.ensure_screencast_permission()?;
-        
-        // Capture screenshot ONLY ONCE at the start of the session
-        if !self.screenshot_captured {
-            eprintln!("📸 Capturing initial screenshot...");
-            self.capture_screenshot()?;
-            self.screenshot_captured = true;
-            eprintln!("✓ Screenshot captured - will be reused for all samples");
-        }
+        self.ensure_screenshot_captured()?;
         
         let buffer = self.screenshot_buffer.lock().unwrap();
         let screenshot = buffer.as_ref()
@@ -408,16 +390,7 @@ impl PixelSampler for WaylandPortalSampler {
     }
     
     fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {
-        // Ensure we have permission
-        self.ensure_screencast_permission()?;
-        
-        // Capture screenshot ONLY ONCE at the start of the session
-        if !self.screenshot_captured {
-            eprintln!("📸 Capturing initial screenshot...");
-            self.capture_screenshot()?;
-            self.screenshot_captured = true;
-            eprintln!("✓ Screenshot captured - will be reused for all samples");
-        }
+        self.ensure_screenshot_captured()?;
         
         let buffer = self.screenshot_buffer.lock().unwrap();
         let screenshot = buffer.as_ref()
@@ -425,9 +398,6 @@ impl PixelSampler for WaylandPortalSampler {
         
         let half_size = (grid_size / 2) as i32;
         let mut grid = Vec::with_capacity(grid_size);
-        
-        eprintln!("[Wayland] sample_grid called: center=({},{}), grid_size={}, screenshot={}x{}", 
-            center_x, center_y, grid_size, screenshot.width, screenshot.height);
         
         for row in 0..grid_size {
             let mut row_pixels = Vec::with_capacity(grid_size);

@@ -39,11 +39,10 @@ pub fn create_sampler() -> Result<Box<dyn PixelSampler>, String> {
         {
             match LinuxSampler::new() {
                 Ok(sampler) => {
-                    eprintln!("Using X11 direct capture");
                     return Ok(Box::new(sampler));
                 }
-                Err(e) => {
-                    eprintln!("X11 capture unavailable: {}", e);
+                Err(_e) => {
+                    // X11 unavailable, try Wayland
                 }
             }
         }
@@ -51,16 +50,14 @@ pub fn create_sampler() -> Result<Box<dyn PixelSampler>, String> {
         // Try Wayland Portal capture
         #[cfg(feature = "wayland")]
         {
-            eprintln!("Attempting Wayland Portal capture with PipeWire...");
             match WaylandPortalSampler::new() {
                 Ok(mut sampler) => {
-                    eprintln!("Requesting screen capture permission...");
                     sampler.request_permission()?;
-                    eprintln!("✓ Wayland Portal capture initialized with permission");
+                    eprintln!("✓ Wayland Portal capture initialized");
                     return Ok(Box::new(sampler));
                 }
                 Err(e) => {
-                    eprintln!("✗ Wayland Portal sampler creation failed: {}", e);
+                    eprintln!("✗ Wayland Portal sampler failed: {}", e);
                 }
             }
         }

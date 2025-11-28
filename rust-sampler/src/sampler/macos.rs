@@ -39,8 +39,6 @@ impl MacOSSampler {
             1.0 // Fallback to 1.0 if we can't determine
         };
         
-        eprintln!("[MacOSSampler] Scale factor: {}", scale_factor);
-        
         Ok(MacOSSampler {
             _display: display,
             _scale_factor: scale_factor,
@@ -61,7 +59,6 @@ impl MacOSSampler {
             );
             
             if image_ref.is_null() {
-                eprintln!("[MacOSSampler] CGWindowListCreateImage returned null");
                 None
             } else {
                 // Create CGImage from raw sys pointer
@@ -154,16 +151,6 @@ impl PixelSampler for MacOSSampler {
         let scale_x = image_width / grid_size;
         let scale_y = image_height / grid_size;
         
-        // Debug: log image info for first few samples
-        static mut SAMPLE_COUNT: u32 = 0;
-        unsafe {
-            if SAMPLE_COUNT < 3 {
-                eprintln!("[MacOSSampler] Captured {}x{} image for {}x{} grid, scale={}×{}, bytes_per_row={}", 
-                    image_width, image_height, grid_size, grid_size, scale_x, scale_y, bytes_per_row);
-                SAMPLE_COUNT += 1;
-            }
-        }
-        
         // Sample pixels from the captured image accounting for scale
         let mut grid = Vec::with_capacity(grid_size);
         
@@ -183,17 +170,8 @@ impl PixelSampler for MacOSSampler {
                     let g = data[offset + 1];
                     let r = data[offset + 2];
                     
-                    unsafe {
-                        if SAMPLE_COUNT == 1 && row == grid_size/2 && col == grid_size/2 {
-                            eprintln!("[MacOSSampler] Center grid[{}][{}] → pixel[{}][{}] offset={}: RGB({},{},{}) = #{:02X}{:02X}{:02X}", 
-                                row, col, pixel_row, pixel_col, offset, r, g, b, r, g, b);
-                        }
-                    }
-                    
                     row_pixels.push(Color::new(r, g, b));
                 } else {
-                    eprintln!("[MacOSSampler] Out of bounds: row={}, col={}, offset={}, data.len={}", 
-                        row, col, offset, data.len());
                     row_pixels.push(Color::new(128, 128, 128));
                 }
             }

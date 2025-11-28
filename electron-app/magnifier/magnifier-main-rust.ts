@@ -126,7 +126,7 @@ class MagnifyingColorPicker {
   }
 
   private async startColorPicking(): Promise<string | null> {
-    return new Promise((resolve) => {
+    return new Promise(async (resolve) => {
       let currentColor = '#FFFFFF';
       let hasResolved = false;
 
@@ -225,7 +225,7 @@ class MagnifyingColorPicker {
       // (it may already be running from ensureStarted)
       if (!this.samplerManager.isRunning()) {
         console.log('[Magnifier] Starting sampler (not yet running)');
-        this.samplerManager.start(
+        await this.samplerManager.start(
           this.gridSize,
           15, // 15 Hz sample rate (realistic for screen capture)
           dataCallback,

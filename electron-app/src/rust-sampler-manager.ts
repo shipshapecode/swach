@@ -24,6 +24,7 @@ export class RustSamplerManager {
   private process: ChildProcess | null = null;
   public dataCallback: SamplerCallback | null = null;
   public errorCallback: ErrorCallback | null = null;
+  private forceKillTimeout: NodeJS.Timeout | null = null;
 
   private getBinaryPath(): string {
     if (isDev) {
@@ -44,15 +45,15 @@ export class RustSamplerManager {
     }
   }
 
-  start(
+  async start(
     gridSize: number,
     sampleRate: number,
     onData: SamplerCallback,
     onError: ErrorCallback
-  ): void {
+  ): Promise<void> {
     if (this.process) {
       console.warn('[RustSampler] Process already running, stopping first');
-      this.stop();
+      await this.stop();
     }
 
     this.dataCallback = onData;
@@ -68,6 +69,22 @@ export class RustSamplerManager {
     if (!this.process.stdout || !this.process.stdin || !this.process.stderr) {
       const error = 'Failed to create process stdio streams';
       console.error('[RustSampler]', error);
+
+      // Clean up the leaked process
+      const proc = this.process;
+      this.process = null;
+
+      try {
+        if (proc && !proc.killed) {
+          proc.kill('SIGKILL');
+        }
+      } catch (killError) {
+        console.error(
+          '[RustSampler] Failed to kill leaked process:',
+          killError
+        );
+      }
+
       this.errorCallback?.(error);
       return;
     }
@@ -130,7 +147,7 @@ export class RustSamplerManager {
    * This is useful for triggering permission dialogs before showing UI
    */
   async ensureStarted(gridSize: number, sampleRate: number): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       let resolved = false;
       const timeout = setTimeout(() => {
         if (!resolved) {
@@ -140,7 +157,7 @@ export class RustSamplerManager {
       }, 30000); // 30 second timeout for permission dialog
 
       // Start with a temporary callback that resolves on first data
-      this.start(
+      await this.start(
         gridSize,
         sampleRate,
         () => {
@@ -171,9 +188,9 @@ export class RustSamplerManager {
     console.log(`[RustSampler] Command sent:`, JSON.stringify(command));
   }
 
-  stop(): void {
+  stop(): Promise<void> {
     if (!this.process) {
-      return;
+      return Promise.resolve();
     }
 
     console.log('[RustSampler] Stopping process');
@@ -183,26 +200,43 @@ export class RustSamplerManager {
     this.dataCallback = null;
     this.errorCallback = null;
 
-    // Send stop command
-    const stopCommand = { command: 'stop' };
-    try {
-      if (proc.stdin) {
-        const json = JSON.stringify(stopCommand);
-        proc.stdin.write(json + '\n');
-        // Close stdin to signal EOF
-        proc.stdin.end();
-      }
-    } catch (e) {
-      console.error('[RustSampler] Failed to send stop command:', e);
-    }
+    return new Promise<void>((resolve) => {
+      // Set up exit handler
+      const onExit = () => {
+        console.log('[RustSampler] Process exited');
+        if (this.forceKillTimeout) {
+          clearTimeout(this.forceKillTimeout);
+          this.forceKillTimeout = null;
+        }
+        resolve();
+      };
 
-    // Give it a moment to clean up, then force kill if needed
-    setTimeout(() => {
-      if (proc && !proc.killed) {
-        console.log('[RustSampler] Force killing process');
-        proc.kill('SIGTERM');
+      proc.once('exit', onExit);
+      proc.once('close', onExit);
+
+      // Send stop command
+      const stopCommand = { command: 'stop' };
+      try {
+        if (proc.stdin && !proc.stdin.destroyed) {
+          const json = JSON.stringify(stopCommand);
+          proc.stdin.write(json + '\n');
+          // Close stdin to signal EOF
+          proc.stdin.end();
+        }
+      } catch (e) {
+        console.error('[RustSampler] Failed to send stop command:', e);
       }
-    }, 500);
+
+      // Give it a moment to clean up, then force kill if needed
+      this.forceKillTimeout = setTimeout(() => {
+        if (proc && !proc.killed) {
+          console.log('[RustSampler] Force killing process');
+          proc.kill('SIGTERM');
+          // Resolve after force kill
+          setTimeout(() => resolve(), 100);
+        }
+      }, 500);
+    });
   }
 
   private sendCommand(command: object): void {

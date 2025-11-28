@@ -301,14 +301,16 @@ async function launchMagnifyingColorPicker(
     const color = await picker.pickColor();
 
     if (color) {
-      if (type === 'global') {
-        mb.window!.webContents.send('changeColor', color);
-      }
-      if (type === 'contrastBg') {
-        mb.window!.webContents.send('pickContrastBgColor', color);
-      }
-      if (type === 'contrastFg') {
-        mb.window!.webContents.send('pickContrastFgColor', color);
+      if (mb.window && !mb.window.isDestroyed()) {
+        if (type === 'global') {
+          mb.window.webContents.send('changeColor', color);
+        }
+        if (type === 'contrastBg') {
+          mb.window.webContents.send('pickContrastBgColor', color);
+        }
+        if (type === 'contrastFg') {
+          mb.window.webContents.send('pickContrastFgColor', color);
+        }
       }
     }
   } finally {

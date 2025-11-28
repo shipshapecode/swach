@@ -21,7 +21,7 @@
   },
   "scripts": {
     "build:rust": "cd rust-sampler && cargo build --release --features x11,wayland",
-    "build:rust:ci": "cd rust-sampler && cargo build --features x11",
+    "build:rust:ci": "cd rust-sampler && cargo build --release --features x11",
     "build:rust:dev": "cd rust-sampler && cargo build --features x11,wayland",
     "format": "prettier . --cache --write",
     "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",

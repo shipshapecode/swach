@@ -4,7 +4,7 @@ import { join } from 'path';
 import { app } from 'electron';
 import isDev from 'electron-is-dev';
 
-interface PixelData {
+export interface PixelData {
   cursor: { x: number; y: number };
   center: { r: number; g: number; b: number; hex: string };
   grid: Array<Array<{ r: number; g: number; b: number; hex: string }>>;

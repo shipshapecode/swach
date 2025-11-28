@@ -3,21 +3,24 @@ name = "swach-sampler"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]]
+name = "swach-sampler"
+path = "src/main.rs"
+
+[lib]
+name = "swach_sampler"
+path = "src/lib.rs"
+
 [features]
-# Enable Wayland support by default for PipeWire screencast with persistent tokens
-default = ["wayland"]
+# X11 support (requires system libraries: libx11-dev on Linux)
+x11 = ["dep:x11", "dep:dirs"]
 # Wayland support (requires system libraries: libpipewire-0.3-dev on Linux)
 wayland = ["ashpd", "pipewire", "tokio", "futures"]
+default = []
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-
-# Optional dependencies for Wayland support (enabled by default via "wayland" feature)
-ashpd = { version = "0.9", optional = true }
-pipewire = { version = "0.8", optional = true }
-tokio = { version = "1", features = ["rt", "sync", "macros"], optional = true }
-futures = { version = "0.3", optional = true }
 
 [target.'cfg(target_os = "macos")'.dependencies]
 core-graphics = "0.23"
@@ -33,9 +36,14 @@ windows = { version = "0.58", features = [
 ] }
 
 [target.'cfg(target_os = "linux")'.dependencies]
-# X11 support for direct pixel sampling (always available on Linux)
-x11 = { version = "2.21", features = ["xlib"] }
-dirs = "5.0"
+# X11 support for direct pixel sampling (optional, requires libx11-dev)
+x11 = { version = "2.21", features = ["xlib"], optional = true }
+dirs = { version = "5.0", optional = true }
+# Optional dependencies for Wayland support (requires libpipewire-0.3-dev)
+ashpd = { version = "0.9", optional = true }
+pipewire = { version = "0.8", optional = true }
+tokio = { version = "1", features = ["rt", "sync", "macros"], optional = true }
+futures = { version = "0.3", optional = true }
 
 [profile.release]
 opt-level = 3

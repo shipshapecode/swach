@@ -1,0 +1,31 @@
+name: Rust Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - 'rust-sampler/**'
+      - '.github/workflows/rust-tests.yml'
+
+jobs:
+  test:
+    name: Test Rust Sampler
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libx11-dev libpipewire-0.3-dev pkg-config
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm test:rust

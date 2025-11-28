@@ -7,7 +7,10 @@ import isDev from 'electron-is-dev';
 import { type Menubar } from 'menubar';
 import nearestColor from 'nearest-color';
 
-import { RustSamplerManager } from '../src/rust-sampler-manager.js';
+import {
+  RustSamplerManager,
+  type PixelData,
+} from '../src/rust-sampler-manager.js';
 import { calculateGridSize } from './grid-calculation.js';
 import { adjustSquareSize, getNextDiameter } from './utils';
 
@@ -186,7 +189,7 @@ class MagnifyingColorPicker {
       globalShortcut.register('Escape', () => resolveOnce(null));
 
       // Set up data callback for the sampler
-      const dataCallback = (pixelData: any) => {
+      const dataCallback = (pixelData: PixelData) => {
         // Update current color
         currentColor = pixelData.center.hex;
 

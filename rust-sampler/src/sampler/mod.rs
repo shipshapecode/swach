@@ -3,9 +3,9 @@ mod macos;
 #[cfg(target_os = "macos")]
 pub use macos::MacOSSampler;
 
-#[cfg(target_os = "linux")]
+#[cfg(all(target_os = "linux", feature = "x11"))]
 mod linux;
-#[cfg(target_os = "linux")]
+#[cfg(all(target_os = "linux", feature = "x11"))]
 pub use linux::LinuxSampler;
 
 // Wayland support (optional, requires the "wayland" feature)
@@ -35,40 +35,37 @@ pub fn create_sampler() -> Result<Box<dyn PixelSampler>, String> {
     #[cfg(target_os = "linux")]
     {
         // Try X11 direct capture first (best performance)
-        match LinuxSampler::new() {
-            Ok(sampler) => {
-                eprintln!("Using X11 direct capture");
-                return Ok(Box::new(sampler));
-            }
-            Err(e) => {
-                eprintln!("X11 capture unavailable: {}", e);
-                
-                #[cfg(feature = "wayland")]
-                {
-                    eprintln!("Attempting Wayland Portal capture with PipeWire...");
-                    match WaylandPortalSampler::new() {
-                        Ok(mut sampler) => {
-                            // Request permission immediately - this will show the permission dialog
-                            // and block until user grants or denies permission
-                            eprintln!("Requesting screen capture permission...");
-                            sampler.request_permission()?;
-                            eprintln!("✓ Wayland Portal capture initialized with permission");
-                            return Ok(Box::new(sampler));
-                        }
-                        Err(e) => {
-                            eprintln!("✗ Wayland Portal sampler creation failed: {}", e);
-                        }
-                    }
+        #[cfg(feature = "x11")]
+        {
+            match LinuxSampler::new() {
+                Ok(sampler) => {
+                    eprintln!("Using X11 direct capture");
+                    return Ok(Box::new(sampler));
                 }
-                
-                #[cfg(not(feature = "wayland"))]
-                {
-                    eprintln!("Wayland support not compiled in. Rebuild with --features wayland");
+                Err(e) => {
+                    eprintln!("X11 capture unavailable: {}", e);
                 }
-                
-                Err(format!("No working screen capture method available: {}", e))
             }
         }
+        
+        // Try Wayland Portal capture
+        #[cfg(feature = "wayland")]
+        {
+            eprintln!("Attempting Wayland Portal capture with PipeWire...");
+            match WaylandPortalSampler::new() {
+                Ok(mut sampler) => {
+                    eprintln!("Requesting screen capture permission...");
+                    sampler.request_permission()?;
+                    eprintln!("✓ Wayland Portal capture initialized with permission");
+                    return Ok(Box::new(sampler));
+                }
+                Err(e) => {
+                    eprintln!("✗ Wayland Portal sampler creation failed: {}", e);
+                }
+            }
+        }
+        
+        Err("No screen capture method available. Build with --features x11 or --features wayland".to_string())
     }
     
     #[cfg(target_os = "windows")]

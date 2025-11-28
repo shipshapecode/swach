@@ -1,14 +1,9 @@
-// Linux pixel sampler with support for X11 and Wayland
-// 
-// Strategy:
-// 1. Try X11 XGetImage (fast, works on native X11)
-// 2. If that fails (Wayland/XWayland), fall back to screenshot tools:
-//    - grim (Wayland)
-//    - scrot (X11 fallback)
-//    - imagemagick import (X11 fallback)
+// Linux pixel sampler using X11 direct capture
+//
+// Uses native X11 XGetImage for fast, efficient pixel sampling on X11 systems.
+// For Wayland systems, see wayland_portal.rs which uses XDG Desktop Portal + PipeWire.
 
 use crate::types::{Color, PixelSampler, Point};
-use std::process::Command;
 use std::ptr;
 use std::sync::atomic::{AtomicBool, Ordering};
 
@@ -33,9 +28,6 @@ pub struct LinuxSampler {
 
 enum CaptureMethod {
     X11Direct,
-    Grim,
-    Scrot,
-    ImageMagick,
 }
 
 struct ScreenshotCache {
@@ -110,12 +102,7 @@ impl LinuxSampler {
     }
     
     fn capture_screenshot(&mut self) -> Result<(), String> {
-        match self.method {
-            CaptureMethod::X11Direct => self.capture_x11_region(0, 0, self.screen_width as u32, self.screen_height as u32),
-            CaptureMethod::Grim => self.capture_with_grim(),
-            CaptureMethod::Scrot => self.capture_with_scrot(),
-            CaptureMethod::ImageMagick => self.capture_with_imagemagick(),
-        }
+        self.capture_x11_region(0, 0, self.screen_width as u32, self.screen_height as u32)
     }
     
     fn capture_x11_region(&mut self, x: i32, y: i32, width: u32, height: u32) -> Result<(), String> {
@@ -198,121 +185,10 @@ impl LinuxSampler {
         }
     }
     
-    fn capture_with_grim(&mut self) -> Result<(), String> {
-        let output = Command::new("grim")
-            .arg("-t").arg("ppm")
-            .arg("-")
-            .output()
-            .map_err(|e| format!("Failed to run grim: {}", e))?;
-        
-        if !output.status.success() {
-            return Err(format!("grim failed: {}", String::from_utf8_lossy(&output.stderr)));
-        }
-        
-        self.parse_ppm_screenshot(&output.stdout)
-    }
-    
-    fn capture_with_scrot(&mut self) -> Result<(), String> {
-        use std::fs;
-        use std::io::Read;
-        
-        let temp_file = "/tmp/swach_screenshot.ppm";
-        
-        let status = Command::new("scrot")
-            .arg("-o")
-            .arg(temp_file)
-            .status()
-            .map_err(|e| format!("Failed to run scrot: {}", e))?;
-        
-        if !status.success() {
-            return Err("scrot failed".to_string());
-        }
-        
-        let mut file = fs::File::open(temp_file)
-            .map_err(|e| format!("Failed to open screenshot: {}", e))?;
-        
-        let mut buffer = Vec::new();
-        file.read_to_end(&mut buffer)
-            .map_err(|e| format!("Failed to read screenshot: {}", e))?;
-        
-        let _ = fs::remove_file(temp_file);
-        
-        self.parse_ppm_screenshot(&buffer)
-    }
-    
-    fn capture_with_imagemagick(&mut self) -> Result<(), String> {
-        let output = Command::new("import")
-            .arg("-window").arg("root")
-            .arg("-depth").arg("8")
-            .arg("ppm:-")
-            .output()
-            .map_err(|e| format!("Failed to run import: {}", e))?;
-        
-        if !output.status.success() {
-            return Err("import failed".to_string());
-        }
-        
-        self.parse_ppm_screenshot(&output.stdout)
-    }
-    
-    fn parse_ppm_screenshot(&mut self, data: &[u8]) -> Result<(), String> {
-        // Find the start of pixel data by parsing header manually
-        // Read magic number (P6)
-        let magic_end = data.iter().position(|&b| b == b'\n').ok_or("No newline after magic")?;
-        if &data[0..magic_end] != b"P6" {
-            return Err(format!("Invalid PPM magic: {:?}", String::from_utf8_lossy(&data[0..magic_end])));
-        }
-        let mut pos = magic_end + 1;
-        
-        // Skip comments and find dimensions
-        let mut width = 0u32;
-        let mut height = 0u32;
-        while pos < data.len() {
-            let line_end = data[pos..].iter().position(|&b| b == b'\n').ok_or("Unexpected EOF")? + pos;
-            let line = &data[pos..line_end];
-            
-            if line.starts_with(b"#") {
-                pos = line_end + 1;
-                continue;
-            }
-            
-            // Parse dimensions
-            let dims_str = String::from_utf8_lossy(line);
-            let dims: Vec<&str> = dims_str.trim().split_whitespace().collect();
-            if dims.len() == 2 {
-                width = dims[0].parse().map_err(|e| format!("Invalid width: {}", e))?;
-                height = dims[1].parse().map_err(|e| format!("Invalid height: {}", e))?;
-                pos = line_end + 1;
-                break;
-            }
-            
-            return Err("Could not parse dimensions".to_string());
-        }
-        
-        // Read max value
-        let line_end = data[pos..].iter().position(|&b| b == b'\n').ok_or("No newline after max value")? + pos;
-        let max_val_str = String::from_utf8_lossy(&data[pos..line_end]);
-        let max_val: u32 = max_val_str.trim().parse()
-            .map_err(|e| format!("Invalid max value: {}", e))?;
-        
-        if max_val != 255 {
-            return Err(format!("Unsupported max value: {}", max_val));
-        }
-        
-        pos = line_end + 1;
-        
-        // Rest is pixel data
-        let pixel_data = &data[pos..];
-        
-        self.screenshot_cache = Some(ScreenshotCache {
-            data: pixel_data.to_vec(),
-            width,
-            height,
-            timestamp: std::time::Instant::now(),
-        });
-        
-        Ok(())
-    }
+
+
+
+
     
     fn ensure_fresh_screenshot(&mut self) -> Result<(), String> {
         let needs_refresh = match &self.screenshot_cache {
@@ -340,9 +216,6 @@ impl std::fmt::Debug for CaptureMethod {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             CaptureMethod::X11Direct => write!(f, "X11Direct"),
-            CaptureMethod::Grim => write!(f, "Grim"),
-            CaptureMethod::Scrot => write!(f, "Scrot"),
-            CaptureMethod::ImageMagick => write!(f, "ImageMagick"),
         }
     }
 }

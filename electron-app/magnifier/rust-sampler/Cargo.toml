@@ -15,7 +15,7 @@ path = "src/lib.rs"
 # X11 support (requires system libraries: libx11-dev on Linux)
 x11 = ["dep:x11", "dep:dirs"]
 # Wayland support (requires system libraries: libpipewire-0.3-dev on Linux)
-wayland = ["ashpd", "pipewire", "tokio", "futures"]
+wayland = ["dep:ashpd", "dep:pipewire", "dep:tokio", "dep:futures"]
 default = []
 
 [dependencies]

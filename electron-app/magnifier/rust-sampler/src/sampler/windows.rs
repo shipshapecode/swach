@@ -37,17 +37,15 @@ impl PixelSampler for WindowsSampler {
             let color_ref = GetPixel(self.hdc, x, y);
             
             // Check for error (CLR_INVALID is returned on error)
-            if color_ref == COLORREF(CLR_INVALID) {
+            // In windows 0.58, COLORREF is a type alias to u32, not a newtype
+            if color_ref == CLR_INVALID {
                 return Err(format!("Failed to get pixel at ({}, {})", x, y));
             }
             
-            // Extract the u32 value from COLORREF
-            let color_value = color_ref.0;
-            
-            // COLORREF format is 0x00BBGGRR (BGR, not RGB)
-            let r = (color_value & 0xFF) as u8;
-            let g = ((color_value >> 8) & 0xFF) as u8;
-            let b = ((color_value >> 16) & 0xFF) as u8;
+            // COLORREF is a u32 in BGR format: 0x00BBGGRR
+            let r = (color_ref & 0xFF) as u8;
+            let g = ((color_ref >> 8) & 0xFF) as u8;
+            let b = ((color_ref >> 16) & 0xFF) as u8;
             
             Ok(Color::new(r, g, b))
         }

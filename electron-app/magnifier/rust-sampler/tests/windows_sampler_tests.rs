@@ -46,12 +46,10 @@ impl PixelSampler for MockWindowsSampler {
 fn test_windows_sampler_basic_sampling() {
     let mut sampler = MockWindowsSampler::new(1920, 1080);
     
-    let color = sampler.sample_pixel(100, 200).unwrap();
+    let _color = sampler.sample_pixel(100, 200).unwrap();
     
-    // Verify color is valid
-    assert!(color.r <= 255);
-    assert!(color.g <= 255);
-    assert!(color.b <= 255);
+    // Colors are u8, so they're always in valid range (0-255)
+    // Just verify we got a color successfully
 }
 
 #[test]
@@ -85,11 +83,9 @@ fn test_windows_sampler_screen_boundaries() {
     let mut sampler = MockWindowsSampler::new(1920, 1080);
     
     // Test at screen edges (valid)
-    let color = sampler.sample_pixel(0, 0).unwrap();
-    assert!(color.r <= 255);
+    let _color = sampler.sample_pixel(0, 0).unwrap();
     
-    let color = sampler.sample_pixel(1919, 1079).unwrap();
-    assert!(color.r <= 255);
+    let _color2 = sampler.sample_pixel(1919, 1079).unwrap();
     
     // Test just outside screen (invalid)
     assert!(sampler.sample_pixel(1920, 1080).is_err());
@@ -110,15 +106,20 @@ fn test_windows_sampler_grid_with_partial_oob() {
     let mut sampler = MockWindowsSampler::new(1920, 1080);
     
     // Sample near edge where some pixels will be out of bounds
-    // Default implementation returns gray for OOB
-    let grid = sampler.sample_grid(1, 1, 3, 1.0).unwrap();
+    // Center at (0, 0) with 3x3 grid samples from (-1,-1) to (1,1)
+    let grid = sampler.sample_grid(0, 0, 3, 1.0).unwrap();
     assert_eq!(grid.len(), 3);
     
-    // Some edge pixels should be gray (fallback for OOB)
+    // Top-left pixel at (-1, -1) should be OOB and return gray fallback
     let top_left = &grid[0][0];
     assert_eq!(top_left.r, 128);
     assert_eq!(top_left.g, 128);
     assert_eq!(top_left.b, 128);
+    
+    // Center pixel at (0, 0) should be valid
+    let center = &grid[1][1];
+    assert_eq!(center.r, 0);
+    assert_eq!(center.g, 0);
 }
 
 #[test]
@@ -126,10 +127,10 @@ fn test_windows_sampler_colorref_format() {
     let mut sampler = MockWindowsSampler::new(1920, 1080);
     
     // Test that BGR to RGB conversion works correctly
-    let color = sampler.sample_pixel(255, 128).unwrap();
+    let _color = sampler.sample_pixel(255, 128).unwrap();
     
     // Verify hex string is in RGB format
-    let hex = color.hex_string();
+    let hex = _color.hex_string();
     assert!(hex.starts_with('#'));
     assert_eq!(hex.len(), 7);
     
@@ -154,8 +155,9 @@ fn test_windows_sampler_large_coordinates() {
     let mut sampler = MockWindowsSampler::new(3840, 2160);
     
     // Test 4K resolution
-    let color = sampler.sample_pixel(3839, 2159).unwrap();
-    assert!(color.r <= 255);
+    let mut sampler = MockWindowsSampler::new(3840, 2160);
+    
+    let _color = sampler.sample_pixel(3839, 2159).unwrap();
     
     // Just outside should fail
     assert!(sampler.sample_pixel(3840, 2160).is_err());
@@ -198,13 +200,11 @@ fn test_windows_sampler_grid_sizes() {
 fn test_windows_sampler_color_range() {
     let mut sampler = MockWindowsSampler::new(1920, 1080);
     
-    // Sample multiple points and verify all colors are in valid range
+    // Sample multiple points - colors are u8 so always in 0-255 range
     for x in (0..1920).step_by(100) {
         for y in (0..1080).step_by(100) {
-            let color = sampler.sample_pixel(x, y).unwrap();
-            assert!(color.r <= 255, "Red component out of range at ({}, {})", x, y);
-            assert!(color.g <= 255, "Green component out of range at ({}, {})", x, y);
-            assert!(color.b <= 255, "Blue component out of range at ({}, {})", x, y);
+            let _color = sampler.sample_pixel(x, y).unwrap();
+            // Successfully got a color, that's all we need to verify
         }
     }
 }
@@ -247,8 +247,8 @@ fn test_windows_sampler_high_dpi_scaling() {
     // The sampler should work with physical pixels
     let mut sampler = MockWindowsSampler::new(2560, 1440);
     
-    let grid = sampler.sample_grid(1280, 720, 7, 1.0).unwrap();
-    assert_eq!(grid.len(), 7);
+    let _grid = sampler.sample_grid(1280, 720, 7, 1.0).unwrap();
+    assert_eq!(_grid.len(), 7);
 }
 
 #[test]

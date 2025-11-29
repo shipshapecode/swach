@@ -181,7 +181,7 @@
     "qunit-dom": "^3.5.0",
     "release-it": "^19.0.6",
     "sinon": "^21.0.0",
-    "stylelint": "^16.25.0",
+    "stylelint": "^16.26.1",
     "stylelint-config-standard": "^39.0.1",
     "tailwindcss": "^4.1.17",
     "throttle-debounce": "^5.0.2",

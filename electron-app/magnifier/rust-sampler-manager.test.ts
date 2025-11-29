@@ -1,4 +1,4 @@
-import { ChildProcess } from 'child_process';
+import type { ChildProcessWithoutNullStreams } from 'child_process';
 import { EventEmitter } from 'events';
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -21,20 +21,27 @@ vi.mock('electron-is-dev', () => ({
   default: true,
 }));
 
+interface MockWritable extends EventEmitter {
+  write: ReturnType<typeof vi.fn>;
+  end: ReturnType<typeof vi.fn>;
+  destroyed: boolean;
+}
+
 class MockChildProcess extends EventEmitter {
-  stdin: any;
-  stdout: any;
-  stderr: any;
+  stdin: MockWritable;
+  stdout: EventEmitter;
+  stderr: EventEmitter;
   killed = false;
   exitCode: number | null = null;
   signalCode: string | null = null;
 
   constructor() {
     super();
-    this.stdin = new EventEmitter();
-    this.stdin.write = vi.fn();
-    this.stdin.end = vi.fn();
-    this.stdin.destroyed = false;
+    const mockStdin = new EventEmitter() as MockWritable;
+    mockStdin.write = vi.fn();
+    mockStdin.end = vi.fn();
+    mockStdin.destroyed = false;
+    this.stdin = mockStdin;
 
     this.stdout = new EventEmitter();
     this.stderr = new EventEmitter();
@@ -57,7 +64,7 @@ class MockChildProcess extends EventEmitter {
 describe('RustSamplerManager', () => {
   let manager: RustSamplerManager;
   let mockProcess: MockChildProcess;
-  let spawnMock: any;
+  let spawnMock: ReturnType<typeof vi.fn>;
 
   beforeEach(async () => {
     manager = new RustSamplerManager();
@@ -65,7 +72,9 @@ describe('RustSamplerManager', () => {
 
     const childProcessModule = await import('child_process');
     spawnMock = vi.mocked(childProcessModule.spawn);
-    spawnMock.mockReturnValue(mockProcess as any);
+    spawnMock.mockReturnValue(
+      mockProcess as unknown as ChildProcessWithoutNullStreams
+    );
   });
 
   afterEach(async () => {
@@ -82,7 +91,7 @@ describe('RustSamplerManager', () => {
       const onData = vi.fn();
       const onError = vi.fn();
 
-      const startPromise = manager.start(9, 20, onData, onError);
+      void manager.start(9, 20, onData, onError);
 
       // Wait a bit for spawn to be called
       await new Promise((resolve) => setTimeout(resolve, 10));
@@ -243,7 +252,9 @@ describe('RustSamplerManager', () => {
 
       // Create new mock process for second start
       const newMockProcess = new MockChildProcess();
-      spawnMock.mockReturnValue(newMockProcess);
+      spawnMock.mockReturnValue(
+        newMockProcess as unknown as ChildProcessWithoutNullStreams
+      );
 
       await manager.start(11, 30, onData2, onError2);
 
@@ -256,8 +267,11 @@ describe('RustSamplerManager', () => {
 
       // Create process with null stdout
       const brokenProcess = new MockChildProcess();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       brokenProcess.stdout = null as any;
-      spawnMock.mockReturnValue(brokenProcess);
+      spawnMock.mockReturnValue(
+        brokenProcess as unknown as ChildProcessWithoutNullStreams
+      );
 
       await manager.start(9, 20, onData, onError);
 
@@ -385,6 +399,7 @@ describe('RustSamplerManager', () => {
       // Advance time past the force kill timeout (500ms + buffer)
       vi.advanceTimersByTime(700);
 
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(mockProcess.kill).toHaveBeenCalled();
 
       vi.useRealTimers();

@@ -122,8 +122,8 @@ class MagnifyingColorPicker {
     this.magnifierWindow.show();
   }
 
-  private async startColorPicking(): Promise<string | null> {
-    return new Promise(async (resolve) => {
+  private startColorPicking(): Promise<string | null> {
+    return new Promise((resolve) => {
       let currentColor = '#FFFFFF';
       let hasResolved = false;
 
@@ -222,12 +222,16 @@ class MagnifyingColorPicker {
       // (it may already be running from ensureStarted)
       if (!this.samplerManager.isRunning()) {
         console.log('[Magnifier] Starting sampler (not yet running)');
-        await this.samplerManager.start(
-          this.gridSize,
-          15, // 15 Hz sample rate (realistic for screen capture)
-          dataCallback,
-          errorCallback
-        );
+        this.samplerManager
+          .start(
+            this.gridSize,
+            15, // 15 Hz sample rate (realistic for screen capture)
+            dataCallback,
+            errorCallback
+          )
+          .catch((error: unknown) => {
+            console.error('[Magnifier] Failed to start sampler:', error);
+          });
       } else {
         console.log(
           '[Magnifier] Sampler already running from ensureStarted, updating callbacks'
@@ -256,7 +260,7 @@ class MagnifyingColorPicker {
     this.isActive = false;
 
     // Stop the Rust sampler
-    this.samplerManager.stop();
+    void this.samplerManager.stop();
 
     if (this.magnifierWindow && !this.magnifierWindow.isDestroyed()) {
       this.magnifierWindow.close();

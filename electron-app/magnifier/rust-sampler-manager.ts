@@ -149,7 +149,7 @@ export class RustSamplerManager {
    * This is useful for triggering permission dialogs before showing UI
    */
   async ensureStarted(gridSize: number, sampleRate: number): Promise<void> {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       let resolved = false;
       const timeout = setTimeout(() => {
         if (!resolved) {
@@ -159,7 +159,7 @@ export class RustSamplerManager {
       }, 30000); // 30 second timeout for permission dialog
 
       // Start with a temporary callback that resolves on first data
-      await this.start(
+      void this.start(
         gridSize,
         sampleRate,
         () => {

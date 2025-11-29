@@ -127,12 +127,37 @@ class MagnifyingColorPicker {
       let currentColor = '#FFFFFF';
       let hasResolved = false;
 
+      const cleanup = () => {
+        // Unregister global shortcut
+        globalShortcut.unregister('Escape');
+
+        // Remove IPC listeners
+        ipcMain.removeAllListeners('color-selected');
+        ipcMain.removeAllListeners('picker-cancelled');
+        ipcMain.removeAllListeners('magnifier-zoom-diameter');
+        ipcMain.removeAllListeners('magnifier-zoom-density');
+
+        // Remove window close handler
+        if (this.magnifierWindow && !this.magnifierWindow.isDestroyed()) {
+          this.magnifierWindow.removeAllListeners('closed');
+        }
+      };
+
       const resolveOnce = (result: string | null) => {
         if (!hasResolved) {
           hasResolved = true;
+          cleanup();
           resolve(result);
         }
       };
+
+      // Handle window close (Alt+F4, close button, etc.)
+      if (this.magnifierWindow && !this.magnifierWindow.isDestroyed()) {
+        this.magnifierWindow.once('closed', () => {
+          console.log('[Magnifier] Window closed externally');
+          resolveOnce(null);
+        });
+      }
 
       ipcMain.once('color-selected', () => resolveOnce(currentColor));
       ipcMain.once('picker-cancelled', () => resolveOnce(null));

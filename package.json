@@ -43,7 +43,7 @@
     "test:ember": "vite build -c vite.renderer.config.ts --mode development && testem ci",
     "test:magnifier": "vitest run -c electron-app/magnifier/vitest.config.ts",
     "test:magnifier:watch": "vitest -c electron-app/magnifier/vitest.config.ts",
-    "test:rust": "cd electron-app/magnifier/rust-sampler && cargo test --features x11,wayland"
+    "test:rust": "cd electron-app/magnifier/rust-sampler && cargo test"
   },
   "dependencies": {
     "@ctrl/tinycolor": "^4.2.0",

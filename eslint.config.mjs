@@ -51,6 +51,7 @@ export default ts.config(
       'declarations/**/*',
       'dist/**/*',
       'electron-app/dist/**/*',
+      'electron-app/magnifier/rust-sampler/target/**/*',
       'node_modules/**/*',
       'out/**/*',
       'types/**/*',

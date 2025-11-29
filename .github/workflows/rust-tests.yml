@@ -28,4 +28,12 @@ jobs:
           node-version: 22
           cache: 'pnpm'
       - run: pnpm install
-      - run: pnpm test:rust
+      
+      # Run tests with platform-specific features
+      - name: Run Rust tests (Linux)
+        if: runner.os == 'Linux'
+        run: cd electron-app/magnifier/rust-sampler && cargo test --features x11,wayland
+      
+      - name: Run Rust tests (macOS/Windows)
+        if: runner.os != 'Linux'
+        run: cd electron-app/magnifier/rust-sampler && cargo test

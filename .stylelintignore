@@ -3,3 +3,6 @@
 
 # compiled output
 /dist/
+
+# Rust generated documentation
+**/target/doc/

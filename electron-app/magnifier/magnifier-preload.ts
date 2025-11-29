@@ -42,6 +42,7 @@ export const magnifierAPI = {
         pixels: Array<Array<{ hex: string; r: number; g: number; b: number }>>;
         diameter: number;
         gridSize: number;
+        squareSize: number;
       }) => void
     ) => {
       const subscription = (
@@ -54,6 +55,7 @@ export const magnifierAPI = {
           >;
           diameter: number;
           gridSize: number;
+          squareSize: number;
         }
       ) => callback(data);
       ipcRenderer.on('update-pixel-grid', subscription);

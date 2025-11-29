@@ -3,6 +3,8 @@
 
 # compiled output
 /dist/
+/electron-app/dist/
+/electron-app/magnifier/rust-sampler/target/
 
 # misc
 /coverage/

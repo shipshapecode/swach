@@ -152,8 +152,6 @@ fn test_windows_sampler_hdc_simulation() {
 
 #[test]
 fn test_windows_sampler_large_coordinates() {
-    let mut sampler = MockWindowsSampler::new(3840, 2160);
-    
     // Test 4K resolution
     let mut sampler = MockWindowsSampler::new(3840, 2160);
     
@@ -237,8 +235,7 @@ fn test_windows_sampler_multi_monitor_simulation() {
     let mut sampler = MockWindowsSampler::new(3840, 1080); // Two 1920x1080 monitors
     
     // Sample from "second monitor"
-    let color = sampler.sample_pixel(2500, 500).unwrap();
-    assert!(color.r <= 255);
+    let _color = sampler.sample_pixel(2500, 500).unwrap();
 }
 
 #[test]
@@ -247,8 +244,8 @@ fn test_windows_sampler_high_dpi_scaling() {
     // The sampler should work with physical pixels
     let mut sampler = MockWindowsSampler::new(2560, 1440);
     
-    let _grid = sampler.sample_grid(1280, 720, 7, 1.0).unwrap();
-    assert_eq!(_grid.len(), 7);
+    let grid = sampler.sample_grid(1280, 720, 7, 1.0).unwrap();
+    assert_eq!(grid.len(), 7);
 }
 
 #[test]

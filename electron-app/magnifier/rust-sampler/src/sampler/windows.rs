@@ -1,5 +1,5 @@
 use crate::types::{Color, PixelSampler, Point};
-use windows::Win32::Foundation::{COLORREF, POINT};
+use windows::Win32::Foundation::POINT;
 use windows::Win32::Graphics::Gdi::{GetDC, GetPixel, ReleaseDC, HDC, CLR_INVALID};
 use windows::Win32::UI::WindowsAndMessaging::GetCursorPos;
 
@@ -37,15 +37,18 @@ impl PixelSampler for WindowsSampler {
             let color_ref = GetPixel(self.hdc, x, y);
             
             // Check for error (CLR_INVALID is returned on error)
-            // In windows 0.58, COLORREF is a type alias to u32, not a newtype
-            if color_ref == CLR_INVALID {
+            // COLORREF is a newtype wrapper around u32
+            if color_ref.0 == CLR_INVALID {
                 return Err(format!("Failed to get pixel at ({}, {})", x, y));
             }
             
-            // COLORREF is a u32 in BGR format: 0x00BBGGRR
-            let r = (color_ref & 0xFF) as u8;
-            let g = ((color_ref >> 8) & 0xFF) as u8;
-            let b = ((color_ref >> 16) & 0xFF) as u8;
+            // Extract the u32 value from COLORREF newtype
+            let color_value = color_ref.0;
+            
+            // COLORREF format is 0x00BBGGRR (BGR, not RGB)
+            let r = (color_value & 0xFF) as u8;
+            let g = ((color_value >> 8) & 0xFF) as u8;
+            let b = ((color_value >> 16) & 0xFF) as u8;
             
             Ok(Color::new(r, g, b))
         }

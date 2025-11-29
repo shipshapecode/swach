@@ -57,10 +57,11 @@ fn test_linux_sampler_basic_sampling() {
     
     let color = sampler.sample_pixel(100, 200).unwrap();
     
-    // Verify color is valid
-    assert!(color.r <= 255);
-    assert!(color.g <= 255);
-    assert!(color.b <= 255);
+    // Colors are u8, so they're always in valid range (0-255)
+    // Just verify we got a color successfully
+    let _r = color.r;
+    let _g = color.g;
+    let _b = color.b;
 }
 
 #[test]
@@ -122,9 +123,9 @@ fn test_linux_sampler_color_mask_extraction() {
     let mut sampler = MockLinuxSampler::new(1920, 1080);
     
     // Test that color mask extraction produces valid colors
-    let color = sampler.sample_pixel(255, 128).unwrap();
+    let _color = sampler.sample_pixel(255, 128).unwrap();
     
-    let hex = color.hex_string();
+    let hex = _color.hex_string();
     assert!(hex.starts_with('#'));
     assert_eq!(hex.len(), 7);
 }
@@ -135,13 +136,11 @@ fn test_linux_sampler_various_screen_depths() {
     // Our sampler should handle all of them
     let mut sampler = MockLinuxSampler::new(1920, 1080);
     
-    // Sample various points
+    // Sample various points - colors are u8 so always in 0-255 range
     for x in [0, 100, 500, 1000, 1919] {
         for y in [0, 100, 500, 1079] {
-            let color = sampler.sample_pixel(x, y).unwrap();
-            assert!(color.r <= 255);
-            assert!(color.g <= 255);
-            assert!(color.b <= 255);
+            let _color = sampler.sample_pixel(x, y).unwrap();
+            // Successfully got a color, that's all we need to verify
         }
     }
 }
@@ -172,18 +171,20 @@ fn test_linux_sampler_grid_at_screen_edge() {
     let mut sampler = MockLinuxSampler::new(1920, 1080);
     
     // Sample at edges where some pixels will be OOB
-    let grid = sampler.sample_grid(2, 2, 5, 1.0).unwrap();
+    // Center at (1, 1) with 5x5 grid samples from (-1,-1) to (3,3)
+    let grid = sampler.sample_grid(1, 1, 5, 1.0).unwrap();
     assert_eq!(grid.len(), 5);
     
-    // Edge pixels should use fallback (gray)
-    for row in 0..2 {
-        for col in 0..2 {
-            let pixel = &grid[row][col];
-            assert_eq!(pixel.r, 128);
-            assert_eq!(pixel.g, 128);
-            assert_eq!(pixel.b, 128);
-        }
-    }
+    // Top-left pixel at (-1, -1) should be OOB and return fallback gray
+    let pixel = &grid[0][0];
+    assert_eq!(pixel.r, 128);
+    assert_eq!(pixel.g, 128);
+    assert_eq!(pixel.b, 128);
+    
+    // Center pixel at (1, 1) should be valid
+    let center = &grid[2][2];
+    assert_eq!(center.r, (1u32 & 0xFF) as u8);
+    assert_eq!(center.g, (1u32 & 0xFF) as u8);
 }
 
 #[test]
@@ -191,8 +192,7 @@ fn test_linux_sampler_high_resolution() {
     // Test 4K resolution
     let mut sampler = MockLinuxSampler::new(3840, 2160);
     
-    let color = sampler.sample_pixel(1920, 1080).unwrap();
-    assert!(color.r <= 255);
+    let _color = sampler.sample_pixel(1920, 1080).unwrap();
     
     let grid = sampler.sample_grid(1920, 1080, 11, 1.0).unwrap();
     assert_eq!(grid.len(), 11);
@@ -229,12 +229,8 @@ fn test_linux_sampler_color_normalization() {
     let mut sampler = MockLinuxSampler::new(1920, 1080);
     
     // Test that various color depths are normalized to 8-bit (0-255)
-    let color = sampler.sample_pixel(200, 100).unwrap();
-    
-    // All components should be in 0-255 range
-    assert!(color.r <= 255);
-    assert!(color.g <= 255);
-    assert!(color.b <= 255);
+    // Colors are u8, so they're always in valid range by type definition
+    let _color = sampler.sample_pixel(200, 100).unwrap();
 }
 
 #[test]

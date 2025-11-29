@@ -77,8 +77,8 @@ importers:
         specifier: ^1.0.20
         version: 1.0.20
       color-name-list:
-        specifier: ^13.26.0
-        version: 13.26.0
+        specifier: ^13.31.0
+        version: 13.31.0
       decorator-transforms:
         specifier: ^2.3.0
         version: 2.3.0(@babel/core@7.28.5)
@@ -4652,8 +4652,8 @@ packages:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
     engines: {node: '>=7.0.0'}
 
-  color-name-list@13.26.0:
-    resolution: {integrity: sha512-rYmhfdUOg/bjOUdVSG9gpbjF/hhtpAthd3UxmLSlgfQJEfpIU2Woc3ewuakbLJShwLgcl2WyzaVA9WsFjg46/w==}
+  color-name-list@13.31.0:
+    resolution: {integrity: sha512-leYC9528wQRT+apYEk99iXo1tvSKakRgnoKFePKdivEcM+oLyYTlwp6M2wtM0b+nTPLWuMdQi4maK8PdvWg5fw==}
     engines: {node: '>=20.11.0', npm: '>=10.2.0'}
 
   color-name@1.1.3:
@@ -8983,6 +8983,7 @@ packages:
   raw-body@1.1.7:
     resolution: {integrity: sha512-WmJJU2e9Y6M5UzTOkHaM7xJGAPQD8PNzx3bAd2+uhZAim6wDk6dAZxPVYLF67XhbR4hmKGh33Lpmh4XWrCH5Mg==}
     engines: {node: '>= 0.8.0'}
+    deprecated: No longer maintained. Please upgrade to a stable version.
 
   raw-body@2.5.2:
     resolution: {integrity: sha512-8zGqypfENjCIqGhgXToC8aB2r7YrBX+AQAfIPs/Mlk+BtPTztOvTS01NRW/3Eh60J+a48lt8qsCzirQ6loCVfA==}
@@ -16898,7 +16899,7 @@ snapshots:
     dependencies:
       color-name: 1.1.4
 
-  color-name-list@13.26.0: {}
+  color-name-list@13.31.0: {}
 
   color-name@1.1.3: {}
 

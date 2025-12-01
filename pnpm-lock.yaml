@@ -240,8 +240,8 @@ importers:
         specifier: ^1.19.4
         version: 1.19.4(@glint/template@1.5.2)
       '@embroider/router':
-        specifier: ^3.0.5
-        version: 3.0.5(@embroider/core@4.2.8(@glint/template@1.5.2))(@glint/template@1.5.2)
+        specifier: ^3.0.6
+        version: 3.0.6(@embroider/core@4.2.8(@glint/template@1.5.2))(@glint/template@1.5.2)
       '@embroider/vite':
         specifier: ^1.4.2
         version: 1.4.2(@embroider/core@4.2.8(@glint/template@1.5.2))(@glint/template@1.5.2)(rollup@4.53.3)(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.1))
@@ -1589,8 +1589,8 @@ packages:
     resolution: {integrity: sha512-WFsw8nQpHZiWGEDYpa/A79KEFfTisqteXbY+jg9eZiww1r1G+LZvsmdszDp86TkotUSCqrMbK/ewn0jR1CJmqg==}
     engines: {node: 12.* || 14.* || >= 16}
 
-  '@embroider/router@3.0.5':
-    resolution: {integrity: sha512-qcLuUeuBr34L+ZhaoD+e2tnDFAGMhJeGc530Gt6XNVWkWo6a6+0sV0NF70dUO3IpPb40w2J5R1KuPhQNDtRtoQ==}
+  '@embroider/router@3.0.6':
+    resolution: {integrity: sha512-D+Us/ZwE1q1W7VHuq3tNDTavv9/uewh8IUFkMocve3X3rPYRiVzaw5G5wooX+409ng1W1ApLl7bxOwZHhYU9uQ==}
     peerDependencies:
       '@embroider/core': ^2.0.0||^3.0.0||^4.0.0-alpha.0
     peerDependenciesMeta:
@@ -12749,7 +12749,7 @@ snapshots:
       mem: 8.1.1
       resolve.exports: 2.0.3
 
-  '@embroider/router@3.0.5(@embroider/core@4.2.8(@glint/template@1.5.2))(@glint/template@1.5.2)':
+  '@embroider/router@3.0.6(@embroider/core@4.2.8(@glint/template@1.5.2))(@glint/template@1.5.2)':
     dependencies:
       '@ember/test-waiters': 4.1.1(@glint/template@1.5.2)
       '@embroider/addon-shim': 1.10.2

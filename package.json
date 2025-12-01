@@ -145,7 +145,7 @@
     "broccoli-asset-rev": "^3.0.0",
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
-    "electron": "^38.7.0",
+    "electron": "^39.2.4",
     "ember-auto-import": "^2.11.2",
     "ember-cli": "^6.8.0",
     "ember-cli-babel": "^8.2.0",

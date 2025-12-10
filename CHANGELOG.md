@@ -2,6 +2,18 @@
 
 
 
+
+## v2.1.0 (2025-12-10)
+
+#### :rocket: Enhancement
+* [#2429](https://github.com/shipshapecode/swach/pull/2429) Implement new color picker with better updates ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### :house: Internal
+* [#2440](https://github.com/shipshapecode/swach/pull/2440) pnpm update ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v2.0.88 (2025-11-22)
 
 ## v2.0.87 (2025-11-21)

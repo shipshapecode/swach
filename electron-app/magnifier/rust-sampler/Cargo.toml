@@ -48,6 +48,15 @@ pipewire = { git = "https://gitlab.freedesktop.org/pipewire/pipewire-rs.git", re
 tokio = { version = "1", features = ["rt", "sync", "macros"], optional = true }
 futures = { version = "0.3", optional = true }
 
+[build-dependencies]
+cargo-patch = "0.3"
+
+[package.metadata.patch.libspa]
+version = "0.9"
+patches = [
+    "patches/libspa-modifier-i64.patch"
+]
+
 [profile.release]
 opt-level = 3
 lto = true

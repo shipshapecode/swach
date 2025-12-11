@@ -1,14 +1,14 @@
 # Dependency Patches
 
-This directory contains patches applied to Rust dependencies during the build process.
+This crate applies patches to Rust dependencies during the build process to fix compatibility issues.
 
 ## How It Works
 
-We use [cargo-patch](https://github.com/itmettkeDE/cargo-patch) to automatically apply patch files to dependencies before compilation. The patches are applied via the `build.rs` script which runs before the crate is built.
+The `build.rs` script manually applies patches to downloaded dependencies in the `target/patch/` directory. This approach avoids pulling in problematic dependencies like `cargo-patch` which had compatibility issues.
 
 ## Current Patches
 
-### libspa-modifier-i64.patch
+### libspa modifier type fix
 
 **Purpose:** Fixes a type compatibility issue between pipewire-rs and newer PipeWire system libraries.
 
@@ -19,53 +19,62 @@ We use [cargo-patch](https://github.com/itmettkeDE/cargo-patch) to automatically
 - This causes compilation errors on systems with PipeWire 0.3.x and newer
 
 **Solution:**
-The patch adds type casts in `libspa/src/param/video/raw.rs`:
+The build script applies a patch that adds type casts in `libspa/src/param/video/raw.rs`:
 
 - `set_modifier()`: Casts `u64` to `i64` when setting the field
 - `modifier()`: Casts `i64` to `u64` when reading the field
 
-This allows the code to compile on both older and newer PipeWire versions.
+**Patch Content:**
+
+```diff
+diff --git a/libspa/src/param/video/raw.rs b/libspa/src/param/video/raw.rs
+index 1234567..abcdefg 100644
+--- a/libspa/src/param/video/raw.rs
++++ b/libspa/src/param/video/raw.rs
+@@ -266,11 +266,11 @@ impl VideoInfoRaw {
+     }
+
+     pub fn set_modifier(&mut self, modifier: u64) {
+-        self.0.modifier = modifier;
++        self.0.modifier = modifier as i64;
+     }
+
+     pub fn modifier(self) -> u64 {
+-        self.0.modifier
++        self.0.modifier as u64
+     }
+
+     pub fn set_size(&mut self, size: Rectangle) {
+```
 
 **Upstream Status:**
 This is a known issue in pipewire-rs. The proper fix would be to use conditional compilation based on the PipeWire version. Once upstream fixes this issue, we can remove this patch.
 
+## Implementation Details
+
+The patch is applied by:
+
+1. The build script checks for a `target/patch/libspa-0.9.2` directory
+2. If found, it applies the hardcoded patch using the `patch` command
+3. The patched version is then used for compilation
+
+## Why Manual Patching
+
+Originally, we used `cargo-patch` but it pulled in an old version of the `cargo` crate which had a broken `gix-url` dependency. Manual patching avoids this dependency chain while still providing the necessary compatibility fixes.
+
 ## Adding New Patches
 
-1. Create a patch file in `patches/` directory
-2. Add the patch configuration to `Cargo.toml`:
-   ```toml
-   [package.metadata.patch.crate-name]
-   version = "x.y"
-   patches = [
-       "patches/your-patch.patch"
-   ]
-   ```
-3. The patch will be automatically applied during the next build
+To add new patches:
 
-## Patch File Format
-
-Patches should be in unified diff format (created with `diff -u` or `git diff`). File paths in the patch must be relative to the dependency's root directory.
-
-Example:
-
-```diff
-diff --git a/src/file.rs b/src/file.rs
-index abc123..def456 100644
---- a/src/file.rs
-+++ b/src/file.rs
-@@ -10,7 +10,7 @@
- fn example() {
--    old_code();
-+    new_code();
- }
-```
+1. Modify the `apply_patches()` function in `build.rs`
+2. Add the patch logic for the new dependency
+3. Test that the patch applies correctly
 
 ## Troubleshooting
 
 If patches fail to apply:
 
-1. Check that the patch file path is correct in `Cargo.toml`
-2. Verify the patch format matches the dependency's source code
-3. Ensure the dependency version matches what the patch expects
-4. Try running `cargo clean` to clear cached dependencies
-5. Check the build output for specific patch application errors
+1. Check that the target directory exists (`target/patch/crate-version/`)
+2. Verify the patch format is correct
+3. Ensure the `patch` command is available on the system
+4. Check build output for specific patch application errors

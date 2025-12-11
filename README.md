@@ -13,6 +13,15 @@ Swach is a modern color palette manager.
 
 **[Swach is built and maintained by Ship Shape. Contact us for web and native app development services.](https://shipshape.io/)**
 
+## Recent Changes
+
+### 🚀 Supabase Migration
+
+- Migrated from AWS Cognito + API Gateway to Supabase
+- Simplified authentication and data synchronization
+- Preserved existing Orbit.js data architecture
+- Added real-time capabilities with Supabase subscriptions
+
 ## Prerequisites
 
 You will need the following things properly installed on your computer.

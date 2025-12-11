@@ -1,17 +1,9 @@
 import { getOwner } from '@ember/application';
 
-import { pluralize, singularize } from 'ember-inflector';
 import { applyStandardSourceInjections } from 'ember-orbit';
 
-import {
-  JSONAPIRequestProcessor,
-  JSONAPISerializers,
-  JSONAPISource,
-} from '@orbit/jsonapi';
+import { Source } from '@orbit/source';
 import { buildSerializerSettingsFor } from '@orbit/serializers';
-import { AwsClient } from 'aws4fetch';
-
-import ENV from 'swach/config/environment';
 
 export default {
   create(injections = {}) {
@@ -19,104 +11,274 @@ export default {
 
     const app = getOwner(injections);
     const session = app.lookup('service:session');
+    const supabaseService = app.lookup('service:supabase');
 
-    class RemoteRequestProcessor extends JSONAPIRequestProcessor {
-      initFetchSettings(customSettings = {}) {
+    class SupabaseSource extends Source {
+      constructor() {
+        super(injections);
+        this.supabase = supabaseService.client;
+      }
+
+      async pull(transformOrOperations) {
         if (!session.isAuthenticated) {
           throw new Error('Remote requests require authentication');
         }
 
-        const settings = super.initFetchSettings(customSettings);
-        settings.sessionCredentials =
-          session.data.authenticated.sessionCredentials;
+        // For now, we'll implement basic query functionality
+        // This would need to be expanded based on the specific Orbit.js operations
+        const operations = Array.isArray(transformOrOperations)
+          ? transformOrOperations
+          : [transformOrOperations];
 
-        return settings;
+        const results = [];
+
+        for (const operation of operations) {
+          if (operation.op === 'findRecords') {
+            const records = await this.findRecords(
+              operation.type,
+              operation.options
+            );
+            results.push(...records);
+          } else if (operation.op === 'findRecord') {
+            const record = await this.findRecord(
+              operation.type,
+              operation.id,
+              operation.options
+            );
+            if (record) results.push(record);
+          }
+        }
+
+        return results;
       }
-      async fetch(url, customSettings) {
-        let settings = this.initFetchSettings(customSettings);
-        let fullUrl = url;
-        if (settings.params) {
-          fullUrl = this.urlBuilder.appendQueryParams(fullUrl, settings.params);
-          delete settings.params;
+
+      async push(transformOrOperations) {
+        if (!session.isAuthenticated) {
+          throw new Error('Remote requests require authentication');
         }
-        const aws = new AwsClient({
-          accessKeyId: settings.sessionCredentials.accessKeyId, // required, akin to AWS_ACCESS_KEY_ID
-          secretAccessKey: settings.sessionCredentials.secretAccessKey, // required, akin to AWS_SECRET_ACCESS_KEY
-          sessionToken: settings.sessionCredentials.sessionToken, // akin to AWS_SESSION_TOKEN if using temp credentials
-          service: 'execute-api', // AWS service, by default parsed at fetch time
-          region: 'us-east-2', // AWS region, by default parsed at fetch time
-        });
-        const method = customSettings.method ?? 'GET';
-        const request = await aws.sign(fullUrl, {
-          method,
-          body: settings.body,
-        });
 
-        let fetchFn = fetch;
+        const operations = Array.isArray(transformOrOperations)
+          ? transformOrOperations
+          : [transformOrOperations];
 
-        if (settings.timeout !== undefined && settings.timeout > 0) {
-          let timeout = settings.timeout;
-          delete settings.timeout;
+        const results = [];
 
-          return new Promise((resolve, reject) => {
-            let timedOut;
-
-            let timer = setTimeout(() => {
-              timedOut = true;
-              reject(new Error(`No fetch response within ${timeout}ms.`));
-            }, timeout);
-
-            fetchFn(request)
-              .catch((e) => {
-                clearTimeout(timer);
-
-                if (!timedOut) {
-                  return this.handleFetchError(e);
-                }
-              })
-              .then((response) => {
-                clearTimeout(timer);
-
-                if (!timedOut) {
-                  return this.handleFetchResponse(response);
-                }
-              })
-              .then(resolve, reject);
-          });
-        } else {
-          return fetchFn(request)
-            .catch((e) => this.handleFetchError(e))
-            .then((response) => this.handleFetchResponse(response));
+        for (const operation of operations) {
+          if (operation.op === 'addRecord') {
+            const record = await this.addRecord(
+              operation.record,
+              operation.options
+            );
+            results.push(record);
+          } else if (operation.op === 'updateRecord') {
+            const record = await this.updateRecord(
+              operation.record,
+              operation.options
+            );
+            results.push(record);
+          } else if (operation.op === 'removeRecord') {
+            await this.removeRecord(operation.record, operation.options);
+          }
         }
+
+        return results;
+      }
+
+      async findRecords(type, options = {}) {
+        const tableName = this.pluralize(type);
+        let query = this.supabase.from(tableName).select('*');
+
+        if (options.include) {
+          // Handle relationships - this would need more sophisticated handling
+          for (const relation of options.include) {
+            query = query.select(`${relation}(*)`);
+          }
+        }
+
+        const { data, error } = await query;
+
+        if (error) {
+          throw new Error(`Supabase query error: ${error.message}`);
+        }
+
+        return data.map((record) => this.transformToOrbitRecord(record, type));
+      }
+
+      async findRecord(type, id, options = {}) {
+        const tableName = this.pluralize(type);
+        let query = this.supabase
+          .from(tableName)
+          .select('*')
+          .eq('id', id)
+          .single();
+
+        if (options.include) {
+          for (const relation of options.include) {
+            query = query.select(`${relation}(*)`);
+          }
+        }
+
+        const { data, error } = await query;
+
+        if (error) {
+          throw new Error(`Supabase query error: ${error.message}`);
+        }
+
+        return this.transformToOrbitRecord(data, type);
+      }
+
+      async addRecord(record, options = {}) {
+        const tableName = this.pluralize(record.type);
+        const supabaseRecord = this.transformFromOrbitRecord(record);
+
+        const { data, error } = await this.supabase
+          .from(tableName)
+          .insert(supabaseRecord)
+          .select()
+          .single();
+
+        if (error) {
+          throw new Error(`Supabase insert error: ${error.message}`);
+        }
+
+        return this.transformToOrbitRecord(data, record.type);
+      }
+
+      async updateRecord(record, options = {}) {
+        const tableName = this.pluralize(record.type);
+        const supabaseRecord = this.transformFromOrbitRecord(record);
+
+        const { data, error } = await this.supabase
+          .from(tableName)
+          .update(supabaseRecord)
+          .eq('id', record.id)
+          .select()
+          .single();
+
+        if (error) {
+          throw new Error(`Supabase update error: ${error.message}`);
+        }
+
+        return this.transformToOrbitRecord(data, record.type);
+      }
+
+      async removeRecord(record, options = {}) {
+        const tableName = this.pluralize(record.type);
+
+        const { error } = await this.supabase
+          .from(tableName)
+          .delete()
+          .eq('id', record.id);
+
+        if (error) {
+          throw new Error(`Supabase delete error: ${error.message}`);
+        }
+      }
+
+      transformToOrbitRecord(supabaseRecord, type) {
+        return {
+          id: supabaseRecord.id,
+          type: this.singularize(type),
+          attributes: this.extractAttributes(supabaseRecord, type),
+          relationships: this.extractRelationships(supabaseRecord, type),
+        };
+      }
+
+      transformFromOrbitRecord(orbitRecord) {
+        const supabaseRecord = {
+          id: orbitRecord.id,
+          ...orbitRecord.attributes,
+        };
+
+        // Add user_id if authenticated
+        if (this.supabase.auth.user) {
+          supabaseRecord.user_id = this.supabase.auth.user.id;
+        }
+
+        return supabaseRecord;
+      }
+
+      extractAttributes(record, type) {
+        const attributes = { ...record };
+
+        // Remove Orbit.js specific fields and relationships
+        delete attributes.id;
+        delete attributes.created_at; // This is handled by Supabase
+        delete attributes.user_id; // This is handled automatically
+
+        // Handle type-specific attribute mapping
+        if (type === 'palette') {
+          return {
+            name: attributes.name,
+            isColorHistory: attributes.is_color_history,
+            isFavorite: attributes.is_favorite,
+            isLocked: attributes.is_locked,
+            selectedColorIndex: attributes.selected_color_index,
+            colorOrder: attributes.color_order,
+            createdAt: attributes.created_at,
+          };
+        }
+
+        if (type === 'color') {
+          return {
+            name: attributes.name,
+            r: attributes.r,
+            g: attributes.g,
+            b: attributes.b,
+            a: attributes.a,
+            createdAt: attributes.created_at,
+          };
+        }
+
+        return attributes;
+      }
+
+      extractRelationships(record, type) {
+        const relationships = {};
+
+        // Extract relationships based on type
+        if (type === 'palette' && record.colors) {
+          relationships.colors = {
+            data: record.colors.map((color) => ({
+              type: 'color',
+              id: color.id,
+            })),
+          };
+        }
+
+        if (type === 'color' && record.palette_id) {
+          relationships.palette = {
+            data: { type: 'palette', id: record.palette_id },
+          };
+        }
+
+        return relationships;
+      }
+
+      pluralize(word) {
+        // Simple pluralization - could use ember-inflector if needed
+        if (word.endsWith('y')) {
+          return word.slice(0, -1) + 'ies';
+        }
+        return word + 's';
+      }
+
+      singularize(word) {
+        // Simple singularization - could use ember-inflector if needed
+        if (word.endsWith('ies')) {
+          return word.slice(0, -3) + 'y';
+        }
+        if (word.endsWith('s')) {
+          return word.slice(0, -1);
+        }
+        return word;
       }
     }
 
     injections.name = 'remote';
-    injections.host = ENV.api.host;
-    injections.RequestProcessorClass = RemoteRequestProcessor;
-
-    // Delay activation until coordinator has been activated. This prevents
-    // queues from being processed before coordination strategies have been
-    // configured.
+    injections.SourceClass = SupabaseSource;
     injections.autoActivate = false;
 
-    injections.serializerSettingsFor = buildSerializerSettingsFor({
-      sharedSettings: {
-        inflectors: {
-          pluralize,
-          singularize,
-        },
-      },
-      settingsByType: {
-        [JSONAPISerializers.ResourceType]: {
-          deserializationOptions: { inflectors: ['singularize'] },
-        },
-        [JSONAPISerializers.ResourceDocument]: {
-          deserializationOptions: { inflectors: ['singularize'] },
-        },
-      },
-    });
-
-    return new JSONAPISource(injections);
+    return new SupabaseSource(injections);
   },
 };

@@ -11,10 +11,15 @@ module.exports = function (environment) {
       'font-src': ["'self'"],
       'frame-src': ["'self'"],
       'connect-src': [
+        // Legacy AWS Cognito domains - will be removed after migration
         'https://cognito-idp.us-east-2.amazonaws.com/',
         'https://cognito-identity.us-east-2.amazonaws.com/',
         'https://jpuj8ukmx8.execute-api.us-east-2.amazonaws.com/dev/',
         'https://n3tygwauml.execute-api.us-east-2.amazonaws.com/prod/',
+        // Supabase domains
+        'https://*.supabase.co',
+        'https://*.supabase.in',
+        // Other services
         'https://sentry.io/',
         'http://localhost:3000',
         "'self'",

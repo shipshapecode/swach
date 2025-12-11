@@ -27,7 +27,7 @@ export default class LoginComponent extends Component {
     const { username, password } = this;
     const credentials = { username, password };
     try {
-      await this.session.authenticate('authenticator:cognito', credentials);
+      await this.session.authenticate('authenticator:supabase', credentials);
 
       // We want to skip this in tests, since once a user has logged in routes become inaccessible
       if (config.environment !== 'test') {

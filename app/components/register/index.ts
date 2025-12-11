@@ -4,10 +4,10 @@ import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-import CognitoService from 'ember-cognito/services/cognito';
+import Session from 'ember-simple-auth/services/session';
 
 export default class RegisterComponent extends Component {
-  @service declare cognito: CognitoService;
+  @service declare session: Session;
   @service declare router: Router;
 
   @tracked errorMessage?: string;
@@ -18,14 +18,14 @@ export default class RegisterComponent extends Component {
   async register(): Promise<void> {
     const { username, password } = this;
     if (username && password) {
-      const attributes = {
-        email: username,
-      };
-
       try {
-        await this.cognito.signUp(username, password, attributes);
+        await this.session.authenticate('authenticator:supabase', {
+          username,
+          password,
+          isSignUp: true,
+        });
 
-        this.router.transitionTo('settings.cloud.register.confirm');
+        this.router.transitionTo('settings.cloud');
       } catch (err) {
         this.errorMessage = err?.message;
       }

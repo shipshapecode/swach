@@ -6,7 +6,6 @@ import Session from 'ember-simple-auth/services/session';
 
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
-import type JSONAPISource from '@orbit/jsonapi';
 import type { InitializedRecord, RecordIdentity } from '@orbit/records';
 
 import Palette from 'swach/data-models/palette';
@@ -19,7 +18,7 @@ export default class DataService extends Service {
   isActivated = false;
 
   backup = this.dataCoordinator.getSource<IndexedDBSource>('backup');
-  remote = this.dataCoordinator.getSource<JSONAPISource>('remote');
+  remote = this.dataCoordinator.getSource<any>('remote'); // Will be SupabaseSource
 
   async activate(): Promise<void> {
     const records = await this.getRecordsFromBackup();

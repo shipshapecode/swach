@@ -306,7 +306,7 @@ impl WaylandPortalSampler {
                 return Err("Timeout waiting for screenshot frame".to_string());
             }
             
-            let _ = mainloop.loop_().iterate(std::time::Duration::from_millis(10));
+            let _ = mainloop.loop_().iterate(pw::loop_::Timeout::Finite(std::time::Duration::from_millis(10)));
         }
         
         Ok(())

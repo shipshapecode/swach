@@ -21,7 +21,7 @@
   },
   "scripts": {
     "build:rust": "cd electron-app/magnifier/rust-sampler && cargo build --release --features x11,wayland",
-    "build:rust:ci": "cd electron-app/magnifier/rust-sampler && cargo build --release --features x11",
+    "build:rust:ci": "cd electron-app/magnifier/rust-sampler && cargo build --release --features x11,wayland",
     "build:rust:dev": "cd electron-app/magnifier/rust-sampler && cargo build --features x11,wayland",
     "format": "prettier . --cache --write",
     "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",

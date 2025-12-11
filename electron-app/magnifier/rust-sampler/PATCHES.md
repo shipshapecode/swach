@@ -54,13 +54,15 @@ This is a known issue in pipewire-rs. The proper fix would be to use conditional
 
 The patch is applied by:
 
-1. The build script checks for a `target/patch/libspa-0.9.2` directory
-2. If found, it applies the hardcoded patch using the `patch` command
-3. The patched version is then used for compilation
+1. The build script finds the git checkout directory for pipewire-rs in `~/.cargo/git/checkouts/`
+2. It applies sed commands to modify the libspa source files directly
+3. The modified git checkout is then used for compilation
 
 ## Why Manual Patching
 
 Originally, we used `cargo-patch` but it pulled in an old version of the `cargo` crate which had a broken `gix-url` dependency. Manual patching avoids this dependency chain while still providing the necessary compatibility fixes.
+
+For git dependencies, Cargo doesn't create a separate `target/patch/` directory - it compiles directly from the git checkout. Therefore, we patch the git checkout directory itself.
 
 ## Adding New Patches
 

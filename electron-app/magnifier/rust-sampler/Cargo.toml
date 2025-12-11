@@ -49,6 +49,7 @@ tokio = { version = "1", features = ["rt", "sync", "macros"], optional = true }
 futures = { version = "0.3", optional = true }
 
 [build-dependencies]
+glob = "0.3"
 
 [package.metadata.patch.libspa]
 version = "0.9"

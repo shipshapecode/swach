@@ -41,15 +41,13 @@ x11 = { version = "2.21", features = ["xlib"], optional = true }
 dirs = { version = "5.0", optional = true }
 # Optional dependencies for Wayland support (requires libpipewire-0.3-dev)
 ashpd = { version = "0.9", optional = true }
-# Using git version to get FFI bindings compatible with newer PipeWire versions
-# The 0.9.x crates.io versions have hardcoded struct layouts that don't match newer system libraries
-# Pinned to specific commit for reproducible builds
-pipewire = { git = "https://gitlab.freedesktop.org/pipewire/pipewire-rs.git", rev = "b23847892822352f4a98b1cbc61746e9160ad010", optional = true }
+# Using pipewire 0.8 which was working before
+# The 0.9 upgrade caused FFI compatibility issues with newer PipeWire system libraries
+pipewire = { version = "0.8", optional = true }
 tokio = { version = "1", features = ["rt", "sync", "macros"], optional = true }
 futures = { version = "0.3", optional = true }
 
-[build-dependencies]
-glob = "0.3"
+
 
 [package.metadata.patch.libspa]
 version = "0.9"

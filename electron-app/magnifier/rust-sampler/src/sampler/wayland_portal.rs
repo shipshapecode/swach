@@ -170,21 +170,21 @@ impl WaylandPortalSampler {
         
         // Initialize PipeWire
         pw::init();
-        
-        // Create PipeWire main loop (using Rc variant for 0.9 API)
-        let mainloop = pw::main_loop::MainLoopRc::new(None)
+
+        // Create PipeWire main loop
+        let mainloop = pw::main_loop::MainLoop::new(None)
             .map_err(|_| "Failed to create PipeWire main loop".to_string())?;
-        
-        // Create PipeWire context (0.9 API requires None parameter for properties)
-        let context = pw::context::ContextRc::new(&mainloop, None)
+
+        // Create PipeWire context
+        let context = pw::context::Context::new(&mainloop)
             .map_err(|_| "Failed to create PipeWire context".to_string())?;
-        
+
         // Connect to PipeWire core
-        let core = context.connect_rc(None)
+        let core = context.connect(None)
             .map_err(|_| "Failed to connect to PipeWire".to_string())?;
-        
-        // Create a stream (using Box variant for 0.9 API)
-        let stream = pw::stream::StreamBox::new(
+
+        // Create a stream
+        let stream = pw::stream::Stream::new(
             &core,
             "swach-screenshot",
             pw::properties::properties! {
@@ -218,7 +218,7 @@ impl WaylandPortalSampler {
                     use pw::spa::param::video::VideoInfoRaw;
                     
                     if let Ok((_media_type, _media_subtype)) = pw::spa::param::format_utils::parse_format(param) {
-                        let mut info = VideoInfoRaw::default();
+                        let mut info = VideoInfoRaw::new();
                         if let Ok(_) = info.parse(param) {
                             let size = info.size();
                             let width = size.width;
@@ -306,7 +306,7 @@ impl WaylandPortalSampler {
                 return Err("Timeout waiting for screenshot frame".to_string());
             }
             
-            let _ = mainloop.loop_().iterate(pw::loop_::Timeout::Finite(std::time::Duration::from_millis(10)));
+            let _ = mainloop.loop_().iterate(std::time::Duration::from_millis(10));
         }
         
         Ok(())

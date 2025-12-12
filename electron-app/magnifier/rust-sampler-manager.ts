@@ -181,21 +181,17 @@ export class RustSamplerManager {
   }
 
   updateGridSize(gridSize: number): void {
-    console.log(`[RustSampler] Sending update_grid command: ${gridSize}`);
     const command = {
       command: 'update_grid',
       grid_size: gridSize,
     };
     this.sendCommand(command);
-    console.log(`[RustSampler] Command sent:`, JSON.stringify(command));
   }
 
   stop(): Promise<void> {
     if (!this.process) {
       return Promise.resolve();
     }
-
-    console.log('[RustSampler] Stopping process');
 
     const proc = this.process;
     this.process = null;
@@ -205,7 +201,6 @@ export class RustSamplerManager {
     return new Promise<void>((resolve) => {
       // Set up exit handler
       const onExit = () => {
-        console.log('[RustSampler] Process exited');
         if (this.forceKillTimeout) {
           clearTimeout(this.forceKillTimeout);
           this.forceKillTimeout = null;
@@ -259,9 +254,7 @@ export class RustSamplerManager {
 
     try {
       const json = JSON.stringify(command);
-      console.log('[RustSampler] Writing to stdin:', json);
       this.process.stdin.write(json + '\n');
-      console.log('[RustSampler] Write successful');
     } catch (e) {
       console.error('[RustSampler] Failed to send command:', e);
     }

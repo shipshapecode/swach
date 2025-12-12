@@ -93,14 +93,6 @@ class MagnifyingColorPicker {
     const cursorPos = screen.getCursorScreenPoint();
     const display = screen.getDisplayNearestPoint(cursorPos);
 
-    console.log('[DEBUG] Cursor position:', cursorPos);
-    console.log('[DEBUG] Display info:', {
-      id: display.id,
-      bounds: display.bounds,
-      size: display.size,
-      scaleFactor: display.scaleFactor,
-    });
-
     const sources = await desktopCapturer.getSources({
       types: ['screen'],
       thumbnailSize: {
@@ -108,24 +100,6 @@ class MagnifyingColorPicker {
         height: display.size.height * display.scaleFactor,
       },
     });
-
-    console.log(
-      '[DEBUG] desktopCapturer.getSources() returned:',
-      sources.length,
-      'sources'
-    );
-    sources.forEach((s, index) => {
-      console.log(`[DEBUG] Source ${index}:`, {
-        id: s.id,
-        name: s.name,
-        display_id: s.display_id,
-        appIcon: s.appIcon ? 'present' : 'null',
-        thumbnail: s.thumbnail
-          ? `${s.thumbnail.getSize().width}x${s.thumbnail.getSize().height}`
-          : 'null',
-      });
-    });
-    console.log('[DEBUG] Looking for display_id:', display.id.toString());
 
     // Find the source that matches the display under the cursor
     let source = sources.find((s) => s.display_id === display.id.toString());
@@ -147,13 +121,6 @@ class MagnifyingColorPicker {
       console.error('[DEBUG] Needed display_id:', display.id.toString());
       throw new Error(`No screen source found for display ${display.id}`);
     }
-
-    console.log(
-      '[DEBUG] Using source:',
-      source.id,
-      'display_id:',
-      source.display_id
-    );
 
     const nativeImage = source.thumbnail;
     const bitmap = nativeImage.toBitmap();

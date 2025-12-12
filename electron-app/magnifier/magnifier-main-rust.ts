@@ -59,12 +59,7 @@ class MagnifyingColorPicker {
     try {
       // Pre-start the sampler to trigger permission dialogs BEFORE showing magnifier
       // This is critical on Wayland where the permission dialog needs to be clickable
-      console.log(
-        '[Magnifying Color Picker] Pre-starting sampler for permission check...'
-      );
       await this.samplerManager.ensureStarted(this.gridSize, 15);
-      console.log('[Magnifying Color Picker] Sampler ready, showing magnifier');
-
       await this.createMagnifierWindow();
       return await this.startColorPicking();
     } catch (error) {
@@ -166,18 +161,10 @@ class MagnifyingColorPicker {
         const newDiameter = getNextDiameter(this.magnifierDiameter, delta);
 
         if (newDiameter !== this.magnifierDiameter) {
-          console.log(
-            `[Magnifier] Diameter change: ${this.magnifierDiameter} → ${newDiameter}`
-          );
           this.magnifierDiameter = newDiameter;
-          const oldGridSize = this.gridSize;
           this.gridSize = calculateGridSize(
             this.magnifierDiameter,
             this.squareSize
-          );
-
-          console.log(
-            `[Magnifier] Grid size change: ${oldGridSize} → ${this.gridSize}`
           );
 
           // Update grid size in Rust sampler
@@ -189,18 +176,10 @@ class MagnifyingColorPicker {
         const newSquareSize = adjustSquareSize(this.squareSize, delta);
 
         if (newSquareSize !== this.squareSize) {
-          console.log(
-            `[Magnifier] Square size change: ${this.squareSize} → ${newSquareSize}`
-          );
           this.squareSize = newSquareSize;
-          const oldGridSize = this.gridSize;
           this.gridSize = calculateGridSize(
             this.magnifierDiameter,
             this.squareSize
-          );
-
-          console.log(
-            `[Magnifier] Grid size change: ${oldGridSize} → ${this.gridSize}`
           );
 
           // Update grid size in Rust sampler

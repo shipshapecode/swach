@@ -170,21 +170,21 @@ impl WaylandPortalSampler {
         
         // Initialize PipeWire
         pw::init();
-        
+
         // Create PipeWire main loop
-        let mainloop = pw::main_loop::MainLoop::new(None)
+        let mainloop = pw::main_loop::MainLoopRc::new(None)
             .map_err(|_| "Failed to create PipeWire main loop".to_string())?;
-        
+
         // Create PipeWire context
-        let context = pw::context::Context::new(&mainloop)
+        let context = pw::context::ContextRc::new(&mainloop, None)
             .map_err(|_| "Failed to create PipeWire context".to_string())?;
-        
+
         // Connect to PipeWire core
-        let core = context.connect(None)
+        let core = context.connect_rc(None)
             .map_err(|_| "Failed to connect to PipeWire".to_string())?;
         
         // Create a stream
-        let stream = pw::stream::Stream::new(
+        let stream = pw::stream::StreamBox::new(
             &core,
             "swach-screenshot",
             pw::properties::properties! {
@@ -194,20 +194,30 @@ impl WaylandPortalSampler {
             },
         ).map_err(|_| "Failed to create PipeWire stream".to_string())?;
         
-        // Buffer to store the screenshot
-        let screenshot_buffer = Arc::clone(&self.screenshot_buffer);
-        let frame_captured = Arc::new(std::sync::atomic::AtomicBool::new(false));
-        let frame_captured_clone = Arc::clone(&frame_captured);
-        
         // Video format info
         let video_info: Arc<Mutex<Option<(u32, u32, usize)>>> = Arc::new(Mutex::new(None));
-        let video_info_clone = Arc::clone(&video_info);
-        let video_info_process = Arc::clone(&video_info);
-        
+
+        // User data for callbacks
+        struct CallbackData {
+            screenshot_buffer: Arc<Mutex<Option<ScreenshotBuffer>>>,
+            frame_captured: Arc<std::sync::atomic::AtomicBool>,
+            video_info: Arc<Mutex<Option<(u32, u32, usize)>>>,
+            mainloop: pw::main_loop::MainLoopRc,
+        }
+
+        let callback_data = Arc::new(CallbackData {
+            screenshot_buffer: Arc::clone(&self.screenshot_buffer),
+            frame_captured: Arc::clone(&frame_captured),
+            video_info: Arc::clone(&video_info),
+            mainloop: mainloop.clone(),
+        });
+
+        let callback_data_clone = Arc::clone(&callback_data);
+
         // Add listener to receive one frame
         let _listener = stream
-            .add_local_listener_with_user_data(screenshot_buffer)
-            .param_changed(move |_stream, _user_data, id, param| {
+            .add_local_listener_with_user_data(callback_data)
+            .param_changed(move |_stream, user_data, id, param| {
                 use pw::spa::param::ParamType;
                 
                 if id != ParamType::Format.as_raw() {
@@ -218,14 +228,14 @@ impl WaylandPortalSampler {
                     use pw::spa::param::video::VideoInfoRaw;
                     
                     if let Ok((_media_type, _media_subtype)) = pw::spa::param::format_utils::parse_format(param) {
-                        let mut info = VideoInfoRaw::new();
+                        let mut info = VideoInfoRaw::default();
                         if let Ok(_) = info.parse(param) {
                             let size = info.size();
                             let width = size.width;
                             let height = size.height;
                             let stride = width as usize * 4; // BGRA format
                             
-                            if let Ok(mut vi) = video_info_clone.lock() {
+                            if let Ok(mut vi) = user_data.video_info.lock() {
                                 *vi = Some((width, height, stride));
                             }
                         }
@@ -234,10 +244,10 @@ impl WaylandPortalSampler {
             })
             .process(move |stream, user_data| {
                 // Only capture one frame
-                if frame_captured_clone.load(std::sync::atomic::Ordering::SeqCst) {
+                if user_data.frame_captured.load(std::sync::atomic::Ordering::SeqCst) {
                     return;
                 }
-                
+
                 match stream.dequeue_buffer() {
                     None => {}
                     Some(mut buffer) => {
@@ -245,38 +255,39 @@ impl WaylandPortalSampler {
                         if datas.is_empty() {
                             return;
                         }
-                        
+
                         let data = &mut datas[0];
                         let chunk = data.chunk();
                         let size = chunk.size() as usize;
-                        
+
                         if size == 0 {
                             return;
                         }
-                        
+
                         // Get video format
-                        let format_info = if let Ok(vi) = video_info_process.lock() {
+                        let format_info = if let Ok(vi) = user_data.video_info.lock() {
                             *vi
                         } else {
                             None
                         };
-                        
+
                         // Get frame data
                         if let Some(slice) = data.data() {
                             if slice.len() >= size {
                                 let pixel_data = slice[..size].to_vec();
-                                
+
                                 if let Some((width, height, stride)) = format_info {
                                     if width > 0 && height > 0 {
                                         eprintln!("[Wayland] Captured screenshot: {}x{} ({} bytes)", width, height, pixel_data.len());
-                                        if let Ok(mut buf) = user_data.lock() {
+                                        if let Ok(mut buf) = user_data.screenshot_buffer.lock() {
                                             *buf = Some(ScreenshotBuffer {
                                                 data: pixel_data,
                                                 width,
                                                 height,
                                                 stride,
                                             });
-                                            frame_captured_clone.store(true, std::sync::atomic::Ordering::SeqCst);
+                                            user_data.frame_captured.store(true, std::sync::atomic::Ordering::SeqCst);
+                                            user_data.mainloop.quit();
                                         }
                                     }
                                 }
@@ -297,17 +308,8 @@ impl WaylandPortalSampler {
         )
         .map_err(|e| format!("Failed to connect stream: {:?}", e))?;
         
-        // Iterate mainloop until we capture one frame (timeout after 5 seconds)
-        let start_time = std::time::Instant::now();
-        let timeout = std::time::Duration::from_secs(5);
-        
-        while !frame_captured.load(std::sync::atomic::Ordering::SeqCst) {
-            if start_time.elapsed() > timeout {
-                return Err("Timeout waiting for screenshot frame".to_string());
-            }
-            
-            let _ = mainloop.loop_().iterate(std::time::Duration::from_millis(10));
-        }
+        // Run mainloop until we capture one frame or timeout
+        mainloop.run();
         
         Ok(())
     }

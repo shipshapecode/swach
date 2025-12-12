@@ -189,7 +189,7 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.49.0",
     "vite": "^7.2.7",
-    "vite-plugin-testem-electron": "^1.0.2",
+    "vite-plugin-testem-electron": "^1.1.0",
     "vitest": "^4.0.15",
     "wcag-contrast": "^3.0.0"
   },

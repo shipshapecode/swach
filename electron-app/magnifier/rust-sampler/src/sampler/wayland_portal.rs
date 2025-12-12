@@ -197,6 +197,9 @@ impl WaylandPortalSampler {
         // Video format info
         let video_info: Arc<Mutex<Option<(u32, u32, usize)>>> = Arc::new(Mutex::new(None));
 
+        // Frame captured flag
+        let frame_captured = Arc::new(std::sync::atomic::AtomicBool::new(false));
+
         // User data for callbacks
         struct CallbackData {
             screenshot_buffer: Arc<Mutex<Option<ScreenshotBuffer>>>,

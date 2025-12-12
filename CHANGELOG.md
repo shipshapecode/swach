@@ -3,6 +3,15 @@
 
 
 
+
+## v2.1.4 (2025-12-12)
+
+#### :house: Internal
+* [#2455](https://github.com/shipshapecode/swach/pull/2455) Pipewire 0.9 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v2.1.3 (2025-12-12)
 
 ## v2.1.2 (2025-12-11)

@@ -65,7 +65,7 @@
     "@sentry/electron": "^7.5.0",
     "@sentry/ember": "^10.30.0",
     "aws4fetch": "^1.0.20",
-    "color-name-list": "^14.7.0",
+    "color-name-list": "^14.11.0",
     "decorator-transforms": "^2.3.0",
     "electron-dl": "^4.0.0",
     "electron-is-dev": "^3.0.1",

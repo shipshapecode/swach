@@ -215,8 +215,6 @@ impl WaylandPortalSampler {
             mainloop: mainloop.clone(),
         });
 
-        let callback_data_clone = Arc::clone(&callback_data);
-
         // Add listener to receive one frame
         let _listener = stream
             .add_local_listener_with_user_data(callback_data)

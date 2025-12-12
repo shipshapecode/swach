@@ -23,7 +23,7 @@ jobs:
       - name: Lint HBS
         run: pnpm lint:hbs
       - name: Install system dependencies
-        run: sudo apt-get update && sudo apt-get install -y xvfb libpipewire-0.3-dev
+        run: sudo apt-get update && sudo apt-get install -y xvfb libpipewire-0.3-dev libspa-0.2-dev libx11-dev pkg-config
       - name: Browser Test
         run: pnpm test:ember
       - name: Electron Test

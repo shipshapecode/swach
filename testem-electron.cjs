@@ -9,6 +9,7 @@ module.exports = {
       exe: process.execPath,
       args: [
         './node_modules/vite-plugin-testem-electron/dist/test-runner.js',
+        '--no-sandbox',
         '<testPage>',
         '<baseUrl>',
         '<id>',

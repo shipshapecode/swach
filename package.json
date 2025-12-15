@@ -64,6 +64,7 @@
     "@orbit/utils": "^0.17.0",
     "@release-it/bumper": "^4.0.2",
     "@sentry/ember": "^7.47.0",
+    "@supabase/supabase-js": "^2.87.1",
     "@tailwindcss/forms": "^0.5.3",
     "@types/ember": "^4.0.3",
     "@types/ember__test-helpers": "^2.9.1",
@@ -189,8 +190,5 @@
       "tokenRef": "GITHUB_AUTH"
     },
     "npm": false
-  },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.87.1"
   }
 }

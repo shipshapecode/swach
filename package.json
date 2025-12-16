@@ -123,7 +123,7 @@
     "@embroider/macros": "^1.19.5",
     "@embroider/router": "^3.0.6",
     "@embroider/vite": "^1.4.4",
-    "@eslint/js": "^9.39.1",
+    "@eslint/js": "^9.39.2",
     "@glint/core": "^1.5.2",
     "@glint/environment-ember-loose": "^1.5.2",
     "@glint/environment-ember-template-imports": "^1.5.2",

@@ -4,9 +4,8 @@ use windows::Win32::Foundation::POINT;
 use windows::Win32::Graphics::Gdi::{
     BitBlt, CreateCompatibleBitmap, CreateCompatibleDC, DeleteDC, DeleteObject, GetDC,
     GetDIBits, GetPixel, ReleaseDC, SelectObject, BITMAPINFO, BITMAPINFOHEADER, BI_RGB,
-    CLR_INVALID, DIB_RGB_COLORS, HDC, HGDIOBJ, SRCCOPY,
+    CLR_INVALID, DIB_RGB_COLORS, HDC, SRCCOPY,
 };
-use windows::Win32::UI::HiDpi::GetSystemMetricsForDpi;
 use windows::Win32::UI::WindowsAndMessaging::{GetCursorPos, GetSystemMetrics, SM_CXVIRTUALSCREEN, SM_CYVIRTUALSCREEN};
 
 pub struct WindowsSampler {
@@ -114,7 +113,7 @@ impl PixelSampler for WindowsSampler {
             
             // Copy screen region to memory bitmap using BitBlt
             // This is the key optimization - ONE API call instead of grid_size^2 calls
-            let result = BitBlt(
+            if let Err(_) = BitBlt(
                 mem_dc,
                 0,
                 0,
@@ -124,9 +123,7 @@ impl PixelSampler for WindowsSampler {
                 x_start,
                 y_start,
                 SRCCOPY,
-            );
-            
-            if !result.as_bool() {
+            ) {
                 // BitBlt failed - clean up and fall back to default implementation
                 SelectObject(mem_dc, old_bitmap);
                 let _ = DeleteObject(bitmap);

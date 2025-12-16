@@ -46,8 +46,8 @@ A standalone Rust binary that handles pixel sampling:
 
 **Platform Implementations:**
 
-- **macOS**: Uses Core Graphics for direct pixel access
-- **Windows**: Uses GDI GetPixel API
+- **macOS**: Uses Core Graphics CGWindowListCreateImage for optimized batch capture
+- **Windows**: Uses GDI BitBlt for grid capture, GetPixel for single pixels
 - **Linux (Wayland)**: Uses `grim` for screenshots, caches for performance
 - **Linux (X11)**: Uses ImageMagick or scrot for screenshots
 

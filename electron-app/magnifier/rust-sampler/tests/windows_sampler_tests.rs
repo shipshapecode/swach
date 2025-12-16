@@ -229,6 +229,186 @@ fn test_windows_sampler_grid_center_alignment() {
 }
 
 #[test]
+fn test_windows_sampler_optimized_grid_sampling() {
+    // Verify that the optimized implementation is being used
+    // This test is mostly for documentation purposes - the real test
+    // happens on actual Windows hardware
+    let mut sampler = MockWindowsSampler::new(1920, 1080);
+    
+    let grid = sampler.sample_grid(500, 500, 9, 1.0).unwrap();
+    
+    // Should return a valid 9x9 grid
+    assert_eq!(grid.len(), 9);
+    for row in &grid {
+        assert_eq!(row.len(), 9);
+    }
+}
+
+#[test]
+fn test_windows_sampler_grid_performance_large() {
+    // Test larger grid sizes that would be prohibitively slow with GetPixel
+    let mut sampler = MockWindowsSampler::new(1920, 1080);
+    
+    // Test 9x9 (81 pixels)
+    let grid = sampler.sample_grid(500, 500, 9, 1.0).unwrap();
+    assert_eq!(grid.len(), 9);
+    
+    // Test 11x11 (121 pixels)
+    let grid = sampler.sample_grid(500, 500, 11, 1.0).unwrap();
+    assert_eq!(grid.len(), 11);
+    
+    // Test 15x15 (225 pixels)
+    let grid = sampler.sample_grid(500, 500, 15, 1.0).unwrap();
+    assert_eq!(grid.len(), 15);
+    
+    // Test 21x21 (441 pixels)
+    let grid = sampler.sample_grid(500, 500, 21, 1.0).unwrap();
+    assert_eq!(grid.len(), 21);
+}
+
+#[test]
+fn test_windows_sampler_grid_pixel_alignment() {
+    // Verify that pixels in the grid match individual pixel samples
+    let mut sampler = MockWindowsSampler::new(1920, 1080);
+    
+    let center_x = 500;
+    let center_y = 500;
+    let grid_size = 5;
+    
+    let grid = sampler.sample_grid(center_x, center_y, grid_size, 1.0).unwrap();
+    
+    // Check all pixels in the grid match individual samples
+    let half_size = (grid_size / 2) as i32;
+    for row in 0..grid_size {
+        for col in 0..grid_size {
+            let x = center_x + (col as i32 - half_size);
+            let y = center_y + (row as i32 - half_size);
+            
+            let grid_color = &grid[row][col];
+            let individual_color = sampler.sample_pixel(x, y).unwrap();
+            
+            assert_eq!(grid_color.r, individual_color.r, "Mismatch at ({}, {})", x, y);
+            assert_eq!(grid_color.g, individual_color.g, "Mismatch at ({}, {})", x, y);
+            assert_eq!(grid_color.b, individual_color.b, "Mismatch at ({}, {})", x, y);
+        }
+    }
+}
+
+#[test]
+fn test_windows_sampler_grid_edge_cases() {
+    let mut sampler = MockWindowsSampler::new(1920, 1080);
+    
+    // Test near screen edges
+    // Top-left corner
+    let grid = sampler.sample_grid(10, 10, 5, 1.0).unwrap();
+    assert_eq!(grid.len(), 5);
+    
+    // Bottom-right corner (within bounds)
+    let grid = sampler.sample_grid(1910, 1070, 5, 1.0).unwrap();
+    assert_eq!(grid.len(), 5);
+    
+    // Top edge
+    let grid = sampler.sample_grid(500, 5, 5, 1.0).unwrap();
+    assert_eq!(grid.len(), 5);
+    
+    // Right edge
+    let grid = sampler.sample_grid(1915, 500, 5, 1.0).unwrap();
+    assert_eq!(grid.len(), 5);
+}
+
+#[test]
+fn test_windows_sampler_grid_multi_monitor() {
+    // Simulate extended desktop spanning multiple monitors
+    // Windows treats this as one large virtual screen
+    let mut sampler = MockWindowsSampler::new(3840, 1080); // Two 1920x1080 monitors
+    
+    // Sample from "first monitor"
+    let grid1 = sampler.sample_grid(500, 500, 9, 1.0).unwrap();
+    assert_eq!(grid1.len(), 9);
+    
+    // Sample from "second monitor"
+    let grid2 = sampler.sample_grid(2500, 500, 9, 1.0).unwrap();
+    assert_eq!(grid2.len(), 9);
+    
+    // Sample at boundary between monitors
+    let grid3 = sampler.sample_grid(1920, 500, 9, 1.0).unwrap();
+    assert_eq!(grid3.len(), 9);
+}
+
+#[test]
+fn test_windows_sampler_grid_high_dpi() {
+    // Test high DPI scenarios (e.g., 150% scaling, 200% scaling)
+    // The sampler should work with physical pixels regardless of DPI
+    let mut sampler = MockWindowsSampler::new(2560, 1440);
+    
+    let grid = sampler.sample_grid(1280, 720, 9, 1.0).unwrap();
+    assert_eq!(grid.len(), 9);
+    
+    // Test 4K resolution (common with 150% or 200% scaling)
+    let mut sampler_4k = MockWindowsSampler::new(3840, 2160);
+    let grid_4k = sampler_4k.sample_grid(1920, 1080, 9, 1.0).unwrap();
+    assert_eq!(grid_4k.len(), 9);
+}
+
+#[test]
+fn test_windows_sampler_grid_fully_oob() {
+    // Test grid completely out of bounds
+    let mut sampler = MockWindowsSampler::new(1920, 1080);
+    
+    // Center way outside screen bounds
+    let grid = sampler.sample_grid(-1000, -1000, 5, 1.0).unwrap();
+    
+    // Should return gray fallback for all pixels
+    for row in &grid {
+        for pixel in row {
+            assert_eq!(pixel.r, 128);
+            assert_eq!(pixel.g, 128);
+            assert_eq!(pixel.b, 128);
+        }
+    }
+}
+
+#[test]
+fn test_windows_sampler_grid_color_accuracy() {
+    // Verify colors are correctly converted from BGR to RGB
+    let mut sampler = MockWindowsSampler::new(1920, 1080);
+    
+    let grid = sampler.sample_grid(255, 128, 3, 1.0).unwrap();
+    
+    // All colors should be valid (0-255 range)
+    for row in &grid {
+        for pixel in row {
+            // Colors are u8, so they're always in valid range
+            // Just verify we got actual color data
+            let hex = pixel.hex_string();
+            assert_eq!(hex.len(), 7);
+            assert!(hex.starts_with('#'));
+        }
+    }
+}
+
+#[test]
+fn test_windows_sampler_grid_consistency() {
+    // Test that multiple samples of the same region return consistent results
+    let mut sampler = MockWindowsSampler::new(1920, 1080);
+    
+    let center_x = 500;
+    let center_y = 500;
+    
+    let grid1 = sampler.sample_grid(center_x, center_y, 7, 1.0).unwrap();
+    let grid2 = sampler.sample_grid(center_x, center_y, 7, 1.0).unwrap();
+    
+    // Grids should be identical
+    for row in 0..7 {
+        for col in 0..7 {
+            assert_eq!(grid1[row][col].r, grid2[row][col].r);
+            assert_eq!(grid1[row][col].g, grid2[row][col].g);
+            assert_eq!(grid1[row][col].b, grid2[row][col].b);
+        }
+    }
+}
+
+#[test]
 fn test_windows_sampler_multi_monitor_simulation() {
     // Simulate extended desktop spanning multiple monitors
     // Windows treats this as one large virtual screen

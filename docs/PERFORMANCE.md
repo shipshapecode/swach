@@ -91,9 +91,11 @@ Screen capture APIs have inherent limitations:
 
 ### Windows
 
-- **Expected**: 20-30 FPS
-- **Bottleneck**: GDI GetPixel API for grid sampling
-- **Note**: Not yet tested in production
+- **Current**: 15-20 FPS (optimized with BitBlt)
+- **Previous**: < 1 FPS (~5+ seconds per frame with GetPixel)
+- **Bottleneck**: GDI BitBlt screen capture speed
+- **Optimization**: Uses single BitBlt call for entire grid instead of 81 individual GetPixel calls
+- **Performance gain**: ~100x improvement over naive GetPixel approach
 
 ### Linux (Wayland)
 

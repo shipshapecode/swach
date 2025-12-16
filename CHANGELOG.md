@@ -4,6 +4,15 @@
 
 
 
+
+## v2.2.0 (2025-12-16)
+
+#### :rocket: Enhancement
+* [#2462](https://github.com/shipshapecode/swach/pull/2462) Windows magnifier improvements ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v2.1.6 (2025-12-12)
 
 ## v2.1.5 (2025-12-12)

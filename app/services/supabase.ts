@@ -11,6 +11,10 @@ import { createClient } from '@supabase/supabase-js';
 
 import type { EnvironmentConfig } from '../config/environment.ts';
 
+interface Owner {
+  resolveRegistration(name: string): EnvironmentConfig;
+}
+
 export interface SupabaseConfig {
   url: string;
   anonKey: string;
@@ -21,28 +25,30 @@ export default class SupabaseService extends Service {
 
   get client(): SupabaseClient {
     if (!this._client) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const config = (getOwner(this) as any)?.resolveRegistration(
-        'config:environment'
-      ) as EnvironmentConfig;
-      const supabaseConfig = config.supabase;
-
-      if (!supabaseConfig?.url || !supabaseConfig?.anonKey) {
-        throw new Error(
-          'Supabase configuration is missing. Please set SUPABASE_URL and SUPABASE_ANON_KEY.'
-        );
-      }
-
-      this._client = createClient(supabaseConfig.url, supabaseConfig.anonKey, {
-        auth: {
-          autoRefreshToken: true,
-          persistSession: true,
-          detectSessionInUrl: false, // Electron app, no URL detection needed
-        },
-      });
+      this._initializeClient();
     }
 
-    return this._client;
+    return this._client!;
+  }
+
+  private _initializeClient(): void {
+    const owner = getOwner(this) as Owner | undefined;
+    const config = owner?.resolveRegistration('config:environment');
+    const supabaseConfig = config?.supabase;
+
+    if (!supabaseConfig?.url || !supabaseConfig?.anonKey) {
+      throw new Error(
+        'Supabase configuration is missing. Please set SUPABASE_URL and SUPABASE_ANON_KEY.'
+      );
+    }
+
+    this._client = createClient(supabaseConfig.url, supabaseConfig.anonKey, {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: false, // Electron app, no URL detection needed
+      },
+    });
   }
 
   get auth() {

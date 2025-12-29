@@ -73,13 +73,15 @@ module('Acceptance | settings/cloud', function (hooks) {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const authenticator = this.owner.lookup('authenticator:supabase') as any;
-    const authenticateStub = sinon.stub(authenticator, 'authenticate').resolves({
-      userId: 'test-user-id',
-      email: 'testuser@gmail.com',
-      accessToken: 'test-access-token',
-      refreshToken: 'test-refresh-token',
-      expiresAt: Date.now() + 3600000,
-    });
+    const authenticateStub = sinon
+      .stub(authenticator, 'authenticate')
+      .resolves({
+        userId: 'test-user-id',
+        email: 'testuser@gmail.com',
+        accessToken: 'test-access-token',
+        refreshToken: 'test-refresh-token',
+        expiresAt: Date.now() + 3600000,
+      });
 
     const dataService = this.owner.lookup(
       'service:data'
@@ -110,8 +112,6 @@ module('Acceptance | settings/cloud', function (hooks) {
       .dom('[data-test-profile-detail="email"]')
       .hasText('testuser@gmail.com');
   });
-
-
 
   test('user can see OTP verification step', async function (assert) {
     await visit('/settings/cloud/login');

@@ -44,6 +44,7 @@ export default class SupabaseAuthenticator extends BaseAuthenticator {
    * Restore session from Supabase's persisted storage.
    * Called on app startup to check if user is still logged in.
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async restore(_data: SupabaseAuthData): Promise<SupabaseAuthData> {
     const session = await this.supabase.getSession();
 

@@ -55,6 +55,38 @@ impl PixelSampler for MockWindowsSampler {
         // Simulate GetCursorPos
         Ok(Point { x: 100, y: 100 })
     }
+    
+    // Override sample_grid to simulate DPI-aware fallback behavior
+    fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {
+        let half_size = (grid_size / 2) as i32;
+        let mut grid = Vec::with_capacity(grid_size);
+        
+        // Convert center from physical to logical pixels (matches real implementation)
+        let logical_center_x = (center_x as f64 / self.dpi_scale) as i32;
+        let logical_center_y = (center_y as f64 / self.dpi_scale) as i32;
+        
+        for row in 0..grid_size {
+            let mut row_pixels = Vec::with_capacity(grid_size);
+            for col in 0..grid_size {
+                // Work in logical pixel space to avoid duplicates
+                let logical_x = logical_center_x + (col as i32 - half_size);
+                let logical_y = logical_center_y + (row as i32 - half_size);
+                
+                // Sample directly in logical space
+                if logical_x < 0 || logical_y < 0 || logical_x >= self.screen_width || logical_y >= self.screen_height {
+                    row_pixels.push(Color::new(128, 128, 128));
+                } else {
+                    let b_component = (logical_x % 256) as u8;
+                    let g_component = (logical_y % 256) as u8;
+                    let r_component = ((logical_x + logical_y) % 256) as u8;
+                    row_pixels.push(Color::new(r_component, g_component, b_component));
+                }
+            }
+            grid.push(row_pixels);
+        }
+        
+        Ok(grid)
+    }
 }
 
 #[test]

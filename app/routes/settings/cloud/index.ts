@@ -1,10 +1,12 @@
-import Transition from '@ember/routing/-private/transition';
 import Route from '@ember/routing/route';
 import type Router from '@ember/routing/router-service';
+import type Transition from '@ember/routing/transition';
 import { service } from '@ember/service';
 
-import CognitoService from 'ember-cognito/services/cognito';
-import Session from 'ember-simple-auth/services/session';
+import type CognitoService from 'ember-cognito/services/cognito';
+
+import type Session from '../../../services/session.ts';
+import viewTransitions from '../../../utils/view-transitions.ts';
 
 export default class SettingsAccountRoute extends Route {
   @service declare cognito: CognitoService;
@@ -14,9 +16,14 @@ export default class SettingsAccountRoute extends Route {
   async beforeModel(transition: Transition): Promise<Transition> {
     if (!this.session.isAuthenticated) {
       transition.abort();
+
       return this.router.transitionTo('settings.cloud.login');
     }
 
     return this.router.transitionTo('settings.cloud.profile');
+  }
+
+  async afterModel() {
+    await viewTransitions();
   }
 }

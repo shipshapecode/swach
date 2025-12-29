@@ -1,0 +1,8 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './variables.css';
+@import './main.css';
+@import './color-squares.css';
+@import './icons.css';
+@import './drag-sort.css';
+@import './three-dots/three-dots.css';

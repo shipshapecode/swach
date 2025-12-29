@@ -1,31 +1,35 @@
 import { click, currentURL, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 
-import { resetStorage } from 'swach/tests/helpers';
-import { setupApplicationTest } from 'swach/tests/helpers/index';
+import { resetStorage } from '../helpers';
+import { setupApplicationTest } from '../helpers/index';
 
 module('Acceptance | settings', function (hooks) {
   setupApplicationTest(hooks);
   resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
-  hooks.beforeEach(async function () {
+  test('visiting /settings', async function (assert) {
     await visit('/settings');
-  });
 
-  test('visiting /settings', function (assert) {
     assert.strictEqual(currentURL(), '/settings');
   });
 
-  test('settings menu is shown', function (assert) {
+  test('settings menu is shown', async function (assert) {
+    await visit('/settings');
+
     assert.dom('[data-test-settings-menu]').exists();
   });
 
-  test('sounds is checked by default', function (assert) {
+  test('sounds is checked by default', async function (assert) {
+    await visit('/settings');
+
     assert.dom('[data-test-settings-sounds]').isChecked();
   });
 
   test('theme setting updates when selected', async function (assert) {
+    await visit('/settings');
     await click('[data-test-settings-select-theme="light"]');
+
     const theme = JSON.parse(
       localStorage.getItem('storage:settings')
     ).userTheme;
@@ -34,22 +38,41 @@ module('Acceptance | settings', function (hooks) {
   });
 
   // Ember specific tests
-  if (typeof requireNode === 'undefined') {
-    test('has five inputs', function (assert) {
-      assert.dom('[data-test-settings-menu] input').exists({ count: 5 });
+  if (!(typeof window !== 'undefined' && window.electronAPI)) {
+    test('ember - has six inputs', async function (assert) {
+      await visit('/settings');
+
+      assert.dom('[data-test-settings-menu] input').exists({ count: 6 });
     });
   }
 
   // Electron specific tests
-  if (typeof requireNode !== 'undefined') {
-    // TODO: these are different for Mac/Windows vs Linux, so we need specific platform tests
-    // eslint-disable-next-line qunit/no-commented-tests
-    // test('has seven inputs', function (assert) {
-    //   assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
-    // });
-    // eslint-disable-next-line qunit/no-commented-tests
-    // test('start on startup is not checked by default', async function (assert) {
-    //   assert.dom('[data-test-settings-startup]').isNotChecked();
-    // });
+  if (typeof window !== 'undefined' && window.electronAPI) {
+    if (window.electronAPI.platform === 'darwin') {
+      test('electron:darwin - has seven inputs', async function (assert) {
+        await visit('/settings');
+        assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
+      });
+    }
+
+    if (window.electronAPI.platform === 'linux') {
+      test('electron:linux - has six inputs', async function (assert) {
+        await visit('/settings');
+        assert.dom('[data-test-settings-menu] input').exists({ count: 6 });
+      });
+    }
+
+    // TODO: Figure out number of inputs on windows
+    // if (window.electronAPI.platform === 'win32') {
+    //   test('electron:win32 - has seven inputs', async function (assert) {
+    //     await visit('/settings');
+    //     assert.dom('[data-test-settings-menu] input').exists({ count: 7 });
+    //   });
+    // }
+
+    test('electron - start on startup is not checked by default', async function (assert) {
+      await visit('/settings');
+      assert.dom('[data-test-settings-startup]').isNotChecked();
+    });
   }
 });

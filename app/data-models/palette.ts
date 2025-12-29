@@ -1,6 +1,6 @@
-import { Model, attr, hasMany } from 'ember-orbit';
+import { attr, hasMany, Model } from 'ember-orbit';
 
-import type ColorModel from 'swach/data-models/color';
+import type ColorModel from './color.ts';
 
 export default class PaletteModel extends Model {
   @attr('datetime') createdAt!: string;

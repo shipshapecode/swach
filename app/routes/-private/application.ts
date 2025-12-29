@@ -1,40 +1,44 @@
+import { getOwner } from '@ember/owner';
 import Route from '@ember/routing/route';
 import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 
-import Session from 'ember-simple-auth/services/session';
+import { setupOrbit } from 'ember-orbit';
 
-import type { IpcRenderer } from 'electron';
+import { isTesting } from '@embroider/macros';
 
-import type DataService from 'swach/services/data';
+import type DataService from '../../services/data.ts';
+import type Session from '../../services/session.ts';
+
+const dataModels = import.meta.glob('../../data-models/*.{js,ts}', {
+  eager: true,
+});
+const dataSources = import.meta.glob('../../data-sources/*.{js,ts}', {
+  eager: true,
+});
+const dataStrategies = import.meta.glob('../../data-strategies/*.{js,ts}', {
+  eager: true,
+});
 
 export default class ApplicationRoute extends Route {
   @service declare data: DataService;
   @service declare router: Router;
   @service declare session: Session;
 
-  declare ipcRenderer: IpcRenderer;
+  async beforeModel(): Promise<void> {
+    if (!isTesting()) {
+      const owner = getOwner(this);
 
-  constructor() {
-    super(...arguments);
-
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
-      this.ipcRenderer = ipcRenderer;
-
-      this.router.on('routeDidChange', () => {
-        this.ipcRenderer.send('setTouchbar', []);
+      setupOrbit(owner!, {
+        ...dataModels,
+        ...dataSources,
+        ...dataStrategies,
       });
     }
-  }
 
-  async beforeModel(): Promise<void> {
     await this.session.setup();
 
     await this.data.activate();
     await this.data.synchronize();
-
-    this.session.on('authenticationSucceeded', () => this.data.synchronize());
-    this.session.on('invalidationSucceeded', () => this.data.reset());
   }
 }

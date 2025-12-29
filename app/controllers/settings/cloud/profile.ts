@@ -3,15 +3,15 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-import Session from 'ember-simple-auth/services/session';
+import type Session from '../../../services/session.ts';
 
-export default class SettingsAccountController extends Controller {
+export default class SettingsCloudProfileController extends Controller {
   @service declare session: Session;
 
   @tracked loading = false;
 
   @action
-  async logOut(): Promise<void> {
+  async logOut() {
     this.loading = true;
     await this.session.invalidate();
     this.loading = false;

@@ -8,13 +8,16 @@ on:
 
 jobs:
   lint:
-    name: JS and HBS
-    runs-on: ubuntu-latest
+    name: Lint
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/pnpm
-      - name: Lint JS
-        run: pnpm lint:js
-      - name: Lint HBS
-        run: pnpm lint:hbs
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+      - run: pnpm install  
+      - name: Lint
+        run: pnpm lint

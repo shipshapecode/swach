@@ -1,27 +1,14 @@
 import 'ember-cli-flash';
+import '@glint/environment-ember-loose'
 import { ComponentLike, HelperLike, ModifierLike } from '@glint/template';
-import AnimatedContainer from '@gavant/glint-template-types/types/ember-animated/animated-container';
-import AnimatedEach from '@gavant/glint-template-types/types/ember-animated/animated-each';
-import AnimatedValue from '@gavant/glint-template-types/types/ember-animated/animated-value';
+import type { MagnifierAPI } from '../electron-app/magnifier/types';
 
 import OnClickOutsideModifier from 'ember-click-outside/modifiers/on-click-outside';
 
-import SubHelper from 'ember-math-helpers/helpers/sub';
-
-import DidInsertModifier from 'ember-render-modifiers/modifiers/did-insert';
-import DidUpdateModifier from 'ember-render-modifiers/modifiers/did-update';
-import WillDestroyModifier from 'ember-render-modifiers/modifiers/will-destroy';
-
 import SvgJarHelper from 'ember-svg-jar/helpers/svg-jar';
 
-import AndHelper from 'ember-truth-helpers/helpers/and';
-import EqHelper from 'ember-truth-helpers/helpers/eq';
-import NotHelper from 'ember-truth-helpers/helpers/not';
-import NotEqHelper from 'ember-truth-helpers/helpers/not-eq';
-import OrHelper from 'ember-truth-helpers/helpers/or';
-
 // Types for compiled templates
-declare module 'swach/templates/*' {
+declare module 'Swach/templates/*' {
   import { TemplateFactory } from 'ember-cli-htmlbars';
   const tmpl: TemplateFactory;
   export default tmpl;
@@ -29,16 +16,6 @@ declare module 'swach/templates/*' {
 
 declare module '@glint/environment-ember-loose/registry' {
   export default interface Registry {
-    AnimatedContainer: typeof AnimatedContainer;
-    'animated-each': typeof AnimatedEach;
-    AnimatedValue: typeof AnimatedValue;
-    and: typeof AndHelper;
-    capitalize: HelperLike<{
-      Args: {
-        Positional: [input: string];
-      };
-      Return: string;
-    }>;
     'css-transition': ModifierLike<{
       Args: {
         Named: {
@@ -51,32 +28,6 @@ declare module '@glint/environment-ember-loose/registry' {
         };
       };
     }>;
-    'did-insert': typeof DidInsertModifier;
-    'did-update': typeof DidUpdateModifier;
-    EmberPopover: ComponentLike<{
-      Element: HTMLDivElement;
-      Args: {
-        Named: {
-          arrowClass: string;
-          event: string;
-          innerClass: string;
-          isShown: boolean;
-          side: string;
-          spacing: number;
-          tooltipClass: string;
-        };
-      };
-    }>;
-    eq: typeof EqHelper;
-    'html-safe': HelperLike<{
-      Args: {
-        Positional: [string: string];
-      };
-      Return: string;
-    }>;
-    'liquid-outlet': ComponentLike;
-    not: typeof NotHelper;
-    'not-eq': typeof NotEqHelper;
     OneWayInputMask: ComponentLike<{
       Element: HTMLInputElement;
       Args: {
@@ -84,7 +35,7 @@ declare module '@glint/environment-ember-loose/registry' {
           mask: string;
           options: {
             greedy?: boolean;
-            isComplete: (buffer: Buffer, opts: { regex: string; }) => boolean;
+            isComplete: (buffer: Buffer, opts: { regex: string }) => boolean;
             max?: number;
             min?: number;
             oncomplete: (event: InputEvent) => void;
@@ -100,36 +51,32 @@ declare module '@glint/environment-ember-loose/registry' {
       };
     }>;
     'on-click-outside': typeof OnClickOutsideModifier;
-    or: typeof OrHelper;
-    'prevent-default': HelperLike<{
-      Args: {
-        Positional: [eventHandler: (event: Event) => void];
-      };
-      Return: (event: Event) => void;
-    }>;
-    set: HelperLike<{
-      Args: {
-        Positional: [target: object, path: string, maybeValue: any];
-      };
-      Return: any;
-    }>;
-    'set-body-class': HelperLike<{
-      Args: {
-        Positional: [className: string];
-      };
-      Return: any;
-    }>;
-    'stop-propagation': HelperLike<{
-      Args: {
-        Positional: [eventHandler: (event: Event) => any];
-      };
-      Return: (event: Event) => void;
-    }>;
     'svg-jar': typeof SvgJarHelper;
-    'will-destroy': typeof WillDestroyModifier;
   }
 }
 
 declare global {
-  declare function requireNode(name: string): any;
+  interface Window {
+    electronAPI: {
+      platform: 'darwin' | 'linux' | 'win32';
+      ipcRenderer: {
+        send: (channel: string, ...args: any[]) => void;
+        on: (channel: string, func: (...args: any[]) => void) => (...args: any[]) => void;
+        off: (channel: string, func: (...args: any[]) => void) => void;
+        once: (channel: string, func: (...args: any[]) => void) => void;
+        invoke: (channel: string, ...args: any[]) => Promise<any>;
+        removeAllListeners: (channel: string) => void;
+      };
+    };
+    magnifierAPI: MagnifierAPI;
+  }
+
+  namespace NodeJS {
+    interface ProcessEnv {
+      APPLE_ID: string;
+      APPLE_ID_PASSWORD: string;
+      WINDOWS_PFX_FILE: string;
+      WINDOWS_PFX_PASSWORD: string;
+    }
+  }
 }

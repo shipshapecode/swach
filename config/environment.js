@@ -1,16 +1,13 @@
 'use strict';
 
-const version = require('../package').version;
-
 module.exports = function (environment) {
   const ENV = {
-    modulePrefix: 'swach',
+    modulePrefix: 'Swach',
     environment,
     rootURL: process.env.EMBER_CLI_ELECTRON ? '' : '/',
     locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'history',
     EmberENV: {
-      // TODO: we should set this to false and fix things
-      // EXTEND_PROTOTYPES: false,
+      EXTEND_PROTOTYPES: false,
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. EMBER_NATIVE_DECORATOR_SUPPORT: true
@@ -38,12 +35,6 @@ module.exports = function (environment) {
     },
     orbit: {
       skipValidatorService: true,
-    },
-  };
-
-  ENV['@sentry/ember'] = {
-    sentry: {
-      environment,
     },
   };
 
@@ -86,10 +77,6 @@ module.exports = function (environment) {
       url: process.env.SUPABASE_URL || 'https://your-project-ref.supabase.co',
       anonKey: process.env.SUPABASE_ANON_KEY || 'your-anon-key',
     };
-
-    ENV['@sentry/ember'].sentry.dsn =
-      'https://6974b46329f24dc1b9fca4507c65e942@sentry.io/3956140';
-    ENV['@sentry/ember'].sentry.release = `v${version}`;
   }
 
   return ENV;

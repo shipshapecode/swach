@@ -8,17 +8,22 @@ on:
 jobs:
   test:
     name: Lint and Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/pnpm
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+      - run: pnpm install  
       - name: Lint JS
         run: pnpm lint:js
       - name: Lint HBS
         run: pnpm lint:hbs
-      - name: Get xvfb
-        run: sudo apt-get install xvfb
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y xvfb libpipewire-0.3-dev libspa-0.2-dev libx11-dev pkg-config
       - name: Browser Test
         run: pnpm test:ember
       - name: Electron Test
@@ -31,37 +36,136 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [macos-15-intel, ubuntu-24.04, ubuntu-24.04-arm, windows-latest]
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/pnpm
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+      - run: pnpm install
+      - name: Install Linux dependencies
+        if: startsWith(matrix.os, 'ubuntu')
+        run: sudo apt-get update && sudo apt-get install -y libpipewire-0.3-dev libx11-dev
       - name: Add macOS certs
         if: startsWith(matrix.os, 'macos') && startsWith(github.ref, 'refs/tags/')
         run: chmod +x add-osx-cert.sh && ./add-osx-cert.sh
         env:
           CERTIFICATE_OSX_APPLICATION: ${{ secrets.CERTIFICATE_OSX_APPLICATION }}
           CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
-      - name: Add Windows certificate
-        if: matrix.os == 'windows-latest' && startsWith(github.ref, 'refs/tags/')
-        id: write_file
-        uses: timheuer/base64-to-file@v1
-        with:
-          fileName: 'win-certificate.pfx'
-          encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
+
+
       - name: Make
         if: startsWith(github.ref, 'refs/tags/')
         run: pnpm make
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
-          WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
-          WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
-      # - name: Make Apple arm64
-      #   if: matrix.os == 'macos-11.0' && startsWith(github.ref, 'refs/tags/')
-      #   run: pnpm make --arch=arm64
-      #   env:
-      #     APPLE_ID: ${{ secrets.APPLE_ID }}
-      #     APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD_ARM }}
+
+      # Core22 and snapcraft are now handled by the action-build step below
+
+      - name: Get version from package.json (Windows)
+        if: startsWith(github.ref, 'refs/tags/') && runner.os == 'Windows'
+        id: version
+        run: |
+          $version = pnpm pkg get version
+          echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+        shell: powershell
+      - name: Get version from package.json (Unix)
+        if: startsWith(github.ref, 'refs/tags/') && runner.os != 'Windows'
+        id: version_unix
+        run: |
+          VERSION=$(pnpm pkg get version | tr -d '"')
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        shell: bash
+      - name: Sign Windows Executable with eSigner
+        if: matrix.os == 'windows-latest' && startsWith(github.ref, 'refs/tags/')
+        uses: sslcom/esigner-codesign@develop
+        with:
+          command: sign
+          username: ${{ secrets.ES_USERNAME }}
+          password: ${{ secrets.ES_PASSWORD }}
+          credential_id: ${{ secrets.CREDENTIAL_ID }}
+          totp_secret: ${{ secrets.ES_TOTP_SECRET }}
+          file_path: ${{ github.workspace }}/out/make/squirrel.windows/x64/Swach-${{ steps.version.outputs.VERSION }}.Setup.exe
+          override: true
+          malware_block: false
+          environment_name: PROD
+      - name: Debug DEB contents (amd64)
+        if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'X64' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          DEB_FILE="out/make/deb/x64/swach_${{ steps.version_unix.outputs.VERSION }}_amd64.deb"
+          echo "Examining DEB file: $DEB_FILE"
+          dpkg-deb -c "$DEB_FILE" | head -20
+          echo ""
+          echo "Looking for executable:"
+          dpkg-deb -c "$DEB_FILE" | grep -E -i "(swach|Swach|executable|bin/)"
+      
+      - name: Prepare snapcraft.yaml for build (amd64)
+        if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'X64' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          VERSION=${{ steps.version_unix.outputs.VERSION }}
+          sed -i "s/\${SNAP_VERSION}/$VERSION/g" snapcraft.yaml
+          cat snapcraft.yaml
+      
+      - name: Build Snap from DEB (amd64)
+        if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'X64' && startsWith(github.ref, 'refs/tags/')
+        id: build-snap-amd64
+        uses: snapcore/action-build@v1
+        env:
+          SNAPCRAFT_BUILD_ENVIRONMENT: lxd
+      
+      - name: Move snap to out/make (amd64)
+        if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'X64' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          mkdir -p out/make
+          mv ${{ steps.build-snap-amd64.outputs.snap }} out/make/
+      - name: Debug DEB contents (arm64)
+        if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'ARM64' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          DEB_FILE="out/make/deb/arm64/swach_${{ steps.version_unix.outputs.VERSION }}_arm64.deb"
+          echo "Examining DEB file: $DEB_FILE"
+          dpkg-deb -c "$DEB_FILE" | head -20
+          echo ""
+          echo "Looking for executable:"
+          dpkg-deb -c "$DEB_FILE" | grep -E -i "(swach|Swach|executable|bin/)"
+      
+      - name: Prepare snapcraft.yaml for build (arm64)
+        if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'ARM64' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          VERSION=${{ steps.version_unix.outputs.VERSION }}
+          sed -i "s/\${SNAP_VERSION}/$VERSION/g" snapcraft.yaml
+          cat snapcraft.yaml
+      
+      - name: Build Snap from DEB (arm64)
+        if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'ARM64' && startsWith(github.ref, 'refs/tags/')
+        id: build-snap-arm64
+        uses: snapcore/action-build@v1
+        env:
+          SNAPCRAFT_BUILD_ENVIRONMENT: lxd
+      
+      - name: Move snap to out/make (arm64)
+        if: startsWith(matrix.os, 'ubuntu') && runner.arch == 'ARM64' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          mkdir -p out/make
+          mv ${{ steps.build-snap-arm64.outputs.snap }} out/make/
+      - name: Install Snapcraft for Upload
+        if: startsWith(matrix.os, 'ubuntu') && startsWith(github.ref, 'refs/tags/')
+        run: |
+          sudo snap install snapcraft --classic
+      
+      - name: Publish Snap to Snap Store
+        if: startsWith(matrix.os, 'ubuntu') && startsWith(github.ref, 'refs/tags/')
+        run: |
+          if [[ "${{ runner.arch }}" == "ARM64" ]]; then
+            SNAP_ARCH="arm64"
+          else
+            SNAP_ARCH="amd64"
+          fi
+          snapcraft upload $(find out/make/ -name "swach_*_${SNAP_ARCH}.snap") --release latest/stable
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
       - name: GitHub release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
@@ -69,14 +173,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: |
-            electron-app/out/**/*.deb
-            electron-app/out/**/*.dmg
-            electron-app/out/**/*Setup.exe
-            electron-app/out/**/*.rpm
-            electron-app/out/**/*.zip
+            out/**/*.deb
+            out/**/*.dmg
+            out/**/*Setup.exe
+            out/**/*.rpm
+            out/**/*.zip
+            out/**/*.snap
       - name: Create a Sentry.io release
-        uses: tclindner/sentry-releases-action@v1.2.0
-        if: matrix.os == 'ubuntu-latest'
+        uses: tclindner/sentry-releases-action@v1.3.0
+        if: matrix.os == 'ubuntu-24.04'
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ship-shape-consulting-llc
@@ -84,27 +189,4 @@ jobs:
         with:
           tagName: ${{ github.ref }}
           environment: production
-          sourceMapOptions: '{"include": ["electron-app/ember-dist/assets"], "urlPrefix": "~/ember-dist/assets"}'  
-  snapcraft:
-    name: Snapcraft Build and Publish
-    needs: test
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    if: startsWith(github.ref, 'refs/tags/')
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/pnpm
-      - name: Install Snapcraft
-        uses: samuelmeuli/action-snapcraft@v1
-        with:
-          snapcraft_token: ${{ secrets.snapcraft_token }}
-      - name: Electron Builder Snapcraft
-        run: |
-          sudo apt update
-          pnpm make:snapcraft
-          cd electron-app
-          set +e
-          pnpm build
-          set -e
-        env:
-          SNAPCRAFT_BUILD_ENVIRONMENT: host
+          sourceMapOptions: '{"include": ["dist/assets"], "urlPrefix": "~/dist/assets"}'

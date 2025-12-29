@@ -1,38 +1,29 @@
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "baseUrl": ".",
-    "module": "es6",
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "alwaysStrict": true,
-    "experimentalDecorators": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "moduleResolution": "node",
-    "noEmit": true,
-    "noEmitOnError": false,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": false,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "skipLibCheck": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true,
-    "paths": {
-      "swach/tests/*": ["tests/*"],
-      "swach/*": ["app/*"],
-      "*": ["types/*"],
-      "@ember/destroyable": ["node_modules/ember-destroyable-polyfill"],
-      "@glimmer/tracking/primitives/cache": [
-        "node_modules/ember-cache-primitive-polyfill"
-      ]
-    }
-  },
+  "extends": "@ember/app-tsconfig",
+  "include": [
+    "app",
+    "tests",
+    "types",
+    "forge.config.ts",
+    "forge.env.d.ts",
+    "vite.*.config.ts"
+  ],
+  "references": [{ "path": "./electron-app" }],
   "glint": {
-    "environment": "ember-loose"
+    "environment": ["ember-loose", "ember-template-imports"]
   },
-  "include": ["app/**/*", "tests/**/*", "types/**/*"]
+  "compilerOptions": {
+    "allowJs": true,
+    "paths": {
+      "Swach/tests/*": ["./tests/*"],
+      "Swach/*": ["./app/*"],
+      "*": ["./types/*"]
+    },
+    "types": [
+      "ember-source/types",
+      "@embroider/core/virtual",
+      "vite/client",
+      "node"
+    ]
+  }
 }

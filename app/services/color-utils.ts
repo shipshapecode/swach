@@ -1,17 +1,16 @@
 import { action } from '@ember/object';
-import Service from '@ember/service';
-import { service } from '@ember/service';
+import Service, { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
-import type { Store } from 'ember-orbit';
+import { orbit, type Store } from 'ember-orbit';
 
-import { ColorInput, TinyColor } from '@ctrl/tinycolor';
-import type { IpcRenderer } from 'electron';
+import { TinyColor } from '@ctrl/tinycolor';
+import type { ColorInput } from '@ctrl/tinycolor';
 
-import type ColorModel from 'swach/data-models/color';
-import { rgbaToHex } from 'swach/data-models/color';
-import NearestColor from 'swach/services/nearest-color';
-import { SettingsStorage } from 'swach/storages/settings';
+import { rgbaToHex } from '../data-models/color.ts';
+import type ColorModel from '../data-models/color.ts';
+import type NearestColor from '../services/nearest-color.ts';
+import type { SettingsStorage } from '../storages/settings.ts';
 
 export interface ColorPOJO {
   type: 'color';
@@ -28,18 +27,20 @@ export interface ColorPOJO {
 }
 
 export default class ColorUtilsService extends Service {
+  @orbit declare store: Store;
+
   @service nearestColor!: NearestColor;
-  @service declare store: Store;
 
   @storageFor('settings') settings!: SettingsStorage;
 
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
 
   constructor() {
     super(...arguments);
 
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      const { ipcRenderer } = window.electronAPI;
+
       this.ipcRenderer = ipcRenderer;
     }
   }
@@ -78,8 +79,13 @@ export default class ColorUtilsService extends Service {
         this.ipcRenderer.send('copyColorToClipboard', color[colorFormat]);
 
         if (this.settings.get('sounds')) {
-          const audio = new Audio('assets/sounds/pluck_short.wav');
-          await audio.play();
+          const audio = new Audio('assets/sounds/pluck_short.mp3');
+
+          try {
+            await audio.play();
+          } catch {
+            // Do nothing
+          }
         }
 
         if (this.settings.get('notifications')) {

@@ -1,0 +1,36 @@
+@import 'tailwindcss';
+
+@layer base {
+  body {
+    @apply font-sans;
+  }
+}
+
+/* Custom styles that can't be easily converted to Tailwind classes */
+.pixel {
+  @apply transition-colors duration-100 ease-out outline-1 outline-neutral-500/40 -outline-offset-1;
+}
+
+.pixel.center {
+  @apply border-2 border-white relative z-10;
+  box-shadow:
+    0 0 6px #000,
+    inset 0 0 4px rgb(255 255 255 / 80%);
+}
+
+/* Fix magnifier circle zoom animations */
+.magnifier-circle {
+  @apply duration-300 ease-out;
+  transition:
+    width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    min-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Fix color label transition */
+#color-label {
+  @apply transition-all duration-200 ease-out;
+}

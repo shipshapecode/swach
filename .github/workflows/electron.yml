@@ -9,12 +9,22 @@ on:
 jobs:
   test:
     name: Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/pnpm
-      - name: Get xvfb
-        run: sudo apt-get install xvfb  
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libx11-dev pkg-config libpipewire-0.3-dev libspa-0.2-dev
+      - run: pnpm install
+      - name: Magnifier Test
+        run: pnpm test:magnifier 
       - name: Electron Test
         run: xvfb-run --auto-servernum pnpm test:electron   

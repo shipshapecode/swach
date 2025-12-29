@@ -8,22 +8,21 @@ import {
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 
-import { resetStorage, waitForAll } from 'swach/tests/helpers';
-import { setupApplicationTest } from 'swach/tests/helpers/index';
+import { resetStorage, waitForAll } from '../helpers';
+import { setupApplicationTest } from '../helpers/index';
 
 module('Acceptance | kuler', function (hooks) {
   setupApplicationTest(hooks);
   resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
-  hooks.beforeEach(async function () {
+  test('visiting /kuler with query parameters', async function (assert) {
     await visit('/kuler?colorId=pale-magenta');
-  });
 
-  test('visiting /kuler with query parameters', function (assert) {
     assert.strictEqual(currentURL(), '/kuler?colorId=pale-magenta');
   });
 
   test('analogous palette', async function (assert) {
+    await visit('/kuler?colorId=pale-magenta');
     await fillIn('[data-test-kuler-select]', 'Analogous');
 
     assert
@@ -40,6 +39,7 @@ module('Acceptance | kuler', function (hooks) {
   });
 
   test('monochromatic palette', async function (assert) {
+    await visit('/kuler?colorId=pale-magenta');
     await fillIn('[data-test-kuler-select]', 'Monochromatic');
 
     assert
@@ -96,6 +96,7 @@ module('Acceptance | kuler', function (hooks) {
   });
 
   test('tetrad palette', async function (assert) {
+    await visit('/kuler?colorId=pale-magenta');
     await fillIn('[data-test-kuler-select]', 'Tetrad');
 
     assert
@@ -108,6 +109,7 @@ module('Acceptance | kuler', function (hooks) {
   });
 
   test('triad palette', async function (assert) {
+    await visit('/kuler?colorId=pale-magenta');
     await fillIn('[data-test-kuler-select]', 'Triad');
 
     assert
@@ -151,6 +153,7 @@ module('Acceptance | kuler', function (hooks) {
   });
 
   test('changing base', async function (assert) {
+    await visit('/kuler?colorId=pale-magenta');
     await fillIn('[data-test-kuler-select]', 'Monochromatic');
 
     assert
@@ -265,6 +268,8 @@ module('Acceptance | kuler', function (hooks) {
 
   module('inputs', function () {
     test('hex input updates rgba', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-hex]').hasValue('#f78ae0');
       assert.dom('[data-test-kuler-r]').hasValue('247');
       assert.dom('[data-test-kuler-g]').hasValue('138');
@@ -286,6 +291,8 @@ module('Acceptance | kuler', function (hooks) {
 
   module('red', function () {
     test('incomplete clears input', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-r]').hasValue('247');
 
       await fillIn('[data-test-kuler-r]', '255');
@@ -297,6 +304,8 @@ module('Acceptance | kuler', function (hooks) {
     });
 
     test('values capped at 255', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-r]').hasValue('247');
 
       await fillIn('[data-test-kuler-r]', '400');
@@ -309,6 +318,8 @@ module('Acceptance | kuler', function (hooks) {
 
   module('green', function () {
     test('incomplete clears input', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-g]').hasValue('138');
 
       await fillIn('[data-test-kuler-g]', '255');
@@ -320,6 +331,8 @@ module('Acceptance | kuler', function (hooks) {
     });
 
     test('values capped at 255', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-g]').hasValue('138');
 
       await fillIn('[data-test-kuler-g]', '400');
@@ -332,6 +345,8 @@ module('Acceptance | kuler', function (hooks) {
 
   module('blue', function () {
     test('incomplete clears input', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-b]').hasValue('224');
 
       await fillIn('[data-test-kuler-b]', '255');
@@ -343,6 +358,8 @@ module('Acceptance | kuler', function (hooks) {
     });
 
     test('values capped at 255', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-b]').hasValue('224');
 
       await fillIn('[data-test-kuler-b]', '400');
@@ -355,6 +372,8 @@ module('Acceptance | kuler', function (hooks) {
 
   module('alpha', function () {
     test('incomplete clears input', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-a]').hasValue('1');
 
       await fillIn('[data-test-kuler-a]', '0.52');
@@ -366,6 +385,8 @@ module('Acceptance | kuler', function (hooks) {
     });
 
     test('values capped at 1', async function (assert) {
+      await visit('/kuler?colorId=pale-magenta');
+
       assert.dom('[data-test-kuler-a]').hasValue('1');
 
       await fillIn('[data-test-kuler-a]', '1.50');

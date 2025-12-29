@@ -1,9 +1,9 @@
-import colors from 'swach/tests/orbit/fixtures/colors';
-import colorHistoryColors from 'swach/tests/orbit/fixtures/colors/color-history';
-import firstPaletteColors from 'swach/tests/orbit/fixtures/colors/first-palette';
-import lockedPaletteColors from 'swach/tests/orbit/fixtures/colors/locked-palette';
-import secondPaletteColors from 'swach/tests/orbit/fixtures/colors/second-palette';
-import palettes from 'swach/tests/orbit/fixtures/palettes';
+import colors from './fixtures/colors';
+import colorHistoryColors from './fixtures/colors/color-history';
+import firstPaletteColors from './fixtures/colors/first-palette';
+import lockedPaletteColors from './fixtures/colors/locked-palette';
+import secondPaletteColors from './fixtures/colors/second-palette';
+import palettes from './fixtures/palettes';
 
 export default async function seedOrbit(source, scenario = 'basic') {
   if (scenario === 'basic') {
@@ -18,8 +18,10 @@ export default async function seedOrbit(source, scenario = 'basic') {
         operations.push(t.addRecord(palette));
 
         const { id } = palette;
+
         if (id === 'color-history-123') {
           const ids = [];
+
           colorHistoryColors.forEach((color) => {
             color.id ??= source.schema.generateId('color');
             ids.push(color.id);
@@ -40,11 +42,13 @@ export default async function seedOrbit(source, scenario = 'basic') {
           );
         } else if (id === 'first-palette') {
           const ids = [];
+
           firstPaletteColors.forEach((color) => {
             color.id ??= source.schema.generateId('color');
             ids.push(color.id);
             operations.push(t.addRecord(color));
           });
+
           const colorsList = ids.map((id) => {
             return {
               type: 'color',
@@ -69,17 +73,20 @@ export default async function seedOrbit(source, scenario = 'basic') {
           );
         } else if (id === 'second-palette') {
           const ids = [];
+
           secondPaletteColors.forEach((color) => {
             color.id ??= source.schema.generateId('color');
             ids.push(color.id);
             operations.push(t.addRecord(color));
           });
+
           const colorsList = ids.map((id) => {
             return {
               type: 'color',
               id,
             };
           });
+
           operations.push(
             t.replaceRelatedRecords(
               { type: 'palette', id: 'second-palette' },
@@ -97,17 +104,20 @@ export default async function seedOrbit(source, scenario = 'basic') {
           );
         } else if (id === 'locked-palette') {
           const ids = [];
+
           lockedPaletteColors.forEach((color) => {
             color.id ??= source.schema.generateId('color');
             ids.push(color.id);
             operations.push(t.addRecord(color));
           });
+
           const colorsList = ids.map((id) => {
             return {
               type: 'color',
               id,
             };
           });
+
           operations.push(
             t.replaceRelatedRecords(
               { type: 'palette', id: 'locked-palette' },

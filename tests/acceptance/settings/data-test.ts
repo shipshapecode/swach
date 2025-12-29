@@ -1,25 +1,25 @@
-import { click, currentURL, visit } from '@ember/test-helpers';
+import { click, currentURL, visit, waitFor } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-
-import IDBExportImport from 'indexeddb-export-import';
 import sinon from 'sinon';
 
-import { resetStorage, waitForAll } from 'swach/tests/helpers';
-import { setupApplicationTest } from 'swach/tests/helpers/index';
+import IDBExportImport from 'indexeddb-export-import';
+
+import { resetStorage, waitForAll } from '../../helpers';
+import { setupApplicationTest } from '../../helpers/index';
 
 module('Acceptance | settings/data', function (hooks) {
   setupApplicationTest(hooks);
   resetStorage(hooks, { seed: { source: 'backup', scenario: 'basic' } });
 
-  hooks.beforeEach(async function () {
-    await visit('/settings/data');
-  });
-
   test('visiting /settings/data', async function (assert) {
+    await visit('/settings/data');
+
     assert.strictEqual(currentURL(), '/settings/data');
   });
 
   test('changing formats', async function (assert) {
+    await visit('/settings/data');
+
     assert
       .dom('[data-test-settings-format-dropdown] [data-test-options-trigger]')
       .hasText('hex');
@@ -39,19 +39,25 @@ module('Acceptance | settings/data', function (hooks) {
   });
 
   // Electron specific tests
-  if (typeof requireNode !== 'undefined') {
-    test('export triggers success message', async function (assert) {
+  if (typeof window !== 'undefined' && window.electronAPI) {
+    test('electron - export triggers success message', async function (assert) {
+      await visit('/settings/data');
+
       sinon.stub(IDBExportImport, 'exportToJsonString').callsArg(1);
       await click('[data-test-export-swatches-button]');
       await waitForAll();
+      await waitFor('.alert.alert-success');
       assert.dom('.alert.alert-success').exists({ count: 1 });
     });
-    test('export triggers error message', async function (assert) {
+    test('electron - export triggers error message', async function (assert) {
+      await visit('/settings/data');
+
       sinon
         .stub(IDBExportImport, 'exportToJsonString')
         .callsArgWith(1, 'error');
       await click('[data-test-export-swatches-button]');
       await waitForAll();
+      await waitFor('.alert.alert-danger');
       assert.dom('.alert.alert-danger').exists({ count: 1 });
     });
   }

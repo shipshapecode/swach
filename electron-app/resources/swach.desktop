@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Swach
+Comment=A robust color management tool for the modern age.
+Exec=/usr/lib/swach/Swach --no-sandbox --disable-gpu-sandbox --ozone-platform=x11 %U
+Terminal=false
+Type=Application
+Icon=swach
+StartupWMClass=Swach
+Categories=Graphics;Utility;

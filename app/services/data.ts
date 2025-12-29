@@ -1,38 +1,74 @@
-import Service, { inject as service } from '@ember/service';
+import Service, { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-import type { Store } from 'ember-orbit';
-import Session from 'ember-simple-auth/services/session';
+import { orbit, type Store } from 'ember-orbit';
 
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
+import type JSONAPISource from '@orbit/jsonapi';
 import type { InitializedRecord, RecordIdentity } from '@orbit/records';
 
-import Palette from 'swach/data-models/palette';
+import type Palette from '../data-models/palette.ts';
+import type Session from '../services/session.ts';
 
 export default class DataService extends Service {
-  @service dataCoordinator!: Coordinator;
+  @orbit dataCoordinator!: Coordinator;
+  @orbit declare store: Store;
+
   @service declare session: Session;
-  @service declare store: Store;
+
   @tracked colorHistory: Palette | undefined;
   isActivated = false;
-
-  backup = this.dataCoordinator.getSource<IndexedDBSource>('backup');
-  remote = this.dataCoordinator.getSource<any>('remote'); // Will be SupabaseSource
 
   async activate(): Promise<void> {
     const records = await this.getRecordsFromBackup();
 
     if (records.length > 0) {
-      await this.store.sync((t) =>
-        records.map((r) => {
-          if (r?.attributes?.hex) {
-            delete r.attributes.hex;
-          }
+      try {
+        await this.store.sync((t) =>
+          records.map((r) => {
+            if (r?.attributes?.['hex']) {
+              delete r.attributes['hex'];
+            }
 
-          return t.addRecord(r);
-        })
-      );
+            return t.addRecord(r);
+          })
+        );
+      } catch (error) {
+        console.error(
+          '[Data Service] Failed to restore from backup due to corrupt data:',
+          error
+        );
+        console.log('[Data Service] Deleting corrupt IndexedDB database...');
+
+        // Delete the entire corrupt database
+        const dbName = 'swach-main-backup';
+        const deleteRequest = indexedDB.deleteDatabase(dbName);
+
+        await new Promise<void>((resolve, reject) => {
+          deleteRequest.onsuccess = () => {
+            console.log('[Data Service] Successfully deleted corrupt database');
+            resolve();
+          };
+          deleteRequest.onerror = () => {
+            console.error(
+              '[Data Service] Failed to delete database:',
+              deleteRequest.error
+            );
+            reject(
+              new Error(
+                `Failed to delete corrupt database: ${deleteRequest.error?.message ?? 'Unknown error'}`
+              )
+            );
+          };
+          deleteRequest.onblocked = () => {
+            console.error(
+              '[Data Service] Database deletion blocked - may have open connections'
+            );
+            reject(new Error('Database deletion blocked by open connections'));
+          };
+        });
+      }
     }
 
     await this.dataCoordinator.activate();
@@ -71,11 +107,11 @@ export default class DataService extends Service {
       });
     } else if (colorHistoryPalettes.length > 1) {
       const remoteColorHistoryPalette = remotePaletteRecords.find(
-        (p) => p.attributes?.isColorHistory
+        (p) => p.attributes?.['isColorHistory']
       );
 
       const preferredColorHistoryPaletteId =
-        remoteColorHistoryPalette?.id ?? colorHistoryPalettes[0].id;
+        remoteColorHistoryPalette?.id ?? colorHistoryPalettes[0]?.id;
 
       const duplicateColorHistoryPalettes: Palette[] = [];
 
@@ -95,12 +131,13 @@ export default class DataService extends Service {
 
   async reset(): Promise<void> {
     this.colorHistory = undefined;
-    await this.backup.reset();
+    await this.dataCoordinator.getSource<IndexedDBSource>('backup').reset();
     await this.store.reset();
   }
 
   private async getRecordsFromBackup(): Promise<InitializedRecord[]> {
-    const records = await this.backup.query<InitializedRecord[]>((q) =>
+    const backup = this.dataCoordinator.getSource<IndexedDBSource>('backup');
+    const records = await backup.query<InitializedRecord[]>((q) =>
       q.findRecords()
     );
 
@@ -111,12 +148,18 @@ export default class DataService extends Service {
       // will simply be reloaded into the backup db.
       // TODO: This is a bit of a hack that should be replaced with better
       // support for migrations in `IndexedDBCache` in `@orbit/indexeddb`.
-      // @ts-expect-error This is a hacked property until we have a real one to use in ember-orbit
-      if (this.backup.recreateInverseRelationshipsOnLoad) {
+
+      if (
         // @ts-expect-error This is a hacked property until we have a real one to use in ember-orbit
-        this.backup.recreateInverseRelationshipsOnLoad = false;
-        await this.backup.sync((t) => records.map((r) => t.addRecord(r)));
+        // prettier-ignore
+        backup.recreateInverseRelationshipsOnLoad
+      ) {
+        // @ts-expect-error This is a hacked property until we have a real one to use in ember-orbit
+        // prettier-ignore
+        backup.recreateInverseRelationshipsOnLoad = false;
+        await backup.sync((t) => records.map((r) => t.addRecord(r)));
       }
+
       return records;
     } else {
       return [];
@@ -125,7 +168,8 @@ export default class DataService extends Service {
 
   private async getPalettesFromRemote(): Promise<InitializedRecord[]> {
     if (this.session.isAuthenticated) {
-      const remotePaletteRecords = await this.remote.query<InitializedRecord[]>(
+      const remote = this.dataCoordinator.getSource<JSONAPISource>('remote');
+      const remotePaletteRecords = await remote.query<InitializedRecord[]>(
         (q) => q.findRecords('palette'),
         { include: ['colors'] }
       );
@@ -152,33 +196,38 @@ export default class DataService extends Service {
 
         colors = colors.map((c) => {
           const { id, type, attributes } = c;
+
           return { id, type, attributes };
         });
         palettes = palettes.map((p) => {
           const { id, type, attributes, relationships } = p;
-          if (relationships?.colors?.data) {
+
+          if (relationships?.['colors']?.data) {
             paletteColors.push({
               palette: p,
-              colors: relationships.colors.data as RecordIdentity[],
+              colors: relationships['colors'].data as RecordIdentity[],
             });
           }
+
           return { id, type, attributes };
         });
 
         if (colors.length > 0) {
-          await this.remote.update<InitializedRecord[]>(
+          await remote.update<InitializedRecord[]>(
             (t) => colors.map((r) => t.addRecord(r)),
             { parallelRequests: true }
           );
         }
+
         if (palettes.length > 0) {
-          await this.remote.update<InitializedRecord[]>(
+          await remote.update<InitializedRecord[]>(
             (t) => palettes.map((r) => t.addRecord(r)),
             { parallelRequests: true }
           );
         }
+
         if (paletteColors.length > 0) {
-          await this.remote.update<InitializedRecord[]>(
+          await remote.update<InitializedRecord[]>(
             (t) =>
               paletteColors.map((p) =>
                 t.replaceRelatedRecords(p.palette, 'colors', p.colors)
@@ -188,7 +237,7 @@ export default class DataService extends Service {
         }
 
         // Re-fetch palettes and colors from remote
-        return this.remote.query<InitializedRecord[]>(
+        return remote.query<InitializedRecord[]>(
           (q) => q.findRecords('palette'),
           { include: ['colors'] }
         );

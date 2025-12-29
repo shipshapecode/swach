@@ -1,6 +1,5 @@
-import EmberRouter from '@ember/routing/router';
-
-import config from 'swach/config/environment';
+import EmberRouter from '@embroider/router';
+import config from 'Swach/config/environment';
 
 export default class Router extends EmberRouter {
   location = config.locationType;

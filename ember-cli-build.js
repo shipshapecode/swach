@@ -1,64 +1,22 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const { compatBuild } = require('@embroider/compat');
 
-module.exports = function (defaults) {
-  const app = new EmberApp(defaults, {
-    autoImport: {
-      forbidEval: true,
-    },
-    babel: {
-      plugins: ['@babel/plugin-proposal-object-rest-spread'],
-    },
-    'ember-cli-babel': {
-      enableTypeScriptTransform: true,
-    },
-    'ember-simple-auth': {
-      useSessionSetupMethod: true,
-    },
-    postcssOptions: {
-      compile: {
-        extension: 'scss',
-        enabled: true,
-        parser: require('postcss-scss'),
-        syntax: 'postcss-scss',
-        plugins: [
-          {
-            module: require('@csstools/postcss-sass'),
-            options: {
-              includePaths: ['node_modules/three-dots/sass'],
-            },
-          },
-          require('tailwindcss')('./tailwind.config.js'),
-        ],
+module.exports = async function (defaults) {
+  const { buildOnce } = await import('@embroider/vite');
+  let app = new EmberApp(defaults, {
+    emberData: {
+      deprecations: {
+        // New projects can safely leave this deprecation disabled.
+        // If upgrading, to opt-into the deprecated behavior, set this to true and then follow:
+        // https://deprecations.emberjs.com/id/ember-data-deprecate-store-extends-ember-object
+        // before upgrading to Ember Data 6.0
+        DEPRECATE_STORE_EXTENDS_EMBER_OBJECT: false,
       },
     },
-    sourcemaps: {
-      enabled: true,
-    },
+    // Add options here
   });
 
-  if (process.platform !== 'win32') {
-    const { Webpack } = require('@embroider/webpack');
-    //const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-    return require('@embroider/compat').compatBuild(app, Webpack, {
-      staticAddonTestSupportTrees: true,
-      staticAddonTrees: true,
-      staticHelpers: true,
-      staticComponents: true,
-      packagerOptions: {
-        webpackConfig: {
-          devtool: false,
-          resolve: {
-            fallback: {
-              crypto: require.resolve('crypto-browserify'),
-              stream: require.resolve('stream-browserify'),
-            },
-          },
-        },
-      },
-    });
-  } else {
-    return app.toTree();
-  }
+  return compatBuild(app, buildOnce);
 };

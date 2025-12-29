@@ -8,13 +8,13 @@ import {
   triggerEvent,
   visit,
 } from '@ember/test-helpers';
+import { animationsSettled } from 'ember-animated/test-support';
 import { module, test } from 'qunit';
 
-import { animationsSettled } from 'ember-animated/test-support';
 import { move, sort } from 'ember-drag-sort/utils/trigger';
 
-import { resetStorage, waitForAll } from 'swach/tests/helpers';
-import { setupApplicationTest } from 'swach/tests/helpers/index';
+import { resetStorage, waitForAll } from '../helpers';
+import { setupApplicationTest } from '../helpers/index';
 
 module('Acceptance | palettes', function (hooks) {
   setupApplicationTest(hooks);
@@ -138,6 +138,7 @@ module('Acceptance | palettes', function (hooks) {
       let firstColor = sourceList.querySelector(
         '[data-test-palette-color-square]'
       );
+
       assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
 
       await sort(sourceList, 0, 1, true);
@@ -162,6 +163,7 @@ module('Acceptance | palettes', function (hooks) {
       let firstColor = sourceList.querySelector(
         '[data-test-palette-color-square]'
       );
+
       assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
 
       await sort(sourceList, 0, 1, true);
@@ -187,6 +189,7 @@ module('Acceptance | palettes', function (hooks) {
       let sourceListThirdColor = sourceList.querySelectorAll(
         '[data-test-palette-color-square]'
       )[2];
+
       assert
         .dom('[data-test-palette-color-square]', sourceList)
         .exists({ count: 4 });
@@ -207,9 +210,11 @@ module('Acceptance | palettes', function (hooks) {
       sourceList = find(
         '[data-test-palette-row="First Palette"]'
       ).querySelector('.palette-color-squares');
+
       let targetListThirdColor = targetList.querySelectorAll(
         '[data-test-palette-color-square]'
       )[2];
+
       assert
         .dom('[data-test-palette-color-square]', sourceList)
         .exists({ count: 3 });
@@ -228,6 +233,7 @@ module('Acceptance | palettes', function (hooks) {
       let sourceListThirdColor = sourceList.querySelectorAll(
         '[data-test-color-history-square]'
       )[2];
+
       assert
         .dom('[data-test-color-history-square]', sourceList)
         .exists({ count: 4 });
@@ -235,12 +241,13 @@ module('Acceptance | palettes', function (hooks) {
       let targetList = find(
         '[data-test-palette-row="Second Palette"]'
       ).querySelector('.palette-color-squares');
+
       assert
         .dom('[data-test-palette-color-square]', targetList)
         .exists({ count: 2 });
       assert
         .dom(sourceListThirdColor)
-        .hasStyle({ backgroundColor: 'rgb(247, 138, 224)' });
+        .hasStyle({ backgroundColor: 'rgb(74, 242, 161)' });
 
       await move(sourceList, 2, targetList, 1, false);
 
@@ -250,9 +257,11 @@ module('Acceptance | palettes', function (hooks) {
         '[data-test-palette-row="Second Palette"]'
       ).querySelector('.palette-color-squares');
       sourceList = find('[data-test-color-history]');
+
       let targetListThirdColor = targetList.querySelectorAll(
         '[data-test-palette-color-square]'
       )[2];
+
       // Count in colors list does not change when a color is copied out
       assert
         .dom('[data-test-color-history-square]', sourceList)
@@ -262,7 +271,7 @@ module('Acceptance | palettes', function (hooks) {
         .exists({ count: 3 });
       assert
         .dom(targetListThirdColor)
-        .hasStyle({ backgroundColor: 'rgb(247, 138, 224)' });
+        .hasStyle({ backgroundColor: 'rgb(74, 242, 161)' });
 
       // Go to the second palette colors list and edit the third color
       await visit('/colors?paletteId=second-palette');
@@ -270,12 +279,12 @@ module('Acceptance | palettes', function (hooks) {
       assert.dom('[data-test-color-picker]').doesNotExist();
 
       await click(
-        '[data-test-color="Pale Magenta"] [data-test-color-row-menu] [data-test-options-trigger]'
+        '[data-test-color="Shamrock"] [data-test-color-row-menu] [data-test-options-trigger]'
       );
 
       await animationsSettled();
 
-      await click('[data-test-color="Pale Magenta"] [data-test-edit-color]');
+      await click('[data-test-color="Shamrock"] [data-test-edit-color]');
 
       await waitForAll();
 
@@ -305,10 +314,10 @@ module('Acceptance | palettes', function (hooks) {
         .dom('[data-test-color-history] [data-test-color-history-square]')
         .exists({ count: 4 });
 
-      // Pale Magenta should remain in color history and should be replaced with Red in Second Palette
+      // Shamrock should remain in color history and should be replaced with Red in Second Palette
       assert
         .dom(
-          '[data-test-color-history] [data-test-color-history-square="Pale Magenta"]'
+          '[data-test-color-history] [data-test-color-history-square="Shamrock"]'
         )
         .exists();
       assert
@@ -318,7 +327,7 @@ module('Acceptance | palettes', function (hooks) {
         .exists();
       assert
         .dom(
-          '[data-test-palette-row="Second Palette"] [data-test-palette-color-square="Pale Magenta"]'
+          '[data-test-palette-row="Second Palette"] [data-test-palette-color-square="Shamrock"]'
         )
         .doesNotExist();
     });
@@ -335,6 +344,7 @@ module('Acceptance | palettes', function (hooks) {
       let sourceListThirdColor = sourceList.querySelectorAll(
         '[data-test-palette-color-square]'
       )[2];
+
       assert
         .dom('[data-test-palette-color-square]', sourceList)
         .exists({ count: 4 });
@@ -355,9 +365,11 @@ module('Acceptance | palettes', function (hooks) {
       sourceList = find(
         '[data-test-palette-row="First Palette"]'
       ).querySelector('.palette-color-squares');
+
       let targetListThirdColor = targetList.querySelectorAll(
         '[data-test-palette-color-square]'
       )[2];
+
       assert
         .dom('[data-test-palette-color-square]', sourceList)
         .exists({ count: 4 });
@@ -381,6 +393,7 @@ module('Acceptance | palettes', function (hooks) {
       let sourceListThirdColor = sourceList.querySelectorAll(
         '[data-test-palette-color-square]'
       )[2];
+
       assert
         .dom('[data-test-palette-color-square]', sourceList)
         .exists({ count: 3 });
@@ -401,9 +414,11 @@ module('Acceptance | palettes', function (hooks) {
       sourceList = find(
         '[data-test-palette-row="Locked Palette"]'
       ).querySelector('.palette-color-squares');
+
       let targetListThirdColor = targetList.querySelectorAll(
         '[data-test-palette-color-square]'
       )[2];
+
       assert
         .dom('[data-test-palette-color-square]', sourceList)
         .exists({ count: 3 });
@@ -436,7 +451,7 @@ module('Acceptance | palettes', function (hooks) {
   });
 
   // Ember specific tests
-  if (typeof requireNode === 'undefined') {
+  if (!(typeof window !== 'undefined' && window.electronAPI)) {
     test('creating palettes and undo / redo', async function (assert) {
       await visit('/palettes');
 
@@ -547,6 +562,7 @@ module('Acceptance | palettes', function (hooks) {
       let firstColor = sourceList.querySelector(
         '[data-test-palette-color-square]'
       );
+
       assert.dom(firstColor).hasStyle({ backgroundColor: 'rgb(0, 0, 0)' });
 
       await sort(sourceList, 0, 1, true);

@@ -6,20 +6,365 @@
 
 
 
+## v2.2.1 (2025-12-29)
+
+#### :bug: Bug Fix
+* [#2468](https://github.com/shipshapecode/swach/pull/2468) Make Windows capturer DPI aware ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+## v2.2.0 (2025-12-16)
+
+#### :rocket: Enhancement
+* [#2462](https://github.com/shipshapecode/swach/pull/2462) Windows magnifier improvements ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+## v2.1.6 (2025-12-12)
+
+## v2.1.5 (2025-12-12)
+
+## v2.1.4 (2025-12-12)
+
+#### :house: Internal
+* [#2455](https://github.com/shipshapecode/swach/pull/2455) Pipewire 0.9 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+## v2.1.3 (2025-12-12)
+
+## v2.1.2 (2025-12-11)
+
+## v2.1.1 (2025-12-11)
+
+## v2.1.0 (2025-12-10)
+
+#### :rocket: Enhancement
+* [#2429](https://github.com/shipshapecode/swach/pull/2429) Implement new color picker with better updates ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### :house: Internal
+* [#2440](https://github.com/shipshapecode/swach/pull/2440) pnpm update ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+## v2.0.88 (2025-11-22)
+
+## v2.0.87 (2025-11-21)
+
+## v2.0.86 (2025-11-21)
+
+## v2.0.85 (2025-11-21)
+
+## v2.0.84 (2025-11-21)
+
+## v2.0.83 (2025-11-21)
+
+## v2.0.82 (2025-11-21)
+
+## v2.0.81 (2025-11-21)
+
+## v2.0.80 (2025-11-21)
+
+## v2.0.79 (2025-11-21)
+
+## v2.0.78 (2025-11-21)
+
+## v2.0.77 (2025-11-21)
+
+## v2.0.76 (2025-11-21)
+
+## v2.0.75 (2025-11-20)
+
+## v2.0.74 (2025-11-20)
+
+## v2.0.73 (2025-11-20)
+
+## v2.0.72 (2025-11-20)
+
+## v2.0.71 (2025-11-20)
+
+## v2.0.70 (2025-11-20)
+
+## v2.0.69 (2025-11-20)
+
+## v2.0.68 (2025-11-20)
+
+## v2.0.67 (2025-11-20)
+
+## v2.0.66 (2025-11-20)
+
+## v2.0.65 (2025-11-20)
+
+## v2.0.64 (2025-11-20)
+
+## v2.0.63 (2025-11-20)
+
+## v2.0.62 (2025-11-20)
+
+## v2.0.61 (2025-11-20)
+
+## v2.0.60 (2025-11-20)
+
+## v2.0.59 (2025-11-20)
+
+## v2.0.58 (2025-11-20)
+
+## v2.0.57 (2025-11-20)
+
+## v2.0.56 (2025-11-20)
+
+## v2.0.55 (2025-11-20)
+
+## v2.0.54 (2025-11-20)
+
+## v2.0.53 (2025-11-20)
+
+## v2.0.52 (2025-11-20)
+
+## v2.0.51 (2025-11-20)
+
+## v2.0.50 (2025-11-20)
+
+## v2.0.49 (2025-11-20)
+
+## v2.0.48 (2025-11-20)
+
+## v2.0.47 (2025-11-20)
+
+## v2.0.46 (2025-11-19)
+
+## v2.0.45 (2025-11-19)
+
+## v2.0.44 (2025-11-19)
+
+## v2.0.43 (2025-11-19)
+
+## v2.0.42 (2025-11-19)
+
+## v2.0.41 (2025-11-19)
+
+#### :boom: Breaking Change
+* [#2417](https://github.com/shipshapecode/swach/pull/2417) Add color name and zooming functionality to eyedropper ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### :house: Internal
+* [#2418](https://github.com/shipshapecode/swach/pull/2418) Use eSigner to sign for Windows ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+## v2.0.40 (2025-11-10)
+
+## v2.0.39 (2025-11-10)
+
+#### :house: Internal
+* [#2413](https://github.com/shipshapecode/swach/pull/2413) Switch to relative paths in most spots ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+## v2.0.38 (2025-11-10)
+
+## v2.0.37 (2025-11-10)
+
+## v2.0.36 (2025-11-10)
+
+## v2.0.35 (2025-11-10)
+
+## v2.0.34 (2025-11-10)
+
+## v2.0.33 (2025-11-10)
+
+## v2.0.32 (2025-11-10)
+
+## v2.0.31 (2025-11-10)
+
+#### :house: Internal
+* [#2410](https://github.com/shipshapecode/swach/pull/2410) Support ARM for snap ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+## v2.0.30 (2025-11-06)
+
+## v2.0.29 (2025-11-06)
+
+## v2.0.28 (2025-11-06)
+
+## v2.0.27 (2025-11-06)
+
+## v2.0.26 (2025-11-06)
+
+## v2.0.25 (2025-11-06)
+
+## v2.0.24 (2025-11-06)
+
+## v2.0.23 (2025-11-06)
+
+## v2.0.22 (2025-11-05)
+
+## v2.0.21 (2025-11-05)
+
+## v2.0.20 (2025-11-05)
+
+## v2.0.19 (2025-11-05)
+
+## v2.0.18 (2025-11-05)
+
+## v2.0.17 (2025-11-05)
+
+## v2.0.16 (2025-11-05)
+
+## v2.0.15 (2025-11-05)
+
+## v2.0.14 (2025-11-05)
+
+## v2.0.13 (2025-11-04)
+
+## v2.0.12 (2025-11-04)
+
+## v2.0.11 (2025-11-04)
+
+## v2.0.10 (2025-11-04)
+
+## v2.0.9 (2025-11-04)
+
+#### :house: Internal
+* [#2398](https://github.com/shipshapecode/swach/pull/2398) Remove ember-route-template ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+## v2.0.8 (2025-11-04)
+
+## v2.0.7 (2025-11-04)
+
+## v2.0.6 (2025-11-04)
+
+## v2.0.5 (2025-11-04)
+
+## v2.0.4 (2025-11-04)
+
+## v2.0.3 (2025-11-04)
+
+## v2.0.2 (2025-11-04)
+
+## v2.0.1 (2025-11-04)
+
+## v2.0.0 (2025-11-04)
+
+#### :boom: Breaking Change
+
+- [#2332](https://github.com/shipshapecode/swach/pull/2332) Combine electron and ember apps and convert to vite ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2206](https://github.com/shipshapecode/swach/pull/2206) Remove touchbar support ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### :rocket: Enhancement
+
+- [#2394](https://github.com/shipshapecode/swach/pull/2394) Add open on startup support for Linux ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### :bug: Bug Fix
+
+- [#2256](https://github.com/shipshapecode/swach/pull/2256) chore(deps): bump ember-simple-auth@7.1.1 ([@BobrImperator](https://github.com/BobrImperator))
+
+#### :house: Internal
+
+- [#2395](https://github.com/shipshapecode/swach/pull/2395) Update to latest blueprints ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2393](https://github.com/shipshapecode/swach/pull/2393) Use node 22 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2379](https://github.com/shipshapecode/swach/pull/2379) Get forge make command running ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2366](https://github.com/shipshapecode/swach/pull/2366) Update sentry ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2334](https://github.com/shipshapecode/swach/pull/2334) Update ember-render-modifiers ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2333](https://github.com/shipshapecode/swach/pull/2333) Remove ember-tooltips ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2327](https://github.com/shipshapecode/swach/pull/2327) Run template tag codemod, update types ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2281](https://github.com/shipshapecode/swach/pull/2281) Convert scss files to css ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2280](https://github.com/shipshapecode/swach/pull/2280) Run ember-cli-update to 6.4, pin ember-source to 5.12 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2279](https://github.com/shipshapecode/swach/pull/2279) Use node 20 and pnpm 10 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2205](https://github.com/shipshapecode/swach/pull/2205) Update to Ember 5.11 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#2120](https://github.com/shipshapecode/swach/pull/2120) Use ViewTransitions instead of animated outlet ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 2
+
+- Bartlomiej Dudzik ([@BobrImperator](https://github.com/BobrImperator))
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+## v1.2.15 (2024-01-10)
+
+## v1.2.14 (2024-01-10)
+
+## v1.2.13 (2024-01-10)
+
+## v1.2.12 (2024-01-09)
+
+## v1.2.11 (2024-01-08)
+
+## v1.2.10 (2024-01-08)
+
+## v1.2.9 (2024-01-07)
+
+## v1.2.8 (2024-01-07)
+
+## v1.2.7 (2024-01-07)
+
+## v1.2.6 (2024-01-07)
+
+## v1.2.5 (2024-01-07)
+
+## v1.2.4 (2024-01-07)
+
+## v1.2.3 (2024-01-07)
+
+## v1.2.2 (2024-01-07)
+
+## v1.2.1 (2024-01-07)
+
+## v1.2.0 (2024-01-07)
+
+#### :bug: Bug Fix
+
+- [#1948](https://github.com/shipshapecode/swach/pull/1948) Update ember-animated, fix menu not working on contrast checker screen ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### :house: Internal
+
+- [#1949](https://github.com/shipshapecode/swach/pull/1949) Update release-it ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#1946](https://github.com/shipshapecode/swach/pull/1946) Add gts support ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#1918](https://github.com/shipshapecode/swach/pull/1918) ember-cli 5.2.0 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#1945](https://github.com/shipshapecode/swach/pull/1945) Update linting deps, fix lint ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#1944](https://github.com/shipshapecode/swach/pull/1944) Node 18 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#1732](https://github.com/shipshapecode/swach/pull/1732) Ember 5 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#1646](https://github.com/shipshapecode/swach/pull/1646) ember-cli 5 beta, switch from yarn to pnpm ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#1644](https://github.com/shipshapecode/swach/pull/1644) Ember 4.12 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#1634](https://github.com/shipshapecode/swach/pull/1634) Run on ubuntu-latest ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#1540](https://github.com/shipshapecode/swach/pull/1540) More glint updates ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#1536](https://github.com/shipshapecode/swach/pull/1536) ember-cli 4.10 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#1504](https://github.com/shipshapecode/swach/pull/1504) Update electron deps ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#1405](https://github.com/shipshapecode/swach/pull/1405) Embroider 2.x ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#1360](https://github.com/shipshapecode/swach/pull/1360) Pin embroider to 1.8.3 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+- [#1329](https://github.com/shipshapecode/swach/pull/1329) Electron 21 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v1.1.13 (2022-08-02)
 
 #### :house: Internal
-* [#1244](https://github.com/shipshapecode/swach/pull/1244) ember-cli 4.6, bump several deps ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#1244](https://github.com/shipshapecode/swach/pull/1244) ember-cli 4.6, bump several deps ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v1.1.12 (2022-06-01)
 
 #### :bug: Bug Fix
-* [#1142](https://github.com/shipshapecode/swach/pull/1142) Fix dropper, wait for animation, Electron 19 ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#1142](https://github.com/shipshapecode/swach/pull/1142) Fix dropper, wait for animation, Electron 19 ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v1.1.11 (2022-05-31)
@@ -47,9 +392,11 @@
 ## v1.1.0 (2022-05-30)
 
 #### :house: Internal
-* [#1135](https://github.com/shipshapecode/swach/pull/1135) Try electron builder for snap ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#1135](https://github.com/shipshapecode/swach/pull/1135) Try electron builder for snap ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v1.0.10 (2022-05-26)
@@ -65,34 +412,42 @@
 ## v1.0.5 (2022-05-01)
 
 #### :house: Internal
-* [#1093](https://github.com/shipshapecode/swach/pull/1093) Electron 18 ([@rwwagner90](https://github.com/rwwagner90))
-* [#1083](https://github.com/shipshapecode/swach/pull/1083) ember-cli 4.3.0 ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#1093](https://github.com/shipshapecode/swach/pull/1093) Electron 18 ([@rwwagner90](https://github.com/rwwagner90))
+- [#1083](https://github.com/shipshapecode/swach/pull/1083) ember-cli 4.3.0 ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v1.0.4 (2022-04-04)
 
 #### :bug: Bug Fix
-* [#1055](https://github.com/shipshapecode/swach/pull/1055) Fix certificate error issues ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#1055](https://github.com/shipshapecode/swach/pull/1055) Fix certificate error issues ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v1.0.3 (2022-03-12)
 
 #### :bug: Bug Fix
-* [#1024](https://github.com/shipshapecode/swach/pull/1024) Skip validators for prod ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#1024](https://github.com/shipshapecode/swach/pull/1024) Skip validators for prod ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v1.0.2 (2022-03-12)
 
 #### :bug: Bug Fix
-* [#1023](https://github.com/shipshapecode/swach/pull/1023) Fix issue with hex on existing colors ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#1023](https://github.com/shipshapecode/swach/pull/1023) Fix issue with hex on existing colors ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v1.0.1 (2022-03-11)
@@ -100,25 +455,29 @@
 ## v1.0.0 (2022-03-11)
 
 #### :boom: Breaking Change
-* [#1021](https://github.com/shipshapecode/swach/pull/1021) Require users to authenticate, after authenticating once before ([@rwwagner90](https://github.com/rwwagner90))
-* [#897](https://github.com/shipshapecode/swach/pull/897) Electron and node 16 ([@rwwagner90](https://github.com/rwwagner90))
-* [#832](https://github.com/shipshapecode/swach/pull/832) Swach v1: Add user accounts and API integration ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#1021](https://github.com/shipshapecode/swach/pull/1021) Require users to authenticate, after authenticating once before ([@rwwagner90](https://github.com/rwwagner90))
+- [#897](https://github.com/shipshapecode/swach/pull/897) Electron and node 16 ([@rwwagner90](https://github.com/rwwagner90))
+- [#832](https://github.com/shipshapecode/swach/pull/832) Swach v1: Add user accounts and API integration ([@rwwagner90](https://github.com/rwwagner90))
 
 #### :rocket: Enhancement
-* [#1012](https://github.com/shipshapecode/swach/pull/1012) Update deps, fix styles, tweak things for 1.0 ([@rwwagner90](https://github.com/rwwagner90))
-* [#692](https://github.com/shipshapecode/swach/pull/692) CU-kgwa48 - Hide menu and eyedropper when color picker is active ([@hannakim91](https://github.com/hannakim91))
+
+- [#1012](https://github.com/shipshapecode/swach/pull/1012) Update deps, fix styles, tweak things for 1.0 ([@rwwagner90](https://github.com/rwwagner90))
+- [#692](https://github.com/shipshapecode/swach/pull/692) CU-kgwa48 - Hide menu and eyedropper when color picker is active ([@hannakim91](https://github.com/hannakim91))
 
 #### :house: Internal
-* [#971](https://github.com/shipshapecode/swach/pull/971) Testing refactor ([@dgeb](https://github.com/dgeb))
-* [#918](https://github.com/shipshapecode/swach/pull/918) Remove ember-box, update to ember 4 ([@rwwagner90](https://github.com/rwwagner90))
-* [#911](https://github.com/shipshapecode/swach/pull/911) Use explicit injections, update ember-orbit ([@rwwagner90](https://github.com/rwwagner90))
-* [#904](https://github.com/shipshapecode/swach/pull/904) ember-cli 4.1.0 ([@rwwagner90](https://github.com/rwwagner90))
-* [#903](https://github.com/shipshapecode/swach/pull/903) Switch to native EyeDropper ([@rwwagner90](https://github.com/rwwagner90))
-* [#900](https://github.com/shipshapecode/swach/pull/900) Tailwind v3 ([@rwwagner90](https://github.com/rwwagner90))
-* [#893](https://github.com/shipshapecode/swach/pull/893) V1 tweaks ([@rwwagner90](https://github.com/rwwagner90))
-* [#780](https://github.com/shipshapecode/swach/pull/780) Bump deps, fix lint ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#971](https://github.com/shipshapecode/swach/pull/971) Testing refactor ([@dgeb](https://github.com/dgeb))
+- [#918](https://github.com/shipshapecode/swach/pull/918) Remove ember-box, update to ember 4 ([@rwwagner90](https://github.com/rwwagner90))
+- [#911](https://github.com/shipshapecode/swach/pull/911) Use explicit injections, update ember-orbit ([@rwwagner90](https://github.com/rwwagner90))
+- [#904](https://github.com/shipshapecode/swach/pull/904) ember-cli 4.1.0 ([@rwwagner90](https://github.com/rwwagner90))
+- [#903](https://github.com/shipshapecode/swach/pull/903) Switch to native EyeDropper ([@rwwagner90](https://github.com/rwwagner90))
+- [#900](https://github.com/shipshapecode/swach/pull/900) Tailwind v3 ([@rwwagner90](https://github.com/rwwagner90))
+- [#893](https://github.com/shipshapecode/swach/pull/893) V1 tweaks ([@rwwagner90](https://github.com/rwwagner90))
+- [#780](https://github.com/shipshapecode/swach/pull/780) Bump deps, fix lint ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 3
+
 - Dan Gebhardt ([@dgeb](https://github.com/dgeb))
 - Hanna (she/her) ([@hannakim91](https://github.com/hannakim91))
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
@@ -130,9 +489,11 @@
 ## v0.7.3 (2021-02-16)
 
 #### :house: Internal
-* [#550](https://github.com/shipshapecode/swach/pull/550) Fix some types, bump some deps ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#550](https://github.com/shipshapecode/swach/pull/550) Fix some types, bump some deps ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v0.7.2 (2021-02-16)
@@ -142,12 +503,14 @@
 ## v0.7.0 (2021-02-09)
 
 #### :rocket: Enhancement
-* [#521](https://github.com/shipshapecode/swach/pull/521) Add share palette functionality ([@rwwagner90](https://github.com/rwwagner90))
-* [#517](https://github.com/shipshapecode/swach/pull/517) Update color row menu ([@rwwagner90](https://github.com/rwwagner90))
-* [#507](https://github.com/shipshapecode/swach/pull/507) Add color format setting ([@rwwagner90](https://github.com/rwwagner90))
-* [#505](https://github.com/shipshapecode/swach/pull/505) Replace EmberPopover with Tailwind dropdown ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#521](https://github.com/shipshapecode/swach/pull/521) Add share palette functionality ([@rwwagner90](https://github.com/rwwagner90))
+- [#517](https://github.com/shipshapecode/swach/pull/517) Update color row menu ([@rwwagner90](https://github.com/rwwagner90))
+- [#507](https://github.com/shipshapecode/swach/pull/507) Add color format setting ([@rwwagner90](https://github.com/rwwagner90))
+- [#505](https://github.com/shipshapecode/swach/pull/505) Replace EmberPopover with Tailwind dropdown ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v0.6.7 (2021-01-28)
@@ -165,17 +528,21 @@
 ## v0.6.1 (2021-01-26)
 
 #### :bug: Bug Fix
-* [#504](https://github.com/shipshapecode/swach/pull/504) Fix undefined color copy ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#504](https://github.com/shipshapecode/swach/pull/504) Fix undefined color copy ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v0.6.0 (2021-01-26)
 
 #### :rocket: Enhancement
-* [#503](https://github.com/shipshapecode/swach/pull/503) Fix placement for Windows taskbar ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#503](https://github.com/shipshapecode/swach/pull/503) Fix placement for Windows taskbar ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v0.5.14 (2021-01-26)
@@ -199,14 +566,17 @@
 ## v0.5.5 (2021-01-25)
 
 #### :rocket: Enhancement
-* [#489](https://github.com/shipshapecode/swach/pull/489) Update styles, add ability to clear color history ([@rwwagner90](https://github.com/rwwagner90))
-* [#500](https://github.com/shipshapecode/swach/pull/500) Allow select all in inputs ([@r0bc4ry](https://github.com/r0bc4ry))
+
+- [#489](https://github.com/shipshapecode/swach/pull/489) Update styles, add ability to clear color history ([@rwwagner90](https://github.com/rwwagner90))
+- [#500](https://github.com/shipshapecode/swach/pull/500) Allow select all in inputs ([@r0bc4ry](https://github.com/r0bc4ry))
 
 #### :house: Internal
-* [#502](https://github.com/shipshapecode/swach/pull/502) Add back CSP ([@rwwagner90](https://github.com/rwwagner90))
-* [#499](https://github.com/shipshapecode/swach/pull/499) Add volta ([@chuckcarpenter](https://github.com/chuckcarpenter))
+
+- [#502](https://github.com/shipshapecode/swach/pull/502) Add back CSP ([@rwwagner90](https://github.com/rwwagner90))
+- [#499](https://github.com/shipshapecode/swach/pull/499) Add volta ([@chuckcarpenter](https://github.com/chuckcarpenter))
 
 #### Committers: 4
+
 - Chuck Carpenter ([@chuckcarpenter](https://github.com/chuckcarpenter))
 - Rob Cary ([@r0bc4ry](https://github.com/r0bc4ry))
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
@@ -215,9 +585,11 @@
 ## v0.5.4 (2021-01-18)
 
 #### :bug: Bug Fix
-* [#488](https://github.com/shipshapecode/swach/pull/488) Check if palette is disconnected ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#488](https://github.com/shipshapecode/swach/pull/488) Check if palette is disconnected ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v0.5.3 (2021-01-15)
@@ -229,30 +601,35 @@
 ## v0.5.0 (2021-01-15)
 
 #### :boom: Breaking Change
-* [#452](https://github.com/shipshapecode/swach/pull/452) Make color to palette relationship a hasOne ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#452](https://github.com/shipshapecode/swach/pull/452) Make color to palette relationship a hasOne ([@rwwagner90](https://github.com/rwwagner90))
 
 #### :rocket: Enhancement
-* [#482](https://github.com/shipshapecode/swach/pull/482) Ensure colors are deleted when they no longer belong to palettes ([@rwwagner90](https://github.com/rwwagner90))
-* [#467](https://github.com/shipshapecode/swach/pull/467) Update welcome page styling ([@rwwagner90](https://github.com/rwwagner90))
-* [#449](https://github.com/shipshapecode/swach/pull/449) Add download success / error flash message ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#482](https://github.com/shipshapecode/swach/pull/482) Ensure colors are deleted when they no longer belong to palettes ([@rwwagner90](https://github.com/rwwagner90))
+- [#467](https://github.com/shipshapecode/swach/pull/467) Update welcome page styling ([@rwwagner90](https://github.com/rwwagner90))
+- [#449](https://github.com/shipshapecode/swach/pull/449) Add download success / error flash message ([@rwwagner90](https://github.com/rwwagner90))
 
 #### :bug: Bug Fix
-* [#483](https://github.com/shipshapecode/swach/pull/483) Fix duplicate application route ([@rwwagner90](https://github.com/rwwagner90))
-* [#471](https://github.com/shipshapecode/swach/pull/471) Fix duplicate palette functionality ([@rwwagner90](https://github.com/rwwagner90))
-* [#469](https://github.com/shipshapecode/swach/pull/469) Make updating base color values update all colors ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#483](https://github.com/shipshapecode/swach/pull/483) Fix duplicate application route ([@rwwagner90](https://github.com/rwwagner90))
+- [#471](https://github.com/shipshapecode/swach/pull/471) Fix duplicate palette functionality ([@rwwagner90](https://github.com/rwwagner90))
+- [#469](https://github.com/shipshapecode/swach/pull/469) Make updating base color values update all colors ([@rwwagner90](https://github.com/rwwagner90))
 
 #### :house: Internal
-* [#481](https://github.com/shipshapecode/swach/pull/481) Yarn upgrade ([@rwwagner90](https://github.com/rwwagner90))
-* [#470](https://github.com/shipshapecode/swach/pull/470) Convert context menu to glimmer ([@rwwagner90](https://github.com/rwwagner90))
-* [#465](https://github.com/shipshapecode/swach/pull/465) ember-cli 3.24 ([@rwwagner90](https://github.com/rwwagner90))
-* [#451](https://github.com/shipshapecode/swach/pull/451) GitHub actions workflow refactor ([@rwwagner90](https://github.com/rwwagner90))
-* [#450](https://github.com/shipshapecode/swach/pull/450) Fix electron tests ([@rwwagner90](https://github.com/rwwagner90))
-* [#448](https://github.com/shipshapecode/swach/pull/448) Start converting components to TS ([@rwwagner90](https://github.com/rwwagner90))
-* [#446](https://github.com/shipshapecode/swach/pull/446) Build with embroider, remove power select ([@rwwagner90](https://github.com/rwwagner90))
-* [#445](https://github.com/shipshapecode/swach/pull/445) Fix settings TS issues ([@rwwagner90](https://github.com/rwwagner90))
-* [#433](https://github.com/shipshapecode/swach/pull/433) Use ember-orbit beta ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#481](https://github.com/shipshapecode/swach/pull/481) Yarn upgrade ([@rwwagner90](https://github.com/rwwagner90))
+- [#470](https://github.com/shipshapecode/swach/pull/470) Convert context menu to glimmer ([@rwwagner90](https://github.com/rwwagner90))
+- [#465](https://github.com/shipshapecode/swach/pull/465) ember-cli 3.24 ([@rwwagner90](https://github.com/rwwagner90))
+- [#451](https://github.com/shipshapecode/swach/pull/451) GitHub actions workflow refactor ([@rwwagner90](https://github.com/rwwagner90))
+- [#450](https://github.com/shipshapecode/swach/pull/450) Fix electron tests ([@rwwagner90](https://github.com/rwwagner90))
+- [#448](https://github.com/shipshapecode/swach/pull/448) Start converting components to TS ([@rwwagner90](https://github.com/rwwagner90))
+- [#446](https://github.com/shipshapecode/swach/pull/446) Build with embroider, remove power select ([@rwwagner90](https://github.com/rwwagner90))
+- [#445](https://github.com/shipshapecode/swach/pull/445) Fix settings TS issues ([@rwwagner90](https://github.com/rwwagner90))
+- [#433](https://github.com/shipshapecode/swach/pull/433) Use ember-orbit beta ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 3
+
 - Chuck Carpenter ([@chuckcarpenter](https://github.com/chuckcarpenter))
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
@@ -260,12 +637,15 @@
 ## v0.4.17 (2020-12-14)
 
 #### :bug: Bug Fix
-* [#424](https://github.com/shipshapecode/swach/pull/424) Cleanup edited color data ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#424](https://github.com/shipshapecode/swach/pull/424) Cleanup edited color data ([@rwwagner90](https://github.com/rwwagner90))
 
 #### :house: Internal
-* [#418](https://github.com/shipshapecode/swach/pull/418) Use tailwind for transitions ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#418](https://github.com/shipshapecode/swach/pull/418) Use tailwind for transitions ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v0.4.16 (2020-12-11)
@@ -289,15 +669,18 @@
 ## v0.4.7 (2020-12-08)
 
 #### :rocket: Enhancement
-* [#409](https://github.com/shipshapecode/swach/pull/409) Manually trigger context menu instead of using mixins ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#409](https://github.com/shipshapecode/swach/pull/409) Manually trigger context menu instead of using mixins ([@rwwagner90](https://github.com/rwwagner90))
 
 #### :house: Internal
-* [#412](https://github.com/shipshapecode/swach/pull/412) Build snaps with electron-forge ([@rwwagner90](https://github.com/rwwagner90))
-* [#408](https://github.com/shipshapecode/swach/pull/408) Update eslint-plugin-ember ([@rwwagner90](https://github.com/rwwagner90))
-* [#407](https://github.com/shipshapecode/swach/pull/407) Start splitting up workflows ([@rwwagner90](https://github.com/rwwagner90))
-* [#406](https://github.com/shipshapecode/swach/pull/406) Tailwind v2 ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#412](https://github.com/shipshapecode/swach/pull/412) Build snaps with electron-forge ([@rwwagner90](https://github.com/rwwagner90))
+- [#408](https://github.com/shipshapecode/swach/pull/408) Update eslint-plugin-ember ([@rwwagner90](https://github.com/rwwagner90))
+- [#407](https://github.com/shipshapecode/swach/pull/407) Start splitting up workflows ([@rwwagner90](https://github.com/rwwagner90))
+- [#406](https://github.com/shipshapecode/swach/pull/406) Tailwind v2 ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 2
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 
@@ -316,50 +699,61 @@
 ## v0.4.0 (2020-12-04)
 
 #### :rocket: Enhancement
-* [#397](https://github.com/shipshapecode/swach/pull/397) Add support for Apple silicon ([@rwwagner90](https://github.com/rwwagner90))
-* [#396](https://github.com/shipshapecode/swach/pull/396) Update settings page ([@rwwagner90](https://github.com/rwwagner90))
-* [#395](https://github.com/shipshapecode/swach/pull/395) Add cut/copy/paste support to inputs ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#397](https://github.com/shipshapecode/swach/pull/397) Add support for Apple silicon ([@rwwagner90](https://github.com/rwwagner90))
+- [#396](https://github.com/shipshapecode/swach/pull/396) Update settings page ([@rwwagner90](https://github.com/rwwagner90))
+- [#395](https://github.com/shipshapecode/swach/pull/395) Add cut/copy/paste support to inputs ([@rwwagner90](https://github.com/rwwagner90))
 
 #### :house: Internal
-* [#394](https://github.com/shipshapecode/swach/pull/394) Add types for models ([@rwwagner90](https://github.com/rwwagner90))
-* [#393](https://github.com/shipshapecode/swach/pull/393) Start converting to TypeScript ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#394](https://github.com/shipshapecode/swach/pull/394) Add types for models ([@rwwagner90](https://github.com/rwwagner90))
+- [#393](https://github.com/shipshapecode/swach/pull/393) Start converting to TypeScript ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 2
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 
 ## v0.3.0 (2020-11-05)
 
 #### :boom: Breaking Change
-* [#343](https://github.com/shipshapecode/swach/pull/343) Remove data migration scripts ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#343](https://github.com/shipshapecode/swach/pull/343) Remove data migration scripts ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 2
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 
 ## v0.2.18 (2020-10-13)
 
 #### :house: Internal
-* [#306](https://github.com/shipshapecode/swach/pull/306) Use setLoginItemSettings to set openAtLogin ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#306](https://github.com/shipshapecode/swach/pull/306) Use setLoginItemSettings to set openAtLogin ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 2
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 
 ## v0.2.17 (2020-10-09)
 
 #### :bug: Bug Fix
-* [#300](https://github.com/shipshapecode/swach/pull/300) Fix audio path in Windows ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#300](https://github.com/shipshapecode/swach/pull/300) Fix audio path in Windows ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v0.2.16 (2020-10-08)
 
 #### :bug: Bug Fix
-* [#298](https://github.com/shipshapecode/swach/pull/298) Fix sentry and font issues ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#298](https://github.com/shipshapecode/swach/pull/298) Fix sentry and font issues ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v0.2.15 (2020-10-04)
@@ -385,9 +779,11 @@
 ## v0.2.5 (2020-09-10)
 
 #### :bug: Bug Fix
-* [#259](https://github.com/shipshapecode/swach/pull/259) Fix dock icon always showing on MacOS ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#259](https://github.com/shipshapecode/swach/pull/259) Fix dock icon always showing on MacOS ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v0.2.4 (2020-09-10)
@@ -397,10 +793,12 @@
 ## v0.2.2 (2020-09-09)
 
 #### :rocket: Enhancement
-* [#258](https://github.com/shipshapecode/swach/pull/258) Set theme earlier, various style and performance tweaks ([@rwwagner90](https://github.com/rwwagner90))
-* [#256](https://github.com/shipshapecode/swach/pull/256) Support TouchBar on Color Harmonies page ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#258](https://github.com/shipshapecode/swach/pull/258) Set theme earlier, various style and performance tweaks ([@rwwagner90](https://github.com/rwwagner90))
+- [#256](https://github.com/shipshapecode/swach/pull/256) Support TouchBar on Color Harmonies page ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 2
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 
@@ -409,108 +807,127 @@
 ## v0.2.0 (2020-09-04)
 
 #### :boom: Breaking Change
-* [#234](https://github.com/shipshapecode/swach/pull/234) Migrate data from `serve` to `file`  ([@rwwagner90](https://github.com/rwwagner90))
-* [#230](https://github.com/shipshapecode/swach/pull/230) Switch to serving via file urls ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#234](https://github.com/shipshapecode/swach/pull/234) Migrate data from `serve` to `file` ([@rwwagner90](https://github.com/rwwagner90))
+- [#230](https://github.com/shipshapecode/swach/pull/230) Switch to serving via file urls ([@rwwagner90](https://github.com/rwwagner90))
 
 #### :rocket: Enhancement
-* [#243](https://github.com/shipshapecode/swach/pull/243) Tweak data migration ([@rwwagner90](https://github.com/rwwagner90))
-* [#229](https://github.com/shipshapecode/swach/pull/229) Electron 10 ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#243](https://github.com/shipshapecode/swach/pull/243) Tweak data migration ([@rwwagner90](https://github.com/rwwagner90))
+- [#229](https://github.com/shipshapecode/swach/pull/229) Electron 10 ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 2
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 
 ## v0.1.42 (2020-07-24)
 
 #### :rocket: Enhancement
-* [#171](https://github.com/shipshapecode/swach/pull/171) Add data import/export feature ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#171](https://github.com/shipshapecode/swach/pull/171) Add data import/export feature ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 2
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 
 ## v0.1.41 (2020-06-26)
 
 #### :rocket: Enhancement
-* [#121](https://github.com/shipshapecode/swach/pull/121) Allow setting a new base color for color harmonies ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#121](https://github.com/shipshapecode/swach/pull/121) Allow setting a new base color for color harmonies ([@rwwagner90](https://github.com/rwwagner90))
 
 #### :bug: Bug Fix
-* [#139](https://github.com/shipshapecode/swach/pull/139) Add Snapcraft layout for scrot ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#139](https://github.com/shipshapecode/swach/pull/139) Add Snapcraft layout for scrot ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 2
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
-
 
 ## v0.1.30 (2020-06-13)
 
 #### :rocket: Enhancement
-* [#120](https://github.com/shipshapecode/swach/pull/120) Add setting for showing/hiding notifications ([@rwwagner90](https://github.com/rwwagner90))
-* [#119](https://github.com/shipshapecode/swach/pull/119) Support undo/redo through application menu ([@rwwagner90](https://github.com/rwwagner90))
-* [#118](https://github.com/shipshapecode/swach/pull/118) Add application menu ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#120](https://github.com/shipshapecode/swach/pull/120) Add setting for showing/hiding notifications ([@rwwagner90](https://github.com/rwwagner90))
+- [#119](https://github.com/shipshapecode/swach/pull/119) Support undo/redo through application menu ([@rwwagner90](https://github.com/rwwagner90))
+- [#118](https://github.com/shipshapecode/swach/pull/118) Add application menu ([@rwwagner90](https://github.com/rwwagner90))
 
 #### :bug: Bug Fix
-* [#117](https://github.com/shipshapecode/swach/pull/117) Fix contrast checker overflow issues ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#117](https://github.com/shipshapecode/swach/pull/117) Fix contrast checker overflow issues ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
-- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v0.1.29 (2020-06-11)
 
 #### :bug: Bug Fix
-* [#116](https://github.com/shipshapecode/swach/pull/116) Add libx11-6 to Snapcraft packages ([@rwwagner90](https://github.com/rwwagner90))
-* [#114](https://github.com/shipshapecode/swach/pull/114) Fix menu styles ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#116](https://github.com/shipshapecode/swach/pull/116) Add libx11-6 to Snapcraft packages ([@rwwagner90](https://github.com/rwwagner90))
+- [#114](https://github.com/shipshapecode/swach/pull/114) Fix menu styles ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 2
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 
 ## v0.1.28 (2020-06-10)
 
 #### :rocket: Enhancement
-* [#111](https://github.com/shipshapecode/swach/pull/111) Remove loading indicator and delay showing ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#111](https://github.com/shipshapecode/swach/pull/111) Remove loading indicator and delay showing ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 2
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
 
 ## v0.1.18 (2020-05-17)
 
 #### :bug: Bug Fix
-* [#80](https://github.com/shipshapecode/swach/pull/80) Fix input masks, add tests ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#80](https://github.com/shipshapecode/swach/pull/80) Fix input masks, add tests ([@rwwagner90](https://github.com/rwwagner90))
 
 #### :house: Internal
-* [#79](https://github.com/shipshapecode/swach/pull/79) Lxd hacks for snap ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#79](https://github.com/shipshapecode/swach/pull/79) Lxd hacks for snap ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
-- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v0.1.0-beta.17 (2020-05-04)
 
 #### :rocket: Enhancement
-* [#58](https://github.com/shipshapecode/swach/pull/58) Add welcome page ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#58](https://github.com/shipshapecode/swach/pull/58) Add welcome page ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 2
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
-
 
 ## v0.1.0-beta.15 (2020-04-26)
 
 #### :rocket: Enhancement
-* [#50](https://github.com/shipshapecode/swach/pull/50) Add show/hide dock icon setting ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#50](https://github.com/shipshapecode/swach/pull/50) Add show/hide dock icon setting ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 1
-- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
+- Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 
 ## v0.1.0-beta.14 (2020-04-24)
 
 #### :rocket: Enhancement
-* [#47](https://github.com/shipshapecode/swach/pull/47) Allow editing colors ([@rwwagner90](https://github.com/rwwagner90))
+
+- [#47](https://github.com/shipshapecode/swach/pull/47) Allow editing colors ([@rwwagner90](https://github.com/rwwagner90))
 
 #### Committers: 2
+
 - Robert Wagner ([@rwwagner90](https://github.com/rwwagner90))
 - [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)

@@ -1,10 +1,10 @@
 import { isEmpty } from '@ember/utils';
 
-import { Model, attr, hasOne } from 'ember-orbit';
+import { attr, hasOne, Model } from 'ember-orbit';
 
 import { TinyColor } from '@ctrl/tinycolor';
 
-import type PaletteModel from 'swach/data-models/palette';
+import type PaletteModel from '../data-models/palette.ts';
 
 export default class ColorModel extends Model {
   @attr('datetime') createdAt!: string;
@@ -18,16 +18,19 @@ export default class ColorModel extends Model {
 
   get hex(): string {
     const { r, g, b, a } = this;
+
     return rgbaToHex(r, g, b, a);
   }
 
   get hsl(): string {
     const { r, g, b, a } = this;
+
     return new TinyColor({ r, g, b, a }).toHslString();
   }
 
   get rgba(): string {
     const { r, g, b, a } = this;
+
     return new TinyColor({ r, g, b, a }).toRgbString();
   }
 }

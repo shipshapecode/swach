@@ -2,8 +2,8 @@ import Controller, { inject as controller } from '@ember/controller';
 
 import { storageFor } from 'ember-local-storage';
 
-import ApplicationController from 'swach/controllers/application';
-import { SettingsStorage } from 'swach/storages/settings';
+import type ApplicationController from '../../controllers/application.ts';
+import type { SettingsStorage } from '../../storages/settings.ts';
 
 export default class WelcomeDockIconController extends Controller {
   @controller application!: ApplicationController;

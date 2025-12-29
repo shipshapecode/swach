@@ -1,16 +1,18 @@
-import Transition from '@ember/routing/-private/transition';
 import Route from '@ember/routing/route';
+import type Transition from '@ember/routing/transition';
 import { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
-import type { LiveQuery, Store } from 'ember-orbit';
-import type Session from 'ember-simple-auth/services/session';
+import { orbit, type LiveQuery, type Store } from 'ember-orbit';
 
-import { SettingsStorage } from 'swach/storages/settings';
+import type Session from '../services/session.ts';
+import type { SettingsStorage } from '../storages/settings.ts';
+import viewTransitions from '../utils/view-transitions.ts';
 
 export default class PalettesRoute extends Route {
+  @orbit declare store: Store;
+
   @service declare session: Session;
-  @service declare store: Store;
 
   @storageFor('settings') settings!: SettingsStorage;
 
@@ -27,5 +29,9 @@ export default class PalettesRoute extends Route {
         .filter({ attribute: 'isColorHistory', value: false })
         .sort('index')
     );
+  }
+
+  async afterModel() {
+    await viewTransitions();
   }
 }

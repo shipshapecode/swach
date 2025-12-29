@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "allowJs": true,
+    "types": ["node", "electron"],
+    "lib": ["ES2022", "DOM"],
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist"
+  },
+  "include": [
+    "main.ts",
+    "magnifier/**/*",
+    "src/**/*",
+    "tests/**/*",
+    "../types/global.d.ts",
+    "../types/color-name-list/index.d.ts",
+    "../types/nearest-color/index.d.ts"
+  ],
+  "exclude": ["node_modules", "dist", ".vite"]
+}

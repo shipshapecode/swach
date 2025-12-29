@@ -1,4 +1,4 @@
-import ENV from 'swach/config/environment';
+import ENV from 'Swach/config/environment';
 
 const { SCHEMA_VERSION } = ENV;
 

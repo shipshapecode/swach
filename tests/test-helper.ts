@@ -1,19 +1,18 @@
 import { setApplication } from '@ember/test-helpers';
-import { start } from 'ember-qunit';
+import { start as qunitStart, setupEmberOnerrorValidation } from 'ember-qunit';
+import setupSinon from 'ember-sinon-qunit';
 import * as QUnit from 'qunit';
 import { setup } from 'qunit-dom';
 
-import setupSinon from 'ember-sinon-qunit';
+import Application from 'Swach/app';
+import config from 'Swach/config/environment';
 
-import Application from 'swach/app';
-import config from 'swach/config/environment';
+export function start() {
+  setApplication(Application.create(config.APP));
 
-import './helpers/flash-message';
+  setup(QUnit.assert);
+  setupSinon();
+  setupEmberOnerrorValidation();
 
-setup(QUnit.assert);
-
-setApplication(Application.create(config.APP));
-
-setupSinon();
-
-start();
+  qunitStart();
+}

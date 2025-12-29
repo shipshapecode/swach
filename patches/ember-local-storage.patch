@@ -1,0 +1,19 @@
+diff --git a/addon/helpers/storage.js b/addon/helpers/storage.js
+index b5137d36583137bf11154462af08195923e7ebab..fa9e92c8084de95a6690c52e82f991c36c62a998 100644
+--- a/addon/helpers/storage.js
++++ b/addon/helpers/storage.js
+@@ -1,7 +1,13 @@
+ import { assert } from '@ember/debug';
+ import EmberObject, { computed, get } from '@ember/object';
+ import { getOwner } from '@ember/application';
+-import { dasherize } from '@ember/string';
++
++function dasherize(str) {
++  return str
++    .replace(/([a-z\d])([A-Z])/g, '$1-$2') // Add a dash between lowercase and uppercase letters
++    .replace(/[_\s]+/g, '-') // Replace underscores or spaces with dashes
++    .toLowerCase(); // Convert the string to lowercase
++}
+ 
+ const storage = {};
+ 

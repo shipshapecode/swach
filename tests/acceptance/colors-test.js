@@ -5,12 +5,11 @@ import {
   triggerEvent,
   visit,
 } from '@ember/test-helpers';
+import { animationsSettled } from 'ember-animated/test-support';
 import { module, test } from 'qunit';
 
-import { animationsSettled } from 'ember-animated/test-support';
-
-import { resetStorage, waitForAll } from 'swach/tests/helpers';
-import { setupApplicationTest } from 'swach/tests/helpers/index';
+import { resetStorage, waitForAll } from '../helpers';
+import { setupApplicationTest } from '../helpers/index';
 
 module('Acceptance | colors', function (hooks) {
   setupApplicationTest(hooks);
@@ -121,7 +120,7 @@ module('Acceptance | colors', function (hooks) {
   });
 
   // Ember specific tests
-  if (typeof requireNode === 'undefined') {
+  if (!(typeof window !== 'undefined' && window.electronAPI)) {
     test('ember - deleting colors', async function (assert) {
       await visit('/colors?paletteId=color-history-123');
 
@@ -165,10 +164,9 @@ module('Acceptance | colors', function (hooks) {
   }
 
   // Electron specific tests
-  if (typeof requireNode !== 'undefined') {
+  if (typeof window !== 'undefined' && window.electronAPI) {
     // TODO: We need a way to manually trigger undo and redo in Electron
     // const { ipcRenderer } = requireNode('electron');
-    // eslint-disable-next-line qunit/no-commented-tests
     // test('electron - deleting colors', async function (assert) {
     //   await visit('/colors?paletteId=color-history-123');
     //   assert.dom('[data-test-color]').exists({ count: 4 });

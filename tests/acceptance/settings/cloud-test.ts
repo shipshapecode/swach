@@ -1,17 +1,17 @@
 import { click, currentURL, fillIn, visit } from '@ember/test-helpers';
-import { module, test } from 'qunit';
-
 import {
   MockAuth,
-  MockUser,
   mockAuth,
   mockCognitoUser,
+  MockUser,
 } from 'ember-cognito/test-support';
-
+import { module, test } from 'qunit';
 import sinon from 'sinon';
 
-import { resetStorage, waitForAll } from 'swach/tests/helpers';
-import { setupApplicationTest } from 'swach/tests/helpers/index';
+import type DataService from 'Swach/services/data';
+
+import { resetStorage, waitForAll } from '../../helpers';
+import { setupApplicationTest } from '../../helpers/index.ts';
 
 module('Acceptance | settings/cloud', function (hooks) {
   setupApplicationTest(hooks);
@@ -24,13 +24,13 @@ module('Acceptance | settings/cloud', function (hooks) {
   });
 
   test('user can sign up', async function (assert) {
-    assert.expect(5);
-
     await mockAuth(
       MockAuth.extend({
-        async signUp() {
+        signUp() {
           assert.ok(true, 'signUp has been called');
+
           return MockUser.create({
+            // @ts-expect-error TODO: maybe fix this?
             username: 'testuser@gmail.com',
             attributes: {
               sub: 'aaaabbbb-cccc-dddd-eeee-ffffgggghhhh',
@@ -39,7 +39,7 @@ module('Acceptance | settings/cloud', function (hooks) {
             },
           });
         },
-        async confirmSignUp(username: string, confirmationCode: string) {
+        confirmSignUp(username: string, confirmationCode: string) {
           assert.strictEqual(
             username,
             'testuser@gmail.com',
@@ -50,6 +50,7 @@ module('Acceptance | settings/cloud', function (hooks) {
             '1234',
             'confirmationCode is correct'
           );
+
           return;
         },
       })
@@ -90,12 +91,16 @@ module('Acceptance | settings/cloud', function (hooks) {
         email_verified: 'false',
       },
     });
-    const authenticator = this.owner.lookup('authenticator:cognito');
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const authenticator = this.owner.lookup('authenticator:cognito') as any;
     const authenticateStub = sinon
       .stub(authenticator, 'authenticate')
       .resolves();
 
-    const dataService = this.owner.lookup('service:data');
+    const dataService = this.owner.lookup(
+      'service:data'
+    ) as unknown as DataService;
     const synchronizeStub = sinon.stub(dataService, 'synchronize').resolves();
     const resetStub = sinon.stub(dataService, 'reset').resolves();
 

@@ -2,12 +2,15 @@
 
 # compiled output
 /dist/
+/declarations/
+/tmp/
 
 # dependencies
 /node_modules/
 
 # misc
 /.env*
+*.local
 /.pnp*
 /.sass-cache
 /.eslintcache
@@ -28,5 +31,15 @@
 # broccoli-debug
 /DEBUG/
 
-electron-out/
+out/
 .idea/
+
+# Vite
+.vite/
+
+# Electron-Forge
+out/
+.snapcraft/
+
+# TypeScript
+*.tsbuildinfo

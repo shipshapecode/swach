@@ -1,11 +1,12 @@
-import Transition from '@ember/routing/-private/transition';
 import Route from '@ember/routing/route';
+import type Transition from '@ember/routing/transition';
 import { service } from '@ember/service';
 
 import { storageFor } from 'ember-local-storage';
-import Session from 'ember-simple-auth/services/session';
 
-import { SettingsStorage } from 'swach/storages/settings';
+import type Session from '../../services/session.ts';
+import type { SettingsStorage } from '../../storages/settings.ts';
+import viewTransitions from '../../utils/view-transitions.ts';
 
 export default class SettingsIndexRoute extends Route {
   @service declare session: Session;
@@ -16,5 +17,9 @@ export default class SettingsIndexRoute extends Route {
     if (this.settings.get('userHasLoggedInBefore')) {
       this.session.requireAuthentication(transition, 'settings.cloud.login');
     }
+  }
+
+  async afterModel() {
+    await viewTransitions();
   }
 }

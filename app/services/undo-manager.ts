@@ -1,14 +1,11 @@
 import Service from '@ember/service';
-import { service } from '@ember/service';
 
-import type { Store } from 'ember-orbit';
+import { orbit, type Store } from 'ember-orbit';
 
-import type { IpcRenderer } from 'electron';
-
-import removeFromTo from 'swach/utils/remove-from-to';
+import removeFromTo from '../utils/remove-from-to.ts';
 
 export default class UndoManager extends Service {
-  @service declare store: Store;
+  @orbit declare store: Store;
 
   callback?: () => unknown;
   commands: {
@@ -16,7 +13,7 @@ export default class UndoManager extends Service {
     redo: () => Promise<void>;
   }[] = [];
   index = -1;
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
   isExecuting = false;
   limit = 0;
   undoListener?: (e: KeyboardEvent) => unknown;
@@ -25,11 +22,13 @@ export default class UndoManager extends Service {
     super(...arguments);
 
     // If we have Electron running, use the application undo/redo, else use document
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      const { ipcRenderer } = window.electronAPI;
+
       this.ipcRenderer = ipcRenderer;
 
-      this.ipcRenderer.on('undoRedo', async (_event: unknown, type: string) => {
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      this.ipcRenderer.on('undoRedo', async (type: string) => {
         const isRedo = type === 'redo';
         const isUndo = type === 'undo';
 
@@ -56,7 +55,10 @@ export default class UndoManager extends Service {
   willDestroy(): void {
     super.willDestroy();
 
-    if (typeof requireNode === 'undefined' && this.undoListener) {
+    if (
+      !(typeof window !== 'undefined' && window.electronAPI) &&
+      this.undoListener
+    ) {
       document.removeEventListener('keydown', this.undoListener, true);
     }
 
@@ -86,15 +88,17 @@ export default class UndoManager extends Service {
   async execute(
     command: { undo: () => Promise<void>; redo: () => Promise<void> },
     action: 'undo' | 'redo'
-  ): Promise<UndoManager | unknown> {
+  ) {
     if (!command || typeof command[action] !== 'function') {
       return this;
     }
+
     this.isExecuting = true;
 
     const executed = await command[action]();
 
     this.isExecuting = false;
+
     return executed;
   }
 
@@ -108,6 +112,7 @@ export default class UndoManager extends Service {
     if (this.isExecuting) {
       return this;
     }
+
     // if we are here after having called undo,
     // invalidate items higher on the stack
     this.commands.splice(this.index + 1, this.commands.length - this.index);
@@ -121,9 +126,11 @@ export default class UndoManager extends Service {
 
     // set the current index to the end
     this.index = this.commands.length - 1;
+
     if (this.callback) {
       await this.callback();
     }
+
     return this;
   }
 
@@ -137,39 +144,49 @@ export default class UndoManager extends Service {
   /**
    * Perform undo: call the undo function at the current index and decrease the index by 1.
    */
-  async undo(): Promise<UndoManager | unknown> {
+  async undo() {
     const command = this.commands[this.index];
+
     if (!command) {
       return this;
     }
+
     const executed = await this.execute(command, 'undo');
+
     this.index -= 1;
+
     if (this.callback) {
       this.callback();
     }
+
     return executed;
   }
 
   /**
    * Perform redo: call the redo function at the next index and increase the index by 1.
    */
-  async redo(): Promise<UndoManager | unknown> {
+  async redo() {
     const command = this.commands[this.index + 1];
+
     if (!command) {
       return this;
     }
+
     const executed = await this.execute(command, 'redo');
+
     this.index += 1;
+
     if (this.callback) {
       this.callback();
     }
+
     return executed;
   }
 
   /**
    * Clears the memory, losing all stored states. Reset the index.
    */
-  clear(): void {
+  clear() {
     const prev_size = this.commands.length;
 
     this.commands = [];
@@ -180,11 +197,11 @@ export default class UndoManager extends Service {
     }
   }
 
-  hasUndo(): boolean {
+  hasUndo() {
     return this.index !== -1;
   }
 
-  hasRedo(): boolean {
+  hasRedo() {
     return this.index < this.commands.length - 1;
   }
 
@@ -192,15 +209,15 @@ export default class UndoManager extends Service {
     return this.commands;
   }
 
-  getIndex(): number {
+  getIndex() {
     return this.index;
   }
 
-  setLimit(l: number): void {
+  setLimit(l: number) {
     this.limit = l;
   }
 
-  setupUndoRedo(): void {
+  setupUndoRedo() {
     const transformId = this.store.transformLog.head;
     const redoTransform = this.store.getTransform(transformId).operations;
     const undoTransform = this.store.getInverseOperations(transformId);
@@ -213,6 +230,6 @@ export default class UndoManager extends Service {
       await this.store.update(redoTransform);
     };
 
-    this.add({ undo, redo });
+    void this.add({ undo, redo });
   }
 }

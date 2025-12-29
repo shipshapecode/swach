@@ -4,38 +4,39 @@ import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-import FlashMessageService from 'ember-cli-flash/services/flash-messages';
+import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
-import type { Store } from 'ember-orbit';
-import Session from 'ember-simple-auth/services/session';
+import { orbit, type Store } from 'ember-orbit';
 
 import type { RecordSchema } from '@orbit/records';
-import type { IpcRenderer } from 'electron';
 
-import type ColorModel from 'swach/data-models/color';
-import type ColorUtils from 'swach/services/color-utils';
-import type DataService from 'swach/services/data';
-import type UndoManager from 'swach/services/undo-manager';
-import { SettingsStorage, themes } from 'swach/storages/settings';
+import type { SelectedColorModel } from '../components/rgb-input.gts';
+import type ColorModel from '../data-models/color.ts';
+import type ColorUtils from '../services/color-utils.ts';
+import type DataService from '../services/data.ts';
+import type Session from '../services/session.ts';
+import type UndoManager from '../services/undo-manager.ts';
+import type { SettingsStorage, themes } from '../storages/settings.ts';
 
 export default class ApplicationController extends Controller {
+  @orbit declare dataSchema: RecordSchema;
+  @orbit declare store: Store;
+
   @service declare colorUtils: ColorUtils;
   @service declare data: DataService;
-  @service declare dataSchema: RecordSchema;
   @service flashMessages!: FlashMessageService;
   @service declare router: Router;
   @service declare session: Session;
-  @service declare store: Store;
   @service declare undoManager: UndoManager;
 
   @storageFor('settings') settings!: SettingsStorage;
 
-  declare ipcRenderer: IpcRenderer;
+  declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
 
-  @tracked colorPickerColor?: ColorModel;
+  @tracked colorPickerColor?: SelectedColorModel;
   @tracked colorPickerIsShown = false;
 
-  get hasLoggedInBeforeAndIsAuthenticated(): boolean {
+  get hasLoggedInBeforeAndIsAuthenticated() {
     // eslint-disable-next-line ember/no-get
     const userHasLoggedInBefore = get(this.settings, 'userHasLoggedInBefore');
 
@@ -45,27 +46,27 @@ export default class ApplicationController extends Controller {
     );
   }
 
-  get isContrastRoute(): boolean {
+  get isContrastRoute() {
     return this.router.currentRouteName === 'contrast';
   }
 
-  get isKulerRoute(): boolean {
+  get isKulerRoute() {
     return this.router.currentRouteName === 'kuler';
   }
 
-  get isPalettesRoute(): boolean {
+  get isPalettesRoute() {
     return this.router.currentRouteName === 'palettes';
   }
 
-  get isSettingsRoute(): boolean {
+  get isSettingsRoute() {
     return this.router.currentRouteName === 'settings';
   }
 
-  get isWelcomeRoute(): boolean {
-    return this.router.currentRouteName.includes('welcome');
+  get isWelcomeRoute() {
+    return this.router.currentRouteName?.includes('welcome');
   }
 
-  get showColorWheel(): boolean {
+  get showColorWheel() {
     return (
       this.hasLoggedInBeforeAndIsAuthenticated &&
       !this.isContrastRoute &&
@@ -74,7 +75,7 @@ export default class ApplicationController extends Controller {
     );
   }
 
-  get showEyedropperIcon(): boolean {
+  get showEyedropperIcon() {
     return (
       this.hasLoggedInBeforeAndIsAuthenticated &&
       !this.isContrastRoute &&
@@ -97,17 +98,17 @@ export default class ApplicationController extends Controller {
   constructor() {
     super(...arguments);
 
-    if (typeof requireNode !== 'undefined') {
-      const { ipcRenderer } = requireNode('electron');
-
-      this.ipcRenderer = ipcRenderer;
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      this.ipcRenderer = window.electronAPI.ipcRenderer;
 
       this.ipcRenderer.on(
         'changeColor',
-        async (_event: unknown, color: string) => {
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        async (color: string) => {
           const addedColor = await this.addColor(color);
+
           if (addedColor) {
-            this.colorUtils.copyColorToClipboard(addedColor);
+            await this.colorUtils.copyColorToClipboard(addedColor);
           }
         }
       );
@@ -118,29 +119,35 @@ export default class ApplicationController extends Controller {
 
       this.ipcRenderer.on(
         'openSharedPalette',
-        async (_event: unknown, query: string) => {
-          const data = JSON.parse(decodeURIComponent(query));
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        async (query: string) => {
+          const data = JSON.parse(decodeURIComponent(query)) as {
+            colors?: { name: string; hex: string }[];
+            name?: string;
+          };
           const colors = data?.colors ?? [];
           const name = data?.name ?? 'Palette';
+
           await this.createPalette(name, colors);
         }
       );
 
-      this.ipcRenderer.on('setTheme', (_event: unknown, theme: string) => {
+      this.ipcRenderer.on('setTheme', (theme: string) => {
         this.settings.set('osTheme', theme);
       });
 
       // We have to initially set this, in case somehow the checkbox gets out of sync
       const shouldEnableAutoStart = this.settings.get('openOnStartup');
+
       this.ipcRenderer.send('enableDisableAutoStart', shouldEnableAutoStart);
 
-      this.ipcRenderer
+      void this.ipcRenderer
         .invoke('getStoreValue', 'showDockIcon')
         .then((showDockIcon: boolean) => {
           this.settings.set('showDockIcon', showDockIcon);
         });
 
-      this.ipcRenderer
+      void this.ipcRenderer
         .invoke('getShouldUseDarkColors')
         .then((theme: string) => {
           this.settings.set('osTheme', theme);
@@ -228,10 +235,10 @@ export default class ApplicationController extends Controller {
   }
 
   @action
-  enableDisableAutoStart(e: InputEvent): void {
+  enableDisableAutoStart(event: Event): void {
     this.ipcRenderer.send(
       'enableDisableAutoStart',
-      (<HTMLInputElement>e.target).checked
+      (<HTMLInputElement>event.target).checked
     );
   }
 
@@ -246,16 +253,18 @@ export default class ApplicationController extends Controller {
   }
 
   @action
-  toggleColorPickerIsShown(color?: ColorModel): void {
+  toggleColorPickerIsShown(color?: SelectedColorModel): void {
     if (color?.hex) {
       this.colorPickerColor = color;
     }
+
     this.colorPickerIsShown = !this.colorPickerIsShown;
   }
 
   @action
-  toggleShowDockIcon(e: InputEvent): void {
-    const showDockIcon = (<HTMLInputElement>e.target).checked;
+  toggleShowDockIcon(event: Event): void {
+    const showDockIcon = (<HTMLInputElement>event.target).checked;
+
     this.settings.set('showDockIcon', showDockIcon);
     this.ipcRenderer.send('setShowDockIcon', showDockIcon);
   }

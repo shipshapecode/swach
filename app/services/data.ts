@@ -5,7 +5,7 @@ import { orbit, type Store } from 'ember-orbit';
 
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
-import type { InitializedRecord, RecordIdentity } from '@orbit/records';
+import type { InitializedRecord } from '@orbit/records';
 
 import type Palette from '../data-models/palette.ts';
 import type { SupabaseSource } from '../data-sources/remote.ts';

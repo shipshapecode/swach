@@ -100,8 +100,8 @@ export default class LoginComponent extends Component {
         {{else}}
           {{! Email Entry Step }}
           <p class="text-menu-text text-sm mb-4">
-            Enter your email and we'll send you a code to sign in.
-            No password needed!
+            Enter your email and we'll send you a code to sign in. No password
+            needed!
           </p>
 
           <div class="mb-6">
@@ -201,8 +201,7 @@ export default class LoginComponent extends Component {
 
       this.router.transitionTo('settings.cloud.profile');
     } catch (error: unknown) {
-      this.errorMessage =
-        (error as Error).message || 'Invalid or expired code';
+      this.errorMessage = (error as Error).message || 'Invalid or expired code';
     } finally {
       this.loading = false;
     }

@@ -5,6 +5,7 @@ This document describes the migration from AWS Cognito/DynamoDB to Supabase for 
 ## Overview
 
 The migration replaces:
+
 - **AWS Cognito** -> **Supabase Auth** (with OTP/passwordless login)
 - **AWS DynamoDB** (via API Gateway + Lambda) -> **Supabase PostgreSQL**
 - **AWS IAM** -> **Supabase Row Level Security (RLS)**
@@ -14,11 +15,13 @@ The migration replaces:
 ### Authentication Flow
 
 **Before (Cognito):**
+
 1. User enters email and password
 2. For new users: Enter confirmation code from email
 3. Password reset flow for forgotten passwords
 
 **After (Supabase OTP):**
+
 1. User enters email address
 2. User receives a 6-digit code via email
 3. User enters the code to authenticate
@@ -46,6 +49,7 @@ export SUPABASE_ANON_KEY=your-anon-key
 ### Database Schema
 
 The schema includes:
+
 - `palettes` table for storing palette metadata
 - `colors` table for storing individual colors
 - Row Level Security policies for user data isolation
@@ -55,17 +59,20 @@ The schema includes:
 ## Technical Changes
 
 ### New Files
+
 - `app/services/supabase.ts` - Supabase client wrapper
 - `app/authenticators/supabase.ts` - ember-simple-auth authenticator
 - `app/data-sources/remote.ts` - Orbit.js source using Supabase
 
 ### Removed Files
+
 - `app/services/cognito.js`
 - `app/authenticators/cognito.js`
 - `app/components/forgot-password.gts`
 - `app/components/register-confirm.gts`
 
 ### Modified Files
+
 - `app/components/login.gts` - OTP flow UI
 - `app/components/register.gts` - Simplified (OTP handles both)
 - `config/environment.js` - Supabase config instead of Cognito
@@ -74,10 +81,12 @@ The schema includes:
 ### Dependencies
 
 **Removed:**
+
 - `ember-cognito`
 - `aws4fetch`
 
 **Added:**
+
 - `@supabase/supabase-js`
 
 ## Data Migration for Existing Users
@@ -89,6 +98,7 @@ If you have existing data in AWS DynamoDB:
 3. Import your data using the import feature
 
 The import process will:
+
 - Transform the data format automatically
 - Apply your user ID to all records
 - Preserve all relationships between palettes and colors
@@ -96,6 +106,7 @@ The import process will:
 ## Real-time Sync
 
 Supabase enables real-time sync capabilities:
+
 - Changes sync automatically across devices
 - Other users' changes are invisible (RLS)
 - Offline changes queue and sync when online
@@ -110,13 +121,17 @@ Supabase enables real-time sync capabilities:
 ## Troubleshooting
 
 ### "Supabase configuration is missing"
+
 Make sure `SUPABASE_URL` and `SUPABASE_ANON_KEY` environment variables are set.
 
 ### "Invalid or expired OTP"
+
 Request a new code - codes expire after a few minutes.
 
 ### "Remote requests require authentication"
+
 Make sure you're logged in before syncing.
 
 ### Real-time sync not working
+
 Check that RLS policies are applied correctly and the `supabase_realtime` publication includes your tables.

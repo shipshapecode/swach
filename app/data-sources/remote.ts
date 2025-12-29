@@ -2,18 +2,17 @@ import { getOwner } from '@ember/application';
 
 import { applyStandardSourceInjections } from 'ember-orbit';
 
-import type { RealtimeChannel, SupabaseClient } from '@supabase/supabase-js';
-
 import { Orbit } from '@orbit/core';
 import { Source } from '@orbit/data';
 import type {
   InitializedRecord,
   RecordIdentity,
   RecordOperation,
+  RecordQuery,
   RecordSchema,
   RecordTransformResult,
 } from '@orbit/records';
-import type { RecordQuery } from '@orbit/records';
+import type { RealtimeChannel, SupabaseClient } from '@supabase/supabase-js';
 
 import type SessionService from '../services/session.ts';
 import type SupabaseService from '../services/supabase.ts';
@@ -114,7 +113,7 @@ export class SupabaseSource extends Source {
         const records = await this.findRecords(type);
         results.push(...records);
       } else if (expression.op === 'findRecord') {
-        const record = expression.record as RecordIdentity;
+        const record = expression.record;
         const result = await this.findRecord(record.type, record.id);
         if (result) results.push(result);
       }
@@ -139,50 +138,48 @@ export class SupabaseSource extends Source {
     for (const op of ops) {
       switch (op.op) {
         case 'addRecord': {
-          const record = await this._addRecord(op.record as InitializedRecord);
+          const record = await this._addRecord(op.record);
           results.push(record);
           break;
         }
         case 'updateRecord': {
-          const record = await this.updateRecord(
-            op.record as InitializedRecord
-          );
+          const record = await this.updateRecord(op.record);
           results.push(record);
           break;
         }
         case 'removeRecord': {
-          await this.removeRecord(op.record as RecordIdentity);
+          await this.removeRecord(op.record);
           break;
         }
         case 'replaceRelatedRecords': {
           await this.replaceRelatedRecords(
-            op.record as RecordIdentity,
-            op.relationship as string,
-            op.relatedRecords as RecordIdentity[]
+            op.record,
+            op.relationship,
+            op.relatedRecords
           );
           break;
         }
         case 'replaceRelatedRecord': {
           await this.replaceRelatedRecord(
-            op.record as RecordIdentity,
-            op.relationship as string,
-            op.relatedRecord as RecordIdentity | null
+            op.record,
+            op.relationship,
+            op.relatedRecord
           );
           break;
         }
         case 'addToRelatedRecords': {
           await this.addToRelatedRecords(
-            op.record as RecordIdentity,
-            op.relationship as string,
-            op.relatedRecord as RecordIdentity
+            op.record,
+            op.relationship,
+            op.relatedRecord
           );
           break;
         }
         case 'removeFromRelatedRecords': {
           await this.removeFromRelatedRecords(
-            op.record as RecordIdentity,
-            op.relationship as string,
-            op.relatedRecord as RecordIdentity
+            op.record,
+            op.relationship,
+            op.relatedRecord
           );
           break;
         }
@@ -215,7 +212,9 @@ export class SupabaseSource extends Source {
 
       if (error) throw new Error(`Supabase query error: ${error.message}`);
 
-      return (data as SupabaseColor[]).map((c) => this.transformColorToOrbit(c));
+      return (data as SupabaseColor[]).map((c) =>
+        this.transformColorToOrbit(c)
+      );
     }
   }
 
@@ -259,7 +258,9 @@ export class SupabaseSource extends Source {
   }
 
   // Add a record (internal implementation)
-  private async _addRecord(record: InitializedRecord): Promise<InitializedRecord> {
+  private async _addRecord(
+    record: InitializedRecord
+  ): Promise<InitializedRecord> {
     const tableName = this.getTableName(record.type);
     const supabaseRecord = this.transformFromOrbit(record);
 
@@ -277,7 +278,9 @@ export class SupabaseSource extends Source {
   }
 
   // Update a record
-  private async updateRecord(record: InitializedRecord): Promise<InitializedRecord> {
+  private async updateRecord(
+    record: InitializedRecord
+  ): Promise<InitializedRecord> {
     const tableName = this.getTableName(record.type);
     const supabaseRecord = this.transformFromOrbit(record);
 
@@ -503,7 +506,9 @@ export class SupabaseSource extends Source {
 }
 
 export default {
-  create(injections: SupabaseSourceInjections = { schema: {} as RecordSchema }) {
+  create(
+    injections: SupabaseSourceInjections = { schema: {} as RecordSchema }
+  ) {
     applyStandardSourceInjections(injections);
 
     injections.name = 'remote';

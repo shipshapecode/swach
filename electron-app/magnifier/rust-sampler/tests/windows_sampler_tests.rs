@@ -9,6 +9,7 @@ use swach_sampler::types::{Color, PixelSampler, Point};
 struct MockWindowsSampler {
     screen_width: i32,
     screen_height: i32,
+    dpi_scale: f64,
 }
 
 impl MockWindowsSampler {
@@ -16,22 +17,36 @@ impl MockWindowsSampler {
         MockWindowsSampler {
             screen_width: width,
             screen_height: height,
+            dpi_scale: 1.0, // 100% scaling by default
+        }
+    }
+    
+    fn new_with_dpi(width: i32, height: i32, dpi_scale: f64) -> Self {
+        MockWindowsSampler {
+            screen_width: width,
+            screen_height: height,
+            dpi_scale,
         }
     }
 }
 
 impl PixelSampler for MockWindowsSampler {
     fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
-        // Simulate Windows GetPixel behavior
-        if x < 0 || y < 0 || x >= self.screen_width || y >= self.screen_height {
+        // Simulate DPI coordinate conversion (physical -> logical)
+        let logical_x = (x as f64 / self.dpi_scale) as i32;
+        let logical_y = (y as f64 / self.dpi_scale) as i32;
+        
+        // Simulate Windows GetPixel behavior (in logical coordinates)
+        if logical_x < 0 || logical_y < 0 || logical_x >= self.screen_width || logical_y >= self.screen_height {
             return Err(format!("Failed to get pixel at ({}, {})", x, y));
         }
         
         // Simulate COLORREF BGR format conversion to RGB
         // Windows GetPixel returns BGR, we convert to RGB
-        let b_component = (x % 256) as u8;
-        let g_component = (y % 256) as u8;
-        let r_component = ((x + y) % 256) as u8;
+        // Use logical coordinates for color calculation
+        let b_component = (logical_x % 256) as u8;
+        let g_component = (logical_y % 256) as u8;
+        let r_component = ((logical_x + logical_y) % 256) as u8;
         
         Ok(Color::new(r_component, g_component, b_component))
     }
@@ -404,6 +419,225 @@ fn test_windows_sampler_grid_consistency() {
             assert_eq!(grid1[row][col].r, grid2[row][col].r);
             assert_eq!(grid1[row][col].g, grid2[row][col].g);
             assert_eq!(grid1[row][col].b, grid2[row][col].b);
+        }
+    }
+}
+
+// ============================================================================
+// DPI Scaling Tests
+// ============================================================================
+
+#[test]
+fn test_windows_sampler_dpi_100_percent() {
+    // Test 100% DPI scaling (no scaling)
+    let mut sampler = MockWindowsSampler::new_with_dpi(1920, 1080, 1.0);
+    
+    // Physical coordinate 1000 should map to logical 1000
+    let color = sampler.sample_pixel(1000, 500).unwrap();
+    
+    // Color should be based on logical coordinates (1000, 500)
+    assert_eq!(color.b, (1000 % 256) as u8);
+    assert_eq!(color.g, (500 % 256) as u8);
+}
+
+#[test]
+fn test_windows_sampler_dpi_150_percent() {
+    // Test 150% DPI scaling (1.5x)
+    let mut sampler = MockWindowsSampler::new_with_dpi(1280, 720, 1.5);
+    
+    // Physical coordinate 1500 should map to logical 1000 (1500 / 1.5)
+    let color = sampler.sample_pixel(1500, 750).unwrap();
+    
+    // Color should be based on logical coordinates (1000, 500)
+    assert_eq!(color.b, (1000 % 256) as u8);
+    assert_eq!(color.g, (500 % 256) as u8);
+}
+
+#[test]
+fn test_windows_sampler_dpi_200_percent() {
+    // Test 200% DPI scaling (2x) - the reported issue
+    let mut sampler = MockWindowsSampler::new_with_dpi(2560, 1440, 2.0);
+    
+    // Physical coordinate 2000 should map to logical 1000 (2000 / 2.0)
+    let color = sampler.sample_pixel(2000, 1000).unwrap();
+    
+    // Color should be based on logical coordinates (1000, 500)
+    assert_eq!(color.b, (1000 % 256) as u8);
+    assert_eq!(color.g, (500 % 256) as u8);
+}
+
+#[test]
+fn test_windows_sampler_dpi_coordinate_conversion() {
+    // Test that DPI scaling correctly converts coordinates
+    let mut sampler = MockWindowsSampler::new_with_dpi(2560, 1440, 2.0);
+    
+    // Test various physical coordinates at 200% DPI
+    let test_cases = vec![
+        (0, 0, 0, 0),           // Origin
+        (100, 200, 50, 100),    // Small coordinates
+        (1000, 500, 500, 250),  // Medium coordinates
+        (2000, 1000, 1000, 500),// Large coordinates
+        (5000, 2800, 2500, 1400),// Near max (5120x2880 physical -> 2560x1440 logical)
+    ];
+    
+    for (physical_x, physical_y, expected_logical_x, expected_logical_y) in test_cases {
+        let color = sampler.sample_pixel(physical_x, physical_y).unwrap();
+        
+        // Verify color matches expected logical coordinates
+        let expected_b = (expected_logical_x % 256) as u8;
+        let expected_g = (expected_logical_y % 256) as u8;
+        
+        assert_eq!(
+            color.b, expected_b,
+            "Physical ({}, {}) should map to logical ({}, {}) at 200% DPI",
+            physical_x, physical_y, expected_logical_x, expected_logical_y
+        );
+        assert_eq!(
+            color.g, expected_g,
+            "Physical ({}, {}) should map to logical ({}, {}) at 200% DPI",
+            physical_x, physical_y, expected_logical_x, expected_logical_y
+        );
+    }
+}
+
+#[test]
+fn test_windows_sampler_dpi_grid_sampling_200_percent() {
+    // Test grid sampling at 200% DPI
+    let mut sampler = MockWindowsSampler::new_with_dpi(2560, 1440, 2.0);
+    
+    // Physical cursor at 2000, 1000 should map to logical 1000, 500
+    let grid = sampler.sample_grid(2000, 1000, 5, 1.0).unwrap();
+    
+    assert_eq!(grid.len(), 5);
+    
+    // Center pixel should be at logical coordinates (1000, 500)
+    let center = &grid[2][2];
+    assert_eq!(center.b, (1000 % 256) as u8);
+    assert_eq!(center.g, (500 % 256) as u8);
+}
+
+#[test]
+fn test_windows_sampler_dpi_5120x2880_display() {
+    // Test actual 5120x2880 display at 200% DPI (user's reported issue)
+    // Logical resolution: 2560x1440
+    let mut sampler = MockWindowsSampler::new_with_dpi(2560, 1440, 2.0);
+    
+    // Cursor in the middle of physical screen: 2560, 1440
+    // Should map to logical: 1280, 720
+    let grid = sampler.sample_grid(2560, 1440, 9, 1.0).unwrap();
+    
+    assert_eq!(grid.len(), 9);
+    
+    // Center pixel should be at logical coordinates (1280, 720)
+    let center = &grid[4][4];
+    assert_eq!(center.b, (1280 % 256) as u8);
+    assert_eq!(center.g, (720 % 256) as u8);
+}
+
+#[test]
+fn test_windows_sampler_dpi_offset_bug() {
+    // Reproduce the reported bug: 500+ pixel offset at 200% DPI
+    let mut sampler = MockWindowsSampler::new_with_dpi(2560, 1440, 2.0);
+    
+    // Without DPI scaling fix, physical 1000 would be treated as logical 1000
+    // With DPI scaling fix, physical 1000 maps to logical 500
+    // The difference is 500 pixels - exactly what was reported!
+    
+    let physical_x = 1000;
+    let expected_logical_x = 500; // physical_x / 2.0
+    
+    let color = sampler.sample_pixel(physical_x, 500).unwrap();
+    
+    // Color should be based on logical coordinates (500, 250)
+    assert_eq!(color.b, (expected_logical_x % 256) as u8);
+    assert_eq!(color.g, (250 % 256) as u8);
+}
+
+#[test]
+fn test_windows_sampler_dpi_various_scales() {
+    // Test common Windows DPI scaling values
+    let scales = vec![
+        (1.0, "100%"),   // No scaling
+        (1.25, "125%"),  // Recommended for 1080p
+        (1.5, "150%"),   // Recommended for 1440p
+        (1.75, "175%"),  // Less common
+        (2.0, "200%"),   // Recommended for 4K/5K
+        (2.5, "250%"),   // High DPI
+        (3.0, "300%"),   // Very high DPI
+    ];
+    
+    for (scale, description) in scales {
+        let mut sampler = MockWindowsSampler::new_with_dpi(1920, 1080, scale);
+        
+        let physical_x = 1000;
+        let expected_logical_x = (physical_x as f64 / scale) as i32;
+        
+        let color = sampler.sample_pixel(physical_x, 500).unwrap();
+        
+        // Verify coordinate conversion works for this scale
+        let expected_b = (expected_logical_x % 256) as u8;
+        assert_eq!(
+            color.b, expected_b,
+            "DPI scaling {} failed: physical {} should map to logical {}",
+            description, physical_x, expected_logical_x
+        );
+    }
+}
+
+#[test]
+fn test_windows_sampler_dpi_out_of_bounds() {
+    // Test that out-of-bounds checking works with DPI scaling
+    let mut sampler = MockWindowsSampler::new_with_dpi(2560, 1440, 2.0);
+    
+    // Physical coordinate 6000 maps to logical 3000, which is > 2560
+    let result = sampler.sample_pixel(6000, 3000);
+    assert!(result.is_err(), "Should fail for out-of-bounds coordinates");
+}
+
+#[test]
+fn test_windows_sampler_dpi_grid_edge_alignment() {
+    // Test that grid pixels align correctly with individual samples at 200% DPI
+    let mut sampler = MockWindowsSampler::new_with_dpi(2560, 1440, 2.0);
+    
+    let physical_center_x = 2000;
+    let physical_center_y = 1000;
+    let grid_size = 5;
+    
+    let grid = sampler.sample_grid(physical_center_x, physical_center_y, grid_size, 1.0).unwrap();
+    
+    // Verify each grid pixel matches individual sample
+    let half_size = (grid_size / 2) as i32;
+    let logical_center_x = (physical_center_x as f64 / 2.0) as i32;
+    let logical_center_y = (physical_center_y as f64 / 2.0) as i32;
+    
+    for row in 0..grid_size {
+        for col in 0..grid_size {
+            // Calculate physical coordinates for this grid position
+            let offset_x = (col as i32 - half_size);
+            let offset_y = (row as i32 - half_size);
+            
+            // Physical coordinates (what cursor would report)
+            let physical_x = physical_center_x + offset_x;
+            let physical_y = physical_center_y + offset_y;
+            
+            let grid_color = &grid[row][col];
+            let individual_color = sampler.sample_pixel(physical_x, physical_y).unwrap();
+            
+            assert_eq!(
+                grid_color.r, individual_color.r,
+                "Mismatch at grid[{}][{}] (physical {}, {})",
+                row, col, physical_x, physical_y
+            );
+            assert_eq!(
+                grid_color.g, individual_color.g,
+                "Mismatch at grid[{}][{}] (physical {}, {})",
+                row, col, physical_x, physical_y
+            );
+            assert_eq!(
+                grid_color.b, individual_color.b,
+                "Mismatch at grid[{}][{}] (physical {}, {})",
+                row, col, physical_x, physical_y
+            );
         }
     }
 }

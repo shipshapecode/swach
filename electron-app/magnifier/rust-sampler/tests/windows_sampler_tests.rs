@@ -673,18 +673,24 @@ fn test_windows_sampler_dpi_grid_edge_alignment() {
     
     // Verify each grid pixel matches individual sample
     let half_size = (grid_size / 2) as i32;
+    
+    // Convert physical center to logical coordinates first
     let logical_center_x = (physical_center_x as f64 / 2.0) as i32;
     let logical_center_y = (physical_center_y as f64 / 2.0) as i32;
     
     for row in 0..grid_size {
         for col in 0..grid_size {
-            // Calculate physical coordinates for this grid position
+            // Calculate offsets in logical space (to match sample_grid behavior)
             let offset_x = (col as i32 - half_size);
             let offset_y = (row as i32 - half_size);
             
-            // Physical coordinates (what cursor would report)
-            let physical_x = physical_center_x + offset_x;
-            let physical_y = physical_center_y + offset_y;
+            // Apply offsets in logical space
+            let logical_x = logical_center_x + offset_x;
+            let logical_y = logical_center_y + offset_y;
+            
+            // Convert back to physical coordinates for sample_pixel
+            let physical_x = (logical_x as f64 * 2.0) as i32;
+            let physical_y = (logical_y as f64 * 2.0) as i32;
             
             let grid_color = &grid[row][col];
             let individual_color = sampler.sample_pixel(physical_x, physical_y).unwrap();

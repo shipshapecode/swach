@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS palettes (
   is_favorite BOOLEAN DEFAULT FALSE,
   is_locked BOOLEAN DEFAULT FALSE,
   selected_color_index INTEGER DEFAULT 0,
+  sort_index INTEGER DEFAULT 0,
   color_order JSONB DEFAULT '[]'::jsonb,
 
   -- Constraints
@@ -202,7 +203,7 @@ FROM palettes p
 LEFT JOIN colors c ON c.palette_id = p.id
 WHERE p.user_id = auth.uid()
 GROUP BY p.id, p.user_id, p.name, p.is_color_history, p.is_favorite, p.is_locked, 
-         p.selected_color_index, p.color_order, p.created_at, p.updated_at;
+         p.selected_color_index, p.sort_index, p.color_order, p.created_at, p.updated_at;
 
 -- ============================================
 -- Migration Helper Functions
@@ -219,7 +220,7 @@ DECLARE
   palette_uuid UUID;
 BEGIN
   -- Insert palette
-  INSERT INTO palettes (user_id, name, is_color_history, is_favorite, is_locked, selected_color_index, color_order)
+  INSERT INTO palettes (user_id, name, is_color_history, is_favorite, is_locked, selected_color_index, sort_index, color_order)
   VALUES (
     user_uuid,
     palette_data->>'name',
@@ -227,6 +228,7 @@ BEGIN
     (palette_data->>'isFavorite')::BOOLEAN,
     (palette_data->>'isLocked')::BOOLEAN,
     COALESCE((palette_data->>'selectedColorIndex')::INTEGER, 0),
+    COALESCE((palette_data->>'sortIndex')::INTEGER, 0),
     COALESCE(palette_data->>'colorOrder', '[]'::jsonb)
   )
   RETURNING id INTO palette_uuid;

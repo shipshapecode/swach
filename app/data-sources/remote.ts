@@ -29,6 +29,7 @@ interface SupabasePalette {
   is_favorite: boolean;
   is_locked: boolean;
   selected_color_index: number;
+  sort_index: number;
   color_order: { type: string; id: string }[];
 }
 
@@ -396,6 +397,7 @@ export class SupabaseSource extends Source {
         isFavorite: palette.is_favorite,
         isLocked: palette.is_locked,
         selectedColorIndex: palette.selected_color_index,
+        index: palette.sort_index,
         colorOrder: palette.color_order ?? [],
       },
       relationships: {
@@ -449,6 +451,7 @@ export class SupabaseSource extends Source {
         is_favorite: attrs['isFavorite'] ?? false,
         is_locked: attrs['isLocked'] ?? false,
         selected_color_index: attrs['selectedColorIndex'] ?? 0,
+        sort_index: attrs['index'] ?? 0,
         color_order: attrs['colorOrder'] ?? [],
       };
     } else if (record.type === 'color') {

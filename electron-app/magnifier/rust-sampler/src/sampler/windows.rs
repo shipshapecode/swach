@@ -3,8 +3,8 @@ use std::mem;
 use windows::Win32::Foundation::POINT;
 use windows::Win32::Graphics::Gdi::{
     BitBlt, CreateCompatibleBitmap, CreateCompatibleDC, DeleteDC, DeleteObject, GetDC,
-    GetDIBits, GetPixel, ReleaseDC, SelectObject, BITMAPINFO, BITMAPINFOHEADER, BI_RGB,
-    CLR_INVALID, DIB_RGB_COLORS, HDC, SRCCOPY,
+    GetDeviceCaps, GetDIBits, GetPixel, LOGPIXELSX, ReleaseDC, SelectObject, BITMAPINFO, 
+    BITMAPINFOHEADER, BI_RGB, CLR_INVALID, DIB_RGB_COLORS, HDC, SRCCOPY,
 };
 use windows::Win32::UI::WindowsAndMessaging::{GetCursorPos, GetSystemMetrics, SM_CXVIRTUALSCREEN, SM_CYVIRTUALSCREEN};
 
@@ -12,6 +12,7 @@ pub struct WindowsSampler {
     hdc: HDC,
     screen_width: i32,
     screen_height: i32,
+    dpi_scale: f64,
 }
 
 impl WindowsSampler {
@@ -27,12 +28,20 @@ impl WindowsSampler {
             let screen_width = GetSystemMetrics(SM_CXVIRTUALSCREEN);
             let screen_height = GetSystemMetrics(SM_CYVIRTUALSCREEN);
             
-            eprintln!("Windows sampler initialized ({}x{})", screen_width, screen_height);
+            // Get DPI scaling factor
+            // GetDeviceCaps returns DPI (e.g., 96 for 100%, 192 for 200%)
+            // Standard DPI is 96, so scale = actual_dpi / 96
+            let dpi = GetDeviceCaps(hdc, LOGPIXELSX);
+            let dpi_scale = dpi as f64 / 96.0;
+            
+            eprintln!("Windows sampler initialized ({}x{}, DPI scale: {})", 
+                screen_width, screen_height, dpi_scale);
             
             Ok(WindowsSampler { 
                 hdc,
                 screen_width,
                 screen_height,
+                dpi_scale,
             })
         }
     }
@@ -49,7 +58,11 @@ impl Drop for WindowsSampler {
 impl PixelSampler for WindowsSampler {
     fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
         unsafe {
-            let color_ref = GetPixel(self.hdc, x, y);
+            // Convert from physical pixels to logical pixels
+            let logical_x = (x as f64 / self.dpi_scale) as i32;
+            let logical_y = (y as f64 / self.dpi_scale) as i32;
+            
+            let color_ref = GetPixel(self.hdc, logical_x, logical_y);
             
             // Check for error (CLR_INVALID is returned on error)
             // COLORREF is a newtype wrapper around u32
@@ -89,9 +102,15 @@ impl PixelSampler for WindowsSampler {
         unsafe {
             let half_size = (grid_size / 2) as i32;
             
-            // Calculate capture region
-            let x_start = center_x - half_size;
-            let y_start = center_y - half_size;
+            // Convert cursor coordinates from physical pixels to logical pixels
+            // GetCursorPos returns physical pixels, but DC uses logical pixels
+            // At 200% DPI: physical 2000 -> logical 1000
+            let logical_x = (center_x as f64 / self.dpi_scale) as i32;
+            let logical_y = (center_y as f64 / self.dpi_scale) as i32;
+            
+            // Calculate capture region in logical pixels
+            let x_start = logical_x - half_size;
+            let y_start = logical_y - half_size;
             let width = grid_size as i32;
             let height = grid_size as i32;
             
@@ -209,22 +228,41 @@ impl PixelSampler for WindowsSampler {
 impl WindowsSampler {
     // Fallback to default pixel-by-pixel sampling if BitBlt fails
     fn sample_grid_fallback(&mut self, center_x: i32, center_y: i32, grid_size: usize) -> Result<Vec<Vec<Color>>, String> {
-        let half_size = (grid_size / 2) as i32;
-        let mut grid = Vec::with_capacity(grid_size);
-        
-        for row in 0..grid_size {
-            let mut row_pixels = Vec::with_capacity(grid_size);
-            for col in 0..grid_size {
-                let x = center_x + (col as i32 - half_size);
-                let y = center_y + (row as i32 - half_size);
-                
-                let color = self.sample_pixel(x, y)
-                    .unwrap_or(Color::new(128, 128, 128)); // Gray fallback
-                row_pixels.push(color);
+        unsafe {
+            let half_size = (grid_size / 2) as i32;
+            let mut grid = Vec::with_capacity(grid_size);
+            
+            // Convert center from physical to logical pixels
+            // This ensures we sample distinct logical pixels, not duplicates at high DPI
+            let logical_center_x = (center_x as f64 / self.dpi_scale) as i32;
+            let logical_center_y = (center_y as f64 / self.dpi_scale) as i32;
+            
+            for row in 0..grid_size {
+                let mut row_pixels = Vec::with_capacity(grid_size);
+                for col in 0..grid_size {
+                    // Work in logical pixel space to match main path behavior
+                    let logical_x = logical_center_x + (col as i32 - half_size);
+                    let logical_y = logical_center_y + (row as i32 - half_size);
+                    
+                    // Sample directly in logical space using GetPixel
+                    let color_ref = GetPixel(self.hdc, logical_x, logical_y);
+                    
+                    let color = if color_ref.0 == CLR_INVALID {
+                        Color::new(128, 128, 128) // Gray fallback for out-of-bounds
+                    } else {
+                        let color_value = color_ref.0;
+                        let r = (color_value & 0xFF) as u8;
+                        let g = ((color_value >> 8) & 0xFF) as u8;
+                        let b = ((color_value >> 16) & 0xFF) as u8;
+                        Color::new(r, g, b)
+                    };
+                    
+                    row_pixels.push(color);
+                }
+                grid.push(row_pixels);
             }
-            grid.push(row_pixels);
+            
+            Ok(grid)
         }
-        
-        Ok(grid)
     }
 }

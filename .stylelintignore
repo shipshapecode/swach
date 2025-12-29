@@ -3,6 +3,7 @@
 
 # compiled output
 /dist/
+/electron-app/ember-test/
 
 # Rust generated documentation
 **/target/doc/

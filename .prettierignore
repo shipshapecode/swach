@@ -4,6 +4,7 @@
 # compiled output
 /dist/
 /electron-app/dist/
+/electron-app/ember-test/
 /electron-app/magnifier/rust-sampler/target/
 
 # misc

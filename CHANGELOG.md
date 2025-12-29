@@ -5,6 +5,15 @@
 
 
 
+
+## v2.2.1 (2025-12-29)
+
+#### :bug: Bug Fix
+* [#2468](https://github.com/shipshapecode/swach/pull/2468) Make Windows capturer DPI aware ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v2.2.0 (2025-12-16)
 
 #### :rocket: Enhancement

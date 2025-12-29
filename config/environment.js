@@ -28,13 +28,7 @@ module.exports = function (environment) {
     api: {
       host: 'https://n3tygwauml.execute-api.us-east-2.amazonaws.com/prod',
     },
-    // Legacy Cognito config - will be removed after migration
-    cognito: {
-      poolId: 'us-east-2_QwzHPTSIB',
-      clientId: '3qt66sk0l4k4bnm3ndge7inp80',
-      identityPoolId: 'us-east-2:b38b2ff6-f0e2-4ddb-8c51-294480a7fdb4',
-      region: 'us-east-2',
-    },
+
     supabase: {
       url: process.env.SUPABASE_URL || 'https://your-project-ref.supabase.co',
       anonKey: process.env.SUPABASE_ANON_KEY || 'your-anon-key',
@@ -60,11 +54,9 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     // ENV.api.host = 'https://jpuj8ukmx8.execute-api.us-east-2.amazonaws.com/dev';
-    // ENV.cognito = {
-    //   poolId: 'us-east-2_AEr5v3Ogt',
-    //   clientId: '1jn23hlv9ggi63mc37f4m5hm4h',
-    //   identityPoolId: 'us-east-2:af67b33e-b9cd-4eaa-9669-e478e56e9310',
-    //   region: 'us-east-2'
+    // ENV.supabase = {
+    //   url: 'https://dev-project-ref.supabase.co',
+    //   anonKey: 'dev-anon-key',
     // };
     // ENV.supabase = {
     //   url: 'https://dev-project-ref.supabase.co',
@@ -90,12 +82,6 @@ module.exports = function (environment) {
     ENV.api.host =
       'https://n3tygwauml.execute-api.us-east-2.amazonaws.com/prod';
 
-    ENV.cognito = {
-      poolId: 'us-east-2_QwzHPTSIB',
-      clientId: '3qt66sk0l4k4bnm3ndge7inp80',
-      identityPoolId: 'us-east-2:b38b2ff6-f0e2-4ddb-8c51-294480a7fdb4',
-      region: 'us-east-2',
-    };
     ENV.supabase = {
       url: process.env.SUPABASE_URL || 'https://your-project-ref.supabase.co',
       anonKey: process.env.SUPABASE_ANON_KEY || 'your-anon-key',

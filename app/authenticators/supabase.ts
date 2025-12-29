@@ -1,10 +1,26 @@
 import { service } from '@ember/service';
 import BaseAuthenticator from 'ember-simple-auth/authenticators/base';
 
-export default class SupabaseAuthenticator extends BaseAuthenticator {
-  @service supabase;
+import SupabaseService from '../services/supabase';
 
-  async authenticate(credentials) {
+interface AuthCredentials {
+  email: string;
+  password: string;
+  isSignUp?: boolean;
+}
+
+interface AuthData {
+  user: any;
+  session: any;
+  access_token?: string;
+  refresh_token?: string;
+  expires_at?: number;
+}
+
+export default class SupabaseAuthenticator extends BaseAuthenticator {
+  @service declare supabase: SupabaseService;
+
+  async authenticate(credentials: AuthCredentials): Promise<AuthData> {
     const { email, password, isSignUp } = credentials;
 
     try {
@@ -28,7 +44,7 @@ export default class SupabaseAuthenticator extends BaseAuthenticator {
     }
   }
 
-  async restore(data) {
+  async restore(data: any): Promise<AuthData | null> {
     try {
       // Check if we have a valid session
       const session = await this.supabase.getSession();
@@ -49,11 +65,11 @@ export default class SupabaseAuthenticator extends BaseAuthenticator {
     }
   }
 
-  async invalidate() {
+  async invalidate(): Promise<void> {
     try {
       await this.supabase.signOut();
     } catch (error) {
-      // Even if sign out fails, we want to invalidate the session locally
+      // Even if sign out fails, we want to invalidate session locally
       console.error('Error during sign out:', error);
     }
   }

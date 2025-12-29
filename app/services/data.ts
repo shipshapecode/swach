@@ -5,10 +5,10 @@ import { orbit, type Store } from 'ember-orbit';
 
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
-import type JSONAPISource from '@orbit/jsonapi';
 import type { InitializedRecord, RecordIdentity } from '@orbit/records';
 
 import type Palette from '../data-models/palette.ts';
+import type { SupabaseSource } from '../data-sources/remote.ts';
 import type Session from '../services/session.ts';
 
 export default class DataService extends Service {
@@ -168,11 +168,10 @@ export default class DataService extends Service {
 
   private async getPalettesFromRemote(): Promise<InitializedRecord[]> {
     if (this.session.isAuthenticated) {
-      const remote = this.dataCoordinator.getSource<JSONAPISource>('remote');
-      const remotePaletteRecords = await remote.query<InitializedRecord[]>(
-        (q) => q.findRecords('palette'),
-        { include: ['colors'] }
-      );
+      const remote = this.dataCoordinator.getSource<SupabaseSource>('remote');
+
+      // Fetch palettes from Supabase
+      const remotePaletteRecords = await remote.queryPalettes();
 
       if (remotePaletteRecords?.length > 0) {
         return remotePaletteRecords;
@@ -187,60 +186,28 @@ export default class DataService extends Service {
           q.findRecords('palette')
         );
 
-        // Add colors first, then palettes, then relationships between them
-        // (TODO: use atomic operations if available).
-        const paletteColors: {
-          palette: RecordIdentity;
-          colors: RecordIdentity[];
-        }[] = [];
-
+        // Add colors first, then palettes
         colors = colors.map((c) => {
-          const { id, type, attributes } = c;
-
-          return { id, type, attributes };
+          const { id, type, attributes, relationships } = c;
+          return { id, type, attributes, relationships };
         });
         palettes = palettes.map((p) => {
           const { id, type, attributes, relationships } = p;
-
-          if (relationships?.['colors']?.data) {
-            paletteColors.push({
-              palette: p,
-              colors: relationships['colors'].data as RecordIdentity[],
-            });
-          }
-
-          return { id, type, attributes };
+          return { id, type, attributes, relationships };
         });
 
-        if (colors.length > 0) {
-          await remote.update<InitializedRecord[]>(
-            (t) => colors.map((r) => t.addRecord(r)),
-            { parallelRequests: true }
-          );
+        // Upload colors first
+        for (const color of colors) {
+          await remote.addRecord(color);
         }
 
-        if (palettes.length > 0) {
-          await remote.update<InitializedRecord[]>(
-            (t) => palettes.map((r) => t.addRecord(r)),
-            { parallelRequests: true }
-          );
+        // Then upload palettes
+        for (const palette of palettes) {
+          await remote.addRecord(palette);
         }
 
-        if (paletteColors.length > 0) {
-          await remote.update<InitializedRecord[]>(
-            (t) =>
-              paletteColors.map((p) =>
-                t.replaceRelatedRecords(p.palette, 'colors', p.colors)
-              ),
-            { parallelRequests: true }
-          );
-        }
-
-        // Re-fetch palettes and colors from remote
-        return remote.query<InitializedRecord[]>(
-          (q) => q.findRecords('palette'),
-          { include: ['colors'] }
-        );
+        // Re-fetch palettes from remote
+        return remote.queryPalettes();
       }
     } else {
       return [];

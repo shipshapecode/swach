@@ -1,113 +1,48 @@
-import { Input } from '@ember/component';
-import { on } from '@ember/modifier';
-import { action } from '@ember/object';
 import { LinkTo } from '@ember/routing';
-import type Router from '@ember/routing/router-service';
-import { service } from '@ember/service';
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
 
-import type CognitoService from 'ember-cognito/services/cognito';
-
+/**
+ * With OTP authentication, there's no separate registration flow.
+ * New users are automatically created when they verify their email.
+ * This component just redirects users to the login flow.
+ */
 export default class RegisterComponent extends Component {
   <template>
     <div class="bg-menu p-4 rounded-md w-full">
-      <div class="flex justify-between pt-4 w-full">
+      <div class="pt-4 w-full">
         <h2 class="font-bold text-2xl">
-          Sign up
+          Sign Up
         </h2>
-        <p class="mt-2 text-menu-text text-sm">
-          or
+      </div>
+
+      <div class="mt-4">
+        <p class="text-menu-text text-sm mb-4">
+          Getting started is easy! Just enter your email address and we'll send
+          you a code to sign in. No password required.
+        </p>
+
+        <p class="text-menu-text text-sm mb-6">
+          If you're a new user, your account will be created automatically.
+        </p>
+
+        <LinkTo
+          @route="settings.cloud.login"
+          class="btn btn-primary w-full inline-block text-center"
+          data-test-register-continue
+        >
+          Continue with Email
+        </LinkTo>
+
+        <p class="mt-4 text-center text-menu-text text-sm">
+          Already have an account?
           <LinkTo
             @route="settings.cloud.login"
             class="font-medium text-alt hover:text-alt-hover"
           >
-            sign in
+            Sign in
           </LinkTo>
         </p>
       </div>
-
-      {{#if this.errorMessage}}
-        <div class="bg-red-400 my-2 p-4 rounded-sm text-xs text-red-800">
-          {{this.errorMessage}}
-        </div>
-      {{/if}}
-
-      <div class="mt-3">
-        <input type="hidden" name="remember" value="true" />
-        <div class="mb-6">
-          <div class="mb-2">
-            <label for="email-address" class="sr-only">
-              Email address
-            </label>
-
-            <Input
-              data-test-register-input-user
-              autocomplete="email"
-              class="input py-2 rounded-xs text-sm w-full"
-              id="email-address"
-              name="email"
-              placeholder="Email address"
-              required
-              @type="email"
-              @value={{this.username}}
-            />
-          </div>
-          <div class="mb-3">
-            <label for="password" class="sr-only">
-              Password
-            </label>
-
-            <Input
-              data-test-register-input-password
-              autocomplete="current-password"
-              class="input py-2 rounded-xs text-sm w-full"
-              id="password"
-              name="password"
-              placeholder="Password"
-              required
-              @type="password"
-              @value={{this.password}}
-            />
-          </div>
-        </div>
-
-        <div>
-          <button
-            data-test-register-submit
-            class="btn btn-primary w-full"
-            type="button"
-            {{on "click" this.register}}
-          >
-            Sign up
-          </button>
-        </div>
-      </div>
     </div>
   </template>
-  @service declare cognito: CognitoService;
-  @service declare router: Router;
-
-  @tracked errorMessage?: string;
-  @tracked password?: string;
-  @tracked username?: string;
-
-  @action
-  async register(): Promise<void> {
-    const { username, password } = this;
-
-    if (username && password) {
-      const attributes = {
-        email: username,
-      };
-
-      try {
-        await this.cognito.signUp(username, password, attributes);
-
-        this.router.transitionTo('settings.cloud.register.confirm');
-      } catch (err: unknown) {
-        this.errorMessage = (err as Error)?.message;
-      }
-    }
-  }
 }

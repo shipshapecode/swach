@@ -595,6 +595,40 @@ fn test_windows_sampler_dpi_out_of_bounds() {
 }
 
 #[test]
+fn test_windows_sampler_dpi_fallback_no_duplicates() {
+    // Test that the fallback method doesn't produce duplicate samples at high DPI
+    // This was a bug where physical pixel offsets caused logical pixel duplicates
+    let mut sampler = MockWindowsSampler::new_with_dpi(2560, 1440, 2.0);
+    
+    // Use the fallback implementation (default trait implementation)
+    let physical_center_x = 1000;
+    let physical_center_y = 500;
+    let grid_size = 9;
+    
+    // Get grid using default implementation (simulates fallback)
+    let grid = sampler.sample_grid(physical_center_x, physical_center_y, grid_size, 1.0).unwrap();
+    
+    // At 200% DPI, we should get 9 distinct logical pixels, not duplicates
+    // Physical 992-1008 should map to logical 496-504 (9 distinct values)
+    
+    // Collect center row colors to check for uniqueness
+    let mut center_row_colors: Vec<(u8, u8, u8)> = Vec::new();
+    for col in 0..grid_size {
+        let color = &grid[4][col]; // Center row
+        center_row_colors.push((color.r, color.g, color.b));
+    }
+    
+    // Check that we don't have adjacent duplicates (which would indicate the bug)
+    for i in 1..center_row_colors.len() {
+        assert_ne!(
+            center_row_colors[i], center_row_colors[i - 1],
+            "Found duplicate colors at indices {} and {} - DPI fallback bug!",
+            i - 1, i
+        );
+    }
+}
+
+#[test]
 fn test_windows_sampler_dpi_grid_edge_alignment() {
     // Test that grid pixels align correctly with individual samples at 200% DPI
     let mut sampler = MockWindowsSampler::new_with_dpi(2560, 1440, 2.0);

@@ -74,7 +74,7 @@ importers:
         specifier: ^10.32.1
         version: 10.32.1(@glint/template@1.5.2)(ember-cli@6.9.1(@types/node@25.0.3)(babel-core@6.26.3)(ejs@3.1.10)(handlebars@4.7.8)(underscore@1.13.7))(webpack@5.104.1)
       '@supabase/supabase-js':
-        specifier: ^2.49.4
+        specifier: ^2.89.0
         version: 2.89.0
       color-name-list:
         specifier: ^14.17.0

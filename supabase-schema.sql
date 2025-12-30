@@ -155,13 +155,18 @@ BEGIN
   )
   RETURNING id INTO palette_uuid;
   
-  -- Create sample colors
+  -- Create sample colors (separate inserts to capture each UUID)
   INSERT INTO colors (user_id, palette_id, name, r, g, b, a)
-  VALUES 
-    (user_uuid, palette_uuid, 'Pure Black', 0, 0, 0, 1.0),
-    (user_uuid, palette_uuid, 'Pure White', 255, 255, 255, 1.0),
-    (user_uuid, palette_uuid, 'Pure Red', 255, 0, 0, 1.0)
-  RETURNING id INTO color_uuid1, color_uuid2, color_uuid3;
+  VALUES (user_uuid, palette_uuid, 'Pure Black', 0, 0, 0, 1.0)
+  RETURNING id INTO color_uuid1;
+  
+  INSERT INTO colors (user_id, palette_id, name, r, g, b, a)
+  VALUES (user_uuid, palette_uuid, 'Pure White', 255, 255, 255, 1.0)
+  RETURNING id INTO color_uuid2;
+  
+  INSERT INTO colors (user_id, palette_id, name, r, g, b, a)
+  VALUES (user_uuid, palette_uuid, 'Pure Red', 255, 0, 0, 1.0)
+  RETURNING id INTO color_uuid3;
   
   -- Update color_order with the color references
   UPDATE palettes 

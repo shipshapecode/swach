@@ -23,8 +23,6 @@ CREATE TABLE IF NOT EXISTS palettes (
 
   -- Constraints
   CONSTRAINT palettes_user_not_null CHECK (user_id IS NOT NULL),
-  CONSTRAINT palettes_single_color_history_per_user UNIQUE (user_id, is_color_history) 
-    DEFERRABLE INITIALLY DEFERRED,
   CONSTRAINT palettes_name_length CHECK (char_length(name) <= 255)
 );
 
@@ -66,6 +64,10 @@ CREATE INDEX IF NOT EXISTS idx_colors_created_at ON colors(created_at);
 
 -- GIN indexes for JSONB columns
 CREATE INDEX IF NOT EXISTS idx_palettes_color_order ON palettes USING GIN(color_order);
+
+-- Unique constraint: Only one color history palette per user
+CREATE UNIQUE INDEX IF NOT EXISTS idx_palettes_single_color_history_per_user 
+  ON palettes(user_id) WHERE is_color_history = TRUE;
 
 -- ============================================
 -- Row Level Security (RLS) Policies

@@ -236,7 +236,7 @@ BEGIN
     (palette_data->>'isLocked')::BOOLEAN,
     COALESCE((palette_data->>'selectedColorIndex')::INTEGER, 0),
     COALESCE((palette_data->>'sortIndex')::INTEGER, 0),
-    COALESCE(palette_data->>'colorOrder', '[]'::jsonb)
+    COALESCE(palette_data->'colorOrder', '[]'::jsonb)
   )
   RETURNING id INTO palette_uuid;
   

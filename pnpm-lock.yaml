@@ -74,7 +74,7 @@ importers:
         specifier: ^10.30.0
         version: 10.30.0(@glint/template@1.5.2)(ember-cli@6.8.1(@types/node@25.0.0)(babel-core@6.26.3)(ejs@3.1.10)(handlebars@4.7.8)(underscore@1.13.7))(webpack@5.103.0)
       '@supabase/supabase-js':
-        specifier: ^2.49.4
+        specifier: ^2.89.0
         version: 2.89.0
       color-name-list:
         specifier: ^14.11.0
@@ -13045,7 +13045,7 @@ snapshots:
       '@types/ember__string': 3.0.15
       '@types/ember__template': 4.0.7
       '@types/ember__test': 4.0.6(@babel/core@7.28.5)
-      '@types/ember__utils': 4.0.7(@babel/core@7.28.5)
+      '@types/ember__utils': 4.0.7
       '@types/rsvp': 4.0.9
 
   '@types/ember@4.0.11(@babel/core@7.28.5)':
@@ -13165,6 +13165,10 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
+
+  '@types/ember__utils@4.0.7':
+    dependencies:
+      '@types/ember': 4.0.11
 
   '@types/ember__utils@4.0.7(@babel/core@7.28.5)':
     dependencies:

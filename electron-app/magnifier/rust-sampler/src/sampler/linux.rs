@@ -252,7 +252,7 @@ impl PixelSampler for LinuxSampler {
             Ok(Point { x: root_x, y: root_y })
         }
     }
-    
+
     fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {
         // Ensure we have a fresh screenshot
         self.ensure_fresh_screenshot()?;

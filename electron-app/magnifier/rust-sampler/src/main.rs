@@ -30,13 +30,13 @@ fn run() -> Result<(), String> {
 
     // Create channels for command communication
     let (cmd_tx, cmd_rx): (std::sync::mpsc::Sender<Command>, Receiver<Command>) = channel();
-    
+
     // Spawn stdin reader thread
     thread::spawn(move || {
         let stdin = io::stdin();
         let mut reader = stdin.lock();
         let mut line = String::new();
-        
+
         loop {
             line.clear();
             match reader.read_line(&mut line) {
@@ -67,12 +67,36 @@ fn run() -> Result<(), String> {
         }
     });
 
+    // Get DPI scale - Windows needs it, others use 1.0
+    let dpi_scale = get_dpi_scale();
+
+    fn get_dpi_scale() -> f64 {
+        #[cfg(target_os = "windows")]
+        {
+            // On Windows, get DPI scale directly from system
+            use windows::Win32::Graphics::Gdi::{GetDC, GetDeviceCaps, LOGPIXELSX, ReleaseDC};
+            unsafe {
+                let hdc = GetDC(None);
+                if !hdc.is_invalid() {
+                    let dpi = GetDeviceCaps(hdc, LOGPIXELSX);
+                    let _ = ReleaseDC(None, hdc);
+                    return dpi as f64 / 96.0;
+                }
+            }
+            1.0 // Fallback
+        }
+        #[cfg(not(target_os = "windows"))]
+        {
+            1.0
+        }
+    }
+
     // Main loop - wait for commands from channel
     loop {
         match cmd_rx.recv() {
             Ok(Command::Start { grid_size, sample_rate }) => {
                 eprintln!("Starting sampling: grid_size={}, sample_rate={}", grid_size, sample_rate);
-                if let Err(e) = run_sampling_loop(&mut *sampler, grid_size, sample_rate, &cmd_rx) {
+                if let Err(e) = run_sampling_loop(&mut *sampler, grid_size, sample_rate, dpi_scale, &cmd_rx) {
                     eprintln!("Sampling loop error: {}", e);
                     send_error(&e);
                 }
@@ -99,6 +123,7 @@ fn run_sampling_loop(
     sampler: &mut dyn PixelSampler,
     initial_grid_size: usize,
     sample_rate: u64,
+    dpi_scale: f64,
     cmd_rx: &std::sync::mpsc::Receiver<Command>,
 ) -> Result<(), String> {
     use std::sync::mpsc::TryRecvError;
@@ -134,8 +159,8 @@ fn run_sampling_loop(
         
         let loop_start = std::time::Instant::now();
 
-        // Get cursor position
-        let cursor = match sampler.get_cursor_position() {
+        // Get cursor position (returns physical coordinates for Electron window positioning)
+        let physical_cursor = match sampler.get_cursor_position() {
             Ok(pos) => pos,
             Err(_e) => {
                 // On Wayland/some platforms, we can't get cursor position directly
@@ -146,17 +171,24 @@ fn run_sampling_loop(
 
         // Sample every frame regardless of cursor movement for smooth updates
         // This ensures the UI is responsive even if cursor position can't be tracked
-        last_cursor = cursor.clone();
+        last_cursor = physical_cursor.clone();
+
+        // Convert physical coordinates back to virtual for sampling
+        // We know dpi_scale is available here since it's declared at function scope
+        let virtual_cursor = Point {
+            x: (physical_cursor.x as f64 / dpi_scale) as i32,
+            y: (physical_cursor.y as f64 / dpi_scale) as i32,
+        };
 
         // Sample center pixel
-        let center_color = sampler.sample_pixel(cursor.x, cursor.y)
+        let center_color = sampler.sample_pixel(virtual_cursor.x, virtual_cursor.y)
             .unwrap_or_else(|e| {
                 eprintln!("Failed to sample center pixel: {}", e);
                 Color::new(128, 128, 128)
             });
 
         // Sample grid
-        let grid = sampler.sample_grid(cursor.x, cursor.y, current_grid_size, 1.0)
+        let grid = sampler.sample_grid(virtual_cursor.x, virtual_cursor.y, current_grid_size, 1.0)
             .unwrap_or_else(|e| {
                 eprintln!("Failed to sample grid: {}", e);
                 vec![vec![Color::new(128, 128, 128); current_grid_size]; current_grid_size]
@@ -169,7 +201,7 @@ fn run_sampling_loop(
             .collect();
 
         let pixel_data = PixelData {
-            cursor: cursor.clone(),
+            cursor: physical_cursor.clone(),
             center: center_color.into(),
             grid: grid_data,
             timestamp: SystemTime::now()

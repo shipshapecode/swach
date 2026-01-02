@@ -17,18 +17,18 @@ impl WindowsSampler {
     pub fn new() -> Result<Self, String> {
         unsafe {
             let hdc = GetDC(None);
-            
+
             if hdc.is_invalid() {
                 return Err("Failed to get device context".to_string());
             }
-            
+
             // Get DPI scaling factor
             // GetDeviceCaps returns DPI (e.g., 96 for 100%, 192 for 200%)
             // Standard DPI is 96, so scale = actual_dpi / 96
             let dpi = GetDeviceCaps(hdc, LOGPIXELSX);
             let dpi_scale = dpi as f64 / 96.0;
-            
-            Ok(WindowsSampler { 
+
+            Ok(WindowsSampler {
                 hdc,
                 dpi_scale,
             })
@@ -47,14 +47,12 @@ impl Drop for WindowsSampler {
 impl PixelSampler for WindowsSampler {
     fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
         unsafe {
-            // Electron is DPI-aware, so:
-            // - GetCursorPos returns VIRTUAL pixels (e.g., 0-2559 at 200% on 5120 wide screen)
-            // - GetPixel expects PHYSICAL pixels (e.g., 0-5119)
-            // We must convert: physical = virtual * dpi_scale
-            let physical_x = (x as f64 * self.dpi_scale) as i32;
-            let physical_y = (y as f64 * self.dpi_scale) as i32;
-            
-            let color_ref = GetPixel(self.hdc, physical_x, physical_y);
+            // On Windows, for a DPI-unaware process (which this Rust subprocess is):
+            // - GetCursorPos returns VIRTUALIZED coordinates (e.g., 0-2559 at 200% on 5120 wide screen)
+            // - GetDC(None) returns a VIRTUALIZED DC that also uses virtual coordinates
+            // - GetPixel on that DC expects the SAME virtualized coordinates
+            // NO conversion needed - both APIs work in the same virtualized space
+            let color_ref = GetPixel(self.hdc, x, y);
             
             // Check for error (CLR_INVALID is returned on error)
             // COLORREF is a newtype wrapper around u32
@@ -77,13 +75,18 @@ impl PixelSampler for WindowsSampler {
     fn get_cursor_position(&self) -> Result<Point, String> {
         unsafe {
             let mut point = POINT { x: 0, y: 0 };
-            
+
             GetCursorPos(&mut point)
                 .map_err(|e| format!("Failed to get cursor position: {}", e))?;
-            
+
+            // Convert from virtual coordinates (returned by GetCursorPos) to physical coordinates
+            // Electron (per-monitor DPI aware) expects physical coordinates for window positioning
+            let physical_x = (point.x as f64 * self.dpi_scale) as i32;
+            let physical_y = (point.y as f64 * self.dpi_scale) as i32;
+
             Ok(Point {
-                x: point.x,
-                y: point.y,
+                x: physical_x,
+                y: physical_y,
             })
         }
     }
@@ -94,15 +97,10 @@ impl PixelSampler for WindowsSampler {
         unsafe {
             let half_size = (grid_size / 2) as i32;
             
-            // Electron is DPI-aware, so GetCursorPos returns virtual coordinates
-            // but GetDC/BitBlt use physical coordinates
-            // Convert: physical = virtual * dpi_scale
-            let physical_center_x = (center_x as f64 * self.dpi_scale) as i32;
-            let physical_center_y = (center_y as f64 * self.dpi_scale) as i32;
-            
-            // Calculate capture region in physical pixel coordinates
-            let x_start = physical_center_x - half_size;
-            let y_start = physical_center_y - half_size;
+            // For a DPI-unaware process, all GDI operations use virtualized coordinates
+            // No conversion needed
+            let x_start = center_x - half_size;
+            let y_start = center_y - half_size;
             let width = grid_size as i32;
             let height = grid_size as i32;
             
@@ -222,19 +220,15 @@ impl WindowsSampler {
             let half_size = (grid_size / 2) as i32;
             let mut grid = Vec::with_capacity(grid_size);
             
-            // Convert virtual cursor coordinates to physical for DC sampling
-            let physical_center_x = (center_x as f64 * self.dpi_scale) as i32;
-            let physical_center_y = (center_y as f64 * self.dpi_scale) as i32;
-            
+            // For DPI-unaware process, use coordinates directly
             for row in 0..grid_size {
                 let mut row_pixels = Vec::with_capacity(grid_size);
                 for col in 0..grid_size {
-                    // Calculate physical pixel coordinates
-                    let physical_x = physical_center_x + (col as i32 - half_size);
-                    let physical_y = physical_center_y + (row as i32 - half_size);
+                    // Calculate pixel coordinates (no conversion needed)
+                    let x = center_x + (col as i32 - half_size);
+                    let y = center_y + (row as i32 - half_size);
                     
-                    // Sample using physical coordinates
-                    let color_ref = GetPixel(self.hdc, physical_x, physical_y);
+                    let color_ref = GetPixel(self.hdc, x, y);
                     
                     let color = if color_ref.0 == CLR_INVALID {
                         Color::new(128, 128, 128) // Gray fallback for out-of-bounds

@@ -52,8 +52,13 @@ impl PixelSampler for MockWindowsSampler {
     }
 
     fn get_cursor_position(&self) -> Result<Point, String> {
-        // Simulate GetCursorPos (returns virtual coordinates)
-        Ok(Point { x: 100, y: 100 })
+        // Simulate Windows sampler behavior: return physical coordinates
+        // (virtual coordinates converted to physical for Electron compatibility)
+        let virtual_x = 100;
+        let virtual_y = 100;
+        let physical_x = (virtual_x as f64 * self.dpi_scale) as i32;
+        let physical_y = (virtual_y as f64 * self.dpi_scale) as i32;
+        Ok(Point { x: physical_x, y: physical_y })
     }
     
     // Override sample_grid to simulate DPI-aware behavior
@@ -65,12 +70,19 @@ impl PixelSampler for MockWindowsSampler {
         let physical_center_x = (center_x as f64 * self.dpi_scale) as i32;
         let physical_center_y = (center_y as f64 * self.dpi_scale) as i32;
         
+        // Scale grid dimensions to physical pixels
+        let physical_half_size = (half_size as f64 * self.dpi_scale) as i32;
+        
         for row in 0..grid_size {
             let mut row_pixels = Vec::with_capacity(grid_size);
             for col in 0..grid_size {
-                // Work in physical pixel space (what BitBlt/GetPixel use)
-                let physical_x = physical_center_x + (col as i32 - half_size);
-                let physical_y = physical_center_y + (row as i32 - half_size);
+                // Map logical grid position to physical pixel position
+                // We sample at regular intervals in the physical pixel space
+                let physical_offset_x = (col as f64 * self.dpi_scale) as i32 - physical_half_size;
+                let physical_offset_y = (row as f64 * self.dpi_scale) as i32 - physical_half_size;
+                
+                let physical_x = physical_center_x + physical_offset_x;
+                let physical_y = physical_center_y + physical_offset_y;
                 
                 // Sample in physical space
                 if physical_x < 0 || physical_y < 0 || physical_x >= self.screen_width || physical_y >= self.screen_height {
@@ -700,18 +712,25 @@ fn test_windows_sampler_dpi_grid_edge_alignment() {
     assert_eq!(center_pixel.g, expected_g, "Center pixel G component mismatch");
     assert_eq!(center_pixel.b, expected_b, "Center pixel B component mismatch");
     
-    // Verify corner pixels sample the correct physical locations
-    // Top-left: offset (-2, -2) from center -> physical (1998, 998)
+    // At 200% DPI with a 5x5 grid, we capture a 10x10 physical pixel region
+    // and sample at 2-pixel intervals: positions 0, 2, 4, 6, 8 in the physical grid
+    // Physical half size = 2 * 2 = 4 pixels
+    // So top-left samples at: center - 4 = (1996, 996)
+    // Grid positions: 0->1996, 1->1998, 2->2000, 3->2002, 4->2004
+    
+    let physical_half_size = ((grid_size / 2) as f64 * dpi_scale) as i32; // 4
+    
+    // Top-left: row=0, col=0 -> offset (0*2 - 4, 0*2 - 4) = (-4, -4) from center
     let top_left = &grid[0][0];
-    let tl_physical_x = physical_center_x - 2; // 1998
-    let tl_physical_y = physical_center_y - 2; // 998
+    let tl_physical_x = physical_center_x - physical_half_size; // 1996
+    let tl_physical_y = physical_center_y - physical_half_size; // 996
     assert_eq!(top_left.b, (tl_physical_x % 256) as u8);
     assert_eq!(top_left.g, (tl_physical_y % 256) as u8);
     
-    // Bottom-right: offset (2, 2) from center -> physical (2002, 1002)
+    // Bottom-right: row=4, col=4 -> offset (4*2 - 4, 4*2 - 4) = (4, 4) from center
     let bottom_right = &grid[4][4];
-    let br_physical_x = physical_center_x + 2; // 2002
-    let br_physical_y = physical_center_y + 2; // 1002
+    let br_physical_x = physical_center_x + physical_half_size; // 2004
+    let br_physical_y = physical_center_y + physical_half_size; // 1004
     assert_eq!(bottom_right.b, (br_physical_x % 256) as u8);
     assert_eq!(bottom_right.g, (br_physical_y % 256) as u8);
 }

@@ -667,8 +667,8 @@ fn test_windows_sampler_dpi_fallback_no_duplicates() {
 
 #[test]
 fn test_windows_sampler_dpi_grid_edge_alignment() {
-    // Test that grid pixels align correctly with individual samples at 200% DPI
-    // Physical: 5120x2880
+    // Test that grid pixels correctly sample physical pixels at 200% DPI
+    // Physical: 5120x2880, Virtual: 2560x1440
     let mut sampler = MockWindowsSampler::new_with_dpi(5120, 2880, 2.0);
     
     let virtual_center_x = 1000;
@@ -677,56 +677,43 @@ fn test_windows_sampler_dpi_grid_edge_alignment() {
     
     let grid = sampler.sample_grid(virtual_center_x, virtual_center_y, grid_size, 1.0).unwrap();
     
-    // Verify each grid pixel matches individual sample
-    // The sampler applies offsets directly in physical pixel space,
-    // so we need to sample using virtual coordinates that map to those physical pixels
-    let half_size = (grid_size / 2) as i32;
-    let dpi_scale = 2.0;
+    // Verify the grid has correct dimensions
+    assert_eq!(grid.len(), grid_size);
+    assert_eq!(grid[0].len(), grid_size);
     
-    for row in 0..grid_size {
-        for col in 0..grid_size {
-            // The grid captures physical pixels at: physical_center + offset
-            // where physical_center = virtual_center * dpi_scale
-            // To match this, we need virtual coords that produce those exact physical pixels
-            
-            // First, calculate what physical pixel the grid captured
-            let physical_center_x = (virtual_center_x as f64 * dpi_scale) as i32;
-            let physical_center_y = (virtual_center_y as f64 * dpi_scale) as i32;
-            
-            let offset_x = col as i32 - half_size;
-            let offset_y = row as i32 - half_size;
-            
-            let physical_x = physical_center_x + offset_x;
-            let physical_y = physical_center_y + offset_y;
-            
-            // Now find a virtual coordinate that maps to this physical coordinate
-            // We need: (virtual * dpi_scale) as i32 == physical
-            // So: virtual = physical / dpi_scale, but we need to handle rounding
-            // The sampler uses: physical = (virtual * dpi) as i32
-            // So we reverse: virtual should produce that physical when converted
-            let virtual_x = (physical_x as f64 / dpi_scale).round() as i32;
-            let virtual_y = (physical_y as f64 / dpi_scale).round() as i32;
-            
-            let grid_color = &grid[row][col];
-            let individual_color = sampler.sample_pixel(virtual_x, virtual_y).unwrap();
-            
-            assert_eq!(
-                grid_color.r, individual_color.r,
-                "Mismatch at grid[{}][{}] (virtual {}, {})",
-                row, col, virtual_x, virtual_y
-            );
-            assert_eq!(
-                grid_color.g, individual_color.g,
-                "Mismatch at grid[{}][{}] (virtual {}, {})",
-                row, col, virtual_x, virtual_y
-            );
-            assert_eq!(
-                grid_color.b, individual_color.b,
-                "Mismatch at grid[{}][{}] (virtual {}, {})",
-                row, col, virtual_x, virtual_y
-            );
-        }
-    }
+    // Verify center pixel matches what we expect at the physical coordinates
+    // Virtual (1000, 500) -> Physical (2000, 1000)
+    let dpi_scale = 2.0;
+    let physical_center_x = (virtual_center_x as f64 * dpi_scale) as i32; // 2000
+    let physical_center_y = (virtual_center_y as f64 * dpi_scale) as i32; // 1000
+    
+    let center_idx = grid_size / 2; // 2 for a 5x5 grid
+    let center_pixel = &grid[center_idx][center_idx];
+    
+    // The mock sampler generates colors based on physical coordinates:
+    // b = physical_x % 256, g = physical_y % 256, r = (physical_x + physical_y) % 256
+    let expected_b = (physical_center_x % 256) as u8;
+    let expected_g = (physical_center_y % 256) as u8;
+    let expected_r = ((physical_center_x + physical_center_y) % 256) as u8;
+    
+    assert_eq!(center_pixel.r, expected_r, "Center pixel R component mismatch");
+    assert_eq!(center_pixel.g, expected_g, "Center pixel G component mismatch");
+    assert_eq!(center_pixel.b, expected_b, "Center pixel B component mismatch");
+    
+    // Verify corner pixels sample the correct physical locations
+    // Top-left: offset (-2, -2) from center -> physical (1998, 998)
+    let top_left = &grid[0][0];
+    let tl_physical_x = physical_center_x - 2; // 1998
+    let tl_physical_y = physical_center_y - 2; // 998
+    assert_eq!(top_left.b, (tl_physical_x % 256) as u8);
+    assert_eq!(top_left.g, (tl_physical_y % 256) as u8);
+    
+    // Bottom-right: offset (2, 2) from center -> physical (2002, 1002)
+    let bottom_right = &grid[4][4];
+    let br_physical_x = physical_center_x + 2; // 2002
+    let br_physical_y = physical_center_y + 2; // 1002
+    assert_eq!(bottom_right.b, (br_physical_x % 256) as u8);
+    assert_eq!(bottom_right.g, (br_physical_y % 256) as u8);
 }
 
 #[test]

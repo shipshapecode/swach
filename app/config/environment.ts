@@ -25,7 +25,7 @@ assert(
   'APP' in config && typeof config.APP === 'object'
 );
 
-export default config as {
+export interface EnvironmentConfig {
   environment: string;
   modulePrefix: string;
   podModulePrefix?: string;
@@ -33,4 +33,13 @@ export default config as {
   rootURL: string;
   APP: Record<string, unknown>;
   SCHEMA_VERSION: number;
-} & Record<string, unknown>;
+  supabase: {
+    url: string;
+    anonKey: string;
+  };
+  api?: {
+    host: string;
+  };
+}
+
+export default config as EnvironmentConfig & Record<string, unknown>;

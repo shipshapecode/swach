@@ -13,13 +13,9 @@ Router.map(function () {
   this.route('palettes');
   this.route('settings', function () {
     this.route('cloud', function () {
-      this.route('forgot-password');
       this.route('login');
       this.route('profile');
-      this.route('register', function () {
-        this.route('confirm');
-        this.route('resend');
-      });
+      this.route('register');
     });
     this.route('data');
   });

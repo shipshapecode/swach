@@ -538,17 +538,18 @@ fn test_windows_sampler_dpi_coordinate_conversion() {
 #[test]
 fn test_windows_sampler_dpi_grid_sampling_200_percent() {
     // Test grid sampling at 200% DPI
-    let mut sampler = MockWindowsSampler::new_with_dpi(2560, 1440, 2.0);
+    // Physical: 5120x2880
+    let mut sampler = MockWindowsSampler::new_with_dpi(5120, 2880, 2.0);
     
-    // Physical cursor at 2000, 1000 should map to logical 1000, 500
-    let grid = sampler.sample_grid(2000, 1000, 5, 1.0).unwrap();
+    // Virtual cursor at 1000, 500 should map to physical 2000, 1000
+    let grid = sampler.sample_grid(1000, 500, 5, 1.0).unwrap();
     
     assert_eq!(grid.len(), 5);
     
-    // Center pixel should be at logical coordinates (1000, 500)
+    // Center pixel should be at physical coordinates (2000, 1000)
     let center = &grid[2][2];
-    assert_eq!(center.b, (1000 % 256) as u8);
-    assert_eq!(center.g, (500 % 256) as u8);
+    assert_eq!(center.b, (2000 % 256) as u8);
+    assert_eq!(center.g, (1000 % 256) as u8);
 }
 
 #[test]
@@ -592,30 +593,30 @@ fn test_windows_sampler_dpi_offset_bug() {
 #[test]
 fn test_windows_sampler_dpi_various_scales() {
     // Test common Windows DPI scaling values
-    let scales = vec![
-        (1.0, "100%"),   // No scaling
-        (1.25, "125%"),  // Recommended for 1080p
-        (1.5, "150%"),   // Recommended for 1440p
-        (1.75, "175%"),  // Less common
-        (2.0, "200%"),   // Recommended for 4K/5K
-        (2.5, "250%"),   // High DPI
-        (3.0, "300%"),   // Very high DPI
+    let test_cases = vec![
+        (1920, 1080, 1.0, "100%"),   // No scaling
+        (2400, 1350, 1.25, "125%"),  // 125% of 1920x1080
+        (2880, 1620, 1.5, "150%"),   // 150% of 1920x1080
+        (3360, 1890, 1.75, "175%"),  // 175% of 1920x1080
+        (3840, 2160, 2.0, "200%"),   // 200% of 1920x1080 (4K)
+        (4800, 2700, 2.5, "250%"),   // 250% of 1920x1080
+        (5760, 3240, 3.0, "300%"),   // 300% of 1920x1080
     ];
     
-    for (scale, description) in scales {
-        let mut sampler = MockWindowsSampler::new_with_dpi(1920, 1080, scale);
+    for (physical_width, physical_height, scale, description) in test_cases {
+        let mut sampler = MockWindowsSampler::new_with_dpi(physical_width, physical_height, scale);
         
-        let physical_x = 1000;
-        let expected_logical_x = (physical_x as f64 / scale) as i32;
+        let virtual_x = 800;
+        let expected_physical_x = (virtual_x as f64 * scale) as i32;
         
-        let color = sampler.sample_pixel(physical_x, 500).unwrap();
+        let color = sampler.sample_pixel(virtual_x, 400).unwrap();
         
         // Verify coordinate conversion works for this scale
-        let expected_b = (expected_logical_x % 256) as u8;
+        let expected_b = (expected_physical_x % 256) as u8;
         assert_eq!(
             color.b, expected_b,
-            "DPI scaling {} failed: physical {} should map to logical {}",
-            description, physical_x, expected_logical_x
+            "DPI scaling {} failed: virtual {} should map to physical {}",
+            description, virtual_x, expected_physical_x
         );
     }
 }
@@ -667,37 +668,30 @@ fn test_windows_sampler_dpi_fallback_no_duplicates() {
 #[test]
 fn test_windows_sampler_dpi_grid_edge_alignment() {
     // Test that grid pixels align correctly with individual samples at 200% DPI
-    let mut sampler = MockWindowsSampler::new_with_dpi(2560, 1440, 2.0);
+    // Physical: 5120x2880
+    let mut sampler = MockWindowsSampler::new_with_dpi(5120, 2880, 2.0);
     
-    let physical_center_x = 2000;
-    let physical_center_y = 1000;
+    let virtual_center_x = 1000;
+    let virtual_center_y = 500;
     let grid_size = 5;
     
-    let grid = sampler.sample_grid(physical_center_x, physical_center_y, grid_size, 1.0).unwrap();
+    let grid = sampler.sample_grid(virtual_center_x, virtual_center_y, grid_size, 1.0).unwrap();
     
     // Verify each grid pixel matches individual sample
     let half_size = (grid_size / 2) as i32;
     
-    // Convert physical center to logical coordinates first
-    let logical_center_x = (physical_center_x as f64 / 2.0) as i32;
-    let logical_center_y = (physical_center_y as f64 / 2.0) as i32;
-    
     for row in 0..grid_size {
         for col in 0..grid_size {
-            // Calculate offsets in logical space (to match sample_grid behavior)
+            // Calculate offsets (applied in physical space by our implementation)
             let offset_x = (col as i32 - half_size);
             let offset_y = (row as i32 - half_size);
             
-            // Apply offsets in logical space
-            let logical_x = logical_center_x + offset_x;
-            let logical_y = logical_center_y + offset_y;
-            
-            // Convert back to physical coordinates for sample_pixel
-            let physical_x = (logical_x as f64 * 2.0) as i32;
-            let physical_y = (logical_y as f64 * 2.0) as i32;
+            // Virtual coordinates for this grid position
+            let virtual_x = virtual_center_x + offset_x;
+            let virtual_y = virtual_center_y + offset_y;
             
             let grid_color = &grid[row][col];
-            let individual_color = sampler.sample_pixel(physical_x, physical_y).unwrap();
+            let individual_color = sampler.sample_pixel(virtual_x, virtual_y).unwrap();
             
             assert_eq!(
                 grid_color.r, individual_color.r,

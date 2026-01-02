@@ -679,16 +679,25 @@ fn test_windows_sampler_dpi_grid_edge_alignment() {
     
     // Verify each grid pixel matches individual sample
     let half_size = (grid_size / 2) as i32;
+    let dpi_scale = 2.0; // Match the sampler's DPI scale
+    
+    // Convert virtual center to physical (what the sampler does internally)
+    let physical_center_x = (virtual_center_x as f64 * dpi_scale) as i32;
+    let physical_center_y = (virtual_center_y as f64 * dpi_scale) as i32;
     
     for row in 0..grid_size {
         for col in 0..grid_size {
-            // Calculate offsets (applied in physical space by our implementation)
+            // Offsets are applied in physical space by the sampler
             let offset_x = col as i32 - half_size;
             let offset_y = row as i32 - half_size;
             
-            // Virtual coordinates for this grid position
-            let virtual_x = virtual_center_x + offset_x;
-            let virtual_y = virtual_center_y + offset_y;
+            // Calculate physical coordinates (how sampler builds the grid)
+            let physical_x = physical_center_x + offset_x;
+            let physical_y = physical_center_y + offset_y;
+            
+            // Convert back to virtual coordinates for sample_pixel call
+            let virtual_x = (physical_x as f64 / dpi_scale) as i32;
+            let virtual_y = (physical_y as f64 / dpi_scale) as i32;
             
             let grid_color = &grid[row][col];
             let individual_color = sampler.sample_pixel(virtual_x, virtual_y).unwrap();

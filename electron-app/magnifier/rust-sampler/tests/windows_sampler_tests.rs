@@ -61,29 +61,24 @@ impl PixelSampler for MockWindowsSampler {
         Ok(Point { x: physical_x, y: physical_y })
     }
     
-    // Override sample_grid to simulate DPI-aware behavior
+    // Override sample_grid to simulate production behavior (virtual coordinates)
     fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {
         let half_size = (grid_size / 2) as i32;
         let mut grid = Vec::with_capacity(grid_size);
-        
-        // Convert center from virtual to physical pixels (matches real implementation)
-        let physical_center_x = (center_x as f64 * self.dpi_scale) as i32;
-        let physical_center_y = (center_y as f64 * self.dpi_scale) as i32;
-        
-        // Scale grid dimensions to physical pixels
-        let physical_half_size = (half_size as f64 * self.dpi_scale) as i32;
-        
+
+        // Production sample_grid operates in virtual coordinates (no DPI scaling)
         for row in 0..grid_size {
             let mut row_pixels = Vec::with_capacity(grid_size);
             for col in 0..grid_size {
-                // Map logical grid position to physical pixel position
-                // We sample at regular intervals in the physical pixel space
-                let physical_offset_x = (col as f64 * self.dpi_scale) as i32 - physical_half_size;
-                let physical_offset_y = (row as f64 * self.dpi_scale) as i32 - physical_half_size;
-                
-                let physical_x = physical_center_x + physical_offset_x;
-                let physical_y = physical_center_y + physical_offset_y;
-                
+                // Calculate virtual pixel coordinates (matches production behavior)
+                let virtual_x = center_x + (col as i32 - half_size);
+                let virtual_y = center_y + (row as i32 - half_size);
+
+                // Convert virtual to physical for bounds checking and color calculation
+                // (since screen_width/screen_height are physical dimensions)
+                let physical_x = (virtual_x as f64 * self.dpi_scale) as i32;
+                let physical_y = (virtual_y as f64 * self.dpi_scale) as i32;
+
                 // Sample in physical space
                 if physical_x < 0 || physical_y < 0 || physical_x >= self.screen_width || physical_y >= self.screen_height {
                     row_pixels.push(Color::new(128, 128, 128));
@@ -96,7 +91,7 @@ impl PixelSampler for MockWindowsSampler {
             }
             grid.push(row_pixels);
         }
-        
+
         Ok(grid)
     }
 }
@@ -693,46 +688,32 @@ fn test_windows_sampler_dpi_grid_edge_alignment() {
     assert_eq!(grid.len(), grid_size);
     assert_eq!(grid[0].len(), grid_size);
     
-    // Verify center pixel matches what we expect at the physical coordinates
-    // Virtual (1000, 500) -> Physical (2000, 1000)
-    let dpi_scale = 2.0;
-    let physical_center_x = (virtual_center_x as f64 * dpi_scale) as i32; // 2000
-    let physical_center_y = (virtual_center_y as f64 * dpi_scale) as i32; // 1000
-    
+    // Verify center pixel matches what we expect
+    // Mock sample_grid operates in virtual coordinates like production
     let center_idx = grid_size / 2; // 2 for a 5x5 grid
     let center_pixel = &grid[center_idx][center_idx];
-    
-    // The mock sampler generates colors based on physical coordinates:
-    // b = physical_x % 256, g = physical_y % 256, r = (physical_x + physical_y) % 256
-    let expected_b = (physical_center_x % 256) as u8;
-    let expected_g = (physical_center_y % 256) as u8;
-    let expected_r = ((physical_center_x + physical_center_y) % 256) as u8;
-    
+
+    // Center samples at virtual position (1000, 500) -> physical (2000, 1000)
+    // Colors are based on physical coordinates
+    let expected_b = (2000 % 256) as u8; // 2000 % 256 = 224
+    let expected_g = (1000 % 256) as u8; // 1000 % 256 = 232
+    let expected_r = ((2000 + 1000) % 256) as u8; // 3000 % 256 = 200
+
     assert_eq!(center_pixel.r, expected_r, "Center pixel R component mismatch");
     assert_eq!(center_pixel.g, expected_g, "Center pixel G component mismatch");
     assert_eq!(center_pixel.b, expected_b, "Center pixel B component mismatch");
-    
-    // At 200% DPI with a 5x5 grid, we capture a 10x10 physical pixel region
-    // and sample at 2-pixel intervals: positions 0, 2, 4, 6, 8 in the physical grid
-    // Physical half size = 2 * 2 = 4 pixels
-    // So top-left samples at: center - 4 = (1996, 996)
-    // Grid positions: 0->1996, 1->1998, 2->2000, 3->2002, 4->2004
-    
-    let physical_half_size = ((grid_size / 2) as f64 * dpi_scale) as i32; // 4
-    
-    // Top-left: row=0, col=0 -> offset (0*2 - 4, 0*2 - 4) = (-4, -4) from center
+
+    // Grid samples at virtual offsets from center (1000, 500)
+    // Virtual half_size = 2 for 5x5 grid
+    // Top-left: virtual (998, 498) -> physical (1996, 996)
     let top_left = &grid[0][0];
-    let tl_physical_x = physical_center_x - physical_half_size; // 1996
-    let tl_physical_y = physical_center_y - physical_half_size; // 996
-    assert_eq!(top_left.b, (tl_physical_x % 256) as u8);
-    assert_eq!(top_left.g, (tl_physical_y % 256) as u8);
-    
-    // Bottom-right: row=4, col=4 -> offset (4*2 - 4, 4*2 - 4) = (4, 4) from center
+    assert_eq!(top_left.b, (1996 % 256) as u8); // 1996 % 256 = 220
+    assert_eq!(top_left.g, (996 % 256) as u8);  // 996 % 256 = 228
+
+    // Bottom-right: virtual (1002, 502) -> physical (2004, 1004)
     let bottom_right = &grid[4][4];
-    let br_physical_x = physical_center_x + physical_half_size; // 2004
-    let br_physical_y = physical_center_y + physical_half_size; // 1004
-    assert_eq!(bottom_right.b, (br_physical_x % 256) as u8);
-    assert_eq!(bottom_right.g, (br_physical_y % 256) as u8);
+    assert_eq!(bottom_right.b, (2004 % 256) as u8); // 2004 % 256 = 228
+    assert_eq!(bottom_right.g, (1004 % 256) as u8); // 1004 % 256 = 236
 }
 
 #[test]

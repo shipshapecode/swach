@@ -6,6 +6,15 @@
 
 
 
+
+## v2.2.2 (2026-01-02)
+
+#### :bug: Bug Fix
+* [#2470](https://github.com/shipshapecode/swach/pull/2470) Fix Windows DPI issues more ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v2.2.1 (2025-12-29)
 
 #### :bug: Bug Fix

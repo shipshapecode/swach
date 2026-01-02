@@ -6,12 +6,10 @@ use windows::Win32::Graphics::Gdi::{
     GetDeviceCaps, GetDIBits, GetPixel, LOGPIXELSX, ReleaseDC, SelectObject, BITMAPINFO, 
     BITMAPINFOHEADER, BI_RGB, CLR_INVALID, DIB_RGB_COLORS, HDC, SRCCOPY,
 };
-use windows::Win32::UI::WindowsAndMessaging::{GetCursorPos, GetSystemMetrics, SM_CXVIRTUALSCREEN, SM_CYVIRTUALSCREEN};
+use windows::Win32::UI::WindowsAndMessaging::GetCursorPos;
 
 pub struct WindowsSampler {
     hdc: HDC,
-    screen_width: i32,
-    screen_height: i32,
     dpi_scale: f64,
 }
 
@@ -24,23 +22,14 @@ impl WindowsSampler {
                 return Err("Failed to get device context".to_string());
             }
             
-            // Get virtual screen dimensions (supports multi-monitor)
-            let screen_width = GetSystemMetrics(SM_CXVIRTUALSCREEN);
-            let screen_height = GetSystemMetrics(SM_CYVIRTUALSCREEN);
-            
             // Get DPI scaling factor
             // GetDeviceCaps returns DPI (e.g., 96 for 100%, 192 for 200%)
             // Standard DPI is 96, so scale = actual_dpi / 96
             let dpi = GetDeviceCaps(hdc, LOGPIXELSX);
             let dpi_scale = dpi as f64 / 96.0;
             
-            eprintln!("Windows sampler initialized ({}x{}, DPI scale: {})", 
-                screen_width, screen_height, dpi_scale);
-            
             Ok(WindowsSampler { 
                 hdc,
-                screen_width,
-                screen_height,
                 dpi_scale,
             })
         }
@@ -58,11 +47,14 @@ impl Drop for WindowsSampler {
 impl PixelSampler for WindowsSampler {
     fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
         unsafe {
-            // Convert from physical pixels to logical pixels
-            let logical_x = (x as f64 / self.dpi_scale) as i32;
-            let logical_y = (y as f64 / self.dpi_scale) as i32;
+            // Electron is DPI-aware, so:
+            // - GetCursorPos returns VIRTUAL pixels (e.g., 0-2559 at 200% on 5120 wide screen)
+            // - GetPixel expects PHYSICAL pixels (e.g., 0-5119)
+            // We must convert: physical = virtual * dpi_scale
+            let physical_x = (x as f64 * self.dpi_scale) as i32;
+            let physical_y = (y as f64 * self.dpi_scale) as i32;
             
-            let color_ref = GetPixel(self.hdc, logical_x, logical_y);
+            let color_ref = GetPixel(self.hdc, physical_x, physical_y);
             
             // Check for error (CLR_INVALID is returned on error)
             // COLORREF is a newtype wrapper around u32
@@ -102,15 +94,15 @@ impl PixelSampler for WindowsSampler {
         unsafe {
             let half_size = (grid_size / 2) as i32;
             
-            // Convert cursor coordinates from physical pixels to logical pixels
-            // GetCursorPos returns physical pixels, but DC uses logical pixels
-            // At 200% DPI: physical 2000 -> logical 1000
-            let logical_x = (center_x as f64 / self.dpi_scale) as i32;
-            let logical_y = (center_y as f64 / self.dpi_scale) as i32;
+            // Electron is DPI-aware, so GetCursorPos returns virtual coordinates
+            // but GetDC/BitBlt use physical coordinates
+            // Convert: physical = virtual * dpi_scale
+            let physical_center_x = (center_x as f64 * self.dpi_scale) as i32;
+            let physical_center_y = (center_y as f64 * self.dpi_scale) as i32;
             
-            // Calculate capture region in logical pixels
-            let x_start = logical_x - half_size;
-            let y_start = logical_y - half_size;
+            // Calculate capture region in physical pixel coordinates
+            let x_start = physical_center_x - half_size;
+            let y_start = physical_center_y - half_size;
             let width = grid_size as i32;
             let height = grid_size as i32;
             
@@ -148,7 +140,6 @@ impl PixelSampler for WindowsSampler {
                 let _ = DeleteObject(bitmap);
                 let _ = DeleteDC(mem_dc);
                 
-                eprintln!("BitBlt failed, falling back to pixel-by-pixel sampling");
                 return self.sample_grid_fallback(center_x, center_y, grid_size);
             }
             
@@ -191,7 +182,6 @@ impl PixelSampler for WindowsSampler {
             let _ = DeleteDC(mem_dc);
             
             if scan_lines == 0 {
-                eprintln!("GetDIBits failed, falling back to pixel-by-pixel sampling");
                 return self.sample_grid_fallback(center_x, center_y, grid_size);
             }
             
@@ -232,20 +222,19 @@ impl WindowsSampler {
             let half_size = (grid_size / 2) as i32;
             let mut grid = Vec::with_capacity(grid_size);
             
-            // Convert center from physical to logical pixels
-            // This ensures we sample distinct logical pixels, not duplicates at high DPI
-            let logical_center_x = (center_x as f64 / self.dpi_scale) as i32;
-            let logical_center_y = (center_y as f64 / self.dpi_scale) as i32;
+            // Convert virtual cursor coordinates to physical for DC sampling
+            let physical_center_x = (center_x as f64 * self.dpi_scale) as i32;
+            let physical_center_y = (center_y as f64 * self.dpi_scale) as i32;
             
             for row in 0..grid_size {
                 let mut row_pixels = Vec::with_capacity(grid_size);
                 for col in 0..grid_size {
-                    // Work in logical pixel space to match main path behavior
-                    let logical_x = logical_center_x + (col as i32 - half_size);
-                    let logical_y = logical_center_y + (row as i32 - half_size);
+                    // Calculate physical pixel coordinates
+                    let physical_x = physical_center_x + (col as i32 - half_size);
+                    let physical_y = physical_center_y + (row as i32 - half_size);
                     
-                    // Sample directly in logical space using GetPixel
-                    let color_ref = GetPixel(self.hdc, logical_x, logical_y);
+                    // Sample using physical coordinates
+                    let color_ref = GetPixel(self.hdc, physical_x, physical_y);
                     
                     let color = if color_ref.0 == CLR_INVALID {
                         Color::new(128, 128, 128) // Gray fallback for out-of-bounds

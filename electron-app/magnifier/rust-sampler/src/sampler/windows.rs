@@ -10,7 +10,7 @@ use windows::Win32::UI::WindowsAndMessaging::GetCursorPos;
 
 pub struct WindowsSampler {
     hdc: HDC,
-    dpi_scale: f64,
+    pub dpi_scale: f64,
 }
 
 impl WindowsSampler {
@@ -89,10 +89,6 @@ impl PixelSampler for WindowsSampler {
                 y: physical_y,
             })
         }
-    }
-
-    fn get_dpi_scale(&self) -> f64 {
-        self.dpi_scale
     }
 
     // Optimized grid sampling using BitBlt for batch capture

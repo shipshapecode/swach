@@ -121,10 +121,6 @@ impl PixelSampler for MacOSSampler {
         }
     }
 
-    fn get_dpi_scale(&self) -> f64 {
-        1.0 // macOS handles DPI scaling automatically
-    }
-
     // Optimized grid sampling - capture once and sample from buffer
     fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {
         let half_size = (grid_size / 2) as i32;

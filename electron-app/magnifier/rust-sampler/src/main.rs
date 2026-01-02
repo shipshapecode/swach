@@ -30,13 +30,13 @@ fn run() -> Result<(), String> {
 
     // Create channels for command communication
     let (cmd_tx, cmd_rx): (std::sync::mpsc::Sender<Command>, Receiver<Command>) = channel();
-    
+
     // Spawn stdin reader thread
     thread::spawn(move || {
         let stdin = io::stdin();
         let mut reader = stdin.lock();
         let mut line = String::new();
-        
+
         loop {
             line.clear();
             match reader.read_line(&mut line) {
@@ -67,12 +67,27 @@ fn run() -> Result<(), String> {
         }
     });
 
+    // Get DPI scale - Windows needs it, others use 1.0
+    #[cfg(target_os = "windows")]
+    let dpi_scale = {
+        // Downcast to WindowsSampler to access dpi_scale field
+        use std::any::Any;
+        use sampler::WindowsSampler;
+        if let Some(windows_sampler) = (&mut *sampler as &mut dyn Any).downcast_mut::<WindowsSampler>() {
+            windows_sampler.dpi_scale
+        } else {
+            1.0 // Fallback, shouldn't happen
+        }
+    };
+    #[cfg(not(target_os = "windows"))]
+    let dpi_scale = 1.0;
+
     // Main loop - wait for commands from channel
     loop {
         match cmd_rx.recv() {
             Ok(Command::Start { grid_size, sample_rate }) => {
                 eprintln!("Starting sampling: grid_size={}, sample_rate={}", grid_size, sample_rate);
-                if let Err(e) = run_sampling_loop(&mut *sampler, grid_size, sample_rate, &cmd_rx) {
+                if let Err(e) = run_sampling_loop(&mut *sampler, grid_size, sample_rate, dpi_scale, &cmd_rx) {
                     eprintln!("Sampling loop error: {}", e);
                     send_error(&e);
                 }
@@ -99,6 +114,7 @@ fn run_sampling_loop(
     sampler: &mut dyn PixelSampler,
     initial_grid_size: usize,
     sample_rate: u64,
+    dpi_scale: f64,
     cmd_rx: &std::sync::mpsc::Receiver<Command>,
 ) -> Result<(), String> {
     use std::sync::mpsc::TryRecvError;
@@ -149,8 +165,7 @@ fn run_sampling_loop(
         last_cursor = physical_cursor.clone();
 
         // Convert physical coordinates back to virtual for sampling
-        // sampler.sample_pixel() and sampler.sample_grid() expect virtual coordinates
-        let dpi_scale = sampler.get_dpi_scale();
+        // We know dpi_scale is available here since it's declared at function scope
         let virtual_cursor = Point {
             x: (physical_cursor.x as f64 / dpi_scale) as i32,
             y: (physical_cursor.y as f64 / dpi_scale) as i32,

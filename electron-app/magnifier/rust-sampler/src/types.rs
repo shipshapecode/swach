@@ -83,9 +83,6 @@ pub trait PixelSampler {
     /// Get cursor position
     fn get_cursor_position(&self) -> Result<Point, String>;
 
-    /// Get DPI scale factor
-    fn get_dpi_scale(&self) -> f64;
-
     /// Sample a grid of pixels around a center point
     fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {
         let half_size = (grid_size / 2) as i32;

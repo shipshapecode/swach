@@ -91,6 +91,10 @@ impl PixelSampler for WindowsSampler {
         }
     }
 
+    fn get_dpi_scale(&self) -> f64 {
+        self.dpi_scale
+    }
+
     // Optimized grid sampling using BitBlt for batch capture
     // This is ~100x faster than calling GetPixel 81 times (for 9x9 grid)
     fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {

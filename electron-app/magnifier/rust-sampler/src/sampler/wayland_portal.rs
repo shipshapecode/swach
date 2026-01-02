@@ -392,7 +392,11 @@ impl PixelSampler for WaylandPortalSampler {
             Ok(Point { x: root_x, y: root_y })
         }
     }
-    
+
+    fn get_dpi_scale(&self) -> f64 {
+        1.0 // Wayland DPI scaling is handled by the system
+    }
+
     fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {
         self.ensure_screenshot_captured()?;
         

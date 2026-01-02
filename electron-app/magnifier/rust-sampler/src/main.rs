@@ -134,8 +134,8 @@ fn run_sampling_loop(
         
         let loop_start = std::time::Instant::now();
 
-        // Get cursor position
-        let cursor = match sampler.get_cursor_position() {
+        // Get cursor position (returns physical coordinates for Electron window positioning)
+        let physical_cursor = match sampler.get_cursor_position() {
             Ok(pos) => pos,
             Err(_e) => {
                 // On Wayland/some platforms, we can't get cursor position directly
@@ -146,17 +146,25 @@ fn run_sampling_loop(
 
         // Sample every frame regardless of cursor movement for smooth updates
         // This ensures the UI is responsive even if cursor position can't be tracked
-        last_cursor = cursor.clone();
+        last_cursor = physical_cursor.clone();
+
+        // Convert physical coordinates back to virtual for sampling
+        // sampler.sample_pixel() and sampler.sample_grid() expect virtual coordinates
+        let dpi_scale = sampler.get_dpi_scale();
+        let virtual_cursor = Point {
+            x: (physical_cursor.x as f64 / dpi_scale) as i32,
+            y: (physical_cursor.y as f64 / dpi_scale) as i32,
+        };
 
         // Sample center pixel
-        let center_color = sampler.sample_pixel(cursor.x, cursor.y)
+        let center_color = sampler.sample_pixel(virtual_cursor.x, virtual_cursor.y)
             .unwrap_or_else(|e| {
                 eprintln!("Failed to sample center pixel: {}", e);
                 Color::new(128, 128, 128)
             });
 
         // Sample grid
-        let grid = sampler.sample_grid(cursor.x, cursor.y, current_grid_size, 1.0)
+        let grid = sampler.sample_grid(virtual_cursor.x, virtual_cursor.y, current_grid_size, 1.0)
             .unwrap_or_else(|e| {
                 eprintln!("Failed to sample grid: {}", e);
                 vec![vec![Color::new(128, 128, 128); current_grid_size]; current_grid_size]
@@ -169,7 +177,7 @@ fn run_sampling_loop(
             .collect();
 
         let pixel_data = PixelData {
-            cursor: cursor.clone(),
+            cursor: physical_cursor.clone(),
             center: center_color.into(),
             grid: grid_data,
             timestamp: SystemTime::now()

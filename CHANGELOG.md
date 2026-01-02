@@ -7,6 +7,15 @@
 
 
 
+
+## v2.2.3 (2026-01-02)
+
+#### :bug: Bug Fix
+* [#2471](https://github.com/shipshapecode/swach/pull/2471) Still trying to fix Windows ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v2.2.2 (2026-01-02)
 
 #### :bug: Bug Fix

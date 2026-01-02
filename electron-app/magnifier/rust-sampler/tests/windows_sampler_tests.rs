@@ -683,8 +683,8 @@ fn test_windows_sampler_dpi_grid_edge_alignment() {
     for row in 0..grid_size {
         for col in 0..grid_size {
             // Calculate offsets (applied in physical space by our implementation)
-            let offset_x = (col as i32 - half_size);
-            let offset_y = (row as i32 - half_size);
+            let offset_x = col as i32 - half_size;
+            let offset_y = row as i32 - half_size;
             
             // Virtual coordinates for this grid position
             let virtual_x = virtual_center_x + offset_x;
@@ -695,18 +695,18 @@ fn test_windows_sampler_dpi_grid_edge_alignment() {
             
             assert_eq!(
                 grid_color.r, individual_color.r,
-                "Mismatch at grid[{}][{}] (physical {}, {})",
-                row, col, physical_x, physical_y
+                "Mismatch at grid[{}][{}] (virtual {}, {})",
+                row, col, virtual_x, virtual_y
             );
             assert_eq!(
                 grid_color.g, individual_color.g,
-                "Mismatch at grid[{}][{}] (physical {}, {})",
-                row, col, physical_x, physical_y
+                "Mismatch at grid[{}][{}] (virtual {}, {})",
+                row, col, virtual_x, virtual_y
             );
             assert_eq!(
                 grid_color.b, individual_color.b,
-                "Mismatch at grid[{}][{}] (physical {}, {})",
-                row, col, physical_x, physical_y
+                "Mismatch at grid[{}][{}] (virtual {}, {})",
+                row, col, virtual_x, virtual_y
             );
         }
     }

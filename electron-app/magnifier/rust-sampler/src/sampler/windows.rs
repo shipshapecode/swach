@@ -6,12 +6,10 @@ use windows::Win32::Graphics::Gdi::{
     GetDeviceCaps, GetDIBits, GetPixel, LOGPIXELSX, ReleaseDC, SelectObject, BITMAPINFO, 
     BITMAPINFOHEADER, BI_RGB, CLR_INVALID, DIB_RGB_COLORS, HDC, SRCCOPY,
 };
-use windows::Win32::UI::WindowsAndMessaging::{GetCursorPos, GetSystemMetrics, SM_CXVIRTUALSCREEN, SM_CYVIRTUALSCREEN};
+use windows::Win32::UI::WindowsAndMessaging::GetCursorPos;
 
 pub struct WindowsSampler {
     hdc: HDC,
-    screen_width: i32,
-    screen_height: i32,
     dpi_scale: f64,
 }
 
@@ -24,23 +22,14 @@ impl WindowsSampler {
                 return Err("Failed to get device context".to_string());
             }
             
-            // Get virtual screen dimensions (supports multi-monitor)
-            let screen_width = GetSystemMetrics(SM_CXVIRTUALSCREEN);
-            let screen_height = GetSystemMetrics(SM_CYVIRTUALSCREEN);
-            
             // Get DPI scaling factor
             // GetDeviceCaps returns DPI (e.g., 96 for 100%, 192 for 200%)
             // Standard DPI is 96, so scale = actual_dpi / 96
             let dpi = GetDeviceCaps(hdc, LOGPIXELSX);
             let dpi_scale = dpi as f64 / 96.0;
             
-            eprintln!("Windows sampler initialized ({}x{}, DPI scale: {})", 
-                screen_width, screen_height, dpi_scale);
-            
             Ok(WindowsSampler { 
                 hdc,
-                screen_width,
-                screen_height,
                 dpi_scale,
             })
         }
@@ -151,7 +140,6 @@ impl PixelSampler for WindowsSampler {
                 let _ = DeleteObject(bitmap);
                 let _ = DeleteDC(mem_dc);
                 
-                eprintln!("BitBlt failed, falling back to pixel-by-pixel sampling");
                 return self.sample_grid_fallback(center_x, center_y, grid_size);
             }
             
@@ -194,7 +182,6 @@ impl PixelSampler for WindowsSampler {
             let _ = DeleteDC(mem_dc);
             
             if scan_lines == 0 {
-                eprintln!("GetDIBits failed, falling back to pixel-by-pixel sampling");
                 return self.sample_grid_fallback(center_x, center_y, grid_size);
             }
             

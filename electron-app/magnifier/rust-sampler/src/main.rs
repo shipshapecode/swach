@@ -68,19 +68,28 @@ fn run() -> Result<(), String> {
     });
 
     // Get DPI scale - Windows needs it, others use 1.0
-    #[cfg(target_os = "windows")]
-    let dpi_scale = {
-        // Downcast to WindowsSampler to access dpi_scale field
-        use std::any::Any;
-        use sampler::WindowsSampler;
-        if let Some(windows_sampler) = (&mut *sampler as &mut dyn Any).downcast_mut::<WindowsSampler>() {
-            windows_sampler.dpi_scale
-        } else {
-            1.0 // Fallback, shouldn't happen
+    let dpi_scale = get_dpi_scale();
+
+    fn get_dpi_scale() -> f64 {
+        #[cfg(target_os = "windows")]
+        {
+            // On Windows, get DPI scale directly from system
+            use windows::Win32::Graphics::Gdi::{GetDC, GetDeviceCaps, LOGPIXELSX, ReleaseDC};
+            unsafe {
+                let hdc = GetDC(None);
+                if !hdc.is_invalid() {
+                    let dpi = GetDeviceCaps(hdc, LOGPIXELSX);
+                    let _ = ReleaseDC(None, hdc);
+                    return dpi as f64 / 96.0;
+                }
+            }
+            1.0 // Fallback
         }
-    };
-    #[cfg(not(target_os = "windows"))]
-    let dpi_scale = 1.0;
+        #[cfg(not(target_os = "windows"))]
+        {
+            1.0
+        }
+    }
 
     // Main loop - wait for commands from channel
     loop {

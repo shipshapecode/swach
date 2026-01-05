@@ -379,8 +379,8 @@ async function launchMagnifyingColorPicker(
     // Hide window and wait for it to be fully hidden
     if (mb.window && !mb.window.isDestroyed()) {
       const hidePromise = new Promise<void>((resolve) => {
-        if (mb.window!.isVisible()) {
-          mb.window!.once('hide', () => resolve());
+        if (mb.window?.isVisible()) {
+          mb.window?.once('hide', () => resolve());
           mb.hideWindow();
         } else {
           resolve();

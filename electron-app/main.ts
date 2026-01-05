@@ -168,14 +168,14 @@ mb.on('after-create-window', () => {
   // Load the Ember application using our custom protocol/scheme
   handleFileUrls(emberAppDir);
 
-  void mb.window!.loadURL(emberAppURL);
+  void mb.window?.loadURL(emberAppURL);
 
   // If a loading operation goes wrong, we'll send Electron back to Ember entry
   mb.window?.webContents.on('did-fail-load', () => {
-    void mb.window!.loadURL(emberAppURL);
+    void mb.window?.loadURL(emberAppURL);
   });
 
-  mb.window!.once('ready-to-show', function () {
+  mb.window?.once('ready-to-show', function () {
     setTimeout(() => {
       void mb.showWindow();
     }, 750);
@@ -190,13 +190,13 @@ mb.on('after-create-window', () => {
     );
   });
 
-  mb.window!.on('unresponsive', () => {
+  mb.window?.on('unresponsive', () => {
     console.log(
       'Your Ember app (or other code) has made the window unresponsive.'
     );
   });
 
-  mb.window!.on('responsive', () => {
+  mb.window?.on('responsive', () => {
     console.log('The main window has become responsive again.');
   });
 

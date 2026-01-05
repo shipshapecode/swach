@@ -395,13 +395,13 @@ async function launchMagnifyingColorPicker(
 
     if (color) {
       if (type === 'global') {
-        mb.window!.webContents.send('changeColor', color);
+        mb.window?.webContents.send('changeColor', color);
       }
       if (type === 'contrastBg') {
-        mb.window!.webContents.send('pickContrastBgColor', color);
+        mb.window?.webContents.send('pickContrastBgColor', color);
       }
       if (type === 'contrastFg') {
-        mb.window!.webContents.send('pickContrastFgColor', color);
+        mb.window?.webContents.send('pickContrastFgColor', color);
       }
     }
   } finally {

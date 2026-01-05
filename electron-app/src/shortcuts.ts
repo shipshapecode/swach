@@ -106,14 +106,14 @@ export function setupMenu(
           label: 'Undo',
           accelerator: 'CmdOrCtrl+Z',
           click() {
-            mb.window!.webContents.send('undoRedo', 'undo');
+            mb.window?.webContents.send('undoRedo', 'undo');
           },
         },
         {
           label: 'Redo',
           accelerator: 'Shift+CmdOrCtrl+Z',
           click() {
-            mb.window!.webContents.send('undoRedo', 'redo');
+            mb.window?.webContents.send('undoRedo', 'redo');
           },
         },
         { type: 'separator' },

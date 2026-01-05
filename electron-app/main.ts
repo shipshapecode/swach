@@ -50,7 +50,7 @@ if (store.get('firstRunV1')) {
 
 function openContrastChecker(mb: Menubar) {
   void mb.showWindow();
-  mb.window!.webContents.send('openContrastChecker');
+  mb.window?.webContents.send('openContrastChecker');
 }
 
 let menubarIcon = 'menubar-icons/iconTemplate.png';
@@ -168,20 +168,20 @@ mb.on('after-create-window', () => {
   // Load the Ember application using our custom protocol/scheme
   handleFileUrls(emberAppDir);
 
-  void mb.window!.loadURL(emberAppURL);
+  void mb.window?.loadURL(emberAppURL);
 
   // If a loading operation goes wrong, we'll send Electron back to Ember entry
-  mb.window!.webContents.on('did-fail-load', () => {
-    void mb.window!.loadURL(emberAppURL);
+  mb.window?.webContents.on('did-fail-load', () => {
+    void mb.window?.loadURL(emberAppURL);
   });
 
-  mb.window!.once('ready-to-show', function () {
+  mb.window?.once('ready-to-show', function () {
     setTimeout(() => {
       void mb.showWindow();
     }, 750);
   });
 
-  mb.window!.webContents.on('render-process-gone', () => {
+  mb.window?.webContents.on('render-process-gone', () => {
     console.log(
       'Your Ember app (or other code) in the main window has crashed.'
     );
@@ -190,13 +190,13 @@ mb.on('after-create-window', () => {
     );
   });
 
-  mb.window!.on('unresponsive', () => {
+  mb.window?.on('unresponsive', () => {
     console.log(
       'Your Ember app (or other code) has made the window unresponsive.'
     );
   });
 
-  mb.window!.on('responsive', () => {
+  mb.window?.on('responsive', () => {
     console.log('The main window has become responsive again.');
   });
 
@@ -207,7 +207,7 @@ mb.on('after-create-window', () => {
 
   const setOSTheme = () => {
     const theme = nativeTheme.shouldUseDarkColors ? 'dark' : 'light';
-    mb.window!.webContents.send('setTheme', theme);
+    mb.window?.webContents.send('setTheme', theme);
   };
 
   nativeTheme.on('updated', setOSTheme);

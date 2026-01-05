@@ -379,8 +379,8 @@ async function launchMagnifyingColorPicker(
     // Hide window and wait for it to be fully hidden
     if (mb.window && !mb.window.isDestroyed()) {
       const hidePromise = new Promise<void>((resolve) => {
-        if (mb.window!.isVisible()) {
-          mb.window!.once('hide', () => resolve());
+        if (mb.window?.isVisible()) {
+          mb.window?.once('hide', () => resolve());
           mb.hideWindow();
         } else {
           resolve();
@@ -395,13 +395,13 @@ async function launchMagnifyingColorPicker(
 
     if (color) {
       if (type === 'global') {
-        mb.window!.webContents.send('changeColor', color);
+        mb.window?.webContents.send('changeColor', color);
       }
       if (type === 'contrastBg') {
-        mb.window!.webContents.send('pickContrastBgColor', color);
+        mb.window?.webContents.send('pickContrastBgColor', color);
       }
       if (type === 'contrastFg') {
-        mb.window!.webContents.send('pickContrastFgColor', color);
+        mb.window?.webContents.send('pickContrastFgColor', color);
       }
     }
   } finally {

@@ -193,10 +193,10 @@
     "vitest": "^4.0.16",
     "wcag-contrast": "^3.0.0"
   },
-  "packageManager": "pnpm@10.20.0",
+  "packageManager": "pnpm@10.27.0",
   "engines": {
     "node": ">= 22",
-    "pnpm": "^10.20.0"
+    "pnpm": "^10.27.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"

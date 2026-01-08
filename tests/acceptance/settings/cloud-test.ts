@@ -60,7 +60,6 @@ module('Acceptance | settings/cloud', function (hooks) {
       'service:supabase'
     ) as SupabaseService;
     sinon.stub(supabaseService, 'signInWithOtp').resolves();
-    sinon.stub(supabaseService, 'signOut').resolves();
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const authenticator = this.owner.lookup('authenticator:supabase') as any;
@@ -78,7 +77,6 @@ module('Acceptance | settings/cloud', function (hooks) {
       'service:data'
     ) as unknown as DataService;
     const synchronizeStub = sinon.stub(dataService, 'synchronize').resolves();
-    sinon.stub(dataService, 'reset').resolves();
 
     // Step 1: Enter email and request OTP
     await fillIn('[data-test-login-input-user]', 'testuser@gmail.com');

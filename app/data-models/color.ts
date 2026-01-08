@@ -8,6 +8,7 @@ import type PaletteModel from '../data-models/palette.ts';
 
 export default class ColorModel extends Model {
   @attr('datetime') createdAt!: string;
+  @attr('datetime') updatedAt!: string;
   @attr('string') name!: string;
   @attr('number') r!: number;
   @attr('number') g!: number;

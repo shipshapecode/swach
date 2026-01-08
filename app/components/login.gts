@@ -42,7 +42,10 @@ export default class LoginComponent extends Component {
       {{/if}}
 
       {{#if this.errorMessage}}
-        <div class="bg-red-400 my-2 p-4 rounded-sm text-xs text-red-800">
+        <div
+          class="bg-red-400 my-2 p-4 rounded-sm text-xs text-red-800"
+          data-test-login-error
+        >
           {{this.errorMessage}}
         </div>
       {{/if}}

@@ -220,7 +220,7 @@ This is the critical flag that switches between web and Electron modes. Always s
 - Configured in `forge.config.ts`
 
 ### Package Manager
-- Uses **pnpm** (v10.20.0)
+- Uses **pnpm** (v10.27.0)
 - Node.js >= 22 required
 - pnpm patches applied for ember-local-storage and object-inspect
 

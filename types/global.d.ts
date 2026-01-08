@@ -5,8 +5,6 @@ import type { MagnifierAPI } from '../electron-app/magnifier/types';
 
 import OnClickOutsideModifier from 'ember-click-outside/modifiers/on-click-outside';
 
-import SvgJarHelper from 'ember-svg-jar/helpers/svg-jar';
-
 // Types for compiled templates
 declare module 'Swach/templates/*' {
   import { TemplateFactory } from 'ember-cli-htmlbars';
@@ -51,7 +49,6 @@ declare module '@glint/environment-ember-loose/registry' {
       };
     }>;
     'on-click-outside': typeof OnClickOutsideModifier;
-    'svg-jar': typeof SvgJarHelper;
   }
 }
 

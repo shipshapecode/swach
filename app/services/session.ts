@@ -2,19 +2,14 @@ import { service } from '@ember/service';
 
 import BaseSessionService from 'ember-simple-auth/services/session';
 
+import type { SupabaseAuthData } from '../authenticators/supabase.ts';
 import type DataService from './data.ts';
 
-interface SupabaseAuthData {
-  authenticated: {
-    userId: string;
-    email: string;
-    accessToken: string;
-    refreshToken: string;
-    expiresAt: number;
-  };
+interface SessionData {
+  authenticated: SupabaseAuthData;
 }
 
-export default class SessionService extends BaseSessionService<SupabaseAuthData> {
+export default class SessionService extends BaseSessionService<SessionData> {
   @service('data') declare swachData: DataService;
 
   handleAuthentication(routeAfterAuthentication: string) {

@@ -2,14 +2,21 @@ import { getOwner } from '@ember/owner';
 
 import BaseAuthenticator from 'ember-simple-auth/authenticators/base';
 
+import type { Session, User } from '@supabase/supabase-js';
+
 import type SupabaseService from '../services/supabase.ts';
 
+/**
+ * Authentication data structure for ember-simple-auth.
+ * This is a simplified version of Supabase's Session and User data
+ * that ember-simple-auth will persist and restore.
+ */
 export interface SupabaseAuthData {
-  userId: string;
-  email: string;
-  accessToken: string;
-  refreshToken: string;
-  expiresAt: number;
+  userId: User['id'];
+  email: User['email'];
+  accessToken: Session['access_token'];
+  refreshToken: Session['refresh_token'];
+  expiresAt: Session['expires_at'];
 }
 
 export interface OtpCredentials {

@@ -22,15 +22,6 @@ module('Acceptance | settings/cloud', function (hooks) {
       .hasText('Send Code', 'button shows send code');
   });
 
-  test('visiting /settings/cloud/register redirects to explain OTP', async function (assert) {
-    await visit('/settings/cloud/register');
-
-    assert.strictEqual(currentURL(), '/settings/cloud/register');
-    assert
-      .dom('[data-test-register-continue]')
-      .exists('continue button exists');
-  });
-
   test('user can request OTP code', async function (assert) {
     await visit('/settings/cloud/login');
 

@@ -15,7 +15,6 @@ Router.map(function () {
     this.route('cloud', function () {
       this.route('login');
       this.route('profile');
-      this.route('register');
     });
     this.route('data');
   });

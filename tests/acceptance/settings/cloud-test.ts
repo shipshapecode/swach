@@ -151,7 +151,7 @@ module('Acceptance | settings/cloud', function (hooks) {
     await waitForAll();
 
     // Should show error and stay on login page
-    assert.dom('.bg-red-400').exists('error message is shown');
+    assert.dom('[data-test-login-error]').exists('error message is shown');
     assert.strictEqual(
       currentURL(),
       '/settings/cloud/login',

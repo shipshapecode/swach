@@ -12,7 +12,7 @@ import type {
   RecordSchema,
   RecordTransformResult,
 } from '@orbit/records';
-import type { RealtimeChannel, SupabaseClient } from '@supabase/supabase-js';
+import type { SupabaseClient } from '@supabase/supabase-js';
 
 import type SessionService from '../services/session.ts';
 import type SupabaseService from '../services/supabase.ts';
@@ -55,7 +55,6 @@ interface SupabaseSourceInjections {
 export class SupabaseSource extends Source {
   private supabaseService: SupabaseService;
   private session: SessionService;
-  private realtimeChannel: RealtimeChannel | null = null;
 
   constructor(injections: SupabaseSourceInjections) {
     super(injections);
@@ -379,15 +378,10 @@ export class SupabaseSource extends Source {
     relatedRecord: RecordIdentity
   ): Promise<void> {
     if (record.type === 'palette' && relationship === 'colors') {
-      // Colors cannot exist without a palette, so delete the color entirely
-      // The database will handle this via ON DELETE CASCADE when the palette is deleted,
-      // but for explicit removal operations, we delete the color record
-      const { error } = await this.supabase
-        .from('colors')
-        .delete()
-        .eq('id', relatedRecord.id);
-
-      if (error) throw new Error(`Supabase delete error: ${error.message}`);
+      // No-op: Color moves between palettes should use replaceRelatedRecord/replaceRelatedRecords
+      // to update the palette_id FK. Deleting here breaks color-move operations that
+      // call removeFromRelatedRecords then addToRelatedRecords.
+      // Colors are only truly deleted via explicit removeRecord operations.
     }
   }
 
@@ -401,6 +395,7 @@ export class SupabaseSource extends Source {
       type: 'palette',
       attributes: {
         createdAt: palette.created_at,
+        updatedAt: palette.updated_at,
         name: palette.name,
         isColorHistory: palette.is_color_history,
         isFavorite: palette.is_favorite,
@@ -424,6 +419,7 @@ export class SupabaseSource extends Source {
       type: 'color',
       attributes: {
         createdAt: color.created_at,
+        updatedAt: color.updated_at,
         name: color.name,
         r: color.r,
         g: color.g,
@@ -488,35 +484,6 @@ export class SupabaseSource extends Source {
   // Get table name from type
   private getTableName(type: string): string {
     return type === 'palette' ? 'palettes' : 'colors';
-  }
-
-  // Set up real-time subscriptions
-  setupRealtimeSync(onUpdate: (type: string, payload: unknown) => void): void {
-    if (this.realtimeChannel) {
-      void this.supabase.removeChannel(this.realtimeChannel);
-    }
-
-    this.realtimeChannel = this.supabase
-      .channel('db-changes')
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'palettes' },
-        (payload) => onUpdate('palette', payload)
-      )
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'colors' },
-        (payload) => onUpdate('color', payload)
-      )
-      .subscribe();
-  }
-
-  // Tear down real-time subscriptions
-  teardownRealtimeSync(): void {
-    if (this.realtimeChannel) {
-      void this.supabase.removeChannel(this.realtimeChannel);
-      this.realtimeChannel = null;
-    }
   }
 }
 

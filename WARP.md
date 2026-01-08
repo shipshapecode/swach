@@ -37,7 +37,7 @@ Swach is a modern color palette manager built as a menubar/system tray Electron 
 - **Build Tool**: Vite (via @embroider/vite for fast dev and optimized production)
 - **Desktop**: Electron with Electron Forge (menubar app using `menubar` package)
 - **Data Layer**: Orbit.js (client-side ORM with sync strategies)
-- **Storage**: IndexedDB (local), AWS Cognito + API Gateway (cloud sync)
+- **Storage**: IndexedDB (local), Supabase (auth + remote database)
 - **Color Picker**: hue-hunter package (cross-platform magnifying color picker with Rust-powered pixel sampling)
 
 ### Ember + Electron Integration
@@ -83,19 +83,25 @@ Swach uses Orbit.js for sophisticated offline-first data management with three s
 **Data Sources** (`app/data-sources/`):
 - `store` - In-memory cache (primary interface, ember-orbit Store)
 - `backup` - IndexedDB persistence (local backup)
-- `remote` - JSON:API remote sync (AWS API Gateway, authenticated users only)
+- `remote` - Supabase backend (authenticated users only)
 
 **Models** (`app/data-models/`):
 - `palette` - Collection of colors with metadata (name, isColorHistory, isFavorite, isLocked, colorOrder array)
 - `color` - Individual color with RGBA values, computed hex/hsl/rgba getters
 
 **Sync Strategies** (`app/data-strategies/`):
-Coordinate data flow between sources. Key strategies:
-- `store-backup-sync` - Persist all store changes to IndexedDB backup
-- `store-beforequery-remote-query` - Query remote before local queries (when authenticated)
-- `store-beforeupdate-remote-update` - Push local updates to remote (when authenticated)
-- `remote-store-sync` - Pull remote changes to store
+Coordinate data flow between sources. Orbit handles ALL data synchronization:
+- `store-backup-sync` - Persist all store changes to IndexedDB backup (blocking)
+- `store-beforequery-remote-query` - Query remote before local queries when authenticated (non-blocking)
+- `store-beforeupdate-remote-update` - Push local updates to remote when authenticated (non-blocking, optimistic UI)
+- `remote-store-sync` - Pull remote changes to store (blocking)
 - Error handling strategies for remote failures
+
+**Sync Behavior**:
+- Initial sync on app startup fetches all palettes/colors from Supabase
+- Local changes are immediately reflected (optimistic UI), then synced to remote in background
+- Pull-based sync before queries ensures fresh data when needed
+- No realtime subscriptions - sync is handled via Orbit's strategies only
 
 **Data Service** (`app/services/data.ts`):
 - Manages coordinator activation and synchronization
@@ -133,20 +139,26 @@ Coordinate data flow between sources. Key strategies:
 
 ### Authentication & Cloud Sync
 
-**AWS Cognito** (`ember-cognito` addon):
-- User pools for authentication
-- Identity pools for AWS credentials
-- Config in `config/environment.js` (poolId, clientId, identityPoolId)
+**Supabase**:
+- Authentication via email OTP (passwordless)
+- Remote database (PostgreSQL) for palettes and colors
+- Row-level security ensures users only access their own data
+- Config in `config/environment.js` (supabaseUrl, supabaseAnonKey)
 
 **Session Service** (`app/services/session.ts`):
-- Wraps ember-simple-auth session
-- Provides `isAuthenticated` state
+- Manages authentication state
+- Provides `isAuthenticated` and `userId` properties
 
-**Remote Sync**:
+**Supabase Service** (`app/services/supabase.ts`):
+- Provides Supabase client instance
+- Used ONLY for auth and as remote API
+- No realtime subscriptions - all sync is handled by Orbit
+
+**Remote Sync** (`app/data-sources/remote.ts`):
 - Only activates when user is authenticated
-- JSON:API communication with AWS API Gateway
-- Coordinates palettes and colors bidirectionally
-- Handles conflict resolution (remote preferred for color history palette)
+- Implements Orbit source interface for Supabase backend
+- Transforms between Orbit records and Supabase rows
+- All synchronization coordinated by Orbit strategies, not Supabase realtime
 
 ### Component Structure
 

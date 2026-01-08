@@ -36,7 +36,7 @@ interface SupabasePalette {
 interface SupabaseColor {
   id: string;
   user_id: string;
-  palette_id: string;
+  palette_id: string; // NOT NULL - colors must always belong to a palette
   created_at: string;
   updated_at: string;
   name: string | null;
@@ -340,9 +340,16 @@ export class SupabaseSource extends Source {
     relatedRecord: RecordIdentity | null
   ): Promise<void> {
     if (record.type === 'color' && relationship === 'palette') {
+      const paletteId = relatedRecord?.id;
+
+      assert(
+        'Colors must always belong to a palette - cannot set palette to null',
+        !!paletteId
+      );
+
       const { error } = await this.supabase
         .from('colors')
-        .update({ palette_id: relatedRecord?.id ?? null })
+        .update({ palette_id: paletteId })
         .eq('id', record.id);
 
       if (error) throw new Error(`Supabase update error: ${error.message}`);
@@ -372,13 +379,15 @@ export class SupabaseSource extends Source {
     relatedRecord: RecordIdentity
   ): Promise<void> {
     if (record.type === 'palette' && relationship === 'colors') {
-      // Set palette_id to null (orphan the color)
+      // Colors cannot exist without a palette, so delete the color entirely
+      // The database will handle this via ON DELETE CASCADE when the palette is deleted,
+      // but for explicit removal operations, we delete the color record
       const { error } = await this.supabase
         .from('colors')
-        .update({ palette_id: null })
+        .delete()
         .eq('id', relatedRecord.id);
 
-      if (error) throw new Error(`Supabase update error: ${error.message}`);
+      if (error) throw new Error(`Supabase delete error: ${error.message}`);
     }
   }
 
@@ -423,9 +432,7 @@ export class SupabaseSource extends Source {
       },
       relationships: {
         palette: {
-          data: color.palette_id
-            ? { type: 'palette', id: color.palette_id }
-            : null,
+          data: { type: 'palette', id: color.palette_id },
         },
       },
     };
@@ -459,9 +466,14 @@ export class SupabaseSource extends Source {
       const paletteRel = record.relationships?.['palette']?.data as
         | RecordIdentity
         | undefined;
+
+      const paletteId = paletteRel?.id;
+
+      assert('Colors must always belong to a palette', !!paletteId);
+
       return {
         ...base,
-        palette_id: paletteRel?.id ?? null,
+        palette_id: paletteId,
         name: attrs['name'] ?? null,
         r: attrs['r'] ?? 0,
         g: attrs['g'] ?? 0,

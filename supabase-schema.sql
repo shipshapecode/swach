@@ -31,8 +31,8 @@ CREATE TABLE IF NOT EXISTS palettes (
 -- ============================================
 CREATE TABLE IF NOT EXISTS colors (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
-  palette_id UUID REFERENCES palettes(id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  palette_id UUID NOT NULL REFERENCES palettes(id) ON DELETE CASCADE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   name TEXT,
@@ -42,8 +42,6 @@ CREATE TABLE IF NOT EXISTS colors (
   a REAL DEFAULT 1.0 CHECK (a >= 0.0 AND a <= 1.0),
 
   -- Constraints
-  CONSTRAINT colors_user_not_null CHECK (user_id IS NOT NULL),
-  CONSTRAINT colors_palette_not_null CHECK (palette_id IS NOT NULL),
   CONSTRAINT colors_name_length CHECK (char_length(name) <= 255)
 );
 

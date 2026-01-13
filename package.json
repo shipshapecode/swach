@@ -81,7 +81,7 @@
     "ember-element-helper": "^0.8.8",
     "ember-event-helpers": "^0.1.1",
     "ember-inflector": "^6.0.0",
-    "ember-inputmask": "^3.0.1",
+    "ember-inputmask": "^4.0.0",
     "ember-local-storage": "2.0.6",
     "ember-math-helpers": "^5.0.0",
     "ember-modifier": "^4.2.2",

@@ -1,6 +1,6 @@
 import 'ember-cli-flash';
 import '@glint/environment-ember-loose'
-import { ComponentLike, HelperLike, ModifierLike } from '@glint/template';
+import { ModifierLike } from '@glint/template';
 import type { MagnifierAPI } from '../electron-app/magnifier/types';
 
 import OnClickOutsideModifier from 'ember-click-outside/modifiers/on-click-outside';
@@ -23,28 +23,6 @@ declare module '@glint/environment-ember-loose/registry' {
           leaveActiveClass: string;
           leaveClass: string;
           leaveToClass: string;
-        };
-      };
-    }>;
-    OneWayInputMask: ComponentLike<{
-      Element: HTMLInputElement;
-      Args: {
-        Named: {
-          mask: string;
-          options: {
-            greedy?: boolean;
-            isComplete: (buffer: Buffer, opts: { regex: string }) => boolean;
-            max?: number;
-            min?: number;
-            oncomplete: (event: InputEvent) => void;
-            onincomplete: (event: InputEvent) => void;
-            regex: RegExp;
-            showMaskOnFocus: boolean;
-            showMaskOnHover: boolean;
-            unmaskAsNumber?: boolean;
-          };
-          update: (value: string | number) => void;
-          value?: string;
         };
       };
     }>;

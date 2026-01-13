@@ -171,7 +171,9 @@ export default class DataService extends Service {
       const remote = this.dataCoordinator.getSource<SupabaseSource>('remote');
 
       // Fetch palettes from Supabase
-      const remotePaletteRecords = await remote.queryPalettes();
+      const remotePaletteRecords = (await remote.query((q: any) =>
+        q.findRecords('palette')
+      )) as InitializedRecord[];
 
       if (remotePaletteRecords?.length > 0) {
         return remotePaletteRecords;
@@ -198,16 +200,18 @@ export default class DataService extends Service {
 
         // Upload colors first
         for (const color of colors) {
-          await remote.addRecord(color);
+          await remote.update((t: any) => t.addRecord(color));
         }
 
         // Then upload palettes
         for (const palette of palettes) {
-          await remote.addRecord(palette);
+          await remote.update((t: any) => t.addRecord(palette));
         }
 
         // Re-fetch palettes from remote
-        return remote.queryPalettes();
+        return (await remote.query((q: any) =>
+          q.findRecords('palette')
+        )) as InitializedRecord[];
       }
     } else {
       return [];

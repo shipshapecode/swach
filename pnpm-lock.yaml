@@ -157,6 +157,9 @@ importers:
       menubar:
         specifier: ^9.5.2
         version: 9.5.2(electron@38.7.2)
+      orbit-supabase:
+        specifier: ^0.1.1
+        version: 0.1.1(@orbit/core@0.17.0)(@orbit/data@0.17.0)(@orbit/records@0.17.0)(@supabase/supabase-js@2.89.0)
       throttle-debounce:
         specifier: ^5.0.2
         version: 5.0.2
@@ -570,6 +573,11 @@ packages:
 
   '@babel/parser@7.28.5':
     resolution: {integrity: sha512-KKBU1VGYR7ORr3At5HAtUQ+TV3SzRCXmA/8OdDZiLDBIZxVyzXuztPjfLd3BV1PRAQGCMWWSHYhL0F8d5uHBDQ==}
+    engines: {node: '>=6.0.0'}
+    hasBin: true
+
+  '@babel/parser@7.28.6':
+    resolution: {integrity: sha512-TeR9zWR18BvbfPmGbLampPMW+uW1NZnJlRuuHso8i87QZNq2JRF9i6RgxRqtEq+wQGsS19NNTWr2duhnE49mfQ==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -1032,6 +1040,10 @@ packages:
 
   '@babel/types@7.28.5':
     resolution: {integrity: sha512-qQ5m48eI/MFLQ5PxQj4PFaprjyCTLI37ElWMmNs0K8Lk3dVeOdNpB3ks8jc7yM5CDmVC73eMVk/trk3fgmrUpA==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/types@7.28.6':
+    resolution: {integrity: sha512-0ZrskXVEHSWIqZM/sQZ4EV3jZJXRkio/WCxaqKZP1g//CEWEPSfeZFcms4XeKBCHU0ZKnIkdJeU/kF+eRp5lBg==}
     engines: {node: '>=6.9.0'}
 
   '@cacheable/memory@2.0.7':
@@ -7784,6 +7796,15 @@ packages:
     resolution: {integrity: sha512-m0pg2zscbYgWbqRR6ABga5c3sZdEon7bSgjnlXC64kxtxLOyjRcbbUkLj7HFyy/FTD+P2xdBWu8snGhYI0jc4A==}
     engines: {node: '>=20'}
 
+  orbit-supabase@0.1.1:
+    resolution: {integrity: sha512-vPDWFPFxGsPmxZwmVF0rQtpKMVyClRO2vZRgCxKV+zVKyfiL3lC8wEFwfvsWBzLoaqT2eHFlVUEGuvGxqBp2tA==}
+    engines: {node: '>=22.0.0'}
+    peerDependencies:
+      '@orbit/core': '>=0.17.0'
+      '@orbit/data': '>=0.17.0'
+      '@orbit/records': '>=0.17.0'
+      '@supabase/supabase-js': '>=2.0.0'
+
   os-homedir@1.0.2:
     resolution: {integrity: sha512-B5JU3cabzk8c67mRRd3ECmROafjYMXbuzlwtqdM8IbS8ktlTix8aFGb2bAGKrSRIlnfKwovGUUr72JUPyOb6kQ==}
     engines: {node: '>=0.10.0'}
@@ -10210,6 +10231,11 @@ snapshots:
     dependencies:
       '@babel/types': 7.28.5
 
+  '@babel/parser@7.28.6':
+    dependencies:
+      '@babel/types': 7.28.6
+    optional: true
+
   '@babel/plugin-bugfix-firefox-class-in-computed-class-key@7.28.5(@babel/core@7.28.5)':
     dependencies:
       '@babel/core': 7.28.5
@@ -10801,6 +10827,12 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
+
+  '@babel/types@7.28.6':
+    dependencies:
+      '@babel/helper-string-parser': 7.27.1
+      '@babel/helper-validator-identifier': 7.28.5
+    optional: true
 
   '@cacheable/memory@2.0.7':
     dependencies:
@@ -13218,8 +13250,8 @@ snapshots:
 
   '@types/babel__core@7.20.5':
     dependencies:
-      '@babel/parser': 7.28.5
-      '@babel/types': 7.28.5
+      '@babel/parser': 7.28.6
+      '@babel/types': 7.28.6
       '@types/babel__generator': 7.27.0
       '@types/babel__template': 7.4.4
       '@types/babel__traverse': 7.28.0
@@ -13227,18 +13259,18 @@ snapshots:
 
   '@types/babel__generator@7.27.0':
     dependencies:
-      '@babel/types': 7.28.5
+      '@babel/types': 7.28.6
     optional: true
 
   '@types/babel__template@7.4.4':
     dependencies:
-      '@babel/parser': 7.28.5
-      '@babel/types': 7.28.5
+      '@babel/parser': 7.28.6
+      '@babel/types': 7.28.6
     optional: true
 
   '@types/babel__traverse@7.28.0':
     dependencies:
-      '@babel/types': 7.28.5
+      '@babel/types': 7.28.6
     optional: true
 
   '@types/body-parser@1.19.6':
@@ -13475,7 +13507,7 @@ snapshots:
 
   '@types/glob@9.0.0':
     dependencies:
-      glob: 13.0.0
+      glob: 8.1.0
 
   '@types/http-cache-semantics@4.0.4': {}
 
@@ -20015,6 +20047,13 @@ snapshots:
       stdin-discarder: 0.2.2
       string-width: 8.1.0
       strip-ansi: 7.1.2
+
+  orbit-supabase@0.1.1(@orbit/core@0.17.0)(@orbit/data@0.17.0)(@orbit/records@0.17.0)(@supabase/supabase-js@2.89.0):
+    dependencies:
+      '@orbit/core': 0.17.0
+      '@orbit/data': 0.17.0
+      '@orbit/records': 0.17.0
+      '@supabase/supabase-js': 2.89.0
 
   os-homedir@1.0.2:
     optional: true

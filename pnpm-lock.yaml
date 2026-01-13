@@ -163,6 +163,9 @@ importers:
       menubar:
         specifier: ^9.5.2
         version: 9.5.2(electron@40.1.0)
+      orbit-supabase:
+        specifier: ^0.1.1
+        version: 0.1.1(@orbit/core@0.17.0)(@orbit/data@0.17.0)(@orbit/records@0.17.0)(@supabase/supabase-js@2.89.0)
       throttle-debounce:
         specifier: ^5.0.2
         version: 5.0.2
@@ -7994,6 +7997,15 @@ packages:
     resolution: {integrity: sha512-m0pg2zscbYgWbqRR6ABga5c3sZdEon7bSgjnlXC64kxtxLOyjRcbbUkLj7HFyy/FTD+P2xdBWu8snGhYI0jc4A==}
     engines: {node: '>=20'}
 
+  orbit-supabase@0.1.1:
+    resolution: {integrity: sha512-vPDWFPFxGsPmxZwmVF0rQtpKMVyClRO2vZRgCxKV+zVKyfiL3lC8wEFwfvsWBzLoaqT2eHFlVUEGuvGxqBp2tA==}
+    engines: {node: '>=22.0.0'}
+    peerDependencies:
+      '@orbit/core': '>=0.17.0'
+      '@orbit/data': '>=0.17.0'
+      '@orbit/records': '>=0.17.0'
+      '@supabase/supabase-js': '>=2.0.0'
+
   os-homedir@1.0.2:
     resolution: {integrity: sha512-B5JU3cabzk8c67mRRd3ECmROafjYMXbuzlwtqdM8IbS8ktlTix8aFGb2bAGKrSRIlnfKwovGUUr72JUPyOb6kQ==}
     engines: {node: '>=0.10.0'}
@@ -13357,7 +13369,7 @@ snapshots:
       '@types/phoenix': 1.6.7
       '@types/ws': 8.18.1
       tslib: 2.8.1
-      ws: 8.18.3
+      ws: 8.19.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -13547,7 +13559,7 @@ snapshots:
       '@types/ember__polyfills': 4.0.6
       '@types/ember__routing': 4.0.23(@babel/core@7.28.6)
       '@types/ember__runloop': 4.0.10
-      '@types/ember__service': 4.0.9
+      '@types/ember__service': 4.0.9(@babel/core@7.28.6)
       '@types/ember__string': 3.0.15
       '@types/ember__template': 4.0.7
       '@types/ember__test': 4.0.6(@babel/core@7.28.6)
@@ -13567,7 +13579,7 @@ snapshots:
       '@types/ember__polyfills': 4.0.6
       '@types/ember__routing': 4.0.23(@babel/core@7.28.6)
       '@types/ember__runloop': 4.0.10(@babel/core@7.28.6)
-      '@types/ember__service': 4.0.9
+      '@types/ember__service': 4.0.9(@babel/core@7.28.6)
       '@types/ember__string': 3.0.15
       '@types/ember__template': 4.0.7
       '@types/ember__test': 4.0.6(@babel/core@7.28.6)
@@ -13641,7 +13653,7 @@ snapshots:
       '@types/ember': 4.0.11(@babel/core@7.28.6)
       '@types/ember__controller': 4.0.12(@babel/core@7.28.6)
       '@types/ember__object': 4.0.12(@babel/core@7.28.6)
-      '@types/ember__service': 4.0.9
+      '@types/ember__service': 4.0.9(@babel/core@7.28.6)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -13657,9 +13669,12 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  '@types/ember__service@4.0.9':
+  '@types/ember__service@4.0.9(@babel/core@7.28.6)':
     dependencies:
       '@types/ember__object': 4.0.12(@babel/core@7.28.6)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
 
   '@types/ember__string@3.0.15': {}
 
@@ -20386,6 +20401,13 @@ snapshots:
       stdin-discarder: 0.2.2
       string-width: 8.1.0
       strip-ansi: 7.1.2
+
+  orbit-supabase@0.1.1(@orbit/core@0.17.0)(@orbit/data@0.17.0)(@orbit/records@0.17.0)(@supabase/supabase-js@2.89.0):
+    dependencies:
+      '@orbit/core': 0.17.0
+      '@orbit/data': 0.17.0
+      '@orbit/records': 0.17.0
+      '@supabase/supabase-js': 2.89.0
 
   os-homedir@1.0.2:
     optional: true

@@ -88,6 +88,7 @@
     "hue-hunter": "^0.4.1",
     "indexeddb-export-import": "^2.1.5",
     "menubar": "^9.5.2",
+    "orbit-supabase": "^0.1.1",
     "throttle-debounce": "^5.0.2",
     "tracked-built-ins": "^4.1.0"
   },

@@ -4,6 +4,7 @@ import type ColorModel from './color.ts';
 
 export default class PaletteModel extends Model {
   @attr('datetime') createdAt!: string;
+  @attr('datetime') updatedAt!: string;
   @attr('number') index!: number;
   @attr('boolean') isColorHistory!: boolean;
   @attr('boolean') isFavorite!: boolean;

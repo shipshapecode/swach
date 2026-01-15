@@ -32,11 +32,11 @@ impl MockWindowsSampler {
 
 impl PixelSampler for MockWindowsSampler {
     fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
-        // With DPI awareness enabled in the actual implementation:
-        // - x, y are already in physical coordinates (no conversion needed)
-        // - GetPixel expects physical coordinates
-        let physical_x = x;
-        let physical_y = y;
+        // With DPI awareness enabled, follow the macOS pattern:
+        // - x, y are logical coordinates
+        // - Convert to physical coordinates internally for sampling
+        let physical_x = (x as f64 * self.dpi_scale) as i32;
+        let physical_y = (y as f64 * self.dpi_scale) as i32;
         
         // screen_width/height are physical dimensions
         if physical_x < 0 || physical_y < 0 || physical_x >= self.screen_width || physical_y >= self.screen_height {

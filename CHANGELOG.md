@@ -8,6 +8,22 @@
 
 
 
+
+## v2.3.0 (2026-01-15)
+
+#### :rocket: Enhancement
+* [#2492](https://github.com/shipshapecode/swach/pull/2492) Update ember-inputmask to 4.x ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### :bug: Bug Fix
+* [#2493](https://github.com/shipshapecode/swach/pull/2493) Make windows sampler DPI aware ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#2476](https://github.com/shipshapecode/swach/pull/2476) Guard against undefined window ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### :house: Internal
+* [#2482](https://github.com/shipshapecode/swach/pull/2482) pnpm update ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v2.2.3 (2026-01-02)
 
 #### :bug: Bug Fix

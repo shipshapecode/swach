@@ -32,10 +32,11 @@ impl MockWindowsSampler {
 
 impl PixelSampler for MockWindowsSampler {
     fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
-        // Simulate DPI coordinate conversion (virtual -> physical)
-        // In DPI-aware Electron: GetCursorPos gives virtual, GetPixel expects physical
-        let physical_x = (x as f64 * self.dpi_scale) as i32;
-        let physical_y = (y as f64 * self.dpi_scale) as i32;
+        // With DPI awareness enabled in the actual implementation:
+        // - x, y are already in physical coordinates (no conversion needed)
+        // - GetPixel expects physical coordinates
+        let physical_x = x;
+        let physical_y = y;
         
         // screen_width/height are physical dimensions
         if physical_x < 0 || physical_y < 0 || physical_x >= self.screen_width || physical_y >= self.screen_height {
@@ -52,32 +53,32 @@ impl PixelSampler for MockWindowsSampler {
     }
 
     fn get_cursor_position(&self) -> Result<Point, String> {
-        // Simulate Windows sampler behavior: return physical coordinates
-        // (virtual coordinates converted to physical for Electron compatibility)
-        let virtual_x = 100;
-        let virtual_y = 100;
-        let physical_x = (virtual_x as f64 * self.dpi_scale) as i32;
-        let physical_y = (virtual_y as f64 * self.dpi_scale) as i32;
-        Ok(Point { x: physical_x, y: physical_y })
+        // With DPI awareness, GetCursorPos returns physical coordinates
+        // But we return logical coordinates (physical / dpi_scale) for Electron
+        let physical_x = 200; // Simulated physical cursor position
+        let physical_y = 200;
+        let logical_x = (physical_x as f64 / self.dpi_scale) as i32;
+        let logical_y = (physical_y as f64 / self.dpi_scale) as i32;
+        Ok(Point { x: logical_x, y: logical_y })
     }
     
-    // Override sample_grid to simulate production behavior (virtual coordinates)
+    // Override sample_grid to simulate production behavior (logical coordinates)
     fn sample_grid(&mut self, center_x: i32, center_y: i32, grid_size: usize, _scale_factor: f64) -> Result<Vec<Vec<Color>>, String> {
         let half_size = (grid_size / 2) as i32;
         let mut grid = Vec::with_capacity(grid_size);
 
-        // Production sample_grid operates in virtual coordinates (no DPI scaling)
+        // Production sample_grid operates in logical coordinates like macOS
         for row in 0..grid_size {
             let mut row_pixels = Vec::with_capacity(grid_size);
             for col in 0..grid_size {
-                // Calculate virtual pixel coordinates (matches production behavior)
-                let virtual_x = center_x + (col as i32 - half_size);
-                let virtual_y = center_y + (row as i32 - half_size);
+                // Calculate logical pixel coordinates (matches production behavior)
+                let logical_x = center_x + (col as i32 - half_size);
+                let logical_y = center_y + (row as i32 - half_size);
 
-                // Convert virtual to physical for bounds checking and color calculation
+                // Convert logical to physical for bounds checking and color calculation
                 // (since screen_width/screen_height are physical dimensions)
-                let physical_x = (virtual_x as f64 * self.dpi_scale) as i32;
-                let physical_y = (virtual_y as f64 * self.dpi_scale) as i32;
+                let physical_x = (logical_x as f64 * self.dpi_scale) as i32;
+                let physical_y = (logical_y as f64 * self.dpi_scale) as i32;
 
                 // Sample in physical space
                 if physical_x < 0 || physical_y < 0 || physical_x >= self.screen_width || physical_y >= self.screen_height {
@@ -128,8 +129,9 @@ fn test_windows_sampler_cursor_position() {
     let sampler = MockWindowsSampler::new(1920, 1080);
     
     let cursor = sampler.get_cursor_position().unwrap();
-    assert_eq!(cursor.x, 100);
-    assert_eq!(cursor.y, 100);
+    // With DPI awareness, physical 200 / scale 1.0 = logical 200
+    assert_eq!(cursor.x, 200);
+    assert_eq!(cursor.y, 200);
 }
 
 #[test]
@@ -496,10 +498,10 @@ fn test_windows_sampler_dpi_150_percent() {
 #[test]
 fn test_windows_sampler_dpi_200_percent() {
     // Test 200% DPI scaling (2x) - the reported issue
-    // Physical screen: 5120x2880, Virtual screen: 2560x1440
+    // Physical screen: 5120x2880, Logical screen: 2560x1440
     let mut sampler = MockWindowsSampler::new_with_dpi(5120, 2880, 2.0);
     
-    // Virtual coordinate 1000 should map to physical 2000 (1000 * 2.0)
+    // Logical coordinate 1000 should map to physical 2000 (1000 * 2.0) internally
     let color = sampler.sample_pixel(1000, 500).unwrap();
     
     // Color should be based on physical coordinates (2000, 1000)

@@ -6,6 +6,7 @@ use windows::Win32::Graphics::Gdi::{
     GetDeviceCaps, GetDIBits, GetPixel, LOGPIXELSX, ReleaseDC, SelectObject, BITMAPINFO, 
     BITMAPINFOHEADER, BI_RGB, CLR_INVALID, DIB_RGB_COLORS, HDC, SRCCOPY,
 };
+use windows::Win32::UI::HiDpi::{SetProcessDpiAwarenessContext, DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2};
 use windows::Win32::UI::WindowsAndMessaging::GetCursorPos;
 
 pub struct WindowsSampler {
@@ -16,6 +17,11 @@ pub struct WindowsSampler {
 impl WindowsSampler {
     pub fn new() -> Result<Self, String> {
         unsafe {
+            // Set DPI awareness to per-monitor v2 so we can access physical pixels
+            // This must be done before any GDI calls
+            // Ignore errors - if it fails, we'll fall back to system DPI awareness
+            let _ = SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+            
             let hdc = GetDC(None);
 
             if hdc.is_invalid() {
@@ -27,6 +33,8 @@ impl WindowsSampler {
             // Standard DPI is 96, so scale = actual_dpi / 96
             let dpi = GetDeviceCaps(hdc, LOGPIXELSX);
             let dpi_scale = dpi as f64 / 96.0;
+            
+            eprintln!("[WindowsSampler] DPI scale factor: {}", dpi_scale);
 
             Ok(WindowsSampler {
                 hdc,
@@ -47,12 +55,13 @@ impl Drop for WindowsSampler {
 impl PixelSampler for WindowsSampler {
     fn sample_pixel(&mut self, x: i32, y: i32) -> Result<Color, String> {
         unsafe {
-            // On Windows, for a DPI-unaware process (which this Rust subprocess is):
-            // - GetCursorPos returns VIRTUALIZED coordinates (e.g., 0-2559 at 200% on 5120 wide screen)
-            // - GetDC(None) returns a VIRTUALIZED DC that also uses virtual coordinates
-            // - GetPixel on that DC expects the SAME virtualized coordinates
-            // NO conversion needed - both APIs work in the same virtualized space
-            let color_ref = GetPixel(self.hdc, x, y);
+            // With DPI awareness enabled, follow the macOS pattern:
+            // - x, y are logical coordinates (like CGWindowListCreateImage on macOS)
+            // - Convert to physical coordinates internally for GDI
+            let physical_x = (x as f64 * self.dpi_scale) as i32;
+            let physical_y = (y as f64 * self.dpi_scale) as i32;
+            
+            let color_ref = GetPixel(self.hdc, physical_x, physical_y);
             
             // Check for error (CLR_INVALID is returned on error)
             // COLORREF is a newtype wrapper around u32
@@ -79,14 +88,16 @@ impl PixelSampler for WindowsSampler {
             GetCursorPos(&mut point)
                 .map_err(|e| format!("Failed to get cursor position: {}", e))?;
 
-            // Convert from virtual coordinates (returned by GetCursorPos) to physical coordinates
-            // Electron (per-monitor DPI aware) expects physical coordinates for window positioning
-            let physical_x = (point.x as f64 * self.dpi_scale) as i32;
-            let physical_y = (point.y as f64 * self.dpi_scale) as i32;
-
+            // With DPI awareness enabled, follow the macOS pattern:
+            // - GetCursorPos returns physical coordinates
+            // - Convert to logical coordinates (like macOS CGEventGetLocation)
+            // - This matches Electron's coordinate system and main.rs expectations
+            let logical_x = (point.x as f64 / self.dpi_scale) as i32;
+            let logical_y = (point.y as f64 / self.dpi_scale) as i32;
+            
             Ok(Point {
-                x: physical_x,
-                y: physical_y,
+                x: logical_x,
+                y: logical_y,
             })
         }
     }
@@ -97,10 +108,14 @@ impl PixelSampler for WindowsSampler {
         unsafe {
             let half_size = (grid_size / 2) as i32;
             
-            // For a DPI-unaware process, all GDI operations use virtualized coordinates
-            // No conversion needed
-            let x_start = center_x - half_size;
-            let y_start = center_y - half_size;
+            // With DPI awareness enabled, follow the macOS pattern:
+            // - center_x, center_y are logical coordinates
+            // - Convert to physical coordinates for GDI operations
+            let physical_center_x = (center_x as f64 * self.dpi_scale) as i32;
+            let physical_center_y = (center_y as f64 * self.dpi_scale) as i32;
+            
+            let x_start = physical_center_x - half_size;
+            let y_start = physical_center_y - half_size;
             let width = grid_size as i32;
             let height = grid_size as i32;
             
@@ -220,13 +235,16 @@ impl WindowsSampler {
             let half_size = (grid_size / 2) as i32;
             let mut grid = Vec::with_capacity(grid_size);
             
-            // For DPI-unaware process, use coordinates directly
+            // center_x, center_y are logical coordinates - convert to physical
+            let physical_center_x = (center_x as f64 * self.dpi_scale) as i32;
+            let physical_center_y = (center_y as f64 * self.dpi_scale) as i32;
+            
             for row in 0..grid_size {
                 let mut row_pixels = Vec::with_capacity(grid_size);
                 for col in 0..grid_size {
-                    // Calculate pixel coordinates (no conversion needed)
-                    let x = center_x + (col as i32 - half_size);
-                    let y = center_y + (row as i32 - half_size);
+                    // Calculate physical pixel coordinates
+                    let x = physical_center_x + (col as i32 - half_size);
+                    let y = physical_center_y + (row as i32 - half_size);
                     
                     let color_ref = GetPixel(self.hdc, x, y);
                     

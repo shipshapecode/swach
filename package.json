@@ -100,7 +100,7 @@
     "@babel/core": "^7.28.5",
     "@babel/eslint-parser": "^7.28.5",
     "@babel/plugin-transform-runtime": "^7.28.5",
-    "@babel/plugin-transform-typescript": "^7.28.5",
+    "@babel/plugin-transform-typescript": "^7.28.6",
     "@babel/preset-env": "^7.28.5",
     "@babel/runtime": "^7.28.6",
     "@electron-forge/cli": "^7.10.2",

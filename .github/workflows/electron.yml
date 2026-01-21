@@ -24,7 +24,5 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y xvfb libx11-dev pkg-config libpipewire-0.3-dev libspa-0.2-dev
       - run: pnpm install
-      - name: Magnifier Test
-        run: pnpm test:magnifier 
       - name: Electron Test
-        run: xvfb-run --auto-servernum pnpm test:electron   
+        run: xvfb-run --auto-servernum pnpm test:electron

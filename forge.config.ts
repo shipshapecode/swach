@@ -56,12 +56,14 @@ const config: ForgeConfig = {
     // Include all resources in the packaged app
     extraResource: [
       'electron-app/resources',
-      // Conditionally include platform-specific Rust sampler binary
+      // Conditionally include platform-specific hue-hunter sampler binary
       ...(process.platform === 'win32'
         ? [
-            'electron-app/magnifier/rust-sampler/target/release/swach-sampler.exe',
+            'node_modules/hue-hunter/rust-sampler/target/release/hue-hunter-sampler.exe',
           ]
-        : ['electron-app/magnifier/rust-sampler/target/release/swach-sampler']),
+        : [
+            'node_modules/hue-hunter/rust-sampler/target/release/hue-hunter-sampler',
+          ]),
     ],
   },
   makers: [
@@ -113,19 +115,11 @@ const config: ForgeConfig = {
           entry: 'electron-app/src/preload.ts',
           config: 'vite.preload.config.ts',
         },
-        {
-          entry: 'electron-app/magnifier/magnifier-preload.ts',
-          config: 'vite.preload.config.ts',
-        },
       ],
       renderer: [
         {
           name: 'main_window',
           config: 'vite.renderer.config.ts',
-        },
-        {
-          name: 'magnifier_window',
-          config: 'vite.magnifier.config.ts',
         },
       ],
     }),

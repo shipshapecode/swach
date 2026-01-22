@@ -24,7 +24,7 @@ You will need the following things properly installed on your computer.
 - [pnpm](https://pnpm.io/)
 - [Ember CLI](https://ember-cli.com/)
 - [Google Chrome](https://google.com/chrome/)
-- [Rust](https://www.rust-lang.org/) (for building the pixel sampler)
+- [Rust](https://www.rust-lang.org/) (for building the hue-hunter color picker)
 
 ### Linux System Requirements
 
@@ -46,7 +46,7 @@ sudo apt-get install scrot xdotool
 sudo apk add libxcb libxrandr dbus grim
 ```
 
-**Wayland Users:** The `grim` tool is required for screenshot-based color picking on Wayland. See [rust-sampler/README.md](rust-sampler/README.md) for more details.
+**Wayland Users:** The color picker uses PipeWire + XDG Portal on Wayland (no external tools needed). See the [hue-hunter README](https://github.com/RobbieTheWagner/hue-hunter) for more details.
 
 ## Installation
 

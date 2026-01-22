@@ -11,19 +11,21 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: 'pnpm'
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libx11-dev pkg-config libpipewire-0.3-dev libspa-0.2-dev
       - run: pnpm install  
       - name: Lint JS
         run: pnpm lint:js
       - name: Lint HBS
         run: pnpm lint:hbs
-      - name: Install system dependencies
-        run: sudo apt-get update && sudo apt-get install -y xvfb libpipewire-0.3-dev libspa-0.2-dev libx11-dev pkg-config
       - name: Browser Test
         run: pnpm test:ember
       - name: Electron Test
@@ -38,16 +40,18 @@ jobs:
       matrix:
         os: [macos-15-intel, ubuntu-24.04, ubuntu-24.04-arm, windows-latest]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: 'pnpm'
-      - run: pnpm install
       - name: Install Linux dependencies
         if: startsWith(matrix.os, 'ubuntu')
-        run: sudo apt-get update && sudo apt-get install -y libpipewire-0.3-dev libx11-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libx11-dev pkg-config libpipewire-0.3-dev libspa-0.2-dev
+      - run: pnpm install
       - name: Add macOS certs
         if: startsWith(matrix.os, 'macos') && startsWith(github.ref, 'refs/tags/')
         run: chmod +x add-osx-cert.sh && ./add-osx-cert.sh

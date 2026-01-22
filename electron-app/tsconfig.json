@@ -24,7 +24,6 @@
   },
   "include": [
     "main.ts",
-    "magnifier/**/*",
     "src/**/*",
     "tests/**/*",
     "../types/global.d.ts",

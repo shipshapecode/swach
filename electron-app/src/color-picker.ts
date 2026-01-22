@@ -11,7 +11,14 @@ const namedColors = colornames.reduce(
   ) => Object.assign(o, { [name]: hex }),
   {}
 );
-const getColorName = nearestColor.from(namedColors);
+const getColorName = nearestColor.from(namedColors) as (
+  color: string | { r: number; g: number; b: number }
+) => {
+  name: string;
+  value: string;
+  rgb: { r: number; g: number; b: number };
+  distance: number;
+};
 
 // Create ColorPicker instance with color naming
 const picker = new ColorPicker({

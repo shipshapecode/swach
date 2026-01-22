@@ -10,6 +10,15 @@
 
 
 
+
+## v2.3.2 (2026-01-22)
+
+#### :bug: Bug Fix
+* [#2510](https://github.com/shipshapecode/swach/pull/2510) Fix paths for hue-hunter ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v2.3.1 (2026-01-22)
 
 #### :house: Internal

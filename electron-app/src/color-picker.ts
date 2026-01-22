@@ -1,12 +1,14 @@
-import { ColorPicker } from 'hue-hunter';
 import { colornames } from 'color-name-list';
+import { ColorPicker } from 'hue-hunter';
 import { type Menubar } from 'menubar';
 import nearestColor from 'nearest-color';
 
 // Setup color name lookup function once
 const namedColors = colornames.reduce(
-  (o: { [key: string]: string }, { name, hex }: { name: string; hex: string }) =>
-    Object.assign(o, { [name]: hex }),
+  (
+    o: { [key: string]: string },
+    { name, hex }: { name: string; hex: string }
+  ) => Object.assign(o, { [name]: hex }),
   {}
 );
 const getColorName = nearestColor.from(namedColors);

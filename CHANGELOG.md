@@ -9,6 +9,16 @@
 
 
 
+
+## v2.3.1 (2026-01-22)
+
+#### :house: Internal
+* [#2509](https://github.com/shipshapecode/swach/pull/2509) Move magnifier to external package, hue-hunter ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+* [#2508](https://github.com/shipshapecode/swach/pull/2508) Use node 24 / electron 40 ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
+#### Committers: 1
+- Robbie Wagner ([@RobbieTheWagner](https://github.com/RobbieTheWagner))
+
 ## v2.3.0 (2026-01-15)
 
 #### :rocket: Enhancement

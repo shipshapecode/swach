@@ -56,7 +56,9 @@ const config: ForgeConfig = {
     // Include all resources in the packaged app
     extraResource: [
       'electron-app/resources',
-      // Conditionally include platform-specific hue-hunter sampler binary
+      // hue-hunter renderer files and sampler binary must be extracted
+      // because Vite bundles node_modules, so asarUnpack doesn't work
+      'node_modules/hue-hunter/.vite',
       ...(process.platform === 'win32'
         ? [
             'node_modules/hue-hunter/rust-sampler/target/release/hue-hunter-sampler.exe',

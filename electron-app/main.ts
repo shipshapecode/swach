@@ -25,10 +25,16 @@ import {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// PERFORMANCE LOGGING: Track startup time
+const startupTime = Date.now();
+console.log('[PERF] App startup began');
+
 init({
   dsn: 'https://6974b46329f24dc1b9fca4507c65e942@o361681.ingest.us.sentry.io/3956140',
   release: `v${pkg.version}`,
 });
+
+console.log(`[PERF] Sentry initialized: +${Date.now() - startupTime}ms`);
 
 const store = new Store({
   defaults: {
@@ -76,7 +82,7 @@ const mb = menubar({
     width: 362,
     webPreferences: {
       contextIsolation: true,
-      devTools: isDev,
+      devTools: true,
       preload: join(__dirname, 'preload.js'),
       nodeIntegration: false,
     },
@@ -95,6 +101,13 @@ mb.app.commandLine.appendSwitch(
   'true'
 );
 mb.app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
+
+// PERFORMANCE DIAGNOSTICS: Enable detailed logging in production
+if (!isDev) {
+  mb.app.commandLine.appendSwitch('enable-logging');
+  mb.app.commandLine.appendSwitch('v', '1');
+  console.log('[PERF] Production logging enabled');
+}
 
 let sharedPaletteLink: string | undefined;
 
@@ -165,6 +178,8 @@ mb.app.on('window-all-closed', () => {
 });
 
 mb.on('after-create-window', () => {
+  console.log(`[PERF] Window created: +${Date.now() - startupTime}ms`);
+
   // Load the Ember application using our custom protocol/scheme
   handleFileUrls(emberAppDir);
 
@@ -176,7 +191,9 @@ mb.on('after-create-window', () => {
   });
 
   mb.window?.once('ready-to-show', function () {
+    console.log(`[PERF] Window ready-to-show: +${Date.now() - startupTime}ms`);
     setTimeout(() => {
+      console.log(`[PERF] Showing window: +${Date.now() - startupTime}ms`);
       void mb.showWindow();
     }, 750);
   });
@@ -214,6 +231,8 @@ mb.on('after-create-window', () => {
 });
 
 mb.on('ready', () => {
+  console.log(`[PERF] Menubar ready: +${Date.now() - startupTime}ms`);
+
   ipcMain.on('enableDisableAutoStart', (event, openAtLogin) => {
     // Only allow auto-start in production
     if (!isDev) {

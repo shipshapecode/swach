@@ -8,12 +8,45 @@ import { type Menubar } from 'menubar';
 import { launchPicker } from './color-picker';
 import { restartDialog } from './dialogs';
 
+// PERFORMANCE LOGGING: Track first call vs subsequent calls
+const perfTracking = new Map<
+  string,
+  { count: number; firstTime?: number; totalTime: number }
+>();
+
+function trackPerf(eventName: string, fn: () => void | Promise<void>) {
+  const start = Date.now();
+  const stats = perfTracking.get(eventName) || { count: 0, totalTime: 0 };
+
+  const result = fn();
+
+  const duration = Date.now() - start;
+  stats.count++;
+  stats.totalTime += duration;
+
+  if (stats.count === 1) {
+    stats.firstTime = duration;
+    console.log(`[PERF] ${eventName} FIRST CALL: ${duration}ms`);
+  } else {
+    const avgOther =
+      (stats.totalTime - (stats.firstTime || 0)) / (stats.count - 1);
+    console.log(
+      `[PERF] ${eventName} call #${stats.count}: ${duration}ms (first: ${stats.firstTime}ms, avg others: ${avgOther.toFixed(1)}ms)`
+    );
+  }
+
+  perfTracking.set(eventName, stats);
+  return result;
+}
+
 function setupEventHandlers(
   mb: Menubar,
   store: Store<{ firstRunV1: boolean; showDockIcon: boolean }>
 ) {
+  // Log all IPC messages for debugging
   ipcMain.on('copyColorToClipboard', (_channel, color: string) => {
-    clipboard.writeText(color);
+    console.log('[IPC] Received: copyColorToClipboard');
+    trackPerf('copyColorToClipboard', () => clipboard.writeText(color));
   });
 
   ipcMain.on('exitApp', () => mb.app.quit());
@@ -63,15 +96,32 @@ function setupEventHandlers(
   });
 
   ipcMain.on('launchContrastBgPicker', () => {
-    void launchPicker(mb, 'contrastBg');
+    console.log('[IPC] Received: launchContrastBgPicker');
+    void trackPerf('launchContrastBgPicker', () =>
+      launchPicker(mb, 'contrastBg')
+    );
   });
 
   ipcMain.on('launchContrastFgPicker', () => {
-    void launchPicker(mb, 'contrastFg');
+    console.log('[IPC] Received: launchContrastFgPicker');
+    void trackPerf('launchContrastFgPicker', () =>
+      launchPicker(mb, 'contrastFg')
+    );
   });
 
   ipcMain.on('launchPicker', () => {
-    void launchPicker(mb);
+    console.log('[IPC] Received: launchPicker');
+    void trackPerf('launchPicker', () => launchPicker(mb));
+  });
+
+  ipcMain.on('launchContrastFgPicker', () => {
+    void trackPerf('launchContrastFgPicker', () =>
+      launchPicker(mb, 'contrastFg')
+    );
+  });
+
+  ipcMain.on('launchPicker', () => {
+    void trackPerf('launchPicker', () => launchPicker(mb));
   });
 
   ipcMain.handle('open-external', async (_event, url: string) => {

@@ -22,7 +22,6 @@ const longDescription = `Swach is a powerful color management tool designed for 
 
 const config: ForgeConfig = {
   packagerConfig: {
-    asar: true,
     darwinDarkModeSupport: true,
     icon: 'electron-app/resources/icon',
     name: 'Swach',

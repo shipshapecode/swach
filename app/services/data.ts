@@ -5,7 +5,11 @@ import { orbit, type Store } from 'ember-orbit';
 
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
-import type { InitializedRecord } from '@orbit/records';
+import type {
+  InitializedRecord,
+  RecordQueryBuilder,
+  RecordTransformBuilder,
+} from '@orbit/records';
 
 import type Palette from '../data-models/palette.ts';
 import type { SupabaseSource } from '../data-sources/remote.ts';
@@ -171,8 +175,8 @@ export default class DataService extends Service {
       const remote = this.dataCoordinator.getSource<SupabaseSource>('remote');
 
       // Fetch palettes from Supabase
-      const remotePaletteRecords = (await remote.query((q: any) =>
-        q.findRecords('palette')
+      const remotePaletteRecords = (await remote.query(
+        (q: RecordQueryBuilder) => q.findRecords('palette')
       )) as InitializedRecord[];
 
       if (remotePaletteRecords?.length > 0) {
@@ -200,16 +204,20 @@ export default class DataService extends Service {
 
         // Upload colors first
         for (const color of colors) {
-          await remote.update((t: any) => t.addRecord(color));
+          await remote.update((t: RecordTransformBuilder) =>
+            t.addRecord(color)
+          );
         }
 
         // Then upload palettes
         for (const palette of palettes) {
-          await remote.update((t: any) => t.addRecord(palette));
+          await remote.update((t: RecordTransformBuilder) =>
+            t.addRecord(palette)
+          );
         }
 
         // Re-fetch palettes from remote
-        return (await remote.query((q: any) =>
+        return (await remote.query((q: RecordQueryBuilder) =>
           q.findRecords('palette')
         )) as InitializedRecord[];
       }

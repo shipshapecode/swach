@@ -1,8 +1,8 @@
-import { getOwner } from '@ember/application';
+import { getOwner } from '@ember/owner';
 
 import { applyStandardSourceInjections } from 'ember-orbit';
 
-import type { InitializedRecord, RecordSchema } from '@orbit/records';
+import type { RecordSchema } from '@orbit/records';
 import { SupabaseSource as BaseSupabaseSource } from 'orbit-supabase';
 
 import type SessionService from '../services/session.ts';

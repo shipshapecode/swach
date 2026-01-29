@@ -1,17 +1,24 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
-import type CognitoService from 'ember-cognito/services/cognito';
-
 import type Session from '../../../services/session.ts';
 import viewTransitions from '../../../utils/view-transitions.ts';
 
+interface ProfileModel {
+  email?: string;
+  userId?: string;
+}
+
 export default class SettingsAccountRoute extends Route {
-  @service declare cognito: CognitoService;
   @service declare session: Session;
 
-  model(): CognitoService['user']['attributes'] {
-    return this.cognito.user?.attributes;
+  model(): ProfileModel {
+    const authData = this.session.data?.authenticated;
+
+    return {
+      email: authData?.email,
+      userId: authData?.userId,
+    };
   }
 
   async afterModel() {

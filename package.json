@@ -109,7 +109,7 @@
     "@electron-forge/plugin-vite": "^7.11.1",
     "@electron/fuses": "^2.1.0",
     "@ember/app-tsconfig": "^2.0.0",
-    "@ember/optional-features": "^2.3.0",
+    "@ember/optional-features": "^3.0.0",
     "@ember/test-helpers": "^5.4.1",
     "@embroider/compat": "^4.1.14",
     "@embroider/config-meta-loader": "^1.0.0",

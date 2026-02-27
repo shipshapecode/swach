@@ -67,7 +67,7 @@
     "electron-store": "^11.0.2",
     "ember-animated": "^2.2.0",
     "ember-animated-tools": "^2.0.0",
-    "ember-cli-flash": "^6.1.0",
+    "ember-cli-flash": "^7.0.0",
     "ember-click-outside": "^6.1.1",
     "ember-cognito": "^3.0.1",
     "ember-css-transitions": "^4.5.0",

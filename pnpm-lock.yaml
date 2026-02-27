@@ -101,8 +101,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(@babel/core@7.29.0)(@ember/test-helpers@5.4.1(@babel/core@7.29.0)(@glint/template@1.5.2))(@glint/template@1.5.2)
       ember-cli-flash:
-        specifier: ^6.1.0
-        version: 6.1.0(@babel/core@7.29.0)(@embroider/macros@1.20.0(@babel/core@7.29.0)(@glint/template@1.5.2))(ember-modifier@4.3.0(@babel/core@7.29.0))
+        specifier: ^7.0.0
+        version: 7.0.0(@babel/core@7.29.0)(@embroider/macros@1.20.0(@babel/core@7.29.0)(@glint/template@1.5.2))(ember-modifier@4.3.0(@babel/core@7.29.0))
       ember-click-outside:
         specifier: ^6.1.1
         version: 6.1.1(@babel/core@7.29.0)
@@ -5546,8 +5546,8 @@ packages:
   ember-cli-deprecation-workflow@4.0.0:
     resolution: {integrity: sha512-HGF7LSz6f8Vx3sISYXnoiuk+8eBULUt7cS/U1YwGMAJtXvL1jvz8PvyAPyrBpcyNP85U+u+3UdKeTWG0HuLbNw==}
 
-  ember-cli-flash@6.1.0:
-    resolution: {integrity: sha512-fxy78jrEJSzcXY08fSssO9qX5OWYlF6dYr58lOaN3doeFZ5+0x+DBsCQ45GCQah39aVkR9NBTVF6O2L5btG+DA==}
+  ember-cli-flash@7.0.0:
+    resolution: {integrity: sha512-4aTEChF4XOtcBwUJ+HUrwKaMc5U1uT66cBWhMj43yQwLW1maNNeRDj9ibNZRFkgZy1OL++hffHg/jn3EHmJZ1A==}
     engines: {node: '>= 24', pnpm: '>= 10'}
     peerDependencies:
       '@embroider/macros': ^1.13.2
@@ -14607,6 +14607,26 @@ snapshots:
 
   '@types/electron-squirrel-startup@1.0.2': {}
 
+  '@types/ember@4.0.11':
+    dependencies:
+      '@types/ember__application': 4.0.11(@babel/core@7.29.0)
+      '@types/ember__array': 4.0.10(@babel/core@7.29.0)
+      '@types/ember__component': 4.0.22(@babel/core@7.29.0)
+      '@types/ember__controller': 4.0.12(@babel/core@7.29.0)
+      '@types/ember__debug': 4.0.8
+      '@types/ember__engine': 4.0.11
+      '@types/ember__error': 4.0.6
+      '@types/ember__object': 4.0.12(@babel/core@7.29.0)
+      '@types/ember__polyfills': 4.0.6
+      '@types/ember__routing': 4.0.23(@babel/core@7.29.0)
+      '@types/ember__runloop': 4.0.10
+      '@types/ember__service': 4.0.9
+      '@types/ember__string': 3.0.15
+      '@types/ember__template': 4.0.7
+      '@types/ember__test': 4.0.6(@babel/core@7.29.0)
+      '@types/ember__utils': 4.0.7
+      '@types/rsvp': 4.0.9
+
   '@types/ember@4.0.11(@babel/core@7.29.0)':
     dependencies:
       '@types/ember__application': 4.0.11(@babel/core@7.29.0)
@@ -14633,7 +14653,7 @@ snapshots:
   '@types/ember__application@4.0.11(@babel/core@7.29.0)':
     dependencies:
       '@glimmer/component': 1.1.2(@babel/core@7.29.0)
-      '@types/ember': 4.0.11(@babel/core@7.29.0)
+      '@types/ember': 4.0.11
       '@types/ember__engine': 4.0.11
       '@types/ember__object': 4.0.12(@babel/core@7.29.0)
       '@types/ember__owner': 4.0.9
@@ -14699,6 +14719,10 @@ snapshots:
       - '@babel/core'
       - supports-color
 
+  '@types/ember__runloop@4.0.10':
+    dependencies:
+      '@types/ember': 4.0.11
+
   '@types/ember__runloop@4.0.10(@babel/core@7.29.0)':
     dependencies:
       '@types/ember': 4.0.11(@babel/core@7.29.0)
@@ -14720,6 +14744,10 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
+
+  '@types/ember__utils@4.0.7':
+    dependencies:
+      '@types/ember': 4.0.11
 
   '@types/ember__utils@4.0.7(@babel/core@7.29.0)':
     dependencies:
@@ -17711,7 +17739,7 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  ember-cli-flash@6.1.0(@babel/core@7.29.0)(@embroider/macros@1.20.0(@babel/core@7.29.0)(@glint/template@1.5.2))(ember-modifier@4.3.0(@babel/core@7.29.0)):
+  ember-cli-flash@7.0.0(@babel/core@7.29.0)(@embroider/macros@1.20.0(@babel/core@7.29.0)(@glint/template@1.5.2))(ember-modifier@4.3.0(@babel/core@7.29.0)):
     dependencies:
       '@embroider/addon-shim': 1.10.2
       '@embroider/macros': 1.20.0(@babel/core@7.29.0)(@glint/template@1.5.2)

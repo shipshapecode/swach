@@ -12,12 +12,13 @@
  *     npx eslint --inspect-config
  *
  */
-import babelParser from '@babel/eslint-parser';
+import babelParser from '@babel/eslint-parser/experimental-worker';
 import js from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import ember from 'eslint-plugin-ember/recommended';
 import n from 'eslint-plugin-n';
 import qunit from 'eslint-plugin-qunit';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import ts from 'typescript-eslint';
 
@@ -34,29 +35,20 @@ const parserOptions = {
   },
 };
 
-export default ts.config(
+export default defineConfig([
+  globalIgnores([
+    '.vite/**/*',
+    'dist/',
+    'coverage/',
+    'electron-app/dist/**/*',
+    'out/**/*',
+    '!**/.*',
+  ]),
   js.configs.recommended,
   ember.configs.base,
   ember.configs.gjs,
   ember.configs.gts,
   eslintConfigPrettier,
-  /**
-   * Ignores must be in their own object
-   * https://eslint.org/docs/latest/use/configure/ignore
-   */
-  {
-    ignores: [
-      '.vite/**/*',
-      'coverage/**/*',
-      'declarations/**/*',
-      'dist/**/*',
-      'electron-app/dist/**/*',
-      'node_modules/**/*',
-      'out/**/*',
-      'types/**/*',
-      '!**/.*',
-    ],
-  },
   /**
    * https://eslint.org/docs/latest/use/configure/configuration-files#configuring-linter-options
    */
@@ -85,6 +77,10 @@ export default ts.config(
     languageOptions: {
       parser: ember.parser,
       parserOptions: parserOptions.esm.ts,
+      globals: {
+        Buffer: 'readonly',
+        ...globals.browser,
+      },
     },
     extends: [...ts.configs.recommendedTypeChecked, ember.configs.gts],
     rules: {
@@ -147,4 +143,4 @@ export default ts.config(
       },
     },
   },
-);
+]);

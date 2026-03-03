@@ -55,10 +55,12 @@ export default class AlphaInputComponent extends Component<AlphaInputSignature> 
   }
 
   @action
-  isComplete(buffer: Buffer, opts: { regex: string }): boolean {
+  isComplete(buffer: Array<string>, opts: { regex?: string }): boolean {
     const value = buffer.join('');
 
-    return Boolean(value.length) && new RegExp(opts.regex).test(value);
+    return (
+      Boolean(value.length) && new RegExp(opts.regex as string).test(value)
+    );
   }
 
   /**

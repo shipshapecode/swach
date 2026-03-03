@@ -51,8 +51,8 @@ export default class HexInputComponent extends Component<HexInputSignature> {
   }
 
   @action
-  isComplete(buffer: Buffer, opts: { regex: string }): boolean {
-    return new RegExp(opts.regex).test(buffer.join(''));
+  isComplete(buffer: Array<string>, opts: { regex?: string }): boolean {
+    return new RegExp(opts.regex as string).test(buffer.join(''));
   }
 
   /**

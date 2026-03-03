@@ -78,7 +78,6 @@ export default defineConfig([
       parser: ember.parser,
       parserOptions: parserOptions.esm.ts,
       globals: {
-        Buffer: 'readonly',
         ...globals.browser,
       },
     },

@@ -5,6 +5,7 @@ declare module 'ember-set-body-class/helpers/set-body-class' {
     Args: {
       Positional: [className: string];
     };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Return: any;
   }>
 }

@@ -9,9 +9,6 @@
     "vite.*.config.ts"
   ],
   "references": [{ "path": "./electron-app" }],
-  "glint": {
-    "environment": ["ember-loose", "ember-template-imports"]
-  },
   "compilerOptions": {
     "allowJs": true,
     "paths": {
@@ -20,8 +17,9 @@
       "*": ["./types/*"]
     },
     "types": [
-      "ember-source/types",
       "@embroider/core/virtual",
+      "@glint/ember-tsc/types",
+      "ember-source/types",
       "vite/client",
       "node"
     ]

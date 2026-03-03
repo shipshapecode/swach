@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import 'ember-cli-flash';
 import '@glint/environment-ember-loose'
 import { ModifierLike } from '@glint/template';

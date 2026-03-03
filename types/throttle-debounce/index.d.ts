@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
 declare module 'throttle-debounce' {
   export function debounce(
     delay: number,

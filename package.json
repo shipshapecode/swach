@@ -168,7 +168,7 @@
     "indexeddb-export-import": "^2.1.5",
     "loader.js": "^4.7.0",
     "nearest-color": "^0.4.4",
-    "postcss": "^8.5.6",
+    "postcss": "^8.5.8",
     "postcss-import": "^16.1.1",
     "prettier": "^3.8.1",
     "prettier-plugin-ember-template-tag": "^2.1.3",

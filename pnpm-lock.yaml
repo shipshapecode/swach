@@ -125,8 +125,8 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0(@babel/core@7.29.0)
       ember-inputmask:
-        specifier: ^4.0.1
-        version: 4.0.1(@babel/core@7.29.0)(@glint/template@1.5.2)(ember-source@6.11.0(@glimmer/component@2.0.0)(rsvp@4.8.5))
+        specifier: ^4.0.3
+        version: 4.0.3(@babel/core@7.29.0)(@glint/template@1.5.2)(ember-source@6.11.0(@glimmer/component@2.0.0)(rsvp@4.8.5))
       ember-local-storage:
         specifier: 2.0.6
         version: 2.0.6(patch_hash=7a283711fa827de035fc3cc2ebe13c451ddf557492e8b185e99f915713c95f06)
@@ -5677,8 +5677,8 @@ packages:
   ember-inflector@6.0.0:
     resolution: {integrity: sha512-g6trqBhQHRwlq9bBmoyxhAl0tD0/CaTKK0xWPUgi3BfxFOgGG1bbiwAx+tjyiAkLzDqU+ihyjtT+sd41y6K1hA==}
 
-  ember-inputmask@4.0.1:
-    resolution: {integrity: sha512-UfKtwjnlPeH9DCucd+wsFsp8QWUpO6dDFzob50Emzl+0IisLzzTqlj2o5dX+qxP2TKPFEgoUylw1Y5QYbziAqg==}
+  ember-inputmask@4.0.3:
+    resolution: {integrity: sha512-Av/PfUZvGglj64DVsUTEJDn8RC3Xp/4X315Y9fBEtTipLGSu7Rg4+uC9UCdPN8VoPb0u2Kht9rzHsnRExJyiGw==}
 
   ember-load-initializers@3.0.1:
     resolution: {integrity: sha512-qV3vxJKw5+7TVDdtdLPy8PhVsh58MlK8jwzqh5xeOwJPNP7o0+BlhvwoIlLYTPzGaHdfjEIFCgVSyMRGd74E1g==}
@@ -18149,7 +18149,7 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  ember-inputmask@4.0.1(@babel/core@7.29.0)(@glint/template@1.5.2)(ember-source@6.11.0(@glimmer/component@2.0.0)(rsvp@4.8.5)):
+  ember-inputmask@4.0.3(@babel/core@7.29.0)(@glint/template@1.5.2)(ember-source@6.11.0(@glimmer/component@2.0.0)(rsvp@4.8.5)):
     dependencies:
       '@ember/render-modifiers': 3.0.0(@glint/template@1.5.2)(ember-source@6.11.0(@glimmer/component@2.0.0)(rsvp@4.8.5))
       '@embroider/addon-shim': 1.10.2

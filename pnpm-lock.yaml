@@ -333,8 +333,8 @@ importers:
         specifier: ^3.3.3
         version: 3.3.3(ember-cli@6.11.0(@types/node@25.3.2)(babel-core@6.26.3)(ejs@3.1.10)(handlebars@4.7.8)(react@19.2.4)(underscore@1.13.8))
       ember-cli-deprecation-workflow:
-        specifier: ^4.0.0
-        version: 4.0.0(@babel/core@7.29.0)
+        specifier: ^4.0.1
+        version: 4.0.1(@babel/core@7.29.0)
       ember-cli-htmlbars:
         specifier: ^6.3.0
         version: 6.3.0
@@ -5542,8 +5542,8 @@ packages:
     peerDependencies:
       ember-cli: ^3.2.0 || >=4.0.0
 
-  ember-cli-deprecation-workflow@4.0.0:
-    resolution: {integrity: sha512-HGF7LSz6f8Vx3sISYXnoiuk+8eBULUt7cS/U1YwGMAJtXvL1jvz8PvyAPyrBpcyNP85U+u+3UdKeTWG0HuLbNw==}
+  ember-cli-deprecation-workflow@4.0.1:
+    resolution: {integrity: sha512-XJzUZVXyb6/nFKU7GzGRlHlcAl4KtkioBTjfuIHp1aysbRZ6XxYLSPtP090EbOxQBtYwAPsH2kPAtPS86tL2RA==}
 
   ember-cli-flash@6.1.0:
     resolution: {integrity: sha512-fxy78jrEJSzcXY08fSssO9qX5OWYlF6dYr58lOaN3doeFZ5+0x+DBsCQ45GCQah39aVkR9NBTVF6O2L5btG+DA==}
@@ -17729,7 +17729,7 @@ snapshots:
       resolve: 1.22.11
       semver: 5.7.2
 
-  ember-cli-deprecation-workflow@4.0.0(@babel/core@7.29.0):
+  ember-cli-deprecation-workflow@4.0.1(@babel/core@7.29.0):
     dependencies:
       '@embroider/addon-shim': 1.10.2
       decorator-transforms: 2.3.1(@babel/core@7.29.0)

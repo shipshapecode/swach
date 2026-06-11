@@ -23,5 +23,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y xvfb libx11-dev pkg-config libpipewire-0.3-dev libspa-0.2-dev
       - run: pnpm install
+      - name: Debug electron install (temporary)
+        run: |
+          ls -la node_modules/electron/ || true
+          echo "--- path.txt ---"
+          cat node_modules/electron/path.txt 2>/dev/null || echo "NO path.txt"
+          echo "--- dist ---"
+          ls node_modules/electron/dist 2>/dev/null | head -5 || echo "NO dist"
+          echo "--- rerun install.js manually ---"
+          node node_modules/electron/install.js && echo "install.js OK"
+          cat node_modules/electron/path.txt 2>/dev/null || echo "STILL no path.txt"
       - name: Electron Test
         run: xvfb-run --auto-servernum pnpm test:electron

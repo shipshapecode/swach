@@ -79,7 +79,9 @@ export default class RgbaInputComponent extends Component<RgbaInputSignature> {
   isComplete(buffer: Array<string>, opts: { regex?: string }): boolean {
     const value = buffer.join('');
 
-    return Boolean(value.length) && new RegExp(opts.regex as string).test(value);
+    return (
+      Boolean(value.length) && new RegExp(opts.regex as string).test(value)
+    );
   }
 
   /**
@@ -87,7 +89,11 @@ export default class RgbaInputComponent extends Component<RgbaInputSignature> {
    * @param {Event} event
    */
   @action
-  onComplete(event: InputEvent): void {
+  onComplete(event?: InputEvent): void {
+    if (!event) {
+      return;
+    }
+
     const selectedColor: SelectedColorModel = this.args
       .selectedColor as SelectedColorModel;
     const { type } = this.args;

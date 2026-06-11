@@ -68,7 +68,11 @@ export default class AlphaInputComponent extends Component<AlphaInputSignature> 
    * @param {Event} event
    */
   @action
-  onComplete(event: InputEvent): void {
+  onComplete(event?: InputEvent): void {
+    if (!event) {
+      return;
+    }
+
     const { selectedColor } = this.args;
     let value = parseFloat((<HTMLInputElement>event.target).value);
 

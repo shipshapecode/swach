@@ -60,7 +60,11 @@ export default class HexInputComponent extends Component<HexInputSignature> {
    * @param {Event} event The event when the hex matches the regex and is valid
    */
   @action
-  onComplete(event: InputEvent): void {
+  onComplete(event?: InputEvent): void {
+    if (!event) {
+      return;
+    }
+
     const tinyColor = new TinyColor((<HTMLInputElement>event.target).value);
     const { r, g, b, a } = tinyColor.toRgb();
     const hex = rgbaToHex(r, g, b, a);

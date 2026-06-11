@@ -198,7 +198,8 @@
   },
   "pnpm": {
     "overrides": {
-      "@ember/string": "^4.0.1"
+      "@ember/string": "^4.0.1",
+      "yauzl": "^3.3.1"
     },
     "patchedDependencies": {
       "ember-local-storage": "patches/ember-local-storage.patch",

@@ -7,11 +7,14 @@ import { isEmpty } from '@ember/utils';
 import Component from '@glimmer/component';
 
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
-import svgJar from 'ember-svg-jar/helpers/svg-jar';
 
 import type ColorModel from '../data-models/color.ts';
 import type PaletteModel from '../data-models/palette.ts';
 import htmlSafe from '../helpers/html-safe.ts';
+import ColorHarmonies from '../icons/color-harmonies.svg?unsafe-inline';
+import Edit from '../icons/edit.svg?unsafe-inline';
+import MoreHorizontal from '../icons/more-horizontal.svg?unsafe-inline';
+import Trash from '../icons/trash.svg?unsafe-inline';
 import type ColorUtils from '../services/color-utils.ts';
 import OptionsMenu from './options-menu.gts';
 import type { SelectedColorModel } from './rgb-input';
@@ -67,7 +70,7 @@ export default class ColorRowComponent extends Component<ColorRowSignature> {
             @showBackground={{true}}
           >
             <:trigger>
-              {{svgJar "more-horizontal" class="icon" height="15" width="15"}}
+              <MoreHorizontal class="icon" height="15" width="15" />
             </:trigger>
             <:content>
               <button
@@ -77,7 +80,7 @@ export default class ColorRowComponent extends Component<ColorRowSignature> {
                 {{!@glint-expect-error TODO: fix this}}
                 {{on "click" (fn @toggleColorPickerIsShown @color)}}
               >
-                {{svgJar "edit" class="icon mr-4" height="15" width="15"}}
+                <Edit class="icon mr-4" height="15" width="15" />
                 Edit Color
               </button>
               <button
@@ -86,12 +89,7 @@ export default class ColorRowComponent extends Component<ColorRowSignature> {
                 type="button"
                 {{on "click" this.transitionToKuler}}
               >
-                {{svgJar
-                  "color-harmonies"
-                  class="icon mr-4"
-                  height="15"
-                  width="15"
-                }}
+                <ColorHarmonies class="icon mr-4" height="15" width="15" />
                 Color Harmonies
               </button>
               {{#if @deleteColor}}
@@ -102,7 +100,7 @@ export default class ColorRowComponent extends Component<ColorRowSignature> {
                   type="button"
                   {{on "click" (stopPropagation (fn this.deleteColor @color))}}
                 >
-                  {{svgJar "trash" class="icon mr-4" height="15" width="15"}}
+                  <Trash class="icon mr-4" height="15" width="15" />
                   Delete Color
                 </button>
               {{/if}}

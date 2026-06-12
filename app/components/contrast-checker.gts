@@ -6,13 +6,12 @@ import didInsert from '@ember/render-modifiers/modifiers/did-insert';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-import svgJar from 'ember-svg-jar/helpers/svg-jar';
-
 import { type IroColorValue } from '@irojs/iro-core';
 import iro from '@jaames/iro';
 import { hex, score } from 'wcag-contrast';
 
 import htmlSafe from '../helpers/html-safe.ts';
+import Drop from '../icons/drop.svg?unsafe-inline';
 
 interface ContrastCheckerSignature {
   Element: HTMLDivElement;
@@ -110,7 +109,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
               type="button"
               {{on "click" this.launchContrastBgPicker}}
             >
-              {{svgJar "drop" class="menu-icon" height="18" width="18"}}
+              <Drop class="menu-icon" height="18" width="18" />
             </button>
           </div>
         </div>
@@ -136,7 +135,7 @@ export default class ContrastChecker extends Component<ContrastCheckerSignature>
               type="button"
               {{on "click" this.launchContrastFgPicker}}
             >
-              {{svgJar "drop" class="menu-icon" height="18" width="18"}}
+              <Drop class="menu-icon" height="18" width="18" />
             </button>
           </div>
         </div>

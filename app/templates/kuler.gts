@@ -1,10 +1,9 @@
 import type { TemplateOnlyComponent } from '@ember/component/template-only';
 import { on } from '@ember/modifier';
 
-import svgJar from 'ember-svg-jar/helpers/svg-jar';
-
 import Kuler from '../components/kuler.gts';
 import type KulerController from '../controllers/kuler.ts';
+import ChevronLeft from '../icons/chevron-left.svg?unsafe-inline';
 
 export default <template>
   <button
@@ -12,7 +11,7 @@ export default <template>
     type="button"
     {{on "click" @controller.goBack}}
   >
-    {{svgJar "chevron-left" class="stroke-icon mr-2" height="15" width="15"}}
+    <ChevronLeft class="stroke-icon mr-2" height="15" width="15" />
   </button>
 
   <Kuler @baseColor={{@controller.model}} />

@@ -1,10 +1,9 @@
 import type { TemplateOnlyComponent } from '@ember/component/template-only';
 import { on } from '@ember/modifier';
 
-import svgJar from 'ember-svg-jar/helpers/svg-jar';
-
 import ContrastChecker from '../components/contrast-checker.gts';
 import type ContrastController from '../controllers/contrast.ts';
+import ArrowLeft from '../icons/arrow-left.svg?unsafe-inline';
 
 export default <template>
   <button
@@ -12,7 +11,7 @@ export default <template>
     type="button"
     {{on "click" @controller.goBack}}
   >
-    {{svgJar "arrow-left" class="stroke-icon mr-2" height="15" width="15"}}
+    <ArrowLeft class="stroke-icon mr-2" height="15" width="15" />
     <span class="font-bold text-sm uppercase">
       Back
     </span>

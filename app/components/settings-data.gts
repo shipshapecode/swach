@@ -8,13 +8,13 @@ import type FlashMessageService from 'ember-cli-flash/services/flash-messages';
 import { storageFor } from 'ember-local-storage';
 import { orbit, type Store } from 'ember-orbit';
 import set from 'ember-set-helper/helpers/set';
-import svgJar from 'ember-svg-jar/helpers/svg-jar';
 
 import type { Coordinator } from '@orbit/coordinator';
 import type IndexedDBSource from '@orbit/indexeddb';
 import type { InitializedRecord } from '@orbit/records';
 import IDBExportImport from 'indexeddb-export-import';
 
+import ChevronLeft from '../icons/chevron-left.svg?unsafe-inline';
 import type { SettingsStorage } from '../storages/settings.ts';
 import { getDBOpenRequest } from '../utils/get-db-open-request.ts';
 import LoadingButton from './loading-button.gts';
@@ -42,7 +42,7 @@ export default class SettingsData extends Component {
           {{this.settings.defaultColorFormat}}
 
           <div class="bg-btn-bg-secondary p-1 rounded-full">
-            {{svgJar "chevron-left" class="h-3 w-3 -rotate-90"}}
+            <ChevronLeft class="h-3 w-3 -rotate-90" />
           </div>
         </:trigger>
         <:content>

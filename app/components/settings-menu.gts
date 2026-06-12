@@ -1,5 +1,5 @@
 import { Input } from '@ember/component';
-import { concat, fn } from '@ember/helper';
+import { fn, get } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { action } from '@ember/object';
 import type Owner from '@ember/owner';
@@ -7,10 +7,12 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
 import { storageFor } from 'ember-local-storage';
-import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
 
 import capitalize from '../helpers/capitalize.ts';
+import DarkTheme from '../icons/appearance/dark-theme.svg?unsafe-inline';
+import DynamicTheme from '../icons/appearance/dynamic-theme.svg?unsafe-inline';
+import LightTheme from '../icons/appearance/light-theme.svg?unsafe-inline';
 import type { SettingsStorage, themes } from '../storages/settings.ts';
 import About from './about.gts';
 import LoadingButton from './loading-button.gts';
@@ -99,7 +101,9 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
                   {{on "change" (fn this.changeTheme theme)}}
                 />
 
-                {{svgJar (concat theme "-theme")}}
+                {{#let (get this.themeIcons theme) as |ThemeIcon|}}
+                  <ThemeIcon />
+                {{/let}}
 
                 <div class="mt-1 text-center w-full {{if checked 'font-bold'}}">
                   {{capitalize theme}}
@@ -130,6 +134,11 @@ export default class SettingsMenu extends Component<SettingsMenuSignature> {
 
   declare ipcRenderer: Window['electronAPI']['ipcRenderer'];
   themes = ['light', 'dark', 'dynamic'] as const;
+  themeIcons = {
+    light: LightTheme,
+    dark: DarkTheme,
+    dynamic: DynamicTheme,
+  };
 
   @tracked platform?: string;
 

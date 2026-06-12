@@ -7,13 +7,19 @@ import { LinkTo } from '@ember/routing';
 import AnimatedTools from 'ember-animated-tools/components/animated-tools';
 import FlashMessage from 'ember-cli-flash/components/flash-message';
 import setBodyClass from 'ember-set-body-class/helpers/set-body-class';
-import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import and from 'ember-truth-helpers/helpers/and';
 import not from 'ember-truth-helpers/helpers/not';
 
 import ColorPicker from '../components/color-picker.gts';
 import OptionsMenu from '../components/options-menu.gts';
 import type ApplicationController from '../controllers/application.ts';
+import Close from '../icons/close.svg?unsafe-inline';
+import Contrast from '../icons/contrast.svg?unsafe-inline';
+import Drop from '../icons/drop.svg?unsafe-inline';
+import EditColor from '../icons/edit-color.svg?unsafe-inline';
+import Menu from '../icons/menu.svg?unsafe-inline';
+import Palettes from '../icons/palettes.svg?unsafe-inline';
+import Settings from '../icons/settings.svg?unsafe-inline';
 
 <template>
   {{setBodyClass @controller.theme}}
@@ -32,24 +38,18 @@ import type ApplicationController from '../controllers/application.ts';
           {{#if (not @controller.colorPickerIsShown)}}
             <OptionsMenu @position="left">
               <:trigger>
-                {{svgJar
-                  "menu"
-                  class="stroke-menu-icon"
-                  height="15"
-                  width="15"
-                }}
+                <Menu class="stroke-menu-icon" height="15" width="15" />
               </:trigger>
               <:content>
                 <LinkTo
                   class="flex items-center p-1 text-menu-text text-sm transition-colors hover:text-menu-text-hover"
                   @route="palettes"
                 >
-                  {{svgJar
-                    "palettes"
+                  <Palettes
                     class="menu-icon inline-block mr-2"
                     height="13"
                     width="13"
-                  }}
+                  />
                   Palettes
                 </LinkTo>
 
@@ -57,12 +57,11 @@ import type ApplicationController from '../controllers/application.ts';
                   class="flex items-center p-1 text-menu-text text-sm transition-colors hover:text-menu-text-hover"
                   @route="contrast"
                 >
-                  {{svgJar
-                    "contrast"
+                  <Contrast
                     class="menu-icon inline-block mr-2"
                     height="13"
                     width="13"
-                  }}
+                  />
                   Check Contrast
                 </LinkTo>
 
@@ -70,12 +69,11 @@ import type ApplicationController from '../controllers/application.ts';
                   class="flex items-center p-1 text-menu-text text-sm transition-colors hover:text-menu-text-hover"
                   @route="settings"
                 >
-                  {{svgJar
-                    "settings"
+                  <Settings
                     class="menu-icon inline-block mr-2"
                     height="13"
                     width="13"
-                  }}
+                  />
                   Settings
                 </LinkTo>
 
@@ -84,12 +82,11 @@ import type ApplicationController from '../controllers/application.ts';
                   type="button"
                   {{on "click" @controller.exitApp}}
                 >
-                  {{svgJar
-                    "close"
+                  <Close
                     class="menu-icon inline-block mr-2"
                     height="13"
                     width="13"
-                  }}
+                  />
                   Close Swach
                 </button>
               </:content>
@@ -106,7 +103,7 @@ import type ApplicationController from '../controllers/application.ts';
               )
             }}
               <button type="button" {{on "click" @controller.launchPicker}}>
-                {{svgJar "drop" class="menu-icon" height="20" width="20"}}
+                <Drop class="menu-icon" height="20" width="20" />
               </button>
             {{/if}}
           </div>
@@ -127,7 +124,7 @@ import type ApplicationController from '../controllers/application.ts';
                   (fn @controller.toggleColorPickerIsShown undefined)
                 }}
               >
-                {{svgJar "edit-color" height="20" width="20"}}
+                <EditColor height="20" width="20" />
               </button>
             {{/if}}
           </div>

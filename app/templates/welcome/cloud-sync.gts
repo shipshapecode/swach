@@ -1,13 +1,13 @@
 import type { TemplateOnlyComponent } from '@ember/component/template-only';
 import { LinkTo } from '@ember/routing';
 
-import svgJar from 'ember-svg-jar/helpers/svg-jar';
+import Cloud from '../../icons/cloud.svg?unsafe-inline';
 
 export default <template>
   <div class="flex h-full items-center justify-center p-4 w-full">
     <div class="flex flex-col h-full w-full">
       <div class="flex justify-center w-full">
-        {{svgJar "cloud" class="h-36 mb-8 w-36"}}
+        <Cloud class="h-36 mb-8 w-36" />
       </div>
 
       <h2 class="font-semibold mb-2 text-alt text-xl">

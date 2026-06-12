@@ -1,10 +1,10 @@
 import type { TemplateOnlyComponent } from '@ember/component/template-only';
 
-import svgJar from 'ember-svg-jar/helpers/svg-jar';
+import Cloud from '../../icons/cloud.svg?unsafe-inline';
 
 export default <template>
   <div class="p-4">
-    {{svgJar "cloud"}}
+    <Cloud />
 
     <h6 class="font-semibold mb-2 mt-6 text-heading text-sm">
       Cloud Sync

@@ -2,17 +2,17 @@ import type { TemplateOnlyComponent } from '@ember/component/template-only';
 import { LinkTo } from '@ember/routing';
 
 import set from 'ember-set-helper/helpers/set';
-import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import not from 'ember-truth-helpers/helpers/not';
 
 import ToggleSwitch from '../../components/toggle-switch.gts';
 import type WelcomeDockIconController from '../../controllers/welcome/dock-icon.ts';
+import ShowDockIcon from '../../icons/show-dock-icon.svg?unsafe-inline';
 
 export default <template>
   <div class="flex h-full items-center justify-center p-4 w-full">
     <div class="flex flex-col h-full w-full">
       <div class="flex justify-center w-full">
-        {{svgJar "show-dock-icon" class="h-auto mb-8 w-full"}}
+        <ShowDockIcon class="h-auto mb-8 w-full" />
       </div>
 
       <h2 class="font-semibold mb-2 text-alt text-xl">

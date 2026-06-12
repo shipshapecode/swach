@@ -14,7 +14,6 @@ import type DragSortService from 'ember-drag-sort/services/drag-sort';
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import sub from 'ember-math-helpers/helpers/sub';
 import { orbit, type Store } from 'ember-orbit';
-import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
 import not from 'ember-truth-helpers/helpers/not';
 
@@ -23,9 +22,20 @@ import type { RecordSchema } from '@orbit/records';
 import type ColorModel from '../data-models/color.ts';
 import type PaletteModel from '../data-models/palette.ts';
 import htmlSafe from '../helpers/html-safe.ts';
+import Duplicate from '../icons/duplicate.svg?unsafe-inline';
+import FilledHeart from '../icons/filled-heart.svg?unsafe-inline';
+import Lock from '../icons/lock.svg?unsafe-inline';
+import MoreHorizontal from '../icons/more-horizontal.svg?unsafe-inline';
+import Rename from '../icons/rename.svg?unsafe-inline';
+import Share from '../icons/share.svg?unsafe-inline';
+import SlashHeart from '../icons/slash-heart.svg?unsafe-inline';
+import Trash from '../icons/trash.svg?unsafe-inline';
+import Unlock from '../icons/unlock.svg?unsafe-inline';
 import type ColorUtils from '../services/color-utils.ts';
 import type UndoManager from '../services/undo-manager.ts';
 import OptionsMenu from './options-menu.gts';
+
+type IconComponent = typeof Lock;
 
 interface PaletteRowSignature {
   Element: HTMLDivElement;
@@ -51,14 +61,14 @@ interface PaletteRowSignature {
 
 class MenuOption {
   action: () => void;
-  icon: string;
+  icon: IconComponent;
   label: string;
 
   @tracked palette: PaletteModel;
 
   constructor(
     action: () => void,
-    icon: string,
+    icon: IconComponent,
     label: string,
     palette: PaletteModel
   ) {
@@ -90,7 +100,7 @@ class FavoriteOption {
   get icon() {
     const isFavorite = this.palette.isFavorite;
 
-    return isFavorite ? 'slash-heart' : 'filled-heart';
+    return isFavorite ? SlashHeart : FilledHeart;
   }
 
   get label() {
@@ -117,7 +127,7 @@ class LockOption {
   get icon() {
     const isLocked = this.palette.isLocked;
 
-    return isLocked ? 'unlock' : 'lock';
+    return isLocked ? Unlock : Lock;
   }
 
   get label() {
@@ -158,7 +168,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
               class="flex grow h-6 items-center text-main-text w-full"
             >
               {{#if @palette.isLocked}}
-                {{svgJar "lock" class="icon mr-1" height="12" width="12"}}
+                <Lock class="icon mr-1" height="12" width="12" />
               {{/if}}
               {{@palette.name}}
             </div>
@@ -171,7 +181,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
           @showBackground={{true}}
         >
           <:trigger>
-            {{svgJar "more-horizontal" class="icon" height="15" width="15"}}
+            <MoreHorizontal class="icon" height="15" width="15" />
           </:trigger>
           <:content>
             {{#each this.menuItems as |item|}}
@@ -183,7 +193,7 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
                 type="button"
                 {{on "click" item.action}}
               >
-                {{svgJar item.icon class="icon mr-4" height="15" width="15"}}
+                <item.icon class="icon mr-4" height="15" width="15" />
                 {{item.label}}
               </button>
             {{/each}}
@@ -268,14 +278,14 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
     this.menuItems = [
       new MenuOption(
         this.toggleIsEditing,
-        'rename',
+        Rename,
         'Rename Palette',
         this.args.palette
       ),
       new MenuOption(
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         this.duplicatePalette,
-        'duplicate',
+        Duplicate,
         'Duplicate Palette',
         this.args.palette
       ),
@@ -283,14 +293,14 @@ export default class PaletteRowComponent extends Component<PaletteRowSignature> 
       new FavoriteOption(this.favoritePalette, this.args.palette),
       new MenuOption(
         this.sharePalette,
-        'share',
+        Share,
         'Share Palette',
         this.args.palette
       ),
       new MenuOption(
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         this.deletePalette,
-        'trash',
+        Trash,
         'Delete Palette',
         this.args.palette
       ),

@@ -6,13 +6,19 @@ import DragSortList from 'ember-drag-sort/components/drag-sort-list';
 import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import type { LiveQuery } from 'ember-orbit';
 import set from 'ember-set-helper/helpers/set';
-import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import not from 'ember-truth-helpers/helpers/not';
 
 import OptionsMenu from '../components/options-menu.gts';
 import PalettesList from '../components/palettes-list.gts';
 import type PalettesController from '../controllers/palettes.ts';
 import htmlSafe from '../helpers/html-safe.ts';
+import ClearHistory from '../icons/clear-history.svg?unsafe-inline';
+import Drop from '../icons/drop.svg?unsafe-inline';
+import EditColor from '../icons/edit-color.svg?unsafe-inline';
+import FilledHeart from '../icons/filled-heart.svg?unsafe-inline';
+import MoreHorizontal from '../icons/more-horizontal.svg?unsafe-inline';
+import OutlineHeart from '../icons/outline-heart.svg?unsafe-inline';
+import PlusCircle from '../icons/plus-circle.svg?unsafe-inline';
 
 export default <template>
   <div
@@ -30,7 +36,7 @@ export default <template>
         {{#if @controller.last16Colors.length}}
           <OptionsMenu data-test-color-history-menu @showBackground={{true}}>
             <:trigger>
-              {{svgJar "more-horizontal" class="icon" height="15" width="15"}}
+              <MoreHorizontal class="icon" height="15" width="15" />
             </:trigger>
             <:content>
               <button
@@ -39,12 +45,11 @@ export default <template>
                 type="button"
                 {{on "click" @controller.clearColorHistory}}
               >
-                {{svgJar
-                  "clear-history"
+                <ClearHistory
                   class="menu-icon inline-block mr-2"
                   height="20"
                   width="20"
-                }}
+                />
                 Clear History
               </button>
             </:content>
@@ -86,17 +91,12 @@ export default <template>
           <span class="font-bold">
             eyedropper
           </span>
-          {{svgJar "drop" class="menu-icon inline" height="12" width="12"}}
+          <Drop class="menu-icon inline" height="12" width="12" />
           or
           <span class="font-bold">
             color selector
           </span>
-          {{svgJar
-            "edit-color"
-            class="menu-icon inline"
-            height="12"
-            width="12"
-          }}
+          <EditColor class="menu-icon inline" height="12" width="12" />
           to start building your palette.
         </span>
       {{/if}}
@@ -115,12 +115,11 @@ export default <template>
             (set @controller "showFavorites" (not @controller.showFavorites))
           }}
         >
-          {{svgJar
-            (if @controller.showFavorites "filled-heart" "outline-heart")
-            class=(concat "icon " (if @controller.showFavorites "filled"))
-            height="18"
-            width="18"
-          }}
+          {{#if @controller.showFavorites}}
+            <FilledHeart class="icon filled" height="18" width="18" />
+          {{else}}
+            <OutlineHeart class="icon" height="18" width="18" />
+          {{/if}}
         </button>
 
         <button
@@ -129,7 +128,7 @@ export default <template>
           type="button"
           {{on "click" @controller.createNewPalette}}
         >
-          {{svgJar "plus-circle" class="icon" height="18" width="18"}}
+          <PlusCircle class="icon" height="18" width="18" />
         </button>
       </div>
     </div>

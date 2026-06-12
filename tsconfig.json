@@ -19,6 +19,7 @@
     "types": [
       "@embroider/core/virtual",
       "@glint/ember-tsc/types",
+      "@svg-jar/plugin/client/ember",
       "ember-source/types",
       "vite/client",
       "node"

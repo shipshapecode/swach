@@ -3,12 +3,13 @@ import { service } from '@ember/service';
 import Component from '@glimmer/component';
 
 import { orbit, type LiveQuery, type Store } from 'ember-orbit';
-import svgJar from 'ember-svg-jar/helpers/svg-jar';
 
 import type { RecordOperationTerm } from '@orbit/records';
 
 import type ColorModel from '../data-models/color.ts';
 import type PaletteModel from '../data-models/palette.ts';
+import AlertCircle from '../icons/alert-circle.svg?unsafe-inline';
+import FilledHeart from '../icons/filled-heart.svg?unsafe-inline';
 import type UndoManager from '../services/undo-manager.ts';
 import AnimatedDragSortList from './animated-drag-sort-list.gts';
 import PaletteRow from './palette-row.gts';
@@ -61,7 +62,7 @@ export default class PalettesListComponent extends Component<PalettesListSignatu
             class="flex flex-col justify-center items-center mt-1 p-2 w-full"
           >
             <div class="mb-2">
-              {{svgJar "alert-circle" height="50" width="50"}}
+              <AlertCircle height="50" width="50" />
             </div>
 
             <h3 class="font-bold m-1 text-xl">
@@ -70,7 +71,7 @@ export default class PalettesListComponent extends Component<PalettesListSignatu
 
             <p class="font-light mt-1">
               You can favorite a palette by clicking the
-              {{svgJar "filled-heart" class="inline" height="14" width="14"}}
+              <FilledHeart class="inline" height="14" width="14" />
               icon in the palette's menu.
             </p>
           </div>

@@ -13,12 +13,13 @@ import stopPropagation from 'ember-event-helpers/helpers/stop-propagation';
 import sub from 'ember-math-helpers/helpers/sub';
 import { orbit, type Store } from 'ember-orbit';
 import set from 'ember-set-helper/helpers/set';
-import svgJar from 'ember-svg-jar/helpers/svg-jar';
 import eq from 'ember-truth-helpers/helpers/eq';
 
 import type ColorModel from '../data-models/color.ts';
 import type PaletteModel from '../data-models/palette.ts';
 import htmlSafe from '../helpers/html-safe.ts';
+import MoreHorizontal from '../icons/more-horizontal.svg?unsafe-inline';
+import Save from '../icons/save.svg?unsafe-inline';
 import type ColorUtils from '../services/color-utils.ts';
 import type UndoManager from '../services/undo-manager.ts';
 
@@ -54,12 +55,12 @@ export default class KulerPaletteRowComponent extends Component<KulerPaletteRowS
                 data-test-save-kuler-palette
                 {{on "click" this.savePalette}}
               >
-                {{svgJar "save" class="stroke-icon" height="14" width="14"}}
+                <Save class="stroke-icon" height="14" width="14" />
               </button>
             </div>
           {{else}}
             <div>
-              {{svgJar "more-horizontal" class="icon" height="15" width="15"}}
+              <MoreHorizontal class="icon" height="15" width="15" />
             </div>
           {{/AnimatedIf}}
         </div>

@@ -1,12 +1,10 @@
 import Service from '@ember/service';
 
 import { colornames } from 'color-name-list';
-import nearestColor from 'nearest-color';
+import nearestColor, { type ColorMatch, type RGB } from 'nearest-color';
 
 export default class NearestColorService extends Service {
-  nearest: ({ r, g, b }: { r: number; g: number; b: number }) => {
-    name: string;
-  };
+  nearest: (color: string | RGB) => ColorMatch;
 
   constructor() {
     super(...arguments);

@@ -51,8 +51,8 @@ export default class HexInputComponent extends Component<HexInputSignature> {
   }
 
   @action
-  isComplete(buffer: Buffer, opts: { regex: string }): boolean {
-    return new RegExp(opts.regex).test(buffer.join(''));
+  isComplete(buffer: Array<string>, opts: { regex?: string }): boolean {
+    return new RegExp(opts.regex as string).test(buffer.join(''));
   }
 
   /**
@@ -60,7 +60,11 @@ export default class HexInputComponent extends Component<HexInputSignature> {
    * @param {Event} event The event when the hex matches the regex and is valid
    */
   @action
-  onComplete(event: InputEvent): void {
+  onComplete(event?: InputEvent): void {
+    if (!event) {
+      return;
+    }
+
     const tinyColor = new TinyColor((<HTMLInputElement>event.target).value);
     const { r, g, b, a } = tinyColor.toRgb();
     const hex = rgbaToHex(r, g, b, a);

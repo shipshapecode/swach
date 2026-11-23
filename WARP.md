@@ -202,7 +202,7 @@ This is the critical flag that switches between web and Electron modes. Always s
 ### Code Signing & Notarization
 - macOS: Conditional based on `APPLE_ID` and `APPLE_ID_PASSWORD` env vars
 - Skip with `SKIP_CODESIGN=true` (used in CI tests)
-- Windows: Squirrel installer created unsigned, then signed separately with eSigner
+- Windows: Squirrel installer is shipped unsigned (no Windows code signing certificate)
 - Configured in `forge.config.ts`
 
 ### Package Manager

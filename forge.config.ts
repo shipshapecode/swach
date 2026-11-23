@@ -92,7 +92,6 @@ const config: ForgeConfig = {
         icon: 'electron-app/resources/dmg.icns',
       };
     }, ['darwin']),
-    // Build unsigned executable - will be signed later with eSigner
     new MakerSquirrel(
       {
         name: 'Swach',

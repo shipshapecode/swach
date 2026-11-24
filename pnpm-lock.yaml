@@ -153,8 +153,8 @@ importers:
         specifier: ^6.11.0
         version: 6.11.0(@glimmer/component@2.0.0)(rsvp@4.8.5)
       hue-hunter:
-        specifier: ^0.4.1
-        version: 0.4.1(electron@40.10.3)
+        specifier: ^0.4.2
+        version: 0.4.2(electron@40.10.3)
       indexeddb-export-import:
         specifier: ^2.1.5
         version: 2.1.5
@@ -5492,6 +5492,7 @@ packages:
 
   electron-squirrel-startup@1.0.1:
     resolution: {integrity: sha512-sTfFIHGku+7PsHLJ7v0dRcZNkALrV+YEozINTW8X1nM//e5O3L+rfYuvSW00lmGHnYmUjARZulD8F2V8ISI9RA==}
+    deprecated: This package is archived and deprecated, it will not get any updates.
 
   electron-store@11.0.2:
     resolution: {integrity: sha512-4VkNRdN+BImL2KcCi41WvAYbh6zLX5AUTi4so68yPqiItjbgTjqpEnGAqasgnG+lB6GuAyUltKwVopp6Uv+gwQ==}
@@ -6045,6 +6046,7 @@ packages:
   eslint@9.39.3:
     resolution: {integrity: sha512-VmQ+sifHUbI/IcSopBCF/HO3YiHQx/AVd3UVyYL6weuwW+HvON9VYn5l6Zl1WZzPWXPNZrSQpxwkkZ/VuvJZzg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
     peerDependencies:
       jiti: '*'
@@ -6890,8 +6892,8 @@ packages:
     resolution: {integrity: sha512-vK9P5/iUfdl95AI+JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==}
     engines: {node: '>= 14'}
 
-  hue-hunter@0.4.1:
-    resolution: {integrity: sha512-X1zCao4k0+FqqnSuCBJjf2Mr98pC82a/8ft56lfhla3ufUaPX6GGMEJljxunwtOJu3BatnzszoNM60Px8vKqUg==}
+  hue-hunter@0.4.2:
+    resolution: {integrity: sha512-/S1tFQh/ByS2zTQ+n8jjK6VFaAOJ/7X59WhZ1JGINsjbKyqqYFhtDh5MjgGR8M3E67J2+kmVpSIlwBRUzUNjcQ==}
     engines: {node: '>=24.0.0'}
     peerDependencies:
       electron: '>=38.0.0'
@@ -6947,6 +6949,7 @@ packages:
   image-size@0.7.5:
     resolution: {integrity: sha512-Hiyv+mXHfFEP7LzUL/llg9RwFxxY+o9N3JVLIeG5E7iFIFAalxvRU9UZthBdYDEVnzHMgjnKJPPpay5BWf1g9g==}
     engines: {node: '>=6.9.0'}
+    deprecated: Please migrate to image-size@2.x
     hasBin: true
 
   image-size@1.2.1:
@@ -19980,12 +19983,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  hue-hunter@0.4.1(electron@40.10.3):
+  hue-hunter@0.4.2(electron@40.10.3):
     dependencies:
-      color-name-list: 14.33.0
       electron: 40.10.3
       electron-is-dev: 3.0.1
-      nearest-color: 0.4.4
 
   human-signals@1.1.1: {}
 

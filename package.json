@@ -84,7 +84,7 @@
     "ember-set-helper": "^3.1.0",
     "ember-simple-auth": "^8.3.0",
     "ember-source": "^6.11.0",
-    "hue-hunter": "^0.4.1",
+    "hue-hunter": "^0.4.2",
     "indexeddb-export-import": "^2.1.5",
     "menubar": "^9.5.2",
     "throttle-debounce": "^5.0.2"

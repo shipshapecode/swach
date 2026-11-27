@@ -119,7 +119,7 @@ The production builds work by:
 1. Electron Forge builds the Ember renderer using Vite with `EMBER_CLI_ELECTRON=true`
 2. This enables hash routing and proper asset paths for file-based loading
 3. The main and preload processes are built and bundled
-4. Everything is packaged into the final Electron app with proper code signing and notarization
+4. Everything is packaged into the final Electron app (code signed and notarized on macOS; Windows builds are unsigned)
 
 ## Releasing
 
